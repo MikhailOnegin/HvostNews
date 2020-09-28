@@ -1,0 +1,27 @@
+buildscript {
+    ext{
+        kotlin_version = '1.4.10'
+        version_moshi = '1.9.2'
+        version_retrofit = '2.7.1'
+        okhttp3_version = "4.2.2"
+    }
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
