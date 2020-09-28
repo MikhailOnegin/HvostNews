@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Хвост Ньюс</string>
+    <string name="filterTitle">Фильтр</string>
+    <string name="filterHint">Выбирайте только интересные для вас публикации</string>
 </resources>
