@@ -7,7 +7,34 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="ru.hvost.news.presentation.ui.login.LoginFragment"
+        android:name="ru.hvost.news.presentation.fragments.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/myCouponsFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.MyCouponsFragment"
+        android:label="My Coupons"
+        tools:layout="@layout/fragment_my_coupons" >
+        <action
+            android:id="@+id/action_myCouponsFragment_to_couponFragment"
+            app:destination="@+id/couponFragment"
+            />
+        <action
+            android:id="@+id/action_myCouponsFragment_to_infoGetCouponsFragment"
+            app:destination="@+id/infoGetCouponsFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/couponFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.CouponFragment"
+        android:label="Coupon"
+        tools:layout="@layout/fragment_coupon" />
+
+    <fragment
+        android:id="@+id/infoGetCouponsFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.InfoGetCouponsFragment"
+        android:label="Coupons info"
+        tools:layout="@layout/fragment_info_get_coupons" />
 </navigation>
