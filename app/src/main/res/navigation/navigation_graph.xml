@@ -3,11 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/domainFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="ru.hvost.news.presentation.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="ru.hvost.news.presentation.ui.articles.ArticlesFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_articles" >
+        <action
+            android:id="@+id/action_newsFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="ru.hvost.news.presentation.ui.articles.ArticleDetailFragment"
+        android:label="fragment_article_detail"
+        tools:layout="@layout/fragment_article_detail" />
+    <fragment
+        android:id="@+id/domainFragment"
+        android:name="ru.hvost.news.presentation.ui.domains.DomainFragment"
+        android:label="fragment_domain"
+        tools:layout="@layout/fragment_domain" >
+        <action
+            android:id="@+id/action_domainFragment_to_subDomainFragment"
+            app:destination="@id/subDomainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subDomainFragment"
+        android:name="ru.hvost.news.presentation.ui.domains.SubDomainFragment"
+        android:label="SubDomainFragment" >
+        <action
+            android:id="@+id/action_subDomainFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
 </navigation>

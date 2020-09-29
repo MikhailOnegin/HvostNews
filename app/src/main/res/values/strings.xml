@@ -2,4 +2,7 @@
     <string name="app_name">Хвост Ньюс</string>
     <string name="filterTitle">Фильтр</string>
     <string name="filterHint">Выбирайте только интересные для вас публикации</string>
+    <string name="working">Наши специалисты работают над этим…</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
