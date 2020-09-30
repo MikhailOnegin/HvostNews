@@ -3,6 +3,7 @@ package ru.hvost.news.presentation.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.hvost.news.data.api.response.LessonTestesPassedResponse
 import ru.hvost.news.data.api.response.OfflineLessonsResponse
 import ru.hvost.news.data.api.response.OnlineLessonsResponse
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
@@ -37,6 +38,16 @@ class SchoolViewModel: ViewModel() {
     val onlineSchools:LiveData<OnlineSchoolsResponse> = mutableOnlineSchools
 
     fun getOnlineSchools(){
+
+    }
+
+    private val mutableSetLessonTestesPassedState:LiveData<LessonTestesPassedResponse> = MutableLiveData()
+    val setLessonTestesPassedState:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassedState
+
+    private val mutableSetLessonTestesPassed:LiveData<LessonTestesPassedResponse> = MutableLiveData()
+    val setLessonTestesPassed:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassed
+
+    fun setLessonTestesPassed(userToken:String, lessonId:Long){
 
     }
 }
