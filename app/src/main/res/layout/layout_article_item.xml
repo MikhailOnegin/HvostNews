@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/smallMargin"
-    android:background="@drawable/ripple_item_list"
+    android:background="@drawable/background_item_list"
     android:elevation="@dimen/listItemElevation">
 
     <ImageView

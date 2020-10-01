@@ -3,6 +3,52 @@
     <string name="filterTitle">Фильтр</string>
     <string name="filterHint">Выбирайте только интересные для вас публикации</string>
     <string name="working">Наши специалисты работают над этим…</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="year">" года"</string>
+    <string name="saveChanges">Сохранить изменения</string>
+    <string name="cancel">Отменить изменения</string>
+    <string name="secondName">Отчество</string>
+    <string name="name">Имя</string>
+    <string name="surName">Фамилия</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="phone">Ваш номер телефона</string>
+    <string name="email">E-mail</string>
+    <string name="city">Город</string>
+    <string name="petName">Кличка</string>
+    <string name="gender">Пол</string>
+    <string name="food">Любимые лакомства</string>
+    <string name="habbit">Вредная привычка</string>
+    <string name="chip">Чип</string>
+    <string name="presentations">Участие в выставках</string>
+    <string name="titules">Наличие титулов</string>
+    <string name="sport">Занятие спортом</string>
+    <string name="saloons">Посещение грумминг-салонов</string>
+    <string name="delete">Удалить питомца</string>
+    <string name="type">Вид питомца</string>
+    <string name="breed">Порода</string>
+    <string name="toy">Любимая игрушка</string>
+    <string name="education">Образование</string>
+
+    <string-array name="testItems">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string name="clean">Стерилизованный / кастрированный</string>
+    <string name="vaccine">Название вакцины</string>
+    <string name="vaccineDate">Дата последней вакцинации</string>
+    <string name="vaccination">Вакцинация</string>
+    <string name="deworming">Дегельминтизация</string>
+    <string name="drug">Название препарата</string>
+    <string name="dewormingDate">Дата последней дегельминтизации</string>
+    <string name="ekzo">Обработка от экзопаразитов</string>
+    <string name="ekzoDate">Дата последней обработки</string>
+    <string name="diet">Питание</string>
+    <string name="diseases">Хронические заболевания</string>
+    <string name="add">Добавить</string>
+    <string name="clinic">Любимая dtnклиника</string>
+    <string name="clinicName">Название</string>
+    <string name="address">Адрес ветклиники</string>
+
 </resources>
