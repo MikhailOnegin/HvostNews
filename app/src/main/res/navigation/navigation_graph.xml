@@ -37,4 +37,40 @@
         android:name="ru.hvost.news.presentation.fragments.coupons.InfoGetCouponsFragment"
         android:label="Coupons info"
         tools:layout="@layout/fragment_info_get_coupons" />
+
+    <fragment
+        android:id="@+id/parentsSchoolFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.ParentsSchoolFragment"
+        android:label="Parents school"
+        tools:layout="@layout/fragment_parents_school" />
+
+    <fragment
+        android:id="@+id/offlineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseActiveFragment"
+        android:label="Offline course active"
+        tools:layout="@layout/fragment_offline_course_active" />
+
+    <fragment
+        android:id="@+id/offlineCourseCompletedFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseCompletedFragment"
+        android:label="Offline course completed"
+        tools:layout="@layout/fragment_offline_course_comleted" />
+
+    <fragment
+        android:id="@+id/onlineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseActiveFragment"
+        android:label="Online course active"
+        tools:layout="@layout/fragment_online_course_active" />
+
+    <fragment
+        android:id="@+id/onlineCourseLessonFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseLessonFragment"
+        android:label="Online course lesson"
+        tools:layout="@layout/fragment_online_course_lesson" />
+
+    <fragment
+        android:id="@+id/onlineCourseNewFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseNewFragment"
+        android:label="OnlineCourseNewFragment"
+        tools:layout="@layout/fragment_online_course_new" />
 </navigation>

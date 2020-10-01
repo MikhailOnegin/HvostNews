@@ -11,7 +11,6 @@ class CouponViewModel:ViewModel() {
 
     private val mutableCouponsState:LiveData<State> = MutableLiveData()
     val userTokenState:LiveData<State> = mutableCouponsState
-
     private val  mutableCoupons:LiveData<CouponsResponse> = MutableLiveData()
     val coupons:LiveData<CouponsResponse> = mutableCoupons
 
@@ -21,7 +20,6 @@ class CouponViewModel:ViewModel() {
 
     private val mutableCouponsInfoState:LiveData<State> = MutableLiveData()
     val couponsInfoState:LiveData<State> = mutableCouponsInfoState
-
     private val mutableCouponsInfo:LiveData<CouponsInfoResponse> = MutableLiveData()
     val couponsInfo:LiveData<CouponsInfoResponse> = mutableCouponsInfo
 

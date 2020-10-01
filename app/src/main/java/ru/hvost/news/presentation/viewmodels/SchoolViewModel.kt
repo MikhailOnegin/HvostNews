@@ -13,7 +13,6 @@ class SchoolViewModel: ViewModel() {
 
     private val mutableOfflineLessonState:LiveData<State> = MutableLiveData()
     val offlineLessonState:LiveData<State> = mutableOfflineLessonState
-
     private val mutableOfflineLessons:LiveData<OfflineLessonsResponse> = MutableLiveData()
     val offlineLessons:LiveData<OfflineLessonsResponse> = mutableOfflineLessons
 
@@ -23,7 +22,6 @@ class SchoolViewModel: ViewModel() {
 
     private val mutableOnlineLessonsState:LiveData<State> = MutableLiveData()
     val onlineLessonsState:LiveData<State> = mutableOnlineLessonsState
-
     private val mutableOnlineLessons:LiveData<OnlineLessonsResponse> = MutableLiveData()
     val onlineLessons:LiveData<OnlineLessonsResponse> = mutableOnlineLessons
 
@@ -33,7 +31,6 @@ class SchoolViewModel: ViewModel() {
 
     private val mutableOnlineSchoolsState:LiveData<State> = MutableLiveData()
     val onlineSchoolsState:LiveData<State> = mutableOnlineSchoolsState
-
     private val mutableOnlineSchools:LiveData<OnlineSchoolsResponse> = MutableLiveData()
     val onlineSchools:LiveData<OnlineSchoolsResponse> = mutableOnlineSchools
 
@@ -43,11 +40,11 @@ class SchoolViewModel: ViewModel() {
 
     private val mutableSetLessonTestesPassedState:LiveData<LessonTestesPassedResponse> = MutableLiveData()
     val setLessonTestesPassedState:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassedState
-
     private val mutableSetLessonTestesPassed:LiveData<LessonTestesPassedResponse> = MutableLiveData()
     val setLessonTestesPassed:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassed
 
     fun setLessonTestesPassed(userToken:String, lessonId:Long){
 
     }
+
 }

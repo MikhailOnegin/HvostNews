@@ -10,7 +10,6 @@ class MapViewModel:ViewModel() {
 
     private val mutableShopsState:LiveData<State> = MutableLiveData()
     val shopsState:LiveData<State> = mutableShopsState
-
     private val mutableShops:LiveData<ShopsResponse> = MutableLiveData()
     val shops:LiveData<ShopsResponse> = mutableShops
 
