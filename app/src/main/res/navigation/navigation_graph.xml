@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/prizesFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -68,7 +68,11 @@
         android:id="@+id/petProfileFragment"
         android:name="ru.hvost.news.presentation.ui.profile.PetProfileFragment"
         android:label="fragment_pet_profile"
-        tools:layout="@layout/fragment_pet_profile" />
+        tools:layout="@layout/fragment_pet_profile" >
+        <action
+            android:id="@+id/action_petProfileFragment_to_petPassportFragment"
+            app:destination="@id/petPassportFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/myCouponsFragment"
@@ -132,5 +136,33 @@
         android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseNewFragment"
         android:label="OnlineCourseNewFragment"
         tools:layout="@layout/fragment_online_course_new" />
+    <fragment
+        android:id="@+id/choicePrizeFragment"
+        android:name="ru.hvost.news.presentation.fragments.invite.ChoicePrizeFragment"
+        android:label="fragment_choice_prize"
+        tools:layout="@layout/fragment_choice_prize" />
+    <fragment
+        android:id="@+id/petPassportFragment"
+        android:name="ru.hvost.news.presentation.ui.profile.PetPassportFragment"
+        android:label="fragment_pet_passport"
+        tools:layout="@layout/fragment_pet_passport" />
+    <fragment
+        android:id="@+id/inviteFragment"
+        android:name="ru.hvost.news.presentation.fragments.invite.InviteFragment"
+        android:label="fragment_invite"
+        tools:layout="@layout/fragment_invite" >
+        <action
+            android:id="@+id/action_inviteFragment_to_prizesFragment"
+            app:destination="@id/prizesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prizesFragment"
+        android:name="ru.hvost.news.presentation.fragments.invite.PrizesFragment"
+        android:label="fragment_prizes"
+        tools:layout="@layout/fragment_prizes" >
+        <action
+            android:id="@+id/action_prizesFragment_to_choicePrizeFragment"
+            app:destination="@id/choicePrizeFragment" />
+    </fragment>
 
 </navigation>

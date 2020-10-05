@@ -62,4 +62,7 @@
         <item>Активные</item>
         <item>Использованные</item>
     </string-array>
+    <string name="balance">Ваш баланс:</string>
+    <string name="prizeFor">Приз для владельцев</string>
+    <string name="inviteFriends">Приглашай друзей и выбирай призы от Хвост Ньюс</string>
 </resources>
