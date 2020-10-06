@@ -114,7 +114,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView_coupon_activity" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/viewPager_useful_literature"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="16dp"
@@ -136,7 +136,7 @@
             android:textStyle="normal|bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@+id/viewPager_useful_literature" />
 
         <TextView
             android:id="@+id/textView_coupon_description"

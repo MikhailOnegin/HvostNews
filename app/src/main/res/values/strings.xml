@@ -7,9 +7,34 @@
     <string name="logo_activity">Активность</string>
     <string name="logo_status">Статус</string>
     <string name="logo_coupon_description">Описание купона</string>
-    <string-array name="coupons">
+    <string name="button_online_school">Онлайн-школа</string>
+    <string name="button_seminars_in_your_sites">Семинары в вашем городе</string>
+    <string name="text_view_how_seminars_show">Какие семинары показывать</string>
+    <string name="textView_choose_your_city">Выберите ваш город</string>
+    <string name="textView_show_completed">Показать завершенные</string>
+    <string name="button_no">Да</string>
+    <string name="button_yes">Да</string>
+    <string name="button_send_comment">Оставить отзыв</string>
+    <string name="textView_address">Адрес</string>
+    <string name="textView_work_title">Время работы</string>
+    <string name="textView_phone">Телефон</string>
+    <string name="textView_website">Сайт</string>
+    <string name="button_send_answer">Ответить</string>
+    <string name="textView_useful_literature">Полезная литература</string>
+    <string name="textView_guide_test">Для того чтобы открыть следующий видео-урок ответьте на вопрос по пройденной теме:</string>
+    <string-array name="spinner_coupons">
         <item>Все</item>
         <item>Активные</item>
         <item>Использованные</item>
+    </string-array>
+    <string-array name="spinner_online_seminars">
+        <item>Все семинары</item>
+        <item>Ваши семинары</item>
+    </string-array>
+    <string-array name="spinner_your_city">
+        <item>Любой город</item>
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
     </string-array>
 </resources>
