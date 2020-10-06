@@ -65,4 +65,6 @@
     <string name="balance">Ваш баланс:</string>
     <string name="prizeFor">Приз для владельцев</string>
     <string name="inviteFriends">Приглашай друзей и выбирай призы от Хвост Ньюс</string>
+    <string name="inPrize">В набор входит:</string>
+    <string name="toCart">В корзину</string>
 </resources>

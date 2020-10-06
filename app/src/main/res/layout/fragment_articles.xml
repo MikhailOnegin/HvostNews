@@ -74,18 +74,23 @@
 
         <Button
             android:id="@+id/filter"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/normalMargin"
-            android:layout_weight="0.4"
-            android:background="@drawable/background_btn_with_stroke"
-            android:text="@string/filterTitle" />
+            android:layout_weight="0.5"
+            android:text="@string/filterTitle"
+            android:textColor="@android:color/black"
+            app:icon="@drawable/ic_filter"
+            app:iconTint="@android:color/black"
+            app:strokeColor="@color/btnStroke"
+            app:strokeWidth="3dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="start|center_vertical"
+            android:paddingStart="@dimen/normalMargin"
             android:text="@string/filterHint"
             android:textAlignment="textStart"
             android:textColor="#151515" />

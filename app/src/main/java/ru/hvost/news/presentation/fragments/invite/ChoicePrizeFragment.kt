@@ -59,16 +59,16 @@ class ChoicePrizeFragment : Fragment() {
                 val elementMargin =
                     view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
                 parent.adapter.run {
-                    if (position % 2 == 0) {
+                    if (position == 0) {
                         outRect.top = elementMargin
                         outRect.bottom = elementMargin
                         outRect.left = elementMargin
                         outRect.right = elementMargin
 
                     } else {
-                        outRect.top = elementMargin
+                        outRect.top = 0
                         outRect.bottom = elementMargin
-                        outRect.left = 0
+                        outRect.left = elementMargin
                         outRect.right = elementMargin
                     }
                 }
