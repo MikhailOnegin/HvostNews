@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.viewmodels
+package ru.hvost.news.presentation.fragments.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
