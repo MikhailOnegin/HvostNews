@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#55D25F</color>
+    <color name="colorPrimaryDark">#398F40</color>
+    <color name="colorAccent">#EE5E0F</color>
     <color name="btnStroke">#E2DEEC</color>
     <color name="categoryText">#C4C4E2</color>
     <color name="categoryBackground">#20C4C4E2</color>
+    <color name="windowBackground">#F1EFF6</color>
+    <color name="TextColorPrimary">#151515</color>
+    <color name="TextColorHints">#C4C4E2</color>
+    <color name="TextColorGreen">#55D25F</color>
+    <color name="outlinedButtonBackground">#33C4C4E2</color>
+    <color name="outlinedButtonStroke">#C4C4E2</color>
+    <dimen name="outlinedButtonStrokeWidth">3dp</dimen>
 </resources>

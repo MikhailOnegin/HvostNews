@@ -67,4 +67,11 @@
     <string name="inviteFriends">Приглашай друзей и выбирай призы от Хвост Ньюс</string>
     <string name="inPrize">В набор входит:</string>
     <string name="toCart">В корзину</string>
+    <string name="logoCD">Логотип \"Хвост-Ньюс\"</string>
+    <string name="authorizationTitle">Авторизация</string>
+    <string name="loginHint">Ваш номер телефона или e-mail</string>
+    <string name="passwordHint">Пароль</string>
+    <string name="restorePassword">Забыли пароль?</string>
+    <string name="buttonLogin">Войти</string>
+    <string name="buttonRegister">Зарегистрироваться</string>
 </resources>

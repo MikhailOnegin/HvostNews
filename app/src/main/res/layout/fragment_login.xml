@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.login.LoginFragment"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/windowBackground">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:contentDescription="@string/logoCD"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@android:color/white"
+        android:src="@drawable/logo"
+        android:scaleType="centerInside"
+        android:paddingTop="@dimen/logoPadding"
+        android:paddingBottom="@dimen/logoPadding"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/authorizationTitle"
+        android:fontFamily="@font/gilroy_bold"
+        android:textSize="@dimen/authorizationTitleTextSize"
+        android:textColor="@color/TextColorPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintBottom_toTopOf="@id/login"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <EditText
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toTopOf="@id/password"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:hint="@string/loginHint"
+        style="@style/EditText"
+        android:autofillHints="username"
+        android:layout_marginTop="@dimen/smallMargin"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toBottomOf="@id/login"
+        app:layout_constraintBottom_toTopOf="@id/buttonLogin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:hint="@string/passwordHint"
+        style="@style/EditText"
+        android:inputType="textPassword"
+        android:autofillHints="password"/>
+
+    <TextView
+        android:id="@+id/restorePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restorePassword"
+        android:textColor="@color/TextColorGreen"
+        app:layout_constraintEnd_toEndOf="@id/password"
+        app:layout_constraintTop_toTopOf="@id/password"
+        app:layout_constraintBottom_toBottomOf="@id/password"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textSize="@dimen/restorePasswordTextSize"/>
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/buttonHeight"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintBottom_toTopOf="@id/buttonRegister"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:text="@string/buttonLogin"
+        style="@style/ElevatedButton"
+        android:layout_marginTop="@dimen/smallMargin"/>
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/registerButtonHeight"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:text="@string/buttonRegister"
+        style="@style/OutlinedButton"
+        android:layout_marginTop="@dimen/smallMargin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
