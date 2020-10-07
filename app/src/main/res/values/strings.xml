@@ -1,40 +1,65 @@
 <resources>
     <string name="app_name">Хвост Ньюс</string>
     <string name="stub">(нет)</string>
-    <string name="logo_title_coupon">Название купона</string>
-    <string name="logo_coupon_code">Кодовое слово</string>
-    <string name="button_show_qr_code">Показать QR-код</string>
+    <string name="coupon_title">Название купона</string>
+    <string name="coupon_code">Кодовое слово</string>
+    <string name="show_qr_code">Показать QR-код</string>
     <string name="logo_activity">Активность</string>
     <string name="logo_status">Статус</string>
     <string name="logo_coupon_description">Описание купона</string>
-    <string name="button_online_school">Онлайн-школа</string>
-    <string name="button_seminars_in_your_sites">Семинары в вашем городе</string>
-    <string name="text_view_how_seminars_show">Какие семинары показывать</string>
-    <string name="textView_choose_your_city">Выберите ваш город</string>
-    <string name="textView_show_completed">Показать завершенные</string>
-    <string name="button_no">Да</string>
-    <string name="button_yes">Да</string>
-    <string name="button_send_comment">Оставить отзыв</string>
-    <string name="textView_address">Адрес</string>
-    <string name="textView_work_title">Время работы</string>
-    <string name="textView_phone">Телефон</string>
-    <string name="textView_website">Сайт</string>
-    <string name="button_send_answer">Ответить</string>
-    <string name="textView_useful_literature">Полезная литература</string>
-    <string name="textView_guide_test">Для того чтобы открыть следующий видео-урок ответьте на вопрос по пройденной теме:</string>
+    <string name="online_school">Онлайн-школа</string>
+    <string name="seminars_in_your_sites">Семинары в вашем городе</string>
+    <string name="how_seminars_show">Какие семинары показывать</string>
+    <string name="choose_your_city">Выберите ваш город</string>
+    <string name="show_completed">Показать завершенные</string>
+    <string name="no">Да</string>
+    <string name="yes">Да</string>
+    <string name="send_comment">Оставить отзыв</string>
+    <string name="address">Адрес</string>
+    <string name="work_title">Время работы</string>
+    <string name="phone">Телефон</string>
+    <string name="website">Сайт</string>
+    <string name="send_answer">Ответить</string>
+    <string name="useful_literature">Полезная литература</string>
+    <string name="guide_test">Для того чтобы открыть следующий видео-урок ответьте на вопрос по пройденной теме:</string>
+    <string name="promotions">Участие в акциях</string>
+    <string name="what_wait">Что вас ждет в этом курсе?</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="online_school_for_owners">Онлайн школа для владельцев щенков</string>
+    <string name="about_course">О курсе</string>
+    <string name="course_materials">Материалы курса</string>
+    <string name="course_description">Это обучающий онлайн-курс в овом формате. Он создан для тех, кто только планирует
+        взять в дом щенкаили уже завёл непоседу, и у кого остались вопросы по его содержанию. \n\n
+        Мы поможем вам стать суперхозяином и расскажем: почему щенок грызёт всё подряд, как подготовиться к первой прогулке
+        и какие этапы взросления ждут малыша.\n\n
+        В курсе 8 серий по 10-20 минут, которые можно просматривать в комфотном тепле и в удобное для вас время.\n\n
+        Желаем удачи в прохождении курса!
+    </string>
+    <string name="age">Возраст\n(мес.)</string>
+    <string name="theme">Тема</string>
+    <string name="go_registration">Для прохождения курса пройдите регистрацию!</string>
+    <string name="lessons_comleted">Пройдено уроков:</string>
+    <string name="your_rank">Ваше звание</string>
+    <string name="not_found">(нет)</string>
+    <string name="description">Описание</string>
+    <string name="comments">Отзывы</string>
+
     <string-array name="spinner_coupons">
         <item>Все</item>
         <item>Активные</item>
         <item>Использованные</item>
     </string-array>
+
     <string-array name="spinner_online_seminars">
         <item>Все семинары</item>
         <item>Ваши семинары</item>
     </string-array>
+
     <string-array name="spinner_your_city">
         <item>Любой город</item>
         <item>Москва</item>
         <item>Санкт-Петербург</item>
         <item>Новосибирск</item>
     </string-array>
+
 </resources>

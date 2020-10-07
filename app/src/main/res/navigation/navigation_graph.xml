@@ -42,7 +42,16 @@
         android:id="@+id/parentsSchoolFragment"
         android:name="ru.hvost.news.presentation.fragments.school.ParentsSchoolFragment"
         android:label="Parents school"
-        tools:layout="@layout/fragment_parents_school" />
+        tools:layout="@layout/fragment_parents_school" >
+        <action
+            android:id="@+id/action_parentSchoolFragment_to_onlineCourseActiveFragment"
+            app:destination="@+id/onlineCourseActiveFragment"
+            />
+        <action
+            android:id="@+id/action_parentSchoolFragment_to_offlineCourseCompletedFragment"
+            app:destination="@+id/offlineCourseCompletedFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/offlineCourseActiveFragment"
@@ -60,7 +69,12 @@
         android:id="@+id/onlineCourseActiveFragment"
         android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseActiveFragment"
         android:label="Online course active"
-        tools:layout="@layout/fragment_online_course_active" />
+        tools:layout="@layout/fragment_online_course_active" >
+        <action
+            android:id="@+id/action_onlineCourseActiveFragment_to_onlineCourseLessonFragment"
+            app:destination="@+id/onlineCourseLessonFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/onlineCourseLessonFragment"

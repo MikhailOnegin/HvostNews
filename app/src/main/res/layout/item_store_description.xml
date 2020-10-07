@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    android:id="@+id/constraint2"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView3">
 
     <TextView
         android:id="@+id/textView_address_logo"
@@ -16,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="@string/textView_address"
+        android:text="@string/address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="@string/textView_work_title"
+        android:text="@string/work_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_address" />
 
@@ -37,7 +31,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="24dp"
         android:gravity="end"
-        android:text="TextView"
+        android:text="@string/not_found"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_address_logo"
         app:layout_constraintTop_toTopOf="@+id/textView_address_logo" />
@@ -49,7 +43,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="24dp"
         android:gravity="end"
-        android:text="TextView"
+        android:text="@string/not_found"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_date_work_logo"
         app:layout_constraintTop_toTopOf="@+id/textView_date_work_logo" />
@@ -60,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="@string/textView_phone"
+        android:text="@string/phone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_date_work" />
 
@@ -71,7 +65,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="24dp"
         android:gravity="end"
-        android:text="TextView"
+        android:text="@string/not_found"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_phone_logo"
         app:layout_constraintTop_toTopOf="@+id/textView_phone_logo" />
@@ -82,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="@string/textView_website"
+        android:text="@string/website"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_phone" />
 
@@ -93,7 +87,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="24dp"
         android:gravity="end"
-        android:text="TextView"
+        android:text="@string/not_found"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_website_logo"
         app:layout_constraintTop_toTopOf="@+id/textView_website_logo" />
@@ -104,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
-        android:text="@string/textView_promotions"
+        android:text="@string/promotions"
         android:textStyle="normal|bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_website" />
@@ -125,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:text="@string/not_found"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPager_promotions" />
