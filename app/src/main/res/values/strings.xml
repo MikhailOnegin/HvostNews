@@ -63,9 +63,9 @@
     <string name="no">Да</string>
     <string name="yes">Да</string>
     <string name="send_comment">Оставить отзыв</string>
-    <string name="address">Адрес</string>
+    <string name="address1">Адрес</string>
     <string name="work_title">Время работы</string>
-    <string name="phone">Телефон</string>
+    <string name="phone1">Телефон</string>
     <string name="website">Сайт</string>
     <string name="send_answer">Ответить</string>
     <string name="useful_literature">Полезная литература</string>
