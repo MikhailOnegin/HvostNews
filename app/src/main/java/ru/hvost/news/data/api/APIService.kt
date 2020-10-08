@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 interface APIService {
 
-    @GET("/rest")
+    @GET("/rest/Authorization/login/")
     fun loginAsync(
         @Query("login") login: String?,
         @Query("password") password: String?
@@ -25,7 +25,7 @@ interface APIService {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-        private const val baseUrl = "https://" //TODO: Add base URL.
+        private const val baseUrl = "http://fedotov.hvost-news.testfact3.ru"
 
         val API : APIService by lazy {
             val okHttpClient = OkHttpClient.Builder()
