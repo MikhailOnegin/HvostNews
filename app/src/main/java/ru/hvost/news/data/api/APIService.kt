@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.hvost.news.data.api.response.LoginResponse
+import ru.hvost.news.data.api.response.*
 import java.util.concurrent.TimeUnit
 
 interface APIService {
@@ -19,6 +19,30 @@ interface APIService {
         @Query("login") login: String?,
         @Query("password") password: String?
     ): Deferred<LoginResponse>
+
+    // Map
+    @GET()
+    fun getShops(userToken:String):Deferred<ShopsResponse>
+
+    // School
+    @GET()
+    fun getOfflineLessons(city:String):Deferred<OfflineLessonsResponse>
+
+    @GET()
+    fun getOnlineLessons():Deferred<OfflineLessonsResponse>
+
+    @GET()
+    fun getOnlineSchools():Deferred<OnlineLessonsResponse>
+
+    @GET()
+    fun setLessonTestesPassed(userToken:String, lessonId:Long):Deferred<LessonTestesPassedResponse>
+
+    // Coupons
+    @GET()
+    fun getCoupons(userToken:String):Deferred<CouponsResponse>
+
+    @GET()
+    fun getCouponsInfo():Deferred<CouponsInfoResponse>
 
     companion object{
         private val moshi: Moshi = Moshi.Builder()

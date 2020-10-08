@@ -60,7 +60,7 @@
     <string name="how_seminars_show">Какие семинары показывать</string>
     <string name="choose_your_city">Выберите ваш город</string>
     <string name="show_completed">Показать завершенные</string>
-    <string name="no">Да</string>
+    <string name="no">Нет</string>
     <string name="yes">Да</string>
     <string name="send_comment">Оставить отзыв</string>
     <string name="address1">Адрес</string>
@@ -108,6 +108,24 @@
     <string name="restorePassword">Забыли пароль?</string>
     <string name="buttonLogin">Войти</string>
     <string name="buttonRegister">Зарегистрироваться</string>
+    <string name="status">Статус</string>
+    <string name="place_action">Место проведеия</string>
+    <string name="date_action">Дата проведения</string>
+    <string name="sponsor">Организатор</string>
+    <string name="head_spr_with_store">Школа ответственных родителей с зоомагазином "Мокрый нос"</string>
+    <string name="participate">Уаствую</string>
+    <string name="about_seminar">О семинаре</string>
+    <string name="schedule_for_puppy_owners">Расписание для владельцев щенков</string>
+    <string name="seminar_description">У вас появился член семьи,  а вместе с ним много вопросов. Чем кормить? Как оставить дома
+        одного? Как вырастить малыша правильно?\n\n
+        Школа ответственных родителей "Хвост Ньюс" совместно с сетью зоомагазинов  "Мокрый Нос", заботятся о вашем здоровье и поддерживают
+        режим самоизоляции, поэтому приглашаем Вас присоединиться к нашей онлайн-школе в один клик\n\n
+        На вебинарах, эксперты в области ухода за питомцами расскажут много полезной информации, по содержанию, кормлению и воспитанию ваших
+        хвостатых малышей.
+    </string>
+    <string name="what_wait_seminars">Что вас ждёт на семинарах?</string>
+    <string name="video_past_seminars">Видео с прошлых семнаров</string>
+    <string name="our_partners">Наши партнёры</string>
     <string-array name="spinner_online_seminars">
         <item>Все семинары</item>
         <item>Ваши семинары</item>
