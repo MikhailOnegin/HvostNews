@@ -8,21 +8,23 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.hvost.news.getOrAwaitValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.isOneOf
+import ru.hvost.news.MainCoroutineRule
+import ru.hvost.news.getOrAwaitValue
 import ru.hvost.news.utils.enums.State
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class AuthorizationVMTest {
 
-    private val timeout = 10L
-
     @get: Rule
     val rule = InstantTaskExecutorRule()
 
+    @get: Rule
+    val coroutineRule = MainCoroutineRule()
+
+    private val timeout = 10L
     private lateinit var authorizationVM: AuthorizationVM
 
     @Before
@@ -31,16 +33,16 @@ class AuthorizationVMTest {
     }
 
     @Test
-    fun login_wrongCredentials_setsLoginStateToError() = runBlockingTest {
+    fun login_wrongCredentials_setsLoginStateToError() = coroutineRule.testDispatcher.runBlockingTest {
         authorizationVM.logIn("wrongLogin", "wrongPassword")
-        val result = authorizationVM.loginState.getOrAwaitValue(timeout)
+        val result = authorizationVM.loginState.getOrAwaitValue(timeout, attempts = 2)
         assertThat(result, `is`(State.ERROR))
     }
 
     @Test
     fun login_correctCredentials_setsLoginStateToSuccess() = runBlockingTest {
-        authorizationVM.logIn("login", "password")
-        val result = authorizationVM.loginState.getOrAwaitValue(timeout)
+        authorizationVM.logIn("test", "123123123")
+        val result = authorizationVM.loginState.getOrAwaitValue(timeout, attempts = 2)
         assertThat(result, `is`(State.SUCCESS))
     }
 
