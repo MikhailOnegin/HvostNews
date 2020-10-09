@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_logo_coupon_title" />
 
             <TextView
-                android:id="@+id/textView_coupon_validity"
+                android:id="@+id/textView_coupon_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
