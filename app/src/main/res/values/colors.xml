@@ -14,4 +14,5 @@
     <color name="outlinedButtonStroke">#C4C4E2</color>
     <color name="bnvTextChecked">#398F40</color>
     <color name="bnvTextUnchecked">#F55500</color>
+    <color name="TextColorDefault">#575757</color>
 </resources>
