@@ -11,13 +11,21 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentLoginBinding
-import ru.hvost.news.utils.EventObserver
+import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.NetworkEvent
 
 class LoginFragment : Fragment() {
 
     private lateinit var authorizationVM: AuthorizationVM
     private lateinit var binding: FragmentLoginBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if(App.getInstance().isTokenInitialized){
+            navigateToMainScreen()
+        }
+    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -44,25 +52,71 @@ class LoginFragment : Fragment() {
 
     private fun setListeners() {
         binding.buttonLogin.setOnClickListener(onLoginButtonClicked)
+        binding.buttonRegister.setOnClickListener(onRegisterButtonClicked)
+        binding.restorePassword.setOnClickListener(onRestorePasswordButtonClicked)
     }
 
     private fun setObservers() {
-        authorizationVM.loginEvent.observe(viewLifecycleOwner, EventObserver(onLoginEvent))
+        authorizationVM.loginEvent.observe(viewLifecycleOwner) { onLoginEvent(it) }
     }
 
-    private val onLoginEvent = { state: State ->
-        when(state){
+    private val onLoginEvent = { event: NetworkEvent<State> ->
+        when(event.getContentIfNotHandled()){
             State.SUCCESS -> {
-                findNavController().navigate(R.id.action_loginFragment_to_newsFragment)
+                binding.progress.visibility = View.GONE
+                navigateToMainScreen()
+            }
+            State.ERROR -> {
+                binding.progress.visibility = View.GONE
+                createSnackbar(
+                    binding.root,
+                    event.error,
+                    getString(R.string.buttonOk)
+                ).show()
+            }
+            State.FAILURE -> {
+                binding.progress.visibility = View.GONE
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.networkFailureMessage),
+                    getString(R.string.buttonOk)
+                ).show()
+            }
+            State.LOADING -> {
+                binding.progress.visibility = View.VISIBLE
             }
         }
     }
 
     private val onLoginButtonClicked = { _: View ->
-        authorizationVM.logIn(
-            binding.login.text.toString(),
-            binding.password.text.toString()
-        )
+        if(authorizationVM.loginEvent.value?.peekContent() != State.LOADING) {
+            authorizationVM.logIn(
+                binding.login.text.toString(),
+                binding.password.text.toString()
+            )
+        }
+    }
+
+    private val onRegisterButtonClicked = { _: View ->
+        if(authorizationVM.loginEvent.value?.peekContent() != State.LOADING) {
+            createSnackbar(
+                binding.root,
+                getString(R.string.developing)
+            ).show()
+        }
+    }
+
+    private val onRestorePasswordButtonClicked = { _: View ->
+        if(authorizationVM.loginEvent.value?.peekContent() != State.LOADING) {
+            createSnackbar(
+                binding.root,
+                getString(R.string.developing)
+            ).show()
+        }
+    }
+
+    private fun navigateToMainScreen() {
+        findNavController().navigate(R.id.action_loginFragment_to_newsFragment)
     }
 
 }

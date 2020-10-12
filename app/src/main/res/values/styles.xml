@@ -41,4 +41,8 @@
         <item name="strokeWidth">@dimen/outlinedButtonStrokeWidth</item>
     </style>
 
+    <style name="bnvActiveTextAppearance" parent="TextAppearance.AppCompat"/>
+
+    <style name="bnvInactiveTextAppearance" parent="TextAppearance.AppCompat"/>
+
 </resources>

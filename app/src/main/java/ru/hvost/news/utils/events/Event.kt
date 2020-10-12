@@ -1,4 +1,4 @@
-package ru.hvost.news.utils
+package ru.hvost.news.utils.events
 
 import androidx.lifecycle.Observer
 

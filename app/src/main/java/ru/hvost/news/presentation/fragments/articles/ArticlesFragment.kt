@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticlesBinding
+import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 
 class ArticlesFragment : Fragment() {
@@ -31,6 +32,11 @@ class ArticlesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setRecyclerView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as MainActivity).showBnv()
     }
 
     private fun setRecyclerView() {
