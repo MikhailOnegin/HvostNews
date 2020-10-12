@@ -10,6 +10,8 @@
     android:paddingBottom="12dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        style="@style/AppTheme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardElevation="1dp"
@@ -19,9 +21,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/coupon_constraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             android:paddingBottom="8dp">
+
+
+            <ImageView
+                android:id="@+id/imageView_coupon"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:elevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ripple_item_list" />
 
             <TextView
                 android:id="@+id/textView_coupon_status"
@@ -38,8 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/stub"
+                android:layout_marginTop="8dp"
+                android:text="@string/not_found"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_logo_coupon_title" />
 
@@ -55,14 +70,6 @@
                 app:layout_constraintStart_toEndOf="@+id/textView_coupon_code"
                 app:layout_constraintTop_toTopOf="@+id/textView_coupon_code" />
 
-            <ImageView
-                android:id="@+id/imageView_coupon"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/shape_red" />
 
             <TextView
                 android:id="@+id/textView_logo_coupon_title"
@@ -71,11 +78,13 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/stub"
+                android:text="@string/coupon_title"
                 android:textStyle="normal|bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_coupon" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

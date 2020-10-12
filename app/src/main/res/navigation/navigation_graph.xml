@@ -97,9 +97,9 @@
 
     <fragment
         android:id="@+id/infoGetCouponsFragment"
-        android:name="ru.hvost.news.presentation.fragments.coupons.InfoGetCouponsFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.CouponsGetInfoFragment"
         android:label="Coupons info"
-        tools:layout="@layout/fragment_info_get_coupons" />
+        tools:layout="@layout/fragment_coupons_get_info" />
 
     <fragment
         android:id="@+id/parentsSchoolFragment"

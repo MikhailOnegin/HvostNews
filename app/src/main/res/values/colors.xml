@@ -13,4 +13,5 @@
     <color name="outlinedButtonBackground">#33C4C4E2</color>
     <color name="outlinedButtonStroke">#C4C4E2</color>
     <dimen name="outlinedButtonStrokeWidth">3dp</dimen>
+    <color name="TextColorDefault">#575757</color>
 </resources>
