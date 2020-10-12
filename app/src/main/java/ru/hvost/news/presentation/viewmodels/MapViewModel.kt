@@ -8,9 +8,10 @@ import ru.hvost.news.utils.enums.State
 
 class MapViewModel:ViewModel() {
 
-    private val mutableShopsState:LiveData<State> = MutableLiveData()
+    private val mutableShopsState:MutableLiveData<State> = MutableLiveData()
     val shopsState:LiveData<State> = mutableShopsState
-    private val mutableShops:LiveData<ShopsResponse> = MutableLiveData()
+
+    private val mutableShops:MutableLiveData<ShopsResponse> = MutableLiveData()
     val shops:LiveData<ShopsResponse> = mutableShops
 
     fun getShops(userToken:String){

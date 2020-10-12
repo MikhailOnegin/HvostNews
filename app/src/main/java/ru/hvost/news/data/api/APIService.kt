@@ -38,8 +38,11 @@ interface APIService {
     fun setLessonTestesPassed(userToken:String, lessonId:Long):Deferred<LessonTestesPassedResponse>
 
     // Coupons
-    @GET()
-    fun getCoupons(userToken:String):Deferred<CouponsResponse>
+    //http://fedotov.hvost-news.testfact3.ru/rest/Coupons/getCoupons/?userToken=eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9
+    @GET("/rest/Coupons/getCoupons/")
+    fun getCouponsAsync(
+        @Query("userToken") userToken:String?
+    ):Deferred<CouponsResponse>
 
     @GET()
     fun getCouponsInfo():Deferred<CouponsInfoResponse>
