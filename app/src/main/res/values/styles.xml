@@ -10,6 +10,7 @@
 
     <style name="EditText">
         <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
         <item name="android:textColorHint">@color/TextColorHints</item>
         <item name="android:inputType">text</item>
     </style>

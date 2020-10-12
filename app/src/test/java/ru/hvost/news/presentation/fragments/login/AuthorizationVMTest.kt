@@ -33,17 +33,17 @@ class AuthorizationVMTest {
     }
 
     @Test
-    fun login_wrongCredentials_setsLoginStateToError() = coroutineRule.testDispatcher.runBlockingTest {
+    fun logIn_wrongCredentials_setLoginStateToError() = coroutineRule.testDispatcher.runBlockingTest {
         authorizationVM.logIn("wrongLogin", "wrongPassword")
-        val result = authorizationVM.loginState.getOrAwaitValue(timeout, attempts = 2)
-        assertThat(result, `is`(State.ERROR))
+        val result = authorizationVM.loginEvent.getOrAwaitValue(timeout, attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 
     @Test
-    fun login_correctCredentials_setsLoginStateToSuccess() = runBlockingTest {
-        authorizationVM.logIn("test", "123123123")
-        val result = authorizationVM.loginState.getOrAwaitValue(timeout, attempts = 2)
-        assertThat(result, `is`(State.SUCCESS))
+    fun logIn_correctCredentials_setLoginStateToSuccess() = runBlockingTest {
+        authorizationVM.logIn("v.fedotov@studiofact.ru", "123123123")
+        val result = authorizationVM.loginEvent.getOrAwaitValue(timeout, attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
 
 }
