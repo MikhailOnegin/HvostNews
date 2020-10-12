@@ -11,8 +11,9 @@ import ru.hvost.news.utils.enums.State
 
 class SchoolViewModel: ViewModel() {
 
-    private val mutableOfflineLessonState:LiveData<State> = MutableLiveData()
+    private val mutableOfflineLessonState:MutableLiveData<State> = MutableLiveData()
     val offlineLessonState:LiveData<State> = mutableOfflineLessonState
+
     private val mutableOfflineLessons:LiveData<OfflineLessonsResponse> = MutableLiveData()
     val offlineLessons:LiveData<OfflineLessonsResponse> = mutableOfflineLessons
 
@@ -20,27 +21,30 @@ class SchoolViewModel: ViewModel() {
 
     }
 
-    private val mutableOnlineLessonsState:LiveData<State> = MutableLiveData()
+    private val mutableOnlineLessonsState:MutableLiveData<State> = MutableLiveData()
     val onlineLessonsState:LiveData<State> = mutableOnlineLessonsState
-    private val mutableOnlineLessons:LiveData<OnlineLessonsResponse> = MutableLiveData()
+
+    private val mutableOnlineLessons:MutableLiveData<OnlineLessonsResponse> = MutableLiveData()
     val onlineLessons:LiveData<OnlineLessonsResponse> = mutableOnlineLessons
 
     fun getOnlineLessons(){
 
     }
 
-    private val mutableOnlineSchoolsState:LiveData<State> = MutableLiveData()
+    private val mutableOnlineSchoolsState:MutableLiveData<State> = MutableLiveData()
     val onlineSchoolsState:LiveData<State> = mutableOnlineSchoolsState
-    private val mutableOnlineSchools:LiveData<OnlineSchoolsResponse> = MutableLiveData()
+
+    private val mutableOnlineSchools:MutableLiveData<OnlineSchoolsResponse> = MutableLiveData()
     val onlineSchools:LiveData<OnlineSchoolsResponse> = mutableOnlineSchools
 
     fun getOnlineSchools(){
 
     }
 
-    private val mutableSetLessonTestesPassedState:LiveData<LessonTestesPassedResponse> = MutableLiveData()
+    private val mutableSetLessonTestesPassedState:MutableLiveData<LessonTestesPassedResponse> = MutableLiveData()
     val setLessonTestesPassedState:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassedState
-    private val mutableSetLessonTestesPassed:LiveData<LessonTestesPassedResponse> = MutableLiveData()
+
+    private val mutableSetLessonTestesPassed:MutableLiveData<LessonTestesPassedResponse> = MutableLiveData()
     val setLessonTestesPassed:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassed
 
     fun setLessonTestesPassed(userToken:String, lessonId:Long){
