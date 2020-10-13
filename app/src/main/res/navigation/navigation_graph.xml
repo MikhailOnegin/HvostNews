@@ -17,6 +17,13 @@
             app:exitAnim="@anim/fragment_exit"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_passRestoreFragment"
+            app:destination="@id/passRestoreFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -194,5 +201,10 @@
         android:id="@+id/shopFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.ShopFragment"
         android:label="ShopFragment" />
+    <fragment
+        android:id="@+id/passRestoreFragment"
+        android:name="ru.hvost.news.presentation.fragments.login.PassRestoreFragment"
+        android:label="PassRestoreFragment"
+        tools:layout="@layout/fragment_pass_restore"/>
 
 </navigation>

@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPassRestoreBinding
+import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
 
@@ -30,8 +33,53 @@ class PassRestoreFragment : Fragment() {
         authorizationVM.passRestoreEvent.observe(viewLifecycleOwner) { onPassRestoreEvent(it) }
     }
 
+    override fun onStart() {
+        super.onStart()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.buttonSend.setOnClickListener(onSendButtonClicked)
+    }
+
+    private val onSendButtonClicked = { _: View ->
+        if(authorizationVM.passRestoreEvent.value?.peekContent() != State.LOADING) {
+            if (!binding.email.text.isNullOrBlank()) {
+                authorizationVM.restorePassAsync(binding.email.text.toString())
+            }
+        }
+    }
+
     private val onPassRestoreEvent = { event: NetworkEvent<State> ->
-        //TODO работать здесь.
+        when(event.getContentIfNotHandled()){
+            State.SUCCESS -> {
+                binding.progress.visibility = View.GONE
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.passRestoringInstructionsSent),
+                    getString(R.string.buttonOk)
+                ) { findNavController().popBackStack() }.show()
+            }
+            State.ERROR -> {
+                binding.progress.visibility = View.GONE
+                createSnackbar(
+                    binding.root,
+                    event.error,
+                    getString(R.string.buttonOk)
+                ).show()
+            }
+            State.FAILURE -> {
+                binding.progress.visibility = View.GONE
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.networkFailureMessage),
+                    getString(R.string.buttonOk)
+                ).show()
+            }
+            State.LOADING -> {
+                binding.progress.visibility = View.VISIBLE
+            }
+        }
     }
 
 }

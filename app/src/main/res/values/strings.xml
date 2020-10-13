@@ -146,4 +146,5 @@
     <string name="developing">В разработке.</string>
     <string name="buttonSend">Отправить</string>
     <string name="emailHint">E-mail</string>
+    <string name="passRestoringInstructionsSent">Инструкции по восстановлению пароля отправлены на указанную электронную почту.</string>
 </resources>
