@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.adapters
 
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.text.parseAsHtml
@@ -8,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
 
@@ -30,7 +30,7 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
         fun bind(articleItem: Article) {
             Glide
                 .with(binding.root)
-                .load(articleItem.imageUrl)
+                .load(APIService.baseUrl + articleItem.imageUrl)
                 .fitCenter()
                 .into(binding.img)
             binding.title.text = articleItem.title
