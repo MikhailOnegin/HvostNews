@@ -22,7 +22,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(App.getInstance().isTokenInitialized){
+        if(App.getInstance().userToken != null) {
             navigateToMainScreen()
         }
     }

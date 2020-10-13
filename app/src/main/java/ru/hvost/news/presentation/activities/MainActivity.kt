@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.ActivityMainBinding
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
         setupStatusBar()
+        binding.bnv.setupWithNavController(findNavController(R.id.nav_host_fragment))
     }
 
     private fun setupStatusBar() {

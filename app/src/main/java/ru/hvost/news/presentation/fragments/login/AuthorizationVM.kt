@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
 
@@ -22,7 +21,7 @@ class AuthorizationVM: ViewModel(){
             try{
                 val response = APIService.API.loginAsync(login, password).await()
                 if(response.result == "success" && response.userToken != null) {
-                    App.getInstance().setUserToken(response.userToken)
+                    App.getInstance().logIn(response.userToken)
                     _loginEvent.value = NetworkEvent(State.SUCCESS)
                 }
                 else _loginEvent.value = NetworkEvent(State.ERROR, response.error)

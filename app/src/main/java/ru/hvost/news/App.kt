@@ -6,16 +6,20 @@ import java.lang.IllegalStateException
 
 class App : Application() {
 
-    lateinit var userToken: String private set
-    var isTokenInitialized = false
+    var userToken: String? = null
         private set
 
-    fun setUserToken(userToken: String){
-        if(this::userToken.isInitialized) throw RuntimeException("Don't try to change userToken!")
+    fun logIn(userToken: String) {
+        if(this.userToken != null) throw RuntimeException("Don't try to change userToken!")
         this.userToken = userToken
-        isTokenInitialized = true
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         prefs.edit().putString(PREF_USER_TOKEN, userToken).apply()
+    }
+
+    fun logOut() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        prefs.edit().remove(PREF_USER_TOKEN).apply()
+        userToken = null
     }
 
     override fun onCreate() {
@@ -23,7 +27,7 @@ class App : Application() {
         reference = this
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val userToken = prefs.getString(PREF_USER_TOKEN, null)
-        if(userToken != null) setUserToken(userToken)
+        if(userToken != null) logIn(userToken)
     }
 
     companion object {
