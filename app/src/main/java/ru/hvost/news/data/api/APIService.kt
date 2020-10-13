@@ -20,6 +20,11 @@ interface APIService {
         @Query("password") password: String?
     ): Deferred<LoginResponse>
 
+    @GET("/rest/Authorization/restorePassword/")
+    fun restorePassAsync(
+        @Query("email") email: String?
+    ): Deferred<PassRestoreResponse>
+
     // Map
     @GET()
     fun getShops(userToken: String): Deferred<ShopsResponse>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticlesBinding
+import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.utils.enums.State
 
@@ -47,6 +48,11 @@ class ArticlesFragment : Fragment() {
             State.FAILURE, State.ERROR -> {
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as MainActivity).showBnv()
     }
 
     private fun setRecyclerView() {

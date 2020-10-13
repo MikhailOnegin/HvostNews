@@ -19,4 +19,8 @@
     <dimen name="ButtonTextSize">16sp</dimen>
     <dimen name="buttonHeight">80dp</dimen>
     <dimen name="registerButtonHeight">70dp</dimen>
+    <dimen name="editTextHeight">70dp</dimen>
+    <dimen name="outlinedButtonStrokeWidth">3dp</dimen>
+    <dimen name="bnvHeight">56dp</dimen>
+    <dimen name="smallCorners">8dp</dimen>
 </resources>

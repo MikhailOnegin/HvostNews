@@ -137,4 +137,14 @@
         <item>Санкт-Петербург</item>
         <item>Новосибирск</item>
     </string-array>
+    <string name="bnvFeed">Лента</string>
+    <string name="bnvShop">Магазин</string>
+    <string name="bnvMaps">Адреса</string>
+    <string name="bnvProfile">Профиль</string>
+    <string name="bnvSchool">Школа</string>
+    <string name="buttonOk">OK</string>
+    <string name="networkFailureMessage">Не удалось выполнить запрос. Проверьте соединение с интернетом и повторите попытку.</string>
+    <string name="developing">В разработке.</string>
+    <string name="buttonSend">Отправить</string>
+    <string name="emailHint">E-mail</string>
 </resources>

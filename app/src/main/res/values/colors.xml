@@ -12,5 +12,7 @@
     <color name="TextColorGreen">#55D25F</color>
     <color name="outlinedButtonBackground">#33C4C4E2</color>
     <color name="outlinedButtonStroke">#C4C4E2</color>
-    <dimen name="outlinedButtonStrokeWidth">3dp</dimen>
+    <color name="bnvTextChecked">#398F40</color>
+    <color name="bnvTextUnchecked">#F55500</color>
+    <color name="TextColorDefault">#575757</color>
 </resources>

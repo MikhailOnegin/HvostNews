@@ -1,9 +1,13 @@
 package ru.hvost.news.data.api.response
 
+import java.io.Serializable
+
+
 data class CouponsResponse (
     val result:String?,
     val coupons:List<Coupon>?
 ){
+
     data class Coupon (
        val couponId:String?,
        val imageUrl:String?,
@@ -13,6 +17,8 @@ data class CouponsResponse (
        val description:String?,
        val experationDate:String?,
        val qrCode:String?
-    )
+    ): Serializable{
+
+    }
 
 }

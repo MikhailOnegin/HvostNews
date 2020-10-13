@@ -9,7 +9,15 @@
         android:id="@+id/loginFragment"
         android:name="ru.hvost.news.presentation.fragments.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_newsFragment"
+            app:destination="@id/newsFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/newsFragment"
@@ -97,9 +105,9 @@
 
     <fragment
         android:id="@+id/infoGetCouponsFragment"
-        android:name="ru.hvost.news.presentation.fragments.coupons.InfoGetCouponsFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.CouponsGetInfoFragment"
         android:label="Coupons info"
-        tools:layout="@layout/fragment_info_get_coupons" />
+        tools:layout="@layout/fragment_coupons_get_info" />
 
     <fragment
         android:id="@+id/parentsSchoolFragment"
@@ -178,5 +186,13 @@
             android:id="@+id/action_prizesFragment_to_choicePrizeFragment"
             app:destination="@id/choicePrizeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="ru.hvost.news.presentation.fragments.map.MapFragment"
+        android:label="MapFragment" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.ShopFragment"
+        android:label="ShopFragment" />
 
 </navigation>

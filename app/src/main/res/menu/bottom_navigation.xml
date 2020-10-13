@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/newsFragment"
+        android:title="@string/bnvFeed"
+        android:icon="@drawable/ic_feed"/>
+
+    <item
+        android:id="@+id/shopFragment"
+        android:title="@string/bnvShop"
+        android:icon="@drawable/ic_shop"/>
+
+    <item
+        android:id="@+id/mapFragment"
+        android:title="@string/bnvMaps"
+        android:icon="@drawable/ic_maps"/>
+
+    <item
+        android:id="@+id/parentsSchoolFragment"
+        android:title="@string/bnvSchool"
+        android:icon="@drawable/ic_school"/>
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="@string/bnvProfile"
+        android:icon="@drawable/ic_profile"/>
+
+</menu>

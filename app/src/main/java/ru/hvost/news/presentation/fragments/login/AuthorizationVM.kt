@@ -5,23 +5,46 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.NetworkEvent
 
 class AuthorizationVM: ViewModel(){
 
-    private val _loginState = MutableLiveData<State>()
-    val loginState: LiveData<State> = _loginState
+    private val _loginEvent = MutableLiveData<NetworkEvent<State>>()
+    val loginEvent: LiveData<NetworkEvent<State>> = _loginEvent
 
     fun logIn(login: String, password: String){
         viewModelScope.launch {
-            _loginState.value = State.LOADING
+            _loginEvent.value = NetworkEvent(State.LOADING)
             try{
                 val response = APIService.API.loginAsync(login, password).await()
-                if(response.result == "success") _loginState.value = State.SUCCESS
-                else _loginState.value = State.ERROR
+                if(response.result == "success" && response.userToken != null) {
+                    App.getInstance().logIn(response.userToken)
+                    _loginEvent.value = NetworkEvent(State.SUCCESS)
+                }
+                else _loginEvent.value = NetworkEvent(State.ERROR, response.error)
             }catch (exc: Exception){
-                _loginState.value = State.FAILURE
+                _loginEvent.value = NetworkEvent(State.FAILURE)
+            }
+        }
+    }
+
+    private val _passRestoreEvent = MutableLiveData<NetworkEvent<State>>()
+    val passRestoreEvent: LiveData<NetworkEvent<State>> = _passRestoreEvent
+
+    fun restorePassAsync(email: String){
+        viewModelScope.launch {
+            _passRestoreEvent.value = NetworkEvent(State.LOADING)
+            try{
+                val response = APIService.API.restorePassAsync(email).await()
+                if(response.result == "success") {
+                    _passRestoreEvent.value = NetworkEvent(State.SUCCESS)
+                }
+                else _passRestoreEvent.value = NetworkEvent(State.ERROR, response.error)
+            }catch (exc: Exception){
+                _passRestoreEvent.value = NetworkEvent(State.FAILURE)
             }
         }
     }
