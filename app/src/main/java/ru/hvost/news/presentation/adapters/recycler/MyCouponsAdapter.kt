@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.adapters.recyclers
+package ru.hvost.news.presentation.adapters.recycler
 
 import android.view.LayoutInflater
 import android.view.View
@@ -51,8 +51,8 @@ class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.CouponViewHolder>()
         fun bind(item: CouponsResponse.Coupon){
             item.imageUrl?.run {
                 // add placeHolder()
-                //Glide.with(itemView.context).load(this).centerCrop()
-                //    .into(iVCoupon)
+                Glide.with(itemView.context).load(this).centerCrop()
+                    .into(iVCoupon)
             }
             item.title?.run {
                 tVCouponTitle.text = this
@@ -61,7 +61,7 @@ class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.CouponViewHolder>()
                 tVCouponMaxDate.text = this
             }
             val status:String? = item.isUsed
-            if(status == "used") {
+            if(status!=null && status == "used") {
                 tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_red)
                 tVUsed.text = "Использован"
 

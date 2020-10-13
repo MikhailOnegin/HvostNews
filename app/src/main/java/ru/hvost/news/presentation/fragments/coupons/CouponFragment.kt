@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.databinding.FragmentCouponBinding
-import ru.hvost.news.presentation.adapters.recyclers.MyCouponsAdapter
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 
 class CouponFragment: Fragment() {

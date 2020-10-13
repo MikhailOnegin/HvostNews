@@ -36,7 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ripple_item_list" />
+                app:srcCompat="@drawable/shape_red" />
 
             <TextView
                 android:id="@+id/textView_coupon_status"

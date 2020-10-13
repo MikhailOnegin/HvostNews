@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -15,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.R
 import ru.hvost.news.data.api.response.CouponsResponse
 import ru.hvost.news.databinding.FragmentMyCouponsBinding
-import ru.hvost.news.presentation.adapters.recyclers.MyCouponsAdapter
+import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 
 class MyCouponsFragment: Fragment() {
@@ -49,12 +50,14 @@ class MyCouponsFragment: Fragment() {
         binding.recyclerViewCoupons.adapter = adapter
         binding.recyclerViewCoupons.layoutManager = layoutManager
         binding.spinnerCoupons
-        couponVM.getCoupons("eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9")
         setObservers(this)
+        couponVM.getCoupons("eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9")
+
     }
 
     private fun setObservers(owner: LifecycleOwner) {
         couponVM.coupons.observe(owner, Observer {
+            Toast.makeText(requireContext(), "Coupons Download", Toast.LENGTH_SHORT).show()
             it.coupons?.run {
                 adapter.setCoupons(it.coupons)
             }

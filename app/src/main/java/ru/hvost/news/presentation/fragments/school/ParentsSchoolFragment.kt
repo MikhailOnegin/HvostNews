@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import ru.hvost.news.databinding.FragmentParentsSchoolBinding
+import ru.hvost.news.presentation.adapters.viewPager.ParentsSchoolVPAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class ParentsSchoolFragment:Fragment() {
@@ -25,5 +28,16 @@ class ParentsSchoolFragment:Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        initViewPager()
     }
+
+    private fun initViewPager(){
+        val adapter = ParentsSchoolVPAdapter(requireActivity().supportFragmentManager, this.lifecycle)
+        binding.viewPager.adapter = adapter
+        val names:Array<String> = arrayOf("Онлайн школа", "Семинары в вашем городе")
+        TabLayoutMediator(binding.tabLayout,binding.viewPager){tab, position ->
+            tab.text = names[position]
+        }.attach()
+    }
+
 }

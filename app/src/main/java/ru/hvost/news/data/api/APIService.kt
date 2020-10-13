@@ -52,7 +52,7 @@ interface APIService {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-        private const val baseUrl = "http://fedotov.hvost-news.testfact3.ru"
+        private const val baseUrl = "http://hvost-news.testfact3.ru"
 
         val API : APIService by lazy {
             val okHttpClient = OkHttpClient.Builder()
