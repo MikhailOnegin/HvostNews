@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.ui.articles
+package ru.hvost.news.presentation.fragments.articles
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,7 +30,7 @@ class ArticleDetailFragment : Fragment() {
     }
 
     private fun findToBind(bundle: Bundle?) {
-        bind(mainVM.testList.filter { it.id == arguments?.getLong("ITEM_ID") })
+//        bind(mainVM.testList.filter { it.id == arguments?.getLong("ITEM_ID") })
     }
 
     private fun bind(list: List<Article>) {

@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.ui.articles
+package ru.hvost.news.presentation.fragments.articles
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticlesBinding
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.ArticleAdapter
+import ru.hvost.news.utils.enums.State
 
 class ArticlesFragment : Fragment() {
 
@@ -31,7 +33,21 @@ class ArticlesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        setRecyclerView()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        mainVM.articlesState.observe(viewLifecycleOwner, Observer { onArticleStateChanged(it) })
+    }
+
+    private fun onArticleStateChanged(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                setRecyclerView()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
     }
 
     override fun onStart() {
@@ -47,7 +63,7 @@ class ArticlesFragment : Fragment() {
         }
         val adapter = ArticleAdapter(onActionClicked)
         binding.list.adapter = adapter
-        adapter.submitList(mainVM.testList)
+        adapter.submitList(mainVM.articles.value)
         setDecoration()
     }
 

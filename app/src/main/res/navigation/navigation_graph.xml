@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/newsFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="ru.hvost.news.presentation.ui.articles.ArticlesFragment"
+        android:name="ru.hvost.news.presentation.fragments.articles.ArticlesFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_articles" >
         <action
@@ -38,13 +38,13 @@
 
     <fragment
         android:id="@+id/articleDetailFragment"
-        android:name="ru.hvost.news.presentation.ui.articles.ArticleDetailFragment"
+        android:name="ru.hvost.news.presentation.fragments.articles.ArticleDetailFragment"
         android:label="fragment_article_detail"
         tools:layout="@layout/fragment_article_detail" />
 
     <fragment
         android:id="@+id/domainFragment"
-        android:name="ru.hvost.news.presentation.ui.domains.DomainFragment"
+        android:name="ru.hvost.news.presentation.fragments.domains.DomainFragment"
         android:label="fragment_domain"
         tools:layout="@layout/fragment_domain" >
         <action
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/subDomainFragment"
-        android:name="ru.hvost.news.presentation.ui.domains.SubDomainFragment"
+        android:name="ru.hvost.news.presentation.fragments.domains.SubDomainFragment"
         android:label="SubDomainFragment" >
         <action
             android:id="@+id/action_subDomainFragment_to_articleDetailFragment"
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="ru.hvost.news.presentation.ui.profile.ProfileFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -76,12 +76,12 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="ru.hvost.news.presentation.ui.profile.EditProfileFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.EditProfileFragment"
         android:label="EditProfileFragment" />
 
     <fragment
         android:id="@+id/petProfileFragment"
-        android:name="ru.hvost.news.presentation.ui.profile.PetProfileFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.PetProfileFragment"
         android:label="fragment_pet_profile"
         tools:layout="@layout/fragment_pet_profile" >
         <action
@@ -172,7 +172,7 @@
         tools:layout="@layout/fragment_choice_prize" />
     <fragment
         android:id="@+id/petPassportFragment"
-        android:name="ru.hvost.news.presentation.ui.profile.PetPassportFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.PetPassportFragment"
         android:label="fragment_pet_passport"
         tools:layout="@layout/fragment_pet_passport" />
     <fragment

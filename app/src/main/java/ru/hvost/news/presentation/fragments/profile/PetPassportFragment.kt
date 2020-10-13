@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.ui.profile
+package ru.hvost.news.presentation.fragments.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

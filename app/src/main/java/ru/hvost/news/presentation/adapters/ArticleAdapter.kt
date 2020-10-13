@@ -1,7 +1,9 @@
 package ru.hvost.news.presentation.adapters
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,14 +30,15 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
         fun bind(articleItem: Article) {
             Glide
                 .with(binding.root)
-                .load(articleItem.img)
+                .load(articleItem.imageUrl)
                 .fitCenter()
                 .into(binding.img)
             binding.title.text = articleItem.title
-            binding.description.text = articleItem.description
-            binding.category.text = articleItem.category
-            binding.views.text = articleItem.views
-            binding.likes.text = articleItem.likes
+            binding.description.text = articleItem.shortDescription.parseAsHtml()
+            binding.domain.text = articleItem.domainTitle
+            binding.category.text = articleItem.categoryTitle
+            binding.views.text = articleItem.viewsCount
+            binding.likes.text = articleItem.likesCount.toString()
 
             binding.root.setOnClickListener { onClick.invoke(articleItem.id) }
         }

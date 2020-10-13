@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.ui.profile
+package ru.hvost.news.presentation.fragments.profile
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -13,7 +13,6 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticlesBinding
 import ru.hvost.news.databinding.FragmentProfileBinding
-import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.adapters.PetAdapter
 
 class ProfileFragment : Fragment() {

@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.ui.domains
+package ru.hvost.news.presentation.fragments.domains
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -41,7 +41,7 @@ class SubDomainFragment : Fragment() {
         }
         val adapter = ArticleAdapter(onActionClicked)
         binding.list.adapter = adapter
-        adapter.submitList(mainVM.testList)
+//        adapter.submitList(mainVM.testList)
         setDecoration()
     }
 

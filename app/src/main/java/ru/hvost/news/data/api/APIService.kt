@@ -27,39 +27,45 @@ interface APIService {
 
     // Map
     @GET()
-    fun getShops(userToken:String):Deferred<ShopsResponse>
+    fun getShops(userToken: String): Deferred<ShopsResponse>
 
     // School
     @GET()
-    fun getOfflineLessons(city:String):Deferred<OfflineLessonsResponse>
+    fun getOfflineLessons(city: String): Deferred<OfflineLessonsResponse>
 
     @GET()
-    fun getOnlineLessons():Deferred<OfflineLessonsResponse>
+    fun getOnlineLessons(): Deferred<OfflineLessonsResponse>
 
     @GET()
-    fun getOnlineSchools():Deferred<OnlineLessonsResponse>
+    fun getOnlineSchools(): Deferred<OnlineLessonsResponse>
+
+    @GET("/rest/Articles/getArticles/")
+    fun getArticlesAsync(): Deferred<ArticlesResponse>
 
     @GET()
-    fun setLessonTestesPassed(userToken:String, lessonId:Long):Deferred<LessonTestesPassedResponse>
+    fun setLessonTestesPassed(
+        userToken: String,
+        lessonId: Long
+    ): Deferred<LessonTestesPassedResponse>
 
     // Coupons
     //http://fedotov.hvost-news.testfact3.ru/rest/Coupons/getCoupons/?userToken=eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9
     @GET("/rest/Coupons/getCoupons/")
     fun getCouponsAsync(
-        @Query("userToken") userToken:String?
-    ):Deferred<CouponsResponse>
+        @Query("userToken") userToken: String?
+    ): Deferred<CouponsResponse>
 
     @GET()
-    fun getCouponsInfo():Deferred<CouponsInfoResponse>
+    fun getCouponsInfo(): Deferred<CouponsInfoResponse>
 
-    companion object{
+    companion object {
         private val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
 
         private const val baseUrl = "http://hvost-news.testfact3.ru"
 
-        val API : APIService by lazy {
+        val API: APIService by lazy {
             val okHttpClient = OkHttpClient.Builder()
             okHttpClient.callTimeout(90, TimeUnit.SECONDS)
             okHttpClient.connectTimeout(60, TimeUnit.SECONDS)
@@ -74,12 +80,13 @@ interface APIService {
         }
     }
 
-    class HTTPAuthenticator : Authenticator{
+    class HTTPAuthenticator : Authenticator {
         override fun authenticate(route: Route?, response: Response): Request? {
             return response.request.newBuilder()
                 .header(
                     "Authorization",
-                    Credentials.basic("dev", "qOuYXDwtOsyv0UMkCD6a"))
+                    Credentials.basic("dev", "qOuYXDwtOsyv0UMkCD6a")
+                )
                 .build()
         }
     }
