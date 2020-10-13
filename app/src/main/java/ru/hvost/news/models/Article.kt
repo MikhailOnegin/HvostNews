@@ -1,38 +1,39 @@
 package ru.hvost.news.models
 
-import kotlin.random.Random
+import ru.hvost.news.data.api.response.ArticlesResponse
 
-data class Article (
+data class Article(
     val id: Long,
-    val img: String,
-    val title: String,
-    val description: String,
-    val category: String,
-    val views: String,
-    val likes: String,
+    val domainId: String,
+    val domainTitle: String,
     val domainIcon: String,
-    val domain:String
+    val categoryId: String,
+    val categoryTitle: String,
+    val title: String,
+    val imageUrl: String,
+    val shortDescription: String,
+    val viewsCount: String,
+    val likesCount: Int
 )
-{
-    companion object{
-        fun getTestArticlesList(): List<Article>{
-            val result = mutableListOf<Article>()
-            for(i in 0L until 100L){
-                result.add(
-                    Article(
-                        id = i + 1,
-                        img = "https://avatars.mds.yandex.net/get-pdb/963318/baf532b6-3a69-4ba2-ab0d-08e2fd5388ca/s600?webp=false",
-                        title = listOf("Собака", "Кошка", "Псина")[Random.nextInt(2)],
-                        description = "test description $i",
-                        category = listOf("Собака", "Кошка", "Псина")[Random.nextInt(2)],
-                        views = listOf("123", "1", "322312")[Random.nextInt(2)],
-                        likes = listOf("111", "2", "3124")[Random.nextInt(2)],
-                        domainIcon = "https://i.pinimg.com/736x/5e/b3/a5/5eb3a5665fe4e63f8c813a525aa3beb8.jpg",
-                        domain = listOf("Собаки", "Кошки", "Птицы", "Черепахи")[Random.nextInt(4)]
-                    )
-                )
-            }
-            return result
-        }
+
+fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
+    val result = mutableListOf<Article>()
+    for ((index, article) in this.withIndex()) {
+        result.add(
+            Article(
+                id = index.toLong(),
+                domainId = article.domainId ?: "",
+                domainTitle = article.domainTitle ?: "",
+                domainIcon = article.domainIcon ?: "",
+                categoryId = article.categoryId ?: "",
+                categoryTitle = article.categoryTitle ?: "",
+                title = article.title ?: "",
+                imageUrl = article.imageUrl ?: "",
+                shortDescription = article.shortDescription ?: "",
+                viewsCount = article.viewsCount ?: "",
+                likesCount = article.likesCount ?: 0
+            )
+        )
     }
+    return result
 }

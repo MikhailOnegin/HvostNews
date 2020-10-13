@@ -126,6 +126,7 @@
     <string name="what_wait_seminars">Что вас ждёт на семинарах?</string>
     <string name="video_past_seminars">Видео с прошлых семнаров</string>
     <string name="our_partners">Наши партнёры</string>
+    <string name="articlesTitle">Статьи</string>
     <string-array name="spinner_online_seminars">
         <item>Все семинары</item>
         <item>Ваши семинары</item>

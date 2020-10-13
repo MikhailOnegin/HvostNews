@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.ui.domains
+package ru.hvost.news.presentation.fragments.domains
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -11,9 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentArticlesBinding
 import ru.hvost.news.databinding.FragmentDomainBinding
-import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.adapters.DomainAdapter
 
 class DomainFragment : Fragment() {

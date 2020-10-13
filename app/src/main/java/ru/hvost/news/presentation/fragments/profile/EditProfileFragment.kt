@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.ui.profile
+package ru.hvost.news.presentation.fragments.profile
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog

@@ -8,10 +8,10 @@ data class Domain(
 
 fun List<Article>.toDomain(): List<Domain> {
     val map = mutableMapOf<String, Domain>()
-    for ((i,article) in this.withIndex()){
-        if(!map.containsKey(article.domain)){
-            map[article.domain] = Domain(
-                i.toLong(), article.domainIcon, article.domain
+    for (article in this) {
+        if (!map.containsKey(article.domainTitle)) {
+            map[article.domainTitle] = Domain(
+                article.id, article.domainIcon, article.domainTitle
             )
         }
     }
