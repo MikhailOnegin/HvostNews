@@ -33,7 +33,14 @@ class ArticlesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        setListeners()
         setObservers()
+    }
+
+    private fun setListeners() {
+        binding.allArticles.setOnClickListener {
+            findNavController().navigate(R.id.action_newsFragment_to_domainFragment)
+        }
     }
 
     private fun setObservers() {

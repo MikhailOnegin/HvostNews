@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutDomainItemBinding
 import ru.hvost.news.models.Domain
 
@@ -28,7 +29,7 @@ class DomainAdapter(private val onClick: (String) -> Unit) :
         fun bind(domainItem: Domain) {
             Glide
                 .with(binding.root)
-                .load(domainItem.img)
+                .load(APIService.baseUrl + domainItem.img)
                 .fitCenter()
                 .into(binding.img)
             binding.title.text = domainItem.title

@@ -40,7 +40,9 @@ interface APIService {
     fun getOnlineSchools(): Deferred<OnlineLessonsResponse>
 
     @GET("/rest/Articles/getArticles/")
-    fun getArticlesAsync(): Deferred<ArticlesResponse>
+    fun getArticlesAsync(
+        @Query("userToken") userToken: String? = null
+    ): Deferred<ArticlesResponse>
 
     @GET()
     fun setLessonTestesPassed(
@@ -63,7 +65,7 @@ interface APIService {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-        private const val baseUrl = "http://hvost-news.testfact3.ru"
+        const val baseUrl = "http://hvost-news.testfact3.ru"
 
         val API: APIService by lazy {
             val okHttpClient = OkHttpClient.Builder()

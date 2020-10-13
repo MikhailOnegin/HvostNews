@@ -11,7 +11,7 @@ fun List<Article>.toDomain(): List<Domain> {
     for (article in this) {
         if (!map.containsKey(article.domainTitle)) {
             map[article.domainTitle] = Domain(
-                article.id, article.domainIcon, article.domainTitle
+                article.domainId.toLong(), article.domainIcon, article.domainTitle
             )
         }
     }

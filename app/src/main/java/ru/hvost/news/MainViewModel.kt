@@ -21,16 +21,31 @@ class MainViewModel : ViewModel() {
 
     init {
         loadArticles()
+        loadDomains()
     }
 
     private fun loadArticles() {
         viewModelScope.launch {
             articlesState.value = State.LOADING
             try {
-                val response = APIService.API.getArticlesAsync().await()
+                val response = APIService.API.getArticlesAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
                     articles.value = response.articles?.toArticles()
-                    domains = articles.value?.toDomain()
+                    articlesState.value = State.SUCCESS
+                } else articlesState.value = State.ERROR
+            } catch (exc: Exception) {
+                articlesState.value = State.FAILURE
+            }
+        }
+    }
+
+    private fun loadDomains() {
+        viewModelScope.launch {
+            articlesState.value = State.LOADING
+            try {
+                val response = APIService.API.getArticlesAsync().await()
+                if (response.result == "success") {
+                    domains = response.articles?.toArticles()?.toDomain()
                     articlesState.value = State.SUCCESS
                 } else articlesState.value = State.ERROR
             } catch (exc: Exception) {
