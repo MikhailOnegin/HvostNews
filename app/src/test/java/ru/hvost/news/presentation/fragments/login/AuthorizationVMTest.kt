@@ -33,16 +33,30 @@ class AuthorizationVMTest {
     }
 
     @Test
-    fun logIn_wrongCredentials_setLoginStateToError() = coroutineRule.testDispatcher.runBlockingTest {
+    fun logIn_wrongCredentials_setsLoginEventToError() = coroutineRule.testDispatcher.runBlockingTest {
         authorizationVM.logIn("wrongLogin", "wrongPassword")
         val result = authorizationVM.loginEvent.getOrAwaitValue(timeout, attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 
     @Test
-    fun logIn_correctCredentials_setLoginStateToSuccess() = runBlockingTest {
+    fun logIn_correctCredentials_setsLoginEventToSuccess() = runBlockingTest {
         authorizationVM.logIn("v.fedotov@studiofact.ru", "123123123")
         val result = authorizationVM.loginEvent.getOrAwaitValue(timeout, attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
+    }
+
+    @Test
+    fun restorePass_wrongCredentials_setsRestorePassEventToError(){
+        authorizationVM.restorePassAsync("incorrect.email@mail.kz")
+        val result = authorizationVM.passRestoreEvent.getOrAwaitValue(timeout, attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
+    }
+
+    @Test
+    fun restorePass_correctCredentials_setsRestorePassEventToSuccess(){
+        authorizationVM.restorePassAsync("phoenix.fact@gmail.com")
+        val result = authorizationVM.passRestoreEvent.getOrAwaitValue(timeout, attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
 

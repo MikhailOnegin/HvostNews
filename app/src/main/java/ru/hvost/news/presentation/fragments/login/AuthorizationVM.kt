@@ -31,4 +31,22 @@ class AuthorizationVM: ViewModel(){
         }
     }
 
+    private val _passRestoreEvent = MutableLiveData<NetworkEvent<State>>()
+    val passRestoreEvent: LiveData<NetworkEvent<State>> = _passRestoreEvent
+
+    fun restorePassAsync(email: String){
+        viewModelScope.launch {
+            _passRestoreEvent.value = NetworkEvent(State.LOADING)
+            try{
+                val response = APIService.API.restorePassAsync(email).await()
+                if(response.result == "success") {
+                    _passRestoreEvent.value = NetworkEvent(State.SUCCESS)
+                }
+                else _passRestoreEvent.value = NetworkEvent(State.ERROR, response.error)
+            }catch (exc: Exception){
+                _passRestoreEvent.value = NetworkEvent(State.FAILURE)
+            }
+        }
+    }
+
 }

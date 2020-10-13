@@ -20,6 +20,11 @@ interface APIService {
         @Query("password") password: String?
     ): Deferred<LoginResponse>
 
+    @GET("/rest/Authorization/restorePassword/")
+    fun restorePassAsync(
+        @Query("email") email: String?
+    ): Deferred<PassRestoreResponse>
+
     // Map
     @GET()
     fun getShops(userToken:String):Deferred<ShopsResponse>
@@ -52,7 +57,7 @@ interface APIService {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-        private const val baseUrl = "http://fedotov.hvost-news.testfact3.ru"
+        private const val baseUrl = "http://hvost-news.testfact3.ru"
 
         val API : APIService by lazy {
             val okHttpClient = OkHttpClient.Builder()

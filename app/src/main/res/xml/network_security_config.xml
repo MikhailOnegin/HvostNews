@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">fedotov.hvost-news.testfact3.ru</domain>
+        <domain includeSubdomains="true">hvost-news.testfact3.ru</domain>
         <!-- TODO: Add real server. -->
     </domain-config>
 </network-security-config>
