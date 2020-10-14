@@ -1,13 +1,12 @@
 package ru.hvost.news.presentation.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.data.api.response.CouponsInfoResponse
+import ru.hvost.news.data.api.response.CouponInfoResponse
 import ru.hvost.news.data.api.response.CouponsResponse
 import ru.hvost.news.utils.enums.State
 
@@ -36,8 +35,8 @@ class CouponViewModel:ViewModel() {
     private val mutableCouponsInfoState:MutableLiveData<State> = MutableLiveData()
     val couponsInfoState:LiveData<State> = mutableCouponsInfoState
 
-    private val mutableCouponsInfo:MutableLiveData<CouponsInfoResponse> = MutableLiveData()
-    val couponsInfo:LiveData<CouponsInfoResponse> = mutableCouponsInfo
+    private val mutableCouponsInfo:MutableLiveData<CouponInfoResponse> = MutableLiveData()
+    val couponsInfo:LiveData<CouponInfoResponse> = mutableCouponsInfo
 
     fun getCouponsInfo(){
 

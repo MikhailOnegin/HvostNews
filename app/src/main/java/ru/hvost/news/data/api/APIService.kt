@@ -25,24 +25,35 @@ interface APIService {
         @Query("email") email: String?
     ): Deferred<PassRestoreResponse>
 
-    // Map
-    @GET()
-    fun getShops(userToken: String): Deferred<ShopsResponse>
-
-    // School
-    @GET()
-    fun getOfflineLessons(city: String): Deferred<OfflineLessonsResponse>
-
-    @GET()
-    fun getOnlineLessons(): Deferred<OfflineLessonsResponse>
-
-    @GET()
-    fun getOnlineSchools(): Deferred<OnlineLessonsResponse>
-
     @GET("/rest/Articles/getArticles/")
     fun getArticlesAsync(
         @Query("userToken") userToken: String? = null
     ): Deferred<ArticlesResponse>
+
+    // Coupons
+    @GET("/rest/Coupons/getCoupons/")
+    fun getCouponsAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<CouponsResponse>
+
+    @GET()
+    fun getCouponsInfo(): Deferred<CouponInfoResponse>
+
+    // School
+    @GET("/rest/School/getOfflineLessons/")
+    fun getOfflineLessons(
+        @Query("city") city: String?
+    ): Deferred<OfflineLessonsResponse>
+
+    @GET("/rest/School/getOnlineLessons/")
+    fun getOnlineLessons(
+        @Query("userToken") userToken: String?
+    ): Deferred<OnlineLessonsResponse>
+
+    @GET()
+    fun getOnlineSchools(
+        @Query("userToken") userToken: String?
+    ): Deferred<OnlineLessonsResponse>
 
     @GET()
     fun setLessonTestesPassed(
@@ -50,15 +61,9 @@ interface APIService {
         lessonId: Long
     ): Deferred<LessonTestesPassedResponse>
 
-    // Coupons
-    //http://fedotov.hvost-news.testfact3.ru/rest/Coupons/getCoupons/?userToken=eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9
-    @GET("/rest/Coupons/getCoupons/")
-    fun getCouponsAsync(
-        @Query("userToken") userToken: String?
-    ): Deferred<CouponsResponse>
-
+    // Map
     @GET()
-    fun getCouponsInfo(): Deferred<CouponsInfoResponse>
+    fun getShops(userToken: String): Deferred<ShopsResponse>
 
     companion object {
         private val moshi: Moshi = Moshi.Builder()

@@ -3,9 +3,9 @@ package ru.hvost.news.data.api.response
 data class OnlineSchoolsResponse(
     val result: String?,
     val error: String?,
-    val schools: List<School>?
+    val schoolResponses: List<SchoolResponse>?
 ) {
-    data class School(
+    data class SchoolResponse(
         val id: Long?,
         val title: String?,
         val image: String?,

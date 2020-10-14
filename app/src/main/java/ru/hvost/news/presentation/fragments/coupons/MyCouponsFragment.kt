@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.R
 import ru.hvost.news.data.api.response.CouponsResponse
 import ru.hvost.news.databinding.FragmentMyCouponsBinding
+import ru.hvost.news.models.Coupons
+import ru.hvost.news.models.toDomain
 import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 
@@ -40,7 +42,7 @@ class MyCouponsFragment: Fragment() {
         navC = findNavController()
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         adapter.clickCoupon = object : MyCouponsAdapter.ClickCoupon {
-            override fun click(item: CouponsResponse.Coupon) {
+            override fun click(item: Coupons.Coupon) {
                 val bundle = Bundle()
                 bundle.putSerializable("coupon", item)
                 navC.navigate(R.id.action_myCouponsFragment_to_couponFragment)
@@ -59,7 +61,8 @@ class MyCouponsFragment: Fragment() {
         couponVM.coupons.observe(owner, Observer {
             Toast.makeText(requireContext(), "Coupons Download", Toast.LENGTH_SHORT).show()
             it.coupons?.run {
-                adapter.setCoupons(it.coupons)
+                val coupons = this.toDomain()
+                adapter.setCoupons(coupons)
             }
         })
     }

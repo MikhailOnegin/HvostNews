@@ -15,7 +15,6 @@ class MapViewModel:ViewModel() {
     val shops:LiveData<ShopsResponse> = mutableShops
 
     fun getShops(userToken:String){
-
     }
 
 }

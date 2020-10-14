@@ -3,9 +3,9 @@ package ru.hvost.news.data.api.response
 data class OfflineLessonsResponse(
     val result: String?,
     val error: String?,
-    val lessons: List<OfflineLesson>?
+    val lessonResponses: List<OfflineLessonResponse>?
 ) {
-    data class OfflineLesson(
+    data class OfflineLessonResponse(
         val title: String?,
         val imageUrl: String?,
         val isFinished: Boolean?,

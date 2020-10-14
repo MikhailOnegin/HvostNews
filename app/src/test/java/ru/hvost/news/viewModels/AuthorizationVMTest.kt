@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.fragments.login
+package ru.hvost.news.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -10,8 +10,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import ru.hvost.news.MainCoroutineRule
+import ru.hvost.news.utils.rules.MainCoroutineRule
 import ru.hvost.news.getOrAwaitValue
+import ru.hvost.news.presentation.fragments.login.AuthorizationVM
 import ru.hvost.news.utils.enums.State
 
 @ExperimentalCoroutinesApi
@@ -29,7 +30,8 @@ class AuthorizationVMTest {
 
     @Before
     fun setup(){
-        authorizationVM = AuthorizationVM()
+        authorizationVM =
+            AuthorizationVM()
     }
 
     @Test

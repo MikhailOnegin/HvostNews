@@ -7,22 +7,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_coupon.view.*
 import ru.hvost.news.R
-import ru.hvost.news.data.api.response.CouponsResponse
+import ru.hvost.news.models.Coupons
 
 class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.CouponViewHolder>() {
 
-    private var coupons = arrayListOf<CouponsResponse.Coupon>()
+    private var coupons = arrayListOf<Coupons.Coupon>()
     var clickCoupon:ClickCoupon? = null
 
     interface ClickCoupon {
-        fun click(item:CouponsResponse.Coupon)
+        fun click(item:Coupons.Coupon)
     }
-    fun setCoupons(coupons:List<CouponsResponse.Coupon>){
-        this.coupons = coupons.toCollection(ArrayList())
+    fun setCoupons(couponResponses:List<Coupons.Coupon>){
+        this.coupons = couponResponses.toCollection(ArrayList())
         notifyDataSetChanged()
     }
-    fun addCoupons(coupons:List<CouponsResponse.Coupon>){
-        this.coupons.addAll(coupons)
+    fun addCoupons(couponResponses:List<Coupons.Coupon>){
+        this.coupons.addAll(couponResponses)
         notifyDataSetChanged()
     }
 
@@ -48,23 +48,16 @@ class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.CouponViewHolder>()
         private val tVCouponMaxDate = itemView.textView_coupon_date
         private val tVConst = itemView.coupon_constraint
         private val tVUsed = itemView.textView_coupon_status
-        fun bind(item: CouponsResponse.Coupon){
-            item.imageUrl?.run {
-                // add placeHolder()
-                Glide.with(itemView.context).load(this).centerCrop()
+        fun bind(item: Coupons.Coupon){
+            // add placeHolder()
+            Glide.with(itemView.context).load(this).centerCrop()
                     .into(iVCoupon)
-            }
-            item.title?.run {
-                tVCouponTitle.text = this
-            }
-            item.experationDate?.run {
-                tVCouponMaxDate.text = this
-            }
-            val status:String? = item.isUsed
-            if(status!=null && status == "used") {
+            tVCouponTitle.text = item.title
+            tVCouponMaxDate.text = item.expirationDate
+            val status:String = item.isUsed
+            if(status == "used") {
                 tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_red)
                 tVUsed.text = "Использован"
-
             }
             else{
                 tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_green)
