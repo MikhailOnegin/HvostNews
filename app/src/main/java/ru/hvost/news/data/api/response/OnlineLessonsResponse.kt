@@ -3,19 +3,19 @@ package ru.hvost.news.data.api.response
 data class OnlineLessonsResponse(
     val result: String?,
     val error: String?,
-    val lessons: List<OnlineLesson>?
+    val lessons: List<OnlineLessonResponse>?
 ) {
-    data class OnlineLesson(
+    data class OnlineLessonResponse(
         val lessonTitle: String?,
         val petAge: String?,
-        val lennonNumber: Int?,
+        val lessonNumber: Int?,
         val isTestPassed: String?,
         val videoUrl: String?,
         val testQuestion: String?,
-        val answersList: List<Answer>?
+        val answersList: List<AnswerResponse>?
     )
 
-    data class Answer(
+    data class AnswerResponse(
         val answer: String?,
         val isTrue: Boolean?
     )

@@ -3,10 +3,10 @@ package ru.hvost.news.data.api.response
 data class ShopsResponse (
     val result:String?,
     val error:String?,
-    val shops:List<Shop>?
+    val shopResponses:List<ShopResponse>?
 )
 {
-    data class Shop(
+    data class ShopResponse(
         val latitude:Float?,
         val longitude:Float?,
         val name:String?,

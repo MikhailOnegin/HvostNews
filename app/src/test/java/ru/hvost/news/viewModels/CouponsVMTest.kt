@@ -1,9 +1,9 @@
-package ru.hvost.news.presentation.fragments.coupons
+package ru.hvost.news.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.androiddevs.shoppinglisttestingyt.getOrAwaitValueTest
-import junit.framework.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -21,7 +21,7 @@ class CouponsVMTest {
     class AuthorizationVMTest {
 
         private val timeout = 10000L
-        private val token = "eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9"
+        private val userToken = "eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9"
 
         private lateinit var couponVmTest: CouponViewModel
 
@@ -38,8 +38,8 @@ class CouponsVMTest {
         }
 
         @Test
-        fun getCouponsTest() = coroutineRule.testDispatcher.runBlockingTest {
-            couponVmTest.getCoupons(token)
+        fun getCoupons() = coroutineRule.testDispatcher.runBlockingTest {
+            couponVmTest.getCoupons(userToken)
             val result = couponVmTest.couponsState.getOrAwaitValueTest(
                 time = timeout,
                 condition = { t: State? -> t != State.LOADING }

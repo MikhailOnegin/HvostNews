@@ -29,16 +29,4 @@ FragmentStateAdapter(fm, lifecycle)
     override fun createFragment(position: Int): Fragment {
         return fragments[position]
     }
-
-    //FragmentPagerAdapter(fm)
-    //override fun getItem(position: Int): Fragment {
-    //    return when(position){
-    //        0 -> SeminarsFragment()
-    //        else -> SeminarsInYourCityFragment()
-    //    }
-    //}
-//
-    //override fun getCount(): Int {
-    //    return 2
-    //}
 }

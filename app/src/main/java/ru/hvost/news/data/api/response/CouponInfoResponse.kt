@@ -1,6 +1,6 @@
 package ru.hvost.news.data.api.response
 
-data class CouponsInfoResponse (
+data class CouponInfoResponse (
     val result:String?,
     val error:String?,
     val imageUrl:String?,
