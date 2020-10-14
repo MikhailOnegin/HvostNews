@@ -7,21 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragments.articles.ArticlesFragment">
 
-    <Button
-        android:id="@+id/filter"
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/category_tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/filterTitle"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/list"
+        app:tabBackground="@android:color/transparent"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="@dimen/normalMargin"
+        app:tabPaddingStart="@dimen/normalMargin"
+        app:tabSelectedTextColor="@android:color/black"
+        app:tabTextColor="@android:color/darker_gray">
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/filterHint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/filter"
-        app:layout_constraintTop_toTopOf="parent" />
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
@@ -29,6 +32,6 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter" />
+        app:layout_constraintTop_toBottomOf="@+id/category_tabs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

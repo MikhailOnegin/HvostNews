@@ -34,9 +34,9 @@ class DomainFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { domain: String ->
+        val onActionClicked = { domain: Long ->
             val bundle = Bundle()
-            bundle.putString("DOMAIN_NAME", domain)
+            bundle.putLong("DOMAIN_ID", domain)
             findNavController().navigate(R.id.action_domainFragment_to_subDomainFragment, bundle)
         }
         val adapter = DomainAdapter(onActionClicked)

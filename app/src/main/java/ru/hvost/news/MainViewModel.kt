@@ -16,12 +16,15 @@ class MainViewModel : ViewModel() {
 
     val articlesState = MutableLiveData<State>()
     val articles = MutableLiveData<List<Article>>()
+    val allArticles = MutableLiveData<List<Article>>()
+    val allArticlesState = MutableLiveData<State>()
 
+    var categories: List<Categories>? = null
     var domains: List<Domain>? = null
 
     init {
         loadArticles()
-        loadDomains()
+        loadAllArticles()
     }
 
     private fun loadArticles() {
@@ -39,17 +42,19 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun loadDomains() {
+    private fun loadAllArticles() {
         viewModelScope.launch {
-            articlesState.value = State.LOADING
+            allArticlesState.value = State.LOADING
             try {
                 val response = APIService.API.getArticlesAsync().await()
                 if (response.result == "success") {
-                    domains = response.articles?.toArticles()?.toDomain()
-                    articlesState.value = State.SUCCESS
-                } else articlesState.value = State.ERROR
+                    allArticles.value = response.articles?.toArticles()
+                    categories = allArticles.value?.toCategory()
+                    domains = allArticles.value?.toDomain()
+                    allArticlesState.value = State.SUCCESS
+                } else allArticlesState.value = State.ERROR
             } catch (exc: Exception) {
-                articlesState.value = State.FAILURE
+                allArticlesState.value = State.FAILURE
             }
         }
     }
