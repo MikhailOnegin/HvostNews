@@ -10,7 +10,7 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutDomainItemBinding
 import ru.hvost.news.models.Domain
 
-class DomainAdapter(private val onClick: (String) -> Unit) :
+class DomainAdapter(private val onClick: (Long) -> Unit) :
     ListAdapter<Domain, DomainAdapter.DomainViewHolder>(FaqDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DomainViewHolder {
@@ -23,7 +23,7 @@ class DomainAdapter(private val onClick: (String) -> Unit) :
 
     class DomainViewHolder(
         private val binding: LayoutDomainItemBinding,
-        private val onClick: (String) -> Unit
+        private val onClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(domainItem: Domain) {
@@ -34,11 +34,11 @@ class DomainAdapter(private val onClick: (String) -> Unit) :
                 .into(binding.img)
             binding.title.text = domainItem.title
 
-            binding.root.setOnClickListener { onClick.invoke(domainItem.title) }
+            binding.root.setOnClickListener { onClick.invoke(domainItem.id) }
         }
 
         companion object {
-            fun getDomainVH(parent: ViewGroup, onClick: (String) -> Unit): DomainViewHolder {
+            fun getDomainVH(parent: ViewGroup, onClick: (Long) -> Unit): DomainViewHolder {
                 val binding = LayoutDomainItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
