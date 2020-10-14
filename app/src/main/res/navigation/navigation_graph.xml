@@ -24,6 +24,13 @@
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_loginFragment_to_regParentFragment"
+            app:destination="@id/regParentFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -230,5 +237,11 @@
         android:name="ru.hvost.news.presentation.fragments.map.PartnersPageFragment"
         android:label="PartnersPage"
         />
+
+    <fragment
+        android:id="@+id/regParentFragment"
+        android:name="ru.hvost.news.presentation.fragments.login.RegParentFragment"
+        android:label="RegParentFragment"
+        tools:layout="@layout/fragment_reg_parent"/>
 
 </navigation>

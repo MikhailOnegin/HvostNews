@@ -99,10 +99,7 @@ class LoginFragment : Fragment() {
 
     private val onRegisterButtonClicked = { _: View ->
         if(authorizationVM.loginEvent.value?.peekContent() != State.LOADING) {
-            createSnackbar(
-                binding.root,
-                getString(R.string.developing)
-            ).show()
+            findNavController().navigate(R.id.action_loginFragment_to_regParentFragment)
         }
     }
 
