@@ -75,6 +75,10 @@
         <action
             android:id="@+id/action_profileFragment_to_petProfileFragment"
             app:destination="@id/petProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myCouponsFragment"
+            app:destination="@+id/myCouponsFragment"
+            />
     </fragment>
 
     <fragment
@@ -162,22 +166,24 @@
         android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseLessonFragment"
         android:label="Online course lesson"
         tools:layout="@layout/fragment_online_course_lesson" />
-
     <fragment
         android:id="@+id/onlineCourseNewFragment"
         android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseNewFragment"
         android:label="OnlineCourseNewFragment"
         tools:layout="@layout/fragment_online_course_new" />
+
     <fragment
         android:id="@+id/choicePrizeFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.ChoicePrizeFragment"
         android:label="fragment_choice_prize"
         tools:layout="@layout/fragment_choice_prize" />
+
     <fragment
         android:id="@+id/petPassportFragment"
         android:name="ru.hvost.news.presentation.fragments.profile.PetPassportFragment"
         android:label="fragment_pet_passport"
         tools:layout="@layout/fragment_pet_passport" />
+
     <fragment
         android:id="@+id/inviteFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.InviteFragment"
@@ -187,6 +193,7 @@
             android:id="@+id/action_inviteFragment_to_prizesFragment"
             app:destination="@id/prizesFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/prizesFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.PrizesFragment"
@@ -196,10 +203,7 @@
             android:id="@+id/action_prizesFragment_to_choicePrizeFragment"
             app:destination="@id/choicePrizeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="ru.hvost.news.presentation.fragments.map.MapFragment"
-        android:label="MapFragment" />
+
     <fragment
         android:id="@+id/shopFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.ShopFragment"
@@ -209,5 +213,22 @@
         android:name="ru.hvost.news.presentation.fragments.login.PassRestoreFragment"
         android:label="PassRestoreFragment"
         tools:layout="@layout/fragment_pass_restore"/>
+
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="ru.hvost.news.presentation.fragments.map.MapFragment"
+        android:label="MapFragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_partnersPageFragment"
+            app:destination="@+id/partners_page_fragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/partners_page_fragment"
+        android:name="ru.hvost.news.presentation.fragments.map.PartnersPageFragment"
+        android:label="PartnersPage"
+        />
 
 </navigation>

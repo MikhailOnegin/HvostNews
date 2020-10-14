@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/shape_red" />
+            app:srcCompat="@drawable/shape_red" />
 
         <TextView
             android:id="@+id/textView_logo_coupon_title"

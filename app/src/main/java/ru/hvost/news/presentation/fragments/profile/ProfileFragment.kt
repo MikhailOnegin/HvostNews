@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
@@ -19,6 +20,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var navC:NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +35,14 @@ class ProfileFragment : Fragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setRecyclerView()
         setListeners()
+        navC = findNavController()
     }
 
     private fun setListeners() {
         binding.edit.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
+        binding.buttonCoupons.setOnClickListener {
+            navC.navigate(R.id.action_profileFragment_to_myCouponsFragment)
+        }
     }
 
     private fun setRecyclerView() {
