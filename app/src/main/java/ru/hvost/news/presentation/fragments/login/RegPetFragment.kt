@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegPetBinding
@@ -12,6 +13,7 @@ import ru.hvost.news.databinding.FragmentRegPetBinding
 class RegPetFragment : Fragment() {
 
     private lateinit var binding: FragmentRegPetBinding
+    private lateinit var registrationVM: RegistrationVM
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,6 +22,12 @@ class RegPetFragment : Fragment() {
     ): View? {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
+        registrationVM.setStage(RegistrationVM.RegStep.PET)
     }
 
     override fun onStart() {

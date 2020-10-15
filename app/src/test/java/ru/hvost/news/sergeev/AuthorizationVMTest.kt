@@ -1,4 +1,4 @@
-package ru.hvost.news.viewModels
+package ru.hvost.news.sergeev
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -25,40 +25,38 @@ class AuthorizationVMTest {
     @get: Rule
     val coroutineRule = MainCoroutineRule()
 
-    private val timeout = 10L
     private lateinit var authorizationVM: AuthorizationVM
 
     @Before
     fun setup(){
-        authorizationVM =
-            AuthorizationVM()
+        authorizationVM = AuthorizationVM()
     }
 
     @Test
     fun logIn_wrongCredentials_setsLoginEventToError() = coroutineRule.testDispatcher.runBlockingTest {
         authorizationVM.logIn("wrongLogin", "wrongPassword")
-        val result = authorizationVM.loginEvent.getOrAwaitValue(timeout, attempts = 2)
+        val result = authorizationVM.loginEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 
     @Test
     fun logIn_correctCredentials_setsLoginEventToSuccess() = runBlockingTest {
         authorizationVM.logIn("v.fedotov@studiofact.ru", "123123123")
-        val result = authorizationVM.loginEvent.getOrAwaitValue(timeout, attempts = 2)
+        val result = authorizationVM.loginEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
 
     @Test
     fun restorePass_wrongCredentials_setsRestorePassEventToError(){
         authorizationVM.restorePassAsync("incorrect.email@mail.kz")
-        val result = authorizationVM.passRestoreEvent.getOrAwaitValue(timeout, attempts = 2)
+        val result = authorizationVM.passRestoreEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 
     @Test
     fun restorePass_correctCredentials_setsRestorePassEventToSuccess(){
         authorizationVM.restorePassAsync("phoenix.fact@gmail.com")
-        val result = authorizationVM.passRestoreEvent.getOrAwaitValue(timeout, attempts = 2)
+        val result = authorizationVM.passRestoreEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
 
