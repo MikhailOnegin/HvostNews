@@ -1,3 +1,154 @@
 <resources>
     <string name="app_name">Хвост Ньюс</string>
+    <string name="filterTitle">Фильтр</string>
+    <string name="filterHint">Выбирайте только интересные публикации</string>
+    <string name="working">Наши специалисты работают над этим…</string>
+    <string name="year">" года"</string>
+    <string name="saveChanges">Сохранить изменения</string>
+    <string name="cancel">Отменить изменения</string>
+    <string name="secondName">Отчество</string>
+    <string name="name">Имя</string>
+    <string name="surName">Фамилия</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="phone">Ваш номер телефона</string>
+    <string name="email">E-mail</string>
+    <string name="city">Город</string>
+    <string name="petName">Кличка</string>
+    <string name="gender">Пол</string>
+    <string name="food">Любимые лакомства</string>
+    <string name="habbit">Вредная привычка</string>
+    <string name="chip">Чип</string>
+    <string name="presentations">Участие в выставках</string>
+    <string name="titules">Наличие титулов</string>
+    <string name="sport">Занятие спортом</string>
+    <string name="saloons">Посещение грумминг-салонов</string>
+    <string name="delete">Удалить питомца</string>
+    <string name="type">Вид питомца</string>
+    <string name="breed">Порода</string>
+    <string name="toy">Любимая игрушка</string>
+    <string name="education">Образование</string>
+    <string-array name="testItems">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string name="clean">Стерилизованный / кастрированный</string>
+    <string name="vaccine">Название вакцины</string>
+    <string name="vaccineDate">Дата последней вакцинации</string>
+    <string name="vaccination">Вакцинация</string>
+    <string name="deworming">Дегельминтизация</string>
+    <string name="drug">Название препарата</string>
+    <string name="dewormingDate">Дата последней дегельминтизации</string>
+    <string name="ekzo">Обработка от экзопаразитов</string>
+    <string name="ekzoDate">Дата последней обработки</string>
+    <string name="diet">Питание</string>
+    <string name="diseases">Хронические заболевания</string>
+    <string name="add">Добавить</string>
+    <string name="clinic">Любимая dtnклиника</string>
+    <string name="clinicName">Название</string>
+    <string name="address">Адрес ветклиники</string>
+    <string name="stub">(нет)</string>
+    <string name="coupon_title">Название купона</string>
+    <string name="coupon_code">Кодовое слово</string>
+    <string name="show_qr_code">Показать QR-код</string>
+    <string name="logo_activity">Активность</string>
+    <string name="logo_status">Статус</string>
+    <string name="logo_coupon_description">Описание купона</string>
+    <string name="online_school">Онлайн-школа</string>
+    <string name="seminars_in_your_sites">Семинары в вашем городе</string>
+    <string name="how_seminars_show">Какие семинары показывать</string>
+    <string name="choose_your_city">Выберите ваш город</string>
+    <string name="show_completed">Показать завершенные</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="send_comment">Оставить отзыв</string>
+    <string name="address1">Адрес</string>
+    <string name="work_title">Время работы</string>
+    <string name="phone1">Телефон</string>
+    <string name="website">Сайт</string>
+    <string name="send_answer">Ответить</string>
+    <string name="useful_literature">Полезная литература</string>
+    <string name="guide_test">Для того чтобы открыть следующий видео-урок ответьте на вопрос по пройденной теме:</string>
+    <string name="promotions">Участие в акциях</string>
+    <string name="what_wait">Что вас ждет в этом курсе?</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="online_school_for_owners">Онлайн школа для владельцев щенков</string>
+    <string name="about_course">О курсе</string>
+    <string name="course_materials">Материалы курса</string>
+    <string name="course_description">Это обучающий онлайн-курс в овом формате. Он создан для тех, кто только планирует
+        взять в дом щенкаили уже завёл непоседу, и у кого остались вопросы по его содержанию. \n\n
+        Мы поможем вам стать суперхозяином и расскажем: почему щенок грызёт всё подряд, как подготовиться к первой прогулке
+        и какие этапы взросления ждут малыша.\n\n
+        В курсе 8 серий по 10-20 минут, которые можно просматривать в комфотном тепле и в удобное для вас время.\n\n
+        Желаем удачи в прохождении курса!
+    </string>
+    <string name="age">Возраст\n(мес.)</string>
+    <string name="theme">Тема</string>
+    <string name="go_registration">Для прохождения курса пройдите регистрацию!</string>
+    <string name="lessons_comleted">Пройдено уроков:</string>
+    <string name="your_rank">Ваше звание:</string>
+    <string name="not_found">(нет)</string>
+    <string name="description">Описание</string>
+    <string name="comments">Отзывы</string>
+    <string-array name="spinner_coupons">
+        <item>Все</item>
+        <item>Активные</item>
+        <item>Использованные</item>
+    </string-array>
+    <string name="balance">Ваш баланс:</string>
+    <string name="prizeFor">Приз для владельцев</string>
+    <string name="inviteFriends">Приглашай друзей и выбирай призы от Хвост Ньюс</string>
+    <string name="inPrize">В набор входит:</string>
+    <string name="toCart">В корзину</string>
+    <string name="logoCD">Логотип \"Хвост-Ньюс\"</string>
+    <string name="authorizationTitle">Авторизация</string>
+    <string name="loginHint">Ваш номер телефона или e-mail</string>
+    <string name="passwordHint">Пароль</string>
+    <string name="restorePassword">Забыли пароль?</string>
+    <string name="buttonLogin">Войти</string>
+    <string name="buttonRegister">Зарегистрироваться</string>
+    <string name="status">Статус</string>
+    <string name="place_action">Место проведеия</string>
+    <string name="date_action">Дата проведения</string>
+    <string name="sponsor">Организатор</string>
+    <string name="head_spr_with_store">Школа ответственных родителей с зоомагазином "Мокрый нос"</string>
+    <string name="participate">Уаствую</string>
+    <string name="about_seminar">О семинаре</string>
+    <string name="schedule_for_puppy_owners">Расписание для владельцев щенков</string>
+    <string name="seminar_description">У вас появился член семьи,  а вместе с ним много вопросов. Чем кормить? Как оставить дома
+        одного? Как вырастить малыша правильно?\n\n
+        Школа ответственных родителей "Хвост Ньюс" совместно с сетью зоомагазинов  "Мокрый Нос", заботятся о вашем здоровье и поддерживают
+        режим самоизоляции, поэтому приглашаем Вас присоединиться к нашей онлайн-школе в один клик\n\n
+        На вебинарах, эксперты в области ухода за питомцами расскажут много полезной информации, по содержанию, кормлению и воспитанию ваших
+        хвостатых малышей.
+    </string>
+    <string name="what_wait_seminars">Что вас ждёт на семинарах?</string>
+    <string name="video_past_seminars">Видео с прошлых семнаров</string>
+    <string name="our_partners">Наши партнёры</string>
+    <string name="articlesTitle">Статьи</string>
+    <string-array name="spinner_online_seminars">
+        <item>Все семинары</item>
+        <item>Ваши семинары</item>
+    </string-array>
+    <string-array name="spinner_your_city">
+        <item>Любой город</item>
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
+    </string-array>
+    <string name="bnvFeed">Лента</string>
+    <string name="bnvShop">Магазин</string>
+    <string name="bnvMaps">Адреса</string>
+    <string name="bnvProfile">Профиль</string>
+    <string name="bnvSchool">Школа</string>
+    <string name="buttonOk">OK</string>
+    <string name="networkFailureMessage">Не удалось выполнить запрос. Проверьте соединение с интернетом и повторите попытку.</string>
+    <string name="developing">В разработке.</string>
+    <string name="buttonSend">Отправить</string>
+    <string name="emailHint">E-mail</string>
+    <string name="passRestoringInstructionsSent">Инструкции по восстановлению пароля отправлены на указанную электронную почту.</string>
+    <string name="buttonNext">Далее</string>
+    <string name="buttonDoneReg">Завершить регистрацию</string>
+    <string name="share">Поделиться</string>
 </resources>

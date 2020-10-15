@@ -7,7 +7,241 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="ru.hvost.news.presentation.ui.login.LoginFragment"
+        android:name="ru.hvost.news.presentation.fragments.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_newsFragment"
+            app:destination="@id/newsFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_passRestoreFragment"
+            app:destination="@id/passRestoreFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_loginFragment_to_regParentFragment"
+            app:destination="@id/regParentFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="ru.hvost.news.presentation.fragments.articles.ArticlesFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_articles" >
+        <action
+            android:id="@+id/action_newsFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_domainFragment"
+            app:destination="@id/domainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="ru.hvost.news.presentation.fragments.articles.ArticleDetailFragment"
+        android:label="fragment_article_detail"
+        tools:layout="@layout/fragment_article_detail" />
+
+    <fragment
+        android:id="@+id/domainFragment"
+        android:name="ru.hvost.news.presentation.fragments.domains.DomainFragment"
+        android:label="fragment_domain"
+        tools:layout="@layout/fragment_domain" >
+        <action
+            android:id="@+id/action_domainFragment_to_subDomainFragment"
+            app:destination="@id/subDomainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/subDomainFragment"
+        android:name="ru.hvost.news.presentation.fragments.domains.SubDomainFragment"
+        android:label="SubDomainFragment" >
+        <action
+            android:id="@+id/action_subDomainFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_petProfileFragment"
+            app:destination="@id/petProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myCouponsFragment"
+            app:destination="@+id/myCouponsFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.EditProfileFragment"
+        android:label="EditProfileFragment" />
+
+    <fragment
+        android:id="@+id/petProfileFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.PetProfileFragment"
+        android:label="fragment_pet_profile"
+        tools:layout="@layout/fragment_pet_profile" >
+        <action
+            android:id="@+id/action_petProfileFragment_to_petPassportFragment"
+            app:destination="@id/petPassportFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myCouponsFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.MyCouponsFragment"
+        android:label="My Coupons"
+        tools:layout="@layout/fragment_coupons_my" >
+        <action
+            android:id="@+id/action_myCouponsFragment_to_couponFragment"
+            app:destination="@+id/couponFragment"
+            />
+        <action
+            android:id="@+id/action_myCouponsFragment_to_infoGetCouponsFragment"
+            app:destination="@+id/infoGetCouponsFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/couponFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.CouponFragment"
+        android:label="Coupon"
+        tools:layout="@layout/fragment_coupon" />
+
+    <fragment
+        android:id="@+id/infoGetCouponsFragment"
+        android:name="ru.hvost.news.presentation.fragments.coupons.CouponsGetInfoFragment"
+        android:label="Coupons info"
+        tools:layout="@layout/fragment_coupons_get_info" />
+
+    <fragment
+        android:id="@+id/parentsSchoolFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.parents.ParentsSchoolFragment"
+        android:label="Parents school"
+        tools:layout="@layout/fragment_school_parents" >
+        <action
+            android:id="@+id/action_parentSchoolFragment_to_onlineCourseActiveFragment"
+            app:destination="@+id/onlineCourseActiveFragment"
+            />
+        <action
+            android:id="@+id/action_parentSchoolFragment_to_offlineCourseCompletedFragment"
+            app:destination="@+id/offlineCourseCompletedFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/offlineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseActiveFragment"
+        android:label="Offline course active"
+        tools:layout="@layout/fragment_offline_course_active" />
+
+    <fragment
+        android:id="@+id/offlineCourseCompletedFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseCompletedFragment"
+        android:label="Offline course completed"
+        tools:layout="@layout/fragment_offline_course_comleted" />
+
+    <fragment
+        android:id="@+id/onlineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.active.OnlineCourseActiveFragment"
+        android:label="Online course active"
+        tools:layout="@layout/fragment_online_course_active" >
+        <action
+            android:id="@+id/action_onlineCourseActiveFragment_to_onlineCourseLessonFragment"
+            app:destination="@+id/onlineCourseLessonFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onlineCourseLessonFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseLessonFragment"
+        android:label="Online course lesson"
+        tools:layout="@layout/fragment_online_course_lesson" />
+    <fragment
+        android:id="@+id/onlineCourseNewFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseNewFragment"
+        android:label="OnlineCourseNewFragment"
+        tools:layout="@layout/fragment_online_course_new" />
+
+    <fragment
+        android:id="@+id/choicePrizeFragment"
+        android:name="ru.hvost.news.presentation.fragments.invite.ChoicePrizeFragment"
+        android:label="fragment_choice_prize"
+        tools:layout="@layout/fragment_choice_prize" />
+
+    <fragment
+        android:id="@+id/petPassportFragment"
+        android:name="ru.hvost.news.presentation.fragments.profile.PetPassportFragment"
+        android:label="fragment_pet_passport"
+        tools:layout="@layout/fragment_pet_passport" />
+
+    <fragment
+        android:id="@+id/inviteFragment"
+        android:name="ru.hvost.news.presentation.fragments.invite.InviteFragment"
+        android:label="fragment_invite"
+        tools:layout="@layout/fragment_invite" >
+        <action
+            android:id="@+id/action_inviteFragment_to_prizesFragment"
+            app:destination="@id/prizesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/prizesFragment"
+        android:name="ru.hvost.news.presentation.fragments.invite.PrizesFragment"
+        android:label="fragment_prizes"
+        tools:layout="@layout/fragment_prizes" >
+        <action
+            android:id="@+id/action_prizesFragment_to_choicePrizeFragment"
+            app:destination="@id/choicePrizeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.ShopFragment"
+        android:label="ShopFragment" />
+    <fragment
+        android:id="@+id/passRestoreFragment"
+        android:name="ru.hvost.news.presentation.fragments.login.PassRestoreFragment"
+        android:label="PassRestoreFragment"
+        tools:layout="@layout/fragment_pass_restore"/>
+
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="ru.hvost.news.presentation.fragments.map.MapFragment"
+        android:label="MapFragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_partnersPageFragment"
+            app:destination="@+id/partners_page_fragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/partners_page_fragment"
+        android:name="ru.hvost.news.presentation.fragments.map.PartnersPageFragment"
+        android:label="PartnersPage"
+        />
+
+    <fragment
+        android:id="@+id/regParentFragment"
+        android:name="ru.hvost.news.presentation.fragments.login.RegParentFragment"
+        android:label="RegParentFragment"
+        tools:layout="@layout/fragment_reg_parent"/>
+
 </navigation>

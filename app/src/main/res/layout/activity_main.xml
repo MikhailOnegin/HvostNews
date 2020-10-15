@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".presentation.activities.MainActivity">
 
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_graph"
         tools:ignore="FragmentTagUsage" />
 
-</FrameLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bnvHeight"
+        app:menu="@menu/bottom_navigation"
+        android:background="@android:color/white"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/bnv_text_color"
+        app:itemTextColor="@color/bnv_text_color"
+        app:itemTextAppearanceActive="@style/bnvActiveTextAppearance"
+        app:itemTextAppearanceInactive="@style/bnvInactiveTextAppearance"
+        app:labelVisibilityMode="labeled"
+        app:itemBackground="@drawable/selector_bnv"
+        android:visibility="gone"/>
+
+</LinearLayout>

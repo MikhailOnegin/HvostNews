@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="itemListCorners">5dp</dimen>
+    <dimen name="textMargin">4dp</dimen>
+    <dimen name="xSmallMargin">4dp</dimen>
+    <dimen name="smallMargin">8dp</dimen>
+    <dimen name="normalMargin">16dp</dimen>
+    <dimen name="largeMargin">24dp</dimen>
+    <dimen name="xLargeMargin">32dp</dimen>
+    <dimen name="listItemElevation">5dp</dimen>
+    <dimen name="screenContentPadding">16dp</dimen>
+    <dimen name="imageHeight">150dp</dimen>
+    <dimen name="categoryHeight">26dp</dimen>
+    <dimen name="toolbarHeight">60dp</dimen>
+    <dimen name="logoPadding">20dp</dimen>
+    <dimen name="authorizationTitleTextSize">36sp</dimen>
+    <dimen name="restorePasswordTextSize">14sp</dimen>
+    <dimen name="buttonShapeAppearanceCornerSize">16dp</dimen>
+    <dimen name="ButtonTextSize">16sp</dimen>
+    <dimen name="buttonHeight">80dp</dimen>
+    <dimen name="registerButtonHeight">70dp</dimen>
+    <dimen name="editTextHeight">70dp</dimen>
+    <dimen name="outlinedButtonStrokeWidth">3dp</dimen>
+    <dimen name="bnvHeight">56dp</dimen>
+    <dimen name="smallCorners">8dp</dimen>
+</resources>

@@ -1,8 +1,52 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:textColor">@color/TextColorDefault</item>
     </style>
+
+    <style name="Spinner">
+        <item name="background">?android:colorBackground</item>
+    </style>
+
+    
+    <style name="EditText">
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:textColorHint">@color/TextColorHints</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/buttonShapeAppearanceCornerSize</item>
+    </style>
+
+    <style name="ButtonTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+    </style>
+
+    <style name="ElevatedButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAppearance">@style/ButtonTextAppearance</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/ButtonTextSize</item>
+        <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
+    </style>
+
+    <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAppearance">@style/ButtonTextAppearance</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:textSize">@dimen/ButtonTextSize</item>
+        <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
+        <item name="strokeColor">@color/outlinedButtonStroke</item>
+        <item name="strokeWidth">@dimen/outlinedButtonStrokeWidth</item>
+    </style>
+
+    <style name="bnvActiveTextAppearance" parent="TextAppearance.AppCompat"/>
+
+    <style name="bnvInactiveTextAppearance" parent="TextAppearance.AppCompat"/>
 
 </resources>
