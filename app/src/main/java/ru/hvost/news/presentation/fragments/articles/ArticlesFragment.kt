@@ -66,6 +66,7 @@ class ArticlesFragment : Fragment() {
         val onActionClicked = { id: Long ->
             val bundle = Bundle()
             bundle.putLong("ITEM_ID", id)
+            bundle.putString("TYPE", "INDIVIDUAL")
             findNavController().navigate(R.id.action_newsFragment_to_articleDetailFragment, bundle)
         }
         val adapter = ArticleAdapter(onActionClicked)

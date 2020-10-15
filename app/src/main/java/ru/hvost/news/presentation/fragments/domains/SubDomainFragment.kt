@@ -45,8 +45,9 @@ class SubDomainFragment : Fragment() {
     }
 
     private fun setTabs() {
-        if (mainVM.categories == null) return
-        for (category in mainVM.categories!!) {
+        val categories =
+            mainVM.categories?.filter { it.domain == arguments?.getLong("DOMAIN_ID") } ?: return
+        for (category in categories) {
             val tab = binding.categoryTabs.newTab()
             tab.tag = category.id
             tab.text = category.title
@@ -104,6 +105,7 @@ class SubDomainFragment : Fragment() {
         val onActionClicked = { id: Long ->
             val bundle = Bundle()
             bundle.putLong("ITEM_ID", id)
+            bundle.putString("TYPE", "ALL")
             findNavController().navigate(
                 R.id.action_subDomainFragment_to_articleDetailFragment,
                 bundle
