@@ -9,15 +9,34 @@
         android:id="@+id/regUserFragment"
         android:name="ru.hvost.news.presentation.fragments.login.RegUserFragment"
         android:label="RegUserFragment"
-        tools:layout="@layout/fragment_reg_user"/>
+        tools:layout="@layout/fragment_reg_user">
+        <action
+            android:id="@+id/action_regUserFragment_to_regPetFragment"
+            app:destination="@id/regPetFragment"
+            app:enterAnim="@anim/fragment_slide_left"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
+            app:popExitAnim="@anim/fragment_slide_right" />
+    </fragment>
+
     <fragment
         android:id="@+id/regPetFragment"
         android:name="ru.hvost.news.presentation.fragments.login.RegPetFragment"
         android:label="RegPetFragment"
-        tools:layout="@layout/fragment_reg_pet"/>
+        tools:layout="@layout/fragment_reg_pet">
+        <action
+            android:id="@+id/action_regPetFragment_to_regInterestsFragment"
+            app:destination="@id/regInterestsFragment"
+            app:enterAnim="@anim/fragment_slide_left"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
+            app:popExitAnim="@anim/fragment_slide_right" />
+    </fragment>
+
     <fragment
         android:id="@+id/regInterestsFragment"
         android:name="ru.hvost.news.presentation.fragments.login.RegInterestsFragment"
         android:label="RegInterestsFragment"
         tools:layout="@layout/fragment_reg_interests"/>
+
 </navigation>
