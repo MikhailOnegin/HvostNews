@@ -150,4 +150,5 @@
     <string name="passRestoringInstructionsSent">Инструкции по восстановлению пароля отправлены на указанную электронную почту.</string>
     <string name="buttonNext">Далее</string>
     <string name="buttonDoneReg">Завершить регистрацию</string>
+    <string name="share">Поделиться</string>
 </resources>
