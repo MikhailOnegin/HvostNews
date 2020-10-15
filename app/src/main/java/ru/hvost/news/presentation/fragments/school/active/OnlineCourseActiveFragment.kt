@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.fragments.school
+package ru.hvost.news.presentation.fragments.school.active
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,22 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import ru.hvost.news.databinding.FragmentParentsSchoolBinding
+import ru.hvost.news.databinding.FragmentOnlineCourseActiveBinding
+import ru.hvost.news.presentation.adapters.viewPager.OnlineSchoolActiveVPAdapter
 import ru.hvost.news.presentation.adapters.viewPager.ParentsSchoolVPAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class ParentsSchoolFragment:Fragment() {
+class OnlineCourseActiveFragment:Fragment() {
 
-    private lateinit var binding: FragmentParentsSchoolBinding
+    private lateinit var binding: FragmentOnlineCourseActiveBinding
     private lateinit var schoolVM: SchoolViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentParentsSchoolBinding.inflate(inflater, container, false)
+        binding = FragmentOnlineCourseActiveBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,11 +30,10 @@ class ParentsSchoolFragment:Fragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         initViewPager()
     }
-
     private fun initViewPager(){
-        val adapter = ParentsSchoolVPAdapter(requireActivity().supportFragmentManager, this.lifecycle)
+        val adapter = OnlineSchoolActiveVPAdapter(requireActivity().supportFragmentManager, this.lifecycle)
         binding.viewPager.adapter = adapter
-        val names:Array<String> = arrayOf("Онлайн школа", "Семинары в вашем городе")
+        val names:Array<String> = arrayOf("О курсе", "Материалы курса")
         TabLayoutMediator(binding.tabLayout,binding.viewPager){tab, position ->
             tab.text = names[position]
         }.attach()

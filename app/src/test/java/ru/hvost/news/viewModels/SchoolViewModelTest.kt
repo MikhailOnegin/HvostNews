@@ -11,6 +11,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.rules.MainCoroutineRule
@@ -20,7 +21,7 @@ import ru.hvost.news.utils.rules.MainCoroutineRule
 class SchoolViewModelTest {
 
     private val timeout = 10000L
-    private val userToken = "eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9"
+    private val userToken = "eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ=="
     private val city = "Новосибирск"
 
     private lateinit var schoolVmTest: SchoolViewModel
@@ -56,4 +57,15 @@ class SchoolViewModelTest {
         )
         assertEquals("Ошибка загрузки онлайн уроков", State.SUCCESS, result)
     }
+
+    @Test
+    fun getOnlineSchools() = coroutineRule.testDispatcher.runBlockingTest {
+        schoolVmTest.getOnlineSchools(userToken)
+        val result = schoolVmTest.onlineSchoolsState.getOrAwaitValueTest(
+            time = timeout,
+            condition = { t: State? -> t != State.LOADING }
+        )
+        assertEquals("Ошибка загрузки онлайн уроков", State.SUCCESS, result)
+    }
+
 }

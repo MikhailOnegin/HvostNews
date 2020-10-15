@@ -107,7 +107,7 @@
         android:id="@+id/myCouponsFragment"
         android:name="ru.hvost.news.presentation.fragments.coupons.MyCouponsFragment"
         android:label="My Coupons"
-        tools:layout="@layout/fragment_my_coupons" >
+        tools:layout="@layout/fragment_coupons_my" >
         <action
             android:id="@+id/action_myCouponsFragment_to_couponFragment"
             app:destination="@+id/couponFragment"
@@ -132,9 +132,9 @@
 
     <fragment
         android:id="@+id/parentsSchoolFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.ParentsSchoolFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.parents.ParentsSchoolFragment"
         android:label="Parents school"
-        tools:layout="@layout/fragment_parents_school" >
+        tools:layout="@layout/fragment_school_parents" >
         <action
             android:id="@+id/action_parentSchoolFragment_to_onlineCourseActiveFragment"
             app:destination="@+id/onlineCourseActiveFragment"
@@ -159,7 +159,7 @@
 
     <fragment
         android:id="@+id/onlineCourseActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.active.OnlineCourseActiveFragment"
         android:label="Online course active"
         tools:layout="@layout/fragment_online_course_active" >
         <action

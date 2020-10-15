@@ -20,7 +20,7 @@ data class OfflineLessons(
 
 fun OfflineLessonsResponse.toDomain(): OfflineLessons{
         return OfflineLessons(
-            lessons = this.lessonResponses.toDomain()
+            lessons = this.lessons.toDomain()
         )
     }
 
