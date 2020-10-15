@@ -4,16 +4,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import ru.hvost.news.presentation.fragments.school.parents.SchoolsFragment
+import ru.hvost.news.presentation.fragments.school.active.CourseInfoFragment
+import ru.hvost.news.presentation.fragments.school.active.CourseMaterialsFragment
 import ru.hvost.news.presentation.fragments.school.parents.LessonsInYourCityFragment
 
-class ParentsSchoolVPAdapter(fm:FragmentManager, lifecycle:Lifecycle):
-FragmentStateAdapter(fm, lifecycle)
+class OnlineSchoolActiveVPAdapter (fm: FragmentManager, lifecycle: Lifecycle):
+    FragmentStateAdapter(fm, lifecycle)
 {
 
     var fragments:ArrayList<Fragment> = arrayListOf(
-        SchoolsFragment(),
-        LessonsInYourCityFragment()
+        CourseInfoFragment(),
+        CourseMaterialsFragment()
     )
 
     override fun getItemCount(): Int {

@@ -24,7 +24,7 @@ val List<ShopsResponse>.toDomain: List<Shops>
         for ((index, shopsResponse) in this.withIndex()) {
             result.add(
                 Shops(
-                    shops = shopsResponse.shopResponses.toDomain()
+                    shops = shopsResponse.shops.toDomain()
                 )
             )
         }

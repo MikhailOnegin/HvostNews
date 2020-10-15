@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.R
 import ru.hvost.news.data.api.response.CouponsResponse
-import ru.hvost.news.databinding.FragmentMyCouponsBinding
+import ru.hvost.news.databinding.FragmentCouponsMyBinding
 import ru.hvost.news.models.Coupons
 import ru.hvost.news.models.toDomain
 import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
@@ -23,7 +23,7 @@ import ru.hvost.news.presentation.viewmodels.CouponViewModel
 
 class MyCouponsFragment: Fragment() {
 
-    private lateinit var binding: FragmentMyCouponsBinding
+    private lateinit var binding: FragmentCouponsMyBinding
     private lateinit var couponVM: CouponViewModel
     private val adapter = MyCouponsAdapter()
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -33,7 +33,7 @@ class MyCouponsFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMyCouponsBinding.inflate(inflater, container, false)
+        binding = FragmentCouponsMyBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,13 +53,12 @@ class MyCouponsFragment: Fragment() {
         binding.recyclerViewCoupons.layoutManager = layoutManager
         binding.spinnerCoupons
         setObservers(this)
-        couponVM.getCoupons("eyJpdiI6IlZBPT0iLCJ2YWx1ZSI6ImYwYlwvaEV4UE15aWtrcUdVMENWbEYrK2JHMTVUMG5sd3FkeFZuR21oYkFZPSJ9")
+        couponVM.getCoupons("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
 
     }
 
     private fun setObservers(owner: LifecycleOwner) {
         couponVM.coupons.observe(owner, Observer {
-            Toast.makeText(requireContext(), "Coupons Download", Toast.LENGTH_SHORT).show()
             it.coupons?.run {
                 val coupons = this.toDomain()
                 adapter.setCoupons(coupons)

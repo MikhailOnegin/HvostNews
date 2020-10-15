@@ -87,7 +87,7 @@
     <string name="theme">Тема</string>
     <string name="go_registration">Для прохождения курса пройдите регистрацию!</string>
     <string name="lessons_comleted">Пройдено уроков:</string>
-    <string name="your_rank">Ваше звание</string>
+    <string name="your_rank">Ваше звание:</string>
     <string name="not_found">(нет)</string>
     <string name="description">Описание</string>
     <string name="comments">Отзывы</string>

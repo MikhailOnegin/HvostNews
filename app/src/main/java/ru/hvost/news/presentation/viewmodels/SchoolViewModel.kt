@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LessonTestesPassedResponse
-import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.models.OfflineLessons
 import ru.hvost.news.models.OnlineLessons
+import ru.hvost.news.models.OnlineSchool
 import ru.hvost.news.models.toDomain
 import ru.hvost.news.utils.enums.State
 
@@ -25,7 +25,7 @@ class SchoolViewModel: ViewModel() {
         viewModelScope.launch {
             mutableOfflineLessonsState.value = State.LOADING
             try {
-                val response = APIService.API.getOfflineLessons(city).await()
+                val response = APIService.API.getOfflineLessonsAsync(city).await()
                 mutableOfflineLessons.value = response.toDomain()
                 if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
                 else mutableOfflineLessonsState.value = State.ERROR
@@ -45,7 +45,7 @@ class SchoolViewModel: ViewModel() {
         viewModelScope.launch {
             mutableOnlineLessonsState.value = State.LOADING
             try {
-                val response = APIService.API.getOnlineLessons(userToken).await()
+                val response = APIService.API.getOnlineLessonsAsync(userToken).await()
                 mutableOnlineLessons.value = response.toDomain()
                 if (response.result == "success") mutableOnlineLessonsState.value = State.SUCCESS
                 else mutableOnlineLessonsState.value = State.ERROR
@@ -58,11 +58,21 @@ class SchoolViewModel: ViewModel() {
     private val mutableOnlineSchoolsState:MutableLiveData<State> = MutableLiveData()
     val onlineSchoolsState:LiveData<State> = mutableOnlineSchoolsState
 
-    private val mutableOnlineSchools:MutableLiveData<OnlineSchoolsResponse> = MutableLiveData()
-    val onlineSchools:LiveData<OnlineSchoolsResponse> = mutableOnlineSchools
+    private val mutableOnlineSchools:MutableLiveData<OnlineSchool> = MutableLiveData()
+    val onlineSchools:LiveData<OnlineSchool> = mutableOnlineSchools
 
-    fun getOnlineSchools(){
-
+    fun getOnlineSchools(userToken: String){
+        viewModelScope.launch {
+            mutableOnlineSchoolsState.value = State.LOADING
+            try {
+                val response = APIService.API.getOnlineSchoolsAsync(userToken).await()
+                mutableOnlineSchools.value = response.toDomain()
+                if (response.result == "success") mutableOnlineSchoolsState.value = State.SUCCESS
+                else mutableOnlineSchoolsState.value = State.ERROR
+            } catch (exc: Exception) {
+                mutableOnlineSchoolsState.value = State.FAILURE
+            }
+        }
     }
 
     private val mutableSetLessonTestesPassedState:MutableLiveData<LessonTestesPassedResponse> = MutableLiveData()

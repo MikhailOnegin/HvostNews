@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.fragments.school
+package ru.hvost.news.presentation.fragments.school.parents
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,18 +8,18 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ru.hvost.news.databinding.FragmentSeminarsInYourCityBinding
+import ru.hvost.news.databinding.FragmentLessonsInYourCityBinding
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class SeminarsInYourCityFragment:Fragment() {
-    private lateinit var binding: FragmentSeminarsInYourCityBinding
+class LessonsInYourCityFragment:Fragment() {
+    private lateinit var binding: FragmentLessonsInYourCityBinding
     private lateinit var schoolVM: SchoolViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSeminarsInYourCityBinding.inflate(inflater, container, false)
+        binding = FragmentLessonsInYourCityBinding.inflate(inflater, container, false)
         return binding.root
     }
 
