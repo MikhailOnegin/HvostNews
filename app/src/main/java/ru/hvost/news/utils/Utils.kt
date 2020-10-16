@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
 import ru.hvost.news.R
 
@@ -30,4 +31,35 @@ fun createSnackbar(
         snackbar.duration = Snackbar.LENGTH_INDEFINITE
     }
     return snackbar
+}
+
+fun isPhoneFieldIncorrect(field: TextInputEditText): Boolean {
+    //TODO Реализовать проверку номера телефона. Устанавливать ошибку в поле.
+    return false
+}
+
+fun isEmailFieldIncorrect(field: TextInputEditText): Boolean {
+    //TODO Реализовать проверку email. Устанавливать ошибку в поле.
+    return false
+}
+
+fun hasBlankField(vararg fields: TextInputEditText): Boolean {
+    for(field in fields) {
+        if(field.text.isNullOrBlank()){
+            field.error = App.getInstance().getString(R.string.requiredField)
+            return true
+        }
+    }
+    return false
+}
+
+fun hasTooLongField(vararg fields: TextInputEditText): Boolean {
+    val res = App.getInstance().resources
+    for(field in fields) {
+        if(field.text?.length ?: 0 > res.getInteger(R.integer.editTextFieldMaxSize)){
+            field.error = App.getInstance().getString(R.string.tooBigField)
+            return true
+        }
+    }
+    return false
 }
