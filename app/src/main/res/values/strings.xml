@@ -162,4 +162,11 @@
     <string name="requiredField">Обязательно для заполнения</string>
     <string name="tooBigField">Слишком много символов</string>
     <string name="agreementRequired">Вы должны принять условия обработки персональных данных.</string>
+    <string name="registrationTitle">Регистрация</string>
+    <string name="regStepUser">Ваши данные</string>
+    <string name="regStepPet">Ваш питомец</string>
+    <string name="regStepInterests">Ваши интересы</string>
+    <string name="regStep1">1 / 3</string>
+    <string name="regStep2">2 / 3</string>
+    <string name="regStep3">3 / 3</string>
 </resources>

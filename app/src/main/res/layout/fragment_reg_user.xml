@@ -5,8 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/windowBackground">
+    android:layout_height="match_parent">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -88,8 +87,9 @@
         android:layout_marginTop="@dimen/smallMargin"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
-        android:textColor="@color/TextColorHints"
-        android:text="@string/regPhoneHint"/>
+        android:text="@string/regPhoneHint"
+        android:textAppearance="@style/SecondaryTextAppearance"
+        android:textColor="@color/TextColorSecondary"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/TextInputLayout"
@@ -127,25 +127,28 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/agreement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginTop="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/normalMargin"
         android:layout_marginEnd="@dimen/largeMargin"
         android:gravity="top"
         android:text="@string/regPersDataHint"
-        android:textColor="@color/TextColorHints"
+        android:textAppearance="@style/SecondaryTextAppearance"
+        android:textColor="@color/TextColorSecondary"
         android:paddingStart="@dimen/smallMargin"
-        tools:ignore="RtlSymmetry" />
+        android:button="@drawable/checkbox"
+        app:useMaterialThemeColors="false"
+        tools:ignore="RtlSymmetry"/>
 
     <Button
         android:id="@+id/buttonNext"
         style="@style/ElevatedButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/buttonHeight"
-        android:layout_marginTop="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/normalMargin"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
         android:layout_marginBottom="@dimen/normalMargin"
