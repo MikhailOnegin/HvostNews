@@ -16,4 +16,6 @@
     <color name="bnvTextUnchecked">#F55500</color>
     <color name="TextColorDefault">#575757</color>
     <color name="viewPagerTest">#DECAFF</color>
+    <color name="defaultBackground">#e6FFFFFF</color>
+    <color name="grayLight">#EFEFEF</color>
 </resources>
