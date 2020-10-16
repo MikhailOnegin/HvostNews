@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.databinding.FragmentEditProfileBinding
+import ru.hvost.news.utils.enums.State
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,17 +26,51 @@ class EditProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
-        setListeners()
         return binding.root
     }
 
-    private fun setListeners() {
-        binding.birthday.setOnClickListener { showDatePicker() }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        setObservers()
+        setListeners()
     }
+
+    private fun setObservers() {
+        mainVM.userDataState.observe(viewLifecycleOwner, { setDataToBind(it) })
+    }
+
+    private fun setDataToBind(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                bindData()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
+    private fun bindData() {
+        val userData = mainVM.userDataResponse.value
+        binding.surname.setText(userData?.surname)
+        binding.name.setText(userData?.name)
+        binding.patronymic.setText(userData?.patronymic)
+        binding.birthday.setText(userData?.birthday)
+        binding.phone.setText(userData?.phone)
+        binding.email.setText(userData?.email)
+        binding.city.setText(userData?.city)
+    }
+
+    private fun setListeners() {
+//        binding.birthday.setOnClickListener { showDatePicker() }
+        binding.birthday.setOnClickListener(openDatePickerDialog)
+    }
+
+    private val openDatePickerDialog = View.OnClickListener { showDatePicker() }
 
     @SuppressLint("SimpleDateFormat")
     private fun showDatePicker() {
-        val onDateSet = DatePickerDialog.OnDateSetListener{ view, year, monthOfYear, dayOfMonth ->
+        val onDateSet = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             date.set(Calendar.YEAR, year)
             date.set(Calendar.MONTH, monthOfYear)
             date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
