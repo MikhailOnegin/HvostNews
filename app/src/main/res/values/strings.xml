@@ -169,4 +169,5 @@
     <string name="regStep1">1 / 3</string>
     <string name="regStep2">2 / 3</string>
     <string name="regStep3">3 / 3</string>
+    <string name="incorrectEmail">Некорректный e-mail</string>
 </resources>

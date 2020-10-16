@@ -1,5 +1,6 @@
 package ru.hvost.news.utils
 
+import android.util.Patterns
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -39,7 +40,11 @@ fun isPhoneFieldIncorrect(field: TextInputEditText): Boolean {
 }
 
 fun isEmailFieldIncorrect(field: TextInputEditText): Boolean {
-    //TODO Реализовать проверку email. Устанавливать ошибку в поле.
+    if(!Patterns.EMAIL_ADDRESS.matcher(field.text.toString()).matches()) {
+        field.error = App.getInstance().getString(R.string.incorrectEmail)
+        field.requestFocus()
+        return true
+    }
     return false
 }
 
@@ -47,6 +52,7 @@ fun hasBlankField(vararg fields: TextInputEditText): Boolean {
     for(field in fields) {
         if(field.text.isNullOrBlank()){
             field.error = App.getInstance().getString(R.string.requiredField)
+            field.requestFocus()
             return true
         }
     }
@@ -58,6 +64,7 @@ fun hasTooLongField(vararg fields: TextInputEditText): Boolean {
     for(field in fields) {
         if(field.text?.length ?: 0 > res.getInteger(R.integer.editTextFieldMaxSize)){
             field.error = App.getInstance().getString(R.string.tooBigField)
+            field.requestFocus()
             return true
         }
     }
