@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegPetBinding
+import ru.hvost.news.models.Species
+import ru.hvost.news.presentation.adapters.spinners.SpeciesSpinnerAdapter
 
 class RegPetFragment : Fragment() {
 
@@ -27,12 +29,27 @@ class RegPetFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
-        registrationVM.setStage(RegistrationVM.RegStep.PET)
+        setObservers()
+        registrationVM.loadSpecies()
     }
 
     override fun onStart() {
         super.onStart()
         setListeners()
+        registrationVM.setStage(RegistrationVM.RegStep.PET)
+    }
+
+    private fun setObservers() {
+        registrationVM.species.observe(viewLifecycleOwner) { onSpeciesChanged(it) }
+    }
+
+    private fun onSpeciesChanged(species: List<Species>?) {
+        species?.run {
+            val adapter = SpeciesSpinnerAdapter(requireActivity(), R.layout.spinner_dropdown_view)
+            adapter.addAll(this)
+            binding.spinner.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun setListeners() {

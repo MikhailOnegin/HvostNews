@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        //TODO: Выпилить из релиза.
+        //sergeev: Выпилить из релиза.
         binding.login.setText("v.fedotov@studiofact.ru")
         binding.password.setText("123123123")
         return binding.root

@@ -27,12 +27,12 @@ class RegInterestsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
-        registrationVM.setStage(RegistrationVM.RegStep.INTERESTS)
     }
 
     override fun onStart() {
         super.onStart()
         setListeners()
+        registrationVM.setStage(RegistrationVM.RegStep.INTERESTS)
     }
 
     private fun setListeners() {
