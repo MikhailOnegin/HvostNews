@@ -13,7 +13,9 @@ data class ArticlesResponse(
         val title: String?,
         val imageUrl: String?,
         val shortDescription: String?,
+        val description: String?,
         val viewsCount: String?,
+        val articleUrl: String?,
         val likesCount: Int?
     )
 }

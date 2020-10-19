@@ -25,6 +25,11 @@ interface APIService {
         @Query("email") email: String?
     ): Deferred<PassRestoreResponse>
 
+    @GET("/rest/UserProfile/getUserProfile/")
+    fun getUserDataAsync(
+        @Query("userToken") userToken: String? = null
+    ): Deferred<UserDataResponse>
+
     @GET("/rest/Articles/getArticles/")
     fun getArticlesAsync(
         @Query("userToken") userToken: String? = null

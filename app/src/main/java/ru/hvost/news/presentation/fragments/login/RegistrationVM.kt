@@ -12,7 +12,11 @@ class RegistrationVM : ViewModel() {
     private val _stage = MutableLiveData<Event<Int>>()
     val stage: LiveData<Event<Int>> = _stage
 
+    private val _step = MutableLiveData<RegStep>()
+    val step: LiveData<RegStep> = _step
+
     fun setStage(step: RegStep) {
+        _step.value = step
         when(step) {
             RegStep.USER -> _stage.value = Event(33)
             RegStep.PET -> _stage.value = Event(66)

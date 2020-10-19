@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegParentBinding
 import ru.hvost.news.utils.events.EventObserver
 
@@ -34,6 +35,24 @@ class RegParentFragment : Fragment() {
 
     private fun setObservers() {
         registrationVM.stage.observe(viewLifecycleOwner, EventObserver(onStageChanged))
+        registrationVM.step.observe(viewLifecycleOwner) { onStepChanged(it) }
+    }
+
+    private fun onStepChanged(step: RegistrationVM.RegStep) {
+        when(step) {
+            RegistrationVM.RegStep.USER -> {
+                binding.subtitle.text = getString(R.string.regStepUser)
+                binding.step.text = getString(R.string.regStep1)
+            }
+            RegistrationVM.RegStep.PET -> {
+                binding.subtitle.text = getString(R.string.regStepPet)
+                binding.step.text = getString(R.string.regStep2)
+            }
+            RegistrationVM.RegStep.INTERESTS -> {
+                binding.subtitle.text = getString(R.string.regStepInterests)
+                binding.step.text = getString(R.string.regStep3)
+            }
+        }
     }
 
     private var animator: Animator? = null

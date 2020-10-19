@@ -23,14 +23,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/authorizationTitle"
-        android:fontFamily="@font/gilroy_bold"
-        android:textSize="@dimen/authorizationTitleTextSize"
-        android:textColor="@color/TextColorPrimary"
         app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintBottom_toTopOf="@id/login"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintVertical_chainStyle="packed"
+        style="@style/ScreenTitle" />
 
     <EditText
         android:id="@+id/login"

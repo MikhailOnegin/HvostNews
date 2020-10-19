@@ -1,5 +1,7 @@
 package ru.hvost.news.presentation.fragments.articles
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,20 +42,30 @@ class ArticleDetailFragment : Fragment() {
         } else if (type == "INDIVIDUAL") {
             bind(mainVM.articles.value?.filter { it.id == id })
         }
-
     }
 
     private fun bind(list: List<Article>?) {
-        if(list != null){
+        if (list != null) {
             binding.title.text = list[0].title
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + list[0].imageUrl)
                 .fitCenter()
                 .into(binding.img)
-            binding.description.text = list[0].shortDescription.parseAsHtml()
+            binding.description.text = list[0].description.parseAsHtml()
             binding.likes.text = list[0].likesCount.toString()
             binding.views.text = list[0].viewsCount
+            setShareButton(APIService.baseUrl + list[0].shareLink)
+        }
+    }
+
+    private fun setShareButton(link: String) {
+        binding.share.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, link)
+            startActivity(Intent.createChooser(intent, "Link to article: "))
         }
     }
 }

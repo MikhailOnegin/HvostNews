@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegUserBinding
+import ru.hvost.news.utils.*
 
 class RegUserFragment : Fragment() {
 
@@ -40,7 +41,44 @@ class RegUserFragment : Fragment() {
     }
 
     private val onButtonNextClicked = { _: View ->
-        findNavController().navigate(R.id.action_regUserFragment_to_regPetFragment)
+        if(isEverythingOk()) {
+            findNavController().navigate(R.id.action_regUserFragment_to_regPetFragment)
+        }
+    }
+
+    private fun isEverythingOk(): Boolean {
+        binding.run {
+            val fields = arrayOf(surname, name, patronymic, phone, email, city)
+            if(hasBlankField(*fields)) {
+                scrollToTheTop()
+                return false
+            }
+            if(hasTooLongField(*fields)) {
+                scrollToTheTop()
+                return false
+            }
+            if(isPhoneFieldIncorrect(phone)) {
+                scrollToTheTop()
+                return false
+            }
+            if(isEmailFieldIncorrect(email)) {
+                scrollToTheTop()
+                return false
+            }
+            if(!agreement.isChecked) {
+                createSnackbar(
+                    root,
+                    getString(R.string.agreementRequired),
+                    getString(R.string.buttonOk)
+                ).show()
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun scrollToTheTop() {
+        binding.root.smoothScrollTo(0, 0)
     }
 
 }
