@@ -1,11 +1,13 @@
 package ru.hvost.news.presentation.fragments.profile
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticlesBinding
 import ru.hvost.news.databinding.FragmentProfileBinding
 import ru.hvost.news.presentation.adapters.PetAdapter
+import ru.hvost.news.utils.enums.State
 
 class ProfileFragment : Fragment() {
 
@@ -33,9 +36,31 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        setObservers()
         setRecyclerView()
         setListeners()
         navC = findNavController()
+    }
+
+    private fun setObservers() {
+        mainVM.articlesState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
+    }
+
+    private fun setDataToBind(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                bindData()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun bindData() {
+        val userData = mainVM.userDataResponse.value
+        binding.second.text = userData?.surname
+        binding.name.text = userData?.name + " " + userData?.patronymic
     }
 
     private fun setListeners() {

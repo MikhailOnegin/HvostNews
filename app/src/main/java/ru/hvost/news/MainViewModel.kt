@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
+import ru.hvost.news.data.api.response.UserDataResponse
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
 
@@ -19,12 +20,16 @@ class MainViewModel : ViewModel() {
     val allArticles = MutableLiveData<List<Article>>()
     val allArticlesState = MutableLiveData<State>()
 
+    val userDataState = MutableLiveData<State>()
+    val userDataResponse = MutableLiveData<UserDataResponse>()
+
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
 
     init {
         loadArticles()
         loadAllArticles()
+        loadUserData()
     }
 
     private fun loadArticles() {
@@ -55,6 +60,21 @@ class MainViewModel : ViewModel() {
                 } else allArticlesState.value = State.ERROR
             } catch (exc: Exception) {
                 allArticlesState.value = State.FAILURE
+            }
+        }
+    }
+
+    private fun loadUserData() {
+        viewModelScope.launch {
+            userDataState.value = State.LOADING
+            try {
+                val response = APIService.API.getUserDataAsync(App.getInstance().userToken).await()
+                if (response.result == "success") {
+                    userDataResponse.value = response
+                    userDataState.value = State.SUCCESS
+                } else userDataState.value = State.ERROR
+            } catch (exc: Exception) {
+                userDataState.value = State.FAILURE
             }
         }
     }
