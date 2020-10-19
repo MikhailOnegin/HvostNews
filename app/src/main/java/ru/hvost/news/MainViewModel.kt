@@ -22,6 +22,7 @@ class MainViewModel : ViewModel() {
 
     val userDataState = MutableLiveData<State>()
     val userDataResponse = MutableLiveData<UserDataResponse>()
+    val changeUserDataState = MutableLiveData<State>()
 
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
@@ -64,7 +65,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun loadUserData() {
+    fun loadUserData() {
         viewModelScope.launch {
             userDataState.value = State.LOADING
             try {
@@ -75,6 +76,39 @@ class MainViewModel : ViewModel() {
                 } else userDataState.value = State.ERROR
             } catch (exc: Exception) {
                 userDataState.value = State.FAILURE
+            }
+        }
+    }
+
+    fun changeUserData(
+        name: String?,
+        surname: String?,
+        patronymic: String?,
+        phone: String?,
+        email: String?,
+        birthday: String?,
+        city: String?,
+        interests: List<String>? = null
+    ) {
+        viewModelScope.launch {
+            changeUserDataState.value = State.LOADING
+            try {
+                val response = APIService.API.getUpdateUserProfileAsync(
+                    userToken = App.getInstance().userToken,
+                    name = name,
+                    surname = surname,
+                    patronymic = patronymic,
+                    phone = phone,
+                    email = email,
+                    birthday = birthday,
+                    city = city,
+                    interests = interests
+                ).await()
+                if (response.result == "success") {
+                    changeUserDataState.value = State.SUCCESS
+                } else changeUserDataState.value = State.ERROR
+            } catch (exc: Exception) {
+                changeUserDataState.value = State.FAILURE
             }
         }
     }
