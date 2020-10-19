@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school.view.*
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OnlineSchool
 
 class SchoolsAdapter:RecyclerView.Adapter<SchoolsAdapter.ViewHolder>()  {
@@ -45,13 +46,13 @@ class SchoolsAdapter:RecyclerView.Adapter<SchoolsAdapter.ViewHolder>()  {
         private val ivSchool = itemView.imageView_school
         private val tvTitle = itemView.textView_title
         private val tvRank = itemView.textView_rank
-        fun bind(item:OnlineSchool.School){
-            tvTitle.text = item.title
-            tvRank.text = item.userRank
-            Glide.with(itemView.context).load(item.image).placeholder(R.drawable.not_found).centerCrop()
+        fun bind(school:OnlineSchool.School){
+            tvTitle.text = school.title
+            tvRank.text = school.userRank
+            Glide.with(itemView.context).load(baseUrl + school.image).placeholder(R.drawable.not_found).centerCrop()
                 .into(ivSchool)
             clSchool.setOnClickListener {
-                clickSchool?.onClick(item)
+                clickSchool?.onClick(school)
             }
         }
     }

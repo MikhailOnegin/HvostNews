@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,6 +31,7 @@ class SchoolViewModel: ViewModel() {
                 if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
                 else mutableOfflineLessonsState.value = State.ERROR
             } catch (exc: Exception) {
+                Log.i("eeee", "getOfflineLessons ERROR: ${exc.message}")
                 mutableOfflineLessonsState.value = State.FAILURE
             }
         }
