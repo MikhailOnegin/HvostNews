@@ -24,8 +24,15 @@ class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
     fun filter(used:String){
-        if(used == "")
-        coupons = couponsFull.filter { it.isUsed == used}.toCollection(ArrayList())
+        if(used == "Все"){
+            coupons = couponsFull
+        }
+        if(used == "Активные") {
+            coupons = couponsFull.filter { !it.isUsed }.toCollection(ArrayList())
+        }
+        if(used =="Использованные") {
+            coupons = couponsFull.filter { it.isUsed }.toCollection(ArrayList())
+        }
         notifyDataSetChanged()
     }
 
@@ -57,10 +64,9 @@ class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
                 .into(iVCoupon)
             tVCouponTitle.text = coupon.title
             tVCouponMaxDate.text = coupon.expirationDate
-            val status:String = coupon.isUsed
-            if(status == "used") {
-                tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_red)
+            if(coupon.isUsed){
                 tVUsed.text = "Использован"
+                tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_red)
             }
             else{
                 tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_green)
