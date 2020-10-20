@@ -2,7 +2,7 @@ package ru.hvost.news.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.androiddevs.shoppinglisttestingyt.getOrAwaitValueTest
+import com.androiddevs.shoppinglisttestingyt.getOrAwaitValueTest2
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -40,7 +40,7 @@ class CouponsVMTest {
         @Test
         fun getCoupons() = coroutineRule.testDispatcher.runBlockingTest {
             couponVmTest.getCoupons(userToken)
-            val result = couponVmTest.couponsState.getOrAwaitValueTest(
+            val result = couponVmTest.couponsState.getOrAwaitValueTest2(
                 time = timeout,
                 condition = { t: State? -> t != State.LOADING }
             )

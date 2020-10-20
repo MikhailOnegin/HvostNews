@@ -77,14 +77,24 @@ class SchoolViewModel: ViewModel() {
         }
     }
 
-    private val mutableSetLessonTestesPassedState:MutableLiveData<LessonTestesPassedResponse> = MutableLiveData()
-    val setLessonTestesPassedState:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassedState
+    private val mutableSetLessonTestesPassedState:MutableLiveData<State> = MutableLiveData()
+    val setLessonTestesPassedState:LiveData<State> = mutableSetLessonTestesPassedState
 
     private val mutableSetLessonTestesPassed:MutableLiveData<LessonTestesPassedResponse> = MutableLiveData()
     val setLessonTestesPassed:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassed
 
     fun setLessonTestesPassed(userToken:String, lessonId:Long){
-
+        viewModelScope.launch {
+            mutableSetLessonTestesPassedState.value = State.LOADING
+            try {
+                val response = APIService.API.setLessonTestesPassedAsync(userToken, lessonId).await()
+                mutableSetLessonTestesPassed.value = response
+                if (response.result == "success") mutableSetLessonTestesPassedState.value = State.SUCCESS
+                else mutableSetLessonTestesPassedState.value = State.ERROR
+            } catch (exc: Exception) {
+                mutableSetLessonTestesPassedState.value = State.FAILURE
+            }
+        }
     }
 
 }

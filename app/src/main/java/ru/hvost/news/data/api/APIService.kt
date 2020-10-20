@@ -82,8 +82,8 @@ interface APIService {
 
     @GET()
     fun setLessonTestesPassedAsync(
-        userToken: String,
-        lessonId: Long
+        @Query("userToken") userToken: String?,
+        @Query("lessonId") lessonId: Long?
     ): Deferred<LessonTestesPassedResponse>
 
     // Map
