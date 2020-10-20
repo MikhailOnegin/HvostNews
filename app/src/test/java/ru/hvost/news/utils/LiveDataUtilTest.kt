@@ -14,7 +14,7 @@ import java.util.concurrent.TimeoutException
  * `InstantTaskExecutorRule` or a similar mechanism to execute tasks synchronously.
  */
 @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-fun <T> LiveData<T>.getOrAwaitValueTest(
+fun <T> LiveData<T>.getOrAwaitValueTest2(
     time: Long = 2000,
     timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
     afterObserve: () -> Unit = {},
@@ -27,7 +27,7 @@ fun <T> LiveData<T>.getOrAwaitValueTest(
             if (condition.invoke(o)) {
                 data = o
                 latch.countDown()
-                this@getOrAwaitValueTest.removeObserver(this)
+                this@getOrAwaitValueTest2.removeObserver(this)
             }
         }
     }

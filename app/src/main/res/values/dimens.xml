@@ -25,4 +25,6 @@
     <dimen name="smallCorners">8dp</dimen>
     <dimen name="regSubtitleTextSize">16sp</dimen>
     <dimen name="secondaryTextTextSize">14sp</dimen>
+    <dimen name="barsElevation">4dp</dimen>
+    <dimen name="widgetsHeight">60dp</dimen>
 </resources>

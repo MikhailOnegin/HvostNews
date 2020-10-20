@@ -1,5 +1,7 @@
 package ru.hvost.news.utils
 
+import android.text.InputFilter
+import android.text.Spanned
 import android.util.Patterns
 import android.view.View
 import android.widget.TextView
@@ -8,6 +10,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
 import ru.hvost.news.R
+import java.lang.StringBuilder
+import java.util.regex.Pattern
 
 fun createSnackbar(
     anchorView: View,
@@ -35,7 +39,11 @@ fun createSnackbar(
 }
 
 fun isPhoneFieldIncorrect(field: TextInputEditText): Boolean {
-    //TODO Реализовать проверку номера телефона. Устанавливать ошибку в поле.
+    if(!PhoneInputFilter.phoneRegex.matcher(field.text.toString()).matches()) {
+        field.error = App.getInstance().getString(R.string.incorrectPhone)
+        field.requestFocus()
+        return true
+    }
     return false
 }
 
@@ -69,4 +77,38 @@ fun hasTooLongField(vararg fields: TextInputEditText): Boolean {
         }
     }
     return false
+}
+
+class PhoneInputFilter : InputFilter {
+
+    private val filterRegex = "\\+?|\\+[7]?|\\+[7]-\\d{0,3}|\\+[7]-\\d{3}-\\d{0,3}" +
+            "|\\+[7]-\\d{3}-\\d{3}-\\d{0,2}|\\+[7]-\\d{3}-\\d{3}-\\d{2}-\\d{0,2}"
+    private val pattern = Pattern.compile(filterRegex)
+    private val builder = StringBuilder()
+
+    override fun filter(
+        src: CharSequence,
+        start: Int,
+        end: Int,
+        dest: Spanned,
+        dStart: Int,
+        dEnd: Int
+    ): CharSequence? {
+        builder.clear()
+        builder.append(dest)
+        builder.replace(dStart, dEnd, src.substring(start, end))
+        return if(!pattern.matcher(builder.toString()).matches()) ""
+        else {
+            builder.append("-")
+            if(pattern.matcher(builder.toString()).matches() && src.isNotEmpty()) {
+                src.substring(start, end) + "-"
+            } else null
+        }
+    }
+
+    companion object {
+        private const val phonePattern =  "\\+[7]-\\d{3}-\\d{3}-\\d{2}-\\d{2}"
+        val phoneRegex: Pattern = Pattern.compile(phonePattern)
+    }
+
 }

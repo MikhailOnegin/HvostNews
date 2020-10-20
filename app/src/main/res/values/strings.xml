@@ -170,4 +170,14 @@
     <string name="regStep2">2 / 3</string>
     <string name="regStep3">3 / 3</string>
     <string name="incorrectEmail">Некорректный e-mail</string>
+    <string name="incorrectPhone">Формат: +7-XXX-XXX-XX-XX</string>
+    <string name="regPetHint">Уважаемый пользователь, если у вас несколько питомцев, которых вы хотели бы зарегистрировать, не волнуйтесь. Вы сможете добавить их всех в соответствующем разделе приложения после завершения регистрации.</string>
+    <string name="hintPetName">Кличка</string>
+    <string name="speciesSpinnerHint">Вид питомца</string>
+    <string name="sexMale">Мужской</string>
+    <string name="sexFemale">Женский</string>
+    <string name="sexUnknown">Не указывать</string>
+    <string name="hintPromocode">Кодовое слово, указанное на купоне</string>
+    <string name="buttonSelect">Выбрать</string>
+    <string name="petBirthdayHint">Дата рождения</string>
 </resources>

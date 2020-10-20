@@ -22,6 +22,10 @@ class RegUserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegUserBinding.inflate(inflater, container, false)
+        binding.phone.filters = arrayOf(PhoneInputFilter())
+        binding.phone.setText("+7")
+        //sergeev: Выпилить из релиза.
+        setDummies()
         return binding.root
     }
 
@@ -34,6 +38,16 @@ class RegUserFragment : Fragment() {
         super.onStart()
         setListeners()
         registrationVM.setStage(RegistrationVM.RegStep.USER)
+    }
+
+    private fun setDummies() {
+        binding.surname.setText("Сергеев")
+        binding.name.setText("Денис")
+        binding.patronymic.setText("Витальевич")
+        binding.phone.setText("+7-963-095-67-22")
+        binding.email.setText("sergeev@studiofact.ru")
+        binding.city.setText("Магнитогорск")
+        binding.agreement.isChecked = true
     }
 
     private fun setListeners() {

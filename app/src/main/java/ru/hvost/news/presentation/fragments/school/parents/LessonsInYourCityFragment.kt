@@ -35,7 +35,7 @@ class LessonsInYourCityFragment:Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        schoolVM = ViewModelProvider(this)[SchoolViewModel::class.java]
         val items = arrayOf("Любой город","Москва", "Санкт-Петербург", "Новосибирск")
         val spinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item, items)
         binding.spinnerCities.adapter  =  spinnerAdapter
@@ -45,7 +45,6 @@ class LessonsInYourCityFragment:Fragment() {
         binding.recyclerViewLessons.layoutManager = layoutManager
         binding.spinnerCities.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

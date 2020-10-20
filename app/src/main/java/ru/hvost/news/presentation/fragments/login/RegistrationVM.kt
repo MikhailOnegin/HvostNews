@@ -3,11 +3,20 @@ package ru.hvost.news.presentation.fragments.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.hvost.news.models.Species
 import ru.hvost.news.utils.events.Event
 
 class RegistrationVM : ViewModel() {
 
     enum class RegStep { USER, PET, INTERESTS }
+
+    //registration data
+    val petSex = MutableLiveData<Int>()
+    //registration data
+
+    init {
+        petSex.value = null
+    }
 
     private val _stage = MutableLiveData<Event<Int>>()
     val stage: LiveData<Event<Int>> = _stage
@@ -22,6 +31,17 @@ class RegistrationVM : ViewModel() {
             RegStep.PET -> _stage.value = Event(66)
             RegStep.INTERESTS -> _stage.value = Event(100)
         }
+    }
+
+    private val _species = MutableLiveData<List<Species>>()
+    val species: LiveData<List<Species>> = _species
+    fun loadSpecies() {
+        _species.value = Species.getTestList()
+    }
+
+    companion object {
+        const val SEX_MALE = 8
+        const val SEX_FEMALE = 9
     }
 
 }

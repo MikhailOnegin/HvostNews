@@ -21,4 +21,5 @@
     <color name="EditTextTextColorHints">#B9BEE1</color>
     <color name="defaultBackground">#e6FFFFFF</color>
     <color name="grayLight">#EFEFEF</color>
+    <color name="sexSelector">#141428</color>
 </resources>

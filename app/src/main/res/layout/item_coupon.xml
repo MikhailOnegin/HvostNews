@@ -33,10 +33,11 @@
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:elevation="5dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/shape_red" />
+                app:srcCompat="@drawable/not_found" />
 
             <TextView
                 android:id="@+id/textView_coupon_status"

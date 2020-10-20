@@ -35,14 +35,34 @@ interface APIService {
         @Query("userToken") userToken: String? = null
     ): Deferred<ArticlesResponse>
 
+    @GET("/rest/UserProfile/updateUserProfile/")
+    fun getUpdateUserProfileAsync(
+        @Query("userToken") userToken: String?,
+        @Query("name") name: String?,
+        @Query("surname") surname: String?,
+        @Query("patronymic") patronymic: String?,
+        @Query("phone") phone: String?,
+        @Query("email") email: String?,
+        @Query("city") city: String?,
+        @Query("birthday") birthday: String?,
+        @Query("interests") interests: List<String>?
+    ): Deferred<UserDataResponse>
+
     // Coupons
     @GET("/rest/Coupons/getCoupons/")
     fun getCouponsAsync(
         @Query("userToken") userToken: String?
     ): Deferred<CouponsResponse>
 
-    @GET()
-    fun getCouponsInfoAsync(): Deferred<CouponInfoResponse>
+    @GET("/rest/School/getOnlineLessons/")
+    fun getCouponsInfoAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<CouponInfoResponse>
+
+    @GET("/rest/PetProfile/getPets/")
+    fun getPetsAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<PetsResponse>
 
     // School
     @GET("/rest/School/getOfflineLessons/")
@@ -62,8 +82,8 @@ interface APIService {
 
     @GET()
     fun setLessonTestesPassedAsync(
-        userToken: String,
-        lessonId: Long
+        @Query("userToken") userToken: String?,
+        @Query("lessonId") lessonId: Long?
     ): Deferred<LessonTestesPassedResponse>
 
     // Map

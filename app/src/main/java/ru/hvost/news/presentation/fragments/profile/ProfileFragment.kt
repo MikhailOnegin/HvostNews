@@ -37,19 +37,40 @@ class ProfileFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
-        setRecyclerView()
         setListeners()
         navC = findNavController()
     }
 
     private fun setObservers() {
-        mainVM.articlesState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
+        mainVM.changeUserDataState.observe(viewLifecycleOwner, Observer { updateData(it) })
+        mainVM.userDataState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
+        mainVM.userPetsState.observe(viewLifecycleOwner, Observer { setPetsToBind(it) })
     }
 
     private fun setDataToBind(state: State) {
         when (state) {
             State.SUCCESS -> {
                 bindData()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
+    private fun updateData(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                mainVM.loadUserData()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
+    private fun setPetsToBind(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                setRecyclerView()
             }
             State.FAILURE, State.ERROR -> {
             }
@@ -71,14 +92,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { id: Long ->
+        val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putLong("PET_ID", id)
+            bundle.putString("PET_ID", id)
             findNavController().navigate(R.id.action_profileFragment_to_petProfileFragment, bundle)
         }
         val adapter = PetAdapter(onActionClicked)
         binding.petList.adapter = adapter
-        adapter.submitList(mainVM.testPets)
+        adapter.submitList(mainVM.userPetsResponse.value)
         setDecoration()
     }
 

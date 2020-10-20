@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/stub"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/name"
@@ -39,6 +39,7 @@
 
         <Button
             android:id="@+id/edit"
+            style="@style/ElevatedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
@@ -46,6 +47,7 @@
 
         <Button
             android:id="@+id/notifications"
+            style="@style/ElevatedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
@@ -61,12 +63,14 @@
 
         <Button
             android:id="@+id/button_coupons"
+            style="@style/ElevatedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="coupons" />
 
         <Button
+            style="@style/ElevatedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -95,6 +99,7 @@
 
             <Button
                 android:id="@+id/addPet"
+                style="@style/ElevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
@@ -131,6 +136,7 @@
 
             <Button
                 android:id="@+id/points"
+                style="@style/ElevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.50"
@@ -145,6 +151,7 @@
 
             <Button
                 android:id="@+id/invite"
+                style="@style/ElevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.50"
@@ -152,6 +159,7 @@
 
             <Button
                 android:id="@+id/prizes"
+                style="@style/ElevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.50"
@@ -180,6 +188,7 @@
 
             <Button
                 android:id="@+id/orders"
+                style="@style/ElevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.60"
@@ -219,6 +228,7 @@
 
     <Button
         android:id="@+id/logout"
+        style="@style/ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="logout" />
