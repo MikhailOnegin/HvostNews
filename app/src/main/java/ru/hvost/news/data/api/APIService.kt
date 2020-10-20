@@ -59,6 +59,11 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<CouponInfoResponse>
 
+    @GET("/rest/PetProfile/getPets/")
+    fun getPetsAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<PetsResponse>
+
     // School
     @GET("/rest/School/getOfflineLessons/")
     fun getOfflineLessonsAsync(

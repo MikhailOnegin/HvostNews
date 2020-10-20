@@ -37,7 +37,6 @@ class ProfileFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
-        setRecyclerView()
         setListeners()
         navC = findNavController()
     }
@@ -45,6 +44,7 @@ class ProfileFragment : Fragment() {
     private fun setObservers() {
         mainVM.changeUserDataState.observe(viewLifecycleOwner, Observer { updateData(it) })
         mainVM.userDataState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
+        mainVM.userPetsState.observe(viewLifecycleOwner, Observer { setPetsToBind(it) })
     }
 
     private fun setDataToBind(state: State) {
@@ -67,6 +67,16 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun setPetsToBind(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                setRecyclerView()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     private fun bindData() {
         val userData = mainVM.userDataResponse.value
@@ -82,14 +92,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { id: Long ->
+        val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putLong("PET_ID", id)
+            bundle.putString("PET_ID", id)
             findNavController().navigate(R.id.action_profileFragment_to_petProfileFragment, bundle)
         }
         val adapter = PetAdapter(onActionClicked)
         binding.petList.adapter = adapter
-        adapter.submitList(mainVM.testPets)
+        adapter.submitList(mainVM.userPetsResponse.value)
         setDecoration()
     }
 
