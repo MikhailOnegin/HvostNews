@@ -11,7 +11,6 @@ import ru.hvost.news.utils.enums.State
 
 class MainViewModel : ViewModel() {
 
-    var testPets: List<Pet> = Pet.getTestPetList()
     var testPrize: List<Prize> = Prize.getTestPrizeList()
     var testPrice: List<PrizePrice> = PrizePrice.getTestPriceList()
 
@@ -24,6 +23,9 @@ class MainViewModel : ViewModel() {
     val userDataResponse = MutableLiveData<UserDataResponse>()
     val changeUserDataState = MutableLiveData<State>()
 
+    val userPetsState = MutableLiveData<State>()
+    val userPetsResponse = MutableLiveData<List<Pets>>()
+
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
 
@@ -31,6 +33,7 @@ class MainViewModel : ViewModel() {
         loadArticles()
         loadAllArticles()
         loadUserData()
+        loadPetsData()
     }
 
     private fun loadArticles() {
@@ -76,6 +79,21 @@ class MainViewModel : ViewModel() {
                 } else userDataState.value = State.ERROR
             } catch (exc: Exception) {
                 userDataState.value = State.FAILURE
+            }
+        }
+    }
+
+    fun loadPetsData() {
+        viewModelScope.launch {
+            userPetsState.value = State.LOADING
+            try {
+                val response = APIService.API.getPetsAsync(App.getInstance().userToken).await()
+                if (response.result == "success") {
+                    userPetsResponse.value = response.pets?.toPets()
+                    userPetsState.value = State.SUCCESS
+                } else userPetsState.value = State.ERROR
+            } catch (exc: Exception) {
+                userPetsState.value = State.FAILURE
             }
         }
     }

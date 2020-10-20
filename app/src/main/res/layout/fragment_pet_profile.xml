@@ -23,6 +23,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -42,6 +43,7 @@
             android:text="@string/type" />
 
         <Spinner
+            android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -84,6 +86,7 @@
             android:text="@string/breed" />
 
         <Spinner
+            android:id="@+id/breed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -95,6 +98,7 @@
             android:text="@string/birthday" />
 
         <EditText
+            android:id="@+id/birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -107,6 +111,7 @@
             android:text="@string/food" />
 
         <EditText
+            android:id="@+id/favEat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -119,6 +124,7 @@
             android:text="@string/toy" />
 
         <Spinner
+            android:id="@+id/favToy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/testItems" />
@@ -129,6 +135,7 @@
             android:text="@string/habbit" />
 
         <EditText
+            android:id="@+id/badHabit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -141,6 +148,7 @@
             android:text="@string/chip" />
 
         <EditText
+            android:id="@+id/chip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -177,6 +185,7 @@
             android:text="@string/education" />
 
         <Spinner
+            android:id="@+id/education"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"

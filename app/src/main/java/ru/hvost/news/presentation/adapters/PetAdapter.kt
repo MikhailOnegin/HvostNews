@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.R
 import ru.hvost.news.databinding.LayoutPetItemBinding
-import ru.hvost.news.models.Pet
+import ru.hvost.news.models.Pets
 
-class PetAdapter(private val onClick: (Long) -> Unit) :
-    ListAdapter<Pet, PetAdapter.PetViewHolder>(FaqDiffUtilCallback()) {
+class PetAdapter(private val onClick: (String) -> Unit) :
+    ListAdapter<Pets, PetAdapter.PetViewHolder>(FaqDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetViewHolder {
         return PetViewHolder.getPetVH(parent, onClick)
@@ -23,18 +22,18 @@ class PetAdapter(private val onClick: (Long) -> Unit) :
 
     class PetViewHolder(
         private val binding: LayoutPetItemBinding,
-        private val onClick: (Long) -> Unit
+        private val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(pet: Pet) {
-            binding.name.text = pet.name + ", " + pet.breed
-            binding.age.text = pet.age.toString()
+        fun bind(pet: Pets) {
+            binding.name.text = pet.petName + ", " + pet.petBreed
+            binding.age.text = pet.petBirthday
 
-            binding.root.setOnClickListener { onClick.invoke(pet.id) }
+            binding.root.setOnClickListener { onClick.invoke(pet.petId) }
         }
 
         companion object {
-            fun getPetVH(parent: ViewGroup, onClick: (Long) -> Unit): PetViewHolder {
+            fun getPetVH(parent: ViewGroup, onClick: (String) -> Unit): PetViewHolder {
                 val binding = LayoutPetItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -46,12 +45,12 @@ class PetAdapter(private val onClick: (Long) -> Unit) :
 
     }
 
-    class FaqDiffUtilCallback : DiffUtil.ItemCallback<Pet>() {
-        override fun areItemsTheSame(oldItem: Pet, newItem: Pet): Boolean {
-            return oldItem.id == newItem.id
+    class FaqDiffUtilCallback : DiffUtil.ItemCallback<Pets>() {
+        override fun areItemsTheSame(oldItem: Pets, newItem: Pets): Boolean {
+            return oldItem.petId == newItem.petId
         }
 
-        override fun areContentsTheSame(oldItem: Pet, newItem: Pet): Boolean {
+        override fun areContentsTheSame(oldItem: Pets, newItem: Pets): Boolean {
             return oldItem == newItem
         }
     }
