@@ -52,6 +52,7 @@ class CouponViewModel:ViewModel() {
                 if (response.result == "success") mutableCouponsInfoState.value = State.SUCCESS
                 else mutableCouponsInfoState.value = State.ERROR
             } catch (exc: Exception) {
+                Log.i("eeee",exc.message.toString())
                 mutableCouponsInfoState.value = State.FAILURE
             }
         }

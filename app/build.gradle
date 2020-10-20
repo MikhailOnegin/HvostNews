@@ -42,6 +42,12 @@ android {
             includeAndroidResources = true
         }
     }
+
+    repositories {
+        maven {
+            url "http://maven.google.com/"
+        }
+    }
 }
 
 dependencies {
@@ -100,4 +106,6 @@ dependencies {
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:1.10.19'
 
+    // Yandex MapKit full
+    implementation 'com.yandex.android:maps.mobile:4.0.0-full'
 }
