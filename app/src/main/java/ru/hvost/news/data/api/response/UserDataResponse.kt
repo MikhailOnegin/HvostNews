@@ -8,5 +8,6 @@ data class UserDataResponse(
     val phone: String?,
     val email: String?,
     val city: String?,
-    val birthday: String?
+    val birthday: String?,
+    val interests: List<String>?
 )

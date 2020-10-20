@@ -35,6 +35,19 @@ interface APIService {
         @Query("userToken") userToken: String? = null
     ): Deferred<ArticlesResponse>
 
+    @GET("/rest/UserProfile/updateUserProfile/")
+    fun getUpdateUserProfileAsync(
+        @Query("userToken") userToken: String?,
+        @Query("name") name: String?,
+        @Query("surname") surname: String?,
+        @Query("patronymic") patronymic: String?,
+        @Query("phone") phone: String?,
+        @Query("email") email: String?,
+        @Query("city") city: String?,
+        @Query("birthday") birthday: String?,
+        @Query("interests") interests: List<String>?
+    ): Deferred<UserDataResponse>
+
     // Coupons
     @GET("/rest/Coupons/getCoupons/")
     fun getCouponsAsync(

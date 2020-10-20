@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.databinding.FragmentEditProfileBinding
@@ -19,6 +20,7 @@ class EditProfileFragment : Fragment() {
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var mainVM: MainViewModel
     private var date = Calendar.getInstance()
+    private var state: State? = null
 
 
     override fun onCreateView(
@@ -37,16 +39,16 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setObservers() {
-        mainVM.userDataState.observe(viewLifecycleOwner, { setDataToBind(it) })
+        mainVM.userDataState.observe(viewLifecycleOwner, {
+            state = it
+            setDataToBind(it)
+        })
     }
 
     private fun setDataToBind(state: State) {
         when (state) {
-            State.SUCCESS -> {
-                bindData()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
+            State.SUCCESS -> { bindData() }
+            State.FAILURE, State.ERROR -> { }
         }
     }
 
@@ -62,8 +64,34 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setListeners() {
-//        binding.birthday.setOnClickListener { showDatePicker() }
         binding.birthday.setOnClickListener(openDatePickerDialog)
+        binding.cancel.setOnClickListener {
+            if (state == State.SUCCESS) {
+                bindData()
+            } else {
+                binding.surname.setText("")
+                binding.name.setText("")
+                binding.patronymic.setText("")
+                binding.birthday.setText("")
+                binding.phone.setText("")
+                binding.email.setText("")
+                binding.city.setText("")
+            }
+        }
+        binding.save.setOnClickListener { tryToSend() }
+    }
+
+    private fun tryToSend() {
+        mainVM.changeUserData(
+            surname = binding.surname.text.toString(),
+            name = binding.name.text.toString(),
+            patronymic = binding.patronymic.text.toString(),
+            birthday = binding.birthday.text.toString(),
+            phone = binding.phone.text.toString(),
+            email = binding.email.text.toString(),
+            city = binding.city.text.toString()
+        )
+        Toast.makeText(requireActivity(), "Success", Toast.LENGTH_SHORT).show()
     }
 
     private val openDatePickerDialog = View.OnClickListener { showDatePicker() }

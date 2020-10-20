@@ -43,13 +43,24 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setObservers() {
-        mainVM.articlesState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
+        mainVM.changeUserDataState.observe(viewLifecycleOwner, Observer { updateData(it) })
+        mainVM.userDataState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
     }
 
     private fun setDataToBind(state: State) {
         when (state) {
             State.SUCCESS -> {
                 bindData()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
+    private fun updateData(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                mainVM.loadUserData()
             }
             State.FAILURE, State.ERROR -> {
             }
