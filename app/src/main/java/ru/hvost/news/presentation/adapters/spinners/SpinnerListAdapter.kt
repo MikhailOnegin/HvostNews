@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.setPadding
 import ru.hvost.news.R
 import ru.hvost.news.models.Species
+import ru.hvost.news.presentation.customviews.ValueHolderView
 
 class SpeciesSpinnerAdapter(
     context: Context,
-    private val resource: Int
+    private val resource: Int,
+    private val spinnerHint: String
 ) : ArrayAdapter<Species>(context, resource) {
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -25,15 +26,13 @@ class SpeciesSpinnerAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.spinner_view, parent, false)
-        view.layoutParams = ConstraintLayout.LayoutParams(
+        val valueHolder = (convertView ?: ValueHolderView(context)) as ValueHolderView
+        valueHolder.layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
+            context.resources.getDimension(R.dimen.widgetsHeight).toInt()
         )
-        view.setPadding(0)
-        view.findViewById<TextView>(R.id.spinnerText)?.apply {
-            text = getItem(position)?.speciesName
-        }
-        return view
+        valueHolder.setSelection(getItem(position)?.speciesName)
+        valueHolder.setHint(spinnerHint)
+        return valueHolder
     }
 }
