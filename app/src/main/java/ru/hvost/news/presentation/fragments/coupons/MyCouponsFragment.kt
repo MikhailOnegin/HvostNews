@@ -1,12 +1,11 @@
 package ru.hvost.news.presentation.fragments.coupons
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -15,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_coupons_my.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.response.CouponsResponse
 import ru.hvost.news.databinding.FragmentCouponsMyBinding
@@ -36,18 +36,20 @@ class MyCouponsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCouponsMyBinding.inflate(inflater, container, false)
+     //   binding.toolbar.inflateMenu(R.menu.my_coupons_menu)
+       // (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         navC = findNavController()
-        couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
+        couponVM = ViewModelProvider(this)[CouponViewModel::class.java]
         adapter.clickCoupon = object : MyCouponsAdapter.ClickCoupon {
             override fun click(item: Coupons.Coupon) {
                 val bundle = Bundle()
                 bundle.putSerializable("coupon", item)
-                navC.navigate(R.id.action_myCouponsFragment_to_couponFragment)
+                navC.navigate(R.id.action_myCouponsFragment_to_couponFragment, bundle)
             }
         }
         layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -56,6 +58,12 @@ class MyCouponsFragment: Fragment() {
         val items = arrayOf("Все","Активные", "Использованные")
         val spinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item, items)
         binding.spinnerCoupons.adapter = spinnerAdapter
+        binding.imageBack.setOnClickListener {
+            navC.popBackStack()
+        }
+        binding.imageInfo.setOnClickListener {
+            navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)
+        }
         binding.spinnerCoupons.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -73,11 +81,24 @@ class MyCouponsFragment: Fragment() {
 
     private fun setObservers(owner: LifecycleOwner) {
         couponVM.coupons.observe(owner, Observer {
-            it.coupons?.run {
-                val coupons = this.toDomain()
-                adapter.setCoupons(coupons)
-            }
+                adapter.setCoupons(it.coupons)
         })
     }
+    //override fun onCreate(savedInstanceState: Bundle?) {
+    //    super.onCreate(savedInstanceState)
+    //    setHasOptionsMenu(true)
+    //}
+    //override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    //    inflater.inflate(R.menu.my_coupons_menu,menu)
+    //    super.onCreateOptionsMenu(menu, inflater)
+    //}
+//
+//
+    //override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    //    if(item.itemId == R.id.info_get){
+    //        navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)
+    //    }
+    //    return super.onOptionsItemSelected(item)
+    //}
 
 }

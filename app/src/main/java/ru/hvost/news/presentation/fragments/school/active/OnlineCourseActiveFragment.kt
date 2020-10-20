@@ -27,7 +27,7 @@ class OnlineCourseActiveFragment:Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        schoolVM = ViewModelProvider(this)[SchoolViewModel::class.java]
         initViewPager()
     }
     private fun initViewPager(){

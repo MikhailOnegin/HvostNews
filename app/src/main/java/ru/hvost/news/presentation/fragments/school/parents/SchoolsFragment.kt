@@ -39,7 +39,7 @@ class SchoolsFragment: Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        schoolVM = ViewModelProvider(this)[SchoolViewModel::class.java]
         navC = findNavController()
         layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         val items = arrayOf("Все семинары", "Ваши семинары")

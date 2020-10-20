@@ -11,7 +11,7 @@ data class CouponsResponse (
     data class CouponResponse (
         val couponId:String?,
         val imageUrl:String?,
-        val isUsed:String?,
+        val isUsed:Boolean?,
         val title:String?,
         val shortDescription:String?,
         val description:String?,
