@@ -35,6 +35,9 @@ interface APIService {
         @Query("userToken") userToken: String? = null
     ): Deferred<ArticlesResponse>
 
+    @GET("/rest/Registration/getSpecies/")
+    fun getSpecies(): Deferred<SpeciesResponse>
+
     @GET("/rest/UserProfile/updateUserProfile/")
     fun getUpdateUserProfileAsync(
         @Query("userToken") userToken: String?,

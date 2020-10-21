@@ -24,6 +24,7 @@
 
             <EditText
                 android:id="@+id/name"
+                style="@style/EditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -37,11 +38,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/type" />
-
         <Spinner
             android:id="@+id/type"
             android:layout_width="match_parent"
@@ -49,34 +45,38 @@
             android:layout_marginBottom="@dimen/smallMargin"
             android:entries="@array/testItems" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/gender" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/normalMargin">
 
-            <Button
+            <TextView
+                android:id="@+id/sexMale"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="мужской" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:text="женский" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="не указывать" />
+                android:layout_height="wrap_content"
+                android:text="@string/sexMale"
+                style="@style/SexTextView"
+                android:background="@drawable/sex_selector_left"/>
+
+            <TextView
+                android:id="@+id/sexFemale"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/sexFemale"
+                style="@style/SexTextView"
+                android:background="@drawable/sex_selector_middle"/>
+
+            <TextView
+                android:id="@+id/sexUnknown"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/sexUnknown"
+                style="@style/SexTextView"
+                android:background="@drawable/sex_selector_right"/>
 
         </LinearLayout>
 
@@ -99,6 +99,7 @@
 
         <EditText
             android:id="@+id/birthday"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -111,7 +112,8 @@
             android:text="@string/food" />
 
         <EditText
-            android:id="@+id/favEat"
+            android:id="@+id/delicious"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -136,6 +138,7 @@
 
         <EditText
             android:id="@+id/badHabit"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -149,6 +152,7 @@
 
         <EditText
             android:id="@+id/chip"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"

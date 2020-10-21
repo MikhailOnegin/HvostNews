@@ -26,6 +26,9 @@ class MainViewModel : ViewModel() {
     val userPetsState = MutableLiveData<State>()
     val userPetsResponse = MutableLiveData<List<Pets>>()
 
+    val petsSpeciesState = MutableLiveData<State>()
+    val petsSpeciesResponse = MutableLiveData<List<Species>>()
+
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
 
@@ -34,6 +37,7 @@ class MainViewModel : ViewModel() {
         loadAllArticles()
         loadUserData()
         loadPetsData()
+        loadSpecies()
     }
 
     private fun loadArticles() {
@@ -98,6 +102,21 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun loadSpecies() {
+        viewModelScope.launch {
+            petsSpeciesState.value = State.LOADING
+            try {
+                val response = APIService.API.getSpecies().await()
+                if (response.result == "success") {
+                    petsSpeciesResponse.value = response.species?.toSpecies()
+                    petsSpeciesState.value = State.SUCCESS
+                } else petsSpeciesState.value = State.ERROR
+            } catch (exc: Exception) {
+                petsSpeciesState.value = State.FAILURE
+            }
+        }
+    }
+
     fun changeUserData(
         name: String?,
         surname: String?,
@@ -129,6 +148,12 @@ class MainViewModel : ViewModel() {
                 changeUserDataState.value = State.FAILURE
             }
         }
+    }
+
+    companion object {
+        const val SEX_MALE = 8
+        const val SEX_FEMALE = 9
+        const val UNKNOWN = 0
     }
 
 }
