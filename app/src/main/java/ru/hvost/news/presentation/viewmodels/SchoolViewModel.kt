@@ -31,7 +31,7 @@ class SchoolViewModel: ViewModel() {
                 if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
                 else mutableOfflineLessonsState.value = State.ERROR
             } catch (exc: Exception) {
-                Log.i("eeee", "getOfflineLessons ERROR: ${exc.message}")
+                Log.i("eeee", "getOfflineLessons() ERROR: ${exc.message}")
                 mutableOfflineLessonsState.value = State.FAILURE
             }
         }
@@ -52,6 +52,7 @@ class SchoolViewModel: ViewModel() {
                 if (response.result == "success") mutableOnlineLessonsState.value = State.SUCCESS
                 else mutableOnlineLessonsState.value = State.ERROR
             } catch (exc: Exception) {
+                Log.i("eeee", " getOnlineLessons() ERROR: ${exc.message.toString()}")
                 mutableOnlineLessonsState.value = State.FAILURE
             }
         }
@@ -72,6 +73,7 @@ class SchoolViewModel: ViewModel() {
                 if (response.result == "success") mutableOnlineSchoolsState.value = State.SUCCESS
                 else mutableOnlineSchoolsState.value = State.ERROR
             } catch (exc: Exception) {
+                Log.i("eeee", " getOnlineSchools() ERROR: ${exc.message.toString()}")
                 mutableOnlineSchoolsState.value = State.FAILURE
             }
         }
@@ -92,6 +94,7 @@ class SchoolViewModel: ViewModel() {
                 if (response.result == "success") mutableSetLessonTestesPassedState.value = State.SUCCESS
                 else mutableSetLessonTestesPassedState.value = State.ERROR
             } catch (exc: Exception) {
+                Log.i("eeee", " setLessonsTestesPassed() ERROR: ${exc.message.toString()}")
                 mutableSetLessonTestesPassedState.value = State.FAILURE
             }
         }

@@ -57,15 +57,17 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<OnlineSchoolsResponse>
 
-    @GET()
+    @GET("/rest/School/setLessonTestPassed/")
     fun setLessonTestesPassedAsync(
         @Query("userToken") userToken: String?,
         @Query("lessonId") lessonId: Long?
     ): Deferred<LessonTestesPassedResponse>
 
     // Map
-    @GET()
-    fun getShopsAsync(userToken: String): Deferred<ShopsResponse>
+    @GET("/rest/Maps/getShops/")
+    fun getShopsAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<ShopsResponse>
 
     companion object {
         private val moshi: Moshi = Moshi.Builder()

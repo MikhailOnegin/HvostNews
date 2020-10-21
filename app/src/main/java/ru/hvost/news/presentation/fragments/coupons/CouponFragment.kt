@@ -22,7 +22,6 @@ import ru.hvost.news.presentation.viewmodels.CouponViewModel
 class CouponFragment: Fragment() {
     
     private lateinit var binding: FragmentCouponBinding
-    private lateinit var bindingDialog:DialogQrCodeBinding
     private lateinit var couponVM: CouponViewModel
     private lateinit var navC:NavController
     private val dialogGrCode = QrCodeDialog()
@@ -32,7 +31,6 @@ class CouponFragment: Fragment() {
         savedInstanceState: Bundle?
         ): View? {
         binding = FragmentCouponBinding.inflate(inflater, container, false)
-        bindingDialog = DialogQrCodeBinding.inflate(inflater, container, false)
         return binding.root
     }
 

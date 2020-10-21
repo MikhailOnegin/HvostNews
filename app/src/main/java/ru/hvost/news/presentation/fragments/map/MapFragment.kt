@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.yandex.mapkit.Animation
@@ -13,12 +14,17 @@ import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentMapBinding
+import ru.hvost.news.presentation.dialogs.MapFilterDialog
+import ru.hvost.news.presentation.viewmodels.MapViewModel
+import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 
 class MapFragment: Fragment(), OnMapReadyCallback {
 
 
     private lateinit var binding: FragmentMapBinding
+    private lateinit var mapVm: MapViewModel
+    private val dialogMapFilter: MapFilterDialog = MapFilterDialog()
    // private lateinit var mapVM: MapViewModel
    // private lateinit var googleMap:GoogleMap
 
@@ -56,6 +62,9 @@ class MapFragment: Fragment(), OnMapReadyCallback {
             Animation(Animation.Type.SMOOTH, 0f),
             null
         )
+        binding.imageButtonFilter.setOnClickListener {
+            dialogMapFilter.show(requireActivity().supportFragmentManager, "customDialog")
+        }
         // mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
         // binding.mapView.onCreate(savedInstanceState)
         //   binding.mapView.onResume()
