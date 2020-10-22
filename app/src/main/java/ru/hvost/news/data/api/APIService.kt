@@ -36,7 +36,23 @@ interface APIService {
     ): Deferred<ArticlesResponse>
 
     @GET("/rest/Registration/getSpecies/")
-    fun getSpecies(): Deferred<SpeciesResponse>
+    fun getSpeciesAsync(): Deferred<SpeciesResponse>
+
+    @GET("/rest/Registration/getBreeds/")
+    fun getBreedsAsync(
+        @Query("specId") specId: Int?
+    ): Deferred<BreedsResponse>
+
+    @GET("/rest/PetProfile/deletePet/")
+    fun deletePetAsync(
+        @Query("userToken") userToken: String?,
+        @Query("petId") petId: String?
+    ): Deferred<DeletePetResponse>
+
+    @GET("/rest/InviteFriend/getBonusBalance/")
+    fun getBonusBalanceAsync(
+        @Query("userToken") userToken: String?,
+    ): Deferred<BonusBalanceResponse>
 
     @GET("/rest/UserProfile/updateUserProfile/")
     fun getUpdateUserProfileAsync(

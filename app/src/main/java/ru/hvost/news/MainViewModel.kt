@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
+import ru.hvost.news.data.api.response.BonusBalanceResponse
+import ru.hvost.news.data.api.response.DeletePetResponse
 import ru.hvost.news.data.api.response.UserDataResponse
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
@@ -29,6 +31,15 @@ class MainViewModel : ViewModel() {
     val petsSpeciesState = MutableLiveData<State>()
     val petsSpeciesResponse = MutableLiveData<List<Species>>()
 
+    val petsBreedsState = MutableLiveData<State>()
+    val petsBreedsResponse = MutableLiveData<List<Breeds>>()
+
+    val petDeleteState = MutableLiveData<State>()
+    val petDeleteResponse = MutableLiveData<DeletePetResponse>()
+
+    val bonusBalanceState = MutableLiveData<State>()
+    val bonusBalanceResponse = MutableLiveData<BonusBalanceResponse>()
+
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
 
@@ -38,6 +49,21 @@ class MainViewModel : ViewModel() {
         loadUserData()
         loadPetsData()
         loadSpecies()
+    }
+
+    fun getBonusBalance() {
+        viewModelScope.launch {
+            bonusBalanceState.value = State.LOADING
+        try {
+            val response = APIService.API.getBonusBalanceAsync(App.getInstance().userToken).await()
+            if (response.result == "success") {
+                bonusBalanceResponse.value = response
+                bonusBalanceState.value = State.SUCCESS
+            } else bonusBalanceState.value = State.ERROR
+        } catch (exc: Exception) {
+            bonusBalanceState.value = State.FAILURE
+        }
+    }
     }
 
     private fun loadArticles() {
@@ -106,13 +132,48 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             petsSpeciesState.value = State.LOADING
             try {
-                val response = APIService.API.getSpecies().await()
+                val response = APIService.API.getSpeciesAsync().await()
                 if (response.result == "success") {
                     petsSpeciesResponse.value = response.species?.toSpecies()
                     petsSpeciesState.value = State.SUCCESS
                 } else petsSpeciesState.value = State.ERROR
             } catch (exc: Exception) {
                 petsSpeciesState.value = State.FAILURE
+            }
+        }
+    }
+
+    fun loadBreeds(
+        specId: Int
+    ) {
+        viewModelScope.launch {
+            petsBreedsState.value = State.LOADING
+            try {
+                val response = APIService.API.getBreedsAsync(specId).await()
+                if (response.result == "success") {
+                    petsBreedsResponse.value = response.breeds?.toBreeds()
+                    petsBreedsState.value = State.SUCCESS
+                } else petsBreedsState.value = State.ERROR
+            } catch (exc: Exception) {
+                petsBreedsState.value = State.FAILURE
+            }
+        }
+    }
+
+    fun deletePet(
+        petId: String
+    ) {
+        viewModelScope.launch {
+            petDeleteState.value = State.LOADING
+            try {
+                val response =
+                    APIService.API.deletePetAsync(userToken = App.getInstance().userToken, petId = petId).await()
+                if (response.result == "success") {
+                    petDeleteResponse.value = response
+                    petDeleteState.value = State.SUCCESS
+                } else petDeleteState.value = State.ERROR
+            } catch (exc: Exception) {
+                petDeleteState.value = State.FAILURE
             }
         }
     }

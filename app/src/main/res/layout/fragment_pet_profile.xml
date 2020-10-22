@@ -40,43 +40,43 @@
 
         <Spinner
             android:id="@+id/type"
+            style="@style/Spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:entries="@array/testItems" />
+            android:layout_marginBottom="@dimen/smallMargin" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/normalMargin">
+            android:layout_marginTop="@dimen/normalMargin"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/sexMale"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/sexMale"
                 style="@style/SexTextView"
-                android:background="@drawable/sex_selector_left"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/sex_selector_left"
+                android:text="@string/sexMale" />
 
             <TextView
                 android:id="@+id/sexFemale"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/sexFemale"
                 style="@style/SexTextView"
-                android:background="@drawable/sex_selector_middle"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/sex_selector_middle"
+                android:text="@string/sexFemale" />
 
             <TextView
                 android:id="@+id/sexUnknown"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="@string/sexUnknown"
                 style="@style/SexTextView"
-                android:background="@drawable/sex_selector_right"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/sex_selector_right"
+                android:text="@string/sexUnknown" />
 
         </LinearLayout>
 
@@ -87,10 +87,10 @@
 
         <Spinner
             android:id="@+id/breed"
+            style="@style/Spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:entries="@array/testItems" />
+            android:layout_marginBottom="@dimen/smallMargin" />
 
         <TextView
             android:layout_width="match_parent"
@@ -125,6 +125,7 @@
             android:layout_height="wrap_content"
             android:text="@string/toy" />
 
+        <!--TODO: Игрушка       -->
         <Spinner
             android:id="@+id/favToy"
             android:layout_width="match_parent"
@@ -159,6 +160,7 @@
             android:inputType="date"
             android:text="@string/chip" />
 
+        <!--TODO: все свитчи     -->
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -188,6 +190,7 @@
             android:layout_height="wrap_content"
             android:text="@string/education" />
 
+        <!--TODO: образование       -->
         <Spinner
             android:id="@+id/education"
             android:layout_width="match_parent"
@@ -195,12 +198,14 @@
             android:layout_marginBottom="@dimen/smallMargin"
             android:entries="@array/testItems" />
 
+        <!--TODO: кнопка сохранить       -->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
             android:text="@string/saveChanges" />
 
+        <!--TODO: кнопка отмены        -->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -208,6 +213,7 @@
             android:text="@string/cancel" />
 
         <Button
+            android:id="@+id/delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete" />
