@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegPetBinding
 import ru.hvost.news.models.Species
-import ru.hvost.news.presentation.adapters.spinners.SpeciesSpinnerAdapter
+import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.dialogs.DatePickerDialog
 import java.util.*
 
@@ -59,14 +59,13 @@ class RegPetFragment : Fragment() {
 
     private fun onSpeciesChanged(species: List<Species>?) {
         species?.run {
-            val adapter = SpeciesSpinnerAdapter(
+            val adapter = SpinnerAdapter(
                 requireActivity(),
-                R.layout.spinner_dropdown_view,
-                getString(R.string.speciesSpinnerHint)
+                getString(R.string.speciesSpinnerHint),
+                this,
+                Species::speciesName
             )
-            adapter.addAll(this)
             binding.spinner.adapter = adapter
-            adapter.notifyDataSetChanged()
         }
     }
 
