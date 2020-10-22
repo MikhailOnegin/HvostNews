@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.fragments.school.active
+package ru.hvost.news.presentation.fragments.school.online
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.hvost.news.databinding.FragmentOnlineCourseActiveBinding
 import ru.hvost.news.presentation.adapters.viewPager.OnlineSchoolActiveVPAdapter
-import ru.hvost.news.presentation.adapters.viewPager.ParentsSchoolVPAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class OnlineCourseActiveFragment:Fragment() {

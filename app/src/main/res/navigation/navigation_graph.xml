@@ -140,26 +140,26 @@
             app:destination="@+id/onlineCourseActiveFragment"
             />
         <action
-            android:id="@+id/action_parentSchoolFragment_to_offlineCourseCompletedFragment"
-            app:destination="@+id/offlineCourseCompletedFragment"
+            android:id="@+id/action_parentSchoolFragment_to_offlineSeminarsFragment"
+            app:destination="@+id/offlineSeminarsFragment"
             />
     </fragment>
 
     <fragment
         android:id="@+id/offlineCourseActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.offline.OfflineCourseSeminars"
         android:label="Offline course active"
-        tools:layout="@layout/fragment_offline_course_active" />
+        tools:layout="@layout/fragment_offline_seminars" />
 
     <fragment
-        android:id="@+id/offlineCourseCompletedFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseCompletedFragment"
+        android:id="@+id/offlineSeminarsFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.offline.OfflineCourseSeminars"
         android:label="Offline course completed"
-        tools:layout="@layout/fragment_offline_course_comleted" />
+        tools:layout="@layout/fragment_offline_seminars" />
 
     <fragment
         android:id="@+id/onlineCourseActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.active.OnlineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.online.OnlineCourseActiveFragment"
         android:label="Online course active"
         tools:layout="@layout/fragment_online_course_active" >
         <action
@@ -170,12 +170,12 @@
 
     <fragment
         android:id="@+id/onlineCourseLessonFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseLessonFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.online.OnlineCourseLessonFragment"
         android:label="Online course lesson"
         tools:layout="@layout/fragment_online_course_lesson" />
     <fragment
         android:id="@+id/onlineCourseNewFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseNewFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.online.OnlineCourseNewFragment"
         android:label="OnlineCourseNewFragment"
         tools:layout="@layout/fragment_online_course_new" />
 

@@ -25,7 +25,6 @@ class MapFragment: Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentMapBinding
     private lateinit var mapVm: MapViewModel
     private val dialogMapFilter: MapFilterDialog = MapFilterDialog()
-   // private lateinit var mapVM: MapViewModel
    // private lateinit var googleMap:GoogleMap
 
 
@@ -52,6 +51,8 @@ class MapFragment: Fragment(), OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mapVm = ViewModelProvider(this)[MapViewModel::class.java]
+        mapVm.getShops("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         binding.mapView.map.move(
             CameraPosition(
                 Point(
@@ -65,7 +66,8 @@ class MapFragment: Fragment(), OnMapReadyCallback {
         binding.imageButtonFilter.setOnClickListener {
             dialogMapFilter.show(requireActivity().supportFragmentManager, "customDialog")
         }
-        // mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
+
+
         // binding.mapView.onCreate(savedInstanceState)
         //   binding.mapView.onResume()
         //binding.mapView.getMapAsync(this)

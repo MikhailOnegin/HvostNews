@@ -73,7 +73,6 @@ interface APIService {
         private val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
-
         const val baseUrl = "http://hvost-news.testfact3.ru"
 
         val API: APIService by lazy {
