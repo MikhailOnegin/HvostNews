@@ -31,6 +31,7 @@
                 android:text="@string/petName" />
 
             <Button
+                style="@style/ElevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
@@ -200,6 +201,7 @@
 
         <!--TODO: кнопка сохранить       -->
         <Button
+            style="@style/ElevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -207,6 +209,7 @@
 
         <!--TODO: кнопка отмены        -->
         <Button
+            style="@style/ElevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
@@ -214,6 +217,7 @@
 
         <Button
             android:id="@+id/delete"
+            style="@style/ElevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete" />

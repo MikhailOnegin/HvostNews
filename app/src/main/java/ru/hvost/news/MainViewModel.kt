@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.data.api.response.BonusBalanceResponse
-import ru.hvost.news.data.api.response.DeletePetResponse
-import ru.hvost.news.data.api.response.UserDataResponse
+import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
 
@@ -37,6 +35,12 @@ class MainViewModel : ViewModel() {
     val petDeleteState = MutableLiveData<State>()
     val petDeleteResponse = MutableLiveData<DeletePetResponse>()
 
+    val inviteLinkState = MutableLiveData<State>()
+    val inviteLinkResponse = MutableLiveData<InviteLinkResponse>()
+
+    val sendInviteState = MutableLiveData<State>()
+    val sendInviteResponse = MutableLiveData<SendToEmailResponse>()
+
     val bonusBalanceState = MutableLiveData<State>()
     val bonusBalanceResponse = MutableLiveData<BonusBalanceResponse>()
 
@@ -49,21 +53,59 @@ class MainViewModel : ViewModel() {
         loadUserData()
         loadPetsData()
         loadSpecies()
+        getBonusBalance()
+        getInviteLink()
     }
 
     fun getBonusBalance() {
         viewModelScope.launch {
             bonusBalanceState.value = State.LOADING
-        try {
-            val response = APIService.API.getBonusBalanceAsync(App.getInstance().userToken).await()
-            if (response.result == "success") {
-                bonusBalanceResponse.value = response
-                bonusBalanceState.value = State.SUCCESS
-            } else bonusBalanceState.value = State.ERROR
-        } catch (exc: Exception) {
-            bonusBalanceState.value = State.FAILURE
+            try {
+                val response =
+                    APIService.API.getBonusBalanceAsync(App.getInstance().userToken).await()
+                if (response.result == "success") {
+                    bonusBalanceResponse.value = response
+                    bonusBalanceState.value = State.SUCCESS
+                } else bonusBalanceState.value = State.ERROR
+            } catch (exc: Exception) {
+                bonusBalanceState.value = State.FAILURE
+            }
         }
     }
+
+    fun getInviteLink() {
+        viewModelScope.launch {
+            inviteLinkState.value = State.LOADING
+            try {
+                val response =
+                    APIService.API.getInviteLinkAsync(App.getInstance().userToken).await()
+                if (response.result == "success") {
+                    inviteLinkResponse.value = response
+                    inviteLinkState.value = State.SUCCESS
+                } else inviteLinkState.value = State.ERROR
+            } catch (exc: Exception) {
+                inviteLinkState.value = State.FAILURE
+            }
+        }
+    }
+
+    fun SendInviteToMail(
+        email: String?
+    ) {
+        viewModelScope.launch {
+            sendInviteState.value = State.LOADING
+            try {
+                val response =
+                    APIService.API.sendInviteToEmailAsync(App.getInstance().userToken, email)
+                        .await()
+                if (response.result == "success") {
+                    sendInviteResponse.value = response
+                    sendInviteState.value = State.SUCCESS
+                } else sendInviteState.value = State.ERROR
+            } catch (exc: Exception) {
+                sendInviteState.value = State.FAILURE
+            }
+        }
     }
 
     private fun loadArticles() {
@@ -167,7 +209,10 @@ class MainViewModel : ViewModel() {
             petDeleteState.value = State.LOADING
             try {
                 val response =
-                    APIService.API.deletePetAsync(userToken = App.getInstance().userToken, petId = petId).await()
+                    APIService.API.deletePetAsync(
+                        userToken = App.getInstance().userToken,
+                        petId = petId
+                    ).await()
                 if (response.result == "success") {
                     petDeleteResponse.value = response
                     petDeleteState.value = State.SUCCESS

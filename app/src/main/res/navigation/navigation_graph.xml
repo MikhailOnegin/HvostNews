@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/inviteFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -86,6 +86,9 @@
             android:id="@+id/action_profileFragment_to_myCouponsFragment"
             app:destination="@+id/myCouponsFragment"
             />
+        <action
+            android:id="@+id/action_profileFragment_to_inviteFragment"
+            app:destination="@id/inviteFragment" />
     </fragment>
 
     <fragment
