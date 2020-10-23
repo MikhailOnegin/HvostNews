@@ -1,9 +1,11 @@
 package ru.hvost.news.utils
 
+import android.annotation.SuppressLint
 import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
 import android.view.View
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
@@ -11,6 +13,8 @@ import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
 import ru.hvost.news.R
 import java.lang.StringBuilder
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
 
 fun createSnackbar(
@@ -112,3 +116,10 @@ class PhoneInputFilter : InputFilter {
     }
 
 }
+
+fun scrollToTheTop(scrollView: ScrollView) {
+    scrollView.smoothScrollTo(0, 0)
+}
+
+@SuppressLint("ConstantLocale")
+val petBirthdayDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())

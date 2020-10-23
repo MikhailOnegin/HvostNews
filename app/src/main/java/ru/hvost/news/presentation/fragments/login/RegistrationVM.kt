@@ -3,8 +3,14 @@ package ru.hvost.news.presentation.fragments.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.models.Species
+import ru.hvost.news.models.toSpecies
 import ru.hvost.news.utils.events.Event
+import java.lang.Exception
+import java.util.*
 
 class RegistrationVM : ViewModel() {
 
@@ -12,10 +18,12 @@ class RegistrationVM : ViewModel() {
 
     //registration data
     val petSex = MutableLiveData<Int>()
+    val petBirthday = MutableLiveData<Date>()
     //registration data
 
     init {
-        petSex.value = null
+        petSex.value = SEX_MALE
+        petBirthday.value = Date(System.currentTimeMillis())
     }
 
     private val _stage = MutableLiveData<Event<Int>>()
@@ -33,15 +41,24 @@ class RegistrationVM : ViewModel() {
         }
     }
 
-    private val _species = MutableLiveData<List<Species>>()
+    private val _species = MutableLiveData<List<Species>>().apply { value = null }
     val species: LiveData<List<Species>> = _species
     fun loadSpecies() {
-        _species.value = Species.getTestList()
+        viewModelScope.launch {
+            try {
+                val response = APIService.API.getSpeciesAsync().await()
+                if(response.result == "success") _species.value = response.species?.toSpecies()
+                else _species.value = null
+            }catch (exc: Exception) {
+                _species.value = null
+            }
+        }
     }
 
     companion object {
         const val SEX_MALE = 8
         const val SEX_FEMALE = 9
+        const val SEX_UNKNOWN = 0
     }
 
 }
