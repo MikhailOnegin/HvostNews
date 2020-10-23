@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.fragments.school.active
+package ru.hvost.news.presentation.fragments.school.online
 
 import android.os.Bundle
 import android.view.LayoutInflater

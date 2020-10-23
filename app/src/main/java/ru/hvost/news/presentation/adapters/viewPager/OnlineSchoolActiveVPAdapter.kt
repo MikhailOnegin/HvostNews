@@ -4,9 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import ru.hvost.news.presentation.fragments.school.active.CourseInfoFragment
-import ru.hvost.news.presentation.fragments.school.active.CourseMaterialsFragment
-import ru.hvost.news.presentation.fragments.school.parents.LessonsInYourCityFragment
+import ru.hvost.news.presentation.fragments.school.online.CourseInfoFragment
+import ru.hvost.news.presentation.fragments.school.online.CourseMaterialsFragment
 
 class OnlineSchoolActiveVPAdapter (fm: FragmentManager, lifecycle: Lifecycle):
     FragmentStateAdapter(fm, lifecycle)

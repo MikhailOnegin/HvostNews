@@ -31,7 +31,7 @@ class CouponViewModel:ViewModel() {
                 if (response.result == "success") mutableCouponsState.value = State.SUCCESS
                 else mutableCouponsState.value = State.ERROR
             } catch (exc: Exception) {
-                Log.i("loading ERROR", "GET COUPONS ${exc.message}")
+                Log.i("eeee", "getCoupons() ERROR: ${exc.message}")
                 mutableCouponsState.value = State.FAILURE
             }
         }
@@ -52,7 +52,7 @@ class CouponViewModel:ViewModel() {
                 if (response.result == "success") mutableCouponsInfoState.value = State.SUCCESS
                 else mutableCouponsInfoState.value = State.ERROR
             } catch (exc: Exception) {
-                Log.i("eeee",exc.message.toString())
+                Log.i("eeee","getCouponsInfo() ${exc.message.toString()}")
                 mutableCouponsInfoState.value = State.FAILURE
             }
         }
