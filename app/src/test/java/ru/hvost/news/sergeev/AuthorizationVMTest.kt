@@ -40,21 +40,21 @@ class AuthorizationVMTest {
     }
 
     @Test
-    fun logIn_correctCredentials_setsLoginEventToSuccess() = runBlockingTest {
+    fun logIn_correctCredentials_setsLoginEventToSuccess() = coroutineRule.testDispatcher.runBlockingTest {
         authorizationVM.logIn("v.fedotov@studiofact.ru", "123123123")
         val result = authorizationVM.loginEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
 
     @Test
-    fun restorePass_wrongCredentials_setsRestorePassEventToError(){
+    fun restorePass_wrongCredentials_setsRestorePassEventToError() = coroutineRule.testDispatcher.runBlockingTest {
         authorizationVM.restorePassAsync("incorrect.email@mail.kz")
         val result = authorizationVM.passRestoreEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 
     @Test
-    fun restorePass_correctCredentials_setsRestorePassEventToSuccess(){
+    fun restorePass_correctCredentials_setsRestorePassEventToSuccess() = coroutineRule.testDispatcher.runBlockingTest {
         authorizationVM.restorePassAsync("phoenix.fact@gmail.com")
         val result = authorizationVM.passRestoreEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))

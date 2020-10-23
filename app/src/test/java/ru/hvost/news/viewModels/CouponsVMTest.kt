@@ -18,8 +18,6 @@ import ru.hvost.news.utils.rules.MainCoroutineRule
 @RunWith(AndroidJUnit4::class)
 class CouponsVMTest {
 
-    class AuthorizationVMTest {
-
         private val timeout = 10000L
         private val userToken = "eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ=="
 
@@ -46,5 +44,5 @@ class CouponsVMTest {
             )
             assertEquals("ERROR", State.SUCCESS, result)
         }
-    }
+
 }

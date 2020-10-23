@@ -18,17 +18,10 @@ data class Shops(
     )
 }
 
-val List<ShopsResponse>.toDomain: List<Shops>
-    get() {
-        val result = mutableListOf<Shops>()
-        for ((index, shopsResponse) in this.withIndex()) {
-            result.add(
-                Shops(
-                    shops = shopsResponse.shops.toDomain()
-                )
-            )
-        }
-        return result
+fun ShopsResponse.toDomain(): Shops{
+    return Shops(
+        shops = this.shops.toDomain()
+    )
     }
 
 fun List<ShopsResponse.ShopResponse>?.toDomain(): List<Shops.Shop> {

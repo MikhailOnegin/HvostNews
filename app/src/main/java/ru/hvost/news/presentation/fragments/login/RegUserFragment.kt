@@ -64,19 +64,19 @@ class RegUserFragment : Fragment() {
         binding.run {
             val fields = arrayOf(surname, name, patronymic, phone, email, city)
             if(hasBlankField(*fields)) {
-                scrollToTheTop()
+                scrollToTheTop(binding.root)
                 return false
             }
             if(hasTooLongField(*fields)) {
-                scrollToTheTop()
+                scrollToTheTop(binding.root)
                 return false
             }
             if(isPhoneFieldIncorrect(phone)) {
-                scrollToTheTop()
+                scrollToTheTop(binding.root)
                 return false
             }
             if(isEmailFieldIncorrect(email)) {
-                scrollToTheTop()
+                scrollToTheTop(binding.root)
                 return false
             }
             if(!agreement.isChecked) {
@@ -89,10 +89,6 @@ class RegUserFragment : Fragment() {
             }
         }
         return true
-    }
-
-    private fun scrollToTheTop() {
-        binding.root.smoothScrollTo(0, 0)
     }
 
 }

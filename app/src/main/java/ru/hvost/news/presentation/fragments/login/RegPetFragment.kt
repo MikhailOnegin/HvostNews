@@ -10,8 +10,12 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegPetBinding
 import ru.hvost.news.models.Species
-import ru.hvost.news.presentation.adapters.spinners.SpeciesSpinnerAdapter
+import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.dialogs.DatePickerDialog
+import ru.hvost.news.utils.hasBlankField
+import ru.hvost.news.utils.hasTooLongField
+import ru.hvost.news.utils.petBirthdayDateFormat
+import ru.hvost.news.utils.scrollToTheTop
 import java.util.*
 
 class RegPetFragment : Fragment() {
@@ -44,6 +48,15 @@ class RegPetFragment : Fragment() {
     private fun setObservers() {
         registrationVM.species.observe(viewLifecycleOwner) { onSpeciesChanged(it) }
         registrationVM.petSex.observe(viewLifecycleOwner) { onPetSexChanged(it) }
+        registrationVM.petBirthday.observe(viewLifecycleOwner) { onPetBirthdayChanged(it) }
+    }
+
+    private fun onPetBirthdayChanged(petBirthday: Date?) {
+        petBirthday?.run {
+            binding.petBirthday.setSelection(
+                petBirthdayDateFormat.format(this)
+            )
+        }
     }
 
     private fun onPetSexChanged(petSex: Int?) {
@@ -53,20 +66,22 @@ class RegPetFragment : Fragment() {
         when(petSex) {
             RegistrationVM.SEX_MALE -> binding.sexMale.isSelected = true
             RegistrationVM.SEX_FEMALE -> binding.sexFemale.isSelected = true
-            null -> binding.sexUnknown.isSelected = true
+            RegistrationVM.SEX_UNKNOWN -> binding.sexUnknown.isSelected = true
         }
     }
 
     private fun onSpeciesChanged(species: List<Species>?) {
         species?.run {
-            val adapter = SpeciesSpinnerAdapter(
+            val adapter = SpinnerAdapter(
                 requireActivity(),
-                R.layout.spinner_dropdown_view,
-                getString(R.string.speciesSpinnerHint)
+                getString(R.string.speciesSpinnerHint),
+                this,
+                Species::speciesName
             )
-            adapter.addAll(this)
             binding.spinner.adapter = adapter
-            adapter.notifyDataSetChanged()
+            binding.spinner.visibility = View.VISIBLE
+        } ?: run {
+            binding.spinner.visibility = View.GONE
         }
     }
 
@@ -76,26 +91,47 @@ class RegPetFragment : Fragment() {
         binding.sexFemale.setOnClickListener(onSexClicked)
         binding.sexUnknown.setOnClickListener(onSexClicked)
         binding.petBirthday.setOnClickListener { onPetBirthdayClicked() }
+        //sergeev Настроить OnItemSelectedListener.
     }
+
+
 
     private fun onPetBirthdayClicked() {
         DatePickerDialog(onPetBirthdaySelected).show(childFragmentManager, "date_picker")
+        //sergeev Ограничивать максимальную дату рождения сегодняшней.
     }
 
     private val onPetBirthdaySelected: (Date) -> Unit = {
-        //sergeev Обработать выбор даты.
+        registrationVM.petBirthday.value = it
     }
 
     private val onSexClicked = { view: View ->
         when(view.id) {
             R.id.sexMale -> registrationVM.petSex.value = RegistrationVM.SEX_MALE
             R.id.sexFemale -> registrationVM.petSex.value = RegistrationVM.SEX_FEMALE
-            R.id.sexUnknown -> registrationVM.petSex.value = null
+            R.id.sexUnknown -> registrationVM.petSex.value = RegistrationVM.SEX_UNKNOWN
         }
     }
 
     private val onButtonNextClicked = { _: View ->
-        findNavController().navigate(R.id.action_regPetFragment_to_regInterestsFragment)
+        if(isEverythingOk()) {
+            findNavController().navigate(R.id.action_regPetFragment_to_regInterestsFragment)
+        }
+    }
+
+    private fun isEverythingOk(): Boolean {
+        binding.run {
+            val fields = arrayOf(petName, promocode)
+            if(hasBlankField(*fields)) {
+                scrollToTheTop(binding.root)
+                return false
+            }
+            if(hasTooLongField(*fields)) {
+                scrollToTheTop(binding.root)
+                return false
+            }
+            return true
+        }
     }
 
 }

@@ -35,6 +35,25 @@ interface APIService {
         @Query("userToken") userToken: String? = null
     ): Deferred<ArticlesResponse>
 
+    @GET("/rest/Registration/getSpecies/")
+    fun getSpeciesAsync(): Deferred<SpeciesResponse>
+
+    @GET("/rest/Registration/getBreeds/")
+    fun getBreedsAsync(
+        @Query("specId") specId: Int?
+    ): Deferred<BreedsResponse>
+
+    @GET("/rest/PetProfile/deletePet/")
+    fun deletePetAsync(
+        @Query("userToken") userToken: String?,
+        @Query("petId") petId: String?
+    ): Deferred<DeletePetResponse>
+
+    @GET("/rest/InviteFriend/getBonusBalance/")
+    fun getBonusBalanceAsync(
+        @Query("userToken") userToken: String?,
+    ): Deferred<BonusBalanceResponse>
+
     @GET("/rest/UserProfile/updateUserProfile/")
     fun getUpdateUserProfileAsync(
         @Query("userToken") userToken: String?,
@@ -80,21 +99,22 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<OnlineSchoolsResponse>
 
-    @GET()
+    @GET("/rest/School/setLessonTestPassed/")
     fun setLessonTestesPassedAsync(
         @Query("userToken") userToken: String?,
         @Query("lessonId") lessonId: Long?
     ): Deferred<LessonTestesPassedResponse>
 
     // Map
-    @GET()
-    fun getShopsAsync(userToken: String): Deferred<ShopsResponse>
+    @GET("/rest/Maps/getShops/")
+    fun getShopsAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<ShopsResponse>
 
     companion object {
         private val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
-
         const val baseUrl = "http://hvost-news.testfact3.ru"
 
         val API: APIService by lazy {

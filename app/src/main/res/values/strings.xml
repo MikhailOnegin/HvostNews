@@ -174,6 +174,7 @@
     <string name="regPetHint">Уважаемый пользователь, если у вас несколько питомцев, которых вы хотели бы зарегистрировать, не волнуйтесь. Вы сможете добавить их всех в соответствующем разделе приложения после завершения регистрации.</string>
     <string name="hintPetName">Кличка</string>
     <string name="speciesSpinnerHint">Вид питомца</string>
+    <string name="breedsSpinnerHint">Порода</string>
     <string name="sexMale">Мужской</string>
     <string name="sexFemale">Женский</string>
     <string name="sexUnknown">Не указывать</string>

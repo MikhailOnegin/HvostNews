@@ -3,6 +3,7 @@ package ru.hvost.news.sergeev
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
@@ -55,6 +56,13 @@ class RegistrationVMTest {
             registrationVM.stage.getOrAwaitValue().getContentIfNotHandled(),
             `is`(100)
         )
+    }
+
+    @Test
+    fun loadSpecies_getsListOfSpecies() = coroutineRule.testDispatcher.runBlockingTest {
+        registrationVM.loadSpecies()
+        val result = registrationVM.species.getOrAwaitValue()
+        assert(!result.isNullOrEmpty())
     }
 
 }
