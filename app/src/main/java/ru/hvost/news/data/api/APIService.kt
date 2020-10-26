@@ -105,7 +105,7 @@ interface APIService {
     // School
     @GET("/rest/School/getOfflineLessons/")
     fun getOfflineLessonsAsync(
-        @Query("city") city: String?
+        @Query("cityId") cityId: String?
     ): Deferred<OfflineLessonsResponse>
 
     @GET("/rest/School/getOnlineLessons/")
@@ -123,6 +123,9 @@ interface APIService {
         @Query("userToken") userToken: String?,
         @Query("lessonId") lessonId: Long?
     ): Deferred<LessonTestesPassedResponse>
+
+    @GET("/rest/School/getCities/")
+    fun getOfflineCitiesAsync():Deferred<OfflineCitiesResponse>
 
     // Map
     @GET("/rest/Maps/getShops/")

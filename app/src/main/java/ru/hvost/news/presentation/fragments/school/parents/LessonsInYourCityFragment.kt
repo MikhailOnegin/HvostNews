@@ -49,8 +49,14 @@ class LessonsInYourCityFragment:Fragment() {
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val city = items[p2]
+                val cityId =  when(city){
+                    "Москва" -> "1"
+                    "Санкт-Петербург" -> "2"
+                    "Новосибирск" -> "5"
+                    else -> ""
+                }
                 adapter.clear()
-                schoolVM.getOfflineLessons(city)
+                schoolVM.getOfflineLessons(cityId)
             }
         }
         binding.buttonYes.setOnClickListener {

@@ -7,63 +7,43 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/mapView"
-        app:layout_constraintTop_toBottomOf="@+id/editTextQuery" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <EditText
+        android:id="@+id/editTextQuery"
+        style="@style/EditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:hint="Поиск по адресу или названию"
+        android:inputType="textPersonName"
+        android:padding="16dp"
+        android:textColorHint="@color/EditTextTextColorHints"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_filter"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton_filter"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButton_filter"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/imageButton_filter"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:elevation="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextQuery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextQuery"
-        app:srcCompat="@drawable/ic_baseline_help_24" />
-
-    <EditText
-        android:id="@+id/editTextQuery"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/background_item_list"
-        android:elevation="1dp"
-        android:ems="10"
-        android:hint="Поиск по адресу или названию"
-        android:inputType="textPersonName"
-        android:padding="8dp"
-        android:textColor="#353535"
-        android:textColorHint="#9F9F9F"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton_filter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/defaultBackground"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_tune_24" />
 
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton_filter"
+        app:layout_constraintVertical_bias="0.0">
+
+    </com.yandex.mapkit.mapview.MapView>
 </androidx.constraintlayout.widget.ConstraintLayout>
