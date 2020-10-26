@@ -13,7 +13,8 @@ import java.util.*
 
 class DatePickerDialog(
         private val onDateSelected: (Date) -> Unit,
-        private val initialDate: Date? = null
+        private val initialDate: Date? = null,
+        private val maxDate: Date? = null
 ) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,6 +37,7 @@ class DatePickerDialog(
                 selectedDate.get(Calendar.DAY_OF_MONTH)) { _, year, month, day ->
             setDate(selectedDate, year, month, day)
         }
+        maxDate?.run{ picker.maxDate = time }
 
         dialog.setContentView(contentView)
         dialog.setCancelable(true)

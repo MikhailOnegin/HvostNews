@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.fragments.login
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.FragmentRegInterestsBinding
 
 class RegInterestsFragment : Fragment() {

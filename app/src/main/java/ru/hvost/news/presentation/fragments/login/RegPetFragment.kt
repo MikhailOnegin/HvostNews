@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,8 @@ class RegPetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
+        //sergeev: Выпилить из релиза.
+        setDummies()
         return binding.root
     }
 
@@ -36,13 +39,17 @@ class RegPetFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
         setObservers()
-        registrationVM.loadSpecies()
     }
 
     override fun onStart() {
         super.onStart()
         setListeners()
         registrationVM.setStage(RegistrationVM.RegStep.PET)
+    }
+
+    private fun setDummies() {
+        binding.petName.setText("Мушу")
+        binding.promocode.setText("LNGF-9965-FGDD-45FD")
     }
 
     private fun setObservers() {
@@ -91,14 +98,26 @@ class RegPetFragment : Fragment() {
         binding.sexFemale.setOnClickListener(onSexClicked)
         binding.sexUnknown.setOnClickListener(onSexClicked)
         binding.petBirthday.setOnClickListener { onPetBirthdayClicked() }
-        //sergeev Настроить OnItemSelectedListener.
+        binding.spinner.onItemSelectedListener = OnSpeciesSelectedListener(registrationVM)
     }
 
+    private class OnSpeciesSelectedListener(
+        private val registrationVM: RegistrationVM
+    ): AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val selection = parent?.getItemAtPosition(position) as Species
+            registrationVM.petSpeciesId = selection.speciesId
+        }
 
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
 
     private fun onPetBirthdayClicked() {
-        DatePickerDialog(onPetBirthdaySelected).show(childFragmentManager, "date_picker")
-        //sergeev Ограничивать максимальную дату рождения сегодняшней.
+        DatePickerDialog(
+            onDateSelected = onPetBirthdaySelected,
+            initialDate = registrationVM.petBirthday.value,
+            maxDate = Date()
+        ).show(childFragmentManager, "date_picker")
     }
 
     private val onPetBirthdaySelected: (Date) -> Unit = {
@@ -130,8 +149,14 @@ class RegPetFragment : Fragment() {
                 scrollToTheTop(binding.root)
                 return false
             }
+            setViewModelFields()
             return true
         }
+    }
+
+    private fun setViewModelFields() {
+        registrationVM.petName = binding.petName.text.toString()
+        registrationVM.couponeCode = binding.promocode.text.toString()
     }
 
 }
