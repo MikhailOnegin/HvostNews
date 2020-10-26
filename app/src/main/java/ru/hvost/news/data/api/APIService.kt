@@ -41,6 +41,11 @@ interface APIService {
     @GET("/rest/Registration/getSpecies/")
     fun getSpeciesAsync(): Deferred<SpeciesResponse>
 
+    @GET("/rest/InviteFriend/getPrizes/")
+    fun getPrizesAsync(
+        @Query("userToken") userToken: String?,
+    ): Deferred<PrizesResponse>
+
     @GET("/rest/Registration/getBreeds/")
     fun getBreedsAsync(
         @Query("specId") specId: Int?

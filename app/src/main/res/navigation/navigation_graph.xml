@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_profileFragment_to_inviteFragment"
             app:destination="@id/inviteFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_prizesFragment"
+            app:destination="@id/prizesFragment" />
     </fragment>
 
     <fragment

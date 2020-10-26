@@ -1,25 +1,39 @@
 package ru.hvost.news.models
 
-import kotlin.random.Random
+import ru.hvost.news.data.api.response.PrizesResponse
 
-class Prize(
-    val id: Long,
-    val name: String,
-    val breed: String
-){
-    companion object{
-        fun getTestPrizeList(): List<Prize>{
-            val result = mutableListOf<Prize>()
-            for(i in 0L until 2L){
-                result.add(
-                    Prize(
-                        id = i + 1,
-                        name = listOf("Собака", "Кошка", "Псина")[Random.nextInt(3)],
-                        breed = listOf("Собаки", "Кошки", "Птицы", "Черепахи")[Random.nextInt(4)]
+data class Prize(
+    val prizeId: String,
+    val prizeCost: String,
+    val category: String,
+    val products: List<Product>,
+) {
+    data class Product(
+        val id: Long,
+        val title: String,
+        val count: Int,
+        val imageUrl: String
+    )
+}
+
+fun List<PrizesResponse.Prize>.toPrizes(): List<Prize> {
+    val result = mutableListOf<Prize>()
+    for (prize in this) {
+        result.add(
+            Prize(
+                prizeId = prize.prizeId ?: "",
+                prizeCost = prize.prizeCost ?: "",
+                category = prize.category ?: "",
+                products = prize.products?.mapIndexed { index, product ->
+                    Prize.Product(
+                        id = index.inc().toLong(),
+                        title = product.title ?: "",
+                        count = product.count ?: 0,
+                        imageUrl = product.imageUrl ?: ""
                     )
-                )
-            }
-            return result
-        }
+                } ?: listOf()
+            )
+        )
     }
+    return result
 }
