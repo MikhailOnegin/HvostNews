@@ -8,10 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LessonTestesPassedResponse
-import ru.hvost.news.models.OfflineLessons
-import ru.hvost.news.models.OnlineLessons
-import ru.hvost.news.models.OnlineSchool
-import ru.hvost.news.models.toDomain
+import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
 
 class SchoolViewModel: ViewModel() {
@@ -22,11 +19,11 @@ class SchoolViewModel: ViewModel() {
     private val mutableOfflineLessons:MutableLiveData<OfflineLessons> = MutableLiveData()
     val offlineLessons:LiveData<OfflineLessons> = mutableOfflineLessons
 
-    fun getOfflineLessons(city:String){
+    fun getOfflineLessons(cityId:String){
         viewModelScope.launch {
             mutableOfflineLessonsState.value = State.LOADING
             try {
-                val response = APIService.API.getOfflineLessonsAsync(city).await()
+                val response = APIService.API.getOfflineLessonsAsync(cityId).await()
                 mutableOfflineLessons.value = response.toDomain()
                 if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
                 else mutableOfflineLessonsState.value = State.ERROR
@@ -96,6 +93,27 @@ class SchoolViewModel: ViewModel() {
             } catch (exc: Exception) {
                 Log.i("eeee", " setLessonsTestesPassed() ERROR: ${exc.message.toString()}")
                 mutableSetLessonTestesPassedState.value = State.FAILURE
+            }
+        }
+    }
+
+    private val mutableOfflineCitiesState:MutableLiveData<State> = MutableLiveData()
+    val offlineCitiesState:LiveData<State> = mutableOfflineCitiesState
+
+    private val mutableOfflineCities:MutableLiveData<CitiesOffline> = MutableLiveData()
+    private val offlineCities:LiveData<CitiesOffline> = mutableOfflineCities
+
+    fun getOfflineCities(){
+        viewModelScope.launch {
+            mutableOfflineCitiesState.value = State.LOADING
+            try {
+                val response = APIService.API.getOfflineCitiesAsync().await()
+                mutableOfflineCities.value = response.toDomain()
+                if (response.result == "success") mutableOfflineCitiesState.value = State.SUCCESS
+                else mutableOfflineCitiesState.value = State.ERROR
+            } catch (exc: Exception) {
+                Log.i("eeee", " getOfflineCities() ERROR: ${exc.message.toString()}")
+                mutableOfflineCitiesState.value = State.FAILURE
             }
         }
     }
