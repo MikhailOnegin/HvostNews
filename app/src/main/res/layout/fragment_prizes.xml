@@ -13,12 +13,13 @@
         android:layout_height="wrap_content"
         android:text="@string/balance" />
 
-    <EditText
+    <TextView
         android:id="@+id/balance"
+        style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="10 баллов"
         android:layout_marginBottom="@dimen/smallMargin"
+        android:text="10 баллов"
         android:textStyle="normal|bold" />
 
     <androidx.recyclerview.widget.RecyclerView

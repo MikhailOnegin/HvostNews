@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentArticlesBinding
 import ru.hvost.news.databinding.FragmentProfileBinding
 import ru.hvost.news.presentation.adapters.PetAdapter
 import ru.hvost.news.utils.enums.State
@@ -23,7 +22,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var mainVM: MainViewModel
-    private lateinit var navC:NavController
+    private lateinit var navC: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,6 +87,9 @@ class ProfileFragment : Fragment() {
         binding.edit.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
         binding.buttonCoupons.setOnClickListener {
             navC.navigate(R.id.action_profileFragment_to_myCouponsFragment)
+        }
+        binding.invite.setOnClickListener {
+            navC.navigate(R.id.action_profileFragment_to_inviteFragment)
         }
     }
 

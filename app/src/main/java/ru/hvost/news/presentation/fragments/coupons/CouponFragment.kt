@@ -48,9 +48,9 @@ class CouponFragment: Fragment() {
         coupon?.run {
             Glide.with(requireContext()).load(baseUrl + this.imageUrl).placeholder(R.drawable.not_found)
                 .into(binding.imageViewCoupon)
-            binding.textViewCouponCode.text = this.title
+            binding.textViewCouponTitle.text = this.title
             if(this.expirationDate.isBlank()) binding.textViewCouponActivity.text = resources.getString(R.string.not_found)
-            else binding.textViewCouponActivity.text = "До" + this.expirationDate
+            else binding.textViewCouponActivity.text = "До ${this.expirationDate}"
             if(this.isUsed){
                 binding.textViewCouponStatus.text = "Использованный"
             }
@@ -59,6 +59,5 @@ class CouponFragment: Fragment() {
             }
             binding.textViewCouponDescription.text = this.description
         }
-
     }
 }
