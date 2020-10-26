@@ -1,56 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="end"
-    android:orientation="vertical"
-    android:padding="@dimen/screenContentPadding"
-    tools:context=".presentation.fragments.invite.InviteFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:text="@string/inviteFriends"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold|normal" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance" />
-
-    <TextView
-        android:id="@+id/balance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:text="73"
-        android:textColor="@android:color/black"
-        android:textSize="48sp"
-        android:textStyle="bold|normal" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:text="инструкция" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:background="@drawable/background_dark_item_list"
+        android:gravity="end"
         android:orientation="vertical"
-        android:padding="@dimen/screenContentPadding">
+        android:padding="@dimen/screenContentPadding"
+        tools:context=".presentation.fragments.invite.InviteFragment">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
-            android:text="По электронной почте"
+            android:text="@string/inviteFriends"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold|normal" />
@@ -58,95 +24,147 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Отправьте приглашение по почте:" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_dark_item_list"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/mail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:layout_weight="1"
-                android:text="email"
-                android:textStyle="normal|bold" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="+" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:background="@drawable/background_dark_item_list"
-        android:orientation="vertical"
-        android:padding="@dimen/screenContentPadding">
+            android:text="@string/balance" />
 
         <TextView
+            android:id="@+id/balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
-            android:text="По реферальной ссылке"
+            android:text="73"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="48sp"
             android:textStyle="bold|normal" />
 
-        <TextView
-            android:layout_width="match_parent"
+        <Button
+            style="@style/ElevatedButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Скопируйте и отправьте ссылку другу" />
+            android:layout_marginBottom="@dimen/smallMargin"
+            android:text="инструкция" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/smallMargin"
             android:background="@drawable/background_dark_item_list"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
 
-            <EditText
-                android:id="@+id/link"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:layout_weight="1"
-                android:text="link"
-                android:textStyle="normal|bold" />
+                android:text="По электронной почте"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold|normal" />
 
-            <Button
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="+" />
+                android:text="Отправьте приглашение по почте:" />
 
-            <Button
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="=" />
+                android:background="@drawable/background_dark_item_list"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/mail"
+                    style="@style/EditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:layout_weight="1"
+                    android:text="email"
+                    android:textStyle="normal|bold" />
+
+                <Button
+                    android:id="@+id/sendToEmail"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:text="+" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/smallMargin"
+            android:background="@drawable/background_dark_item_list"
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:text="По реферальной ссылке"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold|normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Скопируйте и отправьте ссылку другу" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_dark_item_list"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/link"
+                    style="@style/EditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:layout_weight="1"
+                    android:text="link"
+                    android:textStyle="normal|bold" />
+
+                <Button
+                    android:id="@+id/copy"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:text="+" />
+
+                <Button
+                    android:id="@+id/share"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:text="=" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/toPrizes"
+            style="@style/ElevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/smallMargin"
+            android:text="Перейти к призам" />
+
+        <Button
+            style="@style/ElevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Правила" />
+
     </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:text="Перейти к призам" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Правила" />
-
-</LinearLayout>
+</ScrollView>

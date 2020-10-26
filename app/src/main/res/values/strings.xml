@@ -181,4 +181,6 @@
     <string name="hintPromocode">Кодовое слово, указанное на купоне</string>
     <string name="buttonSelect">Выбрать</string>
     <string name="petBirthdayHint">Дата рождения</string>
+    <string name="sendedSuccessfull">Приглашение отправлено</string>
+    <string name="refLinkCopied">Ссылка скопирована</string>
 </resources>

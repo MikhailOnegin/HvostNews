@@ -15,6 +15,7 @@ import ru.hvost.news.databinding.FragmentInviteBinding
 import ru.hvost.news.databinding.FragmentPrizesBinding
 import ru.hvost.news.presentation.adapters.DomainAdapter
 import ru.hvost.news.presentation.adapters.PrizeAdapter
+import ru.hvost.news.utils.enums.State
 
 class PrizesFragment : Fragment() {
 
@@ -32,7 +33,22 @@ class PrizesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        setObservers()
         setRecyclerView()
+    }
+
+    private fun setObservers() {
+        mainVM.bonusBalanceState.observe(viewLifecycleOwner, { onBalanceChanged(it) })
+    }
+
+    private fun onBalanceChanged(state: State?) {
+        when (state) {
+            State.SUCCESS -> {
+                binding.balance.text = mainVM.bonusBalanceResponse.value?.balance.toString()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
     }
 
     private fun setRecyclerView() {

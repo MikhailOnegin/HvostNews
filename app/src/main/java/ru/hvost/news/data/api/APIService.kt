@@ -49,6 +49,17 @@ interface APIService {
         @Query("petId") petId: String?
     ): Deferred<DeletePetResponse>
 
+    @GET("/rest/InviteFriend/getInviteLink/")
+    fun getInviteLinkAsync(
+        @Query("userToken") userToken: String?,
+    ): Deferred<InviteLinkResponse>
+
+    @GET("/rest/InviteFriend/sendInviteToEmail/")
+    fun sendInviteToEmailAsync(
+        @Query("userToken") userToken: String?,
+        @Query("email") email: String?,
+    ): Deferred<SendToEmailResponse>
+
     @GET("/rest/InviteFriend/getBonusBalance/")
     fun getBonusBalanceAsync(
         @Query("userToken") userToken: String?,

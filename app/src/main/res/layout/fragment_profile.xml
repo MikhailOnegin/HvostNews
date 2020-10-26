@@ -1,236 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/screenContentPadding"
-    tools:context=".presentation.fragments.profile.ProfileFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="@dimen/screenContentPadding"
+        tools:context=".presentation.fragments.profile.ProfileFragment">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
-            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/second"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stub"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stub" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/edit"
+                style="@style/ElevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:text="edit" />
+
+            <Button
+                android:id="@+id/notifications"
+                style="@style/ElevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:text="ntfy" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/smallMargin"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_coupons"
+                style="@style/ElevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="coupons" />
+
+            <Button
+                style="@style/ElevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="vouchers" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/smallMargin"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Your pets" />
+
+                <Button
+                    android:id="@+id/addPet"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.20"
+                    android:text="+" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/petList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/smallMargin"
+            android:background="@android:color/darker_gray"
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="addFriend" />
+
+                <Button
+                    android:id="@+id/points"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.50"
+                    android:text="points" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/invite"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.50"
+                    android:text="invite" />
+
+                <Button
+                    android:id="@+id/prizes"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.50"
+                    android:text="prizes" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/smallMargin"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/second"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/stub"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/name"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="orders" />
+
+                <Button
+                    android:id="@+id/orders"
+                    style="@style/ElevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.60"
+                    android:text="allOrders" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/stub" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/work"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="work" />
+
+                <TextView
+                    android:id="@+id/crafted"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="crafted" />
+
+                <TextView
+                    android:id="@+id/finished"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="finished" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/edit"
+            android:id="@+id/logout"
             style="@style/ElevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:text="edit" />
-
-        <Button
-            android:id="@+id/notifications"
-            style="@style/ElevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:text="ntfy" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="logout" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button_coupons"
-            style="@style/ElevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="coupons" />
-
-        <Button
-            style="@style/ElevatedButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="vouchers" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:background="@android:color/darker_gray"
-        android:orientation="vertical"
-        android:padding="@dimen/screenContentPadding">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Your pets" />
-
-            <Button
-                android:id="@+id/addPet"
-                style="@style/ElevatedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.20"
-                android:text="+" />
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/petList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:background="@android:color/darker_gray"
-        android:orientation="vertical"
-        android:padding="@dimen/screenContentPadding">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="addFriend" />
-
-            <Button
-                android:id="@+id/points"
-                style="@style/ElevatedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.50"
-                android:text="points" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/invite"
-                style="@style/ElevatedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.50"
-                android:text="invite" />
-
-            <Button
-                android:id="@+id/prizes"
-                style="@style/ElevatedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.50"
-                android:text="prizes" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="orders" />
-
-            <Button
-                android:id="@+id/orders"
-                style="@style/ElevatedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.60"
-                android:text="allOrders" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/work"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="work" />
-
-            <TextView
-                android:id="@+id/crafted"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="crafted" />
-
-            <TextView
-                android:id="@+id/finished"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="finished" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/logout"
-        style="@style/ElevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="logout" />
-
-</LinearLayout>
+</ScrollView>
