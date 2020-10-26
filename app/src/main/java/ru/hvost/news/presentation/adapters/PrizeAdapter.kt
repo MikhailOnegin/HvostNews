@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.databinding.LayoutPrizeItemBinding
 import ru.hvost.news.models.Prize
 
-class PrizeAdapter(private val onClick: (Long) -> Unit) :
-    ListAdapter<Prize, PrizeAdapter.PetViewHolder>(FaqDiffUtilCallback()) {
+class PrizeAdapter(private val onClick: (String) -> Unit) :
+    ListAdapter<Prize, PrizeAdapter.PetViewHolder>(PrizeDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetViewHolder {
         return PetViewHolder.getPrizeVH(parent, onClick)
@@ -21,16 +21,16 @@ class PrizeAdapter(private val onClick: (Long) -> Unit) :
 
     class PetViewHolder(
         private val binding: LayoutPrizeItemBinding,
-        private val onClick: (Long) -> Unit
+        private val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(prize: Prize) {
-            binding.title.text = prize.name
+            binding.title.text = prize.category
 
-            binding.root.setOnClickListener { onClick.invoke(prize.id) }
+            binding.root.setOnClickListener { onClick.invoke(prize.prizeId) }
         }
 
         companion object {
-            fun getPrizeVH(parent: ViewGroup, onClick: (Long) -> Unit): PetViewHolder {
+            fun getPrizeVH(parent: ViewGroup, onClick: (String) -> Unit): PetViewHolder {
                 val binding = LayoutPrizeItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -42,9 +42,9 @@ class PrizeAdapter(private val onClick: (Long) -> Unit) :
 
     }
 
-    class FaqDiffUtilCallback : DiffUtil.ItemCallback<Prize>() {
+    class PrizeDiffUtilCallback : DiffUtil.ItemCallback<Prize>() {
         override fun areItemsTheSame(oldItem: Prize, newItem: Prize): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.prizeId == newItem.prizeId
         }
 
         override fun areContentsTheSame(oldItem: Prize, newItem: Prize): Boolean {

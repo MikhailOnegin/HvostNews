@@ -7,14 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentChoicePrizeBinding
-import ru.hvost.news.databinding.FragmentPrizesBinding
-import ru.hvost.news.presentation.adapters.PrizeAdapter
-import ru.hvost.news.presentation.adapters.PrizePriceAdapter
+//import ru.hvost.news.presentation.adapters.PrizePriceAdapter TODO: Доделать адаптер
+import ru.hvost.news.utils.enums.State
 
 class ChoicePrizeFragment : Fragment() {
 
@@ -32,19 +30,28 @@ class ChoicePrizeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        setRecyclerView()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        mainVM.prizesState.observe(viewLifecycleOwner, { onPrizesChanged(it) })
+    }
+
+    private fun onPrizesChanged(state: State?) {
+        when (state) {
+            State.SUCCESS -> {
+                setRecyclerView()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { prize: Long ->
-            val bundle = Bundle()
-            bundle.putLong("ID", prize)
-            findNavController().navigate(R.id.action_domainFragment_to_subDomainFragment, bundle)
-        }
-        val adapter = PrizePriceAdapter(onActionClicked)
-        binding.priceList.adapter = adapter
-        adapter.submitList(mainVM.testPrice)
-        setDecoration()
+//        val adapter = PrizePriceAdapter()
+//        binding.priceList.adapter = adapter
+//        adapter.submitList(mainVM.prizes.value?.filter { it.prizeId == arguments?.getString("PRIZE_ID") })
+//        setDecoration()
     }
 
     private fun setDecoration() {

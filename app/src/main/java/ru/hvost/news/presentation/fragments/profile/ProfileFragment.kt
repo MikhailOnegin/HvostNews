@@ -91,6 +91,9 @@ class ProfileFragment : Fragment() {
         binding.invite.setOnClickListener {
             navC.navigate(R.id.action_profileFragment_to_inviteFragment)
         }
+        binding.prizes.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_prizesFragment)
+        }
     }
 
     private fun setRecyclerView() {

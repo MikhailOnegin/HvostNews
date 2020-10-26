@@ -11,8 +11,8 @@ import ru.hvost.news.utils.enums.State
 
 class MainViewModel : ViewModel() {
 
-    var testPrize: List<Prize> = Prize.getTestPrizeList()
-    var testPrice: List<PrizePrice> = PrizePrice.getTestPriceList()
+//    var testPrize: List<Prize> = Prize.getTestPrizeList()
+//    var testPrice: List<PrizePrice> = PrizePrice.getTestPriceList()
 
     val articlesState = MutableLiveData<State>()
     val articles = MutableLiveData<List<Article>>()
@@ -44,6 +44,10 @@ class MainViewModel : ViewModel() {
     val bonusBalanceState = MutableLiveData<State>()
     val bonusBalanceResponse = MutableLiveData<BonusBalanceResponse>()
 
+    val prizesState = MutableLiveData<State>()
+    val prizesResponse = MutableLiveData<PrizesResponse>()
+    val prizes = MutableLiveData<List<Prize>>()
+
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
 
@@ -55,6 +59,7 @@ class MainViewModel : ViewModel() {
         loadSpecies()
         getBonusBalance()
         getInviteLink()
+        loadPrizes()
     }
 
     fun getBonusBalance() {
@@ -119,6 +124,22 @@ class MainViewModel : ViewModel() {
                 } else articlesState.value = State.ERROR
             } catch (exc: Exception) {
                 articlesState.value = State.FAILURE
+            }
+        }
+    }
+
+    private fun loadPrizes() {
+        viewModelScope.launch {
+            prizesState.value = State.LOADING
+            try {
+                val response = APIService.API.getPrizesAsync(App.getInstance().userToken).await()
+                if (response.result == "success") {
+                    prizesResponse.value = response
+                    prizes.value = response.prizes?.toPrizes()
+                    prizesState.value = State.SUCCESS
+                } else prizesState.value = State.ERROR
+            } catch (exc: Exception) {
+                prizesState.value = State.FAILURE
             }
         }
     }
