@@ -12,7 +12,7 @@ import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
 
 class ArticleAdapter(private val onClick: (Long) -> Unit) :
-    ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(FaqDiffUtilCallback()) {
+    ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder.getArticleVH(parent, onClick)
@@ -56,7 +56,7 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
 
     }
 
-    class FaqDiffUtilCallback : DiffUtil.ItemCallback<Article>() {
+    class ArticleDiffUtilCallback : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem.id == newItem.id
         }

@@ -10,7 +10,7 @@ import ru.hvost.news.databinding.LayoutPetItemBinding
 import ru.hvost.news.models.Pets
 
 class PetAdapter(private val onClick: (String) -> Unit) :
-    ListAdapter<Pets, PetAdapter.PetViewHolder>(FaqDiffUtilCallback()) {
+    ListAdapter<Pets, PetAdapter.PetViewHolder>(PetDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetViewHolder {
         return PetViewHolder.getPetVH(parent, onClick)
@@ -45,7 +45,7 @@ class PetAdapter(private val onClick: (String) -> Unit) :
 
     }
 
-    class FaqDiffUtilCallback : DiffUtil.ItemCallback<Pets>() {
+    class PetDiffUtilCallback : DiffUtil.ItemCallback<Pets>() {
         override fun areItemsTheSame(oldItem: Pets, newItem: Pets): Boolean {
             return oldItem.petId == newItem.petId
         }
