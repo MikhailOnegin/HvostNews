@@ -27,4 +27,7 @@
     <dimen name="secondaryTextTextSize">14sp</dimen>
     <dimen name="barsElevation">4dp</dimen>
     <dimen name="widgetsHeight">60dp</dimen>
+    <dimen name="switch_padding">0dp</dimen>
+    <dimen name="switch_radius">36dp</dimen>
+    <dimen name="switch_size">36dp</dimen>
 </resources>

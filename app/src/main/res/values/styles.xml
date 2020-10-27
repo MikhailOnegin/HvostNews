@@ -11,8 +11,11 @@
     <style name="Spinner">
         <item name="background">?android:colorBackground</item>
     </style>
+
     <style name="TextView">
+        <item name="android:fontFamily">@font/gilroy_medium</item>
         <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:textSize">14sp</item>
     </style>
     
     <style name="EditText">
@@ -22,6 +25,15 @@
         <item name="android:inputType">text</item>
     </style>
 
+    // Made from Mikhail
+<style name="Line">
+    <item name="android:background">@color/grayLight</item>
+</style>
+    <style name="GrayButton" parent="ElevatedButton">
+        <item name="android:backgroundTint">@color/TextColorHints</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+    </style>
+    //**
     <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/buttonShapeAppearanceCornerSize</item>
