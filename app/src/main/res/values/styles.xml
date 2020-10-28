@@ -27,7 +27,7 @@
 
     // Made from Mikhail
 <style name="Line">
-    <item name="android:background">@color/grayLight</item>
+    <item name="android:background">@color/outlinedButtonStroke</item>
 </style>
     <style name="GrayButton" parent="ElevatedButton">
         <item name="android:backgroundTint">@color/TextColorHints</item>
