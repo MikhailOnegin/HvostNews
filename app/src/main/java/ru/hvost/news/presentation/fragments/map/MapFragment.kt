@@ -1,13 +1,16 @@
 package ru.hvost.news.presentation.fragments.map
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yandex.mapkit.Animation
@@ -22,7 +25,6 @@ import com.yandex.runtime.network.NetworkError
 import com.yandex.runtime.network.RemoteError
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentMapBinding
-import ru.hvost.news.presentation.dialogs.MapFilterDialog
 import ru.hvost.news.presentation.viewmodels.MapViewModel
 
 
@@ -31,8 +33,7 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var mapVm: MapViewModel
-    private lateinit var searchManager:com.yandex.mapkit.search.SearchManager // Search request for searching a user query near given geometry.
-    private val dialogMapFilter: MapFilterDialog = MapFilterDialog()
+    private lateinit var searchManager:SearchManager // Search request for searching a user query near given geometry.
 
     private var searchSession:Session? = null
 
@@ -64,28 +65,20 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
         mapVm = ViewModelProvider(this)[MapViewModel::class.java]
         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
         binding.mapView.map.addCameraListener(this)
-        binding.editTextQuery.setOnEditorActionListener { textView:TextView, i:Int, keyEvent:KeyEvent? ->
-            if(i == EditorInfo.IME_ACTION_SEARCH){
-                submitQuery(binding.editTextQuery.text.toString())
-            }
-            return@setOnEditorActionListener false
-        }
+
 
         mapVm.getShops("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         binding.mapView.map.move(
             CameraPosition(
                 Point(
-                    55.751574,
-                    37.573856
+                    61.370277,
+                    55.160442
                 ), 13.0f, 0.0f, 0.0f
             ),
             Animation(Animation.Type.SMOOTH, 0f),
             null
         )
-
-        binding.imageButtonFilter.setOnClickListener {
-            dialogMapFilter.show(requireActivity().supportFragmentManager, "customDialog")
-        }
+        setListeners()
     }
 
     private fun submitQuery(query: String) {
@@ -125,6 +118,27 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
                     ImageProvider.fromResource(requireContext(), R.drawable.search_result)
                 )
             }
+        }
+    }
+
+    fun setListeners(){
+        binding.editTextQuery.setOnEditorActionListener { _:TextView, i:Int, _:KeyEvent? ->
+            if(i == EditorInfo.IME_ACTION_SEARCH){
+                submitQuery(binding.editTextQuery.text.toString())
+            }
+            return@setOnEditorActionListener false
+        }
+        binding.imageButtonFilter.setOnClickListener {
+            binding.constraintFilter.layoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            //dialogMapFilter.show(requireActivity().supportFragmentManager, "customDialog")
+        }
+        binding.buttonShow.setOnClickListener {
+            binding.constraintFilter.layoutParams = ConstraintLayout.LayoutParams(0, 0)
+        }
+        binding.buttonClear.setOnClickListener {
+            binding.toggleButtonClinics.isChecked = false
+            binding.toggleButtonGrooming.isChecked = false
+            binding.toggleButtonPetShops.isChecked = false
         }
     }
 
