@@ -68,6 +68,12 @@ interface APIService {
         @Query("email") email: String?,
     ): Deferred<SendToEmailResponse>
 
+    @GET("/rest/InviteFriend/selectPrize/")
+    fun addPrizeToCartAsync(
+        @Query("userToken") userToken: String?,
+        @Query("prizeId") id: String?,
+    ): Deferred<PrizeToCartResponse>
+
     @GET("/rest/InviteFriend/getBonusBalance/")
     fun getBonusBalanceAsync(
         @Query("userToken") userToken: String?,

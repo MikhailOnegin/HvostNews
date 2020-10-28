@@ -44,6 +44,9 @@ class MainViewModel : ViewModel() {
     val bonusBalanceState = MutableLiveData<State>()
     val bonusBalanceResponse = MutableLiveData<BonusBalanceResponse>()
 
+    val prizeToCartState = MutableLiveData<State>()
+    val prizeToCartResponse = MutableLiveData<PrizeToCartResponse>()
+
     val prizesState = MutableLiveData<State>()
     val prizesResponse = MutableLiveData<PrizesResponse>()
     val prizes = MutableLiveData<List<Prize>>()
@@ -74,6 +77,24 @@ class MainViewModel : ViewModel() {
                 } else bonusBalanceState.value = State.ERROR
             } catch (exc: Exception) {
                 bonusBalanceState.value = State.FAILURE
+            }
+        }
+    }
+
+    fun addPrizeToCart(
+        id: String?
+    ) {
+        viewModelScope.launch {
+            prizeToCartState.value = State.LOADING
+            try {
+                val response =
+                    APIService.API.addPrizeToCartAsync(App.getInstance().userToken, id).await()
+                if (response.result == "success") {
+                    prizeToCartResponse.value = response
+                    prizeToCartState.value = State.SUCCESS
+                } else prizeToCartState.value = State.ERROR
+            } catch (exc: Exception) {
+                prizeToCartState.value = State.FAILURE
             }
         }
     }
