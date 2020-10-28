@@ -125,4 +125,5 @@ fun scrollToTheTop(scrollView: ScrollView) {
 @SuppressLint("ConstantLocale")
 val petBirthdayDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
-val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/empty_image")
+//sergeev: заменить на empty_image
+val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/test_image")

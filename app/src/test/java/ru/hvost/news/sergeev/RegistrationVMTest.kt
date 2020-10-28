@@ -61,7 +61,7 @@ class RegistrationVMTest {
     @Test
     fun loadSpecies_getsListOfSpecies() = coroutineRule.testDispatcher.runBlockingTest {
         registrationVM.loadSpecies()
-        val result = registrationVM.species.getOrAwaitValue()
+        val result = registrationVM.species.getOrAwaitValue(attempts = 2)
         assert(!result.isNullOrEmpty())
     }
 

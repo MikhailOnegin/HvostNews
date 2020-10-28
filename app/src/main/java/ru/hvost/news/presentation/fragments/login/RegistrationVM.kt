@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.models.RegistrationInterest
+import ru.hvost.news.models.RegInterest
 import ru.hvost.news.models.Species
 import ru.hvost.news.models.toRegistrationInterests
 import ru.hvost.news.models.toSpecies
@@ -29,7 +29,7 @@ class RegistrationVM : ViewModel() {
     val petSex = MutableLiveData<Int>()
     val petBirthday = MutableLiveData<Date>()
     var petSpeciesId: Int = 0
-    var couponeCode: String? = null //sergeev Обязательно ли наличие ваучера при регистрации?
+    var couponeCode: String? = null //sergeev: Обязательно ли наличие ваучера при регистрации?
     var petName: String? = null
 
     init {
@@ -69,8 +69,8 @@ class RegistrationVM : ViewModel() {
         }
     }
 
-    private val _interests = MutableLiveData<List<RegistrationInterest>>()
-    private val interests: LiveData<List<RegistrationInterest>> = _interests
+    private val _interests = MutableLiveData<List<RegInterest>>()
+    val interests: LiveData<List<RegInterest>> = _interests
 
     private fun loadInterests() {
         viewModelScope.launch {

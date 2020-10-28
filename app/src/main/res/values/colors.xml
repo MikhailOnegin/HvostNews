@@ -22,4 +22,5 @@
     <color name="defaultBackground">#FFFFFF</color>
     <color name="grayLight">#EFEFEF</color>
     <color name="sexSelector">#141428</color>
+    <color name="rvImageOutline">#F0EBFA</color>
 </resources>
