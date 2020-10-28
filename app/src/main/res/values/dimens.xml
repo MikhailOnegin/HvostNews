@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="itemListCorners">5dp</dimen>
+    <dimen name="itemListCorners">20dp</dimen>
     <dimen name="textMargin">4dp</dimen>
     <dimen name="xSmallMargin">4dp</dimen>
     <dimen name="smallMargin">8dp</dimen>
@@ -27,4 +27,6 @@
     <dimen name="secondaryTextTextSize">14sp</dimen>
     <dimen name="barsElevation">4dp</dimen>
     <dimen name="widgetsHeight">60dp</dimen>
+    <dimen name="articleTitleTextSize">20sp</dimen>
+    <dimen name="articleDescriptionTextSize">16sp</dimen>
 </resources>
