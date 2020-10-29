@@ -1,11 +1,14 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">16sp</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:textColor">@color/TextColorDefault</item>
+        <item name="spinnerStyle">@style/Spinner2</item>
     </style>
 
     <style name="Spinner">
@@ -26,14 +29,67 @@
     </style>
 
     // Made from Mikhail
-<style name="Line">
+
+    // View
+    <style name="LineLightGray">
     <item name="android:background">@color/outlinedButtonStroke</item>
-</style>
-    <style name="GrayButton" parent="ElevatedButton">
+    </style>
+
+    //TextView
+    <style name="TextViewVeryBigBold" parent="TextView">
+        <item name="android:textSize">36sp</item>
+        <item name="fontFamily">@font/gilroy_bold</item>
+    </style>
+
+    //TextView
+    <style name="TextViewGray" parent="TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal|bold</item>
+        <item name="fontFamily">@font/gilroy_regular</item>
+        <item name="android:textColor">@color/TextColorLightSecondary</item>
+    </style>
+
+    <style name="TextViewBigBold" parent="TextView">
+        <item name="fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    //Button
+    <style name="ButtonGray" parent="ElevatedButton">
         <item name="android:backgroundTint">@color/TextColorHints</item>
         <item name="android:textColor">@color/TextColorPrimary</item>
     </style>
+
+    <style name="ButtonRoundedGray" parent="ElevatedButton">
+        <item name="background">@drawable/button_rounded</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:elevation">0dp</item>
+        <item name="fontFamily">@font/gilroy_bold</item>
+        <item name="android:textColor">@color/TextColorLightSecondary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:backgroundTint">@color/lightGray</item>
+    </style>
+
+    // TabLayout
+    <style name="TabLayout" parent="android:Widget.TabWidget">
+        <item name="fontFamily">@font/gilroy_bold</item>
+        <item name="tabBackground">@drawable/tab_background</item>
+        <item name="tabIndicatorHeight">2dp</item>
+    </style>
+
+    // Spinner
+    <style name="Spinner2" parent="Widget.AppCompat.Spinner">
+        <item name="background">?android:colorBackground</item>
+        <item name="colorAccent">@color/EditTextTextColorHints</item>
+        <item name="colorControlNormal">@color/EditTextTextColorHints</item>
+        <item name="android:textColorSecondary">@color/EditTextTextColorHints</item>
+        <item name="android:backgroundTint">@color/TextColorPrimary</item>
+    </style>
     //**
+
     <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/buttonShapeAppearanceCornerSize</item>

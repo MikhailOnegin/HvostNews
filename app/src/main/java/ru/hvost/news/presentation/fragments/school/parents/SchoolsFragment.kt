@@ -14,14 +14,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.databinding.FragmentSchoolsBinding
+import ru.hvost.news.databinding.FragmentSchoolParentsSchoolsBinding
 import ru.hvost.news.models.OnlineSchool
 import ru.hvost.news.presentation.adapters.recycler.SchoolsAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class SchoolsFragment: Fragment() {
 
-    private lateinit var binding: FragmentSchoolsBinding
+    private lateinit var binding: FragmentSchoolParentsSchoolsBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var navC:NavController
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -32,7 +32,7 @@ class SchoolsFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSchoolsBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolParentsSchoolsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

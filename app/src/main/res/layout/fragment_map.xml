@@ -29,7 +29,7 @@
 
             <Button
                 android:id="@+id/button_clear"
-                style="@style/GrayButton"
+                style="@style/ButtonGray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -71,7 +71,7 @@
 
         <View
             android:id="@+id/view"
-            style="@style/Line"
+            style="@style/LineLightGray"
             android:layout_width="match_parent"
             android:layout_height="2px"
             android:layout_marginStart="24dp"

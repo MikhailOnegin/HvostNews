@@ -55,7 +55,7 @@
     <string name="logo_activity">Активность</string>
     <string name="logo_status">Статус</string>
     <string name="logo_coupon_description">Описание купона</string>
-    <string name="online_school">Онлайн-школа</string>
+    <string name="online_school">Онлайн школа</string>
     <string name="seminars_in_your_sites">Семинары в вашем городе</string>
     <string name="how_seminars_show">Какие семинары показывать</string>
     <string name="choose_your_city">Выберите ваш город</string>
@@ -190,4 +190,6 @@
     <string name="veterinary_clinics">Ветиринарные клиники</string>
     <string name="pet_shops">Зоомагазины</string>
     <string name="grooming_salons">Груминг-салоны</string>
+    <string name="lessons_in_your_city">Семинары
+        \nв вашем городе</string>
 </resources>

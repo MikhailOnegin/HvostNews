@@ -18,7 +18,7 @@ fun OfflineCitiesResponse.toDomain():CitiesOffline{
 fun List<OfflineCitiesResponse.CityOfflineResponse>?.toDomain(): List<CitiesOffline.CityOffline> {
     val result = mutableListOf<CitiesOffline.CityOffline>()
     this?.run {
-        for ((index, cityOfflineResponse) in this.withIndex()) {
+        for ((_, cityOfflineResponse) in this.withIndex()) {
             result.add(
                 CitiesOffline.CityOffline(
                     cityId = cityOfflineResponse.cityId?: "",
