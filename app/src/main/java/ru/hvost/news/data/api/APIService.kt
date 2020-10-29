@@ -25,6 +25,9 @@ interface APIService {
         @Query("email") email: String?
     ): Deferred<PassRestoreResponse>
 
+    @GET("/rest/Registration/getInterests/")
+    fun getInterestsAsync(): Deferred<InterestsResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null
@@ -37,6 +40,11 @@ interface APIService {
 
     @GET("/rest/Registration/getSpecies/")
     fun getSpeciesAsync(): Deferred<SpeciesResponse>
+
+    @GET("/rest/InviteFriend/getPrizes/")
+    fun getPrizesAsync(
+        @Query("userToken") userToken: String?,
+    ): Deferred<PrizesResponse>
 
     @GET("/rest/Registration/getBreeds/")
     fun getBreedsAsync(
@@ -59,6 +67,12 @@ interface APIService {
         @Query("userToken") userToken: String?,
         @Query("email") email: String?,
     ): Deferred<SendToEmailResponse>
+
+    @GET("/rest/InviteFriend/selectPrize/")
+    fun addPrizeToCartAsync(
+        @Query("userToken") userToken: String?,
+        @Query("prizeId") id: String?,
+    ): Deferred<PrizeToCartResponse>
 
     @GET("/rest/InviteFriend/getBonusBalance/")
     fun getBonusBalanceAsync(

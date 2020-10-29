@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="ValueHolderView">
         <attr name="iconResource" format="reference"/>
         <attr name="holderHint" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="RoundCornersImageView">
+        <attr name="cornersRadius" format="dimension"/>
+    </declare-styleable>
+
 </resources>

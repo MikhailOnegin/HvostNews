@@ -88,7 +88,17 @@ class RegUserFragment : Fragment() {
                 return false
             }
         }
+        setViewModelFields()
         return true
+    }
+
+    private fun setViewModelFields() {
+        registrationVM.userName = binding.name.text.toString()
+        registrationVM.userSurname = binding.surname.text.toString()
+        registrationVM.userPatronymic = binding.patronymic.text.toString()
+        registrationVM.userPhone = binding.phone.text.toString()
+        registrationVM.userEmail = binding.email.text.toString()
+        registrationVM.userCity = binding.city.text.toString()
     }
 
 }

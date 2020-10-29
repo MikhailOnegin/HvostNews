@@ -1,6 +1,7 @@
 package ru.hvost.news.utils
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
@@ -123,3 +124,6 @@ fun scrollToTheTop(scrollView: ScrollView) {
 
 @SuppressLint("ConstantLocale")
 val petBirthdayDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
+//sergeev: заменить на empty_image
+val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/test_image")
