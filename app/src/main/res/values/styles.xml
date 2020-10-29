@@ -48,6 +48,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/ButtonTextSize</item>
         <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
+        <item name="backgroundTint">@color/bnv_background_tint_color</item>
     </style>
 
     <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

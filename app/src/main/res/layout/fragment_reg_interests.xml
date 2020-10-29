@@ -24,6 +24,6 @@
         android:layout_marginStart="@dimen/normalMargin"
         android:layout_marginEnd="@dimen/normalMargin"
         android:layout_marginBottom="@dimen/normalMargin"
-        android:text="@string/buttonDoneReg"/>
+        android:text="@string/buttonSave"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

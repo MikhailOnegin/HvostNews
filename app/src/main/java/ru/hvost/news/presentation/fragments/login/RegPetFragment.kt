@@ -156,7 +156,7 @@ class RegPetFragment : Fragment() {
 
     private fun setViewModelFields() {
         registrationVM.petName = binding.petName.text.toString()
-        registrationVM.couponeCode = binding.promocode.text.toString()
+        registrationVM.voucher = binding.promocode.text.toString()
     }
 
 }

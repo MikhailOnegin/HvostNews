@@ -25,4 +25,6 @@
     <color name="sexSelector">#141428</color>
     <color name="rvImageOutline">#F0EBFA</color>
     <color name="imageBorder">#F0EBFA</color>
+    <color name="bnvBackgroundTintDisabled">#7D82AF</color>
+    <color name="bnvBackgroundTintEnabled">#1EC34B</color>
 </resources>

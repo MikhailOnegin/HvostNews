@@ -9,11 +9,14 @@ import com.bumptech.glide.Glide
 import ru.hvost.news.databinding.RvInterestBinding
 import ru.hvost.news.models.RegInterest
 import ru.hvost.news.presentation.adapters.recycler.RegInterestsAdapter.*
+import ru.hvost.news.presentation.fragments.login.RegistrationVM
 
-class RegInterestsAdapter : ListAdapter<RegInterest, RegInterestVH>(RegInterestDiffUtilCallback()) {
+class RegInterestsAdapter(
+    private val registrationVM: RegistrationVM
+) : ListAdapter<RegInterest, RegInterestVH>(RegInterestDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RegInterestVH {
-        return RegInterestVH.getViewHolder(parent)
+        return RegInterestVH.getViewHolder(parent, registrationVM)
     }
 
     override fun onBindViewHolder(holder: RegInterestVH, position: Int) {
@@ -21,7 +24,8 @@ class RegInterestsAdapter : ListAdapter<RegInterest, RegInterestVH>(RegInterestD
     }
 
     class RegInterestVH(
-        private val binding: RvInterestBinding
+        private val binding: RvInterestBinding,
+        private val registrationVM: RegistrationVM
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(interest: RegInterest) {
@@ -29,17 +33,26 @@ class RegInterestsAdapter : ListAdapter<RegInterest, RegInterestVH>(RegInterestD
             Glide.with(binding.root)
                 .load(interest.imageUri)
                 .into(binding.image)
+            binding.selection.isSelected = interest.isSelected
+            binding.root.setOnClickListener {
+                interest.isSelected = !interest.isSelected
+                binding.selection.isSelected = interest.isSelected
+                registrationVM.setThirdStageFinished()
+            }
         }
 
         companion object{
 
-            fun getViewHolder(parent: ViewGroup): RegInterestVH{
+            fun getViewHolder(
+                parent: ViewGroup,
+                registrationVM: RegistrationVM
+            ): RegInterestVH{
                 val binding = RvInterestBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return RegInterestVH(binding)
+                return RegInterestVH(binding, registrationVM)
             }
 
         }

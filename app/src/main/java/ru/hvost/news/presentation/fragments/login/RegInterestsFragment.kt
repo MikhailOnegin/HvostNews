@@ -15,6 +15,9 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegInterestsBinding
 import ru.hvost.news.models.RegInterest
 import ru.hvost.news.presentation.adapters.recycler.RegInterestsAdapter
+import ru.hvost.news.utils.createSnackbar
+import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.NetworkEvent
 
 class RegInterestsFragment : Fragment() {
 
@@ -27,13 +30,13 @@ class RegInterestsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegInterestsBinding.inflate(inflater, container, false)
-        setRecyclerView()
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
+        setRecyclerView()
         setObservers()
     }
 
@@ -49,6 +52,45 @@ class RegInterestsFragment : Fragment() {
 
     private fun setObservers() {
         registrationVM.interests.observe(viewLifecycleOwner) { onInterestsChanged(it) }
+        registrationVM.thirdStageFinished.observe(viewLifecycleOwner) { onThirdStageFinished(it) }
+        registrationVM.registrationState.observe(viewLifecycleOwner) { onRegistrationStateChanged(it) }
+    }
+
+    private val onRegistrationStateChanged = { event: NetworkEvent<State> ->
+        when(event.getContentIfNotHandled()) {
+            State.SUCCESS -> {
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.registrationSuccessfull),
+                    getString(R.string.buttonOk)
+                ).show()
+                requireActivity().findNavController(R.id.nav_host_fragment).popBackStack()
+            }
+            State.ERROR -> {
+                createSnackbar(
+                    binding.root,
+                    event.error,
+                    getString(R.string.buttonOk)
+                ).show()
+                binding.buttonFinish.isEnabled = true
+            }
+            State.FAILURE -> {
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.networkFailureMessage),
+                    getString(R.string.buttonOk)
+                ).show()
+                binding.buttonFinish.isEnabled = true
+            }
+            State.LOADING -> {
+                binding.buttonFinish.isEnabled = false
+            }
+            null -> {}
+        }
+    }
+
+    private fun onThirdStageFinished(thirdStageFinished: Boolean?) {
+        binding.buttonFinish.isEnabled = thirdStageFinished == true
     }
 
     private fun onInterestsChanged(interests: List<RegInterest>?) {
@@ -58,7 +100,7 @@ class RegInterestsFragment : Fragment() {
     }
 
     private val onButtonFinishClicked: (View)->Unit = { _: View ->
-        requireActivity().findNavController(R.id.nav_host_fragment).popBackStack()
+        registrationVM.registerUser()
     }
 
     private fun setRecyclerView() {
@@ -68,7 +110,7 @@ class RegInterestsFragment : Fragment() {
         binding.recyclerView.apply {
             updatePadding(top=margin.toInt(), bottom = padding.toInt())
             addItemDecoration(RvItemDecorations())
-            adapter = RegInterestsAdapter()
+            adapter = RegInterestsAdapter(registrationVM)
         }
     }
 

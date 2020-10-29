@@ -37,4 +37,5 @@
     <dimen name="rvInterestTextSize">18sp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
     <dimen name="articleDescriptionTextSize">16sp</dimen>
+    <dimen name="rvSelectionIconPadding">6dp</dimen>
 </resources>

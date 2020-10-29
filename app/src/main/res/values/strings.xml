@@ -190,4 +190,7 @@
     <string name="veterinary_clinics">Ветиринарные клиники</string>
     <string name="pet_shops">Зоомагазины</string>
     <string name="grooming_salons">Груминг-салоны</string>
+    <string name="buttonSave">Сохранить</string>
+    <string name="regErrorHasFieldsProblems">Для регистрации заполнены не все поля. Пожалуйста, проверьте заполнение.</string>
+    <string name="registrationSuccessfull">Регистрация прошла успешно.</string>
 </resources>

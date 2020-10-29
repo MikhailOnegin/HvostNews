@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_selected="true">
+        <layer-list android:layout_height="wrap_content">
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/rvImageOutline" />
+                </shape>
+            </item>
+            <item
+                android:drawable="@drawable/ic_selected"
+                android:top="@dimen/rvSelectionIconPadding"
+                android:bottom="@dimen/rvSelectionIconPadding"
+                android:left="@dimen/rvSelectionIconPadding"
+                android:right="@dimen/rvSelectionIconPadding"/>
+        </layer-list>
+    </item>
+
+    <item>
+        <layer-list android:layout_height="wrap_content">
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/rvImageOutline" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+</selector>
