@@ -9,6 +9,7 @@
     <dimen name="xLargeMargin">32dp</dimen>
     <dimen name="listItemElevation">5dp</dimen>
     <dimen name="screenContentPadding">16dp</dimen>
+    <dimen name="profileCoverPadding">25dp</dimen>
     <dimen name="imageHeight">150dp</dimen>
     <dimen name="categoryHeight">26dp</dimen>
     <dimen name="toolbarHeight">60dp</dimen>
@@ -29,4 +30,7 @@
     <dimen name="widgetsHeight">60dp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
     <dimen name="articleDescriptionTextSize">16sp</dimen>
+    <dimen name="ButtonHeight">60dp</dimen>
+    <dimen name="textTitleSize">14sp</dimen>
+    <dimen name="userNameTextSize">30sp</dimen>
 </resources>

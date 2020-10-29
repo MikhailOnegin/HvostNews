@@ -23,5 +23,10 @@
     <color name="defaultBackground">#e6FFFFFF</color>
     <color name="grayLight">#EFEFEF</color>
     <color name="sexSelector">#141428</color>
+    <color name="TabSelectedTextColor">#141428</color>
     <color name="imageBorder">#F0EBFA</color>
+    <color name="profileBackground">#F0EBFA</color>
+    <color name="TextColorTitle">#B9BEE1</color>
+    <color name="TabUnselectedTextColor">#B9BEE1</color>
+    <color name="thirdTextHintColor">#7D82AF</color>
 </resources>

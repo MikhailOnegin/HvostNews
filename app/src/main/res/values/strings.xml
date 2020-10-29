@@ -183,4 +183,8 @@
     <string name="petBirthdayHint">Дата рождения</string>
     <string name="sendedSuccessfull">Приглашение отправлено</string>
     <string name="refLinkCopied">Ссылка скопирована</string>
+    <string name="phoneHint">Ваш номер является вашим идентификатором. Его нельзя поменять</string>
+    <string name="hello">Здравствуйте,</string>
+    <string name="myCoupons">Мои купоны</string>
+    <string name="myVauchers">Промокоды</string>
 </resources>

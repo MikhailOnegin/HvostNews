@@ -11,17 +11,17 @@
         android:id="@+id/category_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/tab_layout_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/list"
-        app:tabBackground="@android:color/transparent"
+        app:tabBackground="@drawable/tab_background"
         app:tabGravity="center"
         app:tabIndicatorColor="@android:color/transparent"
         app:tabMode="scrollable"
         app:tabPaddingEnd="@dimen/normalMargin"
         app:tabPaddingStart="@dimen/normalMargin"
-        app:tabSelectedTextColor="@android:color/black"
+        app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/darker_gray">
 
     </com.google.android.material.tabs.TabLayout>

@@ -38,7 +38,7 @@ class ArticlesFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.allArticles.setOnClickListener {
+        binding.filter.setOnClickListener {
             findNavController().navigate(R.id.action_newsFragment_to_domainFragment)
         }
     }
