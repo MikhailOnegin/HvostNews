@@ -3,9 +3,10 @@
     <color name="colorPrimary">#55D25F</color>
     <color name="colorPrimaryDark">#398F40</color>
     <color name="colorAccent">#EE5E0F</color>
-    <color name="btnStroke">#E2DEEC</color>
-    <color name="categoryText">#C4C4E2</color>
-    <color name="categoryBackground">#20C4C4E2</color>
+    <color name="btnStroke">#B9BEE1</color>
+    <color name="categoryText">#414669</color>
+    <color name="titleText">#141428</color>
+    <color name="categoryBackground">#F0EBFA</color>
     <color name="windowBackground">#F1EFF6</color>
     <color name="TextColorPrimary">#151515</color>
     <color name="TextColorHints">#C4C4E2</color>
@@ -23,4 +24,5 @@
     <color name="grayLight">#EFEFEF</color>
     <color name="sexSelector">#141428</color>
     <color name="rvImageOutline">#F0EBFA</color>
+    <color name="imageBorder">#F0EBFA</color>
 </resources>

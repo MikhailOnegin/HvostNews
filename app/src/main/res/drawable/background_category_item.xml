@@ -9,7 +9,7 @@
         android:radius="@dimen/itemListCorners"/>
 
     <stroke
-        android:color="@color/categoryText"
-        android:width="1dp"/>
+        android:color="@color/btnStroke"
+        android:width="2dp"/>
 
 </shape>
