@@ -44,12 +44,23 @@ class ProfileFragment : Fragment() {
         mainVM.changeUserDataState.observe(viewLifecycleOwner, Observer { updateData(it) })
         mainVM.userDataState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
         mainVM.userPetsState.observe(viewLifecycleOwner, Observer { setPetsToBind(it) })
+        mainVM.bonusBalanceState.observe(viewLifecycleOwner, Observer { onBalanceChanged(it) })
     }
 
     private fun setDataToBind(state: State) {
         when (state) {
             State.SUCCESS -> {
                 bindData()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
+    private fun onBalanceChanged(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                binding.balance.text = mainVM.bonusBalanceResponse.value?.balance.toString()
             }
             State.FAILURE, State.ERROR -> {
             }
@@ -91,7 +102,7 @@ class ProfileFragment : Fragment() {
         binding.invite.setOnClickListener {
             navC.navigate(R.id.action_profileFragment_to_inviteFragment)
         }
-        binding.prizes.setOnClickListener {
+        binding.choicePrize.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_prizesFragment)
         }
     }
