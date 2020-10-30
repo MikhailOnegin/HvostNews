@@ -23,11 +23,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/imageView_school"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="200dp"
             android:background="@drawable/background_beveled_corners"
-            app:srcCompat="@drawable/shape_red" />
+            app:srcCompat="@drawable/default_image" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -36,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:text="@string/not_found"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,76 +58,69 @@
 
         <Button
             android:id="@+id/button12"
-            style="@style/ButtonRoundedGray"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:elevation="0dp"
-            android:minWidth="78dip"
-            android:text="1"/>
+            android:text="@string/_1" />
 
         <Button
             android:id="@+id/button11"
-            style="@style/ButtonRoundedGray"
-            android:minWidth="78dip"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2" />
+            android:text="@string/_2" />
 
         <Button
             android:id="@+id/button10"
-            style="@style/ButtonRoundedGray"
-            android:minWidth="78dip"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="3"/>
+            android:text="@string/_3" />
 
         <Button
             android:id="@+id/button9"
-            style="@style/ButtonRoundedGray"
-            android:minWidth="78dip"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="4"/>
+            android:text="@string/_4"
+            android:translationZ="0dp" />
 
         <Button
             android:id="@+id/button8"
-            style="@style/ButtonRoundedGray"
-            android:minWidth="78dip"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5" />
+            android:text="@string/_5" />
 
         <Button
             android:id="@+id/button7"
-            style="@style/ButtonRoundedGray"
-            android:minWidth="78dip"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="6" />
+            android:text="@string/_6" />
 
         <Button
             android:id="@+id/button6"
-            style="@style/ButtonRoundedGray"
-            android:minWidth="78dip"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="7" />
+            android:text="@string/_7" />
 
         <Button
             android:id="@+id/button"
-            style="@style/ButtonRoundedGray"
-            android:minWidth="78dip"
+            style="@style/ButtonRoundedGray3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="8" />
+            android:text="@string/_8" />
 
     </LinearLayout>
 
@@ -142,22 +136,24 @@
 
     <TextView
         android:id="@+id/textView4"
-        style="@style/TextViewGray"
+        style="@style/TextViewGray3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/your_rank"
+        android:textColor="@color/gray3"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/textView_rank"
-        style="@style/TextViewGray"
+        style="@style/TextViewGray3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:text="@string/not_found"
+        android:textColor="@color/gray2"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />

@@ -54,10 +54,10 @@
 
     <View
         android:id="@+id/view2"
+        style="@style/LineLightGray"
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_marginTop="16dp"
-        android:background="@color/outlinedButtonStroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />

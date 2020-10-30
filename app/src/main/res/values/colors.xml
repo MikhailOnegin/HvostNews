@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1ec34b</color>
+    <color name="colorPrimary">#1EC34B</color>
     <color name="colorPrimaryDark">#398F40</color>
     <color name="colorAccent">#EE5E0F</color>
     <color name="btnStroke">#B9BEE1</color>
@@ -8,7 +8,7 @@
     <color name="titleText">#141428</color>
     <color name="categoryBackground">#F0EBFA</color>
     <color name="windowBackground">#F1EFF6</color>
-    <color name="TextColorPrimary">#151515</color>
+    <color name="TextColorPrimary">@color/gray1</color>
     <color name="TextColorHints">#C4C4E2</color>
     <color name="TextColorGreen">#55D25F</color>
     <color name="outlinedButtonBackground">#33C4C4E2</color>
@@ -19,7 +19,7 @@
     <color name="viewPagerTest">#DECAFF</color>
     <color name="progressBackgroundTint">#331EC34B</color>
     <color name="TextColorSecondary">#414669</color>
-    <color name="TextColorLightSecondary">#7d82af</color>
+    <color name="TextColorLightSecondary">@color/gray3</color>
     <color name="EditTextTextColorHints">#B9BEE1</color>
     <color name="lightGray2">#C4C4E2</color>
     <color name="defaultBackground">#FFFFFF</color>
@@ -27,4 +27,11 @@
     <color name="sexSelector">#141428</color>
     <color name="rvImageOutline">#F0EBFA</color>
     <color name="imageBorder">#F0EBFA</color>
+    <color name="lineGray">#B9BEE1</color>
+
+    <color name="gray1">#141428</color>
+    <color name="gray2">#414669</color>
+    <color name="gray3">#7D82AF</color>
+    <color name="gray4">#B9BEE1</color>
+    <color name="gray5">#F0EBFA</color>
 </resources>

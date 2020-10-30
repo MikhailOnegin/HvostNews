@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import ru.hvost.news.databinding.FragmentCourseMaterialBinding
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class CourseMaterialsFragment:Fragment() {
+class CourseMaterialsFragment():Fragment() {
 
     private lateinit var binding: FragmentCourseMaterialBinding
     private lateinit var schoolVM: SchoolViewModel

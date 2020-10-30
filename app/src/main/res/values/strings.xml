@@ -86,8 +86,8 @@
     <string name="age">Возраст\n(мес.)</string>
     <string name="theme">Тема</string>
     <string name="go_registration">Для прохождения курса пройдите регистрацию!</string>
-    <string name="lessons_comleted">Пройдено уроков:</string>
-    <string name="your_rank">Ваше звание:</string>
+    <string name="lessons_comleted">Пройдено уроков</string>
+    <string name="your_rank">Ваше звание</string>
     <string name="not_found">(нет)</string>
     <string name="description">Описание</string>
     <string name="comments">Отзывы</string>
@@ -192,4 +192,13 @@
     <string name="grooming_salons">Груминг-салоны</string>
     <string name="lessons_in_your_city">Семинары
         \nв вашем городе</string>
+    <string name="online_lesson">Страница семирнара</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
 </resources>

@@ -32,7 +32,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/shape_red" />
+                app:srcCompat="@drawable/default_image" />
 
             <TextView
                 android:id="@+id/textView_staus"
@@ -68,7 +68,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_lesson_title"
-                app:srcCompat="@drawable/shape_red" />
+                app:srcCompat="@drawable/default_image" />
 
             <TextView
                 android:id="@+id/textView_date"
@@ -100,7 +100,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView_date"
                 app:layout_constraintStart_toEndOf="@+id/textView_date"
                 app:layout_constraintTop_toTopOf="@+id/textView_date"
-                app:srcCompat="@drawable/shape_red" />
+                app:srcCompat="@drawable/default_image" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -47,7 +47,9 @@ class SchoolsFragment: Fragment() {
         binding.recyclerViewSchools.layoutManager = layoutManager
         adapter.clickSchool = object :SchoolsAdapter.ClickSchool{
             override fun onClick(school: OnlineSchool.School) {
-                navC.navigate(ru.hvost.news.R.id.action_parentSchoolFragment_to_onlineCourseActiveFragment)
+                val bundle = Bundle()
+                bundle.putSerializable("school", school)
+                navC.navigate(ru.hvost.news.R.id.action_parentSchoolFragment_to_onlineCourseActiveFragment, bundle)
             }
         }
         schoolVM.getOnlineSchools("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
