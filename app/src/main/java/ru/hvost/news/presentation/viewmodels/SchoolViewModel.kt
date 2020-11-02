@@ -40,11 +40,11 @@ class SchoolViewModel: ViewModel() {
     private val mutableOnlineLessons:MutableLiveData<OnlineLessons> = MutableLiveData()
     val onlineLessons:LiveData<OnlineLessons> = mutableOnlineLessons
 
-    fun getOnlineLessons(userToken:String){
+    fun getOnlineLessons(userToken:String, schoolId:String){
         viewModelScope.launch {
             mutableOnlineLessonsState.value = State.LOADING
             try {
-                val response = APIService.API.getOnlineLessonsAsync(userToken).await()
+                val response = APIService.API.getOnlineLessonsAsync(userToken,schoolId).await()
                 mutableOnlineLessons.value = response.toDomain()
                 if (response.result == "success") mutableOnlineLessonsState.value = State.SUCCESS
                 else mutableOnlineLessonsState.value = State.ERROR

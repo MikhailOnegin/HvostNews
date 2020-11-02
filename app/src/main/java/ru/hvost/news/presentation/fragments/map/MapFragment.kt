@@ -65,7 +65,7 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
         mapVm = ViewModelProvider(this)[MapViewModel::class.java]
         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
         binding.mapView.map.addCameraListener(this)
-
+        binding.constraintFilter.setOnClickListener {  }
 
         mapVm.getShops("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         binding.mapView.map.move(

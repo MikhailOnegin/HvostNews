@@ -32,7 +32,8 @@ class LessonsOnlineAdapter ():RecyclerView.Adapter<LessonsOnlineAdapter.ViewHold
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val lesson = lessons[holder.adapterPosition]
+        holder.bind(lesson)
     }
 
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){

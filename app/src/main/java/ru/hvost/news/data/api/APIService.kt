@@ -116,7 +116,8 @@ interface APIService {
 
     @GET("/rest/School/getOnlineLessons/")
     fun getOnlineLessonsAsync(
-        @Query("userToken") userToken: String?
+        @Query("userToken") userToken: String?,
+        @Query("schoolId") schoolId: String?
     ): Deferred<OnlineLessonsResponse>
 
     @GET("/rest/School/getOnlineSchools/")
