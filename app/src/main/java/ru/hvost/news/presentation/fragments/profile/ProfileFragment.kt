@@ -12,16 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentProfileBinding
 import ru.hvost.news.presentation.adapters.PetAdapter
+import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.enums.State
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var couponsMV: CouponViewModel
+    //    private lateinit var mainVM: MainViewModel TODO: доделать кол-во промокодов
     private lateinit var navC: NavController
 
     override fun onCreateView(
@@ -35,6 +39,7 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        couponsMV = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         setObservers()
         setListeners()
         navC = findNavController()
@@ -45,6 +50,19 @@ class ProfileFragment : Fragment() {
         mainVM.userDataState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
         mainVM.userPetsState.observe(viewLifecycleOwner, Observer { setPetsToBind(it) })
         mainVM.bonusBalanceState.observe(viewLifecycleOwner, Observer { onBalanceChanged(it) })
+        couponsMV.couponsState.observe(viewLifecycleOwner, Observer { onCouponsChanged(it) })
+//        mainVM.bonusBalanceState.observe(viewLifecycleOwner, Observer { onVouchersChanged(it) })
+    }
+
+    private fun onCouponsChanged(state: State) {
+        when (state) {
+            State.SUCCESS -> {
+                if (couponsCount != null) binding.couponsCount.text = couponsCount.toString()
+                else binding.couponsCount.text = "0"
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
     }
 
     private fun setDataToBind(state: State) {
@@ -91,7 +109,7 @@ class ProfileFragment : Fragment() {
     private fun bindData() {
         val userData = mainVM.userDataResponse.value
         binding.second.text = userData?.surname
-        binding.name.text = userData?.name + " " + userData?.patronymic
+        binding.name.text = userData?.name
     }
 
     private fun setListeners() {
@@ -129,19 +147,13 @@ class ProfileFragment : Fragment() {
             ) {
                 val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
-                    view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
+                    view.context?.resources?.getDimension(R.dimen.xSmallMargin)?.toInt() ?: 0
                 parent.adapter.run {
                     if (position == 0) {
-                        outRect.top = elementMargin
-                        outRect.bottom = elementMargin
-                        outRect.left = elementMargin
-                        outRect.right = elementMargin
+                        outRect.top = 0
 
                     } else {
-                        outRect.top = 0
-                        outRect.bottom = elementMargin
-                        outRect.left = elementMargin
-                        outRect.right = elementMargin
+                        outRect.top = elementMargin
                     }
                 }
             }

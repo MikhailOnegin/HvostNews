@@ -5,20 +5,28 @@
     android:elevation="@dimen/listItemElevation"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="@dimen/smallMargin"
+        android:background="@color/EditTextTextColorHints" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/textMargin"
-        android:textStyle="bold"
+        android:paddingHorizontal="@dimen/profileCoverPadding"
         android:textColor="@color/titleText"
-        android:textSize="@dimen/ButtonTextSize" />
+        android:textSize="@dimen/ButtonTextSize"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/textMargin"
+        android:paddingHorizontal="@dimen/profileCoverPadding"
         android:textColor="@color/EditTextTextColorHints"
         android:textSize="@dimen/ButtonTextSize" />
 

@@ -11,9 +11,6 @@ import ru.hvost.news.utils.enums.State
 
 class MainViewModel : ViewModel() {
 
-//    var testPrize: List<Prize> = Prize.getTestPrizeList()
-//    var testPrice: List<PrizePrice> = PrizePrice.getTestPriceList()
-
     val articlesState = MutableLiveData<State>()
     val articles = MutableLiveData<List<Article>>()
     val allArticles = MutableLiveData<List<Article>>()
