@@ -11,7 +11,7 @@ import ru.hvost.news.databinding.LayoutDomainItemBinding
 import ru.hvost.news.models.Domain
 
 class DomainAdapter(private val onClick: (Long) -> Unit) :
-    ListAdapter<Domain, DomainAdapter.DomainViewHolder>(FaqDiffUtilCallback()) {
+    ListAdapter<Domain, DomainAdapter.DomainViewHolder>(DomainDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DomainViewHolder {
         return DomainViewHolder.getDomainVH(parent, onClick)
@@ -50,7 +50,7 @@ class DomainAdapter(private val onClick: (Long) -> Unit) :
 
     }
 
-    class FaqDiffUtilCallback : DiffUtil.ItemCallback<Domain>() {
+    class DomainDiffUtilCallback : DiffUtil.ItemCallback<Domain>() {
         override fun areItemsTheSame(oldItem: Domain, newItem: Domain): Boolean {
             return oldItem.id == newItem.id
         }

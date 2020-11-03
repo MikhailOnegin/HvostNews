@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
@@ -47,10 +48,21 @@ class SubDomainFragment : Fragment() {
     private fun setTabs() {
         val categories =
             mainVM.categories?.filter { it.domain == arguments?.getLong("DOMAIN_ID") } ?: return
-        for (category in categories) {
+        for ((index, category) in categories.withIndex()) {
             val tab = binding.categoryTabs.newTab()
             tab.tag = category.id
             tab.text = category.title
+//            when (index){
+//                0->{
+//                    tab.set
+//                }
+//                categories.size->{
+//                    tab.setBa
+//                }
+//                else->{
+//                    tab.setBa
+//                }
+//            }
             binding.categoryTabs.addTab(tab)
         }
         setTabsListener()
@@ -98,10 +110,13 @@ class SubDomainFragment : Fragment() {
                 originList.filter { it.categoryId == tab?.tag.toString() }
             )
         }
-
     }
 
     private fun setRecyclerView() {
+        val filteredList = mainVM.allArticles.value?.filter {
+            it.domainId == arguments?.getLong("DOMAIN_ID").toString()
+        }
+        binding.title.text = filteredList?.get(0)?.domainTitle
         val onActionClicked = { id: Long ->
             val bundle = Bundle()
             bundle.putLong("ITEM_ID", id)
@@ -113,9 +128,7 @@ class SubDomainFragment : Fragment() {
         }
         val adapter = ArticleAdapter(onActionClicked)
         binding.list.adapter = adapter
-        adapter.submitList(mainVM.allArticles.value?.filter {
-            it.domainId == arguments?.getLong("DOMAIN_ID").toString()
-        })
+        adapter.submitList(filteredList)
         setDecoration()
     }
 

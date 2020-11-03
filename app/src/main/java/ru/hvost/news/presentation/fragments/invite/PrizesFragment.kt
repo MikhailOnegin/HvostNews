@@ -34,11 +34,11 @@ class PrizesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
-        setRecyclerView()
     }
 
     private fun setObservers() {
         mainVM.bonusBalanceState.observe(viewLifecycleOwner, { onBalanceChanged(it) })
+        mainVM.prizesState.observe(viewLifecycleOwner, { onPrizesChanged(it) })
     }
 
     private fun onBalanceChanged(state: State?) {
@@ -51,15 +51,25 @@ class PrizesFragment : Fragment() {
         }
     }
 
+    private fun onPrizesChanged(state: State?) {
+        when (state) {
+            State.SUCCESS -> {
+                setRecyclerView()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
+        }
+    }
+
     private fun setRecyclerView() {
-        val onActionClicked = { prize: Long ->
+        val onActionClicked = { prize: String ->
             val bundle = Bundle()
-            bundle.putLong("ID", prize)
+            bundle.putString("PRIZE_ID", prize)
             findNavController().navigate(R.id.action_prizesFragment_to_choicePrizeFragment, bundle)
         }
         val adapter = PrizeAdapter(onActionClicked)
         binding.prizeList.adapter = adapter
-        adapter.submitList(mainVM.testPrize)
+        adapter.submitList(mainVM.prizes.value)
         setDecoration()
     }
 

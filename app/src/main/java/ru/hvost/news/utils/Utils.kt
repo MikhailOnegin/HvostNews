@@ -1,6 +1,7 @@
 package ru.hvost.news.utils
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
@@ -32,7 +33,7 @@ fun createSnackbar(
     snackbar.setTextColor(ContextCompat.getColor(App.getInstance(), android.R.color.white))
     snackbar.setActionTextColor(ContextCompat.getColor(App.getInstance(), android.R.color.white))
     val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-    textView.maxLines = 5
+    textView.maxLines = 10
     if(buttonText != null) {
         snackbar.setAction(buttonText) {
             onButtonClicked?.invoke() ?: snackbar.dismiss()
@@ -123,3 +124,6 @@ fun scrollToTheTop(scrollView: ScrollView) {
 
 @SuppressLint("ConstantLocale")
 val petBirthdayDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
+//sergeev: заменить на empty_image
+val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/test_image")

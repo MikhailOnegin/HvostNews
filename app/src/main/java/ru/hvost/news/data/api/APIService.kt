@@ -25,6 +25,26 @@ interface APIService {
         @Query("email") email: String?
     ): Deferred<PassRestoreResponse>
 
+    @GET("/rest/Registration/getInterests/")
+    fun getInterestsAsync(): Deferred<InterestsResponse>
+
+    //sergeev: Добавить пароль пользователя.
+    @GET("/rest/Registration/registerUser/")
+    fun registerUserAsync(
+        @Query("name") name: String,
+        @Query("surname") surname: String,
+        @Query("patronymic") patronymic: String,
+        @Query("phone") phone: String,
+        @Query("email") email: String,
+        @Query("city") city: String,
+        @Query("petName") petName: String,
+        @Query("petSpecies") petSpecies: String,
+        @Query("petSex") petSex: String,
+        @Query("petBirthday") petBirthday: String,
+        @Query("voucher") voucher: String? = null,
+        @Query("interests") interests: String
+    ): Deferred<RegisterUserResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null
@@ -37,6 +57,11 @@ interface APIService {
 
     @GET("/rest/Registration/getSpecies/")
     fun getSpeciesAsync(): Deferred<SpeciesResponse>
+
+    @GET("/rest/InviteFriend/getPrizes/")
+    fun getPrizesAsync(
+        @Query("userToken") userToken: String?,
+    ): Deferred<PrizesResponse>
 
     @GET("/rest/Registration/getBreeds/")
     fun getBreedsAsync(
@@ -59,6 +84,12 @@ interface APIService {
         @Query("userToken") userToken: String?,
         @Query("email") email: String?,
     ): Deferred<SendToEmailResponse>
+
+    @GET("/rest/InviteFriend/selectPrize/")
+    fun addPrizeToCartAsync(
+        @Query("userToken") userToken: String?,
+        @Query("prizeId") id: String?,
+    ): Deferred<PrizeToCartResponse>
 
     @GET("/rest/InviteFriend/getBonusBalance/")
     fun getBonusBalanceAsync(
@@ -97,12 +128,13 @@ interface APIService {
     // School
     @GET("/rest/School/getOfflineLessons/")
     fun getOfflineLessonsAsync(
-        @Query("city") city: String?
+        @Query("cityId") cityId: String?
     ): Deferred<OfflineLessonsResponse>
 
     @GET("/rest/School/getOnlineLessons/")
     fun getOnlineLessonsAsync(
-        @Query("userToken") userToken: String?
+        @Query("userToken") userToken: String?,
+        @Query("schoolId") schoolId: String?
     ): Deferred<OnlineLessonsResponse>
 
     @GET("/rest/School/getOnlineSchools/")
@@ -115,6 +147,9 @@ interface APIService {
         @Query("userToken") userToken: String?,
         @Query("lessonId") lessonId: Long?
     ): Deferred<LessonTestesPassedResponse>
+
+    @GET("/rest/School/getCities/")
+    fun getOfflineCitiesAsync():Deferred<OfflineCitiesResponse>
 
     // Map
     @GET("/rest/Maps/getShops/")
@@ -130,8 +165,10 @@ interface APIService {
 
         val API: APIService by lazy {
             val okHttpClient = OkHttpClient.Builder()
-            okHttpClient.callTimeout(90, TimeUnit.SECONDS)
-            okHttpClient.connectTimeout(60, TimeUnit.SECONDS)
+            okHttpClient.callTimeout(60, TimeUnit.SECONDS)
+            okHttpClient.connectTimeout(20, TimeUnit.SECONDS)
+            okHttpClient.readTimeout(20, TimeUnit.SECONDS)
+            okHttpClient.writeTimeout(20, TimeUnit.SECONDS)
             okHttpClient.authenticator(HTTPAuthenticator())
             val retrofit = Retrofit.Builder()
                 .client(okHttpClient.build())

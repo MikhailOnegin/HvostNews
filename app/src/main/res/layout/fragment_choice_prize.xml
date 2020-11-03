@@ -9,6 +9,7 @@
     tools:context=".presentation.fragments.invite.ChoicePrizeFragment">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/smallMargin"
@@ -33,6 +34,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <Button
+        style="@style/ElevatedButton"
+        android:id="@+id/toCart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toCart" />

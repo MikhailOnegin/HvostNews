@@ -1,4 +1,4 @@
-package ru.hvost.news.viewModels
+package ru.hvost.news.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4

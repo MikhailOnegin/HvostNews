@@ -203,7 +203,7 @@
         <Button
             style="@style/ElevatedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/ButtonHeight"
             android:layout_marginBottom="@dimen/smallMargin"
             android:text="@string/saveChanges" />
 
@@ -211,7 +211,7 @@
         <Button
             style="@style/ElevatedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/ButtonHeight"
             android:layout_marginBottom="@dimen/smallMargin"
             android:text="@string/cancel" />
 
@@ -219,7 +219,7 @@
             android:id="@+id/delete"
             style="@style/ElevatedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/ButtonHeight"
             android:text="@string/delete" />
 
     </LinearLayout>

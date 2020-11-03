@@ -55,7 +55,7 @@
     <string name="logo_activity">Активность</string>
     <string name="logo_status">Статус</string>
     <string name="logo_coupon_description">Описание купона</string>
-    <string name="online_school">Онлайн-школа</string>
+    <string name="online_school">Онлайн школа</string>
     <string name="seminars_in_your_sites">Семинары в вашем городе</string>
     <string name="how_seminars_show">Какие семинары показывать</string>
     <string name="choose_your_city">Выберите ваш город</string>
@@ -84,10 +84,11 @@
         Желаем удачи в прохождении курса!
     </string>
     <string name="age">Возраст\n(мес.)</string>
+    <string name="age2">Вораст:</string>
     <string name="theme">Тема</string>
     <string name="go_registration">Для прохождения курса пройдите регистрацию!</string>
-    <string name="lessons_comleted">Пройдено уроков:</string>
-    <string name="your_rank">Ваше звание:</string>
+    <string name="lessons_completed">Пройдено уроков</string>
+    <string name="your_rank">Ваше звание</string>
     <string name="not_found">(нет)</string>
     <string name="description">Описание</string>
     <string name="comments">Отзывы</string>
@@ -183,4 +184,38 @@
     <string name="petBirthdayHint">Дата рождения</string>
     <string name="sendedSuccessfull">Приглашение отправлено</string>
     <string name="refLinkCopied">Ссылка скопирована</string>
+    <string name="partner_type">Тип партнёра</string>
+    <string name="participates_in_action">Участвует в акции</string>
+    <string name="show">Показать</string>
+    <string name="reset">Сбросить</string>
+    <string name="veterinary_clinics">Ветиринарные клиники</string>
+    <string name="pet_shops">Зоомагазины</string>
+    <string name="grooming_salons">Груминг-салоны</string>
+    <string name="lessons_in_your_city">Семинары
+        \nв вашем городе</string>
+    <string name="online_lesson">Страница семирнара</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="buttonSave">Сохранить</string>
+    <string name="regErrorHasFieldsProblems">Для регистрации заполнены не все поля. Пожалуйста, проверьте заполнение.</string>
+    <string name="registrationSuccessfull">Регистрация прошла успешно.</string>
+    <string name="phoneHint">Ваш номер является вашим идентификатором. Его нельзя поменять</string>
+    <string name="hello">Здравствуйте,</string>
+    <string name="myCoupons">Мои купоны</string>
+    <string name="myVauchers">Промокоды</string>
+    <string name="yourPets">Ваши питомцы</string>
+    <string name="ordersTitle">Заказы</string>
+    <string name="inWorkStatus">В обработке</string>
+    <string name="constructedStatus">Собрано</string>
+    <string name="finishedStatus">Выполнено</string>
+    <string name="checkAllOrders">Смотреть все заказы</string>
+    <string name="choosePrizes">Выбрать призы</string>
+    <string name="invite">Пригласить</string>
+    <string name="logout">Выйти</string>
 </resources>

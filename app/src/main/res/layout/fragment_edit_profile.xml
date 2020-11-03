@@ -12,8 +12,10 @@
         tools:context=".presentation.fragments.profile.EditProfileFragment">
 
         <TextView
+            style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/xSmallMargin"
             android:text="@string/surName" />
 
         <EditText
@@ -26,8 +28,10 @@
             android:textColor="@android:color/black" />
 
         <TextView
+            style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/xSmallMargin"
             android:text="@string/name" />
 
         <EditText
@@ -40,8 +44,10 @@
             android:textColor="@android:color/black" />
 
         <TextView
+            style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/xSmallMargin"
             android:text="@string/secondName" />
 
         <EditText
@@ -54,8 +60,10 @@
             android:textColor="@android:color/black" />
 
         <TextView
+            style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/xSmallMargin"
             android:text="@string/birthday" />
 
         <EditText
@@ -69,8 +77,10 @@
             android:textColor="@android:color/black" />
 
         <TextView
+            style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/xSmallMargin"
             android:text="@string/phone" />
 
         <EditText
@@ -78,7 +88,6 @@
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
             android:inputType="phone"
             android:text="@string/phone"
             android:textColor="@android:color/black" />
@@ -86,6 +95,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/normalMargin"
+            android:paddingStart="@dimen/xSmallMargin"
+            android:text="@string/phoneHint"
+            android:textColor="@color/TextColorSecondary" />
+
+        <TextView
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/xSmallMargin"
             android:text="@string/email" />
 
         <EditText
@@ -99,8 +118,10 @@
             android:textColor="@android:color/black" />
 
         <TextView
+            style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/xSmallMargin"
             android:text="@string/city" />
 
         <EditText
@@ -116,15 +137,16 @@
             android:id="@+id/save"
             style="@style/ElevatedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/ButtonHeight"
             android:text="@string/saveChanges" />
 
         <Button
             android:id="@+id/cancel"
             style="@style/ElevatedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/ButtonHeight"
             android:text="@string/cancel" />
 
     </LinearLayout>
+
 </ScrollView>

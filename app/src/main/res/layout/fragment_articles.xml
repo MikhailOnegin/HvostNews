@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_logo"
-        app:layout_constraintBottom_toTopOf="@+id/allArticles"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +25,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/notification"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabMode="scrollable"
+        app:tabPaddingEnd="@dimen/normalMargin"
+        app:tabPaddingStart="@dimen/normalMargin"
+        app:tabSelectedTextColor="@color/TabSelectedTextColor"
+        app:tabTextColor="@color/TabUnselectedTextColor">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="articles"
+            android:text="@string/bnvFeed" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="domains"
+            android:text="@string/articlesTitle" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <Button
-        android:id="@+id/allArticles"
+        android:id="@+id/filter"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -36,7 +64,7 @@
         app:icon="@drawable/ic_filter"
         app:iconTint="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notification"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         app:strokeColor="@color/btnStroke"
         app:strokeWidth="3dp" />
 
@@ -46,6 +74,6 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allArticles" />
+        app:layout_constraintTop_toBottomOf="@+id/filter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
