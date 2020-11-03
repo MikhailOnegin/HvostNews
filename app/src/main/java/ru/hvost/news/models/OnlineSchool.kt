@@ -1,6 +1,7 @@
 package ru.hvost.news.models
 
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
+import java.io.Serializable
 
 data class OnlineSchool(
     val schools: List<School>
@@ -13,7 +14,7 @@ data class OnlineSchool(
         val userRank: String,
         val images: String,
         val description: String
-    )
+    ): Serializable
 }
 fun OnlineSchoolsResponse.toDomain(): OnlineSchool{
     return OnlineSchool(

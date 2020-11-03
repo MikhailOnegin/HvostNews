@@ -8,23 +8,19 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        style="@style/TabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:tabBackground="@android:color/transparent"
-        app:tabGravity="center"
         app:tabIndicatorColor="@android:color/transparent"
-        app:tabMode="scrollable"
-        app:tabPaddingEnd="@dimen/normalMargin"
-        app:tabPaddingStart="@dimen/normalMargin"
-        app:tabSelectedTextColor="@android:color/black"
-        app:tabTextColor="@android:color/darker_gray">
+        app:tabSelectedTextColor="@color/defaultBackground"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabTextColor="@color/TextColorPrimary">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -58,25 +54,24 @@
 
     <View
         android:id="@+id/view2"
+        style="@style/LineLightGray"
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_marginTop="16dp"
-        android:background="@color/outlinedButtonStroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView7"
-        style="@style/TextView"
+        style="@style/TextViewVeryBigBold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/gilroy_bold"
         android:text="Школа ответственных родителей"
-        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />

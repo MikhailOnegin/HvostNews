@@ -14,14 +14,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.databinding.FragmentSchoolsBinding
+import ru.hvost.news.databinding.FragmentSchoolParentsSchoolsBinding
 import ru.hvost.news.models.OnlineSchool
 import ru.hvost.news.presentation.adapters.recycler.SchoolsAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class SchoolsFragment: Fragment() {
 
-    private lateinit var binding: FragmentSchoolsBinding
+    private lateinit var binding: FragmentSchoolParentsSchoolsBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var navC:NavController
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -32,7 +32,7 @@ class SchoolsFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSchoolsBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolParentsSchoolsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -47,7 +47,9 @@ class SchoolsFragment: Fragment() {
         binding.recyclerViewSchools.layoutManager = layoutManager
         adapter.clickSchool = object :SchoolsAdapter.ClickSchool{
             override fun onClick(school: OnlineSchool.School) {
-                navC.navigate(ru.hvost.news.R.id.action_parentSchoolFragment_to_onlineCourseActiveFragment)
+                val bundle = Bundle()
+                bundle.putSerializable("school", school)
+                navC.navigate(ru.hvost.news.R.id.action_parentSchoolFragment_to_onlineCourseActiveFragment, bundle)
             }
         }
         schoolVM.getOnlineSchools("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")

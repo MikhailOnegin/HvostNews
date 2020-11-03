@@ -167,7 +167,7 @@
         android:id="@+id/onlineCourseActiveFragment"
         android:name="ru.hvost.news.presentation.fragments.school.online.OnlineCourseActiveFragment"
         android:label="Online course active"
-        tools:layout="@layout/fragment_online_course_active" >
+        tools:layout="@layout/fragment_school_online" >
         <action
             android:id="@+id/action_onlineCourseActiveFragment_to_onlineCourseLessonFragment"
             app:destination="@+id/onlineCourseLessonFragment"

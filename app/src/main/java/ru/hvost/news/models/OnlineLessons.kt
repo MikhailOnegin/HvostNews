@@ -1,6 +1,7 @@
 package ru.hvost.news.models
 
 import ru.hvost.news.data.api.response.OnlineLessonsResponse
+import java.io.Serializable
 
 data class OnlineLessons(
     val lessons: List<OnlineLesson>
@@ -14,7 +15,7 @@ data class OnlineLessons(
         val videoUrl: String,
         val testQuestion: String,
         val answersList: List<Answer>
-    )
+    ): Serializable
 
     data class Answer(
         val answer: String,
@@ -53,7 +54,7 @@ fun List<OnlineLessonsResponse.OnlineLessonResponse>?.toDomain(): List<OnlineLes
 fun List<OnlineLessonsResponse.AnswerResponse>?.toAnswers(): List<OnlineLessons.Answer> {
     val result = mutableListOf<OnlineLessons.Answer>()
     this?.run {
-        for ((index, answerResponse) in this.withIndex()) {
+        for ((_, answerResponse) in this.withIndex()) {
             result.add(
                 OnlineLessons.Answer(
                     answer = answerResponse.answer ?: "",

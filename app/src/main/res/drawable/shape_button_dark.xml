@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid
-        android:color="@color/defaultBackground"/>
+        android:color="@color/TextColorPrimary"/>
     <padding
         android:left="8dp"
         android:right="8dp"/>
