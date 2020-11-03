@@ -14,22 +14,25 @@ import ru.hvost.news.models.Coupons
 import ru.hvost.news.models.toDomain
 import ru.hvost.news.utils.enums.State
 
-class CouponViewModel:ViewModel() {
+class CouponViewModel : ViewModel() {
 
-    private val mutableCouponsState:MutableLiveData<State> = MutableLiveData()
-    val couponsState:LiveData<State> = mutableCouponsState
+    private val mutableCouponsState: MutableLiveData<State> = MutableLiveData()
+    val couponsState: LiveData<State> = mutableCouponsState
 
-    private val  mutableCoupons:MutableLiveData<Coupons> = MutableLiveData()
-    val coupons:LiveData<Coupons> = mutableCoupons
+    private val mutableCoupons: MutableLiveData<Coupons> = MutableLiveData()
+    val coupons: LiveData<Coupons> = mutableCoupons
+    var couponsCount: Int? = null
 
-    fun getCoupons(userToken:String){
+    fun getCoupons(userToken: String) {
         viewModelScope.launch {
             mutableCouponsState.value = State.LOADING
             try {
                 val response = APIService.API.getCouponsAsync(userToken).await()
                 mutableCoupons.value = response.toDomain()
-                if (response.result == "success") mutableCouponsState.value = State.SUCCESS
-                else mutableCouponsState.value = State.ERROR
+                if (response.result == "success") {
+                    mutableCouponsState.value = State.SUCCESS
+                    couponsCount = response.coupons?.size
+                } else mutableCouponsState.value = State.ERROR
             } catch (exc: Exception) {
                 Log.i("eeee", "getCoupons() ERROR: ${exc.message}")
                 mutableCouponsState.value = State.FAILURE
@@ -37,13 +40,13 @@ class CouponViewModel:ViewModel() {
         }
     }
 
-    private val mutableCouponsInfoState:MutableLiveData<State> = MutableLiveData()
-    val couponsInfoState:LiveData<State> = mutableCouponsInfoState
+    private val mutableCouponsInfoState: MutableLiveData<State> = MutableLiveData()
+    val couponsInfoState: LiveData<State> = mutableCouponsInfoState
 
-    private val mutableCouponsInfo:MutableLiveData<CouponInfo> = MutableLiveData()
-    val couponsInfo:LiveData<CouponInfo> = mutableCouponsInfo
+    private val mutableCouponsInfo: MutableLiveData<CouponInfo> = MutableLiveData()
+    val couponsInfo: LiveData<CouponInfo> = mutableCouponsInfo
 
-    fun getCouponsInfo(userToken: String){
+    fun getCouponsInfo(userToken: String) {
         viewModelScope.launch {
             mutableCouponsInfoState.value = State.LOADING
             try {
@@ -52,7 +55,7 @@ class CouponViewModel:ViewModel() {
                 if (response.result == "success") mutableCouponsInfoState.value = State.SUCCESS
                 else mutableCouponsInfoState.value = State.ERROR
             } catch (exc: Exception) {
-                Log.i("eeee","getCouponsInfo() ${exc.message.toString()}")
+                Log.i("eeee", "getCouponsInfo() ${exc.message.toString()}")
                 mutableCouponsInfoState.value = State.FAILURE
             }
         }

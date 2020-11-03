@@ -9,10 +9,13 @@
     <dimen name="xLargeMargin">32dp</dimen>
     <dimen name="listItemElevation">5dp</dimen>
     <dimen name="screenContentPadding">16dp</dimen>
+    <dimen name="profileCoverPadding">25dp</dimen>
     <dimen name="imageHeight">150dp</dimen>
     <dimen name="categoryHeight">26dp</dimen>
     <dimen name="toolbarHeight">60dp</dimen>
     <dimen name="logoPadding">20dp</dimen>
+    <dimen name="iconPadding">5dp</dimen>
+    <dimen name="iconMargin">10dp</dimen>
     <dimen name="authorizationTitleTextSize">36sp</dimen>
     <dimen name="restorePasswordTextSize">14sp</dimen>
     <dimen name="buttonShapeAppearanceCornerSize">16dp</dimen>
@@ -35,7 +38,20 @@
     <dimen name="rvImageOuterCorners">24dp</dimen>
     <dimen name="rvInterestHeight">150dp</dimen>
     <dimen name="rvInterestTextSize">18sp</dimen>
+    <dimen name="rvSelectionIconPadding">6dp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
     <dimen name="articleDescriptionTextSize">16sp</dimen>
-    <dimen name="rvSelectionIconPadding">6dp</dimen>
+    <dimen name="ButtonHeight">60dp</dimen>
+    <dimen name="textTitleSize">14sp</dimen>
+    <dimen name="userNameTextSize">30sp</dimen>
+    <dimen name="profileTitleSize">11sp</dimen>
+    <dimen name="userProfileButtonRadius">10dp</dimen>
+    <dimen name="iconBackgroundRadius">15dp</dimen>
+    <dimen name="notificationButtonMargin">15dp</dimen>
+    <dimen name="iconSize">40dp</dimen>
+    <dimen name="notification_count">30dp</dimen>
+    <dimen name="profileTitleMargin">9dp</dimen>
+    <dimen name="orderButtonPadding">25dp</dimen>
+    <dimen name="toolbarButtonPadding">15dp</dimen>
+    <dimen name="profileTitleTextSize">24sp</dimen>
 </resources>

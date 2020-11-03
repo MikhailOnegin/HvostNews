@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
@@ -112,6 +113,10 @@ class SubDomainFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
+        val filteredList = mainVM.allArticles.value?.filter {
+            it.domainId == arguments?.getLong("DOMAIN_ID").toString()
+        }
+        binding.title.text = filteredList?.get(0)?.domainTitle
         val onActionClicked = { id: Long ->
             val bundle = Bundle()
             bundle.putLong("ITEM_ID", id)
@@ -123,9 +128,7 @@ class SubDomainFragment : Fragment() {
         }
         val adapter = ArticleAdapter(onActionClicked)
         binding.list.adapter = adapter
-        adapter.submitList(mainVM.allArticles.value?.filter {
-            it.domainId == arguments?.getLong("DOMAIN_ID").toString()
-        })
+        adapter.submitList(filteredList)
         setDecoration()
     }
 

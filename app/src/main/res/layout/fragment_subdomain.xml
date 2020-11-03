@@ -2,26 +2,50 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/screenContentPadding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.articles.ArticlesFragment">
+    android:padding="@dimen/screenContentPadding"
+    tools:context=".presentation.fragments.domains.SubDomainFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/smallMargin"
+        android:text="@string/stub"
+        android:textStyle="bold"
+        android:textColor="@color/titleText"
+        android:textSize="@dimen/userNameTextSize"
+        app:layout_constraintBottom_toTopOf="@+id/category_tabs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/showPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/smallMargin"
+        android:src="@drawable/ic_show_popup"
+        app:layout_constraintBottom_toTopOf="@+id/category_tabs"
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/category_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/tab_layout_background"
         app:layout_constraintBottom_toTopOf="@+id/list"
-        app:tabBackground="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:tabBackground="@drawable/tab_background"
         app:tabGravity="center"
         app:tabIndicatorColor="@android:color/transparent"
         app:tabMode="scrollable"
         app:tabPaddingEnd="@dimen/normalMargin"
         app:tabPaddingStart="@dimen/normalMargin"
-        app:tabSelectedTextColor="@android:color/black"
+        app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/darker_gray">
 
     </com.google.android.material.tabs.TabLayout>

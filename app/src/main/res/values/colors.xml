@@ -42,4 +42,14 @@
 
     <color name="bnvBackgroundTintDisabled">#7D82AF</color>
     <color name="bnvBackgroundTintEnabled">#1EC34B</color>
+
+    <color name="TabSelectedTextColor">#141428</color>
+    <color name="profileBackground">#F0EBFA</color>
+    <color name="TextColorTitle">#B9BEE1</color>
+    <color name="TabUnselectedTextColor">#B9BEE1</color>
+    <color name="thirdTextHintColor">#7D82AF</color>
+    <color name="statusFinishedTextColor">#1EC34B</color>
+    <color name="profileInviteBackground">#FA5F19</color>
+    <color name="whiteOpacity">#33FFFFFF</color>
+    <color name="profileToolbarColorOpacity">#80FFFFFF</color>
 </resources>

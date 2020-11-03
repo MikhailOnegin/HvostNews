@@ -1,7 +1,5 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="fontFamily">@font/gilroy_semibold</item>
-        <item name="android:textSize">15sp</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -20,7 +18,7 @@
         <item name="android:textColor">@color/TextColorPrimary</item>
         <item name="android:textSize">14sp</item>
     </style>
-    
+
     <style name="EditText">
         <item name="android:fontFamily">@font/gilroy_bold</item>
         <item name="android:textColor">@color/TextColorPrimary</item>
@@ -28,7 +26,11 @@
         <item name="android:inputType">text</item>
     </style>
 
-
+    <style name="TextViewLinar">
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textColor">@color/TextColorTitle</item>
+        <item name="android:textSize">@dimen/textTitleSize</item>
+    </style>
 
     <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>

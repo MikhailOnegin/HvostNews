@@ -205,4 +205,17 @@
     <string name="buttonSave">Сохранить</string>
     <string name="regErrorHasFieldsProblems">Для регистрации заполнены не все поля. Пожалуйста, проверьте заполнение.</string>
     <string name="registrationSuccessfull">Регистрация прошла успешно.</string>
+    <string name="phoneHint">Ваш номер является вашим идентификатором. Его нельзя поменять</string>
+    <string name="hello">Здравствуйте,</string>
+    <string name="myCoupons">Мои купоны</string>
+    <string name="myVauchers">Промокоды</string>
+    <string name="yourPets">Ваши питомцы</string>
+    <string name="ordersTitle">Заказы</string>
+    <string name="inWorkStatus">В обработке</string>
+    <string name="constructedStatus">Собрано</string>
+    <string name="finishedStatus">Выполнено</string>
+    <string name="checkAllOrders">Смотреть все заказы</string>
+    <string name="choosePrizes">Выбрать призы</string>
+    <string name="invite">Пригласить</string>
+    <string name="logout">Выйти</string>
 </resources>
