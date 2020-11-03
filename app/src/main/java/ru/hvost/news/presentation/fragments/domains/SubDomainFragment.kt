@@ -2,11 +2,11 @@ package ru.hvost.news.presentation.fragments.domains
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.widget.PopupWindow
+import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,6 +36,39 @@ class SubDomainFragment : Fragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
         setRecyclerView()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.showPopup.setOnClickListener { callPopup() }
+    }
+
+    private fun callPopup() {
+        val view = layoutInflater.inflate(R.layout.layout_popup_domains, null)
+        val popupWindow = PopupWindow(requireActivity())
+        popupWindow.contentView = view
+        popupWindow.width = 600
+        popupWindow.height = 600
+        popupWindow.isOutsideTouchable = true
+        popupWindow.showAsDropDown(binding.title)
+    }
+
+    private val onMenuItemClicked: (MenuItem) -> Boolean = {
+        Toast.makeText(requireActivity(), "menuItemClicked", Toast.LENGTH_SHORT).show()
+        true
+    }
+
+    private fun setIcons(popup: PopupMenu) {
+        try {
+            val fieldPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+            fieldPopup.isAccessible = true
+            val mPopup = fieldPopup.get(popup)
+            mPopup.javaClass
+                .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                .invoke(mPopup, true)
+        } finally {
+            popup.show()
+        }
     }
 
     private var selectedPosition: Int? = null
@@ -52,17 +85,6 @@ class SubDomainFragment : Fragment() {
             val tab = binding.categoryTabs.newTab()
             tab.tag = category.id
             tab.text = category.title
-//            when (index){
-//                0->{
-//                    tab.set
-//                }
-//                categories.size->{
-//                    tab.setBa
-//                }
-//                else->{
-//                    tab.setBa
-//                }
-//            }
             binding.categoryTabs.addTab(tab)
         }
         setTabsListener()
@@ -79,9 +101,17 @@ class SubDomainFragment : Fragment() {
         when (state) {
             State.SUCCESS -> {
                 setTabs()
+                setDomainsToPopup()
             }
             State.FAILURE, State.ERROR -> {
             }
+        }
+    }
+
+    private fun setDomainsToPopup() {
+        val popupMenu = PopupMenu(requireActivity(), binding.showPopup)
+        for (domain in mainVM.domains!!) {
+            popupMenu.menu.add(0, domain.id.toInt(), domain.id.toInt(), domain.title)
         }
     }
 
