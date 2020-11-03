@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/smallMargin"
         android:text="@string/stub"
-        android:textAppearance="@style/SecondaryTextAppearance"
+        android:textAppearance="@style/RegTextTextAppearance"
         android:textColor="@color/TextColorSecondary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

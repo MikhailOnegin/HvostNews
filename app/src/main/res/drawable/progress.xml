@@ -2,7 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@android:id/background">
-        <shape/>
+        <shape
+            android:shape="rectangle">
+            <corners
+                android:radius="@dimen/halfSmallCorners"/>
+        </shape>
     </item>
 
     <item android:id="@android:id/secondaryProgress">
@@ -13,7 +17,22 @@
 
     <item android:id="@android:id/progress">
         <clip>
-            <shape/>
+            <layer-list>
+                <item
+                    android:top="@dimen/progressBarPadding"
+                    android:bottom="@dimen/progressBarPadding"
+                    android:left="@dimen/progressBarPadding"
+                    android:right="@dimen/progressBarPadding">
+                    <shape
+                        android:shape="rectangle">
+                        <corners
+                            android:radius="@dimen/quarterSmallCorners"/>
+                        <gradient
+                            android:startColor="#801EC34B"
+                            android:endColor="#BF1EC34B"/>
+                    </shape>
+                </item>
+            </layer-list>
         </clip>
     </item>
 

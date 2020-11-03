@@ -9,13 +9,14 @@
         android:layout_height="wrap_content"
         android:text="@string/stub"
         android:gravity="center_vertical"
-        android:textAppearance="@style/SecondaryTextAppearance"
+        android:textAppearance="@style/RegTextTextAppearance"
         android:textColor="@color/EditTextTextColorHints"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/selection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/chevron"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="@dimen/xSmallMargin"/>
 
     <TextView
         android:id="@+id/selection"
@@ -23,8 +24,8 @@
         android:layout_height="wrap_content"
         android:text="@string/stub"
         android:gravity="center_vertical"
-        android:textAppearance="@style/SecondaryTextAppearance"
-        android:textColor="@color/TextColorSecondary"
+        android:textAppearance="@style/EditTextTextAppearance"
+        android:textColor="@color/TextColorPrimary"
         app:layout_constraintTop_toBottomOf="@id/hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

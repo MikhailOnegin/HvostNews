@@ -14,7 +14,6 @@ import ru.hvost.news.models.Species
 import ru.hvost.news.models.toRegistrationInterests
 import ru.hvost.news.models.toSpecies
 import ru.hvost.news.utils.enums.State
-import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.petBirthdayDateFormat
 import java.lang.Exception
@@ -41,22 +40,43 @@ class RegistrationVM : ViewModel() {
     //interests
     var interestsIds: String? = null
 
-    private val _interests = MutableLiveData<List<RegInterest>>()
-    val interests: LiveData<List<RegInterest>> = _interests
+    val species = MutableLiveData<List<Species>>()
+    val interests = MutableLiveData<List<RegInterest>>()
 
+    val firstStageFinished = MutableLiveData<Boolean>()
+    val secondStageFinished = MutableLiveData<Boolean>()
     private val _thirdStageFinished = MutableLiveData<Boolean>()
     val thirdStageFinished: LiveData<Boolean> = _thirdStageFinished
 
     init {
         petSex.value = SEX_MALE
         petBirthday.value = Date(System.currentTimeMillis())
-        loadSpecies()
-        loadInterests()
+        interests.value = listOf()
+        species.value = listOf()
         setThirdStageFinished()
     }
 
-    private val _stage = MutableLiveData<Event<Int>>()
-    val stage: LiveData<Event<Int>> = _stage
+    fun reset() {
+        userSurname = null
+        userName = null
+        userPatronymic = null
+        userPhone = null
+        userEmail = null
+        userCity = null
+        petSex.value = SEX_MALE
+        petBirthday.value = Date(System.currentTimeMillis())
+        petSpeciesId = -1
+        voucher = null
+        petName = null
+        interestsIds = null
+        interests.value?.run {
+            for(interest in this) interest.isSelected = false
+        }
+        setThirdStageFinished()
+    }
+
+    private val _stage = MutableLiveData<Int>()
+    val stage: LiveData<Int> = _stage
 
     private val _step = MutableLiveData<RegStep>()
     val step: LiveData<RegStep> = _step
@@ -64,35 +84,32 @@ class RegistrationVM : ViewModel() {
     fun setStage(step: RegStep) {
         _step.value = step
         when(step) {
-            RegStep.USER -> _stage.value = Event(33)
-            RegStep.PET -> _stage.value = Event(66)
-            RegStep.INTERESTS -> _stage.value = Event(100)
+            RegStep.USER -> _stage.value = 33
+            RegStep.PET -> _stage.value = 66
+            RegStep.INTERESTS -> _stage.value = 100
         }
     }
-
-    private val _species = MutableLiveData<List<Species>>().apply { value = null }
-    val species: LiveData<List<Species>> = _species
 
     fun loadSpecies() {
         viewModelScope.launch {
             try {
                 val response = APIService.API.getSpeciesAsync().await()
-                if(response.result == "success") _species.value = response.species?.toSpecies()
-                else _species.value = null
+                if(response.result == "success") species.value = response.species?.toSpecies()
+                else species.value = null
             }catch (exc: Exception) {
-                _species.value = null
+                species.value = null
             }
         }
     }
 
-    private fun loadInterests() {
+    fun loadInterests() {
         viewModelScope.launch {
             try {
                 val response = APIService.API.getInterestsAsync().await()
-                if(response.result == "success") _interests.value = response.interests.toRegistrationInterests()
-                else _interests.value = null
+                if(response.result == "success") interests.value = response.interests.toRegistrationInterests()
+                else interests.value = null
             }catch (exc: Exception) {
-                _interests.value = null
+                interests.value = null
             }
         }
     }
@@ -106,7 +123,7 @@ class RegistrationVM : ViewModel() {
 
     fun registerUser() {
         _registrationState.value = NetworkEvent(State.LOADING)
-        createInterestsIds(_interests)
+        createInterestsIds(interests)
         if(hasFieldsProblems()) {
             _registrationState.value = NetworkEvent(
                 State.ERROR,

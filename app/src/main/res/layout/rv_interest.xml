@@ -24,7 +24,7 @@
         android:layout_marginStart="@dimen/normalMargin"
         android:layout_marginBottom="@dimen/normalMargin"
         android:text="@string/stub"
-        android:textAppearance="@style/SecondaryTextAppearance"
+        android:textAppearance="@style/RegTextTextAppearance"
         android:textColor="@color/sexSelector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
