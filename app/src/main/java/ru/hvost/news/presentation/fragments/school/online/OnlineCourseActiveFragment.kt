@@ -54,5 +54,8 @@ class OnlineCourseActiveFragment:Fragment() {
             navC.popBackStack()
         }
     }
+    fun setWidth_Haight(){
+        binding
+    }
 
 }

@@ -14,7 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.databinding.FragmentLessonsInYourCityBinding
+import ru.hvost.news.databinding.FragmentSchoolOfflineBinding
 import ru.hvost.news.presentation.adapters.recycler.LessonsInYourCityAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
@@ -22,14 +22,14 @@ class LessonsInYourCityFragment:Fragment() {
 
     private val  adapter:LessonsInYourCityAdapter = LessonsInYourCityAdapter()
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var binding: FragmentLessonsInYourCityBinding
+    private lateinit var binding: FragmentSchoolOfflineBinding
     private lateinit var schoolVM: SchoolViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLessonsInYourCityBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolOfflineBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,11 +59,15 @@ class LessonsInYourCityFragment:Fragment() {
                 schoolVM.getOfflineLessons(cityId)
             }
         }
-        binding.buttonYes.setOnClickListener {
-            adapter.filter(showFinished = true)
-        }
-        binding.buttonNo.setOnClickListener {
-            adapter.filter(showFinished = false)
+        binding.switch1.setOnCheckedChangeListener{
+            _, isChecked ->
+            if(isChecked){
+                adapter.filter(showFinished = true)
+            }
+            else{
+                adapter.filter(showFinished = false)
+            }
+
         }
         setObservers(this)
     }
