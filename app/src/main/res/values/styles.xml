@@ -149,13 +149,13 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    // Made from Mikhail start
-    // View
+    <!-- --> Made from Mikhail start
+    <!-- --> View
     <style name="LineLightGray">
         <item name="android:background">@color/lineGray</item>
     </style>
 
-    //TextView
+    <!-- --> TextView
     <style name="TextViewVeryBigBold" parent="TextView">
         <item name="android:textSize">34sp</item>
         <item name="fontFamily">@font/gilroy_bold</item>
@@ -188,7 +188,7 @@
         <item name="android:textColor">@color/TextColorLightSecondary</item>
     </style>
 
-    //Button
+    <!-- --> Button
     <style name="ButtonGray" parent="ElevatedButton">
         <item name="android:backgroundTint">@color/TextColorHints</item>
         <item name="android:textColor">@color/TextColorPrimary</item>
@@ -220,14 +220,14 @@
         <item name="cornerSize">11dp</item>
         <item name="android:elevation">0dp</item>
     </style>
-    // TabLayout
+    <!-- --> TabLayout
     <style name="TabLayout" parent="android:Widget.TabWidget">
         <item name="fontFamily">@font/gilroy_bold</item>
         <item name="tabBackground">@drawable/tab_background</item>
         <item name="tabIndicatorHeight">2dp</item>
     </style>
 
-    // Spinner
+    <!-- --> Spinner
     <style name="Spinner2" parent="Widget.AppCompat.Spinner">
         <item name="background">?android:colorBackground</item>
         <item name="colorAccent">@color/EditTextTextColorHints</item>
@@ -235,7 +235,7 @@
         <item name="android:textColorSecondary">@color/EditTextTextColorHints</item>
         <item name="android:backgroundTint">@color/TextColorPrimary</item>
     </style>
-    // Made from Mikhail finish
+    <!-- --> Made from Mikhail finish
 
     <style name="Toolbar" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="liftOnScroll">true</item>

@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ru.hvost.news.databinding.FragmentOfflineSeminarsBinding
+import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class OfflineCourseSeminars:Fragment() {
 
-    private lateinit var binding: FragmentOfflineSeminarsBinding
+    private lateinit var binding: FragmentSchoolOfflineEventBinding
     private lateinit var schoolVM: SchoolViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentOfflineSeminarsBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolOfflineEventBinding.inflate(inflater, container, false)
         return binding.root
     }
 

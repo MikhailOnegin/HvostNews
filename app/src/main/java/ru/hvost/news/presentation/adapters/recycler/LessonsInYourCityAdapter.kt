@@ -48,10 +48,10 @@ class LessonsInYourCityAdapter : RecyclerView.Adapter<LessonsInYourCityAdapter.V
 
     inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         private val iVLesson = itemView.imageView_lesson
-        private val tVStatus = itemView.textView_staus
-        private val tVTitle = itemView.textView_lesson_title
-        private val tVDate = itemView.textView_date
-        private val tVCity = itemView.textView_city
+        private val tVStatus = itemView.textView_lesson_status
+        private val tVTitle = itemView.textViewLessonTitle
+        private val tVDate = itemView.textView_lesson_date
+        private val tVCity = itemView.textView_lesson_city
 
         fun bind(lesson:OfflineLessons.OfflineLesson){
             Glide.with(itemView.context).load(baseUrl + lesson.imageUrl).placeholder(R.drawable.not_found).centerCrop()

@@ -155,13 +155,13 @@
         android:id="@+id/offlineCourseActiveFragment"
         android:name="ru.hvost.news.presentation.fragments.school.offline.OfflineCourseSeminars"
         android:label="Offline course active"
-        tools:layout="@layout/fragment_offline_seminars" />
+        tools:layout="@layout/fragment_school_offline_event" />
 
     <fragment
         android:id="@+id/offlineSeminarsFragment"
         android:name="ru.hvost.news.presentation.fragments.school.offline.OfflineCourseSeminars"
         android:label="Offline course completed"
-        tools:layout="@layout/fragment_offline_seminars" />
+        tools:layout="@layout/fragment_school_offline_event" />
 
     <fragment
         android:id="@+id/onlineCourseActiveFragment"
