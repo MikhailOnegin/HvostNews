@@ -6,9 +6,9 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
 import android.view.View
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
@@ -118,7 +118,7 @@ class PhoneInputFilter : InputFilter {
 
 }
 
-fun scrollToTheTop(scrollView: ScrollView) {
+fun scrollToTheTop(scrollView: NestedScrollView) {
     scrollView.smoothScrollTo(0, 0)
 }
 

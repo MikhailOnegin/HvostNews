@@ -51,7 +51,7 @@ class SchoolViewModelTest {
 
     @Test
     fun getOnlineLessons() = coroutineRule.testDispatcher.runBlockingTest {
-        schoolVmTest.getOnlineLessons(userToken)
+        schoolVmTest.getOnlineLessons(userToken, "chop-chop")
         val result = schoolVmTest.onlineLessonsState.getOrAwaitValueTest2(
             time = timeout,
             condition = { t: State? -> t != State.LOADING }

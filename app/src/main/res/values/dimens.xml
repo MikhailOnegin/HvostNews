@@ -54,4 +54,11 @@
     <dimen name="orderButtonPadding">25dp</dimen>
     <dimen name="toolbarButtonPadding">15dp</dimen>
     <dimen name="profileTitleTextSize">24sp</dimen>
+    <dimen name="regProgressBarHeight">50dp</dimen>
+    <dimen name="progressBarPadding">2dp</dimen>
+    <dimen name="textLineSpacingExtra">6dp</dimen>
+    <dimen name="halfSmallCorners">4dp</dimen>
+    <dimen name="quarterSmallCorners">2dp</dimen>
+    <dimen name="regSexHeight">40dp</dimen>
+    <dimen name="sexTextTextSize">12sp</dimen>
 </resources>

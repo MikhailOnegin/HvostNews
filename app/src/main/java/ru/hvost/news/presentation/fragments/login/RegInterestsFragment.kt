@@ -1,14 +1,18 @@
 package ru.hvost.news.presentation.fragments.login
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.App
 import ru.hvost.news.R
@@ -48,12 +52,15 @@ class RegInterestsFragment : Fragment() {
 
     private fun setListeners() {
         binding.buttonFinish.setOnClickListener(onButtonFinishClicked)
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setObservers() {
         registrationVM.interests.observe(viewLifecycleOwner) { onInterestsChanged(it) }
         registrationVM.thirdStageFinished.observe(viewLifecycleOwner) { onThirdStageFinished(it) }
         registrationVM.registrationState.observe(viewLifecycleOwner) { onRegistrationStateChanged(it) }
+        registrationVM.stage.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
+        registrationVM.step.observe(viewLifecycleOwner) { onStepChanged(it) }
     }
 
     private val onRegistrationStateChanged = { event: NetworkEvent<State> ->
@@ -135,6 +142,36 @@ class RegInterestsFragment : Fragment() {
             }
             outRect.bottom = elementsMargin * 2
         }
+    }
+
+    private fun onStepChanged(step: RegistrationVM.RegStep) {
+        when(step) {
+            RegistrationVM.RegStep.USER -> {
+                binding.subtitle.text = getString(R.string.regStepUser)
+                binding.step.text = getString(R.string.regStep1)
+            }
+            RegistrationVM.RegStep.PET -> {
+                binding.subtitle.text = getString(R.string.regStepPet)
+                binding.step.text = getString(R.string.regStep2)
+            }
+            RegistrationVM.RegStep.INTERESTS -> {
+                binding.subtitle.text = getString(R.string.regStepInterests)
+                binding.step.text = getString(R.string.regStep3)
+            }
+        }
+    }
+
+    private var animator: Animator? = null
+    private val onStageChanged: (Int)->Unit = { progress: Int ->
+        animator?.cancel()
+        animator = ObjectAnimator.ofInt(
+            binding.progress,
+            "progress",
+            binding.progress.progress,
+            progress)
+        animator?.duration = 600L
+        animator?.interpolator = AccelerateDecelerateInterpolator()
+        animator?.start()
     }
 
 }

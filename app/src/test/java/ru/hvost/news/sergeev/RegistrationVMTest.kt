@@ -40,8 +40,7 @@ class RegistrationVMTest {
     fun setStage_RegStepUser_setsStageTo33Percents() {
         registrationVM.setStage(RegistrationVM.RegStep.USER)
         assertThat(
-            registrationVM.stage.getOrAwaitValue().getContentIfNotHandled(),
-            `is`(33)
+            registrationVM.stage.getOrAwaitValue(), `is`(33)
         )
     }
 
@@ -49,8 +48,7 @@ class RegistrationVMTest {
     fun setStage_RegStepPet_setsStageTo66Percents() {
         registrationVM.setStage(RegistrationVM.RegStep.PET)
         assertThat(
-            registrationVM.stage.getOrAwaitValue().getContentIfNotHandled(),
-            `is`(66)
+            registrationVM.stage.getOrAwaitValue(), `is`(66)
         )
     }
 
@@ -58,8 +56,7 @@ class RegistrationVMTest {
     fun setStage_RegStepInterests_setsStageTo100Percents() {
         registrationVM.setStage(RegistrationVM.RegStep.INTERESTS)
         assertThat(
-            registrationVM.stage.getOrAwaitValue().getContentIfNotHandled(),
-            `is`(100)
+            registrationVM.stage.getOrAwaitValue(), `is`(100)
         )
     }
 
