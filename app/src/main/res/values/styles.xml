@@ -6,7 +6,11 @@
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:textColor">@color/TextColorDefault</item>
-        <item name="spinnerStyle">@style/Spinner2</item>
+    </style>
+
+    <style name="AppTheme.Toolbar">
+        <item name="android:selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="android:colorControlHighlight">@color/colorPrimary</item>
     </style>
 
     <style name="Spinner">
@@ -76,10 +80,12 @@
         <item name="android:inputType">text</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textAppearance">@style/EditTextTextAppearance</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
     </style>
 
     <style name="EditTextTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -100,8 +106,8 @@
         <item name="android:fontFamily">@font/gilroy_semibold</item>
     </style>
 
-    <style name="SecondaryTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/gilroy_bold</item>
+    <style name="RegTextTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:textSize">@dimen/secondaryTextTextSize</item>
     </style>
 
@@ -111,13 +117,14 @@
     </style>
 
     <style name="SexTextView">
-        <item name="android:textAppearance">@style/SecondaryTextAppearance</item>
+        <item name="android:textAppearance">@style/RegTextTextAppearance</item>
         <item name="android:textColor">@color/sex_text_color</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">@dimen/smallMargin</item>
         <item name="android:paddingBottom">@dimen/smallMargin</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
+        <item name="android:textSize">@dimen/sexTextTextSize</item>
     </style>
 
     <style name="DatePicker">
@@ -229,5 +236,17 @@
         <item name="android:backgroundTint">@color/TextColorPrimary</item>
     </style>
     <!-- --> Made from Mikhail finish
+
+    <style name="Toolbar" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
+        <item name="liftOnScroll">true</item>
+        <item name="layout_scrollFlags">scroll|enterAlways|snap</item>
+        <item name="android:background">@drawable/background_toolbar</item>
+    </style>
+
+    <style name="RegTextView">
+        <item name="android:textAppearance">@style/RegTextTextAppearance</item>
+        <item name="android:textColor">@color/TextColorSecondary</item>
+        <item name="android:lineSpacingExtra">@dimen/textLineSpacingExtra</item>
+    </style>
 
 </resources>

@@ -1,10 +1,14 @@
 package ru.hvost.news.presentation.fragments.login
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.AdapterView
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,8 +34,6 @@ class RegPetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
-        //sergeev: Выпилить из релиза.
-        setDummies()
         return binding.root
     }
 
@@ -45,17 +47,45 @@ class RegPetFragment : Fragment() {
         super.onStart()
         setListeners()
         registrationVM.setStage(RegistrationVM.RegStep.PET)
+        registrationVM.petName?.run{ binding.petName.setText(this) }
+        registrationVM.voucher?.run { binding.promocode.setText(this) }
+        checkIfSecondStageFinished()
     }
 
-    private fun setDummies() {
-        binding.petName.setText("Мушу")
-        binding.promocode.setText("LNGF-9965-FGDD-45FD")
+    override fun onStop() {
+        super.onStop()
+        registrationVM.petName = binding.petName.text.toString()
+        registrationVM.voucher = binding.promocode.text.toString()
+    }
+
+    private fun checkIfSecondStageFinished() {
+        registrationVM.secondStageFinished.value = !binding.petName.text.isNullOrBlank()
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun setSelectedSpecies() {
+        registrationVM.species.value?.firstOrNull {
+            it.id == registrationVM.petSpeciesId.toLong()
+        }?.run {
+            binding.spinner.setSelection(
+                (binding.spinner.adapter as SpinnerAdapter<Species>).getPosition(this)
+            )
+        }
     }
 
     private fun setObservers() {
         registrationVM.species.observe(viewLifecycleOwner) { onSpeciesChanged(it) }
         registrationVM.petSex.observe(viewLifecycleOwner) { onPetSexChanged(it) }
         registrationVM.petBirthday.observe(viewLifecycleOwner) { onPetBirthdayChanged(it) }
+        registrationVM.stage.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
+        registrationVM.step.observe(viewLifecycleOwner) { onStepChanged(it) }
+        registrationVM.secondStageFinished.observe(viewLifecycleOwner) { onSecondStageFinished(it) }
+    }
+
+    private fun onSecondStageFinished(isFinished: Boolean?) {
+        isFinished?.run {
+            binding.buttonNext.isEnabled = this
+        }
     }
 
     private fun onPetBirthdayChanged(petBirthday: Date?) {
@@ -87,6 +117,7 @@ class RegPetFragment : Fragment() {
             )
             binding.spinner.adapter = adapter
             binding.spinner.visibility = View.VISIBLE
+            setSelectedSpecies()
         } ?: run {
             binding.spinner.visibility = View.GONE
         }
@@ -99,6 +130,8 @@ class RegPetFragment : Fragment() {
         binding.sexUnknown.setOnClickListener(onSexClicked)
         binding.petBirthday.setOnClickListener { onPetBirthdayClicked() }
         binding.spinner.onItemSelectedListener = OnSpeciesSelectedListener(registrationVM)
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.petName.doOnTextChanged { _, _, _, _ -> checkIfSecondStageFinished() }
     }
 
     private class OnSpeciesSelectedListener(
@@ -142,11 +175,11 @@ class RegPetFragment : Fragment() {
         binding.run {
             val fields = arrayOf(petName, promocode)
             if(hasBlankField(*fields)) {
-                scrollToTheTop(binding.root)
+                scrollToTheTop(binding.scrollView)
                 return false
             }
             if(hasTooLongField(*fields)) {
-                scrollToTheTop(binding.root)
+                scrollToTheTop(binding.scrollView)
                 return false
             }
             setViewModelFields()
@@ -157,6 +190,36 @@ class RegPetFragment : Fragment() {
     private fun setViewModelFields() {
         registrationVM.petName = binding.petName.text.toString()
         registrationVM.voucher = binding.promocode.text.toString()
+    }
+
+    private fun onStepChanged(step: RegistrationVM.RegStep) {
+        when(step) {
+            RegistrationVM.RegStep.USER -> {
+                binding.subtitle.text = getString(R.string.regStepUser)
+                binding.step.text = getString(R.string.regStep1)
+            }
+            RegistrationVM.RegStep.PET -> {
+                binding.subtitle.text = getString(R.string.regStepPet)
+                binding.step.text = getString(R.string.regStep2)
+            }
+            RegistrationVM.RegStep.INTERESTS -> {
+                binding.subtitle.text = getString(R.string.regStepInterests)
+                binding.step.text = getString(R.string.regStep3)
+            }
+        }
+    }
+
+    private var animator: Animator? = null
+    private val onStageChanged: (Int)->Unit = { progress: Int ->
+        animator?.cancel()
+        animator = ObjectAnimator.ofInt(
+            binding.progress,
+            "progress",
+            binding.progress.progress,
+            progress)
+        animator?.duration = 600L
+        animator?.interpolator = AccelerateDecelerateInterpolator()
+        animator?.start()
     }
 
 }

@@ -218,4 +218,9 @@
     <string name="choosePrizes">Выбрать призы</string>
     <string name="invite">Пригласить</string>
     <string name="logout">Выйти</string>
+    <string name="regCouponCD">Купон</string>
+    <string name="regCouponHint">Если у вас уже имеется подарочный купон, вы можете ввести в поле ниже указанное на нем кодовое слово.</string>
+    <string name="regCouponHintTitle">Промокод</string>
+    <string name="regInterestsHint">Укажите один и более ваших интересов, чтобы мы могли регулярно радовать вас интересными и максимально полезными для вас материалами.</string>
+    <string name="errorLoadingRegData">Не удалось загрузить необходимые данные. Проверьте подключение к интернету.</string>
 </resources>

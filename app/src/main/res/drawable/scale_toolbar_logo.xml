@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/logo"
+    android:scaleWidth="50%"
+    android:scaleHeight="60%"
+    android:level="1"
+    android:scaleGravity="center"/>
+
+<!-- sergeev: Проверить на API level < 24 -->

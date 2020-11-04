@@ -1,131 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:theme="@style/AppTheme.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/largeMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
-            android:text="@string/regPetHint"
-            android:textAppearance="@style/SecondaryTextAppearance"
-            android:textColor="@color/TextColorSecondary"/>
+            app:navigationIcon="@drawable/ic_back"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/smallMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
-            android:hint="@string/hintPetName">
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/petName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextInputEditText"
-                android:inputType="textEmailAddress"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/widgetsHeight"
-            android:layout_marginTop="@dimen/smallMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
-            style="@style/RegSpinner" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/normalMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin">
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/ScreenTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/registrationTitle"
+                    android:layout_marginTop="@dimen/largeMargin"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:progress="20"
+                    android:indeterminate="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/regProgressBarHeight"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    android:layout_marginTop="@dimen/smallMargin"
+                    android:progressBackgroundTint="@color/progressBackgroundTint"
+                    android:progressDrawable="@drawable/progress"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+                <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/progress"
+                    app:layout_constraintTop_toTopOf="@id/progress"
+                    app:layout_constraintBottom_toBottomOf="@id/progress"
+                    android:text="@string/stub"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    style="@style/RegSubtitle"/>
+
+                <TextView
+                    android:id="@+id/step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/progress"
+                    app:layout_constraintTop_toTopOf="@id/progress"
+                    app:layout_constraintBottom_toBottomOf="@id/progress"
+                    android:text="@string/stub"
+                    android:layout_marginEnd="@dimen/largeMargin"
+                    style="@style/RegSubtitle"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/sexMale"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                style="@style/RegTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sexMale"
-                style="@style/SexTextView"
-                android:background="@drawable/sex_selector_left"
-                android:layout_marginEnd="-2dp"/>
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:text="@string/regPetHint" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:hint="@string/hintPetName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/petName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextInputEditText"
+                    android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widgetsHeight"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                style="@style/RegSpinner" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/regSexHeight"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin">
+
+                <TextView
+                    android:id="@+id/sexMale"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="@string/sexMale"
+                    style="@style/SexTextView"
+                    android:background="@drawable/sex_selector_left"
+                    android:layout_marginEnd="-2dp"/>
+
+                <TextView
+                    android:id="@+id/sexFemale"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="@string/sexFemale"
+                    style="@style/SexTextView"
+                    android:background="@drawable/sex_selector_middle"/>
+
+                <TextView
+                    android:id="@+id/sexUnknown"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="@string/sexUnknown"
+                    style="@style/SexTextView"
+                    android:background="@drawable/sex_selector_right"
+                    android:layout_marginStart="-2dp"/>
+
+            </LinearLayout>
+
+            <ru.hvost.news.presentation.customviews.ValueHolderView
+                android:id="@+id/petBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widgetsHeight"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                app:iconResource="@drawable/ic_date"
+                app:holderHint="@string/petBirthdayHint"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="@dimen/xLargeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                app:srcCompat="@drawable/image_reg_coupon"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/regCouponCD"/>
 
             <TextView
-                android:id="@+id/sexFemale"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                style="@style/RegTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sexFemale"
-                style="@style/SexTextView"
-                android:background="@drawable/sex_selector_middle"/>
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:text="@string/regCouponHintTitle"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="16sp"/>
 
             <TextView
-                android:id="@+id/sexUnknown"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                style="@style/RegTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sexUnknown"
-                style="@style/SexTextView"
-                android:background="@drawable/sex_selector_right"
-                android:layout_marginStart="-2dp"/>
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:text="@string/regCouponHint"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:hint="@string/hintPromocode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/promocode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextInputEditText"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionDone"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonNext"
+                style="@style/ElevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:text="@string/buttonNext"/>
 
         </LinearLayout>
 
-        <ru.hvost.news.presentation.customviews.ValueHolderView
-            android:id="@+id/petBirthday"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/widgetsHeight"
-            android:layout_marginTop="@dimen/normalMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
-            app:iconResource="@drawable/ic_date"
-            app:holderHint="@string/petBirthdayHint"/>
+    </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normalMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
-            android:hint="@string/hintPromocode">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/promocode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextInputEditText"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionDone"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/buttonNext"
-            style="@style/ElevatedButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/buttonHeight"
-            android:layout_marginTop="@dimen/normalMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
-            android:layout_marginBottom="@dimen/normalMargin"
-            android:text="@string/buttonNext"/>
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
