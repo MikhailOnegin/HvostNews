@@ -5,39 +5,68 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/windowBackground">
+    android:background="@drawable/window_background"
+    android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:contentDescription="@string/logoCD"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:theme="@style/AppTheme.Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbarHeight"
-        android:background="@android:color/white"
-        android:src="@drawable/logo"
-        android:scaleType="centerInside"
-        android:paddingTop="@dimen/logoPadding"
-        android:paddingBottom="@dimen/logoPadding"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/email"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/editTextHeight"
-        app:layout_constraintTop_toBottomOf="@id/logo"
-        app:layout_constraintBottom_toTopOf="@id/buttonSend"
+        android:layout_height="wrap_content"
+        android:text="@string/passRestoreTitle"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/hint"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
-        android:hint="@string/emailHint"
-        style="@style/EditText"
-        android:autofillHints="username"
-        android:inputType="textEmailAddress"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintVertical_chainStyle="packed"
+        style="@style/ScreenTitle"
+        app:layout_constraintVertical_bias="0.4"/>
+
+    <TextView
+        android:id="@+id/hint"
+        style="@style/RegTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/smallMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toTopOf="@id/emailInputLayout"
+        android:text="@string/passRestoreHint"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailInputLayout"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hint"
+        app:layout_constraintBottom_toTopOf="@id/buttonSend"
+        android:layout_marginTop="@dimen/smallMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:hint="@string/loginHint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
+            style="@style/TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/buttonSend"
         android:layout_width="match_parent"
         android:layout_height="@dimen/buttonHeight"
-        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintTop_toBottomOf="@id/emailInputLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
@@ -45,14 +74,26 @@
         style="@style/ElevatedButton"
         android:layout_marginTop="@dimen/smallMargin"/>
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/footstepImageSize"
+        android:layout_height="@dimen/footstepImageSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/xLargeMargin"
+        app:srcCompat="@drawable/image_footstep"
+        android:scaleType="centerInside"
+        android:contentDescription="@string/footstepCD"/>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/image"
+        app:layout_constraintEnd_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="@id/image"
+        app:layout_constraintBottom_toBottomOf="@id/image"
         android:visibility="gone"
         tools:visibility="visible"/>
 

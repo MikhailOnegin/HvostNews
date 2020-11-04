@@ -223,4 +223,7 @@
     <string name="regCouponHintTitle">Промокод</string>
     <string name="regInterestsHint">Укажите один и более ваших интересов, чтобы мы могли регулярно радовать вас интересными и максимально полезными для вас материалами.</string>
     <string name="errorLoadingRegData">Не удалось загрузить необходимые данные. Проверьте подключение к интернету.</string>
+    <string name="footstepCD">Лапка</string>
+    <string name="passRestoreTitle">Восстановление пароля</string>
+    <string name="passRestoreHint">Напишите номер телефона или e-mail, указанный при регистрации, чтобы мы выслали данные, необходимые для восстановления пароля.</string>
 </resources>

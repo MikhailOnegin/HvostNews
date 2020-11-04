@@ -3,8 +3,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowBackground">@drawable/window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:textColor">@color/TextColorDefault</item>
     </style>
 
@@ -50,16 +50,20 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/ButtonTextSize</item>
         <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
-        <item name="backgroundTint">@color/bnv_background_tint_color</item>
+        <item name="backgroundTint">@color/elevated_button_background_tint</item>
     </style>
 
-    <style name="OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="UnelevatedButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textAppearance">@style/ButtonTextAppearance</item>
-        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/ButtonTextSize</item>
         <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
-        <item name="strokeColor">@color/outlinedButtonStroke</item>
-        <item name="strokeWidth">@dimen/outlinedButtonStrokeWidth</item>
+        <item name="backgroundTint">@color/elevated_button_background_tint</item>
+    </style>
+
+    <style name="UnelevatedButton.Gray">
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="backgroundTint">@color/unelevatedButtonBackgroundTint</item>
     </style>
 
     <style name="bnvActiveTextAppearance" parent="TextAppearance.AppCompat"/>
@@ -112,7 +116,7 @@
     </style>
 
     <style name="RegSpinner">
-        <item name="android:background">@android:color/white</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:popupBackground">@drawable/spinner_popup_background</item>
     </style>
 
@@ -149,13 +153,13 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!-- --> Made from Mikhail start
-    <!-- --> View
+    <!-- Made from Mikhail start -->
+    <!-- View -->
     <style name="LineLightGray">
         <item name="android:background">@color/lineGray</item>
     </style>
 
-    <!-- --> TextView
+    <!-- TextView -->
     <style name="TextViewVeryBigBold" parent="TextView">
         <item name="android:textSize">34sp</item>
         <item name="fontFamily">@font/gilroy_bold</item>
@@ -188,7 +192,7 @@
         <item name="android:textColor">@color/TextColorLightSecondary</item>
     </style>
 
-    <!-- --> Button
+    <!-- Button -->
     <style name="ButtonGray" parent="ElevatedButton">
         <item name="android:backgroundTint">@color/TextColorHints</item>
         <item name="android:textColor">@color/TextColorPrimary</item>
@@ -220,14 +224,14 @@
         <item name="cornerSize">11dp</item>
         <item name="android:elevation">0dp</item>
     </style>
-    <!-- --> TabLayout
+    <!-- TabLayout -->
     <style name="TabLayout" parent="android:Widget.TabWidget">
         <item name="fontFamily">@font/gilroy_bold</item>
         <item name="tabBackground">@drawable/tab_background</item>
         <item name="tabIndicatorHeight">2dp</item>
     </style>
 
-    <!-- --> Spinner
+    <!-- Spinner -->
     <style name="Spinner2" parent="Widget.AppCompat.Spinner">
         <item name="background">?android:colorBackground</item>
         <item name="colorAccent">@color/EditTextTextColorHints</item>
@@ -235,7 +239,7 @@
         <item name="android:textColorSecondary">@color/EditTextTextColorHints</item>
         <item name="android:backgroundTint">@color/TextColorPrimary</item>
     </style>
-    <!-- --> Made from Mikhail finish
+    <!-- Made from Mikhail finish -->
 
     <style name="Toolbar" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
         <item name="liftOnScroll">true</item>

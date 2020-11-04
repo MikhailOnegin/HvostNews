@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
@@ -14,6 +16,7 @@ import ru.hvost.news.databinding.FragmentLoginBinding
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.hasTooLongField
 
 class LoginFragment : Fragment() {
 
@@ -33,9 +36,6 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        //sergeev: Выпилить из релиза.
-        binding.login.setText("v.fedotov@studiofact.ru")
-        binding.password.setText("123123123")
         return binding.root
     }
 
@@ -48,12 +48,31 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
+        setSystemUiVisibility()
+        setLoginButton()
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("InlinedApi")
+    private fun setSystemUiVisibility() {
+        requireActivity().window.run {
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        }
     }
 
     private fun setListeners() {
         binding.buttonLogin.setOnClickListener(onLoginButtonClicked)
         binding.buttonRegister.setOnClickListener(onRegisterButtonClicked)
         binding.restorePassword.setOnClickListener(onRestorePasswordButtonClicked)
+        binding.login.doOnTextChanged { _, _, _, _ -> setLoginButton() }
+        binding.password.doOnTextChanged { _, _, _, _ -> setLoginButton() }
+    }
+
+    private fun setLoginButton() {
+        binding.buttonLogin.isEnabled =
+            !binding.login.text.isNullOrBlank() && !binding.password.text.isNullOrBlank()
     }
 
     private fun setObservers() {
@@ -90,10 +109,13 @@ class LoginFragment : Fragment() {
 
     private val onLoginButtonClicked = { _: View ->
         if(authorizationVM.loginEvent.value?.peekContent() != State.LOADING) {
-            authorizationVM.logIn(
-                binding.login.text.toString(),
-                binding.password.text.toString()
-            )
+            val fields = arrayOf(binding.login, binding.password)
+            if(!hasTooLongField(*fields)) {
+                authorizationVM.logIn(
+                    binding.login.text.toString(),
+                    binding.password.text.toString()
+                )
+            }
         }
     }
 

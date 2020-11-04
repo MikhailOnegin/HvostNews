@@ -75,8 +75,8 @@ class RegistrationVM : ViewModel() {
         setThirdStageFinished()
     }
 
-    private val _stage = MutableLiveData<Int>()
-    val stage: LiveData<Int> = _stage
+    private val _stage = MutableLiveData<Pair<Int,Int>>()
+    val stage: LiveData<Pair<Int,Int>> = _stage
 
     private val _step = MutableLiveData<RegStep>()
     val step: LiveData<RegStep> = _step
@@ -84,9 +84,9 @@ class RegistrationVM : ViewModel() {
     fun setStage(step: RegStep) {
         _step.value = step
         when(step) {
-            RegStep.USER -> _stage.value = 33
-            RegStep.PET -> _stage.value = 66
-            RegStep.INTERESTS -> _stage.value = 100
+            RegStep.USER -> _stage.value = Pair(_stage.value?.second ?: 0, 33)
+            RegStep.PET -> _stage.value = Pair(_stage.value?.second ?: 0, 66)
+            RegStep.INTERESTS -> _stage.value = Pair(_stage.value?.second ?: 0, 100)
         }
     }
 

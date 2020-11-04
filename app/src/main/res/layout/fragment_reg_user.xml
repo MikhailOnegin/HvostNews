@@ -4,11 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/window_background"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/windowBackgroundTopGradientColor">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -24,7 +27,6 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -52,7 +54,7 @@
                 <ProgressBar
                     android:id="@+id/progress"
                     style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:progress="20"
+                    android:progress="0"
                     android:indeterminate="false"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/regProgressBarHeight"
@@ -219,7 +221,7 @@
 
             <Button
                 android:id="@+id/buttonNext"
-                style="@style/ElevatedButton"
+                style="@style/UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/buttonHeight"
                 android:layout_marginTop="@dimen/normalMargin"

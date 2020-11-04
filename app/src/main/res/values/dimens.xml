@@ -16,7 +16,7 @@
     <dimen name="logoPadding">20dp</dimen>
     <dimen name="iconPadding">5dp</dimen>
     <dimen name="iconMargin">10dp</dimen>
-    <dimen name="authorizationTitleTextSize">36sp</dimen>
+    <dimen name="authorizationTitleTextSize">34sp</dimen>
     <dimen name="restorePasswordTextSize">14sp</dimen>
     <dimen name="buttonShapeAppearanceCornerSize">16dp</dimen>
     <dimen name="ButtonTextSize">16sp</dimen>
@@ -61,4 +61,5 @@
     <dimen name="quarterSmallCorners">2dp</dimen>
     <dimen name="regSexHeight">40dp</dimen>
     <dimen name="sexTextTextSize">12sp</dimen>
+    <dimen name="footstepImageSize">70dp</dimen>
 </resources>

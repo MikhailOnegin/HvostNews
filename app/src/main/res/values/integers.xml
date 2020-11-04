@@ -2,4 +2,5 @@
 <resources>
     <integer name="fragment_transition_duration">500</integer>
     <integer name="editTextFieldMaxSize">50</integer>
+    <integer name="regProgressAnimationTime">1500</integer>
 </resources>

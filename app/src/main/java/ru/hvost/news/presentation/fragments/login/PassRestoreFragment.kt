@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -12,6 +13,7 @@ import ru.hvost.news.databinding.FragmentPassRestoreBinding
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.hasTooLongField
 
 class PassRestoreFragment : Fragment() {
 
@@ -36,16 +38,24 @@ class PassRestoreFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
+        setSendButton()
     }
 
     private fun setListeners() {
         binding.buttonSend.setOnClickListener(onSendButtonClicked)
+        binding.email.doOnTextChanged { _, _, _, _ -> setSendButton() }
+    }
+
+    private fun setSendButton() {
+        binding.buttonSend.isEnabled = !binding.email.text.isNullOrBlank()
     }
 
     private val onSendButtonClicked = { _: View ->
         if(authorizationVM.passRestoreEvent.value?.peekContent() != State.LOADING) {
-            if (!binding.email.text.isNullOrBlank()) {
-                authorizationVM.restorePassAsync(binding.email.text.toString())
+            if(!hasTooLongField(binding.email)) {
+                if (!binding.email.text.isNullOrBlank()) {
+                    authorizationVM.restorePassAsync(binding.email.text.toString())
+                }
             }
         }
     }
