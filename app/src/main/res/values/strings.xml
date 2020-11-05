@@ -226,4 +226,5 @@
     <string name="footstepCD">Лапка</string>
     <string name="passRestoreTitle">Восстановление пароля</string>
     <string name="passRestoreHint">Напишите номер телефона или e-mail, указанный при регистрации, чтобы мы выслали данные, необходимые для восстановления пароля.</string>
+    <string name="cartTitle">Моя корзина</string>
 </resources>

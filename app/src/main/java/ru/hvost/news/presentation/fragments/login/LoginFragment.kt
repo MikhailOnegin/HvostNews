@@ -1,11 +1,13 @@
 package ru.hvost.news.presentation.fragments.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
@@ -109,6 +111,8 @@ class LoginFragment : Fragment() {
 
     private val onLoginButtonClicked = { _: View ->
         if(authorizationVM.loginEvent.value?.peekContent() != State.LOADING) {
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
             val fields = arrayOf(binding.login, binding.password)
             if(!hasTooLongField(*fields)) {
                 authorizationVM.logIn(

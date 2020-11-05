@@ -242,9 +242,14 @@
     <!-- Made from Mikhail finish -->
 
     <style name="Toolbar" parent="@style/Widget.MaterialComponents.Toolbar.Primary">
-        <item name="liftOnScroll">true</item>
         <item name="layout_scrollFlags">scroll|enterAlways|snap</item>
         <item name="android:background">@drawable/background_toolbar</item>
+        <item name="titleTextAppearance">@style/ToolbarTitleTextAppearance</item>
+    </style>
+
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textSize">@dimen/toolbarTitleTextSize</item>
     </style>
 
     <style name="RegTextView">

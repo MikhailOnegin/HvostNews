@@ -62,4 +62,5 @@
     <dimen name="regSexHeight">40dp</dimen>
     <dimen name="sexTextTextSize">12sp</dimen>
     <dimen name="footstepImageSize">70dp</dimen>
+    <dimen name="toolbarTitleTextSize">20sp</dimen>
 </resources>
