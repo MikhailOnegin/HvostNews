@@ -53,4 +53,6 @@
     <color name="whiteOpacity">#33FFFFFF</color>
     <color name="profileToolbarColorOpacity">#80FFFFFF</color>
     <color name="windowBackgroundTopGradientColor">#F0EBFA</color>
+    <color name="cartCounterOnLight">#F0EBFA</color>
+    <color name="cartCounterOnDark">#1AF0EBFA</color>
 </resources>

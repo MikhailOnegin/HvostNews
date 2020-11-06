@@ -258,4 +258,16 @@
         <item name="android:lineSpacingExtra">@dimen/textLineSpacingExtra</item>
     </style>
 
+    <style name="CartTypeTitleTextView">
+        <item name="android:textSize">@dimen/cartTypeTitleTextSize</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
+
+    <style name="CartTypeTitleTextView.Counter">
+        <item name="android:textSize">@dimen/cartTypeCounterTextSize</item>
+        <item name="android:background">@drawable/background_cart_title_counter</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

@@ -66,4 +66,11 @@
     <dimen name="sexTextTextSize">12sp</dimen>
     <dimen name="footstepImageSize">70dp</dimen>
     <dimen name="toolbarTitleTextSize">20sp</dimen>
+    <dimen name="cartSelectorHeight">50dp</dimen>
+    <dimen name="cartTypeTitleTextSize">18sp</dimen>
+    <dimen name="cartTypeCounterTextSize">14sp</dimen>
+    <dimen name="cartTypeTitleCounterSize">30dp</dimen>
+    <dimen name="removeButtonSize">16dp</dimen>
+    <dimen name="cartProductImageSize">100dp</dimen>
+    <dimen name="cartItemButtonSize">42dp</dimen>
 </resources>

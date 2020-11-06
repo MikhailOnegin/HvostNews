@@ -86,7 +86,7 @@
         android:paddingBottom="@dimen/xSmallMargin"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/selector_light"/>
+        android:background="@drawable/selector_light_rect"/>
 
     <Button
         android:id="@+id/buttonLogin"

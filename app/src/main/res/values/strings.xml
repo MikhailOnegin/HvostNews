@@ -227,4 +227,12 @@
     <string name="passRestoreTitle">Восстановление пароля</string>
     <string name="passRestoreHint">Напишите номер телефона или e-mail, указанный при регистрации, чтобы мы выслали данные, необходимые для восстановления пароля.</string>
     <string name="cartTitle">Моя корзина</string>
+    <string name="prizesCartTitle">Призы</string>
+    <string name="numberStub">0</string>
+    <string name="productsCartTitle">Товары</string>
+    <string name="removeIconCD">Удалить</string>
+    <string name="testLongText">CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский… CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский…</string>
+    <string name="multiplyIconCD">Умножить</string>
+    <string name="equalsIconCD">Равно</string>
+    <string name="cartPriceHint">за штуку</string>
 </resources>
