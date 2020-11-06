@@ -15,6 +15,7 @@
     <dimen name="categoryHeight">26dp</dimen>
     <dimen name="toolbarHeight">60dp</dimen>
     <dimen name="logoPadding">20dp</dimen>
+    <dimen name="prizeItemPadding">20dp</dimen>
     <dimen name="iconPadding">5dp</dimen>
     <dimen name="iconMargin">10dp</dimen>
     <dimen name="authorizationTitleTextSize">36sp</dimen>
@@ -43,9 +44,10 @@
     <dimen name="rvSelectionIconPadding">6dp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
     <dimen name="articleDescriptionTextSize">16sp</dimen>
+    <dimen name="prizeItemTextSize">16sp</dimen>
     <dimen name="ButtonHeight">60dp</dimen>
     <dimen name="textTitleSize">14sp</dimen>
-    <dimen name="userNameTextSize">30sp</dimen>
+    <dimen name="mainTitleTextSize">30sp</dimen>
     <dimen name="profileTitleSize">11sp</dimen>
     <dimen name="userProfileButtonRadius">10dp</dimen>
     <dimen name="iconBackgroundRadius">15dp</dimen>
@@ -57,4 +59,6 @@
     <dimen name="toolbarButtonPadding">15dp</dimen>
     <dimen name="profileTitleTextSize">24sp</dimen>
     <dimen name="popupWindowCornerRadius">15dp</dimen>
+    <dimen name="prizeItemCornerRadius">15dp</dimen>
+    <dimen name="xSmallStrokeWidth">1dp</dimen>
 </resources>
