@@ -227,4 +227,9 @@
     <string name="passRestoreTitle">Восстановление пароля</string>
     <string name="passRestoreHint">Напишите номер телефона или e-mail, указанный при регистрации, чтобы мы выслали данные, необходимые для восстановления пароля.</string>
     <string name="cartTitle">Моя корзина</string>
+    <string name="used">Использован</string>
+    <string name="active">Активный</string>
+    <string name="my_coupons">Мои купоны</string>
+    <string name="before">до</string>
+    <string name="how_get_coupons">Как получить купоны</string>
 </resources>

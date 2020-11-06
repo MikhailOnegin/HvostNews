@@ -54,23 +54,20 @@ class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val iVCoupon = itemView.imageView_coupon
         private val tVCouponTitle = itemView.textView_coupon_title
         private val tVCouponMaxDate = itemView.textView_coupon_date
         private val tVConst = itemView.coupon_constraint
         private val tVUsed = itemView.textView_coupon_status
         fun bind(coupon: Coupons.Coupon){
-            Glide.with(itemView.context).load(baseUrl + coupon.imageUrl).placeholder(R.drawable.not_found).centerCrop()
-                .into(iVCoupon)
             tVCouponTitle.text = coupon.title
-            tVCouponMaxDate.text = "До ${coupon.expirationDate}"
+            tVCouponMaxDate.text = coupon.expirationDate
             if(coupon.isUsed){
-                tVUsed.text = "Использован"
-                tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_red)
+                tVUsed.text = itemView.context.getString(R.string.used)
+                tVUsed.background = itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
             }
             else{
-                tVUsed.background = itemView.resources.getDrawable(R.drawable.shape_green)
-                tVUsed.text = "Активный"
+                tVUsed.background = itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
+                tVUsed.text = itemView.context.getString(R.string.active)
             }
             tVConst.setOnClickListener {
                 clickCoupon?.click(coupon)
