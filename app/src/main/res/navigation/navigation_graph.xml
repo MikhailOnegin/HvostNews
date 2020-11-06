@@ -250,4 +250,9 @@
         android:label="RegParentFragment"
         tools:layout="@layout/fragment_reg_parent"/>
 
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.CartFragment"
+        android:label="CartFragment" />
+
 </navigation>

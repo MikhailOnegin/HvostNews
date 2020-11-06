@@ -147,14 +147,14 @@ class RegUserFragment : Fragment() {
     }
 
     private var animator: Animator? = null
-    private val onStageChanged: (Int)->Unit = { progress: Int ->
+    private val onStageChanged: (Pair<Int,Int>)->Unit = { progress ->
         animator?.cancel()
         animator = ObjectAnimator.ofInt(
             binding.progress,
             "progress",
-            binding.progress.progress,
-            progress)
-        animator?.duration = 600L
+            progress.first,
+            progress.second)
+        animator?.duration = resources.getInteger(R.integer.regProgressAnimationTime).toLong()
         animator?.interpolator = AccelerateDecelerateInterpolator()
         animator?.start()
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -34,6 +35,16 @@ class RegParentFragment : Fragment() {
         registrationVM.interests.observe(viewLifecycleOwner) { onInterestsChanged(it) }
         if(registrationVM.species.value?.isEmpty() == true) registrationVM.loadSpecies()
         if(registrationVM.interests.value?.isEmpty() == true) registrationVM.loadInterests()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setSystemUi()
+    }
+
+    private fun setSystemUi() {
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.windowBackgroundTopGradientColor)
     }
 
     override fun onDestroy() {

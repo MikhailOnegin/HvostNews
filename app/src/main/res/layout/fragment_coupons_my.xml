@@ -36,12 +36,12 @@
                 android:id="@+id/tvToolbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:text="Мои купоны"
                 android:textColor="#E6454545"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageInfo"
                 app:layout_constraintStart_toEndOf="@+id/imageBack"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -29,7 +29,7 @@
     <color name="imageBorder">#F0EBFA</color>
     <color name="lineGray">#B9BEE1</color>
 
-    <!-- --> App colors palette
+    <!-- App colors palette -->
     <color name="_1">#FA5F19</color>
     <color name="_2">#1EC34B</color>
     <color name="gray1">#141428</color>
@@ -37,10 +37,11 @@
     <color name="gray3">#7D82AF</color>
     <color name="gray4">#B9BEE1</color>
     <color name="gray5">#F0EBFA</color>
-    <!-- --> App colors palette
+    <!-- App colors palette -->
 
-    <color name="bnvBackgroundTintDisabled">#7D82AF</color>
-    <color name="bnvBackgroundTintEnabled">#1EC34B</color>
+    <color name="elevatedButtonBackgroundTintDisabled">#7D82AF</color>
+    <color name="elevatedButtonBackgroundTintEnabled">#1EC34B</color>
+    <color name="unelevatedButtonBackgroundTint">#DCDFF0</color>
 
     <color name="TabSelectedTextColor">#141428</color>
     <color name="profileBackground">#F0EBFA</color>
@@ -51,4 +52,5 @@
     <color name="profileInviteBackground">#FA5F19</color>
     <color name="whiteOpacity">#33FFFFFF</color>
     <color name="profileToolbarColorOpacity">#80FFFFFF</color>
+    <color name="windowBackgroundTopGradientColor">#F0EBFA</color>
 </resources>
