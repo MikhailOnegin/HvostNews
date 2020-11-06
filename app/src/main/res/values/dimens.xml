@@ -11,6 +11,7 @@
     <dimen name="screenContentPadding">16dp</dimen>
     <dimen name="profileCoverPadding">25dp</dimen>
     <dimen name="imageHeight">150dp</dimen>
+    <dimen name="smallImageHeight">50dp</dimen>
     <dimen name="categoryHeight">26dp</dimen>
     <dimen name="toolbarHeight">60dp</dimen>
     <dimen name="logoPadding">20dp</dimen>
@@ -26,6 +27,7 @@
     <dimen name="outlinedButtonStrokeWidth">3dp</dimen>
     <dimen name="bnvHeight">56dp</dimen>
     <dimen name="smallCorners">8dp</dimen>
+    <dimen name="xSmallCorners">5dp</dimen>
     <dimen name="regSubtitleTextSize">16sp</dimen>
     <dimen name="secondaryTextTextSize">14sp</dimen>
     <dimen name="barsElevation">4dp</dimen>
@@ -54,6 +56,7 @@
     <dimen name="orderButtonPadding">25dp</dimen>
     <dimen name="toolbarButtonPadding">15dp</dimen>
     <dimen name="profileTitleTextSize">24sp</dimen>
+    <dimen name="popupWindowCornerRadius">15dp</dimen>
     <dimen name="regProgressBarHeight">50dp</dimen>
     <dimen name="progressBarPadding">2dp</dimen>
     <dimen name="textLineSpacingExtra">6dp</dimen>
