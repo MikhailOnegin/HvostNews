@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
 import ru.hvost.news.R
 import java.lang.StringBuilder
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -127,3 +128,5 @@ val petBirthdayDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
 //sergeev: заменить на empty_image
 val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/test_image")
+
+val moneyFormat = DecimalFormat("###,###,##0")

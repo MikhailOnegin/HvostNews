@@ -73,4 +73,6 @@
     <dimen name="removeButtonSize">16dp</dimen>
     <dimen name="cartProductImageSize">100dp</dimen>
     <dimen name="cartItemButtonSize">42dp</dimen>
+    <dimen name="cartFooterMainTextSize">30sp</dimen>
+    <dimen name="cartFooterSecondaryTextSize">20dp</dimen>
 </resources>

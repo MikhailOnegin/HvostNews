@@ -235,4 +235,7 @@
     <string name="multiplyIconCD">Умножить</string>
     <string name="equalsIconCD">Равно</string>
     <string name="cartPriceHint">за штуку</string>
+    <string name="cartFooterTotalTitle">Итого</string>
+    <string name="cartFooterOldPriceTitle">Старая цена</string>
+    <string name="buttonMakeOrder">Оформить заказ</string>
 </resources>

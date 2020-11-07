@@ -8,6 +8,9 @@
 
     <declare-styleable name="RoundCornersImageView">
         <attr name="cornersRadius" format="dimension"/>
+        <attr name="drawOutline" format="boolean"/>
+        <attr name="outlineColor" format="color"/>
+        <attr name="outlineWidth" format="dimension"/>
     </declare-styleable>
 
 </resources>

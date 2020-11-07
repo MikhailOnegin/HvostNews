@@ -4,21 +4,12 @@ import android.net.Uri
 import ru.hvost.news.utils.emptyImageUri
 import kotlin.random.Random
 
-data class CartProduct(
-    val id: Long,
-    val productId: Long,
-    val isForBonuses: Boolean,
-    val price: Float,
-    val bonusPrice: Int,
-    val count: Int,
-    val title: String,
-    val imageUri: Uri
-){
+sealed class CartItem {
 
     companion object {
 
-        fun getTestCartProducts(): List<CartProduct> {
-            val result = mutableListOf<CartProduct>()
+        fun getTestProductCart(): List<CartItem> {
+            val result = mutableListOf<CartItem>()
             for(i in 1L..10L) {
                 result.add(
                     CartProduct(
@@ -33,6 +24,10 @@ data class CartProduct(
                     )
                 )
             }
+            result.add(CartFooter(
+                total = 12650f,
+                oldPrice = 23800f
+            ))
             return result
         }
 
@@ -58,3 +53,19 @@ data class CartProduct(
     }
 
 }
+
+data class CartProduct(
+    val id: Long,
+    val productId: Long,
+    val isForBonuses: Boolean,
+    val price: Float,
+    val bonusPrice: Int,
+    val count: Int,
+    val title: String,
+    val imageUri: Uri
+) : CartItem()
+
+data class CartFooter(
+    val total: Float,
+    val oldPrice: Float
+) : CartItem()

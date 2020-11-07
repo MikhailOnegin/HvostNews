@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCartBinding
-import ru.hvost.news.models.CartProduct
+import ru.hvost.news.models.CartItem
 import ru.hvost.news.presentation.adapters.recycler.CartProductsAdapter
 import ru.hvost.news.presentation.fragments.shop.CartViewModel.*
 
@@ -48,6 +49,7 @@ class CartFragment : Fragment() {
     private fun setListeners() {
         binding.products.setOnClickListener { cartVM.currentCartType.value = CartType.Products }
         binding.prizes.setOnClickListener { cartVM.currentCartType.value = CartType.Prizes }
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setObservers() {
@@ -55,7 +57,7 @@ class CartFragment : Fragment() {
         cartVM.productsCart.observe(viewLifecycleOwner) { onProductsCartChanged(it) }
     }
 
-    private fun onProductsCartChanged(products: List<CartProduct>?) {
+    private fun onProductsCartChanged(products: List<CartItem>?) {
         (binding.recyclerView.adapter as CartProductsAdapter).submitList(products)
     }
 
