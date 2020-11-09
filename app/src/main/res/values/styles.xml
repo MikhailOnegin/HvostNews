@@ -66,9 +66,9 @@
         <item name="backgroundTint">@color/unelevatedButtonBackgroundTint</item>
     </style>
 
-    <style name="bnvActiveTextAppearance" parent="TextAppearance.AppCompat"/>
-
-    <style name="bnvInactiveTextAppearance" parent="TextAppearance.AppCompat"/>
+    <style name="bnvTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textColorHint">@color/EditTextTextColorHints</item>

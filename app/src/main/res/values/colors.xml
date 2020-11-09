@@ -13,8 +13,8 @@
     <color name="TextColorGreen">#55D25F</color>
     <color name="outlinedButtonBackground">#33C4C4E2</color>
     <color name="outlinedButtonStroke">#C4C4E2</color>
-    <color name="bnvTextChecked">#398F40</color>
-    <color name="bnvTextUnchecked">#F55500</color>
+    <color name="bnvTextChecked">#FA5F19</color>
+    <color name="bnvTextUnchecked">#414669</color>
     <color name="TextColorDefault">#575757</color>
     <color name="viewPagerTest">#DECAFF</color>
     <color name="progressBackgroundTint">#331EC34B</color>
