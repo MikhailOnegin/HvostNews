@@ -25,28 +25,54 @@ sealed class CartItem {
                 )
             }
             result.add(CartFooter(
-                total = 12650f,
-                oldPrice = 23800f
+                totalCost = 12650f,
+                oldCost = 23800f,
+                bonusesCost = 0,
+                isForPrizes = false
             ))
             return result
         }
 
-        fun getTestCartPrizes(): List<CartProduct> {
-            val result = mutableListOf<CartProduct>()
-            for(i in 1L..10L) {
-                result.add(
-                    CartProduct(
-                        id = i,
-                        productId = i,
-                        isForBonuses = true,
-                        price = 0f,
-                        bonusPrice = 150,
-                        count = Random.nextInt(1,10),
-                        title = "Приз для стерилизованных взрослых кошек",
-                        imageUri = emptyImageUri
-                    )
+        fun getTestPrizesCart(): List<CartItem> {
+            val result = mutableListOf<CartItem>()
+            result.addAll( listOf(
+                CartProduct(
+                    id = 1,
+                    productId = 1,
+                    isForBonuses = true,
+                    price = 0f,
+                    bonusPrice = 1,
+                    count = 1,
+                    title = "Приз для стерилизованных взрослых кошек",
+                    imageUri = emptyImageUri
+                ),
+                CartProduct(
+                    id = 2,
+                    productId = 2,
+                    isForBonuses = true,
+                    price = 0f,
+                    bonusPrice = 3,
+                    count = 1,
+                    title = "Приз для стерилизованных взрослых кошек",
+                    imageUri = emptyImageUri
+                ),
+                CartProduct(
+                    id = 3,
+                    productId = 3,
+                    isForBonuses = true,
+                    price = 0f,
+                    bonusPrice = 5,
+                    count = 1,
+                    title = "Приз для стерилизованных взрослых кошек",
+                    imageUri = emptyImageUri
                 )
-            }
+            ))
+            result.add(CartFooter(
+                totalCost = 0f,
+                oldCost = 0f,
+                bonusesCost = 222,
+                isForPrizes = true
+            ))
             return result
         }
 
@@ -66,6 +92,8 @@ data class CartProduct(
 ) : CartItem()
 
 data class CartFooter(
-    val total: Float,
-    val oldPrice: Float
+    val totalCost: Float,
+    val oldCost: Float,
+    val bonusesCost: Int,
+    val isForPrizes: Boolean
 ) : CartItem()

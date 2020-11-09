@@ -26,6 +26,7 @@ class CartFragment : Fragment() {
     ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         binding.recyclerView.adapter = CartProductsAdapter()
+        binding.emptyView.text.text = getString(R.string.cartEmptyViewText)
         return binding.root
     }
 
@@ -55,15 +56,56 @@ class CartFragment : Fragment() {
     private fun setObservers() {
         cartVM.currentCartType.observe(viewLifecycleOwner) { onCurrentCartTypeChanged(it) }
         cartVM.productsCart.observe(viewLifecycleOwner) { onProductsCartChanged(it) }
+        cartVM.prizesCart.observe(viewLifecycleOwner) { onPrizesCartChanged(it) }
+    }
+
+    private fun onPrizesCartChanged(prizes: List<CartItem>?) {
+        if(cartVM.currentCartType.value == CartType.Prizes){
+            (binding.recyclerView.adapter as CartProductsAdapter).submitList(prizes)
+            setEmptyViewVisibility(prizes)
+        }
+        binding.prizesCounter.text = (prizes?.size ?: 0).toString()
+        if(prizes?.isNullOrEmpty() == true) binding.prizesCounter.visibility = View.GONE
+        else binding.prizesCounter.visibility = View.VISIBLE
     }
 
     private fun onProductsCartChanged(products: List<CartItem>?) {
-        (binding.recyclerView.adapter as CartProductsAdapter).submitList(products)
+        if(cartVM.currentCartType.value == CartType.Products){
+            (binding.recyclerView.adapter as CartProductsAdapter).submitList(products)
+            setEmptyViewVisibility(products)
+        }
+        binding.productsCounter.text = (products?.size ?: 0).toString()
+        if(products?.isNullOrEmpty() == true) binding.productsCounter.visibility = View.GONE
+        else binding.productsCounter.visibility = View.VISIBLE
     }
 
     private fun onCurrentCartTypeChanged(cartType: CartType?) {
         cartType?.run {
             setTabs(this)
+            val adapter = (binding.recyclerView.adapter as CartProductsAdapter)
+            when(this){
+                CartType.Products -> {
+                    adapter.submitList(cartVM.productsCart.value)
+                    setEmptyViewVisibility(cartVM.productsCart.value)
+                }
+                CartType.Prizes -> {
+                    adapter.submitList(cartVM.prizesCart.value)
+                    setEmptyViewVisibility(cartVM.prizesCart.value)
+                }
+            }
+        }
+    }
+
+    private fun setEmptyViewVisibility(list: List<Any>?) {
+        when(list?.isEmpty()) {
+            true -> {
+                binding.recyclerView.visibility = View.GONE
+                binding.emptyView.root.visibility = View.VISIBLE
+            }
+            false -> {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.emptyView.root.visibility = View.GONE
+            }
         }
     }
 

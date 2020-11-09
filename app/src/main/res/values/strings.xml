@@ -232,7 +232,8 @@
     <string name="numberStub">0</string>
     <string name="productsCartTitle">Товары</string>
     <string name="removeIconCD">Удалить</string>
-    <string name="testLongText">CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский… CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский…</string>
+    <string name="testCartLongText">CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский… CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский…</string>
+    <string name="testCartShortText">Приз для стерилизованных взрослых кошек </string>
     <string name="multiplyIconCD">Умножить</string>
     <string name="equalsIconCD">Равно</string>
     <string name="cartPriceHint">за штуку</string>
@@ -244,4 +245,10 @@
     <string name="my_coupons">Мои купоны</string>
     <string name="before">до</string>
     <string name="how_get_coupons">Как получить купоны</string>
+    <string name="cartEmptyViewText">Корзина пуста</string>
+    <string name="cartForPrep">за</string>
+    <string name="cartForBonusesType1">балл</string>
+    <string name="cartForBonusesType2">балла</string>
+    <string name="cartForBonusesType3">баллов</string>
+    <string name="notReadyToast">В разработке.</string>
 </resources>

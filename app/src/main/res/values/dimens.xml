@@ -79,4 +79,7 @@
     <dimen name="cartItemButtonSize">42dp</dimen>
     <dimen name="cartFooterMainTextSize">30sp</dimen>
     <dimen name="cartFooterSecondaryTextSize">20dp</dimen>
+    <dimen name="emptyViewTextSize">26sp</dimen>
+    <dimen name="cartItemTextSize">16sp</dimen>
+    <dimen name="cartPrizeImageSize">80dp</dimen>
 </resources>

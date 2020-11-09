@@ -10,6 +10,7 @@ class CartViewModel : ViewModel() {
 
     val currentCartType = MutableLiveData<CartType>()
     val productsCart = MutableLiveData(CartItem.getTestProductCart())
+    val prizesCart = MutableLiveData(CartItem.getTestPrizesCart())
 
     init {
         currentCartType.value = CartType.Products
