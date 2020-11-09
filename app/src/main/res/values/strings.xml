@@ -244,4 +244,12 @@
     <string name="my_coupons">Мои купоны</string>
     <string name="before">до</string>
     <string name="how_get_coupons">Как получить купоны</string>
+    <string name="dialogGetPrizesTitle">Получай призы</string>
+    <string name="dialogGetPrizesSubtitle">Набор кормов получат те, кто приведет друзей.</string>
+    <string name="dialogGetPrizesButtonText">Всё понятно</string>
+    <string name="dialogInviteFriendTitle">Приглашай друзей</string>
+    <string name="dialogInviteFriendSubtitle">Пригласите друзей зарегистрироваться на нашем портале c помощью соцсетей или прямой ссылкой.</string>
+    <string name="dialogRegPetTitle">Регистрируй питомца</string>
+    <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего
+питомца на портале «Хвост Ньюс</string>
 </resources>
