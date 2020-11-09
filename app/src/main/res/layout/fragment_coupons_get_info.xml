@@ -17,9 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/defaultBackground"
             android:minHeight="?attr/actionBarSize"
-            android:paddingRight="0dp"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:background="@color/defaultBackground"
+                    android:background="@null"
                     android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -43,14 +41,12 @@
 
                 <TextView
                     android:id="@+id/tvToolbar"
+                    style="@style/TextViewBigBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="32dp"
                     android:gravity="center"
-                    android:text="Как получить купоны"
-                    android:textColor="#E6454545"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:text="@string/how_get_coupons"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageBack"
@@ -62,13 +58,15 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
-            android:id="@+id/textView_get_cupons_info"
+            android:id="@+id/textView_get_coupons_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="@font/gilroy_semibold"
             android:text="@string/stub"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView2" />

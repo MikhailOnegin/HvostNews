@@ -21,7 +21,10 @@ import ru.hvost.news.databinding.FragmentCouponsMyBinding
 import ru.hvost.news.models.Coupons
 import ru.hvost.news.models.toDomain
 import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
+import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.adapters.spinners.SpinnerCustomAdapter
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
+import kotlin.reflect.*
 
 class MyCouponsFragment: Fragment() {
 
@@ -36,8 +39,6 @@ class MyCouponsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCouponsMyBinding.inflate(inflater, container, false)
-     //   binding.toolbar.inflateMenu(R.menu.my_coupons_menu)
-       // (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         return binding.root
     }
 
@@ -55,9 +56,8 @@ class MyCouponsFragment: Fragment() {
         layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.recyclerViewCoupons.adapter = adapter
         binding.recyclerViewCoupons.layoutManager = layoutManager
-        val items = arrayOf("Все","Активные", "Использованные")
-        val spinnerAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item, items)
-        binding.spinnerCoupons.adapter = spinnerAdapter
+        val items = arrayListOf("Все","Активные", "Использованные")
+        binding.spinnerCoupons.adapter = SpinnerCustomAdapter(requireContext(), items)
         binding.imageBack.setOnClickListener {
             navC.popBackStack()
         }

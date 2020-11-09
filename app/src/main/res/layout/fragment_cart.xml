@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        app:liftOnScroll="false"
         android:stateListAnimator="@null"
-        app:liftOnScroll="false">
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,31 +22,101 @@
             android:theme="@style/AppTheme.Toolbar"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/cartTitle"
-            android:background="@color/windowBackgroundTopGradientColor"/>
+            android:background="@android:color/transparent"
+            app:layout_scrollFlags="scroll|snap"/>
+
+        <View
+            android:id="@+id/divider"
+            android:background="@color/gray4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toBottomOf="@id/container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_scrollFlags="scroll|snap"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false"
-            android:padding="@dimen/normalMargin">
+            android:padding="@dimen/normalMargin"
+            app:layout_scrollFlags="scroll|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/products"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:background="@drawable/sex_selector_left"/>
+                android:layout_height="@dimen/cartSelectorHeight"
+                android:background="@drawable/sex_selector_left">
+
+                <TextView
+                    android:id="@+id/productsTitle"
+                    style="@style/CartTypeTitleTextView"
+                    android:text="@string/productsCartTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/productsCounter"
+                    android:layout_marginEnd="@dimen/smallMargin"
+                    app:layout_constraintHorizontal_chainStyle="packed"/>
+
+                <TextView
+                    android:id="@+id/productsCounter"
+                    style="@style/CartTypeTitleTextView.Counter"
+                    android:text="@string/numberStub"
+                    android:layout_width="@dimen/cartTypeTitleCounterSize"
+                    android:layout_height="@dimen/cartTypeTitleCounterSize"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/productsTitle"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/prizes"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:background="@drawable/sex_selector_right"/>
+                android:layout_height="@dimen/cartSelectorHeight"
+                android:background="@drawable/sex_selector_right">
+
+                <TextView
+                    android:id="@+id/prizesTitle"
+                    style="@style/CartTypeTitleTextView"
+                    android:text="@string/prizesCartTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/prizesCounter"
+                    android:layout_marginEnd="@dimen/smallMargin"
+                    app:layout_constraintHorizontal_chainStyle="packed"/>
+
+                <TextView
+                    android:id="@+id/prizesCounter"
+                    style="@style/CartTypeTitleTextView.Counter"
+                    android:text="@string/numberStub"
+                    android:layout_width="@dimen/cartTypeTitleCounterSize"
+                    android:layout_height="@dimen/cartTypeTitleCounterSize"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/prizesTitle"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

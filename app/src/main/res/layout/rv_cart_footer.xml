@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F0EBFA">
+
+    <TextView
+        android:id="@+id/totalTitle"
+        style="@style/CartFooterTextView"
+        android:text="@string/cartFooterTotalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/total"
+        android:text="@string/numberStub"
+        style="@style/CartFooterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/largeMargin"
+        tools:text="12 650 \u20bd"/>
+
+    <TextView
+        android:id="@+id/oldPriceTitle"
+        style="@style/CartFooterTextView.Secondary"
+        android:text="@string/cartFooterOldPriceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalTitle"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/oldPrice"
+        style="@style/CartFooterTextView.Secondary"
+        android:text="@string/numberStub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalTitle"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/normalMargin"
+        tools:text="23 800 \u20bd"/>
+
+    <Button
+        android:id="@+id/makeOrder"
+        style="@style/UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/buttonHeight"
+        android:text="@string/buttonMakeOrder"
+        app:layout_constraintTop_toBottomOf="@id/oldPriceTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:layout_marginBottom="@dimen/largeMargin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

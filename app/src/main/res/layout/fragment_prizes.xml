@@ -5,29 +5,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/screenContentPadding"
     tools:context=".presentation.fragments.invite.PrizesFragment">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/balance" />
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/profileToolbarColorOpacity"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/balance"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:text="10 баллов"
-        android:textStyle="normal|bold" />
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:padding="@dimen/toolbarButtonPadding"
+            android:src="@drawable/ic_action_back" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/prizeList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/choosePrizes"
+            android:textColor="@color/titleText"
+            android:textSize="@dimen/articleTitleTextSize"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ntfy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:padding="@dimen/toolbarButtonPadding" />
+
+    </LinearLayout>
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/balance"
+                    android:textColor="@color/gray1"
+                    android:layout_marginEnd="@dimen/smallMargin"
+                    android:textSize="@dimen/mainTitleTextSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/_1"
+                    android:textSize="@dimen/mainTitleTextSize"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:text="@string/owner"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/prizeList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="true"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+<!--    </ScrollView>-->
 
 </LinearLayout>

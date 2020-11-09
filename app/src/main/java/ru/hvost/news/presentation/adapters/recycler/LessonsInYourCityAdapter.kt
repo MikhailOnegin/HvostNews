@@ -58,11 +58,11 @@ class LessonsInYourCityAdapter : RecyclerView.Adapter<LessonsInYourCityAdapter.V
                 .into(iVLesson)
             if(lesson.isFinished) {
                 tVStatus.text = "Завершено"
-                tVStatus.background = itemView.resources.getDrawable(R.drawable.shape_red)
+                tVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
             }
             if(!lesson.isFinished) {
                 tVStatus.text = "Активно"
-                tVStatus.background = itemView.resources.getDrawable(R.drawable.shape_green)
+                tVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
             }
             tVTitle.text = lesson.title
             tVDate.text = lesson.date

@@ -97,7 +97,7 @@
         <item>Активные</item>
         <item>Использованные</item>
     </string-array>
-    <string name="balance">Ваш баланс:</string>
+    <string name="balance">Ваш баланс</string>
     <string name="prizeFor">Приз для владельцев</string>
     <string name="inviteFriends">Приглашай друзей и выбирай призы от Хвост Ньюс</string>
     <string name="inPrize">В набор входит:</string>
@@ -218,6 +218,7 @@
     <string name="choosePrizes">Выбрать призы</string>
     <string name="invite">Пригласить</string>
     <string name="logout">Выйти</string>
+    <string name="owner">Вы владелец</string>
     <string name="regCouponCD">Купон</string>
     <string name="regCouponHint">Если у вас уже имеется подарочный купон, вы можете ввести в поле ниже указанное на нем кодовое слово.</string>
     <string name="regCouponHintTitle">Промокод</string>
@@ -227,4 +228,20 @@
     <string name="passRestoreTitle">Восстановление пароля</string>
     <string name="passRestoreHint">Напишите номер телефона или e-mail, указанный при регистрации, чтобы мы выслали данные, необходимые для восстановления пароля.</string>
     <string name="cartTitle">Моя корзина</string>
+    <string name="prizesCartTitle">Призы</string>
+    <string name="numberStub">0</string>
+    <string name="productsCartTitle">Товары</string>
+    <string name="removeIconCD">Удалить</string>
+    <string name="testLongText">CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский… CANAGAN Grain Free, Scottish Salmon, корм 6 кг для собак всех возрастов и щенков, Шотландский…</string>
+    <string name="multiplyIconCD">Умножить</string>
+    <string name="equalsIconCD">Равно</string>
+    <string name="cartPriceHint">за штуку</string>
+    <string name="cartFooterTotalTitle">Итого</string>
+    <string name="cartFooterOldPriceTitle">Старая цена</string>
+    <string name="buttonMakeOrder">Оформить заказ</string>
+    <string name="used">Использован</string>
+    <string name="active">Активный</string>
+    <string name="my_coupons">Мои купоны</string>
+    <string name="before">до</string>
+    <string name="how_get_coupons">Как получить купоны</string>
 </resources>

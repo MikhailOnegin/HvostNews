@@ -15,6 +15,7 @@
     <dimen name="categoryHeight">26dp</dimen>
     <dimen name="toolbarHeight">60dp</dimen>
     <dimen name="logoPadding">20dp</dimen>
+    <dimen name="prizeItemPadding">20dp</dimen>
     <dimen name="iconPadding">5dp</dimen>
     <dimen name="iconMargin">10dp</dimen>
     <dimen name="authorizationTitleTextSize">34sp</dimen>
@@ -43,9 +44,10 @@
     <dimen name="rvSelectionIconPadding">6dp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
     <dimen name="articleDescriptionTextSize">16sp</dimen>
+    <dimen name="prizeItemTextSize">16sp</dimen>
     <dimen name="ButtonHeight">60dp</dimen>
     <dimen name="textTitleSize">14sp</dimen>
-    <dimen name="userNameTextSize">30sp</dimen>
+    <dimen name="mainTitleTextSize">30sp</dimen>
     <dimen name="profileTitleSize">11sp</dimen>
     <dimen name="userProfileButtonRadius">10dp</dimen>
     <dimen name="iconBackgroundRadius">15dp</dimen>
@@ -57,6 +59,8 @@
     <dimen name="toolbarButtonPadding">15dp</dimen>
     <dimen name="profileTitleTextSize">24sp</dimen>
     <dimen name="popupWindowCornerRadius">15dp</dimen>
+    <dimen name="prizeItemCornerRadius">15dp</dimen>
+    <dimen name="xSmallStrokeWidth">1dp</dimen>
     <dimen name="regProgressBarHeight">50dp</dimen>
     <dimen name="progressBarPadding">2dp</dimen>
     <dimen name="textLineSpacingExtra">6dp</dimen>
@@ -66,4 +70,13 @@
     <dimen name="sexTextTextSize">12sp</dimen>
     <dimen name="footstepImageSize">70dp</dimen>
     <dimen name="toolbarTitleTextSize">20sp</dimen>
+    <dimen name="cartSelectorHeight">50dp</dimen>
+    <dimen name="cartTypeTitleTextSize">18sp</dimen>
+    <dimen name="cartTypeCounterTextSize">14sp</dimen>
+    <dimen name="cartTypeTitleCounterSize">30dp</dimen>
+    <dimen name="removeButtonSize">16dp</dimen>
+    <dimen name="cartProductImageSize">100dp</dimen>
+    <dimen name="cartItemButtonSize">42dp</dimen>
+    <dimen name="cartFooterMainTextSize">30sp</dimen>
+    <dimen name="cartFooterSecondaryTextSize">20dp</dimen>
 </resources>

@@ -5,13 +5,13 @@
     style="@style/EditText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:scrollbarThumbHorizontal="@drawable/background_button_white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/defaultBackground"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,20 +26,20 @@
             <ImageButton
                 android:id="@+id/imageBack"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/defaultBackground"
-                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:src="@drawable/ic_action_back"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvToolbar"
+                style="@style/TextViewBigBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Мои купоны"
-                android:textColor="#E6454545"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:text="@string/my_coupons"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageInfo"
                 app:layout_constraintStart_toEndOf="@+id/imageBack"
@@ -48,10 +48,10 @@
             <ImageButton
                 android:id="@+id/imageInfo"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:background="@color/defaultBackground"
-                android:src="@drawable/ic_baseline_help_24"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:background="@null"
+                android:src="@drawable/ic_question"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +59,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/gray4"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh_coupons"
@@ -83,13 +89,14 @@
 
     <Spinner
         android:id="@+id/spinner_coupons"
+        style="@style/Spinner2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:popupBackground="@color/defaultBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 

@@ -20,7 +20,7 @@
     <style name="TextView">
         <item name="android:fontFamily">@font/gilroy_medium</item>
         <item name="android:textColor">@color/TextColorPrimary</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="EditText">
@@ -237,7 +237,7 @@
         <item name="colorAccent">@color/EditTextTextColorHints</item>
         <item name="colorControlNormal">@color/EditTextTextColorHints</item>
         <item name="android:textColorSecondary">@color/EditTextTextColorHints</item>
-        <item name="android:backgroundTint">@color/TextColorPrimary</item>
+        <item name="android:backgroundTint">@color/defaultBackground</item>
     </style>
     <!-- Made from Mikhail finish -->
 
@@ -256,6 +256,29 @@
         <item name="android:textAppearance">@style/RegTextTextAppearance</item>
         <item name="android:textColor">@color/TextColorSecondary</item>
         <item name="android:lineSpacingExtra">@dimen/textLineSpacingExtra</item>
+    </style>
+
+    <style name="CartTypeTitleTextView">
+        <item name="android:textSize">@dimen/cartTypeTitleTextSize</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
+
+    <style name="CartTypeTitleTextView.Counter">
+        <item name="android:textSize">@dimen/cartTypeCounterTextSize</item>
+        <item name="android:background">@drawable/background_cart_title_counter</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CartFooterTextView">
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">@dimen/cartFooterMainTextSize</item>
+    </style>
+
+    <style name="CartFooterTextView.Secondary">
+        <item name="android:textColor">#80000000</item>
+        <item name="android:textSize">@dimen/cartFooterSecondaryTextSize</item>
     </style>
 
 </resources>

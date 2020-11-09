@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
 import ru.hvost.news.models.OnlineSchool
-import ru.hvost.news.presentation.adapters.viewPager.OnlineSchoolActiveVPAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class OnlineCourseActiveFragment:Fragment() {
@@ -38,24 +37,13 @@ class OnlineCourseActiveFragment:Fragment() {
             if(school.title.isNotBlank()) binding.textViewTitle.text = school.title
             if(school.userRank.isNotBlank()) binding.textViewRank.text = school.userRank
         }
-        initViewPager()
         setListeners()
     }
-    private fun initViewPager(){
-        val adapter = OnlineSchoolActiveVPAdapter(requireActivity().supportFragmentManager, this.lifecycle)
-        binding.viewPager.adapter = adapter
-        val names:Array<String> = arrayOf("О курсе", "Материалы курса")
-        TabLayoutMediator(binding.tabLayout,binding.viewPager){tab, position ->
-            tab.text = names[position]
-        }.attach()
-    }
+
     fun setListeners(){
         binding.imageButtonBack.setOnClickListener {
             navC.popBackStack()
         }
-    }
-    fun setWidth_Haight(){
-        binding
     }
 
 }

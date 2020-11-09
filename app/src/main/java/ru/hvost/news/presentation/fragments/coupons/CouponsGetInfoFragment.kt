@@ -44,7 +44,7 @@ class CouponsGetInfoFragment: Fragment() {
 
     private fun setObservers(){
         couponVM.couponsInfo.observe(viewLifecycleOwner, Observer {
-            binding.textViewGetCuponsInfo.text = it.description
+            binding.textViewGetCouponsInfo.text = it.description
                 Glide.with(requireContext()).load(baseUrl + it.imageUrl).placeholder(R.drawable.not_found).centerCrop()
                     .into(binding.imageViewInfoGetCoupons)
 
