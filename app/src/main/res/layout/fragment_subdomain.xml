@@ -62,9 +62,9 @@
             android:layout_marginBottom="@dimen/smallMargin"
             android:text="@string/stub"
             android:textColor="@color/titleText"
-            android:textSize="@dimen/userNameTextSize"
+            android:textSize="@dimen/mainTitleTextSize"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/category_tabs"
+            app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,29 +74,37 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/smallMargin"
             android:src="@drawable/ic_show_popup"
-            app:layout_constraintBottom_toTopOf="@+id/category_tabs"
+            app:layout_constraintBottom_toTopOf="@+id/categories"
             app:layout_constraintStart_toEndOf="@id/title"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/category_tabs"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/tab_layout_background"
+            android:background="@android:color/white"
+            app:cardCornerRadius="@dimen/xSmallCorners"
             app:layout_constraintBottom_toTopOf="@+id/list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
-            app:tabBackground="@drawable/tab_background"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@android:color/transparent"
-            app:tabMode="scrollable"
-            app:tabPaddingEnd="@dimen/normalMargin"
-            app:tabPaddingStart="@dimen/normalMargin"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@android:color/darker_gray">
+            app:strokeColor="@color/gray1"
+            app:strokeWidth="@dimen/xSmallStrokeWidth">
 
-        </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/category_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:tabIndicatorColor="@color/gray1"
+                app:tabIndicatorGravity="stretch"
+                app:tabMode="scrollable"
+                app:tabPaddingEnd="@dimen/normalMargin"
+                app:tabPaddingStart="@dimen/normalMargin"
+                app:tabBackground="@drawable/background_category_tab_item"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextColor="@color/gray1" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
@@ -104,7 +112,7 @@
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category_tabs" />
+            app:layout_constraintTop_toBottomOf="@+id/categories" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

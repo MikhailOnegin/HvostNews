@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/stub"
                 android:textColor="@color/titleText"
-                android:textSize="@dimen/userNameTextSize"
+                android:textSize="@dimen/mainTitleTextSize"
                 android:textStyle="bold|normal" />
 
             <TextView
@@ -98,7 +98,7 @@
                 android:layout_marginBottom="@dimen/normalMargin"
                 android:text="@string/stub"
                 android:textColor="@color/titleText"
-                android:textSize="@dimen/userNameTextSize"
+                android:textSize="@dimen/mainTitleTextSize"
                 android:textStyle="bold|normal" />
 
             <LinearLayout

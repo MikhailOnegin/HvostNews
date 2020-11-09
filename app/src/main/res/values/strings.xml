@@ -97,7 +97,7 @@
         <item>Активные</item>
         <item>Использованные</item>
     </string-array>
-    <string name="balance">Ваш баланс:</string>
+    <string name="balance">Ваш баланс</string>
     <string name="prizeFor">Приз для владельцев</string>
     <string name="inviteFriends">Приглашай друзей и выбирай призы от Хвост Ньюс</string>
     <string name="inPrize">В набор входит:</string>
@@ -218,6 +218,7 @@
     <string name="choosePrizes">Выбрать призы</string>
     <string name="invite">Пригласить</string>
     <string name="logout">Выйти</string>
+    <string name="owner">Вы владелец</string>
     <string name="regCouponCD">Купон</string>
     <string name="regCouponHint">Если у вас уже имеется подарочный купон, вы можете ввести в поле ниже указанное на нем кодовое слово.</string>
     <string name="regCouponHintTitle">Промокод</string>

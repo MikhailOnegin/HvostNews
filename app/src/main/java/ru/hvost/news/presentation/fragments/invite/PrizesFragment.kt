@@ -81,22 +81,13 @@ class PrizesFragment : Fragment() {
                 parent: RecyclerView,
                 state: RecyclerView.State
             ) {
-                val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
                     view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
                 parent.adapter.run {
-                    if (position % 2 == 0) {
-                        outRect.top = elementMargin
-                        outRect.bottom = elementMargin
-                        outRect.left = elementMargin
-                        outRect.right = elementMargin
-
-                    } else {
-                        outRect.top = elementMargin
-                        outRect.bottom = elementMargin
-                        outRect.left = 0
-                        outRect.right = elementMargin
-                    }
+                    outRect.top = elementMargin
+                    outRect.bottom = elementMargin
+                    outRect.left = elementMargin
+                    outRect.right = elementMargin
                 }
             }
         })
