@@ -48,6 +48,7 @@ class LessonsInYourCityAdapter : RecyclerView.Adapter<LessonsInYourCityAdapter.V
 
     inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         private val iVLesson = itemView.imageView_lesson
+        private val iVStatus = itemView.imageViewStatus
         private val tVStatus = itemView.textView_lesson_status
         private val tVTitle = itemView.textViewLessonTitle
         private val tVDate = itemView.textView_lesson_date
@@ -58,11 +59,11 @@ class LessonsInYourCityAdapter : RecyclerView.Adapter<LessonsInYourCityAdapter.V
                 .into(iVLesson)
             if(lesson.isFinished) {
                 tVStatus.text = "Завершено"
-                tVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
+                iVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
             }
             if(!lesson.isFinished) {
                 tVStatus.text = "Активно"
-                tVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
+                iVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
             }
             tVTitle.text = lesson.title
             tVDate.text = lesson.date

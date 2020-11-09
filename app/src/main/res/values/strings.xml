@@ -114,7 +114,7 @@
     <string name="date_action">Дата проведения</string>
     <string name="sponsor">Организатор</string>
     <string name="head_spr_with_store">Школа ответственных родителей с зоомагазином "Мокрый нос"</string>
-    <string name="participate">Уаствую</string>
+    <string name="participate">Участвую</string>
     <string name="about_seminar">О семинаре</string>
     <string name="schedule_for_puppy_owners">Расписание для владельцев щенков</string>
     <string name="seminar_description">У вас появился член семьи,  а вместе с ним много вопросов. Чем кормить? Как оставить дома
@@ -232,4 +232,7 @@
     <string name="my_coupons">Мои купоны</string>
     <string name="before">до</string>
     <string name="how_get_coupons">Как получить купоны</string>
+    <string name="about_lessons">О курсе</string>
+    <string name="materials_of_lessons">Материалы курса</string>
+    <string name="event">Мероприятие</string>
 </resources>

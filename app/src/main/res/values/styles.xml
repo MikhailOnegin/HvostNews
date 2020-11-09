@@ -224,6 +224,13 @@
         <item name="cornerSize">11dp</item>
         <item name="android:elevation">0dp</item>
     </style>
+    <style name="ButtonBigPaddingMikhail" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="android:fontFamily">@font/gilroy_medium</item>
+        <item name="cornerSize">8dp</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
     <!-- TabLayout -->
     <style name="TabLayout" parent="android:Widget.TabWidget">
         <item name="fontFamily">@font/gilroy_bold</item>
