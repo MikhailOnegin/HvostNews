@@ -20,7 +20,7 @@
     <style name="TextView">
         <item name="android:fontFamily">@font/gilroy_medium</item>
         <item name="android:textColor">@color/TextColorPrimary</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="EditText">
@@ -237,7 +237,7 @@
         <item name="colorAccent">@color/EditTextTextColorHints</item>
         <item name="colorControlNormal">@color/EditTextTextColorHints</item>
         <item name="android:textColorSecondary">@color/EditTextTextColorHints</item>
-        <item name="android:backgroundTint">@color/TextColorPrimary</item>
+        <item name="android:backgroundTint">@color/defaultBackground</item>
     </style>
     <!-- Made from Mikhail finish -->
 

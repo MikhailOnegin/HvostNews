@@ -239,4 +239,9 @@
     <string name="cartFooterTotalTitle">Итого</string>
     <string name="cartFooterOldPriceTitle">Старая цена</string>
     <string name="buttonMakeOrder">Оформить заказ</string>
+    <string name="used">Использован</string>
+    <string name="active">Активный</string>
+    <string name="my_coupons">Мои купоны</string>
+    <string name="before">до</string>
+    <string name="how_get_coupons">Как получить купоны</string>
 </resources>
