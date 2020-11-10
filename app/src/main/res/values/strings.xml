@@ -261,4 +261,5 @@
     <string name="dialogInviteFriendSubtitle">Пригласите друзей зарегистрироваться на нашем портале c помощью соцсетей или прямой ссылкой.</string>
     <string name="dialogRegPetTitle">Регистрируй питомца</string>
     <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего питомца на портале «Хвост Ньюс</string>
+    <string name="networkErrorMessage">Произошла неизвестная ошибка при взаимодействии с сервером.</string>
 </resources>

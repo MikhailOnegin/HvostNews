@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,19 +17,21 @@ import ru.hvost.news.databinding.RvCartProductBinding
 import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.CartProduct
+import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.WordEnding
 import ru.hvost.news.utils.getWordEndingType
 import ru.hvost.news.utils.moneyFormat
 import ru.hvost.news.utils.showNotReadyToast
 import java.lang.IllegalArgumentException
 
-class CartProductsAdapter
-    : ListAdapter<CartItem, RecyclerView.ViewHolder>(CartProductDiffUtilItemCallback()) {
+class CartProductsAdapter(
+    private val cartVM: CartViewModel
+) : ListAdapter<CartItem, RecyclerView.ViewHolder>(CartProductDiffUtilItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
-            TYPE_PRODUCT -> CartProductVH.getViewHolder(parent)
-            TYPE_PRIZE -> CartPrizeVH.getViewHolder(parent)
+            TYPE_PRODUCT -> CartProductVH.getViewHolder(parent, cartVM)
+            TYPE_PRIZE -> CartPrizeVH.getViewHolder(parent, cartVM)
             TYPE_FOOTER -> CartFooterVH.getViewHolder(parent)
             else -> throw IllegalArgumentException("Wrong adapter view type.")
         }
@@ -60,43 +62,41 @@ class CartProductsAdapter
     }
 
     class CartProductVH(
-        val binding: RvCartProductBinding
+        private val binding: RvCartProductBinding,
+        private val cartVM: CartViewModel
     ): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(item: CartProduct, position: Int, size: Int) {
             Glide.with(binding.root).load(item.imageUri).into(binding.image)
             binding.run {
-                title.text = item.title
+                title.text = item.title.parseAsHtml()
                 count.text = item.count.toString()
                 price.text = "${moneyFormat.format(item.price.toInt())} \u20bd"
                 cost.text = "${moneyFormat.format(item.price.toInt() * item.count)} \u20bd"
                 if(position == size - 2) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 minus.setOnClickListener {
-                    //sergeev: Удаление товара.
-                    showNotReadyToast()
+                    if(cartVM.cartChangesPermitted) cartVM.removeFromCart(item.productId, 1)
                 }
                 plus.setOnClickListener {
-                    //sergeev: Добавление товара.
-                    showNotReadyToast()
+                    if(cartVM.cartChangesPermitted) cartVM.addToCart(item.productId, 1)
                 }
                 binding.remove.setOnClickListener {
-                    //sergeev: Удаление товара.
-                    showNotReadyToast()
+                    if(cartVM.cartChangesPermitted) cartVM.removeFromCart(item.productId, item.count)
                 }
             }
         }
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup): CartProductVH {
+            fun getViewHolder(parent: ViewGroup, cartVM: CartViewModel): CartProductVH {
                 val binding = RvCartProductBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return CartProductVH(binding)
+                return CartProductVH(binding, cartVM)
             }
 
         }
@@ -104,14 +104,15 @@ class CartProductsAdapter
     }
 
     class CartPrizeVH(
-        val binding: RvCartPrizeBinding
+        private val binding: RvCartPrizeBinding,
+        private val cartVM: CartViewModel
     ): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
         fun bind(item: CartProduct, position: Int, size: Int) {
             Glide.with(binding.root).load(item.imageUri).into(binding.image)
             binding.run {
-                title.text = item.title
+                title.text = item.title.parseAsHtml()
                 val forPrep = App.getInstance().getString(R.string.cartForPrep)
                 val bonuses = when(getWordEndingType(item.bonusPrice)){
                     WordEnding.TYPE_1 -> App.getInstance().getString(R.string.cartForBonusesType1)
@@ -122,8 +123,7 @@ class CartProductsAdapter
                 if(position == size - 2) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 binding.remove.setOnClickListener {
-                    //sergeev: Удаление товара.
-                    showNotReadyToast()
+                    if(cartVM.cartChangesPermitted) cartVM.removeFromCart(item.productId, item.count)
                 }
                 binding.root.setOnClickListener {
                     //sergeev: Товары в наборе.
@@ -134,13 +134,13 @@ class CartProductsAdapter
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup): CartPrizeVH {
+            fun getViewHolder(parent: ViewGroup, cartVM: CartViewModel): CartPrizeVH {
                 val binding = RvCartPrizeBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return CartPrizeVH(binding)
+                return CartPrizeVH(binding, cartVM)
             }
 
         }
@@ -148,7 +148,7 @@ class CartProductsAdapter
     }
 
     class CartFooterVH(
-        val binding: RvCartFooterBinding
+        private val binding: RvCartFooterBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -196,13 +196,11 @@ class CartProductsAdapter
         override fun areItemsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
             return if(oldItem is CartProduct && newItem is CartProduct){
                 oldItem.id == newItem.id
-            } else false
+            } else oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
-            return if(oldItem is CartProduct && newItem is CartProduct){
-                oldItem == newItem
-            } else false
+            return oldItem == newItem
         }
     }
 

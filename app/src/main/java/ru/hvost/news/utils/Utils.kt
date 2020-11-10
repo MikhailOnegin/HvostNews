@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService
 import java.lang.StringBuilder
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -130,9 +131,14 @@ val petBirthdayDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 //sergeev: заменить на empty_image
 val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/test_image")
 
+fun getUriForBackendImagePath(imagePath: String?): Uri {
+    if(imagePath == null) return emptyImageUri
+    return Uri.parse(APIService.baseUrl + imagePath)
+}
+
 val moneyFormat = DecimalFormat("###,###,##0")
 
-enum class WordEnding { TYPE_1, TYPE_2, TYPE_3}
+enum class WordEnding { TYPE_1, TYPE_2, TYPE_3 }
 
 fun getWordEndingType(count: Int) : WordEnding{
     return when{

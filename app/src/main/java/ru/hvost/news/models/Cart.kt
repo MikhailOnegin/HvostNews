@@ -1,7 +1,11 @@
 package ru.hvost.news.models
 
 import android.net.Uri
+import ru.hvost.news.App
+import ru.hvost.news.R
+import ru.hvost.news.data.api.response.CartResponse
 import ru.hvost.news.utils.emptyImageUri
+import ru.hvost.news.utils.getUriForBackendImagePath
 import kotlin.random.Random
 
 sealed class CartItem {
@@ -97,3 +101,32 @@ data class CartFooter(
     val bonusesCost: Int,
     val isForPrizes: Boolean
 ) : CartItem()
+
+fun CartResponse.toCartItems(): List<CartItem> {
+    val cartItems = mutableListOf<CartItem>()
+    products?.run {
+        for((index, product) in this.withIndex()) {
+            cartItems.add(
+                CartProduct(
+                    id = index.toLong(),
+                    productId = product.productId ?: 0L,
+                    isForBonuses = false, //sergeev: Исправить после доработки на бэке.
+                    price = product.price ?: 0f,
+                    bonusPrice = 0, //sergeev: Исправить после доработки на бэке.
+                    count = product.count ?: 0,
+                    title = product.title ?: App.getInstance().getString(R.string.stub),
+                    imageUri = getUriForBackendImagePath(product.imageUrl)
+                )
+            )
+        }
+    }
+    cartItems.add(
+        CartFooter(
+            totalCost = totalSum ?: 0f,
+            oldCost = olSum ?: 0f,
+            bonusesCost = 0, //sergeev: Исправить после доработки на бэке.
+            isForPrizes = false //sergeev: Исправить после доработки на бэке.
+        )
+    )
+    return cartItems
+}

@@ -45,6 +45,25 @@ interface APIService {
         @Query("interests") interests: String
     ): Deferred<RegisterUserResponse>
 
+    @GET("/rest/Basket/getCart/")
+    fun getCartAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<CartResponse>
+
+    @GET("/rest/Basket/addToCart/")
+    fun addToCartAsync(
+        @Query("userToken") userToken: String?,
+        @Query("productId") productId: Long,
+        @Query("count") count: Int
+    ): Deferred<SimpleResponse>
+
+    @GET("/rest/Basket/removeFromCart/")
+    fun removeFromCartAsync(
+        @Query("userToken") userToken: String?,
+        @Query("productId") productId: Long,
+        @Query("count") count: Int
+    ): Deferred<SimpleResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null
