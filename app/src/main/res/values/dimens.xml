@@ -83,5 +83,11 @@
     <dimen name="cartItemTextSize">16sp</dimen>
     <dimen name="cartPrizeImageSize">80dp</dimen>
     <dimen name="dialogTitleTextSize">24sp</dimen>
+    <dimen name="profileTitleMidTextSize">24sp</dimen>
+    <dimen name="profileSubtitleTextSize">16sp</dimen>
     <dimen name="dialogSubtitleTextSize">16sp</dimen>
+    <dimen name="balanceStrokeWidth">10dp</dimen>
+    <dimen name="balanceTextSize">100sp</dimen>
+    <dimen name="buttonPadding">10dp</dimen>
+    <dimen name="popupWidth">325dp</dimen>
 </resources>

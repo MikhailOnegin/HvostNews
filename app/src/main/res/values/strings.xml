@@ -99,7 +99,7 @@
     </string-array>
     <string name="balance">Ваш баланс</string>
     <string name="prizeFor">Приз для владельцев</string>
-    <string name="inviteFriends">Приглашай друзей и выбирай призы от Хвост Ньюс</string>
+    <string name="inviteFriends">Приглашай друзей\n и выбирай призы\n от Хвост Ньюс</string>
     <string name="inPrize">В набор входит:</string>
     <string name="toCart">В корзину</string>
     <string name="logoCD">Логотип \"Хвост-Ньюс\"</string>
@@ -261,4 +261,16 @@
     <string name="dialogInviteFriendSubtitle">Пригласите друзей зарегистрироваться на нашем портале c помощью соцсетей или прямой ссылкой.</string>
     <string name="dialogRegPetTitle">Регистрируй питомца</string>
     <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего питомца на портале «Хвост Ньюс</string>
+    <string name="instruction">Инструкция</string>
+    <string name="throughSocials">Через социальные сети</string>
+    <string name="shareSocialsDescription">Раскажите своим друзьям о акции\n в социальных сетях</string>
+    <string name="throughEmail">По электронной почте</string>
+    <string name="sendThroughEmail">Отправьте приглашение по почте</string>
+    <string name="throughRef">По реферальной ссылке</string>
+    <string name="sendThroughRef">Скопируйте и отправьте ссылку другу</string>
+    <string name="emailInputHint">Email для приглашения</string>
+    <string name="toPrizes">Перейти к призам</string>
+    <string name="rules">Правила участия в конкурсе \n «Пригласи друга»</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -2,13 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="325dp"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/color_1_opacity"
+    tools:context=".presentation.fragments.invite.popup.InvitePopup">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/popupWidth"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:orientation="vertical"
         android:padding="@dimen/screenContentPadding"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,13 +23,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
-            android:src="@drawable/img_dialog_first" />
+            android:src="@drawable/img_dialog_second" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
-            android:text="@string/dialogRegPetTitle"
+            android:text="@string/dialogInviteFriendTitle"
             android:textAlignment="center"
             android:textColor="@color/gray1"
             android:textSize="@dimen/dialogTitleTextSize"
@@ -36,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normalMargin"
-            android:text="@string/dialogRegPetSubtitle"
+            android:text="@string/dialogInviteFriendSubtitle"
             android:textAlignment="center"
             android:textColor="@color/gray3"
             android:textSize="@dimen/dialogSubtitleTextSize" />
