@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:background="@null"
-                    android:src="@drawable/ic_back"
+                    android:src="@drawable/ic_action_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,8 @@
                     style="@style/TextViewBigBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="48dp"
                     android:gravity="center"
                     android:text="@string/how_get_coupons"
                     app:layout_constraintBottom_toBottomOf="parent"

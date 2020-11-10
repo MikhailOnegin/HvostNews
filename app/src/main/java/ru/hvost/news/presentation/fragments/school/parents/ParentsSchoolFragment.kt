@@ -16,7 +16,6 @@ class ParentsSchoolFragment:Fragment() {
 
     private lateinit var binding: FragmentSchoolParentsBinding
     private lateinit var schoolVM: SchoolViewModel
-    private lateinit var vpAdapter:ParentsSchoolVPAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +32,7 @@ class ParentsSchoolFragment:Fragment() {
     }
 
     private fun initViewPager(){
-        vpAdapter = ParentsSchoolVPAdapter(requireActivity().supportFragmentManager, this.lifecycle)
+        val vpAdapter = ParentsSchoolVPAdapter(requireActivity().supportFragmentManager, this.lifecycle)
         binding.viewPager.adapter = vpAdapter
         val names:Array<String> = arrayOf(resources.getString(R.string.online_school), getString(R.string.lessons_in_your_city))
         TabLayoutMediator(binding.tabLayout,binding.viewPager){tab, position ->

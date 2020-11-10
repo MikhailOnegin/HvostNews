@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,10 +67,10 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/imageViewStatus"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:background="@drawable/shape_active_false"
+                    android:background="@color/gray1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -84,10 +84,10 @@
                     android:text="@string/not_found"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageViewStatus"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView5"
-                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                    app:layout_constraintStart_toEndOf="@+id/imageViewStatus"
+                    app:layout_constraintTop_toTopOf="@+id/imageViewStatus" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -110,8 +110,8 @@
 
     <ImageView
         android:id="@+id/imageView_date"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/textView_lesson_date"
