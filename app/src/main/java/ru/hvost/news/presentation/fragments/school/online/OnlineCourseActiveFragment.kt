@@ -13,7 +13,6 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
 import ru.hvost.news.models.OnlineSchool
 import ru.hvost.news.presentation.adapters.viewPager.OnlineSchoolActiveVPAdapter
-import ru.hvost.news.presentation.adapters.viewPager.ParentsSchoolVPAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class OnlineCourseActiveFragment:Fragment() {

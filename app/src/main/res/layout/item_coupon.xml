@@ -35,24 +35,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/background_coupon_status_true"
-                android:fontFamily="@font/gilroy_semibold"
+                android:fontFamily="@font/gilroy_medium"
                 android:scrollbarAlwaysDrawHorizontalTrack="false"
                 android:text="@string/stub"
                 android:textAllCaps="true"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_coupon_title" />
 
             <TextView
                 android:id="@+id/textView_coupon_title"
-                style="@style/TextViewBig"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
+                android:textColor="@color/gray1"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,7 +65,7 @@
                 android:text="@string/stub"
                 android:textAllCaps="true"
                 android:textColor="@color/gray3"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_coupon_status"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView_coupon_status" />
@@ -75,10 +75,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:fontFamily="@font/gilroy_semibold"
+                android:fontFamily="@font/gilroy_medium"
                 android:text="@string/before"
                 android:textColor="@color/gray3"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_coupon_status"
                 app:layout_constraintEnd_toStartOf="@+id/textView_coupon_date"
                 app:layout_constraintTop_toTopOf="@+id/textView_coupon_status" />

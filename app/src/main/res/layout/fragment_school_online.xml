@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/scrollView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_1"
         android:layout_width="match_parent"
@@ -15,222 +14,238 @@
 
 
         <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/default_image" />
+            android:id="@+id/imageView6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/default_image" />
 
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_title"
-                app:srcCompat="@drawable/ic_baseline_brightness_1_24" />
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_title"
+            app:srcCompat="@drawable/ic_medal" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                style="@style/TabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                android:background="@android:color/transparent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6"
-                app:tabIndicatorColor="@android:color/transparent"
-                app:tabSelectedTextColor="@color/defaultBackground"
-                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:tabTextColor="@color/TextColorPrimary">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            style="@style/TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabSelectedTextColor="@color/defaultBackground"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="@color/TextColorPrimary">
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/about_course" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/course_materials" />
-            </com.google.android.material.tabs.TabLayout>
-
-
-
-            <View
-                android:id="@+id/view3"
-                style="@style/LineLightGray"
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-            <ImageButton
-                android:id="@+id/imageButton_back"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:background="#00BABABA"
-                app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_back" />
+                android:text="@string/about_course" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_materials" />
+        </com.google.android.material.tabs.TabLayout>
+
+
+        <View
+            android:id="@+id/view3"
+            style="@style/LineLightGray"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <ImageButton
+            android:id="@+id/imageButton_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="#00BABABA"
+            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView8"
+            app:srcCompat="@drawable/ic_action_back" />
 
         <TextView
             android:id="@+id/textView8"
-            style="@style/TextViewBig"
+            style="@style/TextViewToolbarTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
+            android:gravity="center"
             android:text="@string/online_lesson"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageButton_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView_title"
-                style="@style/TextViewVeryBigBold"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="120dp"
-                android:text="@string/not_found"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3" />
+        <TextView
+            android:id="@+id/textView_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="120dp"
+            android:fontFamily="@font/gilroy_bold"
+            android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-            <TextView
-                android:id="@+id/textView_rank"
+        <TextView
+            android:id="@+id/textView_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/your_rank"
+            android:textColor="@color/gray3"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView_rank"
+            app:layout_constraintTop_toBottomOf="@+id/textView_rank" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/lessons_completed"
+            android:textColor="@color/gray1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+            <Button
+                android:id="@+id/button12"
+                style="@style/ButtonRoundedGray3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/not_found"
-                app:layout_constraintStart_toEndOf="@+id/imageView9"
-                app:layout_constraintTop_toTopOf="@+id/imageView9" />
+                android:layout_weight="1"
+                android:backgroundTint="@color/defaultBackground"
+                android:elevation="0dp"
+                android:minWidth="78dip"
+                android:text="@string/_1"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="4dp" />
 
-            <TextView
-                android:id="@+id/textView11"
-                style="@style/TextViewLittleGray3"
+            <Button
+                android:id="@+id/button11"
+                style="@style/ButtonRoundedGray3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/your_rank"
-                app:layout_constraintStart_toStartOf="@+id/textView_rank"
-                app:layout_constraintTop_toBottomOf="@+id/textView_rank" />
+                android:layout_weight="1"
+                android:backgroundTint="@color/defaultBackground"
+                android:minWidth="78dip"
+                android:text="@string/_2"
+                android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/textView12"
+            <Button
+                android:id="@+id/button10"
+                style="@style/ButtonRoundedGray3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:text="@string/lessons_completed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                android:layout_weight="1"
+                android:backgroundTint="@color/defaultBackground"
+                android:minWidth="78dip"
+                android:text="@string/_3"
+                android:textSize="14sp" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/button9"
+                style="@style/ButtonRoundedGray3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="24dp"
-                android:orientation="horizontal"
-                android:paddingBottom="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                android:layout_weight="1"
+                android:backgroundTint="@color/defaultBackground"
+                android:minWidth="78dip"
+                android:text="@string/_4"
+                android:textSize="14sp" />
 
-                <Button
-                    android:id="@+id/button12"
-                    style="@style/ButtonRoundedGray3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/defaultBackground"
-                    android:elevation="0dp"
-                    android:minWidth="78dip"
-                    android:text="@string/_1"
-                    tools:layout_editor_absoluteX="4dp" />
+            <Button
+                android:id="@+id/button8"
+                style="@style/ButtonRoundedGray3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/defaultBackground"
+                android:minWidth="78dip"
+                android:text="@string/_5"
+                android:textSize="14sp" />
 
-                <Button
-                    android:id="@+id/button11"
-                    style="@style/ButtonRoundedGray3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/defaultBackground"
-                    android:minWidth="78dip"
-                    android:text="@string/_2" />
+            <Button
+                android:id="@+id/button7"
+                style="@style/ButtonRoundedGray3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/defaultBackground"
+                android:minWidth="78dip"
+                android:text="@string/_6"
+                android:textSize="14sp" />
 
-                <Button
-                    android:id="@+id/button10"
-                    style="@style/ButtonRoundedGray3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/defaultBackground"
-                    android:minWidth="78dip"
-                    android:text="@string/_3" />
-
-                <Button
-                    android:id="@+id/button9"
-                    style="@style/ButtonRoundedGray3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/defaultBackground"
-                    android:minWidth="78dip"
-                    android:text="@string/_4" />
-
-                <Button
-                    android:id="@+id/button8"
-                    style="@style/ButtonRoundedGray3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/defaultBackground"
-                    android:minWidth="78dip"
-                    android:text="@string/_5" />
-
-                <Button
-                    android:id="@+id/button7"
-                    style="@style/ButtonRoundedGray3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/defaultBackground"
-                    android:minWidth="78dip"
-                    android:text="@string/_6" />
-
-                <Button
-                    android:id="@+id/button6"
-                    style="@style/ButtonRoundedGray3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/defaultBackground"
-                    android:minWidth="78dip"
-                    android:text="@string/_7" />
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/button6"
+                style="@style/ButtonRoundedGray3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/defaultBackground"
+                android:minWidth="78dip"
+                android:text="@string/_7"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout" />

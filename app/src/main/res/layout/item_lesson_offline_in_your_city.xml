@@ -18,11 +18,13 @@
 
     <TextView
         android:id="@+id/textViewLessonTitle"
-        style="@style/TextViewBig"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/gilroy_bold"
         android:text="@string/not_found"
+        android:textColor="@color/gray1"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
@@ -104,6 +106,7 @@
         android:fontFamily="@font/gilroy_semibold"
         android:text="@string/not_found"
         android:textColor="@color/gray3"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toTopOf="@+id/imageView8" />
@@ -120,13 +123,14 @@
 
     <TextView
         android:id="@+id/textView_lesson_city"
+        style="@style/TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TextView"
         android:layout_marginStart="16dp"
-        android:text="@string/not_found"
         android:fontFamily="@font/gilroy_semibold"
+        android:text="@string/not_found"
         android:textColor="@color/gray3"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView_date"
         app:layout_constraintStart_toEndOf="@+id/imageView_date"
         app:layout_constraintTop_toTopOf="@+id/imageView_date" />

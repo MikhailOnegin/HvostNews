@@ -65,7 +65,7 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
         mapVm = ViewModelProvider(this)[MapViewModel::class.java]
         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
         binding.mapView.map.addCameraListener(this)
-        binding.constraintFilter.setOnClickListener {  }
+        binding.includeFilter.root.setOnClickListener {  }
 
         mapVm.getShops("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         binding.mapView.map.move(
@@ -129,16 +129,16 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
             return@setOnEditorActionListener false
         }
         binding.imageButtonFilter.setOnClickListener {
-            binding.constraintFilter.layoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            binding.includeFilter.root.layoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             //dialogMapFilter.show(requireActivity().supportFragmentManager, "customDialog")
         }
-        binding.buttonShow.setOnClickListener {
-            binding.constraintFilter.layoutParams = ConstraintLayout.LayoutParams(0, 0)
+        binding.includeFilter.buttonShow.setOnClickListener {
+            binding.includeFilter.root.layoutParams = ConstraintLayout.LayoutParams(0, 0)
         }
-        binding.buttonClear.setOnClickListener {
-            binding.toggleButtonClinics.isChecked = false
-            binding.toggleButtonGrooming.isChecked = false
-            binding.toggleButtonPetShops.isChecked = false
+        binding.includeFilter.buttonClear.setOnClickListener {
+            binding.includeFilter.toggleButtonClinics.isChecked = false
+            binding.includeFilter.toggleButtonGrooming.isChecked = false
+            binding.includeFilter.toggleButtonPetShops.isChecked = false
         }
     }
 
