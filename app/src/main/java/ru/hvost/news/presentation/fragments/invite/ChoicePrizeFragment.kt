@@ -37,10 +37,7 @@ class ChoicePrizeFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.toCart.setOnClickListener {
-            mainVM.addPrizeToCart(mainVM.prizes.value?.filter { it.prizeId == arguments?.getString("PRIZE_ID") }
-                ?.get(0)?.prizeId)
-        }
+        binding.back.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setObservers() {
@@ -100,17 +97,10 @@ class ChoicePrizeFragment : Fragment() {
                 val elementMargin =
                     view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
                 parent.adapter.run {
-                    if (position == 0) {
-                        outRect.top = elementMargin
-                        outRect.bottom = elementMargin
-                        outRect.left = elementMargin
-                        outRect.right = elementMargin
-                    } else {
-                        outRect.top = 0
-                        outRect.bottom = elementMargin
-                        outRect.left = elementMargin
-                        outRect.right = elementMargin
-                    }
+                    outRect.top = elementMargin
+                    outRect.bottom = elementMargin
+                    outRect.left = elementMargin
+                    outRect.right = elementMargin
                 }
             }
         })

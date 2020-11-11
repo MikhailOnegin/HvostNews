@@ -1,152 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.profile.EditProfileFragment">
 
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/screenContentPadding"
-        tools:context=".presentation.fragments.profile.EditProfileFragment">
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/profileToolbarColorOpacity"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:padding="@dimen/toolbarButtonPadding"
+            android:src="@drawable/ic_back" />
 
         <TextView
-            style="@style/TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/surName" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/editProfileTitle"
+            android:textColor="@color/titleText"
+            android:textSize="@dimen/articleTitleTextSize"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/surname"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:text="@string/surName"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            style="@style/TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/name" />
-
-        <EditText
-            android:id="@+id/name"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:text="@string/name"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            style="@style/TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/secondName" />
-
-        <EditText
-            android:id="@+id/patronymic"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:text="@string/secondName"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            style="@style/TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/birthday" />
-
-        <EditText
-            android:id="@+id/birthday"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:editable="false"
-            android:text="@string/birthday"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            style="@style/TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/phone" />
-
-        <EditText
-            android:id="@+id/phone"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:text="@string/phone"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/normalMargin"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/phoneHint"
-            android:textColor="@color/TextColorSecondary" />
-
-        <TextView
-            style="@style/TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/email" />
-
-        <EditText
-            android:id="@+id/email"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:inputType="textEmailAddress"
-            android:text="@string/email"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            style="@style/TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/xSmallMargin"
-            android:text="@string/city" />
-
-        <EditText
-            android:id="@+id/city"
-            style="@style/EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:text="@string/city"
-            android:textColor="@android:color/black" />
-
-        <Button
-            android:id="@+id/save"
-            style="@style/ElevatedButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ButtonHeight"
-            android:text="@string/saveChanges" />
-
-        <Button
-            android:id="@+id/cancel"
-            style="@style/ElevatedButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ButtonHeight"
-            android:text="@string/cancel" />
+        <ImageView
+            android:id="@+id/ntfy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:padding="@dimen/toolbarButtonPadding" />
 
     </LinearLayout>
 
-</ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray4" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/surName" />
+
+            <EditText
+                android:id="@+id/surname"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:text="@string/surName"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/name" />
+
+            <EditText
+                android:id="@+id/name"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:text="@string/name"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/secondName" />
+
+            <EditText
+                android:id="@+id/patronymic"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:text="@string/secondName"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/birthday" />
+
+            <EditText
+                android:id="@+id/birthday"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:editable="false"
+                android:text="@string/birthday"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/phone" />
+
+            <EditText
+                android:id="@+id/phone"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:text="@string/phone"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/phoneHint"
+                android:textColor="@color/TextColorSecondary" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/email" />
+
+            <EditText
+                android:id="@+id/email"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:inputType="textEmailAddress"
+                android:text="@string/email"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                style="@style/TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/xSmallMargin"
+                android:text="@string/city" />
+
+            <EditText
+                android:id="@+id/city"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:text="@string/city"
+                android:textColor="@android:color/black" />
+
+            <Button
+                android:id="@+id/save"
+                style="@style/ElevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ButtonHeight"
+                android:text="@string/saveChanges" />
+
+            <Button
+                android:id="@+id/cancel"
+                style="@style/ElevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ButtonHeight"
+                android:text="@string/cancel" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

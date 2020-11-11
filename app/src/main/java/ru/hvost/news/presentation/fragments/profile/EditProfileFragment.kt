@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.databinding.FragmentEditProfileBinding
 import ru.hvost.news.utils.enums.State
@@ -47,8 +48,11 @@ class EditProfileFragment : Fragment() {
 
     private fun setDataToBind(state: State) {
         when (state) {
-            State.SUCCESS -> { bindData() }
-            State.FAILURE, State.ERROR -> { }
+            State.SUCCESS -> {
+                bindData()
+            }
+            State.FAILURE, State.ERROR -> {
+            }
         }
     }
 
@@ -64,6 +68,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setListeners() {
+        binding.back.setOnClickListener { findNavController().popBackStack() }
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.cancel.setOnClickListener {
             if (state == State.SUCCESS) {

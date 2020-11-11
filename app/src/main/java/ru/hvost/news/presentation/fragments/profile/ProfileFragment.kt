@@ -78,7 +78,7 @@ class ProfileFragment : Fragment() {
     private fun onBalanceChanged(state: State) {
         when (state) {
             State.SUCCESS -> {
-                binding.balance.text = mainVM.bonusBalanceResponse.value?.balance.toString()
+                binding.balance.text = mainVM.bonusBalanceResponse.value?.bonusBalance.toString()
             }
             State.FAILURE, State.ERROR -> {
             }

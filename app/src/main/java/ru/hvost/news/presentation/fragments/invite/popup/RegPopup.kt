@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentInviteBinding
@@ -20,5 +21,14 @@ class RegPopup : Fragment() {
     ): View? {
         binding = FragmentRegPopupBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        setListeners()
+        super.onActivityCreated(savedInstanceState)
+    }
+
+    private fun setListeners() {
+        binding.next.setOnClickListener { findNavController().navigate(R.id.action_regPopup_to_invitePopup) }
     }
 }

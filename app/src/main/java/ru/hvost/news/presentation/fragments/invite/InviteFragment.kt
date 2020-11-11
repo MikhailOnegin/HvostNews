@@ -17,7 +17,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
+import ru.hvost.news.databinding.FragmentGetPrizesPopupBinding
 import ru.hvost.news.databinding.FragmentInviteBinding
+import ru.hvost.news.databinding.FragmentInvitePopupBinding
+import ru.hvost.news.databinding.FragmentRegPopupBinding
 import ru.hvost.news.utils.enums.State
 
 class InviteFragment : Fragment() {
@@ -38,7 +41,6 @@ class InviteFragment : Fragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
         setListeners()
-        showInfoPopup()
     }
 
     private fun showInfoPopup() {
@@ -46,9 +48,8 @@ class InviteFragment : Fragment() {
         val popupWindow = PopupWindow(requireActivity())
 
         popupWindow.contentView = view
-        popupWindow.width = LinearLayout.LayoutParams.MATCH_PARENT
-        popupWindow.height = LinearLayout.LayoutParams.MATCH_PARENT
-        popupWindow.setBackgroundDrawable(null)
+        popupWindow.width = LinearLayout.LayoutParams.WRAP_CONTENT
+        popupWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
         popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
     }
 
@@ -115,7 +116,7 @@ class InviteFragment : Fragment() {
     private fun onBalanceChanged(state: State?) {
         when (state) {
             State.SUCCESS -> {
-                binding.balance.text = mainVM.bonusBalanceResponse.value?.balance.toString()
+                binding.balance.text = mainVM.bonusBalanceResponse.value?.bonusBalance.toString()
             }
             State.FAILURE, State.ERROR -> {
             }
