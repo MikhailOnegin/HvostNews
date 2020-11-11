@@ -279,4 +279,20 @@
     <string name="rules">Правила участия в конкурсе \n «Пригласи друга»</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="orderContactsTitle">Контактные данные</string>
+    <string name="makeOrderNameHint">Имя</string>
+    <string name="makeOrderPhoneHint">Ваш номер телефона</string>
+    <string name="makeOrderEmailHint">E-mail</string>
+    <string name="orderAddressTitle">Адрес доставки</string>
+    <string name="makeOrderCityHint">Город</string>
+    <string name="makeOrderStreetHint">Улица</string>
+    <string name="makeOrderHouseHint">Дом</string>
+    <string name="makeOrderFlatHint">Квартира</string>
+    <string name="makeOrderSaveAddressHint">Сохранить адрес для последующих заказов</string>
+    <string name="makeOrderDeliveryHint">Доставка заказов доступна в регионах, где работают филиалы компании «Валта Пет Продактс». Для согласования вопросов доставки и оплаты с вами свяжется менеджер после завершения оформления заказа.</string>
+    <string name="buttonFinishOrder">Завершить оформление</string>
+    <string name="makeOrderSummaryCount">Количество товаров</string>
+    <string name="makeOrderSummaryDiscount">Ваша скидка составила</string>
+    <string name="makeOrderSummaryDiscountSum">Сумма скидки</string>
+    <string name="makeOrderTitle">Оформление заказа</string>
 </resources>

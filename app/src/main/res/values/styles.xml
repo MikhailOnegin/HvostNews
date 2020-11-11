@@ -76,6 +76,7 @@
         <item name="boxStrokeColor">@color/edit_text_box_stroke_color</item>
         <item name="android:imeOptions">actionNext</item>
         <item name="hintTextAppearance">@style/EditTextHintTextAppearance</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
     </style>
 
     <style name="TextInputEditText">
@@ -86,6 +87,7 @@
         <item name="android:textAppearance">@style/EditTextTextAppearance</item>
         <item name="android:paddingStart">0dp</item>
         <item name="android:paddingEnd">0dp</item>
+        <item name="android:textCursorDrawable">@drawable/text_cursor_drawable</item>
     </style>
 
     <style name="EditTextTextAppearance" parent="TextAppearance.AppCompat">
@@ -259,6 +261,39 @@
     <style name="CartFooterTextView.Secondary">
         <item name="android:textColor">#80000000</item>
         <item name="android:textSize">@dimen/cartFooterSecondaryTextSize</item>
+    </style>
+
+    <style name="MakeOrderTextTitle">
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">@dimen/makeOrderTextTitleTextSize</item>
+    </style>
+
+    <style name="CheckBox">
+        <item name="android:gravity">top</item>
+        <item name="android:textAppearance">@style/RegTextTextAppearance</item>
+        <item name="android:textColor">@color/TextColorSecondary</item>
+        <item name="android:paddingStart">@dimen/smallMargin</item>
+        <item name="android:button">@drawable/checkbox</item>
+        <item name="android:lineSpacingExtra">@dimen/textLineSpacingExtra</item>
+        <item name="useMaterialThemeColors">false</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="MakeOrderSummaryTextView">
+        <item name="android:textSize">@dimen/makeOrderSummaryTextViewTextSize</item>
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+    </style>
+
+    <style name="MakeOrderSummaryTextView.Secondary">
+        <item name="android:textColor">@color/TextColorLightSecondary</item>
+    </style>
+
+    <style name="DotFiller">
+        <item name="dotSize">@dimen/dotFillerDotSize</item>
+        <item name="dashSize">@dimen/dotFillerDashSize</item>
+        <item name="dotColor">#B9BEE1</item>
     </style>
 
 </resources>

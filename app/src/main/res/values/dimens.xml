@@ -90,4 +90,9 @@
     <dimen name="balanceTextSize">100sp</dimen>
     <dimen name="buttonPadding">10dp</dimen>
     <dimen name="popupWidth">325dp</dimen>
+    <dimen name="makeOrderTextTitleTextSize">20sp</dimen>
+    <dimen name="smallTextLineSpacingExtra">4dp</dimen>
+    <dimen name="makeOrderSummaryTextViewTextSize">16sp</dimen>
+    <dimen name="dotFillerDotSize">2dp</dimen>
+    <dimen name="dotFillerDashSize">2dp</dimen>
 </resources>

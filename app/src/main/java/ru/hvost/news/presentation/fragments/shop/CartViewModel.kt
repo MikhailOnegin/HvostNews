@@ -11,6 +11,7 @@ import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.toCartItems
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.events.OneTimeEvent
 import java.lang.Exception
 
 class CartViewModel : ViewModel() {
@@ -22,6 +23,8 @@ class CartViewModel : ViewModel() {
     val prizesCart = MutableLiveData(listOf<CartItem>())
     @Volatile
     var cartChangesPermitted = false
+    private val _makeOrderEvent = MutableLiveData<OneTimeEvent>()
+    val makeOrderEvent: LiveData<OneTimeEvent> = _makeOrderEvent
 
     init {
         currentCartType.value = CartType.Products
@@ -91,6 +94,10 @@ class CartViewModel : ViewModel() {
                 cartChangesPermitted = true
             }
         }
+    }
+
+    fun sendNavigateToMakeOrderEvent() {
+        _makeOrderEvent.value = OneTimeEvent()
     }
 
 }

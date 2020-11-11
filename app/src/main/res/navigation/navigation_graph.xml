@@ -253,6 +253,20 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.CartFragment"
-        android:label="CartFragment" />
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_makeOrderFragment"
+            app:destination="@id/makeOrderFragment"
+            app:enterAnim="@anim/fragment_slide_left"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popExitAnim="@anim/fragment_slide_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/makeOrderFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.MakeOrderFragment"
+        android:label="MakeOrderFragment"
+        tools:layout="@layout/fragment_make_order"/>
 
 </navigation>

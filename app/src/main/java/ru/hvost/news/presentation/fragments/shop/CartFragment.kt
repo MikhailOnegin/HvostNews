@@ -15,6 +15,7 @@ import ru.hvost.news.models.CartItem
 import ru.hvost.news.presentation.adapters.recycler.CartProductsAdapter
 import ru.hvost.news.presentation.fragments.shop.CartViewModel.*
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class CartFragment : Fragment() {
 
@@ -60,11 +61,18 @@ class CartFragment : Fragment() {
     }
 
     private fun setObservers() {
-        cartVM.currentCartType.observe(viewLifecycleOwner) { onCurrentCartTypeChanged(it) }
-        cartVM.productsCart.observe(viewLifecycleOwner) { onProductsCartChanged(it) }
-        cartVM.prizesCart.observe(viewLifecycleOwner) { onPrizesCartChanged(it) }
-        cartVM.cartUpdateEvent.observe(viewLifecycleOwner, cartEventObserver)
-        cartVM.cartChangingEvent.observe(viewLifecycleOwner, cartChangingEventObserver)
+        cartVM.apply {
+            currentCartType.observe(viewLifecycleOwner) { onCurrentCartTypeChanged(it) }
+            productsCart.observe(viewLifecycleOwner) { onProductsCartChanged(it) }
+            prizesCart.observe(viewLifecycleOwner) { onPrizesCartChanged(it) }
+            cartUpdateEvent.observe(viewLifecycleOwner, cartEventObserver)
+            cartChangingEvent.observe(viewLifecycleOwner, cartChangingEventObserver)
+            makeOrderEvent.observe(viewLifecycleOwner, OneTimeEvent.Observer { onMakeOrderEvent() })
+        }
+    }
+
+    private fun onMakeOrderEvent() {
+        findNavController().navigate(R.id.action_cartFragment_to_makeOrderFragment)
     }
 
     private fun initializeEventObservers() {

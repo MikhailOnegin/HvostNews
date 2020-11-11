@@ -32,7 +32,7 @@ class CartProductsAdapter(
         return when(viewType) {
             TYPE_PRODUCT -> CartProductVH.getViewHolder(parent, cartVM)
             TYPE_PRIZE -> CartPrizeVH.getViewHolder(parent, cartVM)
-            TYPE_FOOTER -> CartFooterVH.getViewHolder(parent)
+            TYPE_FOOTER -> CartFooterVH.getViewHolder(parent, cartVM)
             else -> throw IllegalArgumentException("Wrong adapter view type.")
         }
     }
@@ -148,7 +148,8 @@ class CartProductsAdapter(
     }
 
     class CartFooterVH(
-        private val binding: RvCartFooterBinding
+        private val binding: RvCartFooterBinding,
+        private val cartVM: CartViewModel
     ): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -170,21 +171,20 @@ class CartProductsAdapter(
                 }
                 oldPrice.text = "${moneyFormat.format(item.oldCost.toInt())} \u20bd"
                 binding.makeOrder.setOnClickListener {
-                    //sergeev: Переход к оформлению заказа.
-                    showNotReadyToast()
+                    cartVM.sendNavigateToMakeOrderEvent()
                 }
             }
         }
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup): CartFooterVH {
+            fun getViewHolder(parent: ViewGroup, cartVM: CartViewModel): CartFooterVH {
                 val binding = RvCartFooterBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return CartFooterVH(binding)
+                return CartFooterVH(binding, cartVM)
             }
 
         }

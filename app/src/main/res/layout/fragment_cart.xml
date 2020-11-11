@@ -23,7 +23,7 @@
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/cartTitle"
             android:background="@android:color/transparent"
-            app:layout_scrollFlags="scroll|snap"/>
+            app:layout_scrollFlags="scroll|snap|enterAlways"/>
 
         <View
             android:id="@+id/divider"
@@ -32,7 +32,7 @@
             android:layout_height="1dp"
             app:layout_constraintTop_toBottomOf="@id/container"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_scrollFlags="scroll|snap"/>
+            app:layout_scrollFlags="scroll|snap|enterAlways"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:orientation="horizontal"
             android:baselineAligned="false"
             android:padding="@dimen/normalMargin"
-            app:layout_scrollFlags="scroll|snap">
+            app:layout_scrollFlags="scroll|snap|enterAlways">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/products"
