@@ -110,7 +110,7 @@
     <string name="buttonLogin">Войти</string>
     <string name="buttonRegister">Зарегистрироваться</string>
     <string name="status">Статус</string>
-    <string name="place_action">Место проведеия</string>
+    <string name="place_action">Место проведения</string>
     <string name="date_action">Дата проведения</string>
     <string name="sponsor">Организатор</string>
     <string name="head_spr_with_store">Школа ответственных родителей с зоомагазином "Мокрый нос"</string>
@@ -262,4 +262,9 @@
     <string name="dialogRegPetTitle">Регистрируй питомца</string>
     <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего питомца на портале «Хвост Ньюс</string>
     <string name="networkErrorMessage">Произошла неизвестная ошибка при взаимодействии с сервером.</string>
+    <string name="seminar">Семинар</string>
+    <string name="answer_next_lesson">Для того чтобы открыть слудующий видео-урок ответьте на вопрос попройденной теме</string>
+    <string name="to_answer">Ответить</string>
+    <string name="wahat_wait_seminars">Что вас ждёт на семинарах?</string>
+    <string name="video_last_seminars">Видео с прошлых семинаров</string>
 </resources>
