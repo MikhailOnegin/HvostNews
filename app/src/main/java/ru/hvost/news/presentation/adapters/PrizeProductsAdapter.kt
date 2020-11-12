@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.hvost.news.data.api.APIService
+import ru.hvost.news.databinding.LayoutPrizePriceItemBinding
 import ru.hvost.news.databinding.LayoutPrizeProductItemBinding
 import ru.hvost.news.models.Prize
 
@@ -22,24 +23,18 @@ class PrizeProductsAdapter(private val onClick: (String) -> Unit) :
     }
 
     class PrizeProductViewHolder(
-        private val binding: LayoutPrizeProductItemBinding,
+        private val binding: LayoutPrizePriceItemBinding,
         private val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Prize.Product) {
-            Glide
-                .with(binding.root)
-                .load(APIService.baseUrl + product.imageUrl)
-                .centerCrop()
-                .into(binding.img)
-            binding.title.text = product.title
-            binding.count.text = product.count.toString()
+            binding.cost.text = "5"
 
 //            binding.root.setOnClickListener { onClick.invoke(prize.prizeId) }
         }
 
         companion object {
             fun getPrizeVH(parent: ViewGroup, onClick: (String) -> Unit): PrizeProductViewHolder {
-                val binding = LayoutPrizeProductItemBinding.inflate(
+                val binding = LayoutPrizePriceItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false

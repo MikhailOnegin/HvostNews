@@ -3,41 +3,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/profileToolbarColorOpacity"
     android:orientation="vertical"
-    android:padding="@dimen/screenContentPadding"
     tools:context=".presentation.fragments.invite.ChoicePrizeFragment">
 
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:text="@string/prizeFor" />
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/profileToolbarColorOpacity"
+        android:orientation="horizontal">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:entries="@array/testItems" />
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:padding="@dimen/toolbarButtonPadding"
+            android:src="@drawable/ic_back" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/inPrize" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/choosePrizes"
+            android:textColor="@color/titleText"
+            android:textSize="@dimen/articleTitleTextSize"
+            android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/priceList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <ImageView
+            android:id="@+id/ntfy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:padding="@dimen/toolbarButtonPadding"/>
 
-    <Button
-        style="@style/ElevatedButton"
-        android:id="@+id/toCart"
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/toCart" />
+        android:layout_height="1dp"
+        android:background="@color/gray4" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/screenContentPadding">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:text="@string/prizeFor"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/mainTitleTextSize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:text="@string/inPrize"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/subtitleTextSize" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/priceList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

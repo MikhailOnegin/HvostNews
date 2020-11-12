@@ -14,10 +14,19 @@
         android:id="@+id/invitePopup"
         android:name="ru.hvost.news.presentation.fragments.invite.popup.InvitePopup"
         android:label="fragment_invite_popup"
-        tools:layout="@layout/fragment_invite_popup" />
+        tools:layout="@layout/fragment_invite_popup" >
+        <action
+            android:id="@+id/action_invitePopup_to_getPrizesPopup"
+            app:destination="@id/getPrizesPopup" />
+    </fragment>
     <fragment
         android:id="@+id/regPopup"
         android:name="ru.hvost.news.presentation.fragments.invite.popup.RegPopup"
         android:label="fragment_reg_popup"
-        tools:layout="@layout/fragment_reg_popup" />
+        tools:layout="@layout/fragment_reg_popup" >
+        <action
+            android:id="@+id/action_regPopup_to_invitePopup"
+            app:destination="@id/invitePopup" />
+    </fragment>
+
 </navigation>
