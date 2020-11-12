@@ -13,4 +13,10 @@
         <attr name="outlineWidth" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="DotFillerView">
+        <attr name="dotSize" format="dimension"/>
+        <attr name="dashSize" format="dimension"/>
+        <attr name="dotColor" format="color"/>
+    </declare-styleable>
+
 </resources>

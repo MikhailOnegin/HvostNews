@@ -3,9 +3,6 @@ package ru.hvost.news.presentation.fragments.coupons
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -14,17 +11,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_coupons_my.*
 import ru.hvost.news.R
-import ru.hvost.news.data.api.response.CouponsResponse
 import ru.hvost.news.databinding.FragmentCouponsMyBinding
 import ru.hvost.news.models.Coupons
-import ru.hvost.news.models.toDomain
 import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
-import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerCustomAdapter
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
-import kotlin.reflect.*
 
 class MyCouponsFragment: Fragment() {
 

@@ -27,10 +27,11 @@
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@color/bnv_text_color"
         app:itemTextColor="@color/bnv_text_color"
-        app:itemTextAppearanceActive="@style/bnvActiveTextAppearance"
-        app:itemTextAppearanceInactive="@style/bnvInactiveTextAppearance"
+        app:itemTextAppearanceActive="@style/bnvTextAppearance"
+        app:itemTextAppearanceInactive="@style/bnvTextAppearance"
         app:labelVisibilityMode="labeled"
         app:itemBackground="@drawable/selector_bnv"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </LinearLayout>

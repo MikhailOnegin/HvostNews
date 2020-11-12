@@ -4,162 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="false"
     android:fitsSystemWindows="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_filter"
+    <include
+        android:id="@+id/include_filter"
+        layout="@layout/layout_map_filter"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:animateLayoutChanges="true"
-        android:elevation="6dp"
-        android:paddingBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toggleButton_grooming">
-
-            <Button
-                android:id="@+id/button_clear"
-                style="@style/ButtonGray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:background="@color/TextColorHints"
-                android:paddingLeft="32dp"
-                android:paddingTop="24dp"
-                android:paddingRight="32dp"
-                android:paddingBottom="24dp"
-                android:text="@string/reset" />
-
-            <Button
-                android:id="@+id/button_show"
-                style="@style/ElevatedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:paddingLeft="64dp"
-                android:paddingTop="24dp"
-                android:paddingRight="64dp"
-                android:paddingBottom="24dp"
-                android:text="@string/show" />
-
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView5"
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:fontFamily="@font/gilroy_bold"
-            android:text="@string/participates_in_action"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/switch1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/switch1" />
-
-        <View
-            android:id="@+id/view"
-            style="@style/LineLightGray"
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch1" />
-
-        <TextView
-            android:id="@+id/textView6"
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/gilroy_bold"
-            android:text="@string/partner_type"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton_clinics"
-            style="@style/ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/toggle_selector"
-            android:checked="false"
-            android:textAllCaps="false"
-            android:textColor="@drawable/selector_toggle_text_color"
-            android:textOff="@string/veterinary_clinics"
-            android:textOn="@string/veterinary_clinics"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton_pet_shops"
-            style="@style/ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/toggle_selector"
-            android:checked="false"
-            android:textAllCaps="false"
-            android:textColor="@drawable/selector_toggle_text_color"
-            android:textOff="@string/pet_shops"
-            android:textOn="@string/pet_shops"
-            app:layout_constraintStart_toEndOf="@+id/toggleButton_clinics"
-            app:layout_constraintTop_toTopOf="@+id/toggleButton_clinics" />
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:checked="true"
-            android:thumb="@drawable/ic_baseline_brightness_1_24"
-            android:track="@drawable/track_selector"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ToggleButton
-            android:id="@+id/toggleButton_grooming"
-            style="@style/ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/toggle_selector"
-            android:checked="false"
-            android:textAllCaps="false"
-            android:textColor="@drawable/selector_toggle_text_color"
-            android:textOff="@string/grooming_salons"
-            android:textOn="@string/grooming_salons"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toggleButton_clinics" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextQuery"
         style="@style/EditText"
+        android:textSize="16sp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/lightGrayBackground"
         android:hint="Поиск по адресу или названию"
         android:inputType="textPersonName"
         android:padding="16dp"
@@ -168,14 +30,13 @@
         app:layout_constraintEnd_toStartOf="@+id/imageButton_filter"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButton_filter"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/imageButton_filter"/>
 
     <ImageButton
         android:id="@+id/imageButton_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
+        android:background="@color/lightGrayBackground"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -185,12 +46,12 @@
         android:id="@+id/mapView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/lightGrayBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton_filter"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/imageButton_filter">
 
     </com.yandex.mapkit.mapview.MapView>
 </androidx.constraintlayout.widget.ConstraintLayout>

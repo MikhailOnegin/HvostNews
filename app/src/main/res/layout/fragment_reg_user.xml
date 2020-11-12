@@ -204,20 +204,14 @@
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/agreement"
+                style="@style/CheckBox"
+                android:text="@string/regPersDataHint"
+                tools:ignore="RtlSymmetry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginTop="@dimen/largeMargin"
-                android:layout_marginEnd="@dimen/largeMargin"
-                android:gravity="top"
-                android:text="@string/regPersDataHint"
-                android:textAppearance="@style/RegTextTextAppearance"
-                android:textColor="@color/TextColorSecondary"
-                android:paddingStart="@dimen/smallMargin"
-                android:button="@drawable/checkbox"
-                app:useMaterialThemeColors="false"
-                tools:ignore="RtlSymmetry"
-                android:lineSpacingExtra="@dimen/textLineSpacingExtra"/>
+                android:layout_marginEnd="@dimen/largeMargin"/>
 
             <Button
                 android:id="@+id/buttonNext"

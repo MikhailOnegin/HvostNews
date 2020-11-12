@@ -70,6 +70,7 @@
     <dimen name="sexTextTextSize">12sp</dimen>
     <dimen name="footstepImageSize">70dp</dimen>
     <dimen name="toolbarTitleTextSize">20sp</dimen>
+    <dimen name="subtitleTextSize">20sp</dimen>
     <dimen name="cartSelectorHeight">50dp</dimen>
     <dimen name="cartTypeTitleTextSize">18sp</dimen>
     <dimen name="cartTypeCounterTextSize">14sp</dimen>
@@ -79,4 +80,21 @@
     <dimen name="cartItemButtonSize">42dp</dimen>
     <dimen name="cartFooterMainTextSize">30sp</dimen>
     <dimen name="cartFooterSecondaryTextSize">20dp</dimen>
+    <dimen name="emptyViewTextSize">26sp</dimen>
+    <dimen name="cartItemTextSize">16sp</dimen>
+    <dimen name="cartPrizeImageSize">80dp</dimen>
+    <dimen name="dialogTitleTextSize">24sp</dimen>
+    <dimen name="profileTitleMidTextSize">24sp</dimen>
+    <dimen name="profileSubtitleTextSize">16sp</dimen>
+    <dimen name="dialogSubtitleTextSize">16sp</dimen>
+    <dimen name="balanceStrokeWidth">10dp</dimen>
+    <dimen name="balanceTextSize">100sp</dimen>
+    <dimen name="buttonPadding">10dp</dimen>
+    <dimen name="popupWidth">325dp</dimen>
+    <dimen name="makeOrderTextTitleTextSize">20sp</dimen>
+    <dimen name="smallTextLineSpacingExtra">4dp</dimen>
+    <dimen name="makeOrderSummaryTextViewTextSize">16sp</dimen>
+    <dimen name="dotFillerDotSize">2dp</dimen>
+    <dimen name="dotFillerDashSize">2dp</dimen>
+    <dimen name="prizeItemPriceTextSize">48sp</dimen>
 </resources>

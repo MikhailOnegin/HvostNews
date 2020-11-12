@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ru.hvost.news.presentation.customviews.RoundCornersImageView
+        android:id="@+id/image"
+        android:scaleType="centerCrop"
+        android:layout_width="@dimen/cartPrizeImageSize"
+        android:layout_height="@dimen/cartPrizeImageSize"
+        app:cornersRadius="@dimen/smallCorners"
+        app:drawOutline="true"
+        app:outlineColor="@android:color/white"
+        app:outlineWidth="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:layout_marginBottom="@dimen/largeMargin"
+        tools:src="@drawable/test_image"/>
+
+    <ImageButton
+        android:id="@+id/remove"
+        android:layout_width="@dimen/removeButtonSize"
+        android:layout_height="@dimen/removeButtonSize"
+        android:src="@drawable/ic_remove"
+        android:background="@drawable/selector_light_unbounded"
+        android:contentDescription="@string/removeIconCD"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="@string/testCartShortText"
+        android:maxLines="4"
+        android:gravity="center_vertical|start"
+        android:textColor="@color/TextColorPrimary"
+        android:fontFamily="@font/gilroy_semibold"
+        app:layout_constraintTop_toTopOf="@id/image"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintEnd_toStartOf="@id/remove"
+        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/normalMargin"
+        android:layout_marginTop="@dimen/xSmallMargin"
+        android:lineSpacingExtra="3dp"
+        android:textSize="@dimen/cartItemTextSize"/>
+
+    <TextView
+        android:id="@+id/bonuses"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:gravity="center_vertical|start"
+        android:textColor="@color/TextColorPrimary"
+        android:fontFamily="@font/gilroy_bold"
+        android:textSize="@dimen/cartItemTextSize"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintEnd_toStartOf="@id/remove"
+        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/normalMargin"
+        android:layout_marginBottom="@dimen/xSmallMargin"
+        android:lineSpacingExtra="3dp"
+        tools:text="за 10 баллов"/>
+
+    <View
+        android:id="@+id/divider"
+        android:background="@color/gray4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

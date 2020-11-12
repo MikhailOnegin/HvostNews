@@ -11,9 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentInviteBinding
 import ru.hvost.news.databinding.FragmentPrizesBinding
-import ru.hvost.news.presentation.adapters.DomainAdapter
 import ru.hvost.news.presentation.adapters.PrizeAdapter
 import ru.hvost.news.utils.enums.State
 
@@ -44,7 +42,7 @@ class PrizesFragment : Fragment() {
     private fun onBalanceChanged(state: State?) {
         when (state) {
             State.SUCCESS -> {
-                binding.balance.text = mainVM.bonusBalanceResponse.value?.balance.toString()
+                binding.balance.text = mainVM.bonusBalanceResponse.value?.bonusBalance.toString()
             }
             State.FAILURE, State.ERROR -> {
             }

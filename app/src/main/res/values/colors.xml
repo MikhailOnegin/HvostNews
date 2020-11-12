@@ -13,8 +13,8 @@
     <color name="TextColorGreen">#55D25F</color>
     <color name="outlinedButtonBackground">#33C4C4E2</color>
     <color name="outlinedButtonStroke">#C4C4E2</color>
-    <color name="bnvTextChecked">#398F40</color>
-    <color name="bnvTextUnchecked">#F55500</color>
+    <color name="bnvTextChecked">#FA5F19</color>
+    <color name="bnvTextUnchecked">#414669</color>
     <color name="TextColorDefault">#575757</color>
     <color name="viewPagerTest">#DECAFF</color>
     <color name="progressBackgroundTint">#331EC34B</color>
@@ -37,6 +37,8 @@
     <color name="gray3">#7D82AF</color>
     <color name="gray4">#B9BEE1</color>
     <color name="gray5">#F0EBFA</color>
+
+    <color name="lightGrayBackground">#F8F6FD</color>
     <!-- App colors palette -->
 
     <color name="elevatedButtonBackgroundTintDisabled">#7D82AF</color>
@@ -55,4 +57,7 @@
     <color name="windowBackgroundTopGradientColor">#F0EBFA</color>
     <color name="cartCounterOnLight">#F0EBFA</color>
     <color name="cartCounterOnDark">#1AF0EBFA</color>
+    <color name="gray1_opacity">#CC141428</color>
+    <color name="color_1_opacity">#CCFA5F19</color>
+    <color name="color_2_opacity">#CC1EC34B</color>
 </resources>

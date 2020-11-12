@@ -5,16 +5,22 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
+import ru.hvost.news.databinding.FragmentGetPrizesPopupBinding
 import ru.hvost.news.databinding.FragmentInviteBinding
+import ru.hvost.news.databinding.FragmentInvitePopupBinding
+import ru.hvost.news.databinding.FragmentRegPopupBinding
 import ru.hvost.news.utils.enums.State
 
 class InviteFragment : Fragment() {
@@ -35,6 +41,16 @@ class InviteFragment : Fragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
         setListeners()
+    }
+
+    private fun showInfoPopup() {
+        val view = layoutInflater.inflate(R.layout.popup_invite_info, binding.root, false)
+        val popupWindow = PopupWindow(requireActivity())
+
+        popupWindow.contentView = view
+        popupWindow.width = LinearLayout.LayoutParams.WRAP_CONTENT
+        popupWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
+        popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
     }
 
     private fun setListeners() {
@@ -100,7 +116,7 @@ class InviteFragment : Fragment() {
     private fun onBalanceChanged(state: State?) {
         when (state) {
             State.SUCCESS -> {
-                binding.balance.text = mainVM.bonusBalanceResponse.value?.balance.toString()
+                binding.balance.text = mainVM.bonusBalanceResponse.value?.bonusBalance.toString()
             }
             State.FAILURE, State.ERROR -> {
             }
