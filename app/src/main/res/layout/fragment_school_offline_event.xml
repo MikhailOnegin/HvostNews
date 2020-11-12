@@ -37,6 +37,7 @@
 
         <TextView
             android:id="@+id/textView8"
+            style="@style/TextViewToolbarTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -55,9 +56,11 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/head_spr_with_store"
+            android:fontFamily="@font/gilroy_bold"
+            android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
@@ -69,6 +72,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:text="@string/status"
+            android:textColor="@color/gray3"
+            android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_head" />
 
@@ -81,6 +86,8 @@
             android:layout_marginEnd="24dp"
             android:gravity="end"
             android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_status_logo"
             app:layout_constraintTop_toTopOf="@+id/textView_status_logo" />
@@ -93,6 +100,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/place_action"
+            android:textColor="@color/gray3"
+            android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_lesson_status" />
 
@@ -105,6 +114,8 @@
             android:layout_marginEnd="24dp"
             android:gravity="end"
             android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_place_logo"
             app:layout_constraintTop_toTopOf="@+id/textView_place_logo" />
@@ -117,6 +128,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/date_action"
+            android:textColor="@color/gray3"
+            android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_place" />
 
@@ -129,6 +142,8 @@
             android:layout_marginEnd="24dp"
             android:gravity="end"
             android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_date_logo"
             app:layout_constraintTop_toTopOf="@+id/textView_date_logo" />
@@ -141,6 +156,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="@string/sponsor"
+            android:textColor="@color/gray3"
+            android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_date" />
 
@@ -153,6 +170,8 @@
             android:layout_marginEnd="24dp"
             android:gravity="end"
             android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_sponsor_logo"
             app:layout_constraintTop_toTopOf="@+id/textView_sponsor_logo" />
@@ -167,6 +186,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:text="@string/participate"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_sponsor" />

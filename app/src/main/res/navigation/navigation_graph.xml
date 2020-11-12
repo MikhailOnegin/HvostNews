@@ -175,17 +175,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/onlineCourseLessonFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.online.OnlineCourseLessonFragment"
-        android:label="Online course lesson"
-        tools:layout="@layout/fragment_online_course_lesson" />
-    <fragment
-        android:id="@+id/onlineCourseNewFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.online.OnlineCourseNewFragment"
-        android:label="OnlineCourseNewFragment"
-        tools:layout="@layout/fragment_online_course_new" />
-
-    <fragment
         android:id="@+id/choicePrizeFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.ChoicePrizeFragment"
         android:label="fragment_choice_prize"
