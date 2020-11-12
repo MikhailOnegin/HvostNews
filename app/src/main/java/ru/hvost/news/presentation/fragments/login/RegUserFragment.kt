@@ -28,7 +28,7 @@ class RegUserFragment : Fragment() {
     ): View? {
         binding = FragmentRegUserBinding.inflate(inflater, container, false)
         binding.phone.filters = arrayOf(PhoneInputFilter())
-        binding.phone.setText("+7")
+        binding.phone.setText(getString(R.string.phonePrefix))
         return binding.root
     }
 

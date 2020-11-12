@@ -24,7 +24,7 @@ import ru.hvost.news.utils.moneyFormat
 import ru.hvost.news.utils.showNotReadyToast
 import java.lang.IllegalArgumentException
 
-class CartProductsAdapter(
+class CartAdapter(
     private val cartVM: CartViewModel
 ) : ListAdapter<CartItem, RecyclerView.ViewHolder>(CartProductDiffUtilItemCallback()) {
 
@@ -171,7 +171,7 @@ class CartProductsAdapter(
                 }
                 oldPrice.text = "${moneyFormat.format(item.oldCost.toInt())} \u20bd"
                 binding.makeOrder.setOnClickListener {
-                    cartVM.sendNavigateToMakeOrderEvent()
+                    cartVM.sendGoToMakeOrderEvent()
                 }
             }
         }

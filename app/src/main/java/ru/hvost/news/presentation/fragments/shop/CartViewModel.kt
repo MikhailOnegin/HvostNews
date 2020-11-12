@@ -23,15 +23,18 @@ class CartViewModel : ViewModel() {
     val prizesCart = MutableLiveData(listOf<CartItem>())
     @Volatile
     var cartChangesPermitted = false
-    private val _makeOrderEvent = MutableLiveData<OneTimeEvent>()
-    val makeOrderEvent: LiveData<OneTimeEvent> = _makeOrderEvent
+    private val _goToMakeOrderEvent = MutableLiveData<OneTimeEvent>()
+    val goToMakeOrderEvent: LiveData<OneTimeEvent> = _goToMakeOrderEvent
+    val readyToMakeOrder = MutableLiveData<Boolean>()
+    private val _cartUpdateEvent = MutableLiveData<NetworkEvent<State>>()
+    val cartUpdateEvent: LiveData<NetworkEvent<State>> = _cartUpdateEvent
+    private val _makeOrderEvent = MutableLiveData<NetworkEvent<State>>()
+    val makeOrderEvent: LiveData<NetworkEvent<State>> = _makeOrderEvent
 
     init {
         currentCartType.value = CartType.Products
+        readyToMakeOrder.value = false
     }
-
-    private val _cartUpdateEvent = MutableLiveData<NetworkEvent<State>>()
-    val cartUpdateEvent: LiveData<NetworkEvent<State>> = _cartUpdateEvent
 
     fun updateCartAsync(userToken: String?) {
         _cartUpdateEvent.value = NetworkEvent(State.LOADING)
@@ -41,12 +44,21 @@ class CartViewModel : ViewModel() {
                 if(result.result == "success") {
                     productsCart.value = result.toCartItems()
                     _cartUpdateEvent.value = NetworkEvent(State.SUCCESS)
-                } else _cartUpdateEvent.value = NetworkEvent(State.ERROR, result.error)
+                } else {
+                    resetCarts()
+                    _cartUpdateEvent.value = NetworkEvent(State.ERROR, result.error)
+                }
             } catch(exc: Exception) {
+                resetCarts()
                 _cartUpdateEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
             cartChangesPermitted = true
         }
+    }
+
+    private fun resetCarts() {
+        productsCart.value = listOf()
+        prizesCart.value = listOf()
     }
 
     private val _cartChangingEvent = MutableLiveData<NetworkEvent<State>>()
@@ -96,8 +108,43 @@ class CartViewModel : ViewModel() {
         }
     }
 
-    fun sendNavigateToMakeOrderEvent() {
-        _makeOrderEvent.value = OneTimeEvent()
+    fun sendGoToMakeOrderEvent() {
+        _goToMakeOrderEvent.value = OneTimeEvent()
+    }
+
+    fun makeOrder(
+        name: String,
+        phone: String,
+        email: String,
+        city: String,
+        street: String,
+        house: String,
+        flat: String,
+        saveDataForFuture: Boolean
+    ) {
+        viewModelScope.launch {
+            _makeOrderEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.makeOrderAsync(
+                    userToken = App.getInstance().userToken,
+                    name = name,
+                    phone = phone,
+                    email = email,
+                    city = city,
+                    street = street,
+                    house = house,
+                    flat = flat,
+                    saveDataForFuture = if(saveDataForFuture) "1" else "0"
+                ).await()
+                if(result.result == "success") {
+                    _makeOrderEvent.value = NetworkEvent(State.SUCCESS)
+                    //sergeev: Переход к финишу оформления заказа.
+                }
+                else _makeOrderEvent.value = NetworkEvent(State.ERROR, result.error)
+            } catch (exc: Exception) {
+                _makeOrderEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
     }
 
 }

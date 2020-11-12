@@ -32,7 +32,10 @@ sealed class CartItem {
                 totalCost = 12650f,
                 oldCost = 23800f,
                 bonusesCost = 0,
-                isForPrizes = false
+                isForPrizes = false,
+                discountSum = 200f,
+                discount = 0.2f,
+                deliveryCost = 300f
             ))
             return result
         }
@@ -75,7 +78,10 @@ sealed class CartItem {
                 totalCost = 0f,
                 oldCost = 0f,
                 bonusesCost = 222,
-                isForPrizes = true
+                isForPrizes = true,
+                discountSum = 200f,
+                discount = 0.2f,
+                deliveryCost = 300f
             ))
             return result
         }
@@ -99,7 +105,10 @@ data class CartFooter(
     val totalCost: Float,
     val oldCost: Float,
     val bonusesCost: Int,
-    val isForPrizes: Boolean
+    val discount: Float,
+    val discountSum: Float,
+    val isForPrizes: Boolean,
+    val deliveryCost: Float
 ) : CartItem()
 
 fun CartResponse.toCartItems(): List<CartItem> {
@@ -125,7 +134,10 @@ fun CartResponse.toCartItems(): List<CartItem> {
             totalCost = totalSum ?: 0f,
             oldCost = olSum ?: 0f,
             bonusesCost = 0, //sergeev: Исправить после доработки на бэке.
-            isForPrizes = false //sergeev: Исправить после доработки на бэке.
+            isForPrizes = false, //sergeev: Исправить после доработки на бэке.
+            discount = discount ?: 0f,
+            discountSum = discountSum ?: 0f,
+            deliveryCost = deliveryCost ?: 0f
         )
     )
     return cartItems

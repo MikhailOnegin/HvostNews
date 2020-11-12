@@ -298,4 +298,6 @@
     <string name="makeOrderSummaryDiscount">Ваша скидка составила</string>
     <string name="makeOrderSummaryDiscountSum">Сумма скидки</string>
     <string name="makeOrderTitle">Оформление заказа</string>
+    <string name="phonePrefix">+7</string>
+    <string name="makeOrderSummaryDelivery">Стоимость доставки</string>
 </resources>

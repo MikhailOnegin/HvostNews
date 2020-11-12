@@ -183,12 +183,13 @@
                     android:id="@+id/flat"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/agreement"
+                android:id="@+id/saveDataForFuture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/largeMargin"
@@ -327,7 +328,7 @@
                 <TextView
                     android:id="@+id/deliveryTitle"
                     style="@style/MakeOrderSummaryTextView.Secondary"
-                    android:text="@string/makeOrderSummaryDiscountSum"
+                    android:text="@string/makeOrderSummaryDelivery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/discountSumTitle"
@@ -390,7 +391,7 @@
                     tools:text="12 650 \u20bd"/>
 
                 <Button
-                    android:id="@+id/finishOrder"
+                    android:id="@+id/makeOrder"
                     style="@style/UnelevatedButton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/buttonHeight"

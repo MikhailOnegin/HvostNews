@@ -12,7 +12,7 @@ import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCartBinding
 import ru.hvost.news.models.CartItem
-import ru.hvost.news.presentation.adapters.recycler.CartProductsAdapter
+import ru.hvost.news.presentation.adapters.recycler.CartAdapter
 import ru.hvost.news.presentation.fragments.shop.CartViewModel.*
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
@@ -37,7 +37,7 @@ class CartFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
-        binding.recyclerView.adapter = CartProductsAdapter(cartVM)
+        binding.recyclerView.adapter = CartAdapter(cartVM)
         initializeEventObservers()
         setObservers()
     }
@@ -67,7 +67,7 @@ class CartFragment : Fragment() {
             prizesCart.observe(viewLifecycleOwner) { onPrizesCartChanged(it) }
             cartUpdateEvent.observe(viewLifecycleOwner, cartEventObserver)
             cartChangingEvent.observe(viewLifecycleOwner, cartChangingEventObserver)
-            makeOrderEvent.observe(viewLifecycleOwner, OneTimeEvent.Observer { onMakeOrderEvent() })
+            goToMakeOrderEvent.observe(viewLifecycleOwner, OneTimeEvent.Observer { onMakeOrderEvent() })
         }
     }
 
@@ -88,7 +88,7 @@ class CartFragment : Fragment() {
 
     private fun onPrizesCartChanged(prizes: List<CartItem>?) {
         if(cartVM.currentCartType.value == CartType.Prizes){
-            (binding.recyclerView.adapter as CartProductsAdapter).submitList(prizes)
+            (binding.recyclerView.adapter as CartAdapter).submitList(prizes)
             setEmptyViewVisibility(prizes)
         }
         binding.prizesCounter.text = ((prizes?.size ?: 0) - 1).toString()
@@ -98,7 +98,7 @@ class CartFragment : Fragment() {
 
     private fun onProductsCartChanged(products: List<CartItem>?) {
         if(cartVM.currentCartType.value == CartType.Products){
-            (binding.recyclerView.adapter as CartProductsAdapter).submitList(products)
+            (binding.recyclerView.adapter as CartAdapter).submitList(products)
             setEmptyViewVisibility(products)
         }
         binding.productsCounter.text = ((products?.size ?: 0) - 1).toString()
@@ -109,7 +109,7 @@ class CartFragment : Fragment() {
     private fun onCurrentCartTypeChanged(cartType: CartType?) {
         cartType?.run {
             setTabs(this)
-            val adapter = (binding.recyclerView.adapter as CartProductsAdapter)
+            val adapter = (binding.recyclerView.adapter as CartAdapter)
             when(this){
                 CartType.Products -> {
                     adapter.submitList(cartVM.productsCart.value)

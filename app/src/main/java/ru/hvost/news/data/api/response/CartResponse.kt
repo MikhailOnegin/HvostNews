@@ -7,6 +7,7 @@ data class CartResponse(
     val olSum: Float?,
     val discount: Float?,
     val discountSum: Float?,
+    val deliveryCost: Float?, //sergeev: Отсутствует в API.
     val products: List<Product>?
 ){
     data class Product(
