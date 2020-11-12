@@ -16,6 +16,7 @@ import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.utils.*
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.EventObserver
 
 class MakeOrderFragment : Fragment() {
 
@@ -54,6 +55,7 @@ class MakeOrderFragment : Fragment() {
         cartVM.makeOrderEvent.observe(viewLifecycleOwner, DefaultNetworkEventObserver(binding.root))
         cartVM.productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
         cartVM.prizesCart.observe(viewLifecycleOwner) { onCartChanged(it) }
+        cartVM.finishOrderEvent.observe(viewLifecycleOwner, EventObserver{ onFinishEvent(it) })
     }
 
     private fun setListeners() {
@@ -70,6 +72,12 @@ class MakeOrderFragment : Fragment() {
         }
     }
 
+    private fun onFinishEvent(orderNumber: Int) {
+        val bundle = Bundle()
+        bundle.putInt(FinishOrderFragment.ORDER_NUMBER, orderNumber)
+        findNavController().navigate(R.id.action_makeOrderFragment_to_finishOrderFragment, bundle)
+    }
+
     @SuppressLint("SetTextI18n")
     private fun onCartChanged(cartItems: List<CartItem>?) {
         val cart = cartItems?.firstOrNull { it is CartFooter } as CartFooter?
@@ -78,6 +86,7 @@ class MakeOrderFragment : Fragment() {
             binding.discount.text = "${moneyFormat.format(discount)} %"
             binding.discountSum.text = "${moneyFormat.format(discountSum)} \u20bd"
             binding.delivery.text = "${moneyFormat.format(deliveryCost)} \u20bd"
+            binding.total.text = "${moneyFormat.format(totalCost)} \u20bd"
         }
     }
 

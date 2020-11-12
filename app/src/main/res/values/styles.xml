@@ -296,4 +296,21 @@
         <item name="dotColor">#B9BEE1</item>
     </style>
 
+    <style name="TextViewWithDot">
+        <item name="android:drawablePadding">@dimen/textViewWithDotPaddingStart</item>
+        <item name="android:background">@drawable/background_text_view_dot</item>
+        <item name="android:paddingStart">@dimen/largeMargin</item>
+        <item name="android:textSize">@dimen/textViewWithDotTextSize</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:lineSpacingExtra">@dimen/textLineSpacingExtra</item>
+    </style>
+
+    <style name="TextViewOnColoredSheet">
+        <item name="android:textSize">@dimen/textViewWithDotTextSize</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:lineSpacingExtra">@dimen/textLineSpacingExtra</item>
+    </style>
+
 </resources>

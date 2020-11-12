@@ -10,6 +10,7 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.toCartItems
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.events.OneTimeEvent
 import java.lang.Exception
@@ -30,6 +31,8 @@ class CartViewModel : ViewModel() {
     val cartUpdateEvent: LiveData<NetworkEvent<State>> = _cartUpdateEvent
     private val _makeOrderEvent = MutableLiveData<NetworkEvent<State>>()
     val makeOrderEvent: LiveData<NetworkEvent<State>> = _makeOrderEvent
+    private val _finishOrderEvent = MutableLiveData<Event<Int>>()
+    val finishOrderEvent: LiveData<Event<Int>> = _finishOrderEvent
 
     init {
         currentCartType.value = CartType.Products
@@ -138,7 +141,7 @@ class CartViewModel : ViewModel() {
                 ).await()
                 if(result.result == "success") {
                     _makeOrderEvent.value = NetworkEvent(State.SUCCESS)
-                    //sergeev: Переход к финишу оформления заказа.
+                    _finishOrderEvent.value = Event(result.orderNumber ?: 0)
                 }
                 else _makeOrderEvent.value = NetworkEvent(State.ERROR, result.error)
             } catch (exc: Exception) {
