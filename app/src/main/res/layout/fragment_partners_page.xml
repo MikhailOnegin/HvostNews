@@ -25,7 +25,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/gilroy_medium"
             android:text="@string/not_found"
+            android:textColor="@color/gray3"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_store_title" />
 
@@ -34,7 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:fontFamily="@font/gilroy_bold"
             android:text="@string/not_found"
+            android:textColor="@color/gray1"
+            android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView_add_favorite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView_add_favorite" />
@@ -52,32 +58,24 @@
 
         <ImageView
             android:id="@+id/imageView_add_favorite"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/mapView"
             app:layout_constraintTop_toBottomOf="@+id/mapView"
-            tools:srcCompat="@drawable/shape_red" />
-
-        <RatingBar
-            android:id="@+id/ratingBar_store"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_store_catrgoty" />
+            tools:srcCompat="@drawable/ic_heard" />
 
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar_store">
+            app:layout_constraintTop_toBottomOf="@+id/textView_store_catrgoty">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
