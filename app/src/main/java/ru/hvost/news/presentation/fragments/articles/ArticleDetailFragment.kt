@@ -46,6 +46,8 @@ class ArticleDetailFragment : Fragment() {
 
     private fun bind(list: List<Article>?) {
         if (list != null) {
+//            val CODE_REGEX = "^<img.*.\">".toRegex()
+//            println(list[0].description.replace(CODE_REGEX, "картинка"))
             binding.title.text = list[0].title
             Glide
                 .with(binding.root)
