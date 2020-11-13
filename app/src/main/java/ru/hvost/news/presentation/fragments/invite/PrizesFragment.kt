@@ -31,7 +31,12 @@ class PrizesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        setListeners()
         setObservers()
+    }
+
+    private fun setListeners() {
+        binding.back.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setObservers() {

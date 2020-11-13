@@ -30,7 +30,7 @@
         <item name="android:inputType">text</item>
     </style>
 
-    <style name="TextViewLinar">
+    <style name="ProfileTitleTextView">
         <item name="android:fontFamily">@font/gilroy_bold</item>
         <item name="android:textColor">@color/TextColorTitle</item>
         <item name="android:textSize">@dimen/textTitleSize</item>
