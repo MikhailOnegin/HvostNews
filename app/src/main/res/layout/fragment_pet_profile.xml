@@ -55,31 +55,42 @@
             android:orientation="vertical"
             android:padding="@dimen/screenContentPadding">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/petName" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/name"
-                    style="@style/EditText"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/smallMargin"
                     android:layout_weight="1"
-                    android:text="@string/petName" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ProfileTitleTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/petName" />
+
+                    <EditText
+                        android:id="@+id/name"
+                        style="@style/EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/petName" />
+
+                </LinearLayout>
 
                 <Button
                     style="@style/ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:text="passport" />
+                    android:layout_height="@dimen/ButtonHeight"
+                    android:layout_weight="0.5"
+                    android:backgroundTint="@color/gray4_half_opacity"
+                    android:text="passport"
+                    android:textColor="@color/gray1" />
 
             </LinearLayout>
 
@@ -87,20 +98,20 @@
                 android:id="@+id/type"
                 style="@style/Spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/regSexHeight"
                 android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/sexMale"
                     style="@style/SexTextView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_left"
                     android:text="@string/sexMale" />
@@ -109,7 +120,7 @@
                     android:id="@+id/sexFemale"
                     style="@style/SexTextView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_middle"
                     android:text="@string/sexFemale" />
@@ -118,7 +129,7 @@
                     android:id="@+id/sexUnknown"
                     style="@style/SexTextView"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_right"
                     android:text="@string/sexUnknown" />
@@ -126,6 +137,7 @@
             </LinearLayout>
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/breed" />
@@ -138,6 +150,7 @@
                 android:layout_marginBottom="@dimen/smallMargin" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/birthday" />
@@ -152,6 +165,7 @@
                 android:text="@string/birthday" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/food" />
@@ -166,6 +180,7 @@
                 android:text="@string/food" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/toy" />
@@ -175,9 +190,11 @@
                 android:id="@+id/favToy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
                 android:entries="@array/testItems" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/habbit" />
@@ -192,6 +209,7 @@
                 android:text="@string/habbit" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/chip" />
@@ -231,6 +249,7 @@
                 android:text="@string/saloons" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/education" />
@@ -257,13 +276,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/cancel" />
+                android:backgroundTint="@color/gray4_half_opacity"
+                android:text="@string/cancel"
+                android:textColor="@color/gray1" />
 
             <Button
                 android:id="@+id/delete"
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@color/gray1"
                 android:text="@string/delete" />
 
         </LinearLayout>

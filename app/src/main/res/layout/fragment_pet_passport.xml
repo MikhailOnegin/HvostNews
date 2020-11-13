@@ -57,6 +57,7 @@
             android:padding="@dimen/screenContentPadding">
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/petName" />
@@ -65,7 +66,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/petName" />
+                android:text="@string/petName"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/mainTitleTextSize"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="match_parent"
@@ -77,12 +81,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:background="@android:color/darker_gray"
-                android:padding="@dimen/smallMargin"
                 android:text="@string/vaccination"
-                android:textSize="17sp" />
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize"
+                android:textStyle="bold" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/vaccine" />
@@ -91,9 +96,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/vaccine" />
+                android:text="@string/vaccine"
+                android:textColor="@color/gray1" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/vaccineDate" />
@@ -109,7 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/smallMargin"
                     android:layout_weight="1"
-                    android:text="@string/vaccineDate" />
+                    android:text="@string/vaccineDate"
+                    android:textColor="@color/gray1" />
 
                 <Button
                     android:layout_width="0dp"
@@ -123,12 +131,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:background="@android:color/darker_gray"
-                android:padding="@dimen/smallMargin"
                 android:text="@string/deworming"
-                android:textSize="17sp" />
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize"
+                android:textStyle="bold" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/drug" />
@@ -137,9 +146,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/drug" />
+                android:text="@string/drug"
+                android:textColor="@color/gray1" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dewormingDate" />
@@ -155,7 +166,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/smallMargin"
                     android:layout_weight="1"
-                    android:text="@string/vaccine" />
+                    android:text="@string/vaccine"
+                    android:textColor="@color/gray1" />
 
                 <Button
                     android:layout_width="0dp"
@@ -169,12 +181,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:background="@android:color/darker_gray"
-                android:padding="@dimen/smallMargin"
                 android:text="@string/ekzo"
-                android:textSize="17sp" />
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize"
+                android:textStyle="bold" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/drug" />
@@ -183,9 +196,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/drug" />
+                android:text="@string/drug"
+                android:textColor="@color/gray1" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ekzoDate" />
@@ -202,7 +217,8 @@
                     android:layout_marginBottom="@dimen/smallMargin"
                     android:layout_weight="1"
                     android:baselineAligned="false"
-                    android:text="@string/vaccine" />
+                    android:text="@string/vaccine"
+                    android:textColor="@color/gray1" />
 
                 <Button
                     android:layout_width="0dp"
@@ -216,10 +232,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:background="@android:color/darker_gray"
-                android:padding="@dimen/smallMargin"
                 android:text="@string/diet"
-                android:textSize="17sp" />
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize"
+                android:textStyle="bold" />
 
             <Spinner
                 android:layout_width="match_parent"
@@ -231,10 +247,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:background="@android:color/darker_gray"
-                android:padding="@dimen/smallMargin"
                 android:text="@string/diseases"
-                android:textSize="17sp" />
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
@@ -244,21 +260,25 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/smallMargin"
+                android:id="@+id/delete"
+                style="@style/ElevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ButtonHeight"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@color/gray1"
                 android:text="@string/add" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:background="@android:color/darker_gray"
-                android:padding="@dimen/smallMargin"
                 android:text="@string/clinic"
-                android:textSize="17sp" />
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize"
+                android:textStyle="bold" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/clinicName" />
@@ -267,9 +287,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/clinicName" />
+                android:text="@string/clinicName"
+                android:textColor="@color/gray1" />
 
             <TextView
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/address" />
@@ -278,12 +300,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/address" />
+                android:text="@string/address"
+                android:textColor="@color/gray1" />
 
             <Button
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:padding="@dimen/smallMargin"
                 android:text="@string/saveChanges" />
 
@@ -291,8 +314,10 @@
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
+                android:backgroundTint="@color/gray4_half_opacity"
                 android:padding="@dimen/smallMargin"
-                android:text="@string/cancel" />
+                android:text="@string/cancel"
+                android:textColor="@color/gray1" />
 
         </LinearLayout>
 

@@ -56,7 +56,7 @@
             android:padding="@dimen/screenContentPadding">
 
             <TextView
-                style="@style/TextView"
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/xSmallMargin"
@@ -72,7 +72,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                style="@style/TextView"
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/xSmallMargin"
@@ -88,7 +88,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                style="@style/TextView"
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/xSmallMargin"
@@ -103,13 +103,6 @@
                 android:text="@string/secondName"
                 android:textColor="@android:color/black" />
 
-            <TextView
-                style="@style/TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/xSmallMargin"
-                android:text="@string/birthday" />
-
             <EditText
                 android:id="@+id/birthday"
                 style="@style/EditText"
@@ -117,11 +110,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:editable="false"
-                android:text="@string/birthday"
+                android:hint="@string/birthday"
                 android:textColor="@android:color/black" />
 
             <TextView
-                style="@style/TextView"
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/xSmallMargin"
@@ -133,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
-                android:text="@string/phone"
+                android:hint="@string/phone"
                 android:textColor="@android:color/black" />
 
             <TextView
@@ -145,7 +138,7 @@
                 android:textColor="@color/TextColorSecondary" />
 
             <TextView
-                style="@style/TextView"
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/xSmallMargin"
@@ -162,7 +155,7 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                style="@style/TextView"
+                style="@style/ProfileTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/xSmallMargin"
@@ -189,6 +182,7 @@
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
+                android:backgroundTint="@color/gray4_half_opacity"
                 android:text="@string/cancel" />
 
         </LinearLayout>
