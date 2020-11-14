@@ -256,6 +256,21 @@
         android:id="@+id/makeOrderFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.MakeOrderFragment"
         android:label="MakeOrderFragment"
-        tools:layout="@layout/fragment_make_order"/>
+        tools:layout="@layout/fragment_make_order">
+        <action
+            android:id="@+id/action_makeOrderFragment_to_finishOrderFragment"
+            app:destination="@id/finishOrderFragment"
+            app:enterAnim="@anim/fragment_slide_left"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popExitAnim="@anim/fragment_slide_right"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/finishOrderFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.FinishOrderFragment"
+        android:label="FinishOrderFragment"
+        tools:layout="@layout/fragment_finish_order"/>
 
 </navigation>

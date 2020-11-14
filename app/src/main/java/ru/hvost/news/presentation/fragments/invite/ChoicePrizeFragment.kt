@@ -6,13 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_prizes.view.*
+import kotlinx.android.synthetic.main.layout_popup_domains.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentChoicePrizeBinding
+import ru.hvost.news.presentation.adapters.PopupWindowDomainAdapter
 import ru.hvost.news.presentation.adapters.PrizeProductsAdapter
 import ru.hvost.news.utils.enums.State
 
@@ -73,16 +78,30 @@ class ChoicePrizeFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { product: String ->
-            val bundle = Bundle()
-            bundle.putString("PRODUCT_ID", product)
-            findNavController().navigate(R.id.action_domainFragment_to_subDomainFragment, bundle)
-        }
+        val onActionClicked = { product: String -> showPrizePopup(product) }
         val adapter = PrizeProductsAdapter(onActionClicked)
         binding.priceList.adapter = adapter
         adapter.submitList(mainVM.prizes.value?.filter { it.prizeId == arguments?.getString("PRIZE_ID") }
             ?.get(0)?.products)
         setDecoration()
+    }
+
+    private fun showPrizePopup(product: String) {
+//        val view = layoutInflater.inflate(R.layout.layout_popup_prize, binding.root, false)
+//        val popupWindow = PopupWindow(requireActivity())
+//
+//        val onActionClicked = { domain: String -> }
+//        val adapter = PrizeProductsAdapter(onActionClicked)
+//        view.prizeList.adapter = adapter
+//        adapter.submitList(mainVM.prizes.value?.filter { it.prizeId == product } )
+//        setPopupElementsDecoration(view)
+//        popupWindow.contentView = view
+//        popupWindow.width = binding.categoryTabs.measuredWidth
+//        popupWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
+//        popupWindow.setBackgroundDrawable(null)
+//        popupWindow.elevation = resources.getDimension(R.dimen.listItemElevation)
+//        popupWindow.isOutsideTouchable = true
+//        popupWindow.showAsDropDown(binding.title)
     }
 
     private fun setDecoration() {

@@ -8,6 +8,7 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class MainViewModel : ViewModel() {
 
@@ -50,6 +51,9 @@ class MainViewModel : ViewModel() {
 
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
+
+    //Событие, сообщающее о необходимости закрытия инструкций.
+    val closeInstructionsEvent = MutableLiveData<OneTimeEvent>()
 
     init {
         loadArticles()

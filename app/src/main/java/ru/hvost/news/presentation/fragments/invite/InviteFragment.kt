@@ -14,14 +14,13 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentGetPrizesPopupBinding
 import ru.hvost.news.databinding.FragmentInviteBinding
-import ru.hvost.news.databinding.FragmentInvitePopupBinding
-import ru.hvost.news.databinding.FragmentRegPopupBinding
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class InviteFragment : Fragment() {
 
@@ -60,6 +59,16 @@ class InviteFragment : Fragment() {
         binding.toPrizes.setOnClickListener {
             findNavController().navigate(R.id.action_inviteFragment_to_prizesFragment)
         }
+        binding.instructions.setOnClickListener { showInviteInstructions() }
+    }
+
+    private fun showInviteInstructions() {
+        requireActivity().findNavController(R.id.nav_host_fragment_invite_instructions).apply {
+            //Обновляем граф в NavController, чтобы всегда начинать с первого фрагмента.
+            setGraph(R.navigation.navigation_popup_invite_info)
+        }
+        //Показываем контейнер с инструкциями.
+        binding.instructionsContainer.visibility = View.VISIBLE
     }
 
     private fun sendToEmail() {
@@ -87,6 +96,17 @@ class InviteFragment : Fragment() {
         mainVM.bonusBalanceState.observe(viewLifecycleOwner, { onBalanceChanged(it) })
         mainVM.inviteLinkState.observe(viewLifecycleOwner, { onLinkChanged(it) })
         mainVM.sendInviteState.observe(viewLifecycleOwner, { onInviteSended(it) })
+        mainVM.closeInstructionsEvent.observe(
+            viewLifecycleOwner,
+            OneTimeEvent.Observer { onCloseInstructionsEvent() }
+            /* OneTimeEvent.Observer - специальный Observer для объектов типа OneTimeEvent.
+            * Реализация гарантирует, что обработчик сработает только один раз по одному событию. */
+        )
+    }
+
+    private fun onCloseInstructionsEvent() {
+        //Прячем контейнер с инструкциями.
+        binding.instructionsContainer.visibility = View.GONE
     }
 
     private fun onInviteSended(state: State?) {

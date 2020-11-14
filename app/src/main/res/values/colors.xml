@@ -37,7 +37,6 @@
     <color name="gray3">#7D82AF</color>
     <color name="gray4">#B9BEE1</color>
     <color name="gray5">#F0EBFA</color>
-
     <color name="lightGrayBackground">#F8F6FD</color>
     <!-- App colors palette -->
 
@@ -60,4 +59,6 @@
     <color name="gray1_opacity">#CC141428</color>
     <color name="color_1_opacity">#CCFA5F19</color>
     <color name="color_2_opacity">#CC1EC34B</color>
+    <color name="finishOrderTextSpanColor">#1EC34B</color>
+    <color name="gray4_half_opacity">#80B9BEE1</color>
 </resources>

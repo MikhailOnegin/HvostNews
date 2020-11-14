@@ -45,7 +45,7 @@
     <string name="diet">Питание</string>
     <string name="diseases">Хронические заболевания</string>
     <string name="add">Добавить</string>
-    <string name="clinic">Любимая dtnклиника</string>
+    <string name="clinic">Любимая ветклиника</string>
     <string name="clinicName">Название</string>
     <string name="address">Адрес ветклиники</string>
     <string name="stub">(нет)</string>
@@ -298,4 +298,14 @@
     <string name="makeOrderSummaryDiscount">Ваша скидка составила</string>
     <string name="makeOrderSummaryDiscountSum">Сумма скидки</string>
     <string name="makeOrderTitle">Оформление заказа</string>
+    <string name="phonePrefix">+7</string>
+    <string name="makeOrderSummaryDelivery">Стоимость доставки</string>
+    <string name="finishOrderTitle">Заказ оформлен</string>
+    <string name="finishOrderHint1">В течении 1 рабочего дня сотрудник нашей команды позвонит вам для подтверждения заказа.</string>
+    <string name="finishOrderHint2">Наш менеджер свяжется с вами для подтвеждения заказа и согласования условий доставки и оплаты.</string>
+    <string name="finishOrderHint3">Вы можете отслеживать статус заказа в личном кабинете</string>
+    <string name="finishOrderHint4">А можете перейти в ленту и почитать полезные статьи</string>
+    <string name="finishOrderTitle1">Спасибо! Ваш заказ</string>
+    <string name="finishOrderTitle2">принят и обрабатывается</string>
+    <string name="rightChevronCD">Стрелка вправо</string>
 </resources>

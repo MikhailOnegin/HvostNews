@@ -64,6 +64,19 @@ interface APIService {
         @Query("count") count: Int
     ): Deferred<SimpleResponse>
 
+    @GET("/rest/Basket/makeOrder/")
+    fun makeOrderAsync(
+        @Query("userToken") userToken: String?,
+        @Query("name") name: String?,
+        @Query("phone") phone: String?,
+        @Query("email") email: String?,
+        @Query("city") city: String?,
+        @Query("street") street: String?,
+        @Query("house") house: String?,
+        @Query("flat") flat: String?,
+        @Query("saveDataForFuture") saveDataForFuture: String?
+    ): Deferred<MakeOrderResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null

@@ -97,4 +97,7 @@
     <dimen name="dotFillerDotSize">2dp</dimen>
     <dimen name="dotFillerDashSize">2dp</dimen>
     <dimen name="prizeItemPriceTextSize">48sp</dimen>
+    <dimen name="textViewWithDotTextSize">16sp</dimen>
+    <dimen name="text_dot_size">10sp</dimen>
+    <dimen name="textViewWithDotPaddingStart">12sp</dimen>
 </resources>
