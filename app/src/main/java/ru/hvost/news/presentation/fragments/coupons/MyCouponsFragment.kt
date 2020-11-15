@@ -15,7 +15,6 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCouponsMyBinding
 import ru.hvost.news.models.Coupons
 import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
-import ru.hvost.news.presentation.adapters.spinners.SpinnerCustomAdapter
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 
 class MyCouponsFragment: Fragment() {
@@ -49,7 +48,6 @@ class MyCouponsFragment: Fragment() {
         binding.recyclerViewCoupons.adapter = adapter
         binding.recyclerViewCoupons.layoutManager = layoutManager
         val items = arrayListOf("Все","Активные", "Использованные")
-        binding.spinnerCoupons.adapter = SpinnerCustomAdapter(requireContext(), items)
         binding.imageBack.setOnClickListener {
             navC.popBackStack()
         }
