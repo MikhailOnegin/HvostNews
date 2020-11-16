@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -63,47 +62,59 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/balanceList"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toTopOf="@+id/balanceTitle"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <!--                <TextView-->
-                            <!--                    android:id="@+id/balanceBefore"-->
-                            <!--                    android:layout_width="match_parent"-->
-                            <!--                    android:layout_height="wrap_content"-->
-                            <!--                    android:layout_marginTop="@dimen/normalMargin"-->
-                            <!--                    android:text="73"-->
-                            <!--                    android:textAlignment="center"-->
-                            <!--                    android:textColor="@android:color/black"-->
-                            <!--                    android:textSize="@dimen/balanceTextSize" />-->
+                            <TextView
+                                android:id="@+id/balanceBefore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/normalMargin"
+                                android:layout_marginEnd="@dimen/normalMargin"
+                                android:gravity="center_vertical"
+                                android:text="99"
+                                android:textColor="@color/gray5"
+                                android:textSize="@dimen/balanceTextSize"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/balance"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/balance"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/normalMargin"
-                                android:text="@string/stub"
-                                android:textAlignment="center"
-                                android:textColor="@android:color/black"
-                                android:textSize="@dimen/balanceTextSize" />
+                                android:gravity="center"
+                                android:text="99"
+                                android:textColor="@color/gray1"
+                                android:textSize="@dimen/mainBalanceTextSize"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                            <!--                <TextView-->
-                            <!--                    android:id="@+id/balanceAfter"-->
-                            <!--                    android:layout_width="match_parent"-->
-                            <!--                    android:layout_height="wrap_content"-->
-                            <!--                    android:layout_marginTop="@dimen/normalMargin"-->
-                            <!--                    android:text="73"-->
-                            <!--                    android:textAlignment="center"-->
-                            <!--                    android:textColor="@android:color/black"-->
-                            <!--                    android:textSize="@dimen/balanceTextSize" />-->
+                            <TextView
+                                android:id="@+id/balanceAfter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/normalMargin"
+                                android:layout_marginTop="@dimen/normalMargin"
+                                android:gravity="center_vertical"
+                                android:text="99"
+                                android:textColor="@color/gray5"
+                                android:textSize="@dimen/balanceTextSize"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/balance"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
                             android:id="@+id/balanceTitle"
@@ -120,13 +131,13 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
+                    <Button
                         android:id="@+id/instructions"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/normalMargin"
                         android:layout_marginBottom="@dimen/normalMargin"
-                        android:background="@drawable/background_white_button"
                         android:paddingHorizontal="@dimen/orderButtonPadding"
                         android:paddingVertical="@dimen/buttonPadding"
                         android:text="@string/instruction"
@@ -135,7 +146,9 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mainBalanceInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/mainBalanceInfo"
+                        app:strokeColor="@color/btnStroke"
+                        app:strokeWidth="3dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -317,13 +330,14 @@
 
                 </LinearLayout>
 
-                <TextView
+                <Button
                     android:id="@+id/toPrizes"
+                    style="@style/ElevatedButton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/ButtonHeight"
                     android:layout_marginHorizontal="@dimen/screenContentPadding"
                     android:layout_marginBottom="@dimen/smallMargin"
-                    android:background="@drawable/background_orange_button"
+                    android:backgroundTint="@color/_1"
                     android:gravity="center"
                     android:text="@string/toPrizes"
                     android:textColor="@android:color/white"
@@ -342,39 +356,6 @@
 
             </LinearLayout>
 
-    <!--        <FrameLayout-->
-    <!--            android:id="@+id/regBackground"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:foreground="@color/color_2_opacity"-->
-    <!--            android:visibility="gone"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <FrameLayout-->
-    <!--            android:id="@+id/inviteBackground"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:foreground="@color/color_1_opacity"-->
-    <!--            android:visibility="gone"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <FrameLayout-->
-    <!--            android:id="@+id/getPrizesBackground"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="0dp"-->
-    <!--            android:foreground="@color/gray1_opacity"-->
-    <!--            android:visibility="gone"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -383,8 +364,7 @@
         android:id="@+id/instructionsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:visibility="gone">
 
         <fragment
             android:id="@+id/nav_host_fragment_invite_instructions"
@@ -393,7 +373,7 @@
             android:layout_height="match_parent"
             app:defaultNavHost="false"
             app:navGraph="@navigation/navigation_popup_invite_info"
-            tools:ignore="FragmentTagUsage"/>
+            tools:ignore="FragmentTagUsage" />
 
     </FrameLayout>
 

@@ -20,10 +20,7 @@ class RegPopup : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRegPopupBinding.inflate(inflater, container, false)
-        binding.root.setOnClickListener {
-            /* Пустой листенер позволяет перехватывать событие,
-            чтобы не скроллился контент на заднем фоне */
-        }
+        binding.root.setOnClickListener { }
         return binding.root
     }
 

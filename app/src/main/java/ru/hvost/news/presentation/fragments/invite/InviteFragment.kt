@@ -28,8 +28,8 @@ class InviteFragment : Fragment() {
     private lateinit var mainVM: MainViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = FragmentInviteBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,16 +40,6 @@ class InviteFragment : Fragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
         setListeners()
-    }
-
-    private fun showInfoPopup() {
-        val view = layoutInflater.inflate(R.layout.popup_invite_info, binding.root, false)
-        val popupWindow = PopupWindow(requireActivity())
-
-        popupWindow.contentView = view
-        popupWindow.width = LinearLayout.LayoutParams.WRAP_CONTENT
-        popupWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
-        popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
     }
 
     private fun setListeners() {
@@ -78,10 +68,10 @@ class InviteFragment : Fragment() {
     private fun copyRefLink() {
         val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip: ClipData =
-            ClipData.newPlainText("simple text", mainVM.inviteLinkResponse.value?.inviteLink)
+                ClipData.newPlainText("simple text", mainVM.inviteLinkResponse.value?.inviteLink)
         clipboard.setPrimaryClip(clip)
         Toast.makeText(requireActivity(), getString(R.string.refLinkCopied), Toast.LENGTH_SHORT)
-            .show()
+                .show()
     }
 
     private fun shareRefLink() {
@@ -97,15 +87,14 @@ class InviteFragment : Fragment() {
         mainVM.inviteLinkState.observe(viewLifecycleOwner, { onLinkChanged(it) })
         mainVM.sendInviteState.observe(viewLifecycleOwner, { onInviteSended(it) })
         mainVM.closeInstructionsEvent.observe(
-            viewLifecycleOwner,
-            OneTimeEvent.Observer { onCloseInstructionsEvent() }
-            /* OneTimeEvent.Observer - специальный Observer для объектов типа OneTimeEvent.
-            * Реализация гарантирует, что обработчик сработает только один раз по одному событию. */
+                viewLifecycleOwner,
+                OneTimeEvent.Observer { onCloseInstructionsEvent() }
+                /* OneTimeEvent.Observer - специальный Observer для объектов типа OneTimeEvent.
+                * Реализация гарантирует, что обработчик сработает только один раз по одному событию. */
         )
     }
 
     private fun onCloseInstructionsEvent() {
-        //Прячем контейнер с инструкциями.
         binding.instructionsContainer.visibility = View.GONE
     }
 
@@ -113,9 +102,9 @@ class InviteFragment : Fragment() {
         when (state) {
             State.SUCCESS -> {
                 Toast.makeText(
-                    requireActivity(),
-                    getString(R.string.sendedSuccessfull),
-                    Toast.LENGTH_SHORT
+                        requireActivity(),
+                        getString(R.string.sendedSuccessfull),
+                        Toast.LENGTH_SHORT
                 ).show()
             }
             State.FAILURE, State.ERROR -> {
@@ -136,7 +125,10 @@ class InviteFragment : Fragment() {
     private fun onBalanceChanged(state: State?) {
         when (state) {
             State.SUCCESS -> {
-                binding.balance.text = mainVM.bonusBalanceResponse.value?.bonusBalance.toString()
+                val balance = mainVM.bonusBalanceResponse.value?.bonusBalance ?: 98
+                binding.balanceBefore.text = balance.dec().toString()
+                binding.balance.text = balance.toString()
+                binding.balanceAfter.text = balance.inc().toString()
             }
             State.FAILURE, State.ERROR -> {
             }
