@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_order">
+
+    <TextView
+        android:id="@+id/number"
+        tools:text="№579 \u20bd"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="@dimen/orderNumberTextSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginTop="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/date"
+        tools:text="17.02.2019"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textColor="@color/gray4"
+        android:textSize="@dimen/orderNumberTextSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/number"
+        app:layout_constraintBottom_toBottomOf="@id/number"
+        app:layout_constraintStart_toEndOf="@id/number"
+        android:layout_marginStart="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/sum"
+        tools:text="122 879 \u20bd"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="@dimen/orderTotalSumTextSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginBottom="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/status"
+        tools:text="Выполнено"
+        android:textAllCaps="true"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="@dimen/orderStatusTextSize"
+        android:background="@drawable/background_order_status"
+        android:paddingTop="@dimen/xSmallMargin"
+        android:paddingBottom="@dimen/xSmallMargin"
+        android:paddingStart="@dimen/smallMargin"
+        android:paddingEnd="@dimen/smallMargin"
+        android:maxWidth="@dimen/orderStatusMaxWidth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/sum"
+        app:layout_constraintBottom_toBottomOf="@id/sum"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/normalMargin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -77,6 +77,11 @@ interface APIService {
         @Query("saveDataForFuture") saveDataForFuture: String?
     ): Deferred<MakeOrderResponse>
 
+    @GET("/rest/Orders/getOrders/")
+    fun getOrdersAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<GetOrdersResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null

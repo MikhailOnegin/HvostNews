@@ -92,12 +92,20 @@
         <action
             android:id="@+id/action_profileFragment_to_prizesFragment"
             app:destination="@id/prizesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="ru.hvost.news.presentation.fragments.profile.EditProfileFragment"
-        android:label="EditProfileFragment" />
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile"/>
 
     <fragment
         android:id="@+id/petProfileFragment"
@@ -272,5 +280,11 @@
         android:name="ru.hvost.news.presentation.fragments.shop.FinishOrderFragment"
         android:label="FinishOrderFragment"
         tools:layout="@layout/fragment_finish_order"/>
+
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="ru.hvost.news.presentation.fragments.orders.OrdersFragment"
+        android:label="OrdersFragment"
+        tools:layout="@layout/fragment_orders"/>
 
 </navigation>

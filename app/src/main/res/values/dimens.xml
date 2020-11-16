@@ -28,6 +28,7 @@
     <dimen name="outlinedButtonStrokeWidth">3dp</dimen>
     <dimen name="bnvHeight">56dp</dimen>
     <dimen name="smallCorners">8dp</dimen>
+    <dimen name="mediumCorners">16dp</dimen>
     <dimen name="xSmallCorners">5dp</dimen>
     <dimen name="regSubtitleTextSize">16sp</dimen>
     <dimen name="secondaryTextTextSize">14sp</dimen>
@@ -100,4 +101,8 @@
     <dimen name="textViewWithDotTextSize">16sp</dimen>
     <dimen name="text_dot_size">10sp</dimen>
     <dimen name="textViewWithDotPaddingStart">12sp</dimen>
+    <dimen name="orderNumberTextSize">18sp</dimen>
+    <dimen name="orderTotalSumTextSize">28sp</dimen>
+    <dimen name="orderStatusTextSize">12sp</dimen>
+    <dimen name="orderStatusMaxWidth">180dp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 package ru.hvost.news
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.events.OneTimeEvent
 
 class MainViewModel : ViewModel() {
@@ -295,6 +297,31 @@ class MainViewModel : ViewModel() {
                 } else changeUserDataState.value = State.ERROR
             } catch (exc: Exception) {
                 changeUserDataState.value = State.FAILURE
+            }
+        }
+    }
+
+    private val _loadingOrdersEvent = MutableLiveData<NetworkEvent<State>>()
+    val loadingOrdersEvent: LiveData<NetworkEvent<State>> = _loadingOrdersEvent
+    private val _orders = MutableLiveData<List<Order>>()
+    val orders: LiveData<List<Order>> = _orders
+    var ordersFilter = MutableLiveData<String>()
+
+    fun updateOrders(userToken: String?) {
+        viewModelScope.launch {
+            _loadingOrdersEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.getOrdersAsync(userToken).await()
+                if(result.result == "success"){
+                    _orders.value = result.toOrders()
+                    _loadingOrdersEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _loadingOrdersEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _orders.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _loadingOrdersEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _orders.value = listOf()
             }
         }
     }

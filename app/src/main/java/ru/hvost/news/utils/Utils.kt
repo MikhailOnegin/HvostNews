@@ -1,6 +1,7 @@
 package ru.hvost.news.utils
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.net.Uri
 import android.text.InputFilter
 import android.text.Spanned
@@ -10,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
@@ -17,6 +19,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import java.lang.StringBuilder
 import java.text.DecimalFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -126,7 +129,27 @@ fun scrollToTheTop(scrollView: NestedScrollView) {
 }
 
 @SuppressLint("ConstantLocale")
-val petBirthdayDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
+@SuppressLint("SimpleDateFormat")
+val serverDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
+
+fun tryFormatDate(
+    patternFrom: SimpleDateFormat,
+    patternTo: SimpleDateFormat,
+    dateString: String?,
+    default: String
+): String{
+    dateString?.run {
+        return try {
+            val date = patternFrom.parse(this)
+            if(date != null) patternTo.format(date)
+            else default
+        }catch (exc: ParseException){
+            default
+        }
+    } ?: return default
+}
 
 //sergeev: заменить на empty_image
 val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/test_image")
@@ -156,3 +179,38 @@ fun showNotReadyToast() {
         Toast.LENGTH_SHORT
     ).show()
 }
+
+class LinearRvItemDecorations(
+    sideMarginsDimension: Int,
+    marginBetweenElementsDimension: Int,
+) : RecyclerView.ItemDecoration() {
+
+    private val resources = App.getInstance().resources
+    private val sideMargins = resources.getDimension(sideMarginsDimension).toInt()
+    private val verticalMargin = resources.getDimension(marginBetweenElementsDimension).toInt()
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        val position = parent.getChildAdapterPosition(view)
+        outRect.set(
+            sideMargins,
+            if(position == 0) verticalMargin else 0,
+            sideMargins,
+            verticalMargin
+        )
+    }
+
+}
+
+val ordersStatuses = mapOf(
+    Pair("all", App.getInstance().getString(R.string.orderStatusAll)),
+    Pair("N", App.getInstance().getString(R.string.orderStatusN)),
+    Pair("DT", App.getInstance().getString(R.string.orderStatusDT)),
+    Pair("P", App.getInstance().getString(R.string.orderStatusP)),
+    Pair("F", App.getInstance().getString(R.string.orderStatusF)),
+    Pair("OT", App.getInstance().getString(R.string.orderStatusOT))
+)
