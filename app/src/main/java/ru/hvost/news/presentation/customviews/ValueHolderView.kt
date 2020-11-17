@@ -4,6 +4,7 @@ import android.animation.LayoutTransition
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import ru.hvost.news.R
 import ru.hvost.news.databinding.ValueHolderViewBinding
@@ -48,7 +49,10 @@ class ValueHolderView(
     }
 
     fun setHint(hint: String) {
-        binding.hint.text = hint
+        binding.hint.apply {
+            text = hint
+            visibility = if(hint.isBlank()) View.GONE else View.VISIBLE
+        }
     }
 
     fun setIcon(iconResource: Int) {

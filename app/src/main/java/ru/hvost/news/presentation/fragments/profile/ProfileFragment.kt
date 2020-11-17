@@ -123,6 +123,9 @@ class ProfileFragment : Fragment() {
         binding.choicePrize.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_prizesFragment)
         }
+        binding.allOrders.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
+        }
     }
 
     private fun setRecyclerView() {

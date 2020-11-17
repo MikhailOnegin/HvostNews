@@ -19,7 +19,7 @@ import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.dialogs.DatePickerDialog
 import ru.hvost.news.utils.hasBlankField
 import ru.hvost.news.utils.hasTooLongField
-import ru.hvost.news.utils.petBirthdayDateFormat
+import ru.hvost.news.utils.simpleDateFormat
 import ru.hvost.news.utils.scrollToTheTop
 import java.util.*
 
@@ -91,7 +91,7 @@ class RegPetFragment : Fragment() {
     private fun onPetBirthdayChanged(petBirthday: Date?) {
         petBirthday?.run {
             binding.petBirthday.setSelection(
-                petBirthdayDateFormat.format(this)
+                simpleDateFormat.format(this)
             )
         }
     }

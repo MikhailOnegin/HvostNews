@@ -29,6 +29,7 @@ class InvitePopup : Fragment() {
     }
 
     private fun setListeners() {
+        binding.root.setOnClickListener { }
         binding.next.setOnClickListener { findNavController().navigate(R.id.action_invitePopup_to_getPrizesPopup) }
     }
 }

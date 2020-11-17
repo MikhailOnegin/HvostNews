@@ -15,7 +15,7 @@ import ru.hvost.news.models.toRegistrationInterests
 import ru.hvost.news.models.toSpecies
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
-import ru.hvost.news.utils.petBirthdayDateFormat
+import ru.hvost.news.utils.simpleDateFormat
 import java.lang.Exception
 import java.lang.StringBuilder
 import java.util.*
@@ -144,7 +144,7 @@ class RegistrationVM : ViewModel() {
                     //voucher = voucher ?: "", //sergeev: Купоны не работают при регистрации.
                     interests = interestsIds ?: "",
                     petSpecies = petSpeciesId.toString(),
-                    petBirthday = petBirthdayDateFormat.format(petBirthday.value ?: Date()),
+                    petBirthday = simpleDateFormat.format(petBirthday.value ?: Date()),
                     petSex = petSex.value.toString()
                 ).await()
                 if(result.result == "success") _registrationState.value = NetworkEvent(State.SUCCESS)

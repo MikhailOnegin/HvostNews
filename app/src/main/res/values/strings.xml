@@ -308,4 +308,11 @@
     <string name="finishOrderTitle1">Спасибо! Ваш заказ</string>
     <string name="finishOrderTitle2">принят и обрабатывается</string>
     <string name="rightChevronCD">Стрелка вправо</string>
+    <string name="fragmentOrdersTitle">Мои заказы</string>
+    <string name="orderStatusN">Заказано</string>
+    <string name="orderStatusDT">Ожидаем забора транспортной компанией</string>
+    <string name="orderStatusP">Доставка</string>
+    <string name="orderStatusF">Выполнен</string>
+    <string name="orderStatusOT">Отменен</string>
+    <string name="orderStatusAll">Все</string>
 </resources>

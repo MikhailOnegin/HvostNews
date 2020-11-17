@@ -15,7 +15,7 @@ class QrCodeDialog: DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.dialog_qr_code, container, false)
-        rootView.constraint.setOnClickListener {
+        rootView.linearLayout.setOnClickListener {
             dismiss()
         }
         return rootView

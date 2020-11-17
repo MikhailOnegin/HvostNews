@@ -14,6 +14,8 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.FragmentArticleDetailBinding
 import ru.hvost.news.models.Article
+import ru.hvost.news.utils.imageRegEx
+import java.util.regex.Pattern
 
 class ArticleDetailFragment : Fragment() {
 
@@ -21,8 +23,8 @@ class ArticleDetailFragment : Fragment() {
     private lateinit var mainVM: MainViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = FragmentArticleDetailBinding.inflate(inflater, container, false)
         return binding.root
@@ -46,14 +48,19 @@ class ArticleDetailFragment : Fragment() {
 
     private fun bind(list: List<Article>?) {
         if (list != null) {
-//            val CODE_REGEX = "^<img.*.\">".toRegex()
-//            println(list[0].description.replace(CODE_REGEX, "картинка"))
+
+//            val CODE_REGEX = "^<img.*.\">"
+//            val pattern = imageRegEx
+//            println(pattern)
+//            println(list[0].description)
+//            println(pattern.matcher(list[0].description).matches())
+
             binding.title.text = list[0].title
             Glide
-                .with(binding.root)
-                .load(APIService.baseUrl + list[0].imageUrl)
-                .fitCenter()
-                .into(binding.img)
+                    .with(binding.root)
+                    .load(APIService.baseUrl + list[0].imageUrl)
+                    .fitCenter()
+                    .into(binding.img)
             binding.description.text = list[0].description.parseAsHtml()
             binding.likes.text = list[0].likesCount.toString()
             binding.views.text = list[0].viewsCount
