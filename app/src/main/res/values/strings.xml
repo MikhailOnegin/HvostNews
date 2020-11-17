@@ -315,4 +315,5 @@
     <string name="orderStatusF">Выполнен</string>
     <string name="orderStatusOT">Отменен</string>
     <string name="orderStatusAll">Все</string>
+    <string name="inviteFriendTitle">Пригласи друга</string>
 </resources>
