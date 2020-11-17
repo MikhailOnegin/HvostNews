@@ -13,4 +13,10 @@ data class OnlineSchoolsResponse(
         val images: String?,
         val description: String?
     )
+
+    data class Literature(
+         val title:String,
+         val pet:String,
+         val file:String
+    )
 }
