@@ -42,7 +42,6 @@ class PetAdapter(private val onClick: (String) -> Unit) :
                 return PetViewHolder(binding, onClick)
             }
         }
-
     }
 
     class PetDiffUtilCallback : DiffUtil.ItemCallback<Pets>() {

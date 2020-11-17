@@ -16,7 +16,7 @@
     <dimen name="toolbarHeight">60dp</dimen>
     <dimen name="logoPadding">20dp</dimen>
     <dimen name="prizeItemPadding">20dp</dimen>
-    <dimen name="iconPadding">5dp</dimen>
+    <dimen name="iconPadding">7dp</dimen>
     <dimen name="iconMargin">10dp</dimen>
     <dimen name="authorizationTitleTextSize">34sp</dimen>
     <dimen name="restorePasswordTextSize">14sp</dimen>
@@ -51,7 +51,8 @@
     <dimen name="textTitleSize">14sp</dimen>
     <dimen name="mainTitleTextSize">30sp</dimen>
     <dimen name="profileTitleSize">11sp</dimen>
-    <dimen name="userProfileButtonRadius">10dp</dimen>
+    <dimen name="userProfileButtonNormalRadius">10dp</dimen>
+    <dimen name="userProfileButtonLargeRadius">15dp</dimen>
     <dimen name="iconBackgroundRadius">15dp</dimen>
     <dimen name="notificationButtonMargin">15dp</dimen>
     <dimen name="iconSize">40dp</dimen>
@@ -60,6 +61,7 @@
     <dimen name="orderButtonPadding">25dp</dimen>
     <dimen name="toolbarButtonPadding">15dp</dimen>
     <dimen name="profileTitleTextSize">24sp</dimen>
+    <dimen name="orderCountTextSize">24sp</dimen>
     <dimen name="popupWindowCornerRadius">15dp</dimen>
     <dimen name="prizeItemCornerRadius">15dp</dimen>
     <dimen name="xSmallStrokeWidth">1dp</dimen>
@@ -111,4 +113,6 @@
     <dimen name="bottomSheetTopThingSideMargins">150dp</dimen>
     <dimen name="orderProductImageSize">80dp</dimen>
     <dimen name="orderImageShadowRadius">60dp</dimen>
+    <dimen name="inviteTextSize">13sp</dimen>
+    <dimen name="strokeWidthOutlinedButton">2dp</dimen>
 </resources>

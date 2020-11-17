@@ -317,4 +317,5 @@
     <string name="orderStatusAll">Все</string>
     <string name="orderNumber">Заказ №</string>
     <string name="deleteCD">Удалить заказ</string>
+    <string name="inviteFriendTitle">Пригласи друга</string>
 </resources>
