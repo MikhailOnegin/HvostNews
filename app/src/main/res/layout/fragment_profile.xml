@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/windowBackground"
     tools:context=".presentation.fragments.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -399,21 +400,22 @@
 
             </LinearLayout>
 
-            <TextView
+            <Button
                 android:id="@+id/allOrders"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/background_category_item"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:paddingHorizontal="@dimen/orderButtonPadding"
+                android:paddingVertical="@dimen/buttonPadding"
                 android:text="@string/checkAllOrders"
                 android:textColor="@color/titleText"
                 android:textSize="@dimen/regSubtitleTextSize"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/work"
-                tools:layout_editor_absoluteX="25dp"
-                android:clickable="true"
-                android:focusable="true"/>
+                app:strokeColor="@color/btnStroke"
+                app:strokeWidth="3dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

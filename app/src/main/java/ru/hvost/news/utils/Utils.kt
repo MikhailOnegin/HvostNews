@@ -180,6 +180,10 @@ fun showNotReadyToast() {
     ).show()
 }
 
+val imageRegEx = Pattern.compile("(<img.*\">)")
+val quoteRegEx = Pattern.compile("(<p>[\\s\\S.]*[^[<blockquote>]]</p>)")
+val parRegEx = Pattern.compile("(<blockquote>[\\s\\S.]*</blockquote>)")
+
 class LinearRvItemDecorations(
     sideMarginsDimension: Int,
     marginBetweenElementsDimension: Int,

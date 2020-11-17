@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/windowBackground"
     android:padding="@dimen/screenContentPadding"
-    tools:context=".presentation.fragments.articles.ArticlesFragment">
+    tools:context=".presentation.fragments.interests.InterestsFragment">
 
     <ImageView
         android:id="@+id/logo"

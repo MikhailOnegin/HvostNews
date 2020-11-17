@@ -90,6 +90,7 @@
     <dimen name="dialogSubtitleTextSize">16sp</dimen>
     <dimen name="balanceStrokeWidth">10dp</dimen>
     <dimen name="balanceTextSize">100sp</dimen>
+    <dimen name="mainBalanceTextSize">120sp</dimen>
     <dimen name="buttonPadding">10dp</dimen>
     <dimen name="popupWidth">325dp</dimen>
     <dimen name="makeOrderTextTitleTextSize">20sp</dimen>

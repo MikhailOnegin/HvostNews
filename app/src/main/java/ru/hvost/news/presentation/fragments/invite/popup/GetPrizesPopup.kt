@@ -20,6 +20,7 @@ class GetPrizesPopup : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGetPrizesPopupBinding.inflate(inflater, container, false)
+        binding.root.setOnClickListener { }
         binding.done.setOnClickListener {
             //Отправляем событие о необходимости закрытия инструкций.
             mainVM.closeInstructionsEvent.value = OneTimeEvent()
