@@ -9,6 +9,7 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.events.OneTimeEvent
 
@@ -306,6 +307,8 @@ class MainViewModel : ViewModel() {
     private val _orders = MutableLiveData<List<Order>>()
     val orders: LiveData<List<Order>> = _orders
     var ordersFilter = MutableLiveData<String>()
+    private val _orderSelectedEvent = MutableLiveData<Event<Order>>()
+    val orderSelectedEvent: LiveData<Event<Order>> = _orderSelectedEvent
 
     fun updateOrders(userToken: String?) {
         viewModelScope.launch {
@@ -324,6 +327,10 @@ class MainViewModel : ViewModel() {
                 _orders.value = listOf()
             }
         }
+    }
+
+    fun showOrder(order: Order) {
+        _orderSelectedEvent.value = Event(order)
     }
 
     companion object {

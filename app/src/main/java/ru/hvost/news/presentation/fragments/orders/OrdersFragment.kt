@@ -1,23 +1,27 @@
 package ru.hvost.news.presentation.fragments.orders
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentOrdersBinding
-import ru.hvost.news.models.Order
-import ru.hvost.news.models.orderStatus
+import ru.hvost.news.models.*
+import ru.hvost.news.presentation.adapters.recycler.OrderProductsAdapter
 import ru.hvost.news.presentation.adapters.recycler.OrdersAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.EventObserver
 
 class OrdersFragment : Fragment(){
 
@@ -31,6 +35,7 @@ class OrdersFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
+        binding.recyclerViewOrders.adapter = OrderProductsAdapter()
         initializeObservers()
         return binding.root
     }
@@ -53,6 +58,7 @@ class OrdersFragment : Fragment(){
             orders.observe(viewLifecycleOwner) { onOrdersChanged(it) }
             ordersFilter.observe(viewLifecycleOwner) { onOrdersFilterChanged(it) }
             loadingOrdersEvent.observe(viewLifecycleOwner, loadingObserver)
+            orderSelectedEvent.observe(viewLifecycleOwner, EventObserver(onOrderSelected))
         }
     }
 
@@ -67,6 +73,17 @@ class OrdersFragment : Fragment(){
     private fun setListeners() {
         binding.spinner.onItemSelectedListener = onFilterSelectedListener
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private val onOrderSelected = { order: Order ->
+        binding.root.isEnabled = false
+        val adapter = (binding.recyclerViewOrders.adapter as OrderProductsAdapter)
+        adapter.submitList(order.toOrderItems())
+        binding.orderNumber.text = "${getString(R.string.orderNumber)}${order.orderId}"
+        val params = (binding.orderContainer.layoutParams as CoordinatorLayout.LayoutParams)
+        val behavior = params.behavior as BottomSheetBehavior
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private val onFilterSelectedListener = object: AdapterView.OnItemSelectedListener {
@@ -106,7 +123,7 @@ class OrdersFragment : Fragment(){
 
     private fun setRecyclerView() {
         binding.recyclerView.apply {
-            adapter = OrdersAdapter()
+            adapter = OrdersAdapter(mainVM)
             addItemDecoration(LinearRvItemDecorations(
                 sideMarginsDimension = R.dimen.largeMargin,
                 marginBetweenElementsDimension = R.dimen.normalMargin

@@ -315,4 +315,6 @@
     <string name="orderStatusF">Выполнен</string>
     <string name="orderStatusOT">Отменен</string>
     <string name="orderStatusAll">Все</string>
+    <string name="orderNumber">Заказ №</string>
+    <string name="deleteCD">Удалить заказ</string>
 </resources>
