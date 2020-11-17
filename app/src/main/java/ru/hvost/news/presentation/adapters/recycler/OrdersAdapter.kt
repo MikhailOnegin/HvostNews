@@ -12,10 +12,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.RvOrderBinding
 import ru.hvost.news.models.Order
 import ru.hvost.news.presentation.adapters.recycler.OrdersAdapter.OrderVH
-import ru.hvost.news.utils.ordersStatuses
-import ru.hvost.news.utils.serverDateFormat
-import ru.hvost.news.utils.simpleDateFormat
-import ru.hvost.news.utils.tryFormatDate
+import ru.hvost.news.utils.*
 
 class OrdersAdapter : ListAdapter<Order, OrderVH>(OrderDiffUtilCallback()) {
 
@@ -43,7 +40,7 @@ class OrdersAdapter : ListAdapter<Order, OrderVH>(OrderDiffUtilCallback()) {
                     order.orderDate,
                     App.getInstance().getString(R.string.stub)
                 )
-                sum.text = "${order.totalCost} \u20bd" //sergeev: Разделитель разрядов.
+                sum.text = "${moneyFormat.format(order.totalCost)} \u20bd"
                 setStatus(order)
                 root.setOnClickListener {  }
             }
