@@ -56,7 +56,7 @@
     <string name="logo_status">Статус</string>
     <string name="logo_coupon_description">Описание купона</string>
     <string name="online_school">Онлайн школа</string>
-    <string name="seminars_in_your_sites">Семинары в вашем городе</string>
+    <string name="seminars_in_your_cities">Семинары в вашем городе</string>
     <string name="how_seminars_show">Какие семинары показывать</string>
     <string name="choose_your_city">Выберите ваш город</string>
     <string name="show_completed">Показывать завершенные</string>
@@ -315,4 +315,5 @@
     <string name="orderStatusF">Выполнен</string>
     <string name="orderStatusOT">Отменен</string>
     <string name="orderStatusAll">Все</string>
+    <string name="all">Все</string>
 </resources>

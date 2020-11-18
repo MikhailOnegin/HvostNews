@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/window_background"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     style="@style/EditText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,30 +15,39 @@
     android:scrollbarThumbHorizontal="@drawable/background_button_white">
 
 
-    <ImageButton
-        android:id="@+id/imageBack"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:background="@null"
-        android:src="@drawable/ic_action_back"
-        app:layout_constraintBottom_toBottomOf="@+id/tvToolbar"
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvToolbar" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:liftOnScroll="false">
 
-    <TextView
-        android:id="@+id/tvToolbar"
-        style="@style/TextViewToolbarTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:text="@string/my_coupons"
-        app:layout_constraintEnd_toStartOf="@+id/imageInfo"
-        app:layout_constraintStart_toEndOf="@+id/imageBack"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/my_coupons" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/container"
+            app:layout_scrollFlags="scroll|snap|enterAlways" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ImageButton
         android:id="@+id/imageInfo"
@@ -41,18 +56,9 @@
         android:layout_marginEnd="24dp"
         android:background="@null"
         android:src="@drawable/ic_question"
-        app:layout_constraintBottom_toBottomOf="@+id/tvToolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvToolbar" />
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_marginTop="16dp"
-        android:background="@color/gray4"
-        app:layout_constraintTop_toBottomOf="@+id/tvToolbar"
-        tools:layout_editor_absoluteX="24dp" />
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout2" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh_coupons"
@@ -87,6 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

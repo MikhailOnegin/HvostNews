@@ -1,18 +1,18 @@
 package ru.hvost.news.data.api.response
 
-data class OfflineLessonsResponse(
+data class OfflineSeminarsResponse(
     val result: String?,
     val error: String?,
-    val lessons: List<OfflineLessonResponse>?
+    val seminars: List<OfflineSeminarsResponse>?
 ) {
-    data class OfflineLessonResponse(
+    data class OfflineSeminarsResponse(
         val title: String?,
+        val description: String?,
         val imageUrl: String?,
         val isFinished: Boolean?,
         val date: String?,
         val city: String?,
         val sponsor: String?,
-        val description: String?,
         val schedule: List<String>?
     )
 }

@@ -34,9 +34,6 @@ class CouponsGetInfoFragment: Fragment() {
         couponVM = ViewModelProvider(this)[CouponViewModel::class.java]
         couponVM.getCouponsInfo("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         navC = findNavController()
-        binding.imageBack.setOnClickListener {
-            navC.popBackStack()
-        }
         setObservers()
     }
 

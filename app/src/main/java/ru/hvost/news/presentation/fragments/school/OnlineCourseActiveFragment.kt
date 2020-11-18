@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.fragments.school.online
+package ru.hvost.news.presentation.fragments.school
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
-import ru.hvost.news.models.OnlineSchool
+import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.adapters.recycler.OnlineSchoolAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
@@ -40,7 +40,7 @@ class OnlineCourseActiveFragment:Fragment() {
         navC = findNavController()
 
         val school = arguments?.get("school")
-        if(school is OnlineSchool.School){
+        if(school is OnlineSchools.School){
             if(school.title.isNotBlank()) binding.textViewTitle.text = school.title
             if(school.userRank.isNotBlank()) binding.textViewRank.text = school.userRank
             schoolVM.getOnlineLessons("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ" ,
