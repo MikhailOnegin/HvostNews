@@ -124,6 +124,26 @@ class PhoneInputFilter : InputFilter {
 
 }
 
+class PasswordInputFilter : InputFilter{
+
+    private val patternString = "[\\p{ASCII}]*"
+    private val pattern: Pattern = Pattern.compile(patternString)
+
+    override fun filter(
+        src: CharSequence,
+        sStart: Int,
+        sEnd: Int,
+        dest: Spanned,
+        dStart: Int,
+        dEnd: Int
+    ): CharSequence? {
+        val builder = StringBuilder(dest)
+        builder.replace(dStart, dEnd, src.substring(sStart, sEnd))
+        return if(pattern.matcher(builder.toString()).matches()) null else ""
+    }
+
+}
+
 fun scrollToTheTop(scrollView: NestedScrollView) {
     scrollView.smoothScrollTo(0, 0)
 }

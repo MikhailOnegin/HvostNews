@@ -28,6 +28,8 @@ class RegUserFragment : Fragment() {
     ): View? {
         binding = FragmentRegUserBinding.inflate(inflater, container, false)
         binding.phone.filters = arrayOf(PhoneInputFilter())
+        binding.password.filters = arrayOf(PasswordInputFilter())
+        binding.passwordConfirm.filters = arrayOf(PasswordInputFilter())
         binding.phone.setText(getString(R.string.phonePrefix))
         return binding.root
     }
@@ -57,6 +59,8 @@ class RegUserFragment : Fragment() {
         binding.phone.doOnTextChanged { _, _, _, _ -> checkIfFirstStageFinished() }
         binding.email.doOnTextChanged { _, _, _, _ -> checkIfFirstStageFinished() }
         binding.city.doOnTextChanged { _, _, _, _ -> checkIfFirstStageFinished() }
+        binding.password.doOnTextChanged { _, _, _, _ -> checkIfFirstStageFinished() }
+        binding.passwordConfirm.doOnTextChanged { _, _, _, _ -> checkIfFirstStageFinished() }
     }
 
     private val onButtonNextClicked = { _: View ->
@@ -67,7 +71,8 @@ class RegUserFragment : Fragment() {
 
     private fun isEverythingOk(): Boolean {
         binding.run {
-            val fields = arrayOf(surname, name, patronymic, phone, email, city)
+            val fields =
+                arrayOf(surname, name, patronymic, phone, email, city, password, passwordConfirm)
             if(hasBlankField(*fields)) {
                 scrollToTheTop(binding.scrollView)
                 return false
@@ -82,6 +87,14 @@ class RegUserFragment : Fragment() {
             }
             if(isEmailFieldIncorrect(email)) {
                 scrollToTheTop(binding.scrollView)
+                return false
+            }
+            if(password.text.toString() != passwordConfirm.text.toString()) {
+                password.error = getString(R.string.errorPasswordsAreDifferent)
+                return false
+            }
+            if(password.text.toString().length < resources.getInteger(R.integer.minPassLength)) {
+                password.error = getString(R.string.errorPasswordsTooSmall)
                 return false
             }
             if(!agreement.isChecked) {
@@ -104,6 +117,7 @@ class RegUserFragment : Fragment() {
         registrationVM.userPhone = binding.phone.text.toString()
         registrationVM.userEmail = binding.email.text.toString()
         registrationVM.userCity = binding.city.text.toString()
+        registrationVM.password = binding.password.text.toString()
     }
 
     private fun setObservers() {
@@ -126,6 +140,8 @@ class RegUserFragment : Fragment() {
                 binding.phone.text.isNullOrBlank() ||
                 binding.email.text.isNullOrBlank() ||
                 binding.city.text.isNullOrBlank() ||
+                binding.password.text.isNullOrBlank() ||
+                binding.passwordConfirm.text.isNullOrBlank() ||
                 !binding.agreement.isChecked)
     }
 

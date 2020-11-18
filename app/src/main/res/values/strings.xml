@@ -318,4 +318,8 @@
     <string name="orderNumber">Заказ №</string>
     <string name="deleteCD">Удалить заказ</string>
     <string name="inviteFriendTitle">Пригласи друга</string>
+    <string name="hintPassword">Пароль</string>
+    <string name="hintPasswordConfirm">Подтверждение пароля</string>
+    <string name="errorPasswordsAreDifferent">Пароль и подтверждение не совпадают</string>
+    <string name="errorPasswordsTooSmall">Минимум 8 символов</string>
 </resources>

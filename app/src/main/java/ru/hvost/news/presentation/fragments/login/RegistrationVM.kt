@@ -30,6 +30,7 @@ class RegistrationVM : ViewModel() {
     var userPatronymic: String? = null
     var userPhone: String? = null
     var userEmail: String? = null
+    var password: String? = null
     var userCity: String? = null
     //pet registration data
     val petSex = MutableLiveData<Int>()
@@ -145,7 +146,8 @@ class RegistrationVM : ViewModel() {
                     interests = interestsIds ?: "",
                     petSpecies = petSpeciesId.toString(),
                     petBirthday = simpleDateFormat.format(petBirthday.value ?: Date()),
-                    petSex = petSex.value.toString()
+                    petSex = petSex.value.toString(),
+                    password = password ?: ""
                 ).await()
                 if(result.result == "success") _registrationState.value = NetworkEvent(State.SUCCESS)
                 else _registrationState.value = NetworkEvent(State.ERROR, result.error)
@@ -185,7 +187,8 @@ class RegistrationVM : ViewModel() {
             || userCity.isNullOrBlank()
             || voucher.isNullOrBlank()
             || petName.isNullOrBlank()
-            || interestsIds.isNullOrBlank()) return true
+            || interestsIds.isNullOrBlank()
+            || password.isNullOrBlank()) return true
         if(petSex.value == null || petBirthday.value == null) return true
         if(petSpeciesId <= 0) return true
         return false
