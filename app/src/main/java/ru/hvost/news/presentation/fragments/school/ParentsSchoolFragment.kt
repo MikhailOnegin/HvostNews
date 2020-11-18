@@ -5,17 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_school_parents.*
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentsBinding
 import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarsAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolsOnlineAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.getValue
 
@@ -25,6 +28,7 @@ class ParentsSchoolFragment:Fragment() {
     private lateinit var schoolVM: SchoolViewModel
     private val onlineSchoolsAdapter = SchoolsOnlineAdapter()
     private val offlineLessonsAdapter = OfflineSeminarsAdapter()
+    private val citiesMap = mutableMapOf<String, String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,17 +43,26 @@ class ParentsSchoolFragment:Fragment() {
         schoolVM = ViewModelProvider(this)[SchoolViewModel::class.java]
         val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = onlineSchoolsAdapter
         schoolVM.getOnlineSchools("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         schoolVM.getOfflineCities()
+        offlineLessonsAdapter.spinnerListener = object:OfflineSeminarsAdapter.SpinnerSelected{
+            override fun onSelected(position: Int) {
+                val city = offlineLessonsAdapter.spinnerAdapter?.getItem(position)
+                city?.run {
+                    val cityId = citiesMap[this]
+                    cityId?.run {
+                        schoolVM.getOfflineSeminars(this)
+                    }
+                }
+            }
+        }
+        val itemsSpinnerOnline = arrayListOf("Все семинары", "Ваши семинары")
+        onlineSchoolsAdapter.spinnerAdapter = SpinnerAdapter(requireContext(), "", itemsSpinnerOnline, String::getValue)
+        binding.constraintOnlineScools.isSelected = true
+        binding.onlineSchool.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
         setObservers(this)
         setListeners()
-        schoolVM.getOfflineSeminars("5")
-        binding.recyclerView.adapter = onlineSchoolsAdapter
-
-        // for Test
-        val cities = arrayListOf("1","2")
-        val spinnerAdapter = SpinnerAdapter(requireContext(), "", cities, String::getValue)
-        offlineLessonsAdapter.setSpinnerAdapter(spinnerAdapter)
     }
 
     private fun setObservers(owner:LifecycleOwner){
@@ -59,15 +72,18 @@ class ParentsSchoolFragment:Fragment() {
         })
 
         schoolVM.offlineCities.observe(owner, Observer {
-            Log.i("eeee", "cities size: ${it.cities.size}")
-            val cities = arrayListOf<String>()
-            cities.add(getString(R.string.all))
-            for(i in 0 .. it.cities.size ){
-                val city = it.cities[i]
-                cities.add(city.name)
+            val citiesList = arrayListOf<String>()
+            for(element in it.cities){
+                citiesList.add(element.name)
+                citiesMap[element.name] = element.cityId
             }
-            val spinnerAdapter = SpinnerAdapter(requireContext(), "", cities, String::getValue)
-                offlineLessonsAdapter.setSpinnerAdapter(spinnerAdapter)
+            val spinnerAdapter = SpinnerAdapter(requireContext(), "", citiesList, String::getValue)
+                offlineLessonsAdapter.spinnerAdapter = spinnerAdapter
+            // need 0, 2 for test
+            val cityId = citiesMap[citiesList[2]]
+            cityId?.run {
+                schoolVM.getOfflineSeminars(this)
+            }
 
         })
 
@@ -78,13 +94,22 @@ class ParentsSchoolFragment:Fragment() {
     }
 
     private fun setListeners(){
+        val colorPrimary = ContextCompat.getColor(requireContext(), R.color.TextColorPrimary)
+        val colorWhite = ContextCompat.getColor(requireContext(), android.R.color.white)
         binding.constraintOnlineScools.setOnClickListener {
+            it.isSelected = true
+            constraint_offline_seminars.isSelected = false
             binding.recyclerView.adapter = onlineSchoolsAdapter
+            binding.onlineSchool.setTextColor(colorWhite)
+            binding.offlineSeminars.setTextColor(colorPrimary)
         }
 
         binding.constraintOfflineSeminars.setOnClickListener {
+            it.isSelected = true
+            constraint_onlineScools.isSelected = false
             binding.recyclerView.adapter = offlineLessonsAdapter
+            binding.offlineSeminars.setTextColor(colorWhite)
+            binding.onlineSchool.setTextColor(colorPrimary)
         }
     }
-
 }

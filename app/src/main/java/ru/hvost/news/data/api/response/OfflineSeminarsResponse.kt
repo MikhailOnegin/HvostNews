@@ -3,7 +3,7 @@ package ru.hvost.news.data.api.response
 data class OfflineSeminarsResponse(
     val result: String?,
     val error: String?,
-    val seminars: List<OfflineSeminarsResponse>?
+    val lessons: List<OfflineSeminarsResponse>?
 ) {
     data class OfflineSeminarsResponse(
         val title: String?,

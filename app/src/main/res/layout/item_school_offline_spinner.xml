@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    android:paddingBottom="24dp">
+    android:fitsSystemWindows="true">
 
     <Spinner
         android:id="@+id/spinner_cities"
@@ -13,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:forceDarkAllowed="false"
         android:outlineAmbientShadowColor="@color/bnvTextUnchecked"
@@ -31,17 +30,19 @@
         android:text="@string/show_completed"
         android:textColor="@color/gray1"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/switch1"
+        app:layout_constraintBottom_toBottomOf="@+id/switch_filter"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/switch1" />
+        app:layout_constraintTop_toTopOf="@+id/switch_filter" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:checked="true"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
         android:thumb="@drawable/ic_baseline_brightness_1_24"
         android:track="@drawable/track_selector"
         app:layout_constraintEnd_toEndOf="parent"

@@ -7,14 +7,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online.view.*
+import kotlinx.android.synthetic.main.item_school_online_spinner.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 
 class SchoolsOnlineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var schools = arrayListOf<OnlineSchools.School>()
     var clickSchool: ClickSchool? = null
+    var spinnerAdapter:SpinnerAdapter<String>? = null
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     interface ClickSchool {
         fun onClick(schools: OnlineSchools.School)
@@ -83,8 +90,12 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class SpinnerViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
-        fun bind(){
+        private val spinnerSchool = itemView.spinner_schools
 
+        fun bind(){
+            spinnerAdapter?.run {
+                spinnerSchool.adapter = this
+            }
         }
     }
 

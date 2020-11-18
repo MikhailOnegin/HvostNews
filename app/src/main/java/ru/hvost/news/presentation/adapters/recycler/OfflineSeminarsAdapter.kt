@@ -1,24 +1,36 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_lesson_offline_in_your_city.view.*
+import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
 import kotlinx.android.synthetic.main.item_school_offline_spinner.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import java.util.*
 
 class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var lessonsFull = arrayListOf<OfflineSeminars.OfflineLesson>()
     private var lessons = arrayListOf<OfflineSeminars.OfflineLesson>()
-    private var spinnerAdapter:SpinnerAdapter<String>? = null
-
+    var spinnerAdapter:SpinnerAdapter<String>? = null
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
     private var showFinished = true
+    var spinnerListener:SpinnerSelected? = null
+
+
+    interface SpinnerSelected{
+        fun onSelected(position:Int)
+    }
 
     fun setSeminars(seminars: List<OfflineSeminars.OfflineLesson>) {
         this.lessonsFull = seminars.toCollection(ArrayList())
@@ -26,12 +38,9 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setSpinnerAdapter(adapter: SpinnerAdapter<String>){
-        this.spinnerAdapter = adapter
-        notifyDataSetChanged()
-    }
 
     fun filter(showFinished: Boolean = this.showFinished) {
+        Log.i("eeee", "filter()")
         lessons = lessonsFull.filter { it.isFinished == showFinished }.toCollection(ArrayList())
         notifyDataSetChanged()
     }
@@ -55,7 +64,7 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             else -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_lesson_offline_in_your_city, parent, false)
+                    .inflate(R.layout.item_school_offline_seminar, parent, false)
                 OfflineLessonsViewHolder(view)
             }
         }
@@ -67,7 +76,6 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         when(holder){
             is OfflineLessonsViewHolder -> {
                 val lesson = lessons[position - 1]
@@ -106,11 +114,26 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class SpinnerViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
         private val spinner: Spinner = itemView.spinner_cities
+        private val switch = itemView.switch_filter
         fun bind(){
             spinnerAdapter?.run {
-                spinner.adapter = spinnerAdapter
+                spinner.adapter = this
+            }
+
+                switch.setOnCheckedChangeListener { compoundButton, b ->
+                    filter(b)
+                }
+            spinner.setSelection(0,false)
+            spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    //spinnerListener?.onSelected(2)
+                }
             }
         }
+
     }
 
     companion object {

@@ -27,11 +27,13 @@
             android:background="@drawable/sex_selector_left">
 
             <TextView
-                android:id="@+id/productsTitle"
+                android:id="@+id/onlineSchool"
                 style="@style/CartTypeTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/online_school"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -48,11 +50,13 @@
             android:background="@drawable/sex_selector_right">
 
             <TextView
-                android:id="@+id/prizesTitle"
+                android:id="@+id/offlineSeminars"
                 style="@style/CartTypeTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/seminars_in_your_cities"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"

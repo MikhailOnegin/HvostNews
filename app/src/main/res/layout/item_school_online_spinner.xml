@@ -10,12 +10,12 @@
     android:paddingBottom="24dp">
 
     <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_seminars"
+        android:id="@+id/spinner_schools"
         style="@style/Spinner2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:forceDarkAllowed="false"
         app:layout_constraintEnd_toEndOf="parent"
