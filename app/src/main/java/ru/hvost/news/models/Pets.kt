@@ -2,12 +2,13 @@ package ru.hvost.news.models
 
 import ru.hvost.news.data.api.response.PetsResponse
 
-class Pets(
+data class Pets(
     val petId: String,
     val petName: String,
     val petSpecies: String,
     val petSex: String,
     val petBreed: String,
+    val breedName: String,
     val petBirthday: String,
     val petDelicies: String,
     val petToy: String,
@@ -30,6 +31,7 @@ fun List<PetsResponse.Pet>.toPets(): List<Pets> {
                 petSpecies = pet.petSpecies ?: "",
                 petSex = pet.petSex ?: "",
                 petBreed = pet.petBreed ?: "",
+                breedName = pet.breedName ?: "",
                 petBirthday = pet.petBirthday ?: "",
                 petDelicies = pet.petDelicies ?: "",
                 petToy = pet.petToy ?: "",

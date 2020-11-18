@@ -102,6 +102,7 @@
     <dimen name="dotFillerDashSize">2dp</dimen>
     <dimen name="prizeItemPriceTextSize">48sp</dimen>
     <dimen name="textViewWithDotTextSize">16sp</dimen>
+    <dimen name="editTextSize">16sp</dimen>
     <dimen name="text_dot_size">10sp</dimen>
     <dimen name="textViewWithDotPaddingStart">12sp</dimen>
     <dimen name="orderNumberTextSize">18sp</dimen>
@@ -110,4 +111,5 @@
     <dimen name="orderStatusMaxWidth">180dp</dimen>
     <dimen name="inviteTextSize">13sp</dimen>
     <dimen name="strokeWidthOutlinedButton">2dp</dimen>
+    <dimen name="smallHeightButton">50dp</dimen>
 </resources>
