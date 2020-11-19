@@ -9,28 +9,17 @@ import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
-import kotlinx.android.synthetic.main.item_school_offline_spinner.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import java.util.*
 
-class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class OfflineSeminarsAdapter : RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
+
     private var lessonsFull = arrayListOf<OfflineSeminars.OfflineLesson>()
     private var lessons = arrayListOf<OfflineSeminars.OfflineLesson>()
-    var spinnerAdapter:SpinnerAdapter<String>? = null
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
     private var showFinished = true
-    var spinnerListener:SpinnerSelected? = null
-
-
-    interface SpinnerSelected{
-        fun onSelected(position:Int)
-    }
 
     fun setSeminars(seminars: List<OfflineSeminars.OfflineLesson>) {
         this.lessonsFull = seminars.toCollection(ArrayList())
@@ -38,53 +27,25 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-
     fun filter(showFinished: Boolean = this.showFinished) {
-        Log.i("eeee", "filter()")
         lessons = lessonsFull.filter { it.isFinished == showFinished }.toCollection(ArrayList())
         notifyDataSetChanged()
     }
 
-    fun clear() {
-        this.lessons.clear()
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfflineLessonsViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_school_offline_seminar, parent, false)
+        return OfflineLessonsViewHolder(view)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0) return TYPE_SPINNER
-        else TYPE_LESSON_OFFLINE
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            TYPE_SPINNER -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_school_offline_spinner, parent, false)
-                SpinnerViewHolder(view)
-            }
-            else -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_school_offline_seminar, parent, false)
-                OfflineLessonsViewHolder(view)
-            }
-        }
-
-    }
 
     override fun getItemCount(): Int {
-        return lessons.size + 1
+        return lessons.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
-            is OfflineLessonsViewHolder -> {
-                val lesson = lessons[position - 1]
-                holder.bind(lesson)
-            }
-            is SpinnerViewHolder -> {
-                holder.bind()
-            }
-        }
+    override fun onBindViewHolder(holder: OfflineLessonsViewHolder, position: Int) {
+        val lesson = lessons[position]
+        return holder.bind(lesson)
     }
 
     inner class OfflineLessonsViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
@@ -96,8 +57,7 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val tVCity = itemView.textView_lesson_city
 
         fun bind(lesson:OfflineSeminars.OfflineLesson){
-            Glide.with(itemView.context).load(baseUrl + lesson.imageUrl).placeholder(R.drawable.not_found).centerCrop()
-                .into(iVLesson)
+            Glide.with(itemView.context).load(baseUrl + lesson.imageUrl).placeholder(R.drawable.not_found).centerCrop().into(iVLesson)
             if(lesson.isFinished) {
                 tVStatus.text = "Завершено"
                 iVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
@@ -111,34 +71,4 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             tVCity.text = lesson.city
         }
     }
-
-    inner class SpinnerViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
-        private val spinner: Spinner = itemView.spinner_cities
-        private val switch = itemView.switch_filter
-        fun bind(){
-            spinnerAdapter?.run {
-                spinner.adapter = this
-            }
-
-                switch.setOnCheckedChangeListener { compoundButton, b ->
-                    filter(b)
-                }
-            spinner.setSelection(0,false)
-            spinner.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                }
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    //spinnerListener?.onSelected(2)
-                }
-            }
-        }
-
-    }
-
-    companion object {
-        const val TYPE_LESSON_OFFLINE = 0
-        const val TYPE_SPINNER = 1
-    }
-
 }
