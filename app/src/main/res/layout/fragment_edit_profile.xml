@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackground"
+    android:fitsSystemWindows="true"
     tools:context=".presentation.fragments.profile.EditProfileFragment">
 
     <LinearLayout
@@ -16,7 +17,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbarHeight"
-            android:background="@color/profileToolbarColorOpacity"
             android:orientation="horizontal">
 
             <ImageView
@@ -31,7 +31,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:fontFamily="@font/gilroy_bold"
+                android:fontFamily="@font/gilroy_medium"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/editProfileTitle"
                 android:textColor="@color/gray1"
@@ -57,136 +58,130 @@
             android:orientation="vertical"
             android:padding="@dimen/screenContentPadding">
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/xSmallMargin"
-                android:text="@string/surName" />
-
-            <EditText
-                android:id="@+id/surname"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/surName"
-                android:textSize="@dimen/editTextSize" />
-
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/xSmallMargin"
-                android:text="@string/name" />
-
-            <EditText
-                android:id="@+id/name"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/name"
-                android:textSize="@dimen/editTextSize" />
-
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/xSmallMargin"
-                android:text="@string/secondName" />
-
-            <EditText
-                android:id="@+id/patronymic"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/secondName"
-                android:textSize="@dimen/editTextSize" />
-
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:hint="@string/birthday"
-                app:endIconTint="@color/gray1"
-                android:textColorHint="@color/TextColorHints"
-                app:endIconDrawable="@drawable/ic_date"
-                app:endIconMode="custom">
+                android:fontFamily="@font/gilroy_bold"
+                android:hint="@string/surName">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/birthday"
+                    android:id="@+id/surname"
+                    style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/gilroy_bold"
-                    android:textColor="@color/TextColorPrimary"
-                    android:textSize="@dimen/editTextSize" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:fontFamily="@font/gilroy_bold"
+                android:hint="@string/name">
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/xSmallMargin"
-                android:text="@string/phone" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/phone"
-                style="@style/EditText"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone"
-                android:inputType="phone"
-                android:textSize="@dimen/editTextSize" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:fontFamily="@font/gilroy_bold"
+                android:hint="@string/secondName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/patronymic"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:fontFamily="@font/gilroy_bold"
+                android:hint="@string/birthday"
+                app:endIconDrawable="@drawable/ic_date"
+                app:endIconMode="custom"
+                app:endIconTint="@color/gray1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/birthday"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="false" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gilroy_bold"
+                android:hint="@string/phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/normalMargin"
+                android:fontFamily="@font/gilroy_medium"
                 android:paddingStart="@dimen/xSmallMargin"
                 android:text="@string/phoneHint"
                 android:textColor="@color/TextColorSecondary" />
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/xSmallMargin"
-                android:text="@string/email" />
-
-            <EditText
-                android:id="@+id/email"
-                style="@style/EditText"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:inputType="textEmailAddress"
-                android:text="@string/email"
-                android:textSize="@dimen/editTextSize" />
+                android:fontFamily="@font/gilroy_bold"
+                android:hint="@string/email">
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/xSmallMargin"
-                android:text="@string/city" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/city"
-                style="@style/EditText"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/city"
-                android:textSize="@dimen/editTextSize" />
+                android:fontFamily="@font/gilroy_bold"
+                android:hint="@string/city">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/city"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/save"
@@ -203,10 +198,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
                 android:backgroundTint="@color/gray4_half_opacity"
-                android:fontFamily="@font/gilroy_medium"
+                android:fontFamily="@font/gilroy_bold"
                 android:text="@string/cancel"
                 android:textAllCaps="false"
-                android:textStyle="bold"
                 app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
         </LinearLayout>
