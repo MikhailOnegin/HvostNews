@@ -1,24 +1,41 @@
 package ru.hvost.news.presentation.fragments.invite
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPrizesBinding
-import ru.hvost.news.presentation.adapters.PrizeAdapter
+import ru.hvost.news.presentation.adapters.PrizeCategoryAdapter
 import ru.hvost.news.utils.enums.State
 
 class PrizesFragment : Fragment() {
 
     private lateinit var binding: FragmentPrizesBinding
     private lateinit var mainVM: MainViewModel
+
+    override fun onStart() {
+        setSystemUiVisibility()
+        super.onStart()
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("InlinedApi")
+    private fun setSystemUiVisibility() {
+        requireActivity().window.run {
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +58,7 @@ class PrizesFragment : Fragment() {
 
     private fun setObservers() {
         mainVM.bonusBalanceState.observe(viewLifecycleOwner, { onBalanceChanged(it) })
-        mainVM.prizesState.observe(viewLifecycleOwner, { onPrizesChanged(it) })
+        mainVM.prizeCategoriesState.observe(viewLifecycleOwner, { onPrizeCategoriesChanged(it) })
     }
 
     private fun onBalanceChanged(state: State?) {
@@ -54,7 +71,7 @@ class PrizesFragment : Fragment() {
         }
     }
 
-    private fun onPrizesChanged(state: State?) {
+    private fun onPrizeCategoriesChanged(state: State?) {
         when (state) {
             State.SUCCESS -> {
                 setRecyclerView()
@@ -65,14 +82,15 @@ class PrizesFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { prize: String ->
+        val onActionClicked = { categoryId: String ->
             val bundle = Bundle()
-            bundle.putString("PRIZE_ID", prize)
+            bundle.putString("PRIZE_ID", categoryId)
+            mainVM.loadPrizes(categoryId)
             findNavController().navigate(R.id.action_prizesFragment_to_choicePrizeFragment, bundle)
         }
-        val adapter = PrizeAdapter(onActionClicked)
+        val adapter = PrizeCategoryAdapter(onActionClicked)
         binding.prizeList.adapter = adapter
-        adapter.submitList(mainVM.prizes.value)
+        adapter.submitList(mainVM.prizeCategoriesResponse.value)
         setDecoration()
     }
 

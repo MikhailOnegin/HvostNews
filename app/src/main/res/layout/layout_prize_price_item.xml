@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_item_list"
-    android:elevation="@dimen/listItemElevation"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingVertical="@dimen/largeMargin">
@@ -12,6 +11,7 @@
         android:id="@+id/cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_medium"
         android:textAlignment="center"
         android:textColor="@color/gray1"
         android:textSize="@dimen/prizeItemPriceTextSize"
@@ -20,6 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_medium"
         android:text="@string/cartForBonusesType3"
         android:textAlignment="center"
         android:textColor="@color/gray1"
