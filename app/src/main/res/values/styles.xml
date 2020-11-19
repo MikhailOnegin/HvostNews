@@ -32,7 +32,7 @@
 
     <style name="ProfileTitleTextView">
         <item name="android:fontFamily">@font/gilroy_bold</item>
-        <item name="android:textColor">@color/TextColorTitle</item>
+        <item name="android:textColor">@color/gray4</item>
         <item name="android:textSize">@dimen/textTitleSize</item>
     </style>
 

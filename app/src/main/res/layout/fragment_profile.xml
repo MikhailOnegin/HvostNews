@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackground"
+    android:fitsSystemWindows="true"
     tools:context=".presentation.fragments.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -221,17 +222,18 @@
             <!-- TODO: Поправить оформение кнопки -->
             <Button
                 android:id="@+id/choicePrize"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/buttonHeight"
                 android:layout_marginTop="@dimen/normalMargin"
                 android:layout_marginEnd="@dimen/profileTitleMargin"
+                android:backgroundTint="@color/whiteOpacity"
                 android:fontFamily="@font/gilroy_medium"
                 android:text="@string/choosePrizes"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/ButtonTextSize"
                 android:textStyle="bold"
-                android:backgroundTint="@color/whiteOpacity"
                 app:cornerRadius="@dimen/mediumCorners"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/invite"

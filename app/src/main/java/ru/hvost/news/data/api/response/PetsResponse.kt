@@ -10,6 +10,7 @@ data class PetsResponse(
         val petSpecies: String?,
         val petSex: String?,
         val petBreed: String?,
+        val breedName: String?,
         val petBirthday: String?,
         val petDelicies: String?,
         val petToy: String?,

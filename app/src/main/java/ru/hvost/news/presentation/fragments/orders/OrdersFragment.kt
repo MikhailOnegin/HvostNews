@@ -43,7 +43,6 @@ class OrdersFragment : Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        mainVM.updateOrders(App.getInstance().userToken)
         setObservers()
         setRecyclerView()
     }

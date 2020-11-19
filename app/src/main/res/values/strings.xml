@@ -5,7 +5,7 @@
     <string name="working">Наши специалисты работают над этим…</string>
     <string name="year">" года"</string>
     <string name="saveChanges">Сохранить изменения</string>
-    <string name="cancel">Отменить изменения</string>
+    <string name="cancel">Отменить</string>
     <string name="secondName">Отчество</string>
     <string name="name">Имя</string>
     <string name="surName">Фамилия</string>
@@ -323,4 +323,10 @@
     <string name="errorPasswordsAreDifferent">Пароль и подтверждение не совпадают</string>
     <string name="errorPasswordsTooSmall">Минимум 8 символов</string>
     <string name="all">Все</string>
+    <string name="ageForYearsType1">год</string>
+    <string name="ageForYearsType2">года</string>
+    <string name="ageForYearsType3">лет</string>
+    <string name="ageForMonthType1">месяц</string>
+    <string name="ageForMonthType2">месяца</string>
+    <string name="ageForMonthType3">месяцев</string>
 </resources>

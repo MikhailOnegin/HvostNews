@@ -1,9 +1,6 @@
 package ru.hvost.news
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
@@ -310,12 +307,16 @@ class MainViewModel : ViewModel() {
     private val _orderSelectedEvent = MutableLiveData<Event<Order>>()
     val orderSelectedEvent: LiveData<Event<Order>> = _orderSelectedEvent
 
+    val ordersInWork = Transformations.map(orders) { list -> list.count { it.orderStatus == "N" } }
+    val ordersConstructed = Transformations.map(orders) { list -> list.count { it.orderStatus == "DT" } }
+    val ordersFinished = Transformations.map(orders) { list -> list.count { it.orderStatus == "F" } }
+
     fun updateOrders(userToken: String?) {
         viewModelScope.launch {
             _loadingOrdersEvent.value = NetworkEvent(State.LOADING)
             try {
                 val result = APIService.API.getOrdersAsync(userToken).await()
-                if(result.result == "success"){
+                if (result.result == "success") {
                     _orders.value = result.toOrders()
                     _loadingOrdersEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
