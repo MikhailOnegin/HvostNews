@@ -48,9 +48,7 @@ class MyCouponsFragment: Fragment() {
         binding.recyclerViewCoupons.adapter = adapter
         binding.recyclerViewCoupons.layoutManager = layoutManager
         val items = arrayListOf("Все","Активные", "Использованные")
-        binding.imageBack.setOnClickListener {
-            navC.popBackStack()
-        }
+
         binding.imageInfo.setOnClickListener {
             navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)
         }

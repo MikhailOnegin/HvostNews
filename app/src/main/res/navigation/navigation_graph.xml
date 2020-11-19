@@ -146,7 +146,7 @@
 
     <fragment
         android:id="@+id/parentsSchoolFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.parents.ParentsSchoolFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.ParentsSchoolFragment"
         android:label="Parents school"
         tools:layout="@layout/fragment_school_parents" >
         <action
@@ -161,19 +161,19 @@
 
     <fragment
         android:id="@+id/offlineCourseActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.offline.OfflineCourseSeminars"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseSeminars"
         android:label="Offline course active"
         tools:layout="@layout/fragment_school_offline_event" />
 
     <fragment
         android:id="@+id/offlineSeminarsFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.offline.OfflineCourseSeminars"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseSeminars"
         android:label="Offline course completed"
         tools:layout="@layout/fragment_school_offline_event" />
 
     <fragment
         android:id="@+id/onlineCourseActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.online.OnlineCourseActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseActiveFragment"
         android:label="Online course active"
         tools:layout="@layout/fragment_school_online" >
         <action
@@ -228,7 +228,8 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="ru.hvost.news.presentation.fragments.map.MapFragment"
-        android:label="MapFragment" >
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment_to_partnersPageFragment"
             app:destination="@+id/partners_page_fragment"

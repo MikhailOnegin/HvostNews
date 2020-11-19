@@ -3,7 +3,7 @@ package ru.hvost.news.models
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import java.io.Serializable
 
-data class OnlineSchool(
+data class OnlineSchools(
     val schools: List<School>
 ) {
     data class School(
@@ -16,18 +16,18 @@ data class OnlineSchool(
         val description: String
     ): Serializable
 }
-fun OnlineSchoolsResponse.toDomain(): OnlineSchool{
-    return OnlineSchool(
+fun OnlineSchoolsResponse.toDomain(): OnlineSchools{
+    return OnlineSchools(
         schools = this.schools.toDomain()
     )
     }
 
-fun  List<OnlineSchoolsResponse.SchoolResponse>?.toDomain(): List<OnlineSchool.School> {
-    val result = mutableListOf<OnlineSchool.School>()
+fun  List<OnlineSchoolsResponse.SchoolResponse>?.toDomain(): List<OnlineSchools.School> {
+    val result = mutableListOf<OnlineSchools.School>()
     this?.run {
         for ((index, schoolResponse) in this.withIndex()) {
             result.add(
-                OnlineSchool.School(
+                OnlineSchools.School(
                     domainId = index,
                     id = schoolResponse.id ?: 0,
                     title = schoolResponse.title ?: "",

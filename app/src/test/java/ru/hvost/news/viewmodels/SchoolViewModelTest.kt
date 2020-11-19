@@ -41,7 +41,7 @@ class SchoolViewModelTest {
 
     @Test
     fun getOfflineLessons() = coroutineRule.testDispatcher.runBlockingTest {
-        schoolVmTest.getOfflineLessons(cityId)
+        schoolVmTest.getOfflineSeminars(cityId)
         val result = schoolVmTest.offlineLessonsState.getOrAwaitValueTest2(
             time = timeout,
             condition = { t: State? -> t != State.LOADING }

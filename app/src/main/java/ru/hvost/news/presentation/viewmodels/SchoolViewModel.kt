@@ -16,15 +16,15 @@ class SchoolViewModel: ViewModel() {
     private val mutableOfflineLessonsState:MutableLiveData<State> = MutableLiveData()
     val offlineLessonsState:LiveData<State> = mutableOfflineLessonsState
 
-    private val mutableOfflineLessons:MutableLiveData<OfflineLessons> = MutableLiveData()
-    val offlineLessons:LiveData<OfflineLessons> = mutableOfflineLessons
+    private val mutableOfflineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
+    val offlineSeminars:LiveData<OfflineSeminars> = mutableOfflineSeminars
 
-    fun getOfflineLessons(cityId:String){
+    fun getOfflineSeminars(cityId:String){
         viewModelScope.launch {
             mutableOfflineLessonsState.value = State.LOADING
             try {
-                val response = APIService.API.getOfflineLessonsAsync(cityId).await()
-                mutableOfflineLessons.value = response.toDomain()
+                val response = APIService.API.getOfflineSeminarsAsync(cityId).await()
+                mutableOfflineSeminars.value = response.toDomain()
                 if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
                 else mutableOfflineLessonsState.value = State.ERROR
             } catch (exc: Exception) {
@@ -58,8 +58,8 @@ class SchoolViewModel: ViewModel() {
     private val mutableOnlineSchoolsState:MutableLiveData<State> = MutableLiveData()
     val onlineSchoolsState:LiveData<State> = mutableOnlineSchoolsState
 
-    private val mutableOnlineSchools:MutableLiveData<OnlineSchool> = MutableLiveData()
-    val onlineSchools:LiveData<OnlineSchool> = mutableOnlineSchools
+    private val mutableOnlineSchools:MutableLiveData<OnlineSchools> = MutableLiveData()
+    val onlineSchools:LiveData<OnlineSchools> = mutableOnlineSchools
 
     fun getOnlineSchools(userToken: String){
         viewModelScope.launch {
@@ -101,7 +101,7 @@ class SchoolViewModel: ViewModel() {
     val offlineCitiesState:LiveData<State> = mutableOfflineCitiesState
 
     private val mutableOfflineCities:MutableLiveData<CitiesOffline> = MutableLiveData()
-    private val offlineCities:LiveData<CitiesOffline> = mutableOfflineCities
+    val offlineCities:LiveData<CitiesOffline> = mutableOfflineCities
 
     fun getOfflineCities(){
         viewModelScope.launch {

@@ -7,6 +7,7 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
 import android.view.View
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -238,3 +239,5 @@ val ordersStatuses = mapOf(
     Pair("F", App.getInstance().getString(R.string.orderStatusF)),
     Pair("OT", App.getInstance().getString(R.string.orderStatusOT))
 )
+val String.getValue: String
+    get() = this
