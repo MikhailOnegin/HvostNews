@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/countTitle"
+        style="@style/MakeOrderSummaryTextView.Secondary"
+        android:text="@string/makeOrderSummaryCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/xLargeMargin"
+        android:layout_marginStart="@dimen/largeMargin"/>
+
+    <ru.hvost.news.presentation.customviews.DotFillerView
+        style="@style/DotFiller"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/countTitle"
+        app:layout_constraintEnd_toStartOf="@id/count"
+        app:layout_constraintTop_toTopOf="@id/countTitle"
+        app:layout_constraintBottom_toBottomOf="@id/countTitle"
+        android:layout_marginStart="@dimen/xSmallMargin"
+        android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+    <TextView
+        android:id="@+id/count"
+        style="@style/MakeOrderSummaryTextView"
+        android:text="@string/numberStub"
+        tools:text="6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/xLargeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/discountTitle"
+        style="@style/MakeOrderSummaryTextView.Secondary"
+        android:text="@string/makeOrderSummaryDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/countTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"/>
+
+    <ru.hvost.news.presentation.customviews.DotFillerView
+        style="@style/DotFiller"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/discountTitle"
+        app:layout_constraintEnd_toStartOf="@id/discount"
+        app:layout_constraintTop_toTopOf="@id/discountTitle"
+        app:layout_constraintBottom_toBottomOf="@id/discountTitle"
+        android:layout_marginStart="@dimen/xSmallMargin"
+        android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+    <TextView
+        android:id="@+id/discount"
+        style="@style/MakeOrderSummaryTextView"
+        android:text="@string/numberStub"
+        tools:text="13,07%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/countTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/discountSumTitle"
+        style="@style/MakeOrderSummaryTextView.Secondary"
+        android:text="@string/makeOrderSummaryDiscountSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/discountTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"/>
+
+    <ru.hvost.news.presentation.customviews.DotFillerView
+        style="@style/DotFiller"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/discountSumTitle"
+        app:layout_constraintEnd_toStartOf="@id/discountSum"
+        app:layout_constraintTop_toTopOf="@id/discountSumTitle"
+        app:layout_constraintBottom_toBottomOf="@id/discountSumTitle"
+        android:layout_marginStart="@dimen/xSmallMargin"
+        android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+    <TextView
+        android:id="@+id/discountSum"
+        style="@style/MakeOrderSummaryTextView"
+        android:text="@string/numberStub"
+        tools:text="13,07%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/discountTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/deliveryTitle"
+        style="@style/MakeOrderSummaryTextView.Secondary"
+        android:text="@string/makeOrderSummaryDelivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/discountSumTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"/>
+
+    <ru.hvost.news.presentation.customviews.DotFillerView
+        style="@style/DotFiller"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/deliveryTitle"
+        app:layout_constraintEnd_toStartOf="@id/delivery"
+        app:layout_constraintTop_toTopOf="@id/deliveryTitle"
+        app:layout_constraintBottom_toBottomOf="@id/deliveryTitle"
+        android:layout_marginStart="@dimen/xSmallMargin"
+        android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+    <TextView
+        android:id="@+id/delivery"
+        style="@style/MakeOrderSummaryTextView"
+        android:text="@string/numberStub"
+        tools:text="13,07%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/discountSumTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/totalTitle"
+        style="@style/CartFooterTextView"
+        android:text="@string/cartFooterTotalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deliveryTitle"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginBottom="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/total"
+        android:text="@string/numberStub"
+        style="@style/CartFooterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/totalTitle"
+        app:layout_constraintBottom_toBottomOf="@id/totalTitle"
+        android:layout_marginEnd="@dimen/largeMargin"
+        tools:text="12 650 \u20bd"/>
+
+    <ImageView
+        android:id="@+id/delete"
+        android:contentDescription="@string/deleteCD"
+        android:background="@drawable/background_round_image_button"
+        android:padding="@dimen/normalMargin"
+        android:src="@drawable/ic_trash_can"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@id/totalTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:layout_marginBottom="@dimen/largeMargin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

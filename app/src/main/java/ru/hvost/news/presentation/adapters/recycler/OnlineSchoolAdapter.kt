@@ -3,14 +3,17 @@ package ru.hvost.news.presentation.adapters.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_lesson_online.view.*
 import kotlinx.android.synthetic.main.item_lesson_online.view.textView_title
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
+import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.ItemUsefulLiteratureBinding
+import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 
 class OnlineSchoolAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -86,15 +89,16 @@ class OnlineSchoolAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val container = itemView.linearLayout
             container.removeAllViews()
             for(i in literature.indices){
-                val view = ItemUsefulLiteratureBinding.inflate(
+                val view = LayoutLiteratureItemBinding.inflate(
                     LayoutInflater.from(itemView.context),
                     container,
                     false
-                ).linearLayout
+                ).root
 
                 view.textView_title.text = literature[i].title
                 view.textView_pet.text = literature[i].pet
-
+                val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                (view.layoutParams as LinearLayout.LayoutParams).setMargins(0, margin, margin + margin, 0)
                 container.addView(view)
             }
         }

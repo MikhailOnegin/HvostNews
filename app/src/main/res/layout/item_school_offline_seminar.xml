@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="24dp">
+    android:paddingBottom="24dp">
 
     <ImageView
         android:id="@+id/imageView8"
@@ -34,6 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         app:cardBackgroundColor="@null"
         app:cardCornerRadius="8dp"
@@ -113,8 +114,8 @@
 
     <ImageView
         android:id="@+id/imageView_date"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/textView_lesson_date"

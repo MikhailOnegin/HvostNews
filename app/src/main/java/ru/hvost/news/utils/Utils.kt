@@ -7,6 +7,7 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
 import android.view.View
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -124,6 +125,26 @@ class PhoneInputFilter : InputFilter {
 
 }
 
+class PasswordInputFilter : InputFilter{
+
+    private val patternString = "[\\p{ASCII}]*"
+    private val pattern: Pattern = Pattern.compile(patternString)
+
+    override fun filter(
+        src: CharSequence,
+        sStart: Int,
+        sEnd: Int,
+        dest: Spanned,
+        dStart: Int,
+        dEnd: Int
+    ): CharSequence? {
+        val builder = StringBuilder(dest)
+        builder.replace(dStart, dEnd, src.substring(sStart, sEnd))
+        return if(pattern.matcher(builder.toString()).matches()) null else ""
+    }
+
+}
+
 fun scrollToTheTop(scrollView: NestedScrollView) {
     scrollView.smoothScrollTo(0, 0)
 }
@@ -218,3 +239,5 @@ val ordersStatuses = mapOf(
     Pair("F", App.getInstance().getString(R.string.orderStatusF)),
     Pair("OT", App.getInstance().getString(R.string.orderStatusOT))
 )
+val String.getValue: String
+    get() = this

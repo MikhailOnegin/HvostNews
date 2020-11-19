@@ -1,8 +1,10 @@
 package ru.hvost.news.models
 
+import android.net.Uri
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.response.GetOrdersResponse
+import ru.hvost.news.utils.getUriForBackendImagePath
 import ru.hvost.news.utils.ordersStatuses
 
 data class Order(
@@ -15,32 +17,34 @@ data class Order(
     val deliveryCost: Float,
     val totalCost: Float,
     val products: List<Product>,
-) {
+)
 
-    data class Product(
-        val id: Long,
-        val productId: Long,
-        val nameProduct: String,
-        val count: Int,
-        val price: Float
-    )
+data class Product(
+    val id: Long,
+    val productId: Long,
+    val nameProduct: String,
+    val count: Int,
+    val price: Float,
+    val imageUri: Uri
+): OrderItem()
 
-}
+sealed class OrderItem
 
 fun GetOrdersResponse.toOrders() : List<Order> {
     if(orders == null) return listOf()
     orders.run {
         val result = mutableListOf<Order>()
         for((orderIndex,responseOrder) in this.withIndex()) {
-            val products = mutableListOf<Order.Product>()
+            val products = mutableListOf<Product>()
             for((productIndex, responseProduct) in responseOrder.products?.withIndex() ?: listOf()) {
                 products.add(
-                    Order.Product(
+                    Product(
                         id = productIndex.toLong(),
                         productId = responseProduct.productId ?: 0L,
                         nameProduct = responseProduct.nameProduct ?: "",
                         count = responseProduct.count ?: 0,
-                        price = responseProduct.price ?: 0f
+                        price = responseProduct.price ?: 0f,
+                        imageUri = getUriForBackendImagePath(responseProduct.imageUrl)
                     )
                 )
             }
@@ -64,3 +68,24 @@ fun GetOrdersResponse.toOrders() : List<Order> {
 
 val String.orderStatus
     get() = ordersStatuses[this] ?: App.getInstance().getString(R.string.stub)
+
+data class OrderFooter(
+    val count: Int,
+    val discount: Float,
+    val discountSum: Float,
+    val deliveryCost: Float,
+    val totalCost: Float,
+) : OrderItem()
+
+fun Order.toOrderItems(): List<OrderItem>{
+    val result = mutableListOf<OrderItem>()
+    result.addAll(this.products)
+    result.add(OrderFooter(
+        count = this.products.size,
+        discount = this.discountPercent,
+        discountSum = this.discountCurrency,
+        deliveryCost = this.deliveryCost,
+        totalCost = this.totalCost
+    ))
+    return result
+}
