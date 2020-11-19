@@ -8,23 +8,29 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.App
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.RvOrderBinding
 import ru.hvost.news.models.Order
 import ru.hvost.news.presentation.adapters.recycler.OrdersAdapter.OrderVH
 import ru.hvost.news.utils.*
 
-class OrdersAdapter : ListAdapter<Order, OrderVH>(OrderDiffUtilCallback()) {
+class OrdersAdapter(
+    private val mainVM: MainViewModel
+) : ListAdapter<Order, OrderVH>(OrderDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderVH {
-        return OrderVH.getOrderViewHolder(parent)
+        return OrderVH.getOrderViewHolder(parent, mainVM)
     }
 
     override fun onBindViewHolder(holder: OrderVH, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class OrderVH(val binding: RvOrderBinding) : RecyclerView.ViewHolder(binding.root) {
+    class OrderVH(
+        private val binding: RvOrderBinding,
+        private val mainVM: MainViewModel
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private val stub = App.getInstance().getString(R.string.stub)
         private val textColorWhite = ContextCompat.getColor(App.getInstance(), android.R.color.white)
@@ -42,7 +48,7 @@ class OrdersAdapter : ListAdapter<Order, OrderVH>(OrderDiffUtilCallback()) {
                 )
                 sum.text = "${moneyFormat.format(order.totalCost)} \u20bd"
                 setStatus(order)
-                root.setOnClickListener {  }
+                root.setOnClickListener { mainVM.showOrder(order) }
             }
         }
 
@@ -68,13 +74,16 @@ class OrdersAdapter : ListAdapter<Order, OrderVH>(OrderDiffUtilCallback()) {
 
         companion object {
 
-            fun getOrderViewHolder(parent: ViewGroup): OrderVH {
+            fun getOrderViewHolder(
+                parent: ViewGroup,
+                mainVM: MainViewModel
+            ): OrderVH {
                 val binding = RvOrderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return OrderVH(binding)
+                return OrderVH(binding, mainVM)
             }
 
         }

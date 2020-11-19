@@ -7,26 +7,47 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_profile.*
+import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentProfileBinding
+import ru.hvost.news.models.Order
+import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.PetAdapter
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.NetworkEvent
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var couponsMV: CouponViewModel
-    //    private lateinit var mainVM: MainViewModel TODO: доделать кол-во промокодов
     private lateinit var navC: NavController
+
+    override fun onStart() {
+        setSystemUiVisibility()
+        super.onStart()
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("InlinedApi")
+    private fun setSystemUiVisibility() {
+        requireActivity().window.run {
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +60,9 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        mainVM.updateOrders(App.getInstance().userToken)
         couponsMV = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
+        couponsMV.getCoupons(App.getInstance().userToken!!)
         setObservers()
         setListeners()
         navC = findNavController()
@@ -51,14 +74,21 @@ class ProfileFragment : Fragment() {
         mainVM.userPetsState.observe(viewLifecycleOwner, Observer { setPetsToBind(it) })
         mainVM.bonusBalanceState.observe(viewLifecycleOwner, Observer { onBalanceChanged(it) })
         couponsMV.couponsState.observe(viewLifecycleOwner, Observer { onCouponsChanged(it) })
-//        mainVM.bonusBalanceState.observe(viewLifecycleOwner, Observer { onVouchersChanged(it) })
+        mainVM.ordersInWork.observe(
+            viewLifecycleOwner,
+            { binding.inWorkStatus.text = it.toString() })
+        mainVM.ordersConstructed.observe(
+            viewLifecycleOwner,
+            { binding.constructedStatus.text = it.toString() })
+        mainVM.ordersFinished.observe(
+            viewLifecycleOwner,
+            { binding.finishedStatus.text = it.toString() })
     }
 
     private fun onCouponsChanged(state: State) {
         when (state) {
             State.SUCCESS -> {
-                if (couponsCount != null) binding.couponsCount.text = couponsCount.toString()
-                else binding.couponsCount.text = "0"
+                binding.couponsCount.text = couponsMV.couponsCount.toString()
             }
             State.FAILURE, State.ERROR -> {
             }

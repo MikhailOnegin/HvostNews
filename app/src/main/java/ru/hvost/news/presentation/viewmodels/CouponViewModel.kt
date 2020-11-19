@@ -29,9 +29,9 @@ class CouponViewModel : ViewModel() {
             try {
                 val response = APIService.API.getCouponsAsync(userToken).await()
                 mutableCoupons.value = response.toDomain()
+                couponsCount = mutableCoupons.value?.coupons?.size
                 if (response.result == "success") {
                     mutableCouponsState.value = State.SUCCESS
-                    couponsCount = response.coupons?.size
                 } else mutableCouponsState.value = State.ERROR
             } catch (exc: Exception) {
                 Log.i("eeee", "getCoupons() ERROR: ${exc.message}")

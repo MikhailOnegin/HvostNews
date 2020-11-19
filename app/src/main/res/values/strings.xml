@@ -5,7 +5,7 @@
     <string name="working">Наши специалисты работают над этим…</string>
     <string name="year">" года"</string>
     <string name="saveChanges">Сохранить изменения</string>
-    <string name="cancel">Отменить изменения</string>
+    <string name="cancel">Отменить</string>
     <string name="secondName">Отчество</string>
     <string name="name">Имя</string>
     <string name="surName">Фамилия</string>
@@ -56,7 +56,7 @@
     <string name="logo_status">Статус</string>
     <string name="logo_coupon_description">Описание купона</string>
     <string name="online_school">Онлайн школа</string>
-    <string name="seminars_in_your_sites">Семинары в вашем городе</string>
+    <string name="seminars_in_your_cities">Семинары в вашем городе</string>
     <string name="how_seminars_show">Какие семинары показывать</string>
     <string name="choose_your_city">Выберите ваш город</string>
     <string name="show_completed">Показывать завершенные</string>
@@ -315,4 +315,18 @@
     <string name="orderStatusF">Выполнен</string>
     <string name="orderStatusOT">Отменен</string>
     <string name="orderStatusAll">Все</string>
+    <string name="orderNumber">Заказ №</string>
+    <string name="deleteCD">Удалить заказ</string>
+    <string name="inviteFriendTitle">Пригласи друга</string>
+    <string name="hintPassword">Пароль</string>
+    <string name="hintPasswordConfirm">Подтверждение пароля</string>
+    <string name="errorPasswordsAreDifferent">Пароль и подтверждение не совпадают</string>
+    <string name="errorPasswordsTooSmall">Минимум 8 символов</string>
+    <string name="all">Все</string>
+    <string name="ageForYearsType1">год</string>
+    <string name="ageForYearsType2">года</string>
+    <string name="ageForYearsType3">лет</string>
+    <string name="ageForMonthType1">месяц</string>
+    <string name="ageForMonthType2">месяца</string>
+    <string name="ageForMonthType3">месяцев</string>
 </resources>

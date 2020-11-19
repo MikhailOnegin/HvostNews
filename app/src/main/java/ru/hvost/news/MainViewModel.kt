@@ -1,14 +1,12 @@
 package ru.hvost.news
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.events.OneTimeEvent
 
@@ -306,13 +304,19 @@ class MainViewModel : ViewModel() {
     private val _orders = MutableLiveData<List<Order>>()
     val orders: LiveData<List<Order>> = _orders
     var ordersFilter = MutableLiveData<String>()
+    private val _orderSelectedEvent = MutableLiveData<Event<Order>>()
+    val orderSelectedEvent: LiveData<Event<Order>> = _orderSelectedEvent
+
+    val ordersInWork = Transformations.map(orders) { list -> list.count { it.orderStatus == "N" } }
+    val ordersConstructed = Transformations.map(orders) { list -> list.count { it.orderStatus == "DT" } }
+    val ordersFinished = Transformations.map(orders) { list -> list.count { it.orderStatus == "F" } }
 
     fun updateOrders(userToken: String?) {
         viewModelScope.launch {
             _loadingOrdersEvent.value = NetworkEvent(State.LOADING)
             try {
                 val result = APIService.API.getOrdersAsync(userToken).await()
-                if(result.result == "success"){
+                if (result.result == "success") {
                     _orders.value = result.toOrders()
                     _loadingOrdersEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
@@ -324,6 +328,10 @@ class MainViewModel : ViewModel() {
                 _orders.value = listOf()
             }
         }
+    }
+
+    fun showOrder(order: Order) {
+        _orderSelectedEvent.value = Event(order)
     }
 
     companion object {

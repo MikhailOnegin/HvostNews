@@ -6,48 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
+        android:background="@drawable/window_background"
         android:fitsSystemWindows="true">
 
 
-        <View
-            android:id="@+id/view4"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout2"
             android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:layout_marginTop="16dp"
-            android:background="@color/gray4"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:stateListAnimator="@null"
+            app:elevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvToolbar" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:liftOnScroll="false">
 
-        <ImageButton
-            android:id="@+id/imageBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:background="@null"
-            android:src="@drawable/ic_action_back"
-            app:layout_constraintBottom_toBottomOf="@+id/tvToolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvToolbar" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:theme="@style/AppTheme.Toolbar"
+                app:layout_scrollFlags="scroll|snap|enterAlways"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="@string/how_get_coupons" />
 
-        <TextView
-            android:id="@+id/tvToolbar"
-            style="@style/TextViewToolbarTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="48dp"
-            android:gravity="center"
-            android:text="@string/how_get_coupons"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageBack"
-            app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/container"
+                app:layout_scrollFlags="scroll|snap|enterAlways" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <TextView
@@ -78,7 +81,7 @@
             app:cardPreventCornerOverlap="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view4">
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -100,4 +103,5 @@
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </ScrollView>

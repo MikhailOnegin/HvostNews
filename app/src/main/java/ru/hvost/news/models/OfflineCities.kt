@@ -12,7 +12,7 @@ data class CitiesOffline (
 }
 fun OfflineCitiesResponse.toDomain():CitiesOffline{
     return CitiesOffline(
-        cities = this.citiesOffline.toDomain()
+        cities = this.cities.toDomain()
     )
 }
 fun List<OfflineCitiesResponse.CityOfflineResponse>?.toDomain(): List<CitiesOffline.CityOffline> {

@@ -28,7 +28,6 @@ interface APIService {
     @GET("/rest/Registration/getInterests/")
     fun getInterestsAsync(): Deferred<InterestsResponse>
 
-    //sergeev: Добавить пароль пользователя.
     @GET("/rest/Registration/registerUser/")
     fun registerUserAsync(
         @Query("name") name: String,
@@ -42,7 +41,8 @@ interface APIService {
         @Query("petSex") petSex: String,
         @Query("petBirthday") petBirthday: String,
         @Query("voucher") voucher: String? = null,
-        @Query("interests") interests: String
+        @Query("interests") interests: String,
+        @Query("password") password: String
     ): Deferred<RegisterUserResponse>
 
     @GET("/rest/Basket/getCart/")
@@ -164,9 +164,9 @@ interface APIService {
 
     // School
     @GET("/rest/School/getOfflineLessons/")
-    fun getOfflineLessonsAsync(
+    fun getOfflineSeminarsAsync(
         @Query("cityId") cityId: String?
-    ): Deferred<OfflineLessonsResponse>
+    ): Deferred<OfflineSeminarsResponse>
 
     @GET("/rest/School/getOnlineLessons/")
     fun getOnlineLessonsAsync(
