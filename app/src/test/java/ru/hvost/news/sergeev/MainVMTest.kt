@@ -11,8 +11,10 @@ import org.junit.runner.RunWith
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import ru.hvost.news.MainViewModel
+import ru.hvost.news.correctTestUserToken
 import ru.hvost.news.utils.rules.MainCoroutineRule
 import ru.hvost.news.getOrAwaitValue
+import ru.hvost.news.inCorrectTestUserToken
 import ru.hvost.news.utils.enums.State
 
 @ExperimentalCoroutinesApi
@@ -27,9 +29,6 @@ class MainVMTest {
 
     private lateinit var mainVM: MainViewModel
 
-    private val correctUserToken = "eyJpdiI6IlhBPT0iLCJ2YWx1ZSI6Ik1kTTVrc3FMTktRQmlnVFlOZnE5NnlBK2xrdGVESTR4ekhBdVg0VjlMaWs9IiwicGFzc3dvcmQiOiJLR3hUTlhrOE9VTTFPR00wWXpVMlpXSmtaRFExTlRVMFl6TmlaR05sWXpBM09UY3lObUl4TWc9PSJ9"
-    private val inCorrectUserToken = "chopchop"
-
     @Before
     fun setup(){
         mainVM = MainViewModel()
@@ -37,15 +36,29 @@ class MainVMTest {
 
     @Test
     fun updateOrders_withCorrectCredentials_worksCorrect() = coroutineRule.testDispatcher.runBlockingTest {
-        mainVM.updateOrders(correctUserToken)
+        mainVM.updateOrders(correctTestUserToken)
         val result = mainVM.loadingOrdersEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
 
     @Test
     fun updateOrders_withIncorrectCredentials_worksCorrect() = coroutineRule.testDispatcher.runBlockingTest {
-        mainVM.updateOrders(inCorrectUserToken)
+        mainVM.updateOrders(inCorrectTestUserToken)
         val result = mainVM.loadingOrdersEvent.getOrAwaitValue(attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
+    }
+
+    @Test
+    fun updateVouchers_withCorrectCredentials_worksCorrect() = coroutineRule.testDispatcher.runBlockingTest {
+        mainVM.updateVouchers(correctTestUserToken)
+        val result = mainVM.loadingVouchersEvent.getOrAwaitValue(attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
+    }
+
+    @Test
+    fun updateVouchers_withIncorrectCredentials_worksCorrect() = coroutineRule.testDispatcher.runBlockingTest {
+        mainVM.updateVouchers(inCorrectTestUserToken)
+        val result = mainVM.loadingVouchersEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 

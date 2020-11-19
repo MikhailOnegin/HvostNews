@@ -334,6 +334,30 @@ class MainViewModel : ViewModel() {
         _orderSelectedEvent.value = Event(order)
     }
 
+    private val _loadingVouchersEvent = MutableLiveData<NetworkEvent<State>>()
+    val loadingVouchersEvent: LiveData<NetworkEvent<State>> = _loadingVouchersEvent
+    private val _vouchers = MutableLiveData<List<Voucher>>()
+    val vouchers: LiveData<List<Voucher>> = _vouchers
+
+    fun updateVouchers(userToken: String?) {
+        viewModelScope.launch {
+            _loadingVouchersEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.getVouchersAsync(userToken).await()
+                if(result.result == "success") {
+                    _loadingVouchersEvent.value = NetworkEvent(State.SUCCESS)
+                    _vouchers.value = result.toVouchers()
+                } else {
+                    _loadingVouchersEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _vouchers.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _loadingVouchersEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _vouchers.value = listOf()
+            }
+        }
+    }
+
     companion object {
         const val SEX_MALE = 8
         const val SEX_FEMALE = 9
