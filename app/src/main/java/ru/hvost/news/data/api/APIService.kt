@@ -50,6 +50,11 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<CartResponse>
 
+    @GET("/rest/InviteFriend/getPrizeCategories/")
+    fun getPrizeCategoriesAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<PrizeCategoriesResponse>
+
     @GET("/rest/Basket/addToCart/")
     fun addToCartAsync(
         @Query("userToken") userToken: String?,
@@ -82,6 +87,11 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<GetOrdersResponse>
 
+    @GET("/rest/Vouchers/getVouchers/")
+    fun getVouchersAsync(
+        @Query("userToken") userToken: String?
+    ): Deferred<GetVouchersResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null
@@ -98,6 +108,7 @@ interface APIService {
     @GET("/rest/InviteFriend/getPrizes/")
     fun getPrizesAsync(
         @Query("userToken") userToken: String?,
+        @Query("categoryId") categoryId: String?,
     ): Deferred<PrizesResponse>
 
     @GET("/rest/Registration/getBreeds/")

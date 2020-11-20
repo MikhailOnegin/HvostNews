@@ -16,7 +16,7 @@ data class Prize(
     )
 }
 
-fun List<PrizesResponse.Prize>.toPrizes(): List<Prize> {
+fun List<PrizesResponse.Prize>.toPrize(): List<Prize> {
     val result = mutableListOf<Prize>()
     for (prize in this) {
         result.add(
@@ -35,5 +35,6 @@ fun List<PrizesResponse.Prize>.toPrizes(): List<Prize> {
             )
         )
     }
+    result.sortBy { it.prizeCost.toInt() }
     return result
 }

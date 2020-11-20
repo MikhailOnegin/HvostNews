@@ -42,6 +42,9 @@ class MainViewModel : ViewModel() {
     val bonusBalanceState = MutableLiveData<State>()
     val bonusBalanceResponse = MutableLiveData<BonusBalanceResponse>()
 
+    val prizeCategoriesState = MutableLiveData<State>()
+    val prizeCategoriesResponse = MutableLiveData<List<PrizeCategory>>()
+
     val prizeToCartState = MutableLiveData<State>()
     val prizeToCartResponse = MutableLiveData<PrizeToCartResponse>()
 
@@ -63,7 +66,7 @@ class MainViewModel : ViewModel() {
         loadSpecies()
         getBonusBalance()
         getInviteLink()
-        loadPrizes()
+        getPrizeCategories()
     }
 
     fun getBonusBalance() {
@@ -78,6 +81,22 @@ class MainViewModel : ViewModel() {
                 } else bonusBalanceState.value = State.ERROR
             } catch (exc: Exception) {
                 bonusBalanceState.value = State.FAILURE
+            }
+        }
+    }
+
+    fun getPrizeCategories() {
+        viewModelScope.launch {
+            prizeCategoriesState.value = State.LOADING
+            try {
+                val response =
+                    APIService.API.getPrizeCategoriesAsync(App.getInstance().userToken).await()
+                if (response.result == "success") {
+                    prizeCategoriesResponse.value = response.categories?.toPrizeCategories()
+                    prizeCategoriesState.value = State.SUCCESS
+                } else prizeCategoriesState.value = State.ERROR
+            } catch (exc: Exception) {
+                prizeCategoriesState.value = State.FAILURE
             }
         }
     }
@@ -150,17 +169,25 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun loadPrizes() {
+    fun loadPrizes(
+        prizeCategoryId: String
+    ) {
         viewModelScope.launch {
             prizesState.value = State.LOADING
             try {
-                val response = APIService.API.getPrizesAsync(App.getInstance().userToken).await()
+                val response =
+                    APIService.API.getPrizesAsync(App.getInstance().userToken, prizeCategoryId)
+                        .await()
                 if (response.result == "success") {
                     prizesResponse.value = response
-                    prizes.value = response.prizes?.toPrizes()
+                    prizes.value = response.prizes?.toPrize()
                     prizesState.value = State.SUCCESS
-                } else prizesState.value = State.ERROR
+                } else {
+                    prizes.value = listOf()
+                    prizesState.value = State.ERROR
+                }
             } catch (exc: Exception) {
+                prizes.value = listOf()
                 prizesState.value = State.FAILURE
             }
         }
@@ -308,8 +335,10 @@ class MainViewModel : ViewModel() {
     val orderSelectedEvent: LiveData<Event<Order>> = _orderSelectedEvent
 
     val ordersInWork = Transformations.map(orders) { list -> list.count { it.orderStatus == "N" } }
-    val ordersConstructed = Transformations.map(orders) { list -> list.count { it.orderStatus == "DT" } }
-    val ordersFinished = Transformations.map(orders) { list -> list.count { it.orderStatus == "F" } }
+    val ordersConstructed =
+        Transformations.map(orders) { list -> list.count { it.orderStatus == "DT" } }
+    val ordersFinished =
+        Transformations.map(orders) { list -> list.count { it.orderStatus == "F" } }
 
     fun updateOrders(userToken: String?) {
         viewModelScope.launch {
@@ -332,6 +361,30 @@ class MainViewModel : ViewModel() {
 
     fun showOrder(order: Order) {
         _orderSelectedEvent.value = Event(order)
+    }
+
+    private val _loadingVouchersEvent = MutableLiveData<NetworkEvent<State>>()
+    val loadingVouchersEvent: LiveData<NetworkEvent<State>> = _loadingVouchersEvent
+    private val _vouchers = MutableLiveData<List<Voucher>>()
+    val vouchers: LiveData<List<Voucher>> = _vouchers
+
+    fun updateVouchers(userToken: String?) {
+        viewModelScope.launch {
+            _loadingVouchersEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.getVouchersAsync(userToken).await()
+                if(result.result == "success") {
+                    _loadingVouchersEvent.value = NetworkEvent(State.SUCCESS)
+                    _vouchers.value = result.toVouchers()
+                } else {
+                    _loadingVouchersEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _vouchers.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _loadingVouchersEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _vouchers.value = listOf()
+            }
+        }
     }
 
     companion object {

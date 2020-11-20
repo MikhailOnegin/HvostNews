@@ -5,44 +5,44 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.databinding.LayoutPrizeItemBinding
+import ru.hvost.news.databinding.LayoutPrizePriceItemBinding
 import ru.hvost.news.models.Prize
 
 class PrizeAdapter(private val onClick: (String) -> Unit) :
-    ListAdapter<Prize, PrizeAdapter.PrizeViewHolder>(PrizeDiffUtilCallback()) {
+    ListAdapter<Prize, PrizeAdapter.PrizeProductViewHolder>(PrizeProductDiffUtilCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrizeViewHolder {
-        return PrizeViewHolder.getPrizeVH(parent, onClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrizeProductViewHolder {
+        return PrizeProductViewHolder.getPrizeVH(parent, onClick)
     }
 
-    override fun onBindViewHolder(holder: PrizeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PrizeProductViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class PrizeViewHolder(
-        private val binding: LayoutPrizeItemBinding,
+    class PrizeProductViewHolder(
+        private val binding: LayoutPrizePriceItemBinding,
         private val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(prize: Prize) {
-            binding.title.text = prize.category
+            binding.cost.text = prize.prizeCost
 
-            binding.root.setOnClickListener { onClick.invoke(prize.prizeId) }
+//            binding.root.setOnClickListener { onClick.invoke(prize.prizeId) }
         }
 
         companion object {
-            fun getPrizeVH(parent: ViewGroup, onClick: (String) -> Unit): PrizeViewHolder {
-                val binding = LayoutPrizeItemBinding.inflate(
+            fun getPrizeVH(parent: ViewGroup, onClick: (String) -> Unit): PrizeProductViewHolder {
+                val binding = LayoutPrizePriceItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return PrizeViewHolder(binding, onClick)
+                return PrizeProductViewHolder(binding, onClick)
             }
         }
 
     }
 
-    class PrizeDiffUtilCallback : DiffUtil.ItemCallback<Prize>() {
+    class PrizeProductDiffUtilCallback : DiffUtil.ItemCallback<Prize>() {
         override fun areItemsTheSame(oldItem: Prize, newItem: Prize): Boolean {
             return oldItem.prizeId == newItem.prizeId
         }

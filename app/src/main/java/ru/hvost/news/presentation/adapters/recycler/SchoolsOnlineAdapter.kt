@@ -7,67 +7,39 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online.view.*
-import kotlinx.android.synthetic.main.item_school_online_spinner.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OnlineSchools
-import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 
-class SchoolsOnlineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsViewHolder>() {
 
     private var schools = arrayListOf<OnlineSchools.School>()
     var clickSchool: ClickSchool? = null
-    var spinnerAdapter:SpinnerAdapter<String>? = null
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     interface ClickSchool {
-        fun onClick(schools: OnlineSchools.School)
+        fun onClick(schoolId:String)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
-            TYPE_SCHOOL_ONLINE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_school_online, parent, false)
-                SchoolsViewHolder(view)
-            }
-            else -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_school_online_spinner, parent, false)
-                SpinnerViewHolder(view)
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SchoolsViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_school_online, parent, false)
+        return SchoolsViewHolder(view)
     }
+
 
     fun setSchools(schools: List<OnlineSchools.School>) {
         this.schools = schools.toCollection(ArrayList())
         notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if(position == 0 ) return TYPE_SPINNER
-        else TYPE_SCHOOL_ONLINE
-    }
-
     override fun getItemCount(): Int {
-        return schools.size + 1
+        return schools.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        when(holder){
-            is SchoolsViewHolder -> {
-                val item = schools[position - 1]
-                holder.bind(item)
-            }
-            is SpinnerViewHolder -> {
-                holder.bind()
-            }
-        }
+    override fun onBindViewHolder(holder: SchoolsViewHolder, position: Int) {
+        val item = schools[position]
+        holder.bind(item)
     }
+
 
     inner class SchoolsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val clSchool = itemView.constraint_school
@@ -75,32 +47,17 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val tvTitle = itemView.textView_title
         private val tvRank = itemView.textView_rank
 
-        fun bind(schools: OnlineSchools.School) {
-            if (schools.title.isNotBlank()) tvTitle.text = schools.title
-            if (schools.userRank.isNotBlank()) tvRank.text = schools.userRank
+        fun bind(school: OnlineSchools.School) {
+            if (school.title.isNotBlank()) tvTitle.text = school.title
+            if (school.userRank.isNotBlank()) tvRank.text = school.userRank
 
-            Glide.with(itemView.context).load(baseUrl + schools.image)
+            Glide.with(itemView.context).load(baseUrl + school.image)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(ivSchool)
 
             clSchool.setOnClickListener {
-                clickSchool?.onClick(schools)
+                clickSchool?.onClick(school.id.toString())
             }
         }
-    }
-
-    inner class SpinnerViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
-        private val spinnerSchool = itemView.spinner_schools
-
-        fun bind(){
-            spinnerAdapter?.run {
-                spinnerSchool.adapter = this
-            }
-        }
-    }
-
-    companion object{
-        const val TYPE_SCHOOL_ONLINE = 0
-        const val TYPE_SPINNER = 1
     }
 }
