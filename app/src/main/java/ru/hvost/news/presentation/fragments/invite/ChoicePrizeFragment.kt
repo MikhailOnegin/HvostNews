@@ -1,30 +1,42 @@
 package ru.hvost.news.presentation.fragments.invite
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_prizes.view.*
-import kotlinx.android.synthetic.main.layout_popup_domains.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentChoicePrizeBinding
-import ru.hvost.news.presentation.adapters.PopupWindowDomainAdapter
-import ru.hvost.news.presentation.adapters.PrizeProductsAdapter
+import ru.hvost.news.presentation.adapters.PrizeAdapter
 import ru.hvost.news.utils.enums.State
 
 class ChoicePrizeFragment : Fragment() {
 
     private lateinit var binding: FragmentChoicePrizeBinding
     private lateinit var mainVM: MainViewModel
+
+    override fun onStart() {
+        setSystemUiVisibility()
+        super.onStart()
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("InlinedApi")
+    private fun setSystemUiVisibility() {
+        requireActivity().window.run {
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,9 +79,7 @@ class ChoicePrizeFragment : Fragment() {
     private fun onPrizesChanged(state: State?) {
         when (state) {
             State.SUCCESS -> {
-                binding.title.text =
-                    mainVM.prizes.value?.filter { it.prizeId == arguments?.getString("PRIZE_ID") }
-                        ?.get(0)?.category
+                binding.title.text = mainVM.prizeCategoriesResponse.value?.filter { it.prizeCategoryId == arguments?.getString("PRIZE_ID") }?.get(0)?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")
                 setRecyclerView()
             }
             State.FAILURE, State.ERROR -> {
@@ -79,10 +89,9 @@ class ChoicePrizeFragment : Fragment() {
 
     private fun setRecyclerView() {
         val onActionClicked = { product: String -> showPrizePopup(product) }
-        val adapter = PrizeProductsAdapter(onActionClicked)
+        val adapter = PrizeAdapter(onActionClicked)
         binding.priceList.adapter = adapter
-        adapter.submitList(mainVM.prizes.value?.filter { it.prizeId == arguments?.getString("PRIZE_ID") }
-            ?.get(0)?.products)
+        adapter.submitList(mainVM.prizes.value)
         setDecoration()
     }
 

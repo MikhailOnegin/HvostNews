@@ -16,7 +16,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbarHeight"
-            android:background="@color/profileToolbarColorOpacity"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +138,7 @@
                     android:background="@drawable/icon_background_count"
                     android:fontFamily="@font/gilroy_medium"
                     android:gravity="center"
-                    android:text="@string/stub"
+                    android:text="@string/numberStub"
                     android:textColor="@color/gray1"
                     android:textStyle="bold" />
 
@@ -179,7 +178,7 @@
                     android:background="@drawable/icon_background_count"
                     android:fontFamily="@font/gilroy_medium"
                     android:gravity="center"
-                    android:text="@string/stub"
+                    android:text="@string/numberStub"
                     android:textColor="@color/gray1"
                     android:textStyle="bold" />
 
@@ -313,6 +312,7 @@
             android:layout_height="wrap_content"
             android:background="@color/gray5"
             android:padding="25dp"
+            android:clipToPadding="false"
             app:layout_constraintTop_toBottomOf="@+id/inviteFriends">
 
             <TextView
