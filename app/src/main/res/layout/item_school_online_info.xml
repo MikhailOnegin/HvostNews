@@ -3,23 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    android:outlineAmbientShadowColor="#72FF80"
-    android:outlineSpotShadowColor="#DC5858"
-    android:paddingBottom="24dp">
+    android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_schools"
-        style="@style/Spinner2"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:forceDarkAllowed="false"
+        android:text="Нет дизайна"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

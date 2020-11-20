@@ -7,26 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
-import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.databinding.FragmentSchoolOnlineLessonBinding
 
-class OfflineCourseSeminars:Fragment() {
+class OnlineLessonFragment:Fragment() {
 
-    private lateinit var binding: FragmentSchoolOfflineEventBinding
-    private lateinit var schoolVM: SchoolViewModel
+    private lateinit var binding: FragmentSchoolOnlineLessonBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSchoolOfflineEventBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolOnlineLessonBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        schoolVM = ViewModelProvider(this)[SchoolViewModel::class.java]
         setSystemUiVisibility()
     }
 

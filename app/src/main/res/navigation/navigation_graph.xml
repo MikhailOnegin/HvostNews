@@ -177,10 +177,17 @@
         android:label="Online course active"
         tools:layout="@layout/fragment_school_online" >
         <action
-            android:id="@+id/action_onlineCourseActiveFragment_to_onlineCourseLessonFragment"
-            app:destination="@+id/onlineCourseLessonFragment"
+            android:id="@+id/action_onlineCourseActiveFragment_to_onlineLessonFragment"
+            app:destination="@+id/onlineLessonFragment"
             />
     </fragment>
+
+    <fragment
+        android:id="@+id/onlineLessonFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineLessonFragment"
+        android:label="Online lesson"
+        tools:layout="@layout/fragment_school_online_lesson"
+        />
 
     <fragment
         android:id="@+id/choicePrizeFragment"
