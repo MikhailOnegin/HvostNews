@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentOrdersBinding
@@ -29,6 +28,7 @@ class OrdersFragment : Fragment(){
     private lateinit var mainVM: MainViewModel
     private lateinit var loadingObserver: DefaultNetworkEventObserver
 
+    //sergeev: Настроить emptyView, либо просто не пускать на экран.
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

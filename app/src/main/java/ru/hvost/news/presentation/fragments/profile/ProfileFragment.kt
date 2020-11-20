@@ -156,6 +156,9 @@ class ProfileFragment : Fragment() {
         binding.allOrders.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
         }
+        binding.vouchers.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_vouchersFragment)
+        }
     }
 
     private fun setRecyclerView() {
