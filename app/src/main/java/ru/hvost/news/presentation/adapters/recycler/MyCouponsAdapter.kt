@@ -10,32 +10,33 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.Coupons
 
-class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
+class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
     private var couponsFull = arrayListOf<Coupons.Coupon>()
     private var coupons = arrayListOf<Coupons.Coupon>()
-    var clickCoupon:ClickCoupon? = null
+    var clickCoupon: ClickCoupon? = null
 
     interface ClickCoupon {
-        fun click(item:Coupons.Coupon)
+        fun click(item: Coupons.Coupon)
     }
-    fun setCoupons(coupons:List<Coupons.Coupon>){
+
+    fun setCoupons(coupons: List<Coupons.Coupon>) {
         this.couponsFull = coupons.toCollection(ArrayList())
         this.coupons = coupons.toCollection(ArrayList())
         notifyDataSetChanged()
     }
-    fun filter(used:String){
-        if(used == "Все"){
+
+    fun filter(used: String) {
+        if (used == "Все") {
             coupons = couponsFull
         }
-        if(used == "Активные") {
+        if (used == "Активные") {
             coupons = couponsFull.filter { !it.isUsed }.toCollection(ArrayList())
         }
-        if(used =="Использованные") {
+        if (used == "Использованные") {
             coupons = couponsFull.filter { it.isUsed }.toCollection(ArrayList())
         }
         notifyDataSetChanged()
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,20 +54,23 @@ class MyCouponsAdapter:RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
         holder.bind(item)
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tVCouponTitle = itemView.textView_coupon_title
         private val tVCouponMaxDate = itemView.textView_coupon_date
         private val tVConst = itemView.coupon_constraint
         private val tVUsed = itemView.textView_coupon_status
-        fun bind(coupon: Coupons.Coupon){
+        private val tVAddress = itemView.textView_address
+
+        fun bind(coupon: Coupons.Coupon) {
             tVCouponTitle.text = coupon.title
             tVCouponMaxDate.text = coupon.expirationDate
-            if(coupon.isUsed){
+            if (coupon.isUsed) {
                 tVUsed.text = itemView.context.getString(R.string.used)
-                tVUsed.background = itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
-            }
-            else{
-                tVUsed.background = itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
+                tVUsed.background =
+                    itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
+            } else {
+                tVUsed.background =
+                    itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
                 tVUsed.text = itemView.context.getString(R.string.active)
             }
             tVConst.setOnClickListener {

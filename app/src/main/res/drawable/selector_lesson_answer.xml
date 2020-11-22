@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" >
+        <shape
+            android:shape="rectangle">
+
+            <solid
+                android:color="@color/colorPrimary"/>
+
+            <corners
+                android:topLeftRadius="@dimen/smallCorners"
+                android:bottomLeftRadius="@dimen/smallCorners"/>
+
+        </shape>
+    </item>
+    <item android:state_checked="false">
+        <shape
+            android:shape="rectangle">
+
+            <stroke
+                android:color="@color/sexSelector"
+                android:width="2dp"/>
+
+            <corners
+                android:topLeftRadius="@dimen/smallCorners"
+                android:bottomLeftRadius="@dimen/smallCorners"/>
+
+        </shape>
+    </item>
+</selector>

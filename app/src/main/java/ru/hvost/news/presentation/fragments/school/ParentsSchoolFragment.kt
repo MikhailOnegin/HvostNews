@@ -7,41 +7,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.CompoundButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_school_parents.*
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentsBinding
-import ru.hvost.news.models.CitiesOffline
-import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.models.CitiesOffline.CityOffline
 import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarsAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolsOnlineAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
-import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
-import ru.hvost.news.utils.getValue
-import java.lang.invoke.ConstantCallSite
 
 class ParentsSchoolFragment : Fragment() {
 
     private lateinit var binding: FragmentSchoolParentsBinding
     private lateinit var schoolVM: SchoolViewModel
-    private val onlineSchoolsAdapter = SchoolsOnlineAdapter()
-    private val offlineLessonsAdapter = OfflineSeminarsAdapter()
+    private lateinit var onlineSchoolsAdapter:SchoolsOnlineAdapter
+    private lateinit var offlineLessonsAdapter :OfflineSeminarsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSchoolParentsBinding.inflate(inflater, container, false)
+        onlineSchoolsAdapter = SchoolsOnlineAdapter()
+        offlineLessonsAdapter = OfflineSeminarsAdapter()
         return binding.root
     }
 
@@ -51,14 +45,18 @@ class ParentsSchoolFragment : Fragment() {
         binding.recyclerView.adapter = onlineSchoolsAdapter
         schoolVM.getOnlineSchools("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         schoolVM.getOfflineCities()
-        binding.spinner.setSelection(0,false)
-        binding.spinner.adapter = SpinnerAdapter(requireContext(), "", arrayListOf(), CitiesOffline.CityOffline::name)
-        onlineSchoolsAdapter.clickSchool = object : SchoolsOnlineAdapter.ClickSchool{
+        binding.spinner.setSelection(0, false)
+        binding.spinner.adapter =
+            SpinnerAdapter(requireContext(), "", arrayListOf(), CityOffline::name)
+        onlineSchoolsAdapter.clickSchool = object : SchoolsOnlineAdapter.ClickSchool {
 
             override fun onClick(schoolId: String) {
                 val bundle = Bundle()
                 bundle.putString("schoolId", schoolId)
-                findNavController().navigate(R.id.action_parentSchoolFragment_to_onlineCourseActiveFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_parentSchoolFragment_to_onlineCourseActiveFragment,
+                    bundle
+                )
             }
         }
         setSystemUiVisibility()
@@ -66,6 +64,7 @@ class ParentsSchoolFragment : Fragment() {
         setListeners()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun setObservers(owner: LifecycleOwner) {
 
         schoolVM.onlineSchools.observe(owner, Observer {
@@ -74,10 +73,14 @@ class ParentsSchoolFragment : Fragment() {
 
         schoolVM.offlineCities.observe(owner, Observer {
             Log.i("eeee", "getOfflineCities() size : ${it.cities.size}")
-            (binding.spinner.adapter as SpinnerAdapter<CitiesOffline.CityOffline>).addAll(it.cities)
-            (binding.spinner.adapter as SpinnerAdapter<CitiesOffline.CityOffline>).getItem(0)?.run {
+            val adapter = (binding.spinner.adapter as SpinnerAdapter<CityOffline>)
+            adapter.clear()
+            (binding.spinner.adapter as SpinnerAdapter<CityOffline>).addAll(it.cities)
+            (binding.spinner.adapter as SpinnerAdapter<CityOffline>).getItem(0)?.run {
                 schoolVM.getOfflineSeminars(this.cityId)
             }
+            val valueCount = adapter.count
+            val d = 0
         })
 
         schoolVM.offlineSeminars.observe(owner, Observer {
@@ -98,7 +101,7 @@ class ParentsSchoolFragment : Fragment() {
             binding.recyclerView.adapter = onlineSchoolsAdapter
             binding.onlineSchool.setTextColor(colorWhite)
             binding.offlineSeminars.setTextColor(colorPrimary)
-            binding.constraintSpinner.layoutParams = ConstraintLayout.LayoutParams(0, 0)
+            binding.constraintSpinner.visibility = View.GONE
         }
         binding.constraintOfflineSeminars.setOnClickListener {
             it.isSelected = true
@@ -106,10 +109,7 @@ class ParentsSchoolFragment : Fragment() {
             binding.recyclerView.adapter = offlineLessonsAdapter
             binding.offlineSeminars.setTextColor(colorWhite)
             binding.onlineSchool.setTextColor(colorPrimary)
-            binding.constraintSpinner.layoutParams = ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-            )
+            binding.constraintSpinner.visibility = View.VISIBLE
         }
         binding.switchFilter.setOnCheckedChangeListener { compoundButton, b ->
             if (binding.recyclerView.adapter is OfflineSeminarsAdapter) {
@@ -121,8 +121,9 @@ class ParentsSchoolFragment : Fragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
 
+            @Suppress("UNCHECKED_CAST")
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                (binding.spinner.adapter as SpinnerAdapter<CitiesOffline.CityOffline>).getItem(p2)
+                (binding.spinner.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
                     ?.run {
                         schoolVM.getOfflineSeminars(this.cityId)
                     }
@@ -132,10 +133,10 @@ class ParentsSchoolFragment : Fragment() {
 
     @SuppressLint("InlinedApi")
     @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility (){
+    private fun setSystemUiVisibility() {
         requireActivity().window.run {
             decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
         }
     }

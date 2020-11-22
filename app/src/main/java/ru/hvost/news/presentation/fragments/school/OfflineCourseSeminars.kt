@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OfflineCourseSeminars:Fragment() {
+class OfflineCourseSeminars : Fragment() {
 
     private lateinit var binding: FragmentSchoolOfflineEventBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -32,10 +32,10 @@ class OfflineCourseSeminars:Fragment() {
 
     @SuppressLint("InlinedApi")
     @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility (){
+    private fun setSystemUiVisibility() {
         requireActivity().window.run {
             decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
         }
     }
