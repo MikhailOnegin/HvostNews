@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ru.hvost.news.presentation.customviews.RoundCornersImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/cartPrizeImageSize"
+        android:layout_height="@dimen/cartPrizeImageSize"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:background="@drawable/background_img_shadow"
+        android:elevation="@dimen/listItemElevation"
+        android:scaleType="centerCrop"
+        app:cornersRadius="@dimen/smallCorners"
+        app:drawOutline="true"
+        app:layout_constraintBottom_toTopOf="@id/count"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:outlineColor="@android:color/white"
+        app:outlineWidth="2dp"
+        tools:src="@drawable/test_image" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stub"
+        android:textColor="@color/gray3"
+        android:layout_marginTop="@dimen/xSmallMargin"
+        android:layout_marginBottom="@dimen/normalMargin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/image"
+        app:layout_constraintStart_toStartOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/image" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginTop="@dimen/xSmallMargin"
+        android:layout_marginEnd="@dimen/normalMargin"
+        android:fontFamily="@font/gilroy_semibold"
+        android:gravity="center_vertical|start"
+        android:lineSpacingExtra="3dp"
+        android:maxLines="4"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="@dimen/cartItemTextSize"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="@id/image"
+        tools:text="@string/stub" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray4"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
