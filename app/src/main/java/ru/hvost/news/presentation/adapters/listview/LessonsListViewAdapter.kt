@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.item_lesson_online.view.*
-import kotlinx.android.synthetic.main.item_school_online.view.*
 import kotlinx.android.synthetic.main.item_school_online.view.textView_title
 import ru.hvost.news.R
 import ru.hvost.news.models.OnlineLessons

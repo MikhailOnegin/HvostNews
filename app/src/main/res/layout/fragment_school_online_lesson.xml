@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="24dp">
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        app:elevation="0dp"
+        app:liftOnScroll="false">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/lesson" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/container"
+            app:layout_scrollFlags="scroll|snap|enterAlways" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout3">
+            android:paddingBottom="24dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ImageView
                 android:id="@+id/imageView12"
@@ -28,7 +58,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView_lesson_number"
                 app:srcCompat="@drawable/default_image" />
 
             <ToggleButton
@@ -37,8 +67,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:drawableStart="@drawable/selector_lesson_answer"
                 android:fontFamily="@font/gilroy_medium"
-                android:text="ToggleButton"
                 android:textColor="@color/gray1"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,21 +80,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
+                android:drawableStart="@drawable/selector_lesson_answer"
                 android:fontFamily="@font/gilroy_medium"
-                android:text="ToggleButton"
                 android:textColor="@color/gray1"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_question" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/textView_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
@@ -95,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:drawableStart="@drawable/selector_lesson_answer"
                 android:fontFamily="@font/gilroy_medium"
-                android:text="ToggleButton"
                 android:textColor="@color/gray1"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +135,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/toggleButton2" />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/textView_lesson_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -116,10 +147,10 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button_to_answer"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/buttonHeight"
                 android:layout_marginStart="24dp"
@@ -136,6 +167,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/toggleButton4" />
 
             <HorizontalScrollView
+                android:id="@+id/scrrollView_literature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true"
@@ -144,11 +176,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/textView_question"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
@@ -164,8 +196,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:drawableStart="@drawable/selector_lesson_answer"
                 android:fontFamily="@font/gilroy_medium"
-                android:text="ToggleButton"
                 android:textColor="@color/gray1"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -185,42 +217,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button2" />
+                app:layout_constraintTop_toBottomOf="@+id/button_to_answer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:stateListAnimator="@null"
-            app:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:liftOnScroll="false">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:theme="@style/AppTheme.Toolbar"
-                app:layout_scrollFlags="scroll|snap|enterAlways"
-                app:navigationIcon="@drawable/ic_back"
-                app:title="@string/lesson" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/container"
-                app:layout_scrollFlags="scroll|snap|enterAlways" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

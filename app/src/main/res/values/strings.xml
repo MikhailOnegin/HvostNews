@@ -330,6 +330,7 @@
     <string name="ageForMonthType2">месяца</string>
     <string name="ageForMonthType3">месяцев</string>
     <string name="lesson">Урок</string>
+    <string name="partner_page">Страница партнера</string>
     <string name="fragmentVouchersTitle">Мои промокоды</string>
     <string name="buttonGoToShop">Перейти в магазин</string>
     <string name="rvVoucherNameHint">Имя питомца</string>

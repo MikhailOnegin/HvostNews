@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments.map
 
 import android.animation.LayoutTransition
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yandex.mapkit.Animation
@@ -28,14 +30,14 @@ import ru.hvost.news.databinding.FragmentMapBinding
 import ru.hvost.news.presentation.viewmodels.MapViewModel
 
 
-class MapFragment: Fragment(), Session.SearchListener, CameraListener {
+class MapFragment : Fragment(), Session.SearchListener, CameraListener {
 
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var mapVm: MapViewModel
-    private lateinit var searchManager:SearchManager // Search request for searching a user query near given geometry.
+    private lateinit var searchManager: SearchManager // Search request for searching a user query near given geometry.
 
-    private var searchSession:Session? = null
+    private var searchSession: Session? = null
 
 
     override fun onCreateView(
@@ -65,7 +67,7 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
         mapVm = ViewModelProvider(this)[MapViewModel::class.java]
         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
         binding.mapView.map.addCameraListener(this)
-        binding.includeFilter.root.setOnClickListener {  }
+        binding.includeFilter.root.setOnClickListener { }
 
         mapVm.getShops("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         binding.mapView.map.move(
@@ -98,8 +100,8 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
 
     override fun onSearchError(p0: Error) {
         var errorMessage = "Unknown error"
-        when(p0){
-            is RemoteError -> errorMessage ="Remote service error"
+        when (p0) {
+            is RemoteError -> errorMessage = "Remote service error"
             is NetworkError -> errorMessage = "Network error"
         }
         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -121,15 +123,18 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
         }
     }
 
-    fun setListeners(){
-        binding.editTextQuery.setOnEditorActionListener { _:TextView, i:Int, _:KeyEvent? ->
-            if(i == EditorInfo.IME_ACTION_SEARCH){
+    fun setListeners() {
+        binding.editTextQuery.setOnEditorActionListener { _: TextView, i: Int, _: KeyEvent? ->
+            if (i == EditorInfo.IME_ACTION_SEARCH) {
                 submitQuery(binding.editTextQuery.text.toString())
             }
             return@setOnEditorActionListener false
         }
         binding.imageButtonFilter.setOnClickListener {
-            binding.includeFilter.root.layoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            binding.includeFilter.root.layoutParams = ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             //dialogMapFilter.show(requireActivity().supportFragmentManager, "customDialog")
         }
         binding.includeFilter.buttonShow.setOnClickListener {
@@ -148,8 +153,18 @@ class MapFragment: Fragment(), Session.SearchListener, CameraListener {
         p2: CameraUpdateReason,
         p3: Boolean
     ) {
-        if(p3){
+        if (p3) {
             submitQuery(binding.editTextQuery.text.toString())
         }
     }
+    @SuppressLint("InlinedApi")
+    @Suppress("DEPRECATION")
+    private fun setSystemUiVisibility() {
+        requireActivity().window.run {
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        }
+    }
+
 }
