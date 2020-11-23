@@ -29,7 +29,6 @@ class MyCouponsFragment : Fragment() {
     private lateinit var couponVM: CouponViewModel
     private val adapter = MyCouponsAdapter()
     private lateinit var navC: NavController
-    private val itemsSpinner = arrayListOf("Все", "Активные", "Использованные")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,18 +50,19 @@ class MyCouponsFragment : Fragment() {
             }
         }
         binding.recyclerViewCoupons.adapter = adapter
+        val itemsSpinner = arrayListOf("Все", "Активные", "Использованные")
         val spinnerAdapter = SpinnerAdapter(requireContext(), "", itemsSpinner, String::getValue)
         binding.spinnerCoupons.adapter = spinnerAdapter
         setListeners()
         setObservers(this)
-        App.getInstance().userToken?.run{
-            couponVM.getCoupons(this)
-        }
+            couponVM.getCoupons("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
+
         setSystemUiVisibility()
     }
 
     private fun setObservers(owner: LifecycleOwner) {
         couponVM.coupons.observe(owner, Observer {
+            Log.i("eeee","Coupons Size ${it.coupons.size} ")
             adapter.setCoupons(it.coupons)
         })
     }
@@ -78,7 +78,6 @@ class MyCouponsFragment : Fragment() {
                     val isUsed =
                         (binding.spinnerCoupons.adapter as SpinnerAdapter<String>).getItem(p2)
                     isUsed?.run {
-                        Log.i("eeee", "isUsed not null")
                         adapter.filter(this)
                     }
                 }

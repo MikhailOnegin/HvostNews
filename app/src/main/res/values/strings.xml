@@ -50,11 +50,9 @@
     <string name="address">Адрес ветклиники</string>
     <string name="stub">(нет)</string>
     <string name="coupon_title">Название купона</string>
-    <string name="coupon_code">Кодовое слово</string>
     <string name="show_qr_code">Показать QR-код</string>
     <string name="logo_activity">Активность</string>
     <string name="logo_status">Статус</string>
-    <string name="logo_coupon_description">Описание купона</string>
     <string name="online_school">Онлайн школа</string>
     <string name="seminars_in_your_cities">Семинары в вашем городе</string>
     <string name="how_seminars_show">Какие семинары показывать</string>
@@ -337,4 +335,7 @@
     <string name="rvVoucherSpeciesHint">Вид</string>
     <string name="rvVoucherExpirationHint">Срок действия</string>
     <string name="buttonActivatePromocode">Активировать новый промокод</string>
+    <string name="lesson_number">Урок №</string>
+    <string name="coupon_page">Страница купона</string>
+    <string name="code">Код</string>
 </resources>
