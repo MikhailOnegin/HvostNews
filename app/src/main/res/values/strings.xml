@@ -329,4 +329,5 @@
     <string name="ageForMonthType1">месяц</string>
     <string name="ageForMonthType2">месяца</string>
     <string name="ageForMonthType3">месяцев</string>
+    <string name="addedToCartSuccessfull">Приз успешно добавлен в корзину</string>
 </resources>

@@ -12,10 +12,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.layout_prize_products.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentChoicePrizeBinding
+import ru.hvost.news.models.Prize
 import ru.hvost.news.presentation.adapters.PrizeAdapter
+import ru.hvost.news.presentation.adapters.PrizeProductsAdapter
 import ru.hvost.news.utils.enums.State
 
 class ChoicePrizeFragment : Fragment() {
@@ -67,7 +72,7 @@ class ChoicePrizeFragment : Fragment() {
             State.SUCCESS -> {
                 Toast.makeText(
                     requireActivity(),
-                    getString(R.string.sendedSuccessfull),
+                    getString(R.string.addedToCartSuccessfull),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -79,7 +84,9 @@ class ChoicePrizeFragment : Fragment() {
     private fun onPrizesChanged(state: State?) {
         when (state) {
             State.SUCCESS -> {
-                binding.title.text = mainVM.prizeCategoriesResponse.value?.filter { it.prizeCategoryId == arguments?.getString("PRIZE_ID") }?.get(0)?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")
+                binding.title.text = mainVM.prizeCategoriesResponse.value?.filter {
+                    it.prizeCategoryId == arguments?.getString("PRIZE_ID")
+                }?.get(0)?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")
                 setRecyclerView()
             }
             State.FAILURE, State.ERROR -> {
@@ -88,29 +95,31 @@ class ChoicePrizeFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { product: String -> showPrizePopup(product) }
+        val onActionClicked = { product: Prize -> showPrizeDetailDialog(product) }
         val adapter = PrizeAdapter(onActionClicked)
         binding.priceList.adapter = adapter
         adapter.submitList(mainVM.prizes.value)
         setDecoration()
     }
 
-    private fun showPrizePopup(product: String) {
-//        val view = layoutInflater.inflate(R.layout.layout_popup_prize, binding.root, false)
-//        val popupWindow = PopupWindow(requireActivity())
-//
-//        val onActionClicked = { domain: String -> }
-//        val adapter = PrizeProductsAdapter(onActionClicked)
-//        view.prizeList.adapter = adapter
-//        adapter.submitList(mainVM.prizes.value?.filter { it.prizeId == product } )
-//        setPopupElementsDecoration(view)
-//        popupWindow.contentView = view
-//        popupWindow.width = binding.categoryTabs.measuredWidth
-//        popupWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
-//        popupWindow.setBackgroundDrawable(null)
-//        popupWindow.elevation = resources.getDimension(R.dimen.listItemElevation)
-//        popupWindow.isOutsideTouchable = true
-//        popupWindow.showAsDropDown(binding.title)
+    @SuppressLint("SetTextI18n")
+    private fun showPrizeDetailDialog(prize: Prize) {
+        val detailDialog = BottomSheetDialog(requireContext(), R.style.popupBottomSheetDialogTheme)
+        val bottomSheetBinding =
+            layoutInflater.inflate(R.layout.layout_prize_products, binding.root, false)
+        val productsAdapter = PrizeProductsAdapter()
+        bottomSheetBinding.title.text = "Приз за " + prize.prizeCost + " баллов"
+        bottomSheetBinding.products.adapter = productsAdapter
+        bottomSheetBinding.setOnClickListener {
+            mainVM.addPrizeToCart(prize.prizeId)
+        }
+        productsAdapter.submitList(prize.products)
+        detailDialog.setContentView(bottomSheetBinding)
+        detailDialog.setOnShowListener {
+            detailDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            detailDialog.behavior.skipCollapsed = true
+        }
+        detailDialog.show()
     }
 
     private fun setDecoration() {

@@ -117,4 +117,5 @@
     <dimen name="inviteTextSize">13sp</dimen>
     <dimen name="strokeWidthOutlinedButton">2dp</dimen>
     <dimen name="smallHeightButton">50dp</dimen>
+    <dimen name="bottomSheetCornerRadius">30dp</dimen>
 </resources>
