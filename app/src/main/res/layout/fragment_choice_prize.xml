@@ -39,7 +39,6 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/ntfy"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -75,9 +74,9 @@
                 android:layout_marginBottom="@dimen/normalMargin"
                 android:fontFamily="@font/gilroy_medium"
                 android:text="@string/inPrize"
-                android:textStyle="bold"
                 android:textColor="@color/gray1"
-                android:textSize="@dimen/subtitleTextSize" />
+                android:textSize="@dimen/subtitleTextSize"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/priceList"

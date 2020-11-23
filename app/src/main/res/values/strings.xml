@@ -339,4 +339,5 @@
     <string name="buttonActivatePromocode">Активировать новый промокод</string>
     <string name="dateUntil">до</string>
     <string name="voucherProgramAll">Все</string>
+    <string name="addedToCartSuccessfull">Приз успешно добавлен в корзину</string>
 </resources>
