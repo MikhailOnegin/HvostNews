@@ -368,6 +368,7 @@ class MainViewModel : ViewModel() {
     private val _vouchers = MutableLiveData<List<VoucherItem>>()
     val vouchers: LiveData<List<VoucherItem>> = _vouchers
     val vouchersFooterClickEvent = MutableLiveData<OneTimeEvent>()
+    val vouchersFilter = MutableLiveData<String>()
 
     fun updateVouchers(userToken: String?) {
         viewModelScope.launch {

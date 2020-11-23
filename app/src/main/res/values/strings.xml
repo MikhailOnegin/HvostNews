@@ -337,4 +337,6 @@
     <string name="rvVoucherSpeciesHint">Вид</string>
     <string name="rvVoucherExpirationHint">Срок действия</string>
     <string name="buttonActivatePromocode">Активировать новый промокод</string>
+    <string name="dateUntil">до</string>
+    <string name="voucherProgramAll">Все</string>
 </resources>

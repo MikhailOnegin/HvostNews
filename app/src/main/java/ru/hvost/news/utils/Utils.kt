@@ -7,7 +7,6 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
 import android.view.View
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -206,13 +205,19 @@ val quoteRegEx = Pattern.compile("(<p>[\\s\\S.]*[^[<blockquote>]]</p>)")
 val parRegEx = Pattern.compile("(<blockquote>[\\s\\S.]*</blockquote>)")
 
 class LinearRvItemDecorations(
-    sideMarginsDimension: Int,
-    marginBetweenElementsDimension: Int,
+    sideMarginsDimension: Int? = null,
+    marginBetweenElementsDimension: Int? = null,
 ) : RecyclerView.ItemDecoration() {
 
-    private val resources = App.getInstance().resources
-    private val sideMargins = resources.getDimension(sideMarginsDimension).toInt()
-    private val verticalMargin = resources.getDimension(marginBetweenElementsDimension).toInt()
+    private val res = App.getInstance().resources
+    private val sideMargins =
+        if(sideMarginsDimension != null)
+            res.getDimension(sideMarginsDimension).toInt()
+        else 0
+    private val verticalMargin =
+        if(marginBetweenElementsDimension != null)
+            res.getDimension(marginBetweenElementsDimension).toInt()
+        else 0
 
     override fun getItemOffsets(
         outRect: Rect,
