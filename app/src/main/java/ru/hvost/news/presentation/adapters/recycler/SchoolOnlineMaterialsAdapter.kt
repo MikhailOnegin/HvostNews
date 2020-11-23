@@ -19,17 +19,18 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
     private var literature = arrayListOf<OnlineSchoolsResponse.Literature>()
-    var onClickLesson:OnClickLesson? = null
+    var onClickLesson: OnClickLesson? = null
+
     interface OnClickLesson {
-       fun  onClick()
+        fun onClick(lessonId:String)
     }
 
-    fun setLessons(lessons:List<OnlineLessons.OnlineLesson>){
+    fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
         this.lessons = lessons.toCollection(ArrayList())
         notifyDataSetChanged()
     }
 
-    fun setLiterature(literature:List<OnlineSchoolsResponse.Literature>){
+    fun setLiterature(literature: List<OnlineSchoolsResponse.Literature>) {
         this.literature = literature.toCollection(ArrayList())
         notifyDataSetChanged()
     }
@@ -48,7 +49,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position >= lessons.size) return TYPE_USEFUL_LITERATURE
+        return if (position >= lessons.size) return TYPE_USEFUL_LITERATURE
         else TYPE_LESSON
     }
 
@@ -57,9 +58,9 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
+        when (holder) {
             is LessonsViewHolder -> {
-                if(position<lessons.size) {
+                if (position < lessons.size) {
                     val lesson = lessons[position]
                     holder.bind(lesson)
                 }
@@ -70,14 +71,14 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    inner class LessonsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class LessonsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val constraint = itemView.constraint
         private val tVNumber = itemView.textView_number
         private val tVTittle = itemView.textView_title
         private val tVAge = itemView.textView_age
         private val iVGo = itemView.imageView_go
 
-        fun bind(lesson: OnlineLessons.OnlineLesson){
+        fun bind(lesson: OnlineLessons.OnlineLesson) {
             tVNumber.text = lesson.lessonNumber.toString()
             tVTittle.text = lesson.lessonTitle
             tVAge.text = lesson.petAge
@@ -85,18 +86,18 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                 Toast.makeText(itemView.context, "Click", Toast.LENGTH_SHORT).show()
             }
             constraint.setOnClickListener {
-                onClickLesson?.onClick()
+                onClickLesson?.onClick(lesson.domainId.toString())
             }
 
         }
     }
 
-    inner class UsefulLiteratureViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class UsefulLiteratureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(literature:List<OnlineSchoolsResponse.Literature>){
+        fun bind(literature: List<OnlineSchoolsResponse.Literature>) {
             val container = itemView.linearLayout
             container.removeAllViews()
-            for(i in literature.indices){
+            for (i in literature.indices) {
                 val view = LayoutLiteratureItemBinding.inflate(
                     LayoutInflater.from(itemView.context),
                     container,
@@ -106,7 +107,12 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                 view.textView_title.text = literature[i].title
                 view.textView_pet.text = literature[i].pet
                 val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
-                (view.layoutParams as LinearLayout.LayoutParams).setMargins(0, margin, margin + margin, 0)
+                (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                    0,
+                    margin,
+                    margin + margin,
+                    0
+                )
                 container.addView(view)
             }
         }

@@ -15,7 +15,8 @@ import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import java.util.*
 
-class OfflineSeminarsAdapter : RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
+class OfflineSeminarsAdapter :
+    RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
 
     private var lessonsFull = arrayListOf<OfflineSeminars.OfflineLesson>()
     private var lessons = arrayListOf<OfflineSeminars.OfflineLesson>()
@@ -48,7 +49,7 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<OfflineSeminarsAdapter.Offli
         return holder.bind(lesson)
     }
 
-    inner class OfflineLessonsViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
+    inner class OfflineLessonsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val iVLesson = itemView.imageView_lesson
         private val iVStatus = itemView.imageViewStatus
         private val tVStatus = itemView.textView_lesson_status
@@ -56,15 +57,18 @@ class OfflineSeminarsAdapter : RecyclerView.Adapter<OfflineSeminarsAdapter.Offli
         private val tVDate = itemView.textView_lesson_date
         private val tVCity = itemView.textView_lesson_city
 
-        fun bind(lesson:OfflineSeminars.OfflineLesson){
-            Glide.with(itemView.context).load(baseUrl + lesson.imageUrl).placeholder(R.drawable.not_found).centerCrop().into(iVLesson)
-            if(lesson.isFinished) {
+        fun bind(lesson: OfflineSeminars.OfflineLesson) {
+            Glide.with(itemView.context).load(baseUrl + lesson.imageUrl)
+                .placeholder(R.drawable.not_found).centerCrop().into(iVLesson)
+            if (lesson.isFinished) {
                 tVStatus.text = "Завершено"
-                iVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
+                iVStatus.background =
+                    itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
             }
-            if(!lesson.isFinished) {
+            if (!lesson.isFinished) {
                 tVStatus.text = "Активно"
-                iVStatus.background = itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
+                iVStatus.background =
+                    itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
             }
             tVTitle.text = lesson.title
             tVDate.text = lesson.date

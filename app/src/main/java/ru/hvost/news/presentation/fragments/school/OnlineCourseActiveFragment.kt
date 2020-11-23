@@ -25,14 +25,14 @@ import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OnlineCourseActiveFragment:Fragment() {
+class OnlineCourseActiveFragment : Fragment() {
 
     private lateinit var binding: FragmentSchoolOnlineBinding
     private lateinit var schoolVM: SchoolViewModel
-    private lateinit var navC:NavController
+    private lateinit var navC: NavController
     private val materialsAdapter = SchoolOnlineMaterialsAdapter()
     private val infoAdapter = SchoolOnlineInfoAdapter()
-    private var schoolId:String? = null
+    private var schoolId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,23 +49,28 @@ class OnlineCourseActiveFragment:Fragment() {
         navC = findNavController()
         val id = arguments?.getString("schoolId")
         binding.recyclerView.adapter = materialsAdapter
-        materialsAdapter.onClickLesson = object :SchoolOnlineMaterialsAdapter.OnClickLesson{
-            override fun onClick() {
-                navC.navigate(R.id.action_onlineCourseActiveFragment_to_onlineLessonFragment)
+        materialsAdapter.onClickLesson = object : SchoolOnlineMaterialsAdapter.OnClickLesson {
+            override fun onClick(lessonId:String) {
+                val bundle = Bundle()
+                bundle.putString("schoolId", schoolId)
+                bundle.putString("lessonId", lessonId)
+                navC.navigate(R.id.action_onlineCourseActiveFragment_to_onlineLessonFragment, bundle)
             }
         }
         setObservers(this)
         id?.run {
             schoolId = this
-            schoolVM.getOnlineLessons("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==",
-                this)
+            schoolVM.getOnlineLessons(
+                "eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==",
+                this
+            )
             val schoolsResponse = schoolVM.onlineSchools.value
             schoolsResponse?.run {
                 val schools = this.schools
                 schoolId?.run {
-                    for (i in schools.indices){
+                    for (i in schools.indices) {
                         val idSchool = schools[i].id.toString()
-                        if(idSchool==this){
+                        if (idSchool == this) {
                             val school = schools[i]
                             binding.textViewTitle.text = school.title
                             binding.textViewRank.text = school.userRank
@@ -83,14 +88,14 @@ class OnlineCourseActiveFragment:Fragment() {
 
         // for test
         val literatures = arrayListOf<OnlineSchoolsResponse.Literature>()
-        for(i in 0 .. 10){
-            val literature = OnlineSchoolsResponse.Literature("Нет апи","Нет апи", "Нет апи")
+        for (i in 0..10) {
+            val literature = OnlineSchoolsResponse.Literature("Нет апи", "Нет апи", "Нет апи")
             literatures.add(literature)
         }
         materialsAdapter.setLiterature(literatures)
     }
 
-    fun setObservers(owner:LifecycleOwner){
+    fun setObservers(owner: LifecycleOwner) {
         schoolVM.onlineSchools.observe(owner, Observer {
 
         })
@@ -100,7 +105,7 @@ class OnlineCourseActiveFragment:Fragment() {
         })
     }
 
-    private fun setListeners (){
+    private fun setListeners() {
         val colorPrimary = ContextCompat.getColor(requireContext(), R.color.TextColorPrimary)
         val colorWhite = ContextCompat.getColor(requireContext(), android.R.color.white)
         binding.constraintMaterials.isSelected = true
@@ -123,10 +128,10 @@ class OnlineCourseActiveFragment:Fragment() {
 
     @SuppressLint("InlinedApi")
     @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility (){
+    private fun setSystemUiVisibility() {
         requireActivity().window.run {
             decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
         }
     }

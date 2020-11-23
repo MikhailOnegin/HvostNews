@@ -99,6 +99,13 @@
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_profileFragment_to_vouchersFragment"
+            app:destination="@id/vouchersFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -294,5 +301,11 @@
         android:name="ru.hvost.news.presentation.fragments.orders.OrdersFragment"
         android:label="OrdersFragment"
         tools:layout="@layout/fragment_orders"/>
+
+    <fragment
+        android:id="@+id/vouchersFragment"
+        android:name="ru.hvost.news.presentation.fragments.vouchers.VouchersFragment"
+        android:label="VouchersFragment"
+        tools:layout="@layout/fragment_vouchers"/>
 
 </navigation>
