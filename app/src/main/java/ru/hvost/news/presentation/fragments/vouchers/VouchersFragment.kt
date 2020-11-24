@@ -32,7 +32,7 @@ class VouchersFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentVouchersBinding.inflate(inflater, container, false)
         initializeObservers()
         return binding.root
@@ -42,13 +42,13 @@ class VouchersFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
-        mainVM.updateVouchers(App.getInstance().userToken)
         setRecyclerView()
     }
 
     override fun onStart() {
         super.onStart()
         setListeners()
+        mainVM.updateVouchers(App.getInstance().userToken)
     }
 
     private fun setListeners() {
@@ -73,6 +73,11 @@ class VouchersFragment : Fragment() {
         mainVM.loadingVouchersEvent.observe(viewLifecycleOwner, loadingVouchersEventObserver)
         mainVM.vouchers.observe(viewLifecycleOwner) { onVouchersUpdated(it) }
         mainVM.vouchersFilter.observe(viewLifecycleOwner) { onVouchersFilterChanged(it) }
+        mainVM.vouchersFooterClickEvent.observe(viewLifecycleOwner, footerClickObserver)
+    }
+
+    private val footerClickObserver = OneTimeEvent.Observer {
+        findNavController().navigate(R.id.action_vouchersFragment_to_registerVoucherFragment)
     }
 
     @Suppress("USELESS_CAST")

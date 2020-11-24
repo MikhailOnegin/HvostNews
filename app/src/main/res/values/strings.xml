@@ -341,4 +341,11 @@
     <string name="lesson_number">Урок №</string>
     <string name="coupon_page">Страница купона</string>
     <string name="code">Код</string>
+    <string name="fragmentRegisterVoucherTitle">Активация промокода</string>
+    <string name="hintVoucher">Промокод</string>
+    <string name="buttonCheckCode">Проверить промокод</string>
+    <string name="voucherProgramHint">Программа (определяется автоматически)</string>
+    <string name="buttonActivateCode">Активировать промокод</string>
+    <string name="vouchersPetsSpinnerHint">Выберите или добавьте питомца</string>
+    <string name="buttonCancel">Отмена</string>
 </resources>

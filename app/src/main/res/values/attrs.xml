@@ -4,6 +4,7 @@
     <declare-styleable name="ValueHolderView">
         <attr name="iconResource" format="reference"/>
         <attr name="holderHint" format="string"/>
+        <attr name="showIcon" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="RoundCornersImageView">

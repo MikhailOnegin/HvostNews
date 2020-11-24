@@ -92,6 +92,18 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<GetVouchersResponse>
 
+    @GET("/rest/Vouchers/getVoucherProgram/")
+    fun getVoucherProgramAsync(
+        @Query("voucherCode") voucherCode: String?
+    ): Deferred<GetVoucherProgramResponse>
+
+    @GET("/rest/Vouchers/registerVoucher/")
+    fun registerVoucherAsync(
+        @Query("userToken") userToken: String?,
+        @Query("voucherCode") voucherCode: String?,
+        @Query("petId") petId: String?
+    ): Deferred<SimpleResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null
@@ -229,7 +241,7 @@ interface APIService {
     }
 
     class HTTPAuthenticator : Authenticator {
-        override fun authenticate(route: Route?, response: Response): Request? {
+        override fun authenticate(route: Route?, response: Response): Request {
             return response.request.newBuilder()
                 .header(
                     "Authorization",

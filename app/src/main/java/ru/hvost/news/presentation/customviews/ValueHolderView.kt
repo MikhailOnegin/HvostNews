@@ -38,6 +38,9 @@ class ValueHolderView(
                     R.styleable.ValueHolderView_holderHint
                 )
                 binding.hint.text = hint ?: context.getString(R.string.stub)
+                val showIcon = getBoolean(R.styleable.ValueHolderView_showIcon, true)
+                if(showIcon) binding.chevron.visibility = View.VISIBLE
+                else binding.chevron.visibility = View.GONE
             } finally {
                 recycle()
             }
@@ -55,6 +58,7 @@ class ValueHolderView(
         }
     }
 
+    @Suppress("unused")
     fun setIcon(iconResource: Int) {
         binding.chevron.setImageResource(iconResource)
     }
