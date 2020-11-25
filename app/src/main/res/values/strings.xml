@@ -350,4 +350,7 @@
     <string name="buttonCancel">Отмена</string>
     <string name="school_parents">Школа ответственных родителей</string>
     <string name="cartIconCD">Корзина</string>
+    <string name="addPetToProfile">Добавить и перейти в профиль</string>
+    <string name="addPetTitle">Добавить питомца</string>
+    <string name="petAddedSuccessfull">Новый питомец успешно добавлен</string>
 </resources>
