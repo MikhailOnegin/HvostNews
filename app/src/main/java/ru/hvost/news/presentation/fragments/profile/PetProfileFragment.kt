@@ -115,7 +115,6 @@ class PetProfileFragment : Fragment() {
                 this,
                 Species::speciesName
             )
-            adapter.addAll(this)
             binding.type.adapter = adapter
             adapter.notifyDataSetChanged()
         }
@@ -139,7 +138,6 @@ class PetProfileFragment : Fragment() {
                 this,
                 Breeds::breedName
             )
-            adapter.addAll(this)
             binding.breed.adapter = adapter
             adapter.notifyDataSetChanged()
         }

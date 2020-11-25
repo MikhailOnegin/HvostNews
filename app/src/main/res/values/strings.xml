@@ -330,4 +330,7 @@
     <string name="ageForMonthType2">месяца</string>
     <string name="ageForMonthType3">месяцев</string>
     <string name="addedToCartSuccessfull">Приз успешно добавлен в корзину</string>
+    <string name="addPetToProfile">Добавить и перейти в профиль</string>
+    <string name="addPetTitle">Добавить питомца</string>
+    <string name="petAddedSuccessfull">Новый питомец успешно добавлен</string>
 </resources>
