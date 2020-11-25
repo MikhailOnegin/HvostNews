@@ -10,12 +10,12 @@ data class CitiesOffline (
         val name:String
     )
 }
-fun OfflineCitiesResponse.toDomain():CitiesOffline{
+fun OfflineCitiesResponse.toOfflineLessons():CitiesOffline{
     return CitiesOffline(
-        cities = this.cities.toDomain()
+        cities = this.cities.toOfflineLessons()
     )
 }
-fun List<OfflineCitiesResponse.CityOfflineResponse>?.toDomain(): List<CitiesOffline.CityOffline> {
+fun List<OfflineCitiesResponse.CityOffline>?.toOfflineLessons(): List<CitiesOffline.CityOffline> {
     val result = mutableListOf<CitiesOffline.CityOffline>()
     this?.run {
         for ((_, cityOfflineResponse) in this.withIndex()) {

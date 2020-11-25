@@ -52,9 +52,7 @@ class OnlineLessonFragment : Fragment() {
 
     private fun setObservers(owner:LifecycleOwner) {
         schoolVM.onlineLessons.observe(owner, Observer {
-            Log.i("eeee", "OnlineLessons ${it.lessons.size}")
             lessonId?.run {
-                Log.i("eeee", "Lesson id is ${lessonId}")
                 for (i in it.lessons.indices){
                     val lesson = it.lessons[i]
                     if(lesson.lessonId == this){
@@ -66,7 +64,7 @@ class OnlineLessonFragment : Fragment() {
                         //for test
                         val literatures = arrayListOf<OnlineSchoolsResponse.Literature>()
                         for (i in 0..10) {
-                            val literature = OnlineSchoolsResponse.Literature("Нет апи", "Нет апи", "Нет апи")
+                            val literature = OnlineSchoolsResponse.Literature("Нет апи", "Нет апи", "1")
                             literatures.add(literature)
                         }
                         val container = binding.includeLiterature.linearLayout
@@ -78,8 +76,8 @@ class OnlineLessonFragment : Fragment() {
                                 false
                             ).root
 
-                            view.textView_title.text = literatures[i].title
-                            view.textView_pet.text = literatures[i].pet
+                            view.textView_title.text = literatures[i].name
+                            view.textView_pet.text = "Нет апи"
                             val margin = resources.getDimension(R.dimen.normalMargin).toInt()
                             (view.layoutParams as LinearLayout.LayoutParams).setMargins(
                                 0,

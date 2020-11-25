@@ -14,9 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_school_parents.*
 import ru.hvost.news.R
+import ru.hvost.news.data.api.response.OnlineLessonsResponse
+import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.FragmentSchoolParentsBinding
 import ru.hvost.news.models.CitiesOffline.CityOffline
-import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarsAdapter
+import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.models.toOnlineSchools
+import ru.hvost.news.presentation.adapters.recycler.OfflineLessonsAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolsOnlineAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
@@ -26,7 +30,7 @@ class ParentsSchoolFragment : Fragment() {
     private lateinit var binding: FragmentSchoolParentsBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var onlineSchoolsAdapter:SchoolsOnlineAdapter
-    private lateinit var offlineLessonsAdapter :OfflineSeminarsAdapter
+    private lateinit var offlineLessonsAdapter :OfflineLessonsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,15 +38,19 @@ class ParentsSchoolFragment : Fragment() {
     ): View? {
         binding = FragmentSchoolParentsBinding.inflate(inflater, container, false)
         onlineSchoolsAdapter = SchoolsOnlineAdapter()
-        offlineLessonsAdapter = OfflineSeminarsAdapter()
+        offlineLessonsAdapter = OfflineLessonsAdapter()
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        setSystemUiVisibility()
+        setObservers(this)
+        setListeners()
         binding.recyclerView.adapter = onlineSchoolsAdapter
         schoolVM.getOnlineSchools("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
+
         schoolVM.getOfflineCities()
         binding.spinner.setSelection(0, false)
         binding.spinner.adapter =
@@ -58,6 +66,11 @@ class ParentsSchoolFragment : Fragment() {
                 )
             }
         }
+        offlineLessonsAdapter.onClickLesson = object : OfflineLessonsAdapter.OnClickOfflineLesson{
+            override fun onClick(lessonId: String) {
+                findNavController().navigate(R.id.action_parentSchoolFragment_to_offline_event_fragment)
+            }
+        }
         setSystemUiVisibility()
         setObservers(this)
         setListeners()
@@ -67,7 +80,7 @@ class ParentsSchoolFragment : Fragment() {
     private fun setObservers(owner: LifecycleOwner) {
 
         schoolVM.onlineSchools.observe(owner, Observer {
-            onlineSchoolsAdapter.setSchools(it.schools)
+            onlineSchoolsAdapter.setSchools(it.onlineSchools)
         })
 
         schoolVM.offlineCities.observe(owner, Observer {
@@ -107,7 +120,7 @@ class ParentsSchoolFragment : Fragment() {
             binding.constraintSpinner.visibility = View.VISIBLE
         }
         binding.switchFilter.setOnCheckedChangeListener { compoundButton, b ->
-            if (binding.recyclerView.adapter is OfflineSeminarsAdapter) {
+            if (binding.recyclerView.adapter is OfflineLessonsAdapter) {
                 offlineLessonsAdapter.filter(b)
             }
         }

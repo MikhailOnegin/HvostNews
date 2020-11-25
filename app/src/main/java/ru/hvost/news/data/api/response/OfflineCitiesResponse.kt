@@ -3,10 +3,10 @@ package ru.hvost.news.data.api.response
 data class  OfflineCitiesResponse (
 val result:String?,
 val error:String?,
-val cities:List<CityOfflineResponse>?
+val cities:List<CityOffline>?
 )
 {
-    data class CityOfflineResponse(
+    data class CityOffline(
         val cityId:String?,
         val name:String?
     )

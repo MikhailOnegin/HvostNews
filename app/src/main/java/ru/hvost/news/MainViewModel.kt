@@ -204,7 +204,7 @@ class MainViewModel : ViewModel() {
                 if (response.result == "success") {
                     allArticles.value = response.articles?.toArticles()
                     categories = allArticles.value?.toCategory()
-                    domains = allArticles.value?.toDomain()
+                    domains = allArticles.value?.toOfflineLessons()
                     allArticlesState.value = State.SUCCESS
                 } else allArticlesState.value = State.ERROR
             } catch (exc: Exception) {

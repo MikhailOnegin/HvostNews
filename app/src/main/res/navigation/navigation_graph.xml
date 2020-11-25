@@ -161,22 +161,18 @@
             app:destination="@+id/onlineCourseActiveFragment"
             />
         <action
-            android:id="@+id/action_parentSchoolFragment_to_offlineSeminarsFragment"
-            app:destination="@+id/offlineSeminarsFragment"
+            android:id="@+id/action_parentSchoolFragment_to_offline_event_fragment"
+            app:destination="@+id/offlineEventFragment"
             />
     </fragment>
 
+
     <fragment
         android:id="@+id/offlineCourseActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseSeminars"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineEventFragment"
         android:label="Offline course active"
         tools:layout="@layout/fragment_school_offline_event" />
 
-    <fragment
-        android:id="@+id/offlineSeminarsFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OfflineCourseSeminars"
-        android:label="Offline course completed"
-        tools:layout="@layout/fragment_school_offline_event" />
 
     <fragment
         android:id="@+id/onlineCourseActiveFragment"
@@ -194,6 +190,13 @@
         android:name="ru.hvost.news.presentation.fragments.school.OnlineLessonFragment"
         android:label="Online lesson"
         tools:layout="@layout/fragment_school_online_lesson"
+        />
+
+    <fragment
+        android:id="@+id/offlineEventFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OfflineEventFragment"
+        android:label="Offline event"
+        tools:layout="@layout/fragment_school_offline_event"
         />
 
     <fragment

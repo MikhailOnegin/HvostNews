@@ -24,14 +24,14 @@ data class OnlineLessons(
     )
 }
 
-fun OnlineLessonsResponse.toDomain(): OnlineLessons {
+fun OnlineLessonsResponse.toOfflineLessons(): OnlineLessons {
     return OnlineLessons(
-        lessons = this.lessons.toDomain()
+        lessons = this.lessons.toOnlineLessons()
     )
 }
 
 
-fun List<OnlineLessonsResponse.OnlineLessonResponse>?.toDomain(): List<OnlineLessons.OnlineLesson> {
+fun List<OnlineLessonsResponse.OnlineLesson>?.toOnlineLessons(): List<OnlineLessons.OnlineLesson> {
     val result = mutableListOf<OnlineLessons.OnlineLesson>()
     this?.run {
         for ((index, onlineLessonResponse) in this.withIndex()) {
@@ -53,7 +53,7 @@ fun List<OnlineLessonsResponse.OnlineLessonResponse>?.toDomain(): List<OnlineLes
     return result
 }
 
-fun List<OnlineLessonsResponse.AnswerResponse>?.toAnswers(): List<OnlineLessons.Answer> {
+fun List<OnlineLessonsResponse.Answer>?.toAnswers(): List<OnlineLessons.Answer> {
     val result = mutableListOf<OnlineLessons.Answer>()
     this?.run {
         for ((_, answerResponse) in this.withIndex()) {

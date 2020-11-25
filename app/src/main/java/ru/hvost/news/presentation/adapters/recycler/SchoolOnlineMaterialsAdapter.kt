@@ -15,11 +15,12 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
+import ru.hvost.news.models.OnlineSchools
 
 class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var school:OnlineSchools.OnlineSchool? = null
     private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
-    private var literature = arrayListOf<OnlineSchoolsResponse.Literature>()
     var onClickLesson: OnClickLesson? = null
 
     interface OnClickLesson {
@@ -31,8 +32,8 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged()
     }
 
-    fun setLiterature(literature: List<OnlineSchoolsResponse.Literature>) {
-        this.literature = literature.toCollection(ArrayList())
+    fun setSchool(school: OnlineSchools.OnlineSchool){
+        this.school = school
         notifyDataSetChanged()
     }
 
@@ -67,7 +68,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
             is UsefulLiteratureViewHolder ->
-                holder.bind(literature)
+                    holder.bind(school)
         }
     }
 
@@ -96,27 +97,30 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     inner class UsefulLiteratureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(literature: List<OnlineSchoolsResponse.Literature>) {
-            val container = itemView.linearLayout
-            container.removeAllViews()
-            for (i in literature.indices) {
-                val view = LayoutLiteratureItemBinding.inflate(
-                    LayoutInflater.from(itemView.context),
-                    container,
-                    false
-                ).root
+        fun bind(school: OnlineSchools.OnlineSchool?) {
+            school?.run {
+                val container = itemView.linearLayout
+                container.removeAllViews()
+                for (i in school.literatures.indices) {
+                    val view = LayoutLiteratureItemBinding.inflate(
+                        LayoutInflater.from(itemView.context),
+                        container,
+                        false
+                    ).root
 
-                view.textView_title.text = literature[i].title
-                view.textView_pet.text = literature[i].pet
-                val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
-                (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                    0,
-                    margin,
-                    margin + margin,
-                    0
-                )
-                container.addView(view)
+                    view.textView_title.text = school.literatures[i].name
+                    view.textView_pet.text = school.literatures[i].pet
+                    val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                    (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                        0,
+                        margin,
+                        margin + margin,
+                        0
+                    )
+                    container.addView(view)
+                }
             }
+
         }
     }
 

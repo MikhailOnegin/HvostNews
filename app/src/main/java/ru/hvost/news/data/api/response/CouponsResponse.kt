@@ -6,9 +6,9 @@ import java.io.Serializable
 data class CouponsResponse (
     val result:String?,
     val error:String?,
-    val coupons:List<CouponResponse>?
+    val coupons:List<Coupon>?
 ){
-    data class CouponResponse (
+    data class Coupon (
         val couponId:String?,
         val imageUrl:String?,
         val isUsed:Boolean?,
