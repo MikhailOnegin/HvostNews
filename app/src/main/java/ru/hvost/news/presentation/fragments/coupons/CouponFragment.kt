@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -26,7 +28,7 @@ class CouponFragment : Fragment() {
     private lateinit var binding: FragmentCouponBinding
     private lateinit var couponVM: CouponViewModel
     private lateinit var navC: NavController
-    private val dialogGrCode = QrCodeDialog()
+    private var couponId:String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,40 +41,50 @@ class CouponFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        couponVM = ViewModelProvider(this)[CouponViewModel::class.java]
+        couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         navC = findNavController()
-        binding.imageBack.setOnClickListener {
-            navC.popBackStack()
-        }
-        binding.buttonShowQrCode.setOnClickListener {
-            dialogGrCode.show(requireActivity().supportFragmentManager, "customDialog")
-        }
-        val coupon: Coupons.Coupon? = arguments?.get("coupon") as Coupons.Coupon?
-        coupon?.run {
-            Glide.with(requireContext()).load(baseUrl + this.imageUrl)
-                .placeholder(R.drawable.not_found)
-                .into(binding.imageViewCoupon)
-            binding.textViewCouponTitle.text = this.title
-            if (this.expirationDate.isBlank()) binding.textViewCouponActivity.text =
-                resources.getString(R.string.not_found)
-            else binding.textViewCouponActivity.text =
-                "${resources.getString(R.string.before)} ${this.expirationDate}"
-            if (this.isUsed) {
-                binding.textViewCouponStatus.text = "Использованный"
-            } else {
-                binding.textViewCouponStatus.text = "Активный"
-            }
-            binding.textViewCouponDescription.text = this.description
-        }
+        couponId = arguments?.get("couponId") as String?
+        setListeners()
+        setObservers(this)
         setSystemUiVisibility()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setObservers(owner:LifecycleOwner) {
+        couponVM.coupons.observe(owner, Observer {
+            for (i in it.coupons.indices){
+                val coupon = it.coupons[i]
+                if(coupon.couponId == couponId ){
+                    binding.textViewCouponCode.text = coupon.qrCode
+                    Glide.with(requireContext()).load(baseUrl + coupon.imageUrl)
+                        .placeholder(R.drawable.not_found)
+                        .into(binding.imageViewCoupon)
+                    binding.textViewCouponTitle.text = coupon.title
+                    if (coupon.expirationDate.isBlank()) binding.textViewCouponActivity.text =
+                        resources.getString(R.string.not_found)
+                    else binding.textViewCouponActivity.text = "${resources.getString(R.string.before)} ${coupon.expirationDate}"
+                    if (coupon.isUsed) {
+                        binding.textViewCouponStatus.text = "Использованный"
+                    } else {
+                        binding.textViewCouponStatus.text = "Активный"
+                    }
+                    binding.textViewCouponDescription.text = coupon.description
+                }
+            }
+        })
+    }
+
+    private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     @SuppressLint("InlinedApi")
     @Suppress("DEPRECATION")
     private fun setSystemUiVisibility() {
         requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
         }
     }

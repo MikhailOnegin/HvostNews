@@ -14,12 +14,14 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:stateListAnimator="@null"
+        android:fitsSystemWindows="true"
         app:elevation="0dp"
         app:liftOnScroll="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="24dp"
             app:layout_scrollFlags="scroll|snap|enterAlways">
 
             <View
@@ -27,9 +29,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/gray4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar"
-                app:layout_scrollFlags="scroll|snap|enterAlways"
-                tools:layout_editor_absoluteX="-24dp" />
+                app:layout_scrollFlags="scroll|snap|enterAlways" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -38,6 +41,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:theme="@style/AppTheme.Toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|snap|enterAlways"
                 app:navigationIcon="@drawable/ic_back"

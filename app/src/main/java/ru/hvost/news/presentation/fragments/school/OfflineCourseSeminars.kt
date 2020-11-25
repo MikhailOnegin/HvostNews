@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
@@ -27,7 +28,14 @@ class OfflineCourseSeminars : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(this)[SchoolViewModel::class.java]
+        setListeners()
         setSystemUiVisibility()
+    }
+
+    private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     @SuppressLint("InlinedApi")
