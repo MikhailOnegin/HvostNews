@@ -349,4 +349,5 @@
     <string name="vouchersPetsSpinnerHint">Выберите или добавьте питомца</string>
     <string name="buttonCancel">Отмена</string>
     <string name="school_parents">Школа ответственных родителей</string>
+    <string name="cartIconCD">Корзина</string>
 </resources>
