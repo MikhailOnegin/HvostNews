@@ -36,8 +36,15 @@ class CouponsGetInfoFragment : Fragment() {
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         couponVM.getCouponsInfo("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
         navC = findNavController()
+        setListeners()
         setObservers()
         setSystemUiVisibility()
+    }
+
+    private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 
@@ -49,6 +56,7 @@ class CouponsGetInfoFragment : Fragment() {
                 .into(binding.imageViewInfoGetCoupons)
         })
     }
+
 
     @SuppressLint("InlinedApi")
     @Suppress("DEPRECATION")

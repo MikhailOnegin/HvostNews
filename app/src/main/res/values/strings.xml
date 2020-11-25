@@ -348,4 +348,5 @@
     <string name="buttonActivateCode">Активировать промокод</string>
     <string name="vouchersPetsSpinnerHint">Выберите или добавьте питомца</string>
     <string name="buttonCancel">Отмена</string>
+    <string name="school_parents">Школа ответственных родителей</string>
 </resources>
