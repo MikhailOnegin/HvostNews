@@ -2,7 +2,6 @@ package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,10 +87,10 @@ class ParentsSchoolFragment : Fragment() {
     private fun setListeners() {
         val colorPrimary = ContextCompat.getColor(requireContext(), R.color.TextColorPrimary)
         val colorWhite = ContextCompat.getColor(requireContext(), android.R.color.white)
-        binding.constraintOnlineScools.isSelected = true
+        binding.constraintOnlineSchools.isSelected = true
         binding.onlineSchool.setTextColor(colorWhite)
 
-        binding.constraintOnlineScools.setOnClickListener {
+        binding.constraintOnlineSchools.setOnClickListener {
             it.isSelected = true
             constraint_offline_seminars.isSelected = false
             binding.recyclerView.adapter = onlineSchoolsAdapter
@@ -101,7 +100,7 @@ class ParentsSchoolFragment : Fragment() {
         }
         binding.constraintOfflineSeminars.setOnClickListener {
             it.isSelected = true
-            constraint_onlineScools.isSelected = false
+            constraint_onlineSchools.isSelected = false
             binding.recyclerView.adapter = offlineLessonsAdapter
             binding.offlineSeminars.setTextColor(colorWhite)
             binding.onlineSchool.setTextColor(colorPrimary)

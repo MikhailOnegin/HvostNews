@@ -2,6 +2,7 @@ package ru.hvost.news
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import retrofit2.http.Query
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
@@ -391,10 +392,59 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    companion object {
-        const val SEX_MALE = 8
-        const val SEX_FEMALE = 9
-        const val UNKNOWN = 0
+    private val _addPetEvent = MutableLiveData<NetworkEvent<State>>()
+    val addPetEvent: LiveData<NetworkEvent<State>> = _addPetEvent
+    private val _addPetResponse = MutableLiveData<AddPetResponse>()
+    val addPetResponse: LiveData<AddPetResponse> = _addPetResponse
+
+    fun addPet( //TODO: поправить отправляемые данные
+        petName: String,
+        petSpecies: String,
+        petSex: String,
+//        petBreed: String,
+        petBirthday: String,
+//        petDelicies: String,
+//        petToy: String,
+//        petBadHabbit: String,
+//        petChip: String,
+//        isPetForShows: Boolean,
+//        hasTitles: Boolean,
+//        isSportsPet: Boolean,
+//        visitsSaloons: Boolean,
+//        petEducation: String
+    ) {
+        viewModelScope.launch {
+            _addPetEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.addPetAsync(
+                    userToken = App.getInstance().userToken,
+                    petName = petName,
+                    petSpecies = petSpecies,
+                    petSex = petSex,
+                    petBreed = "502",
+                    petBirthday = petBirthday,
+                    petDelicies = "1",
+                    petToy = "222",
+                    petBadHabbit = "1",
+                    petChip = "111",
+                    isPetForShows = true,
+                    hasTitles = true,
+                    isSportsPet = true,
+                    visitsSaloons = true,
+                    petEducation = "111"
+                ).await()
+                if (result.result == "success") {
+                    _addPetResponse.value = result
+                    _addPetEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _addPetEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _addPetResponse.value = null
+                }
+            } catch (exc: Exception) {
+                _addPetEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _addPetResponse.value = null
+            }
+        }
     }
 
 }

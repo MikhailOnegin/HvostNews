@@ -121,4 +121,7 @@
     <dimen name="rvVoucherCodeTextSize">18sp</dimen>
     <dimen name="rvVoucherTextSize">16sp</dimen>
     <dimen name="rvVoucherTitleTextSize">26sp</dimen>
+    <dimen name="icCartSize">24dp</dimen>
+    <dimen name="cartLayoutTextSize">14sp</dimen>
+    <dimen name="cartLayoutDividerHeight">14dp</dimen>
 </resources>

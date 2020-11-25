@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import ru.hvost.news.R
@@ -38,8 +39,15 @@ class OnlineLessonFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[ SchoolViewModel::class.java]
         lessonId = arguments?.get("lessonId")
+        setListeners()
         setSystemUiVisibility()
         setObservers(this)
+    }
+
+    private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun setObservers(owner:LifecycleOwner) {

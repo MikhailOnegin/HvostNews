@@ -169,6 +169,25 @@ interface APIService {
         @Query("interests") interests: List<String>?
     ): Deferred<UserDataResponse>
 
+    @GET("/rest/PetProfile/addPet/")
+    fun addPetAsync(
+        @Query("userToken") userToken: String?,
+        @Query("petName") petName: String?,
+        @Query("petSpecies") petSpecies: String?,
+        @Query("petSex") petSex: String?,
+        @Query("petBreed") petBreed: String?,
+        @Query("petBirthday") petBirthday: String?,
+        @Query("petDelicies") petDelicies: String?,
+        @Query("petToy") petToy: String?,
+        @Query("petBadHabbit") petBadHabbit: String?,
+        @Query("petChip") petChip: String?,
+        @Query("isPetForShows") isPetForShows: Boolean?,
+        @Query("hasTitles") hasTitles: Boolean?,
+        @Query("isSportsPet") isSportsPet: Boolean?,
+        @Query("visitsSaloons") visitsSaloons: Boolean?,
+        @Query("petEducation") petEducation: String?
+    ): Deferred<AddPetResponse>
+
     // Coupons
     @GET("/rest/Coupons/getCoupons/")
     fun getCouponsAsync(

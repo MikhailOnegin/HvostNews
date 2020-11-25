@@ -41,11 +41,11 @@ class MyCouponsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         navC = findNavController()
-        couponVM = ViewModelProvider(this)[CouponViewModel::class.java]
+        couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         adapter.clickCoupon = object : MyCouponsAdapter.ClickCoupon {
             override fun click(item: Coupons.Coupon) {
                 val bundle = Bundle()
-                bundle.putSerializable("coupon", item)
+                bundle.putString("couponId", item.couponId)
                 navC.navigate(R.id.action_myCouponsFragment_to_couponFragment, bundle)
             }
         }
@@ -56,13 +56,11 @@ class MyCouponsFragment : Fragment() {
         setListeners()
         setObservers(this)
             couponVM.getCoupons("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
-
         setSystemUiVisibility()
     }
 
     private fun setObservers(owner: LifecycleOwner) {
         couponVM.coupons.observe(owner, Observer {
-            Log.i("eeee","Coupons Size ${it.coupons.size} ")
             adapter.setCoupons(it.coupons)
         })
     }
@@ -82,7 +80,9 @@ class MyCouponsFragment : Fragment() {
                     }
                 }
             }
-
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.imageInfo.setOnClickListener {
             Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
             navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)

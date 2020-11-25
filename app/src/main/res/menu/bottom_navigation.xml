@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_feed"/>
 
     <item
-        android:id="@+id/cartFragment"
+        android:id="@+id/shopFragment"
         android:title="@string/bnvShop"
         android:icon="@drawable/ic_shop"/>
 

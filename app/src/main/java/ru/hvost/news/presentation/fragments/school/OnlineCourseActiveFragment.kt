@@ -96,10 +96,6 @@ class OnlineCourseActiveFragment : Fragment() {
     }
 
     fun setObservers(owner: LifecycleOwner) {
-        schoolVM.onlineSchools.observe(owner, Observer {
-
-        })
-
         schoolVM.onlineLessons.observe(owner, Observer {
             materialsAdapter.setLessons(it.lessons)
         })
@@ -123,6 +119,9 @@ class OnlineCourseActiveFragment : Fragment() {
             binding.recyclerView.adapter = materialsAdapter
             binding.schoolMaterialsTitle.setTextColor(colorWhite)
             binding.schoolInfoTitle.setTextColor(colorPrimary)
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
