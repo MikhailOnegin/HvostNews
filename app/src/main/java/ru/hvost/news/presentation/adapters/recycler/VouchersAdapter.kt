@@ -114,9 +114,7 @@ class VouchersAdapter(
 
         fun bind() {
             binding.button.setOnClickListener {
-                //sergeev: Настроить переход к активации ваучера.
                 mainVM.vouchersFooterClickEvent.value = OneTimeEvent()
-                showNotReadyToast()
             }
         }
 

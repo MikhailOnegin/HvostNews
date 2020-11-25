@@ -26,7 +26,6 @@ class CouponFragment : Fragment() {
     private lateinit var binding: FragmentCouponBinding
     private lateinit var couponVM: CouponViewModel
     private lateinit var navC: NavController
-    private val dialogGrCode = QrCodeDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,12 +40,6 @@ class CouponFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         couponVM = ViewModelProvider(this)[CouponViewModel::class.java]
         navC = findNavController()
-        binding.imageBack.setOnClickListener {
-            navC.popBackStack()
-        }
-        binding.buttonShowQrCode.setOnClickListener {
-            dialogGrCode.show(requireActivity().supportFragmentManager, "customDialog")
-        }
         val coupon: Coupons.Coupon? = arguments?.get("coupon") as Coupons.Coupon?
         coupon?.run {
             Glide.with(requireContext()).load(baseUrl + this.imageUrl)

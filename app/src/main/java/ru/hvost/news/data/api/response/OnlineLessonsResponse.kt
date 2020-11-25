@@ -6,6 +6,7 @@ data class OnlineLessonsResponse(
     val lessons: List<OnlineLessonResponse>?
 ) {
     data class OnlineLessonResponse(
+        val lessonId:String?,
         val lessonTitle: String?,
         val petAge: String?,
         val lessonNumber: Int?,

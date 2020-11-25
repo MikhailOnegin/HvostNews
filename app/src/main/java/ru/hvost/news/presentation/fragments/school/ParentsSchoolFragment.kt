@@ -72,19 +72,15 @@ class ParentsSchoolFragment : Fragment() {
         })
 
         schoolVM.offlineCities.observe(owner, Observer {
-            Log.i("eeee", "getOfflineCities() size : ${it.cities.size}")
             val adapter = (binding.spinner.adapter as SpinnerAdapter<CityOffline>)
             adapter.clear()
             (binding.spinner.adapter as SpinnerAdapter<CityOffline>).addAll(it.cities)
             (binding.spinner.adapter as SpinnerAdapter<CityOffline>).getItem(0)?.run {
                 schoolVM.getOfflineSeminars(this.cityId)
             }
-            val valueCount = adapter.count
-            val d = 0
         })
 
         schoolVM.offlineSeminars.observe(owner, Observer {
-            Log.i("eeee", "Seminars size: ${it.seminars.size}")
             offlineLessonsAdapter.setSeminars(it.seminars)
         })
     }

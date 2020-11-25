@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,10 +84,11 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             tVTittle.text = lesson.lessonTitle
             tVAge.text = lesson.petAge
             iVGo.setOnClickListener {
+                //for Test
                 Toast.makeText(itemView.context, "Click", Toast.LENGTH_SHORT).show()
             }
             constraint.setOnClickListener {
-                onClickLesson?.onClick(lesson.domainId.toString())
+                onClickLesson?.onClick(lesson.lessonId)
             }
 
         }

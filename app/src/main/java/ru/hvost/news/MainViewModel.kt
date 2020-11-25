@@ -58,6 +58,8 @@ class MainViewModel : ViewModel() {
     //Событие, сообщающее о необходимости закрытия инструкций.
     val closeInstructionsEvent = MutableLiveData<OneTimeEvent>()
 
+    private val _loadingVouchersEvent = MutableLiveData<NetworkEvent<State>>()
+
     init {
         loadArticles()
         loadAllArticles()
@@ -67,6 +69,7 @@ class MainViewModel : ViewModel() {
         getBonusBalance()
         getInviteLink()
         getPrizeCategories()
+        updateVouchers(App.getInstance().userToken)
     }
 
     fun getBonusBalance() {
@@ -363,7 +366,6 @@ class MainViewModel : ViewModel() {
         _orderSelectedEvent.value = Event(order)
     }
 
-    private val _loadingVouchersEvent = MutableLiveData<NetworkEvent<State>>()
     val loadingVouchersEvent: LiveData<NetworkEvent<State>> = _loadingVouchersEvent
     private val _vouchers = MutableLiveData<List<VoucherItem>>()
     val vouchers: LiveData<List<VoucherItem>> = _vouchers

@@ -8,6 +8,7 @@ data class OnlineLessons(
 ) {
     data class OnlineLesson(
         val domainId: Int,
+        val lessonId:String,
         val lessonTitle: String,
         val petAge: String,
         val lessonNumber: Int,
@@ -37,6 +38,7 @@ fun List<OnlineLessonsResponse.OnlineLessonResponse>?.toDomain(): List<OnlineLes
             result.add(
                 OnlineLessons.OnlineLesson(
                     domainId = index,
+                    lessonId = onlineLessonResponse.lessonId?: "",
                     lessonTitle = onlineLessonResponse.lessonTitle ?: "",
                     petAge = onlineLessonResponse.petAge ?: "",
                     lessonNumber = onlineLessonResponse.lessonNumber ?: 0,

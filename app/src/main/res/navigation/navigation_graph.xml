@@ -306,6 +306,20 @@
         android:id="@+id/vouchersFragment"
         android:name="ru.hvost.news.presentation.fragments.vouchers.VouchersFragment"
         android:label="VouchersFragment"
-        tools:layout="@layout/fragment_vouchers"/>
+        tools:layout="@layout/fragment_vouchers">
+        <action
+            android:id="@+id/action_vouchersFragment_to_registerVoucherFragment"
+            app:destination="@id/registerVoucherFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerVoucherFragment"
+        android:name="ru.hvost.news.presentation.fragments.vouchers.RegisterVoucherFragment"
+        android:label="RegisterVoucherFragment"
+        tools:layout="@layout/fragment_register_voucher"/>
 
 </navigation>
