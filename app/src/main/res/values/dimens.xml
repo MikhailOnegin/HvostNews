@@ -124,4 +124,7 @@
     <dimen name="icCartSize">24dp</dimen>
     <dimen name="cartLayoutTextSize">14sp</dimen>
     <dimen name="cartLayoutDividerHeight">14dp</dimen>
+    <dimen name="tabTitleTextSize">24sp</dimen>
+    <dimen name="smallButtonTextSize">14sp</dimen>
+    <dimen name="smallButtonVerticalPadding">10dp</dimen>
 </resources>
