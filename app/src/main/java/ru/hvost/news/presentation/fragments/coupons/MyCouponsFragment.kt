@@ -83,6 +83,9 @@ class MyCouponsFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+        binding.toolbar.setOnClickListener {
+            navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)
+        }
         binding.imageInfo.setOnClickListener {
             Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
             navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)

@@ -75,24 +75,32 @@ class SchoolViewModel: ViewModel() {
        //        mutableOnlineSchoolsState.value = State.FAILURE
        //    }
        //}
-        val onlineSchools = mutableListOf<OnlineSchoolsResponse.OnlineSchool>()
-        val literatures = mutableListOf<OnlineSchoolsResponse.Literature>()
-        val lessonPassed = mutableListOf<Boolean>()
-        val waitList = mutableListOf<OnlineSchoolsResponse.Wait>()
+        val onlineSchools11 = mutableListOf<OnlineSchools.OnlineSchool>()
+        val literatures = mutableListOf<OnlineSchools.Literature>()
+        val lessonPassed = mutableListOf<OnlineSchools.LessonPassed>()
+        val waitList = mutableListOf<OnlineSchools.Wait>()
+        for(i in 0 .. 10){
+            val b = i>4
+            lessonPassed.add(
+                OnlineSchools.LessonPassed(
+                    i+1,
+                    b
+                )
+            )
+        }
+
         for (i in 0 .. 10){
             literatures.add(
-                OnlineSchoolsResponse.Literature(
+                OnlineSchools.Literature(
                 "Вакцинация",
                 "Для кота",
                 "src"
             ))
         }
-        for (i in 0 .. 10){
-            lessonPassed.add(true)
-        }
+
         for (i in 0 .. 10){
             waitList.add(
-                OnlineSchoolsResponse.Wait(
+                OnlineSchools.Wait(
                     "Коснпекты",
                     "/upload/iblock/a74/shor_shkola273kh211_web.jpg",
                     "Заметки и лайфхаки от экспертов"
@@ -100,15 +108,15 @@ class SchoolViewModel: ViewModel() {
             )
         }
 
-
         for(i in 0 .. 10){
-            onlineSchools.add(
-                OnlineSchoolsResponse.OnlineSchool(
-                    17174,
+            val id = 17174 + i
+            onlineSchools11.add(
+                OnlineSchools.OnlineSchool(
+                    i,
+                    id.toLong(),
                     "Онлайн-школа для владельцев щенков",
                     "/upload/iblock/a74/shor_shkola273kh211_web.jpg",
                     "Высокий ранг",
-                    null,
                     "Это обучающий онлайн-курс в новом формате. Он создан для тех, кто только планирует взять в дом щенка&nbsp;или уже завёл непоседу, и у кого остались вопросы по его содержанию. Мы поможем вам стать суперхозяином и расскажем: почему щенок грызет всё подряд, как подготовиться к первой прогулке и какие этапы взросления ждут малыша. В курсе&nbsp;8 серий по 10-20&nbsp;минут, которые можно просматривать в комфортном&nbsp;темпе и в удобное для вас время",
                     literatures,
                     lessonPassed,
@@ -116,10 +124,8 @@ class SchoolViewModel: ViewModel() {
                 )
             )
         }
-
-        val onlineSchoolsResponse: OnlineSchoolsResponse = OnlineSchoolsResponse("success", null, onlineSchools)
-        val onlineSchools1:OnlineSchools = onlineSchoolsResponse.toOnlineSchools()
-        mutableOnlineSchools.value = onlineSchools1
+        val onlineSchools21 = OnlineSchools(onlineSchools11)
+        mutableOnlineSchools.value = onlineSchools21
     }
 
     private val mutableSetLessonTestesPassedState:MutableLiveData<State> = MutableLiveData()

@@ -12,23 +12,26 @@ data class OnlineSchools(
         val title: String,
         val image: String,
         val userRank: String,
-        val images: String,
         val description: String,
-        val literatures:List<Literature>,
-        val lessonsPassed:List<Boolean>,
-        val wait:List<Wait>
+        val literatures: List<Literature>,
+        val lessonsPassed: List<LessonPassed>,
+        val wait :List<Wait>
+    )
 
+    data class LessonPassed(
+        val number: Int,
+        val isPassed: Boolean
     )
 
     data class Literature(
-        val name:String,
-        val pet:String,
-        val src:String,
+        val name: String,
+        val pet: String,
+        val src: String,
     )
     data class Wait(
-        val head:String,
-        val imageUrl:String,
-        val description:String
+        val head: String,
+        val imageUrl: String,
+        val description: String
     )
 }
 fun OnlineSchoolsResponse.toOnlineSchools(): OnlineSchools{
@@ -48,7 +51,6 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
                     title = schoolResponse.title ?: "",
                     image = schoolResponse.image ?: "",
                     userRank = schoolResponse.userRank ?: "",
-                    images = schoolResponse.images ?: "",
                     description = schoolResponse.description ?: "",
                     literatures = schoolResponse.literatures.toLiteratures(),
                     lessonsPassed = schoolResponse.lessonsPassed.toNotNull(),
@@ -93,12 +95,15 @@ fun List<OnlineSchoolsResponse.Wait>?.toWait(): List <OnlineSchools.Wait>{
     return result
 }
 
-fun List<Boolean>?.toNotNull():List<Boolean>{
-    val result = mutableListOf<Boolean>()
+fun List<OnlineSchoolsResponse.LessonPassed>?.toNotNull():List<OnlineSchools.LessonPassed>{
+    val result = mutableListOf<OnlineSchools.LessonPassed>()
     this?.run {
-        for ((index, b) in this.withIndex()) {
+        for ((index, lessonPassed) in this.withIndex()) {
             result.add(
-                b ?: false
+                OnlineSchools.LessonPassed(
+                    lessonPassed.number ?:0,
+                    lessonPassed.isPassed?: false
+                )
             )
         }
     }

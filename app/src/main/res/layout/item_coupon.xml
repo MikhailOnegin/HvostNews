@@ -64,7 +64,7 @@
                 android:text="@string/stub"
                 android:textAllCaps="true"
                 android:textColor="@color/gray3"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_coupon_status"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView_coupon_status" />
@@ -77,7 +77,7 @@
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/before"
                 android:textColor="@color/gray3"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_coupon_status"
                 app:layout_constraintEnd_toStartOf="@+id/textView_coupon_date"
                 app:layout_constraintTop_toTopOf="@+id/textView_coupon_status" />
@@ -86,7 +86,7 @@
                 android:id="@+id/textView_address"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/gilroy_medium"
+                android:fontFamily="@font/gilroy_semibold"
                 android:paddingTop="16dp"
                 android:text="@string/not_found"
                 android:textColor="@color/gray2"

@@ -176,20 +176,21 @@
 
     <style name="ButtonRoundedGray3" parent="ElevatedButton">
         <item name="background">@drawable/button_rounded</item>
+        <item name="backgroundTint">@color/gray5</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
         <item name="android:stateListAnimator">@null</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:layout_marginEnd">6dp</item>
         <item name="fontFamily">@font/gilroy_bold</item>
         <item name="android:textColor">@color/gray3</item>
         <item name="android:minWidth">0dip</item>
         <item name="android:minHeight">0dip</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:paddingBottom">9dp</item>
-        <item name="android:paddingTop">9dp</item>
-        <item name="android:paddingStart">4dp</item>
-        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingStart">2dp</item>
+        <item name="android:paddingEnd">2dp</item>
         <item name="android:backgroundTint">@color/lightGray</item>
         <item name="shapeAppearance">@style/ButtonShapeAppearance2</item>
         <item name="android:elevation">0dp</item>
@@ -197,7 +198,7 @@
 
     <style name="ButtonShapeAppearance2" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10dp</item>
+        <item name="cornerSize">12dp</item>
         <item name="android:elevation">0dp</item>
     </style>
 

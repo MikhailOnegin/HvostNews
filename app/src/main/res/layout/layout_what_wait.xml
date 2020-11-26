@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -31,7 +31,7 @@
             android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/gilroy_bold"
+            android:fontFamily="@font/gilroy_semibold"
             android:gravity="center_horizontal"
             android:text="@string/not_found"
             android:textColor="@color/gray1"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView_section"
             android:layout_centerHorizontal="true"
-            android:fontFamily="@font/gilroy_bold"
+            android:fontFamily="@font/gilroy_semibold"
             android:gravity="center_horizontal"
             android:maxLines="2"
             android:text="@string/not_found"
