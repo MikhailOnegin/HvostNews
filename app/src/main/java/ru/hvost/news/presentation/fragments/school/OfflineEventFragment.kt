@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OfflineCourseSeminars : Fragment() {
+class OfflineEventFragment : Fragment() {
 
     private lateinit var binding: FragmentSchoolOfflineEventBinding
     private lateinit var schoolVM: SchoolViewModel

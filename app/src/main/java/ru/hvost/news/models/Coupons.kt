@@ -20,13 +20,13 @@ data class Coupons(
     ) : Serializable
 }
 
-fun  CouponsResponse.toDomain():Coupons{
+fun  CouponsResponse.toOfflineLessons():Coupons{
     return Coupons(
-        coupons = this.coupons.toDomain()
+        coupons = this.coupons.toOfflineLessons()
     )
 }
 
-fun List<CouponsResponse.CouponResponse>?.toDomain(): List<Coupons.Coupon> {
+fun List<CouponsResponse.Coupon>?.toOfflineLessons(): List<Coupons.Coupon> {
 
     val result = mutableListOf<Coupons.Coupon>()
     this?.run {

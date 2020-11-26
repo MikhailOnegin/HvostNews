@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.data.api.response.CouponInfoResponse
-import ru.hvost.news.data.api.response.CouponsResponse
 import ru.hvost.news.models.CouponInfo
 import ru.hvost.news.models.Coupons
-import ru.hvost.news.models.toDomain
+import ru.hvost.news.models.toOfflineLessons
 import ru.hvost.news.utils.enums.State
 
 class CouponViewModel : ViewModel() {
@@ -28,7 +26,7 @@ class CouponViewModel : ViewModel() {
             mutableCouponsState.value = State.LOADING
             try {
                 val response = APIService.API.getCouponsAsync(userToken).await()
-                mutableCoupons.value = response.toDomain()
+                mutableCoupons.value = response.toOfflineLessons()
                 couponsCount = mutableCoupons.value?.coupons?.size
                 if (response.result == "success") {
                     mutableCouponsState.value = State.SUCCESS
@@ -51,7 +49,7 @@ class CouponViewModel : ViewModel() {
             mutableCouponsInfoState.value = State.LOADING
             try {
                 val response = APIService.API.getCouponsInfoAsync(userToken).await()
-                mutableCouponsInfo.value = response.toDomain()
+                mutableCouponsInfo.value = response.toOfflineLessons()
                 if (response.result == "success") mutableCouponsInfoState.value = State.SUCCESS
                 else mutableCouponsInfoState.value = State.ERROR
             } catch (exc: Exception) {

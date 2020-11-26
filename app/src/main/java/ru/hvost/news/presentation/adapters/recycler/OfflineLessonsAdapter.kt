@@ -1,26 +1,27 @@
 package ru.hvost.news.presentation.adapters.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OfflineSeminars
-import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import java.util.*
 
-class OfflineSeminarsAdapter :
-    RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
+class OfflineLessonsAdapter :
+    RecyclerView.Adapter<OfflineLessonsAdapter.OfflineLessonsViewHolder>() {
 
     private var lessonsFull = arrayListOf<OfflineSeminars.OfflineLesson>()
     private var lessons = arrayListOf<OfflineSeminars.OfflineLesson>()
     private var showFinished = true
+    var onClickLesson:OnClickOfflineLesson? = null
+
+    interface OnClickOfflineLesson{
+        fun onClick(lessonId:String)
+    }
 
     fun setSeminars(seminars: List<OfflineSeminars.OfflineLesson>) {
         this.lessonsFull = seminars.toCollection(ArrayList())
@@ -50,6 +51,7 @@ class OfflineSeminarsAdapter :
     }
 
     inner class OfflineLessonsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val constraint = itemView.constraint
         private val iVLesson = itemView.imageView_lesson
         private val iVStatus = itemView.imageViewStatus
         private val tVStatus = itemView.textView_lesson_status
@@ -73,6 +75,10 @@ class OfflineSeminarsAdapter :
             tVTitle.text = lesson.title
             tVDate.text = lesson.date
             tVCity.text = lesson.city
+
+            constraint.setOnClickListener {
+                onClickLesson?.onClick(lesson.city)
+            }
         }
     }
 }

@@ -2,11 +2,9 @@ package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -16,7 +14,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_school_online.*
-import kotlinx.android.synthetic.main.fragment_school_parents.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
@@ -66,7 +63,7 @@ class OnlineCourseActiveFragment : Fragment() {
             )
             val schoolsResponse = schoolVM.onlineSchools.value
             schoolsResponse?.run {
-                val schools = this.schools
+                val schools = this.onlineSchools
                 schoolId?.run {
                     for (i in schools.indices) {
                         val idSchool = schools[i].id.toString()
@@ -85,19 +82,22 @@ class OnlineCourseActiveFragment : Fragment() {
         }
         setSystemUiVisibility()
         setListeners()
-
-        // for test
-        val literatures = arrayListOf<OnlineSchoolsResponse.Literature>()
-        for (i in 0..10) {
-            val literature = OnlineSchoolsResponse.Literature("Нет апи", "Нет апи", "Нет апи")
-            literatures.add(literature)
-        }
-        materialsAdapter.setLiterature(literatures)
     }
 
     fun setObservers(owner: LifecycleOwner) {
         schoolVM.onlineLessons.observe(owner, Observer {
             materialsAdapter.setLessons(it.lessons)
+        })
+        schoolVM.onlineSchools.observe(owner, Observer {
+            schoolId?.run {
+                for(i in it.onlineSchools.indices){
+                    val onlineSchool = it.onlineSchools[i]
+                    if(onlineSchool.id.toString() == this){
+                        infoAdapter.setSchool(onlineSchool)
+                        materialsAdapter.setSchool(onlineSchool)
+                    }
+                }
+            }
         })
     }
 
