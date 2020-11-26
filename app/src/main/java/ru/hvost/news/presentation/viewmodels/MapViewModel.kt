@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.data.api.response.ShopsResponse
 import ru.hvost.news.models.Shops
-import ru.hvost.news.models.toDomain
+import ru.hvost.news.models.toOfflineLessons
 import ru.hvost.news.utils.enums.State
 
 class MapViewModel:ViewModel() {
@@ -25,7 +24,7 @@ class MapViewModel:ViewModel() {
             mutableShopsState.value = State.LOADING
             try {
                 val response = APIService.API.getShopsAsync(userToken).await()
-                mutableShops.value = response.toDomain()
+                mutableShops.value = response.toOfflineLessons()
                 if (response.result == "success") mutableShopsState.value = State.SUCCESS
                 else mutableShopsState.value = State.ERROR
             } catch (exc: Exception) {

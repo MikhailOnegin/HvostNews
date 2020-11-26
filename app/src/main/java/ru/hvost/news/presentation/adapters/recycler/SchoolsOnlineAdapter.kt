@@ -14,7 +14,7 @@ import ru.hvost.news.models.OnlineSchools
 
 class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsViewHolder>() {
 
-    private var schools = arrayListOf<OnlineSchools.School>()
+    private var schools = arrayListOf<OnlineSchools.OnlineSchool>()
     private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
     var clickSchool: ClickSchool? = null
 
@@ -29,8 +29,8 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
     }
 
 
-    fun setSchools(schools: List<OnlineSchools.School>) {
-        this.schools = schools.toCollection(ArrayList())
+    fun setSchools(onlineSchools: List<OnlineSchools.OnlineSchool>) {
+        this.schools = onlineSchools.toCollection(ArrayList())
         notifyDataSetChanged()
     }
 
@@ -50,14 +50,14 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
         private val tvTitle = itemView.textView_title
         private val tvRank = itemView.textView_rank
 
-        fun bind(school: OnlineSchools.School) {
-            if (school.title.isNotBlank()) tvTitle.text = school.title
-            if (school.userRank.isNotBlank()) tvRank.text = school.userRank
-            Glide.with(itemView.context).load(baseUrl + school.image)
+        fun bind(onlineSchool: OnlineSchools.OnlineSchool) {
+            if (onlineSchool.title.isNotBlank()) tvTitle.text = onlineSchool.title
+            if (onlineSchool.userRank.isNotBlank()) tvRank.text = onlineSchool.userRank
+            Glide.with(itemView.context).load(baseUrl + onlineSchool.image)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(ivSchool)
             clSchool.setOnClickListener {
-                clickSchool?.onClick(school.id.toString())
+                clickSchool?.onClick(onlineSchool.id.toString())
             }
         }
     }

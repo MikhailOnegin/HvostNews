@@ -6,7 +6,7 @@ data class Domain(
     val title: String
 )
 
-fun List<Article>.toDomain(): List<Domain> {
+fun List<Article>.toOfflineLessons(): List<Domain> {
     val map = mutableMapOf<String, Domain>()
     for (article in this) {
         if (!map.containsKey(article.domainTitle)) {

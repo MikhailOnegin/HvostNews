@@ -18,13 +18,13 @@ data class OfflineSeminars(
     )
 }
 
-fun OfflineSeminarsResponse.toDomain(): OfflineSeminars{
+fun OfflineSeminarsResponse.toOfflineLessons(): OfflineSeminars{
         return OfflineSeminars(
-            seminars = this.lessons.toDomain()
+            seminars = this.lessons.toOfflineLessons()
         )
     }
 
-fun List<OfflineSeminarsResponse.OfflineSeminarsResponse>?.toDomain(): List<OfflineSeminars.OfflineLesson> {
+fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<OfflineSeminars.OfflineLesson> {
     val result = mutableListOf<OfflineSeminars.OfflineLesson>()
     this?.run {
         for ((index, offlineLessonResponse) in this.withIndex()) {

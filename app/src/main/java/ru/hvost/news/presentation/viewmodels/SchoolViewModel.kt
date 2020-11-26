@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LessonTestesPassedResponse
+import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
 
@@ -24,7 +25,7 @@ class SchoolViewModel: ViewModel() {
             mutableOfflineLessonsState.value = State.LOADING
             try {
                 val response = APIService.API.getOfflineSeminarsAsync(cityId).await()
-                mutableOfflineSeminars.value = response.toDomain()
+                mutableOfflineSeminars.value = response.toOfflineLessons()
                 if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
                 else mutableOfflineLessonsState.value = State.ERROR
             } catch (exc: Exception) {
@@ -45,7 +46,7 @@ class SchoolViewModel: ViewModel() {
             mutableOnlineLessonsState.value = State.LOADING
             try {
                 val response = APIService.API.getOnlineLessonsAsync(userToken,schoolId).await()
-                mutableOnlineLessons.value = response.toDomain()
+                mutableOnlineLessons.value = response.toOfflineLessons()
                 if (response.result == "success") mutableOnlineLessonsState.value = State.SUCCESS
                 else mutableOnlineLessonsState.value = State.ERROR
             } catch (exc: Exception) {
@@ -62,18 +63,63 @@ class SchoolViewModel: ViewModel() {
     val onlineSchools:LiveData<OnlineSchools> = mutableOnlineSchools
 
     fun getOnlineSchools(userToken: String){
-        viewModelScope.launch {
-            mutableOnlineSchoolsState.value = State.LOADING
-            try {
-                val response = APIService.API.getOnlineSchoolsAsync(userToken).await()
-                mutableOnlineSchools.value = response.toDomain()
-                if (response.result == "success") mutableOnlineSchoolsState.value = State.SUCCESS
-                else mutableOnlineSchoolsState.value = State.ERROR
-            } catch (exc: Exception) {
-                Log.i("eeee", " getOnlineSchools() ERROR: ${exc.message.toString()}")
-                mutableOnlineSchoolsState.value = State.FAILURE
-            }
+       //viewModelScope.launch {
+       //    mutableOnlineSchoolsState.value = State.LOADING
+       //    try {
+       //        val response = APIService.API.getOnlineSchoolsAsync(userToken).await()
+       //        mutableOnlineSchools.value = response.toOnlineSchools()
+       //        if (response.result == "success") mutableOnlineSchoolsState.value = State.SUCCESS
+       //        else mutableOnlineSchoolsState.value = State.ERROR
+       //    } catch (exc: Exception) {
+       //        Log.i("eeee", " getOnlineSchools() ERROR: ${exc.message.toString()}")
+       //        mutableOnlineSchoolsState.value = State.FAILURE
+       //    }
+       //}
+        val onlineSchools = mutableListOf<OnlineSchoolsResponse.OnlineSchool>()
+        val literatures = mutableListOf<OnlineSchoolsResponse.Literature>()
+        val lessonPassed = mutableListOf<Boolean>()
+        val waitList = mutableListOf<OnlineSchoolsResponse.Wait>()
+        for (i in 0 .. 10){
+            literatures.add(
+                OnlineSchoolsResponse.Literature(
+                "Вакцинация",
+                "Для кота",
+                "src"
+            ))
         }
+        for (i in 0 .. 10){
+            lessonPassed.add(true)
+        }
+        for (i in 0 .. 10){
+            waitList.add(
+                OnlineSchoolsResponse.Wait(
+                    "Коснпекты",
+                    "/upload/iblock/a74/shor_shkola273kh211_web.jpg",
+                    "Заметки и лайфхаки от экспертов"
+                )
+            )
+        }
+
+
+        for(i in 0 .. 10){
+            onlineSchools.add(
+                OnlineSchoolsResponse.OnlineSchool(
+                    17174,
+                    "Онлайн-школа для владельцев щенков",
+                    "/upload/iblock/a74/shor_shkola273kh211_web.jpg",
+                    "Высокий ранг",
+                    null,
+                    "Это обучающий онлайн-курс в новом формате. Он создан для тех, кто только планирует взять в дом щенка&nbsp;или уже завёл непоседу, и у кого остались вопросы по его содержанию. Мы поможем вам стать суперхозяином и расскажем: почему щенок грызет всё подряд, как подготовиться к первой прогулке и какие этапы взросления ждут малыша. В курсе&nbsp;8 серий по 10-20&nbsp;минут, которые можно просматривать в комфортном&nbsp;темпе и в удобное для вас время",
+                    literatures,
+                    lessonPassed,
+                    waitList
+                )
+            )
+        }
+
+        val onlineSchoolsResponse: OnlineSchoolsResponse = OnlineSchoolsResponse("success", null, onlineSchools)
+        val onlineSchools1:OnlineSchools = onlineSchoolsResponse.toOnlineSchools()
+        mutableOnlineSchools.value = onlineSchools1
     }
 
     private val mutableSetLessonTestesPassedState:MutableLiveData<State> = MutableLiveData()
@@ -108,7 +154,7 @@ class SchoolViewModel: ViewModel() {
             mutableOfflineCitiesState.value = State.LOADING
             try {
                 val response = APIService.API.getOfflineCitiesAsync().await()
-                mutableOfflineCities.value = response.toDomain()
+                mutableOfflineCities.value = response.toOfflineLessons()
                 if (response.result == "success") mutableOfflineCitiesState.value = State.SUCCESS
                 else mutableOfflineCitiesState.value = State.ERROR
             } catch (exc: Exception) {
