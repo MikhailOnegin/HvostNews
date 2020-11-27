@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:background="@color/TextColorHints"
+                android:backgroundTint="@color/TextColorHints"
                 android:paddingLeft="32dp"
                 android:paddingTop="24dp"
                 android:paddingRight="32dp"

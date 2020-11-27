@@ -114,7 +114,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                     (view.layoutParams as LinearLayout.LayoutParams).setMargins(
                         0,
                         margin,
-                        margin + margin,
+                        margin,
                         0
                     )
                     container.addView(view)

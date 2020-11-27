@@ -19,6 +19,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.FragmentSchoolOnlineLessonBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
+import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class OnlineLessonFragment : Fragment() {
@@ -26,6 +27,7 @@ class OnlineLessonFragment : Fragment() {
     private lateinit var binding: FragmentSchoolOnlineLessonBinding
     private lateinit var schoolVM:SchoolViewModel
     private var lessonId:Any? = null
+    private var schoolId:Any? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,7 @@ class OnlineLessonFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[ SchoolViewModel::class.java]
         lessonId = arguments?.get("lessonId")
+        schoolId = arguments?.get("schoolId")
         setListeners()
         setSystemUiVisibility()
         setObservers(this)
@@ -62,38 +65,45 @@ class OnlineLessonFragment : Fragment() {
                         binding.textViewQuestion.text = lesson.testQuestion
 
                         //for test
-                        val literatures = arrayListOf<OnlineSchoolsResponse.Literature>()
-                        for (i in 0..10) {
-                            val literature = OnlineSchoolsResponse.Literature("Нет апи", "Нет апи", "1")
-                            literatures.add(literature)
-                        }
-                        val container = binding.includeLiterature.linearLayout
-                        container.removeAllViews()
-                        for (i in literatures.indices) {
-                            val view = LayoutLiteratureItemBinding.inflate(
-                                LayoutInflater.from(requireContext()),
-                                container,
-                                false
-                            ).root
 
-                            view.textView_title.text = literatures[i].name
-                            view.textView_pet.text = "Нет апи"
-                            val margin = resources.getDimension(R.dimen.normalMargin).toInt()
-                            (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                0,
-                                margin,
-                                margin + margin,
-                                0
-                            )
-                            container.addView(view)
-                        }
 
                         return@Observer
                     }
                 }
             }
         })
-
+        schoolVM.onlineSchools.observe(owner, Observer {
+            schoolId?.run {
+                var onlineSchool:OnlineSchools.OnlineSchool? = null
+                for(i in it.onlineSchools.indices){
+                    if(it.onlineSchools[i].id.toString() == this ){
+                        onlineSchool = it.onlineSchools[i]
+                    }
+                }
+                onlineSchool?.run {
+                    val literatures = this.literatures
+                    val container = binding.includeLiterature.linearLayout
+                    container.removeAllViews()
+                    for (i in literatures.indices) {
+                        val view = LayoutLiteratureItemBinding.inflate(
+                            LayoutInflater.from(requireContext()),
+                            container,
+                            false
+                        ).root
+                        view.textView_title.text = literatures[i].name
+                        view.textView_pet.text = literatures[i].pet
+                        val margin = resources.getDimension(R.dimen.normalMargin).toInt()
+                        (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                            0,
+                            margin,
+                            margin,
+                            0
+                        )
+                        container.addView(view)
+                    }
+                }
+            }
+        })
     }
 
     @SuppressLint("InlinedApi")

@@ -55,8 +55,9 @@ class CouponFragment : Fragment() {
             for (i in it.coupons.indices){
                 val coupon = it.coupons[i]
                 if(coupon.couponId == couponId ){
-                    binding.textViewCouponCode.text = coupon.qrCode
-                    Glide.with(requireContext()).load(baseUrl + coupon.imageUrl)
+                    binding.textViewCode1.text = coupon.qrCode
+                    binding.textViewCode2.text = coupon.qrCode
+                    Glide.with(requireContext()).load(baseUrl + coupon.qrCodeUrl)
                         .placeholder(R.drawable.not_found)
                         .into(binding.imageViewCoupon)
                     binding.textViewCouponTitle.text = coupon.title
@@ -64,9 +65,11 @@ class CouponFragment : Fragment() {
                         resources.getString(R.string.not_found)
                     else binding.textViewCouponActivity.text = "${resources.getString(R.string.before)} ${coupon.expirationDate}"
                     if (coupon.isUsed) {
-                        binding.textViewCouponStatus.text = "Использованный"
+                        binding.textViewCouponStatus.text = "Использован"
+                        binding.textViewCouponStatus.background = resources.getDrawable(R.drawable.background_coupon_staus_false)
                     } else {
                         binding.textViewCouponStatus.text = "Активный"
+                        binding.textViewCouponStatus.background = resources.getDrawable(R.drawable.background_coupon_status_true)
                     }
                     binding.textViewCouponDescription.text = coupon.description
                 }

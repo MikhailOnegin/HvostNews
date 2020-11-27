@@ -167,7 +167,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView12">
 
                 <Button
-                    android:id="@+id/button12"
+                    android:id="@+id/button1"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                     tools:layout_editor_absoluteX="4dp" />
 
                 <Button
-                    android:id="@+id/button11"
+                    android:id="@+id/button2"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/button10"
+                    android:id="@+id/button3"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/button4"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -217,7 +217,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/button5"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/button6"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                     android:textSize="14sp" />
 
                 <Button
-                    android:id="@+id/button6"
+                    android:id="@+id/button7"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
                     android:text="@string/_7"
                     android:textSize="14sp" />
                 <Button
-                    android:id="@+id/button67"
+                    android:id="@+id/button8"
                     style="@style/ButtonRoundedGray3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

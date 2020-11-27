@@ -72,7 +72,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 (view.layoutParams as LinearLayout.LayoutParams).setMargins(
                     0,
                     margin,
-                    margin + margin,
+                    margin,
                     0
                 )
                 container.addView(view)

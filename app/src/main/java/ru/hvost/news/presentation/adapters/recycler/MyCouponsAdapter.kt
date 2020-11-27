@@ -73,6 +73,12 @@ class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
                     itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
                 tVUsed.text = itemView.context.getString(R.string.active)
             }
+            if(coupon.address.isNotBlank()){
+                tVAddress.text = coupon.address
+            }
+            else{
+                tVAddress.visibility = View.GONE
+            }
             tVConst.setOnClickListener {
                 clickCoupon?.click(coupon)
             }
