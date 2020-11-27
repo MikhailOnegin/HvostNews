@@ -1,42 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFCEB8">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp">
 
-        <ImageView
-            android:id="@+id/imageView_forrmat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_pet"
-            app:srcCompat="@drawable/ic_pdf" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="170dp"
+        android:layout_height="124dp"
+        app:cardBackgroundColor="#FEDFD1"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/not_found"
-            android:textColor="@color/gray1"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView_pet"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/not_found"
-            android:textColor="@color/gray1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_title" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView_forrmat"
+                android:layout_width="24dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/ic_pdf" />
+
+            <TextView
+                android:id="@+id/textView_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/not_found"
+                android:textColor="@color/gray1"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_pet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/not_found"
+                android:textAllCaps="false"
+                android:textColor="#80141428"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

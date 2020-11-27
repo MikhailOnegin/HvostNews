@@ -14,6 +14,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:background="@android:color/transparent"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
@@ -24,7 +25,7 @@
         <ImageView
             android:id="@+id/imageView_school"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="210dp"
             android:background="@drawable/background_beveled_corners"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/default_image" />
@@ -37,7 +38,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/gilroy_bold"
+        android:fontFamily="@font/gilroy_extrabold"
         android:text="@string/not_found"
         android:textColor="@color/gray1"
         android:textSize="20sp"
@@ -58,78 +59,102 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_title">
 
         <Button
-            android:id="@+id/button12"
+            android:id="@+id/button1"
             style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:elevation="0dp"
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
             android:minWidth="18dip"
-            android:text="@string/_1" />
+            android:text="@string/_1"
+            android:textColor="@color/gray3" />
 
         <Button
-            android:id="@+id/button11"
+            android:id="@+id/button2"
             style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:enabled="false"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
-            android:text="@string/_2" />
+            android:enabled="false"
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
+            android:text="@string/_2"
+            android:textColor="@color/gray3" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/button3"
             style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="@string/_3" />
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
+            android:text="@string/_3"
+            android:textColor="@color/gray3" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/button4"
             style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:enabled="false"
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
             android:text="@string/_4"
+            android:textColor="@color/gray3"
             android:translationZ="0dp" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/button5"
             style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="@string/_5" />
-
-        <Button
-            android:id="@+id/button7"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:text="@string/_6" />
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
+            android:text="@string/_5"
+            android:textColor="@color/gray3" />
 
         <Button
             android:id="@+id/button6"
             style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="@string/_7" />
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
+            android:text="@string/_6"
+            android:textColor="@color/gray3" />
+
+        <Button
+            android:id="@+id/button7"
+            style="@style/ButtonRoundedGray3"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
+            android:text="@string/_7"
+            android:textColor="@color/gray3" />
 
         <Button
             android:id="@+id/button"
             style="@style/ButtonRoundedGray3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="@string/_8" />
+            android:fontFamily="@font/gilroy_regular"
+            android:gravity="center"
+            android:text="@string/_8"
+            android:textColor="@color/gray3" />
 
     </LinearLayout>
 
@@ -141,17 +166,17 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/textView_rank"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:srcCompat="@drawable/ic_medal" />
+        app:srcCompat="@drawable/ic_medal2" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:fontFamily="@font/gilroy_medium"
+        android:fontFamily="@font/gilroy_semibold"
         android:text="@string/your_rank"
         android:textColor="@color/gray3"
-        android:textSize="14sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -161,10 +186,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/gilroy_medium"
+        android:fontFamily="@font/gilroy_semibold"
         android:text="@string/not_found"
-        android:textColor="@color/gray2"
-        android:textSize="14sp"
+        android:textColor="@color/gray3"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -172,9 +197,10 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="22dp"
         android:background="@color/gray4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

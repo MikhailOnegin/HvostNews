@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_domainFragment_to_subDomainFragment"
             app:destination="@id/subDomainFragment" />
+        <action
+            android:id="@+id/action_domainFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
     </fragment>
 
     <fragment

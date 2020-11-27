@@ -16,6 +16,8 @@ data class Coupons(
         val shortDescription: String,
         val description: String,
         val expirationDate: String,
+        val address:String,
+        val qrCodeUrl:String,
         val qrCode: String
     ) : Serializable
 }
@@ -41,7 +43,11 @@ fun List<CouponsResponse.Coupon>?.toOfflineLessons(): List<Coupons.Coupon> {
                     shortDescription = couponResponse.shortDescription ?: "",
                     description = couponResponse.description ?: "",
                     expirationDate = couponResponse.expirationDate ?: "",
-                    qrCode = couponResponse.qrCode ?: ""
+                    address = couponResponse.address ?: "",
+                    qrCodeUrl = couponResponse.qRImageUrl ?: "",
+                    qrCode = couponResponse.qrCode ?: "",
+
+
                 )
             )
         }
