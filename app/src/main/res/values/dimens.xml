@@ -127,4 +127,11 @@
     <dimen name="tabTitleTextSize">24sp</dimen>
     <dimen name="smallButtonTextSize">14sp</dimen>
     <dimen name="smallButtonVerticalPadding">10dp</dimen>
+    <dimen name="systemBarHeight">24dp</dimen>
+    <dimen name="rvShopCounterTextSize">12sp</dimen>
+    <dimen name="rvShopCategoryTextSize">20sp</dimen>
+    <dimen name="rvShopChevronSize">18dp</dimen>
+    <dimen name="rvShopDividerHeight">12dp</dimen>
+    <dimen name="rvShopCounterSize">24dp</dimen>
+    <dimen name="rvShopEmptyTextSize">18sp</dimen>
 </resources>
