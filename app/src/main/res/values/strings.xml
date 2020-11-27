@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Хвост Ньюс</string>
     <string name="filterTitle">Фильтр</string>
-    <string name="filterHint">Выбирайте только интересные публикации</string>
+    <string name="filterHint">Выбирайте только \nинтересные публикации</string>
     <string name="working">Наши специалисты работают над этим…</string>
     <string name="year">" года"</string>
     <string name="saveChanges">Сохранить изменения</string>
@@ -353,4 +353,6 @@
     <string name="addPetToProfile">Добавить и перейти в профиль</string>
     <string name="addPetTitle">Добавить питомца</string>
     <string name="petAddedSuccessfull">Новый питомец успешно добавлен</string>
+    <string name="news">Новости</string>
+    <string name="notifications">Уведомления</string>
 </resources>

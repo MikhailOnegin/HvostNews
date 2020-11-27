@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.fragments.invite
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -26,6 +28,21 @@ class InviteFragment : Fragment() {
 
     private lateinit var binding: FragmentInviteBinding
     private lateinit var mainVM: MainViewModel
+
+    override fun onStart() {
+        setSystemUiVisibility()
+        super.onStart()
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("InlinedApi")
+    private fun setSystemUiVisibility() {
+        requireActivity().window.run {
+            decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+        }
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
