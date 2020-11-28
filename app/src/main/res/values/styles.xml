@@ -339,4 +339,14 @@
         <item name="fontFamily">@font/gilroy_medium</item>
     </style>
 
+    <style name="OutlinedRoundedImageViewWithShadow">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="dropShadow">true</item>
+        <item name="cornersRadius">@dimen/smallCorners</item>
+        <item name="drawOutline">true</item>
+        <item name="outlineColor">@android:color/white</item>
+        <item name="outlineWidth">@dimen/imageOutlineWidth</item>
+        <item name="dropShadowColor">#ABB2E1</item>
+    </style>
+
 </resources>

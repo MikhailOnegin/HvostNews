@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F0EBFA"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ru.hvost.news.presentation.customviews.RoundCornersImageView
+        android:id="@+id/image"
+        style="@style/OutlinedRoundedImageViewWithShadow"
+        app:outlineWidth="2dp"
+        tools:src="@drawable/test_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/rvShopHeaderImageSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/smallMargin"
+        android:layout_marginEnd="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/smallMargin"/>
+
+    <TextView
+        android:id="@+id/title"
+        tools:text="@string/rvHeaderTestStub"
+        android:gravity="center"
+        android:textColor="@color/TextColorPrimary"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textSize="@dimen/cartItemTextSize"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintBottom_toTopOf="@id/divider"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:lineSpacingExtra="@dimen/textLineSpacingExtra"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <View
+        android:id="@+id/divider"
+        android:background="@color/gray4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
