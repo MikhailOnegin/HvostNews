@@ -12,6 +12,8 @@
         <attr name="drawOutline" format="boolean"/>
         <attr name="outlineColor" format="color"/>
         <attr name="outlineWidth" format="dimension"/>
+        <attr name="dropShadow" format="boolean"/>
+        <attr name="dropShadowColor" format="color"/>
     </declare-styleable>
 
     <declare-styleable name="DotFillerView">

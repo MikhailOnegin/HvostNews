@@ -127,4 +127,18 @@
     <dimen name="tabTitleTextSize">24sp</dimen>
     <dimen name="smallButtonTextSize">14sp</dimen>
     <dimen name="smallButtonVerticalPadding">10dp</dimen>
+    <dimen name="systemBarHeight">24dp</dimen>
+    <dimen name="rvShopCounterTextSize">12sp</dimen>
+    <dimen name="rvShopCategoryTextSize">20sp</dimen>
+    <dimen name="rvShopChevronSize">18dp</dimen>
+    <dimen name="rvShopDividerHeight">12dp</dimen>
+    <dimen name="rvShopCounterSize">24dp</dimen>
+    <dimen name="rvShopEmptyTextSize">18sp</dimen>
+    <dimen name="customShadowOffset">10dp</dimen>
+    <dimen name="imageOutlineWidth">3dp</dimen>
+    <dimen name="imageShadowInset">16dp</dimen>
+    <dimen name="shopProductImageSize">140dp</dimen>
+    <dimen name="rvShopIconSize">24dp</dimen>
+    <dimen name="rvShopPriceTextSize">18sp</dimen>
+    <dimen name="rvShopHeaderImageSize">200dp</dimen>
 </resources>

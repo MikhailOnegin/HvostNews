@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.databinding.FragmentShopBinding
+import ru.hvost.news.models.ShopItem
+import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
 
 class ShopFragment : Fragment() {
 
@@ -20,6 +22,7 @@ class ShopFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentShopBinding.inflate(inflater, container, false)
+        setTestRecyclerView()
         return binding.root
     }
 
@@ -31,6 +34,13 @@ class ShopFragment : Fragment() {
 
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+    }
+
+    private fun  setTestRecyclerView() {
+        val list = ShopItem.getTestList()
+        val adapter = ShopAdapter(list)
+        adapter.submitList(list)
+        binding.recyclerView.adapter = adapter
     }
 
     @Suppress("DEPRECATION")
