@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.adapters.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +7,16 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online_info.view.*
+import kotlinx.android.synthetic.main.item_school_online_info.view.textView_description_wait
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
+import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
+import kotlinx.android.synthetic.main.layout_what_wait.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
+import ru.hvost.news.databinding.LayoutWhatWaitBinding
 import ru.hvost.news.models.OnlineSchools
-import ru.hvost.news.presentation.adapters.view.GridViewWaitAdapter
 
 class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -46,38 +48,51 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tVDescription = itemView.textView_description
-        private val gridView = itemView.gridView
+        private val tVDescription = itemView.textView_description_wait
         private val iVInfo = itemView.imageView_info
         fun bind(school: OnlineSchools.OnlineSchool){
 
             tVDescription.text = school.description
+
             Glide.with(itemView.context).load(APIService.baseUrl + school.image)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(iVInfo)
-            val gridAdapter = GridViewWaitAdapter(itemView.context, school.wait)
-            gridView.adapter = gridAdapter
-            val container = itemView.include_literature.linearLayout
-            container.removeAllViews()
-            for (i in school.literatures.indices) {
-                val view = LayoutLiteratureItemBinding.inflate(
+
+            val containerWait = itemView.gridLayout
+            for (i in school.wait.indices) {
+                val viewWait = LayoutWhatWaitBinding.inflate(
                     LayoutInflater.from(itemView.context),
-                    container,
+                    containerWait,
                     false
                 ).root
 
-                view.textView_title.text = school.literatures[i].name
-                view.textView_pet.text = school.literatures[i].pet
+                viewWait.textView_section.text = school.wait[i].head
+                viewWait.textView_description.text = school.literatures[i].pet
+                containerWait.addView(viewWait)
+            }
+
+            val containerLiterature = itemView.linearLayout
+            containerLiterature.removeAllViews()
+            for (i in school.literatures.indices) {
+                val viewLiterature = LayoutLiteratureItemBinding.inflate(
+                    LayoutInflater.from(itemView.context),
+                    containerLiterature,
+                    false
+                ).root
+
+                viewLiterature.textView_title.text = school.literatures[i].name
+                viewLiterature.textView_pet.text = school.literatures[i].pet
                 val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
-                (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
                     0,
                     margin,
                     margin,
                     0
                 )
-                container.addView(view)
+                containerLiterature.addView(viewLiterature)
             }
-        }
+
 
     }
+}
 }

@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.adapters.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import kotlinx.android.synthetic.main.item_lesson_online.view.textView_title
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import ru.hvost.news.R
-import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools

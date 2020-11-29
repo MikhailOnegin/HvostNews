@@ -198,7 +198,7 @@
 
     <style name="ButtonShapeAppearance2" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">12dp</item>
+        <item name="cornerSize">11dp</item>
         <item name="android:elevation">0dp</item>
     </style>
 

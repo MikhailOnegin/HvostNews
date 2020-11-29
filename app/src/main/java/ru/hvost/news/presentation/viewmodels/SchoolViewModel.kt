@@ -79,7 +79,7 @@ class SchoolViewModel: ViewModel() {
         val literatures = mutableListOf<OnlineSchools.Literature>()
         val lessonPassed = mutableListOf<OnlineSchools.LessonPassed>()
         val waitList = mutableListOf<OnlineSchools.Wait>()
-        for(i in 0 .. 10){
+        for(i in 0 .. 23){
             val b = i>4
             lessonPassed.add(
                 OnlineSchools.LessonPassed(
