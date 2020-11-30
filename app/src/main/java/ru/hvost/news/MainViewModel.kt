@@ -63,6 +63,12 @@ class MainViewModel : ViewModel() {
 
     private val _loadingVouchersEvent = MutableLiveData<NetworkEvent<State>>()
 
+    //событие, сообщающее о закрытии ArticlesFilterCustomDialog
+    val closeArticlesFilterCustomDialog = MutableLiveData<OneTimeEvent>()
+
+    //событие, сообщающее об изменении интересов пользователя
+    val updateArticlesWithNewInterests = MutableLiveData<OneTimeEvent>()
+
     init {
         loadArticles()
         loadAllArticles()
@@ -301,13 +307,13 @@ class MainViewModel : ViewModel() {
     }
 
     fun changeUserData(
-        name: String?,
-        surname: String?,
-        patronymic: String?,
-        phone: String?,
-        email: String?,
-        birthday: String?,
-        city: String?,
+        name: String? = null,
+        surname: String? = null,
+        patronymic: String? = null,
+        phone: String? = null,
+        email: String? = null,
+        birthday: String? = null,
+        city: String? = null,
         interests: List<String>? = null
     ) {
         viewModelScope.launch {

@@ -17,6 +17,8 @@ import com.google.android.material.tabs.TabLayout
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticlesBinding
+import ru.hvost.news.models.CheckboxStates
+import ru.hvost.news.models.InterestsCategory
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
@@ -27,6 +29,7 @@ class ArticlesFragment : Fragment() {
     private lateinit var binding: FragmentArticlesBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var navC: NavController
+    private val filterDialog = ArticlesFilterCustomDialog()
 
     @Suppress("DEPRECATION")
     @SuppressLint("InlinedApi")
@@ -57,7 +60,7 @@ class ArticlesFragment : Fragment() {
 
     private fun setListeners() {
         binding.filter.setOnClickListener {
-            ArticlesFilterCustomDialog().show(childFragmentManager, "info_dialog")
+            filterDialog.show(childFragmentManager, "info_dialog")
         }
         binding.tabLayout.addOnTabSelectedListener(
             OnTabSelected(
@@ -107,6 +110,32 @@ class ArticlesFragment : Fragment() {
 
     private fun setObservers() {
         mainVM.articlesState.observe(viewLifecycleOwner, Observer { onArticleStateChanged(it) })
+        mainVM.closeArticlesFilterCustomDialog.observe(viewLifecycleOwner, { closeDialog() })
+        mainVM.updateArticlesWithNewInterests.observe(viewLifecycleOwner, { updateArticles() })
+    }
+
+    private fun updateArticles() {
+        closeDialog()
+        val interests = mainVM.interests.value ?: listOf()
+        val sendList: MutableList<String> = mutableListOf()
+        interests.map { category ->
+            if ((category as InterestsCategory).sendParent && category.state == CheckboxStates.SELECTED) {
+                sendList.add(category.categoryId)
+            } else {
+                category.interests.map { interest ->
+                    if (interest.state == CheckboxStates.SELECTED) {
+                        sendList.add(interest.interestId)
+                    }
+                }
+            }
+        }
+        mainVM.changeUserData(
+            interests = sendList
+        )
+    }
+
+    private fun closeDialog() {
+        filterDialog.dismiss()
     }
 
     private fun onArticleStateChanged(state: State) {

@@ -42,7 +42,11 @@ data class Voucher(
     val petSpecies: String,
     val expirationDate: String,
     val voucherProgram: String
-): VoucherItem()
+): VoucherItem() {
+
+    val textForSpinner = "$voucherProgram - $voucherCode"
+
+}
 
 class VoucherFooter : VoucherItem() {
 

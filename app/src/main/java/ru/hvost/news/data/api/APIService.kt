@@ -104,6 +104,12 @@ interface APIService {
         @Query("petId") petId: String?
     ): Deferred<SimpleResponse>
 
+    @GET("/rest/OnlineShop/getProducts/")
+    fun getProductsAsync(
+        @Query("userToken") userToken: String?,
+        @Query("voucherCode") voucherCode: String?,
+    ): Deferred<ProductsResponse>
+
     @GET("/rest/UserProfile/getUserProfile/")
     fun getUserDataAsync(
         @Query("userToken") userToken: String? = null

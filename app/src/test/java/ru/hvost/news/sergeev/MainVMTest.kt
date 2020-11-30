@@ -51,7 +51,7 @@ class MainVMTest {
     @Test
     fun updateVouchers_withCorrectCredentials_worksCorrect() = coroutineRule.testDispatcher.runBlockingTest {
         mainVM.updateVouchers(correctTestUserToken)
-        val result = mainVM.loadingVouchersEvent.getOrAwaitValue(attempts = 2)
+        val result = mainVM.loadingVouchersEvent.getOrAwaitValue(attempts = 3)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
 

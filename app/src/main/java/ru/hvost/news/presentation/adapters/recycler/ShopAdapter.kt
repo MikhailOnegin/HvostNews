@@ -3,6 +3,7 @@ package ru.hvost.news.presentation.adapters.recycler
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -123,7 +124,7 @@ class ShopAdapter(
         fun bind(product: ShopProduct) {
             binding.apply {
                 Glide.with(binding.root).load(product.imageUri).into(image)
-                title.text = product.description
+                title.text = product.description.parseAsHtml()
                 price.text = "${moneyFormat.format(product.price.toInt())} \u20bd"
                 oldPrice.text = "${moneyFormat.format(product.oldPrice.toInt())} \u20bd"
             }

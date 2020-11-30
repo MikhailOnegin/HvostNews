@@ -3,7 +3,10 @@ package ru.hvost.news.models
 import android.net.Uri
 import ru.hvost.news.App
 import ru.hvost.news.R
+import ru.hvost.news.data.api.response.ProductsResponse
+import ru.hvost.news.utils.UniqueIdGenerator
 import ru.hvost.news.utils.emptyImageUri
+import ru.hvost.news.utils.getUriForBackendImagePath
 
 sealed class ShopItem(
     val id: Long,
@@ -94,3 +97,19 @@ class ShopProduct(
     val oldPrice: Float,
     var isInCart: Boolean = false
 ) : ShopItem(id, categoryId)
+
+fun List<ProductsResponse.Product>.toShopProducts(
+    categoryId: Long
+): List<ShopProduct> {
+    return map {
+        ShopProduct(
+            id = UniqueIdGenerator.nextId(),
+            categoryId = categoryId,
+            imageUri = getUriForBackendImagePath(it.imageUrl),
+            description = it.description ?: "",
+            price = it.price ?: 0f,
+            oldPrice = it.oldPrice ?: 0f,
+            isInCart = false
+        )
+    }
+}

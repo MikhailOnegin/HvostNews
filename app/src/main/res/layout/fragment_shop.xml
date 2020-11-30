@@ -9,7 +9,7 @@
     <LinearLayout
         android:background="@drawable/background_cart_layout"
         android:gravity="center_vertical"
-        android:elevation="16dp"
+        android:elevation="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/xSmallMargin"
-            android:layout_marginEnd="@dimen/xLargeMargin"/>
+            android:layout_marginEnd="@dimen/largeMargin"/>
 
     </LinearLayout>
 
@@ -87,7 +87,7 @@
 
                 <ImageView
                     android:id="@+id/image"
-                    android:src="@drawable/test_image"
+                    android:src="@drawable/empty_image"
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription"
                     android:layout_width="match_parent"
@@ -96,6 +96,7 @@
 
                 <TextView
                     android:id="@+id/text"
+                    android:text="@string/shopAnnouncementStub"
                     android:textSize="26sp"
                     android:textColor="@color/TextColorPrimary"
                     android:fontFamily="@font/gilroy_extrabold"

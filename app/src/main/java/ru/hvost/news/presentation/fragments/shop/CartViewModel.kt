@@ -4,16 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.models.CartItem
-import ru.hvost.news.models.toCartItems
+import ru.hvost.news.data.api.response.ProductsResponse
+import ru.hvost.news.models.*
+import ru.hvost.news.utils.UniqueIdGenerator
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.events.OneTimeEvent
-import java.lang.Exception
+import kotlin.Exception
 
 class CartViewModel : ViewModel() {
 
@@ -45,6 +47,7 @@ class CartViewModel : ViewModel() {
             try {
                 val result = APIService.API.getCartAsync(userToken).await()
                 if(result.result == "success") {
+                    //sergeev: Устанавливать в зависимости от типа корзины.
                     productsCart.value = result.toCartItems()
                     _cartUpdateEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
@@ -148,6 +151,59 @@ class CartViewModel : ViewModel() {
                 _makeOrderEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
+    }
+
+
+    private val _productsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val productsLoadingEvent: LiveData<NetworkEvent<State>> = _productsLoadingEvent
+
+    fun loadProducts(userToken: String?, voucherCode: String?) {
+        viewModelScope.launch {
+            _productsLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response = APIService.API.getProductsAsync(
+                    userToken = userToken,
+                    voucherCode = voucherCode
+                ).await()
+                if(response.result == "success") {
+                    _productsLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                    createShopItemsList(response.products)
+                } else {
+                    _productsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
+            } catch (exc: Exception) {
+                _productsLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    private val _shopItems = MutableLiveData<List<ShopItem>>()
+    val shopItems: LiveData<List<ShopItem>> = _shopItems
+
+    private fun createShopItemsList(responseList: List<ProductsResponse.Product>?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = mutableListOf<ShopItem>()
+            val categories = responseList?.distinctBy { it.categoryId } ?: listOf()
+            val products = responseList ?: listOf()
+            for(category in categories) {
+                val categoryId = UniqueIdGenerator.nextId()
+                result.add(ShopCategory(
+                    id = categoryId,
+                    name = category.category ?: "",
+                    selectedProducts = 0,
+                    isExpanded = true
+                ))
+                result.addAll(
+                    products.filter { it.categoryId == category.categoryId }
+                        .toShopProducts(categoryId)
+                )
+            }
+            _shopItems.postValue(result)
+        }
+    }
+
+    fun resetShop() {
+        _shopItems.value = listOf()
     }
 
 }
