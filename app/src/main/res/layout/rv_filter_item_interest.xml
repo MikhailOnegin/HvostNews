@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:fontFamily="@font/gilroy_medium"
+        android:text="@string/stub"
+        android:textColor="@color/gray1"
+        android:textSize="@dimen/smallButtonTextSize"
+        android:textStyle="bold" />
+
+</LinearLayout>

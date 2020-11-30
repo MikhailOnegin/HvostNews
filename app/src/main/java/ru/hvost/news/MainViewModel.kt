@@ -2,7 +2,6 @@ package ru.hvost.news
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import retrofit2.http.Query
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
@@ -56,6 +55,9 @@ class MainViewModel : ViewModel() {
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
 
+    private val _interestsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    private val _interests = MutableLiveData<List<CategoryItem>>()
+
     //Событие, сообщающее о необходимости закрытия инструкций.
     val closeInstructionsEvent = MutableLiveData<OneTimeEvent>()
 
@@ -71,6 +73,7 @@ class MainViewModel : ViewModel() {
         getInviteLink()
         getPrizeCategories()
         updateVouchers(App.getInstance().userToken)
+        loadInterests()
     }
 
     fun getBonusBalance() {
@@ -378,7 +381,7 @@ class MainViewModel : ViewModel() {
             _loadingVouchersEvent.value = NetworkEvent(State.LOADING)
             try {
                 val result = APIService.API.getVouchersAsync(userToken).await()
-                if(result.result == "success") {
+                if (result.result == "success") {
                     _loadingVouchersEvent.value = NetworkEvent(State.SUCCESS)
                     _vouchers.value = result.toVouchers()
                 } else {
@@ -397,7 +400,8 @@ class MainViewModel : ViewModel() {
     private val _addPetResponse = MutableLiveData<AddPetResponse>()
     val addPetResponse: LiveData<AddPetResponse> = _addPetResponse
 
-    fun addPet( //TODO: поправить отправляемые данные
+    fun addPet(
+        //TODO: поправить отправляемые данные
         petName: String,
         petSpecies: String,
         petSex: String,
@@ -447,4 +451,25 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    val interestsLoadingEvent: LiveData<NetworkEvent<State>> = _interestsLoadingEvent
+    val interests: LiveData<List<CategoryItem>> = _interests
+
+    private fun loadInterests() {
+        viewModelScope.launch {
+            _interestsLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.getInterestsAsync().await()
+                if (result.result == "success") {
+                    _interestsLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                    _interests.value = result.interests.toSortedInterests()
+                } else {
+                    _interestsLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _interests.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _interestsLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _interests.value = listOf()
+            }
+        }
+    }
 }

@@ -127,4 +127,6 @@
     <dimen name="tabTitleTextSize">24sp</dimen>
     <dimen name="smallButtonTextSize">14sp</dimen>
     <dimen name="smallButtonVerticalPadding">10dp</dimen>
+    <dimen name="listBackgroundRadius">10dp</dimen>
+    <dimen name="buttonMediumTextSize">16sp</dimen>
 </resources>
