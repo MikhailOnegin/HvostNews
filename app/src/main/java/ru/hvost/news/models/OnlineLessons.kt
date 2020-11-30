@@ -12,7 +12,7 @@ data class OnlineLessons(
         val lessonTitle: String,
         val petAge: String,
         val lessonNumber: Int,
-        val isTestPassed: String,
+        val isFinished: Boolean,
         val videoUrl: String,
         val testQuestion: String,
         val answersList: List<Answer>
@@ -42,7 +42,7 @@ fun List<OnlineLessonsResponse.OnlineLesson>?.toOnlineLessons(): List<OnlineLess
                     lessonTitle = onlineLessonResponse.lessonTitle ?: "",
                     petAge = onlineLessonResponse.petAge ?: "",
                     lessonNumber = onlineLessonResponse.lessonNumber ?: 0,
-                    isTestPassed = onlineLessonResponse.isTestPassed ?: "",
+                    isFinished = onlineLessonResponse.isFinished ?: true,
                     videoUrl = onlineLessonResponse.videoUrl ?: "",
                     testQuestion = onlineLessonResponse.testQuestion ?: "",
                     answersList = onlineLessonResponse.answersList.toAnswers()

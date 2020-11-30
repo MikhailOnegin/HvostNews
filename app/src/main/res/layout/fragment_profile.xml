@@ -302,7 +302,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/titlePets" />
+                app:layout_constraintTop_toBottomOf="@+id/titlePets"
+                tools:layout_editor_absoluteX="0dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

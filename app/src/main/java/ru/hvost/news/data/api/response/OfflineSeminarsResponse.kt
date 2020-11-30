@@ -6,6 +6,7 @@ data class OfflineSeminarsResponse(
     val lessons: List<OfflineLesson>?
 ) {
     data class OfflineLesson(
+        val id:String?,
         val title: String?,
         val description: String?,
         val imageUrl: String?,
