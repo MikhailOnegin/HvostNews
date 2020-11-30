@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/mainCheckbox"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/stub"
+            android:textColor="@color/gray1"
+            android:textSize="@dimen/smallButtonTextSize"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/expand"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_button_expand" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/interests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/smallMargin"
+        android:paddingHorizontal="@dimen/normalMargin"
+        android:background="@drawable/background_interests_list"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+</LinearLayout>

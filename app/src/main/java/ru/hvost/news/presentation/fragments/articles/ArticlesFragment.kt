@@ -11,17 +11,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticlesBinding
-import ru.hvost.news.databinding.FragmentSubdomainBinding
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.ArticleAdapter
-import ru.hvost.news.presentation.fragments.domains.SubDomainFragment
+import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
 import ru.hvost.news.utils.enums.State
 
 class ArticlesFragment : Fragment() {
@@ -59,7 +57,7 @@ class ArticlesFragment : Fragment() {
 
     private fun setListeners() {
         binding.filter.setOnClickListener {
-            findNavController().navigate(R.id.action_newsFragment_to_domainFragment)
+            ArticlesFilterCustomDialog().show(childFragmentManager, "info_dialog")
         }
         binding.tabLayout.addOnTabSelectedListener(
             OnTabSelected(

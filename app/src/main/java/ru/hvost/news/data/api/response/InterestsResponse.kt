@@ -2,6 +2,7 @@ package ru.hvost.news.data.api.response
 
 data class InterestsResponse(
     val result: String?,
+    val error: String?,
     val interests: List<Interest>?
 ) {
     data class Interest(
