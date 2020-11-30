@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_school"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp">
 
 
     <androidx.cardview.widget.CardView
@@ -12,7 +13,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:background="@android:color/transparent"
         app:cardCornerRadius="8dp"
@@ -36,136 +36,36 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/gilroy_extrabold"
+        android:fontFamily="@font/gilroy_bold"
         android:text="@string/not_found"
         android:textColor="@color/gray1"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+    <include
+        android:id="@+id/include_lesson_numbers"
+        layout="@layout/layout_lesson_numbers"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="24dp"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_title">
-
-        <Button
-            android:id="@+id/button1"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:elevation="0dp"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:minWidth="18dip"
-            android:text="@string/_1"
-            android:textColor="@color/gray3" />
-
-        <Button
-            android:id="@+id/button2"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:text="@string/_2"
-            android:textColor="@color/gray3" />
-
-        <Button
-            android:id="@+id/button3"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:text="@string/_3"
-            android:textColor="@color/gray3" />
-
-        <Button
-            android:id="@+id/button4"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:text="@string/_4"
-            android:textColor="@color/gray3"
-            android:translationZ="0dp" />
-
-        <Button
-            android:id="@+id/button5"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:text="@string/_5"
-            android:textColor="@color/gray3" />
-
-        <Button
-            android:id="@+id/button6"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:text="@string/_6"
-            android:textColor="@color/gray3" />
-
-        <Button
-            android:id="@+id/button7"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:text="@string/_7"
-            android:textColor="@color/gray3" />
-
-        <Button
-            android:id="@+id/button"
-            style="@style/ButtonRoundedGray3"
-            android:layout_width="16dp"
-            android:layout_height="34dp"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:fontFamily="@font/gilroy_regular"
-            android:gravity="center"
-            android:text="@string/_8"
-            android:textColor="@color/gray3" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView_title" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/textView_rank"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/include_lesson_numbers"
         app:srcCompat="@drawable/ic_medal2" />
 
     <TextView

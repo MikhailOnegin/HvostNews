@@ -4,6 +4,7 @@
     <dimen name="textMargin">4dp</dimen>
     <dimen name="xSmallMargin">4dp</dimen>
     <dimen name="smallMargin">8dp</dimen>
+    <dimen name="marginLessonNumber">10dp</dimen>
     <dimen name="normalMargin">16dp</dimen>
     <dimen name="largeMargin">24dp</dimen>
     <dimen name="xLargeMargin">32dp</dimen>

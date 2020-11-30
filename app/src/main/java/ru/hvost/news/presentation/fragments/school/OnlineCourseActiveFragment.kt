@@ -1,11 +1,11 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -15,10 +15,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_school_online.*
+import kotlinx.android.synthetic.main.layout_lesson_number.view.*
+import kotlinx.android.synthetic.main.layout_lesson_numbers.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
+import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
@@ -96,60 +98,30 @@ class OnlineCourseActiveFragment : Fragment() {
                     if(onlineSchool.id.toString() == this){
                         infoAdapter.setSchool(onlineSchool)
                         materialsAdapter.setSchool(onlineSchool)
+                        val containerNumbers = linearLayout
+                        val padding = resources.getDimension(R.dimen.largeCorners).toInt()
+                        containerNumbers.setPadding(0,0,0, padding)
                         for(i in onlineSchool.lessonsPassed.indices){
                             val number = onlineSchool.lessonsPassed[i].number
                             val isPassed = onlineSchool.lessonsPassed[i].isPassed
-                            when(number){
-                                1 -> if (isPassed) {
-                                    binding.button1.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button1.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button1.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button1.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-
-                                2 -> if (isPassed) {
-                                    binding.button2.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button2.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button2.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button2.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-                                3 -> if (isPassed) {
-                                    binding.button3.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button3.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button3.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button3.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-                                4 -> if (isPassed) {
-                                    binding.button4.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button4.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button4.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button4.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-                                5 -> if (isPassed) {
-                                    binding.button5.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button5.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button5.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button5.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-                                6 -> if (isPassed) {
-                                    binding.button6.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button6.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button6.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button6.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-                                7 -> if (isPassed) {
-                                    binding.button7.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button7.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button7.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button7.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-                                8 -> if (isPassed) {
-                                    binding.button8.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
-                                    binding.button8.setTextColor(resources.getColor(android.R.color.white)) }
-                                else{
-                                    binding.button8.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray5))
-                                    binding.button8.setTextColor(resources.getColor(R.color.TextColorPrimary)) }
-                            }
+                            val viewWait = LayoutLessonNumberBinding.inflate(
+                                LayoutInflater.from(requireContext()),
+                                containerNumbers,
+                                false
+                            ).root
+                            viewWait.textView_lesson_number.setBackgroundResource(R.drawable.selector_lesson_number)
+                            viewWait.textView_lesson_number.text = number.toString()
+                            viewWait.textView_lesson_number.isSelected = isPassed
+                            if (isPassed) viewWait.textView_lesson_number.setTextColor(resources.getColor(R.color.gray3))
+                            else viewWait.textView_lesson_number.setTextColor(resources.getColor(android.R.color.white))
+                            val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
+                            (viewWait.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                0,
+                                0,
+                                margin,
+                                0
+                            )
+                            containerNumbers.addView(viewWait)
                         }
 
                     }

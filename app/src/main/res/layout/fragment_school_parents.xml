@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/window_background"
-    android:fitsSystemWindows="true">
+    android:background="@drawable/window_background">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
+            android:paddingTop="24dp"
             app:layout_scrollFlags="scroll">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,15 +57,12 @@
 
                 <Spinner
                     android:id="@+id/spinner"
-                    style="@style/Spinner2"
+                    style="@style/RegSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
-                    android:forceDarkAllowed="false"
-                    android:outlineAmbientShadowColor="@color/bnvTextUnchecked"
-                    android:outlineSpotShadowColor="@color/bnvTextChecked"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -79,7 +75,9 @@
                 android:layout_marginTop="24dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:padding="@dimen/normalMargin"
+                android:paddingStart="@dimen/normalMargin"
+                android:paddingTop="@dimen/normalMargin"
+                android:paddingEnd="@dimen/normalMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7">
@@ -136,11 +134,11 @@
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="56dp"
                 android:background="@color/gray4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|snap|enterAlways" />
 
             <ImageView
@@ -148,7 +146,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/divider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_logo" />
@@ -177,6 +177,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
