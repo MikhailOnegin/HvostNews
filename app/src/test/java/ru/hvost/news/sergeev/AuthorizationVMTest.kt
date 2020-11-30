@@ -41,7 +41,7 @@ class AuthorizationVMTest {
 
     @Test
     fun logIn_correctCredentials_setsLoginEventToSuccess() = coroutineRule.testDispatcher.runBlockingTest {
-        authorizationVM.logIn("v.fedotov@studiofact.ru", "123123123")
+        authorizationVM.logIn("sergeev@studiofact.ru", "1234567A")
         val result = authorizationVM.loginEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }

@@ -48,5 +48,18 @@ class CartVMTest {
         assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 
+    @Test
+    fun loadProducts_worksCorrect_withCorrectCredentials() = coroutineRule.testDispatcher.runBlockingTest {
+        cartVM.loadProducts(correctTestUserToken, "CK0000035")
+        val result = cartVM.productsLoadingEvent.getOrAwaitValue(attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
+    }
+
+    @Test
+    fun loadProducts_worksCorrect_withIncorrectCredentials() = coroutineRule.testDispatcher.runBlockingTest {
+        cartVM.loadProducts(inCorrectTestUserToken, "chop")
+        val result = cartVM.productsLoadingEvent.getOrAwaitValue(attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
+    }
 
 }

@@ -5,21 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
-import ru.hvost.news.databinding.FragmentShopBinding
+import ru.hvost.news.MainViewModel
+import ru.hvost.news.R
+import ru.hvost.news.databinding.FragmentShopEntranceBinding
 import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
-import ru.hvost.news.models.ShopItem
-import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
+import ru.hvost.news.models.Voucher
+import ru.hvost.news.models.VoucherItem
+import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.utils.moneyFormat
 
-class ShopFragment : Fragment() {
+class ShopEntranceFragment : Fragment() {
 
-    private lateinit var binding: FragmentShopBinding
+    private lateinit var binding: FragmentShopEntranceBinding
+    private lateinit var mainVM: MainViewModel
     private lateinit var cartVM: CartViewModel
 
     override fun onCreateView(
@@ -27,39 +30,31 @@ class ShopFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentShopBinding.inflate(inflater, container, false)
+        binding = FragmentShopEntranceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
-        cartVM.loadProducts(
-            App.getInstance().userToken,
-            arguments?.getString(VOUCHER_CODE, "")
-        )
         setObservers()
     }
 
     override fun onStart() {
         super.onStart()
-        setSystemUiVisibility()
+        mainVM.updateVouchers(App.getInstance().userToken)
         setListeners()
     }
 
-    override fun onStop() {
-        super.onStop()
-        cartVM.resetShop()
-    }
-
     private fun setObservers() {
-        cartVM.shopItems.observe(viewLifecycleOwner) { onShopItemsChanged(it) }
+        mainVM.vouchers.observe(viewLifecycleOwner) { onVouchersUpdated(it) }
         cartVM.productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
         cartVM.prizesCart.observe(viewLifecycleOwner) { onCartChanged(it) }
     }
 
     private fun setListeners() {
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.button.setOnClickListener { onGoToShopClicked() }
     }
 
     @SuppressLint("SetTextI18n")
@@ -75,28 +70,24 @@ class ShopFragment : Fragment() {
         }
     }
 
-    private fun onShopItemsChanged(shopItems: List<ShopItem>?) {
-        shopItems?.run {
-            val adapter = ShopAdapter(this)
-            adapter.submitList(this)
-            binding.recyclerView.adapter = adapter
-        }
+    private fun onGoToShopClicked() {
+        val bundle = Bundle()
+        bundle.putString(
+            ShopFragment.VOUCHER_CODE,
+            (binding.spinner.selectedItem as Voucher).voucherCode
+        )
+        findNavController().navigate(R.id.action_shopEntranceFragment_to_shopFragment, bundle)
     }
 
-    @Suppress("DEPRECATION")
-    @SuppressLint("InlinedApi")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
-
-    companion object {
-
-        const val VOUCHER_CODE = "voucher_code"
-
+    private fun onVouchersUpdated(vouchers: List<VoucherItem>) {
+        val list = vouchers.filterIsInstance(Voucher::class.java)
+        binding.spinner.adapter = SpinnerAdapter(
+            requireActivity(),
+            "",
+            list,
+            Voucher::textForSpinner
+        )
+        //sergeev: Настроить передачу и установку в спиннер переданного промокода.
     }
 
 }

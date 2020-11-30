@@ -5,6 +5,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.junit.Test
 import org.junit.runner.RunWith
+import ru.hvost.news.utils.UniqueIdGenerator
 import ru.hvost.news.utils.WordEnding
 import ru.hvost.news.utils.getWordEndingType
 
@@ -12,7 +13,7 @@ import ru.hvost.news.utils.getWordEndingType
 class UtilsTest {
 
     @Test
-    fun wordEndingWorksCorrectOnTYPE_1(){
+    fun wordEndingWorksCorrectOnTYPE_1() {
         assertThat(getWordEndingType(1), `is`(WordEnding.TYPE_1))
         assertThat(getWordEndingType(21), `is`(WordEnding.TYPE_1))
         assertThat(getWordEndingType(101), `is`(WordEnding.TYPE_1))
@@ -20,7 +21,7 @@ class UtilsTest {
     }
 
     @Test
-    fun wordEndingWorksCorrectOnTYPE_2(){
+    fun wordEndingWorksCorrectOnTYPE_2() {
         assertThat(getWordEndingType(2), `is`(WordEnding.TYPE_2))
         assertThat(getWordEndingType(22), `is`(WordEnding.TYPE_2))
         assertThat(getWordEndingType(102), `is`(WordEnding.TYPE_2))
@@ -28,7 +29,7 @@ class UtilsTest {
     }
 
     @Test
-    fun wordEndingWorksCorrectOnTYPE_3(){
+    fun wordEndingWorksCorrectOnTYPE_3() {
         assertThat(getWordEndingType(6), `is`(WordEnding.TYPE_3))
         assertThat(getWordEndingType(10), `is`(WordEnding.TYPE_3))
         assertThat(getWordEndingType(13), `is`(WordEnding.TYPE_3))
@@ -36,6 +37,15 @@ class UtilsTest {
         assertThat(getWordEndingType(26), `is`(WordEnding.TYPE_3))
         assertThat(getWordEndingType(106), `is`(WordEnding.TYPE_3))
         assertThat(getWordEndingType(126), `is`(WordEnding.TYPE_3))
+    }
+
+    @Test
+    fun uniqueIdGeneratorWorksCorrect() {
+        assertThat(UniqueIdGenerator.nextId(), `is`(1L))
+        assertThat(UniqueIdGenerator.nextId(), `is`(2L))
+        assertThat(UniqueIdGenerator.nextId(), `is`(3L))
+        assertThat(UniqueIdGenerator.nextId(), `is`(4L))
+        assertThat(UniqueIdGenerator.nextId(), `is`(5L))
     }
 
 }

@@ -244,5 +244,14 @@ val ordersStatuses = mapOf(
     Pair("F", App.getInstance().getString(R.string.orderStatusF)),
     Pair("OT", App.getInstance().getString(R.string.orderStatusOT))
 )
+
 val String.getValue: String
     get() = this
+
+object UniqueIdGenerator {
+
+    private var uniqueId = 0L
+
+    fun nextId() = ++uniqueId
+
+}
