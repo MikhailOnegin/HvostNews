@@ -190,7 +190,7 @@
 
     <fragment
         android:id="@+id/onlineLessonFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OnlineLessonFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.OnlineLessonActiveFragment"
         android:label="Online lesson"
         tools:layout="@layout/fragment_school_online_lesson"
         />

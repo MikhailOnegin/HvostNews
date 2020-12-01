@@ -358,4 +358,8 @@
     <string name="shopEntranceTitle">Интернет-магазин</string>
     <string name="buttonToShop">Перейти в магазин</string>
     <string name="shopAnnouncementStub">Здесь мог бы находиться текст с сервера.</string>
+    <string name="seminar_info">О семинаре</string>
+    <string name="schedule">Расписание</string>
+    <string name="comleted">Завершено</string>
+    <string name="you_prticipate">Вы записаны на мероприятине</string>
 </resources>
