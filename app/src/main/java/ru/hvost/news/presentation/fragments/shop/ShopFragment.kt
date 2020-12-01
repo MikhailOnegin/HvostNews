@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
+import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentShopBinding
 import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.ShopItem
 import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
+import ru.hvost.news.utils.events.EventObserver
 import ru.hvost.news.utils.moneyFormat
 
 class ShopFragment : Fragment() {
@@ -53,13 +55,21 @@ class ShopFragment : Fragment() {
     }
 
     private fun setObservers() {
-        cartVM.shopItems.observe(viewLifecycleOwner) { onShopItemsChanged(it) }
-        cartVM.productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
-        cartVM.prizesCart.observe(viewLifecycleOwner) { onCartChanged(it) }
+        cartVM.apply {
+            shopItems.observe(viewLifecycleOwner) { onShopItemsChanged(it) }
+            productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
+            showAddToCartDialogEvent.observe(viewLifecycleOwner, EventObserver(showAddToCartDialog))
+        }
     }
 
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+    }
+
+    private val showAddToCartDialog = { productId: Long ->
+        val bundle = Bundle()
+        bundle.putLong(AddToCartFragment.PRODUCT_ID, productId)
+        findNavController().navigate(R.id.action_shopFragment_to_addToCartFragment, bundle)
     }
 
     @SuppressLint("SetTextI18n")
@@ -75,9 +85,13 @@ class ShopFragment : Fragment() {
         }
     }
 
+    private val onProductClicked = { productId: Long ->
+        cartVM.showAddToCartDialog(productId)
+    }
+
     private fun onShopItemsChanged(shopItems: List<ShopItem>?) {
         shopItems?.run {
-            val adapter = ShopAdapter(this)
+            val adapter = ShopAdapter(this, onProductClicked)
             adapter.submitList(this)
             binding.recyclerView.adapter = adapter
         }

@@ -80,7 +80,10 @@ class CartViewModel : ViewModel() {
                     productId = productId,
                     count = count
                 ).await()
-                if(result.result == "success") updateCartAsync(userToken)
+                if(result.result == "success") {
+                    updateCartAsync(userToken)
+                    _cartChangingEvent.value = NetworkEvent(State.SUCCESS)
+                }
                 else {
                     _cartChangingEvent.value = NetworkEvent(State.ERROR, result.error)
                     cartChangesPermitted = true
@@ -204,6 +207,13 @@ class CartViewModel : ViewModel() {
 
     fun resetShop() {
         _shopItems.value = listOf()
+    }
+
+    private val _showAddToCartDialogEvent = MutableLiveData<Event<Long>>()
+    val showAddToCartDialogEvent: LiveData<Event<Long>> = _showAddToCartDialogEvent
+
+    fun showAddToCartDialog(productId: Long) {
+        _showAddToCartDialogEvent.value = Event(productId)
     }
 
 }

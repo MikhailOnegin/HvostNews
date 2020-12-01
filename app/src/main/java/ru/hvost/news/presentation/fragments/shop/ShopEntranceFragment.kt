@@ -39,6 +39,7 @@ class ShopEntranceFragment : Fragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
         setObservers()
+        cartVM.updateCartAsync(App.getInstance().userToken)
     }
 
     override fun onStart() {

@@ -352,7 +352,7 @@
         <item name="drawOutline">true</item>
         <item name="outlineColor">@android:color/white</item>
         <item name="outlineWidth">@dimen/imageOutlineWidth</item>
-        <item name="dropShadowColor">#ABB2E1</item>
+        <item name="dropShadowColor">#B3ABB2E1</item>
     </style>
 
 </resources>

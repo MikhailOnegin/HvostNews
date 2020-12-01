@@ -238,7 +238,17 @@
         android:id="@+id/shopFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.ShopFragment"
         android:label="ShopFragment"
-        tools:layout="@layout/fragment_shop"/>
+        tools:layout="@layout/fragment_shop">
+        <action
+            android:id="@+id/action_shopFragment_to_addToCartFragment"
+            app:destination="@id/addToCartFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/addToCartFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.AddToCartFragment"
+        android:label="AddToCartFragment"
+        tools:layout="@layout/fragment_add_product"/>
 
     <fragment
         android:id="@+id/passRestoreFragment"

@@ -145,4 +145,7 @@
     <dimen name="rvShopHeaderImageSize">200dp</dimen>
     <dimen name="listBackgroundRadius">10dp</dimen>
     <dimen name="buttonMediumTextSize">16sp</dimen>
+    <dimen name="addProductArticleTextSize">16sp</dimen>
+    <dimen name="secondaryButtonHeight">70dp</dimen>
+    <dimen name="maxTextWidthProduct">180dp</dimen>
 </resources>
