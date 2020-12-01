@@ -58,56 +58,29 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                app:cardBackgroundColor="@null"
+                android:background="@android:color/transparent"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_lesson_number">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <VideoView
-                        android:id="@+id/videoView"
+                    <ImageView
+                        android:id="@+id/imageView4"
                         android:layout_width="0dp"
-                        android:layout_height="200dp"
+                        android:layout_height="220dp"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/default_image" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-
-            <ToggleButton
-                android:id="@+id/toggleButton4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:drawableStart="@drawable/selector_lesson_answer"
-                android:fontFamily="@font/gilroy_medium"
-                android:textColor="@color/gray1"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toggleButton3" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:drawableStart="@drawable/selector_lesson_answer"
-                android:fontFamily="@font/gilroy_medium"
-                android:textColor="@color/gray1"
-                android:textOff="@string/not_found"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_question" />
 
             <TextView
                 android:id="@+id/textView_title"
@@ -131,27 +104,13 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:fontFamily="@font/gilroy_medium"
+                android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/answer_next_lesson"
                 android:textColor="@color/gray2"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-            <ToggleButton
-                android:id="@+id/toggleButton3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:drawableStart="@drawable/selector_lesson_answer"
-                android:fontFamily="@font/gilroy_medium"
-                android:textColor="@color/gray1"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toggleButton2" />
 
             <TextView
                 android:id="@+id/textView_lesson_number"
@@ -188,7 +147,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toggleButton4" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_answer_options" />
 
             <TextView
                 android:id="@+id/textView_question"
@@ -205,20 +164,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
-            <ToggleButton
-                android:id="@+id/toggleButton2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:drawableStart="@drawable/selector_lesson_answer"
-                android:fontFamily="@font/gilroy_medium"
-                android:textColor="@color/gray1"
-                android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
-
             <include
                 android:id="@+id/include_literature"
                 layout="@layout/item_useful_literature"
@@ -229,6 +174,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_to_answer" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout_answer_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_question"></LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

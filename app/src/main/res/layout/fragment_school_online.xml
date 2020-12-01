@@ -122,12 +122,12 @@
                 android:id="@+id/textView_rank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView9"
                 app:layout_constraintTop_toBottomOf="@+id/textView_title" />
 
@@ -151,7 +151,7 @@
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/lessons_completed"
                 android:textColor="@color/gray1"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
 

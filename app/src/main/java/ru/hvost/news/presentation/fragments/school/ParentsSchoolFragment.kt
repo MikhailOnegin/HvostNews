@@ -68,7 +68,9 @@ class ParentsSchoolFragment : Fragment() {
         }
         offlineLessonsAdapter.onClickLesson = object : OfflineLessonsAdapter.OnClickOfflineLesson{
             override fun onClick(lessonId: String) {
-                findNavController().navigate(R.id.action_parentSchoolFragment_to_offline_event_fragment)
+                val bundle = Bundle()
+                bundle.putString("seminarId", lessonId)
+                findNavController().navigate(R.id.action_parentSchoolFragment_to_offline_event_fragment, bundle)
             }
         }
         setSystemUiVisibility()

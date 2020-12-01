@@ -20,9 +20,14 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     private var school:OnlineSchools.OnlineSchool? = null
     private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
     var onClickLesson: OnClickLesson? = null
+    var onClickLiterature: OnClickLiterature? = null
 
     interface OnClickLesson {
         fun onClick(lessonId:String)
+    }
+
+    interface OnClickLiterature{
+        fun onClick(url:String)
     }
 
     fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
@@ -108,6 +113,9 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
                     view.textView_title.text = school.literatures[i].name
                     view.textView_pet.text = school.literatures[i].pet
+                    view.constraint_literure.setOnClickListener {
+                        onClickLiterature?.onClick(school.literatures[i].src)
+                    }
                     val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
                     (view.layoutParams as LinearLayout.LayoutParams).setMargins(
                         0,

@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LessonTestesPassedResponse
-import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
 
@@ -33,6 +32,22 @@ class SchoolViewModel: ViewModel() {
                 mutableOfflineLessonsState.value = State.FAILURE
             }
         }
+        //val seminars = mutableListOf<OfflineSeminars.OfflineLesson>()
+        //for (i in 0 .. 10){
+        //    val isFinished = i>4
+        //    seminars.add(OfflineSeminars.OfflineLesson(
+        //        i,
+        //        "123 $i",
+        //        "Как подобрать корм",
+        //        "/upload/iblock/f81/273kh211_banner3_web.jpg",
+        //        isFinished,
+        //        "29.02.2020",
+        //        "Новосибирск",
+        //        ""
+        //
+//
+        //    ))
+        //}
     }
 
     private val mutableOnlineLessonsState:MutableLiveData<State> = MutableLiveData()
@@ -42,18 +57,59 @@ class SchoolViewModel: ViewModel() {
     val onlineLessons:LiveData<OnlineLessons> = mutableOnlineLessons
 
     fun getOnlineLessons(userToken:String, schoolId:String){
-        viewModelScope.launch {
-            mutableOnlineLessonsState.value = State.LOADING
-            try {
-                val response = APIService.API.getOnlineLessonsAsync(userToken,schoolId).await()
-                mutableOnlineLessons.value = response.toOfflineLessons()
-                if (response.result == "success") mutableOnlineLessonsState.value = State.SUCCESS
-                else mutableOnlineLessonsState.value = State.ERROR
-            } catch (exc: Exception) {
-                Log.i("eeee", " getOnlineLessons() ERROR: ${exc.message.toString()}")
-                mutableOnlineLessonsState.value = State.FAILURE
-            }
+        //viewModelScope.launch {
+        //    mutableOnlineLessonsState.value = State.LOADING
+        //    try {
+        //        val response = APIService.API.getOnlineLessonsAsync(userToken,schoolId).await()
+        //        mutableOnlineLessons.value = response.toOfflineLessons()
+        //        if (response.result == "success") mutableOnlineLessonsState.value = State.SUCCESS
+        //        else mutableOnlineLessonsState.value = State.ERROR
+        //    } catch (exc: Exception) {
+        //        Log.i("eeee", " getOnlineLessons() ERROR: ${exc.message.toString()}")
+        //        mutableOnlineLessonsState.value = State.FAILURE
+        //    }
+        //}
+        val onlineLessons = mutableListOf<OnlineLessons.OnlineLesson>()
+        val answerList = mutableListOf<OnlineLessons.Answer>()
+
+            answerList.add(
+                OnlineLessons.Answer(
+                    "Чёрт",
+                    false
+                ))
+        answerList.add(
+            OnlineLessons.Answer(
+                "Программист",
+                false
+            ))
+        answerList.add(
+            OnlineLessons.Answer(
+                "Служивый",
+                false
+            ))
+        answerList.add(
+            OnlineLessons.Answer(
+                "Репитлоид",
+                true
+            ))
+        for(i in 0 .. 10){
+            val isFinished = i>4
+            onlineLessons.add(
+                OnlineLessons.OnlineLesson(
+                    i,
+                    (123 + i).toString(),
+                    "Как подобрать корм",
+                    "15",
+                    69,
+                    isFinished,
+                    "https://www.youtube.com/watch?v=GRkStJ8BxzQ&ab_channel=%D0%9D%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%BE%D1%80%D0%B8%D0%B3%D1%80%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE%D0%BC%D0%B8%D1%80%D0%B0",
+                    "Кто по жизни?",
+                    answerList
+                )
+            )
         }
+        val onlineLessons2 = OnlineLessons(onlineLessons)
+        mutableOnlineLessons.value = onlineLessons2
     }
 
     private val mutableOnlineSchoolsState:MutableLiveData<State> = MutableLiveData()
@@ -94,7 +150,7 @@ class SchoolViewModel: ViewModel() {
                 OnlineSchools.Literature(
                 "Вакцинация",
                 "Для кота",
-                "src"
+                "https://www.ozon.ru/context/detail/id/147372948/?utm_source=google&utm_medium=cpc&utm_campaign=RF_Product_Shopping_Books_newclients&gclid=Cj0KCQiAzZL-BRDnARIsAPCJs72eVknuneOeB2yBjvzq8h-6SrmXzQlAAPvhmmUU8JUJmhZIjL_8LnQaAqCuEALw_wcB"
             ))
         }
 

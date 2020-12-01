@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
@@ -16,6 +18,7 @@ class OfflineEventFragment : Fragment() {
 
     private lateinit var binding: FragmentSchoolOfflineEventBinding
     private lateinit var schoolVM: SchoolViewModel
+    private var seminarId:String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +32,20 @@ class OfflineEventFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(this)[SchoolViewModel::class.java]
         setListeners()
+        seminarId = arguments?.getString("seminarId")
+        setObservers(this)
         setSystemUiVisibility()
+    }
+
+    private fun setObservers(owner:LifecycleOwner) {
+        schoolVM.offlineSeminars.observe(owner, Observer {
+            seminarId?.run {
+                for (i in it.seminars.indices){
+                    val seminar = it.seminars[i]
+
+                }
+            }
+        })
     }
 
     private fun setListeners() {
