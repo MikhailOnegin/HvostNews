@@ -7,6 +7,7 @@ data class OfflineSeminars(
 {
     data class OfflineLesson(
         val domainId:Int,
+        val id:String,
         val title: String,
         val imageUrl: String,
         val isFinished: Boolean,
@@ -31,6 +32,7 @@ fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<Offlin
             result.add(
                 OfflineSeminars.OfflineLesson(
                     domainId = index,
+                    id = offlineLessonResponse.id ?: "",
                     title = offlineLessonResponse.title ?: "",
                     imageUrl = offlineLessonResponse.imageUrl ?: "",
                     isFinished = offlineLessonResponse.isFinished ?: false,

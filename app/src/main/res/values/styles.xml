@@ -41,7 +41,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/buttonShapeAppearanceCornerSize</item>
     </style>
-
+<style name="DefaultButton" parent="Widget.AppCompat.Button"/>
     <style name="ButtonTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/gilroy_bold</item>
     </style>
@@ -208,6 +208,12 @@
         <item name="cornerSize">8dp</item>
         <item name="android:elevation">0dp</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ButtonOnlineLessonAnswer" parent="Widget.MaterialComponents.Button">
+        <item name="android:state_selected">false</item>
+        <item name="android:state_checked">@null</item>
+        <item name="background">@drawable/selector_online_lesson_option</item>
     </style>
     <!-- TabLayout -->
     <style name="TabLayout" parent="android:Widget.TabWidget">

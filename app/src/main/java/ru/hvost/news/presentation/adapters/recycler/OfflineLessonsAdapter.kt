@@ -77,7 +77,7 @@ class OfflineLessonsAdapter :
             tVCity.text = lesson.city
 
             constraint.setOnClickListener {
-                onClickLesson?.onClick(lesson.city)
+                onClickLesson?.onClick(lesson.id)
             }
         }
     }

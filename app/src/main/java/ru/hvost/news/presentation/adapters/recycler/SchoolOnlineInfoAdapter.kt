@@ -21,6 +21,11 @@ import ru.hvost.news.models.OnlineSchools
 class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onlineSchool:OnlineSchools.OnlineSchool? = null
+    var onClickLiterature:OnClickLiterature? = null
+
+    interface OnClickLiterature{
+        fun onClick(url:String)
+    }
 
     fun setSchool(school:OnlineSchools.OnlineSchool){
         this.onlineSchool = school
@@ -82,6 +87,9 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
                 viewLiterature.textView_title.text = school.literatures[i].name
                 viewLiterature.textView_pet.text = school.literatures[i].pet
+                viewLiterature.constraint_literure.setOnClickListener {
+                    onClickLiterature?.onClick(school.literatures[i].src)
+                }
                 val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
                 (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
                     0,

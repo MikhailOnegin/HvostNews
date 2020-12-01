@@ -11,6 +11,7 @@
     <dimen name="listItemElevation">5dp</dimen>
     <dimen name="screenContentPadding">16dp</dimen>
     <dimen name="profileCoverPadding">25dp</dimen>
+    <dimen name="logoOnlineSchoolPadding">24dp</dimen>
     <dimen name="imageHeight">150dp</dimen>
     <dimen name="smallImageHeight">50dp</dimen>
     <dimen name="categoryHeight">26dp</dimen>

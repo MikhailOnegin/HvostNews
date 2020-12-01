@@ -1,6 +1,8 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +26,7 @@ import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+
 
 class OnlineCourseActiveFragment : Fragment() {
 
@@ -55,6 +58,24 @@ class OnlineCourseActiveFragment : Fragment() {
                 bundle.putString("schoolId", schoolId)
                 bundle.putString("lessonId", lessonId)
                 navC.navigate(R.id.action_onlineCourseActiveFragment_to_onlineLessonFragment, bundle)
+            }
+        }
+        materialsAdapter.onClickLiterature = object : SchoolOnlineMaterialsAdapter.OnClickLiterature{
+            override fun onClick(url: String) {
+                val newIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(url)
+                )
+                startActivity(newIntent)
+            }
+        }
+        infoAdapter.onClickLiterature = object :SchoolOnlineInfoAdapter.OnClickLiterature{
+            override fun onClick(url: String) {
+                val newIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(url)
+                )
+                startActivity(newIntent)
             }
         }
         setObservers(this)
@@ -99,7 +120,7 @@ class OnlineCourseActiveFragment : Fragment() {
                         infoAdapter.setSchool(onlineSchool)
                         materialsAdapter.setSchool(onlineSchool)
                         val containerNumbers = linearLayout
-                        val padding = resources.getDimension(R.dimen.largeCorners).toInt()
+                        val padding = resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
                         containerNumbers.setPadding(0,0,0, padding)
                         for(i in onlineSchool.lessonsPassed.indices){
                             val number = onlineSchool.lessonsPassed[i].number
