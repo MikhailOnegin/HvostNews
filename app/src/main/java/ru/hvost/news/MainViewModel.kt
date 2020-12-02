@@ -56,7 +56,9 @@ class MainViewModel : ViewModel() {
     var domains: List<Domain>? = null
 
     private val _interestsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val interestsLoadingEvent: LiveData<NetworkEvent<State>> = _interestsLoadingEvent
     private val _interests = MutableLiveData<List<CategoryItem>>()
+    val interests: LiveData<List<CategoryItem>> = _interests
 
     //Событие, сообщающее о необходимости закрытия инструкций.
     val closeInstructionsEvent = MutableLiveData<OneTimeEvent>()
@@ -167,7 +169,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun loadArticles() {
+    fun loadArticles() {
         viewModelScope.launch {
             articlesState.value = State.LOADING
             try {
@@ -314,7 +316,7 @@ class MainViewModel : ViewModel() {
         email: String? = null,
         birthday: String? = null,
         city: String? = null,
-        interests: List<String>? = null
+        interests: String? = null
     ) {
         viewModelScope.launch {
             changeUserDataState.value = State.LOADING
@@ -456,9 +458,6 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
-    val interestsLoadingEvent: LiveData<NetworkEvent<State>> = _interestsLoadingEvent
-    val interests: LiveData<List<CategoryItem>> = _interests
 
     private fun loadInterests() {
         viewModelScope.launch {

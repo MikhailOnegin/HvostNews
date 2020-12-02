@@ -172,7 +172,7 @@ interface APIService {
         @Query("email") email: String?,
         @Query("city") city: String?,
         @Query("birthday") birthday: String?,
-        @Query("interests") interests: List<String>?
+        @Query("interests") interests: String?
     ): Deferred<UserDataResponse>
 
     @GET("/rest/PetProfile/addPet/")

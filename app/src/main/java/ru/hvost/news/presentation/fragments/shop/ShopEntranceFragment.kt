@@ -56,12 +56,15 @@ class ShopEntranceFragment : Fragment() {
 
     private fun setListeners() {
         binding.button.setOnClickListener { onGoToShopClicked() }
+        binding.cartContainer.setOnClickListener {
+            findNavController().navigate(R.id.action_shopEntranceFragment_to_cartFragment)
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun onCartChanged(cartItems: List<CartItem>?) {
         cartItems?.run {
-            binding.cartCount.text = "${this.size}"
+            binding.cartCount.text = "${if(this.isEmpty()) this.size else this.size - 1}"
             try {
                 val total = (cartItems.last() as CartFooter).totalCost
                 binding.cartSum.text = "${moneyFormat.format(total)} \u20bd"
