@@ -364,4 +364,8 @@
     <string name="buttonDetails">Подробнее</string>
     <string name="buttonAddToCart">В корзину</string>
     <string name="productNotFoundToast">Продукт не найден.</string>
+    <string name="seminar_info">О семинаре</string>
+    <string name="schedule">Расписание</string>
+    <string name="comleted">Завершено</string>
+    <string name="you_prticipate">Вы записаны на мероприятине</string>
 </resources>

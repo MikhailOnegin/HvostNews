@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:fitsSystemWindows="true"
         android:stateListAnimator="@null"
@@ -21,19 +21,19 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|snap|enterAlways">
 
+
             <TextView
-                android:id="@+id/textView_place"
+                android:id="@+id/textView_city"
                 style="@style/TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:gravity="end"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_place_logo"
                 app:layout_constraintTop_toTopOf="@+id/textView_place_logo" />
 
             <TextView
@@ -41,14 +41,13 @@
                 style="@style/TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:gravity="end"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_sponsor_logo"
                 app:layout_constraintTop_toTopOf="@+id/textView_sponsor_logo" />
 
             <Button
@@ -66,7 +65,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_sponsor" />
 
             <TextView
-                android:id="@+id/textView_head"
+                android:id="@+id/textView_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -85,14 +84,13 @@
                 style="@style/TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:gravity="end"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_status_logo"
                 app:layout_constraintTop_toTopOf="@+id/textView_status_logo" />
 
             <TextView
@@ -102,9 +100,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/sponsor"
                 android:textColor="@color/gray3"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_date" />
 
@@ -113,14 +112,13 @@
                 style="@style/TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:gravity="end"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_date_logo"
                 app:layout_constraintTop_toTopOf="@+id/textView_date_logo" />
 
             <TextView
@@ -130,9 +128,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/place_action"
                 android:textColor="@color/gray3"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_lesson_status" />
 
@@ -143,11 +142,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/date_action"
                 android:textColor="@color/gray3"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_place" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_city" />
 
             <TextView
                 android:id="@+id/textView_status_logo"
@@ -156,11 +156,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/status"
                 android:textColor="@color/gray3"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_head" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
 
             <View
                 android:id="@+id/divider"
@@ -181,15 +182,118 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|snap|enterAlways"
                 app:navigationIcon="@drawable/ic_back"
-                app:title="@string/coupon_page" />
+                app:title="@string/event" />
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="2px"
+                android:background="@color/gray4"
+                app:layout_constraintEnd_toStartOf="@+id/textView_lesson_status"
+                app:layout_constraintStart_toEndOf="@+id/textView_status_logo"
+                app:layout_constraintTop_toBottomOf="@+id/textView_status_logo"
+                app:srcCompat="@drawable/ic_line_point" />
+
+            <ImageView
+                android:id="@+id/view2"
+                android:layout_width="0dp"
+                android:layout_height="2px"
+                android:background="@color/gray4"
+                app:layout_constraintEnd_toStartOf="@+id/textView_date"
+                app:layout_constraintStart_toEndOf="@+id/textView_date_logo"
+                app:layout_constraintTop_toBottomOf="@+id/textView_date_logo"
+                app:srcCompat="@drawable/ic_line_point" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="2px"
+                android:background="@color/gray4"
+                app:layout_constraintEnd_toStartOf="@+id/textView_sponsor"
+                app:layout_constraintStart_toEndOf="@+id/textView_sponsor_logo"
+                app:layout_constraintTop_toBottomOf="@+id/textView_sponsor_logo"
+                app:srcCompat="@drawable/ic_line_point" />
+
+            <ImageView
+                android:id="@+id/view3"
+                android:layout_width="0dp"
+                android:layout_height="2px"
+                android:background="@color/gray4"
+                app:layout_constraintEnd_toStartOf="@+id/textView_city"
+                app:layout_constraintStart_toEndOf="@+id/textView_place_logo"
+                app:layout_constraintTop_toBottomOf="@+id/textView_place_logo"
+                app:srcCompat="@drawable/ic_line_point" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:paddingEnd="24dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_participate">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_seminar_info"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/cartSelectorHeight"
+                    android:layout_weight="1"
+                    android:background="@drawable/sex_selector_left">
+
+                    <TextView
+                        android:id="@+id/seminarInfo"
+                        style="@style/CartTypeTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/seminar_info"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_seminar_schedule"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/cartSelectorHeight"
+                    android:layout_weight="1"
+                    android:background="@drawable/sex_selector_right">
+
+                    <TextView
+                        android:id="@+id/seminarSchedule"
+                        style="@style/CartTypeTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/schedule"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
