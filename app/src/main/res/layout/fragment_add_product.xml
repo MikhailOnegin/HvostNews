@@ -209,18 +209,18 @@
 
                 <TextView
                     android:id="@+id/brand"
-                    android:maxLines="2"
-                    android:gravity="end"
-                    android:maxWidth="@dimen/maxTextWidthProduct"
                     style="@style/MakeOrderSummaryTextView"
-                    android:text="@string/stub"
-                    tools:text="Monge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/normalMargin"
-                    android:layout_marginEnd="@dimen/largeMargin"/>
+                    android:layout_marginEnd="@dimen/largeMargin"
+                    android:gravity="end"
+                    android:maxWidth="@dimen/maxTextWidthProduct"
+                    android:maxLines="1"
+                    android:text="@string/stub"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Monge" />
 
                 <TextView
                     android:id="@+id/manufacturerTitle"
@@ -245,7 +245,7 @@
 
                 <TextView
                     android:id="@+id/manufacturer"
-                    android:maxLines="2"
+                    android:maxLines="1"
                     android:gravity="end"
                     android:maxWidth="@dimen/maxTextWidthProduct"
                     style="@style/MakeOrderSummaryTextView"
@@ -281,7 +281,7 @@
 
                 <TextView
                     android:id="@+id/commonCategory"
-                    android:maxLines="2"
+                    android:maxLines="1"
                     android:gravity="end"
                     android:maxWidth="@dimen/maxTextWidthProduct"
                     style="@style/MakeOrderSummaryTextView"

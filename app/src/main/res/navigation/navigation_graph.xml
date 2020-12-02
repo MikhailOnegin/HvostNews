@@ -242,13 +242,28 @@
         <action
             android:id="@+id/action_shopFragment_to_addToCartFragment"
             app:destination="@id/addToCartFragment" />
+        <action
+            android:id="@+id/action_shopFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <dialog
         android:id="@+id/addToCartFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.AddToCartFragment"
         android:label="AddToCartFragment"
-        tools:layout="@layout/fragment_add_product"/>
+        tools:layout="@layout/fragment_add_product">
+        <action
+            android:id="@+id/action_addToCartFragment_to_productFragment"
+            app:destination="@id/productFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+    </dialog>
 
     <fragment
         android:id="@+id/passRestoreFragment"
@@ -352,6 +367,19 @@
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_shopEntranceFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
+
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.ProductFragment"
+        android:label="ProductFragment"
+        tools:layout="@layout/fragment_product"/>
 
 </navigation>

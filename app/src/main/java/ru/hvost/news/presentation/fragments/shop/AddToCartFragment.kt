@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -18,7 +19,6 @@ import ru.hvost.news.databinding.FragmentAddProductBinding
 import ru.hvost.news.models.ShopProduct
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.moneyFormat
-import ru.hvost.news.utils.showNotReadyToast
 import java.lang.Exception
 
 class AddToCartFragment : BottomSheetDialogFragment() {
@@ -129,8 +129,9 @@ class AddToCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun navigateToDetailsScreen(productId: Long) {
-        //sergeev: Переход в деталку.
-        showNotReadyToast()
+        val bundle = Bundle()
+        bundle.putLong(PRODUCT_ID, productId)
+        findNavController().navigate(R.id.action_addToCartFragment_to_productFragment)
     }
 
     companion object {
