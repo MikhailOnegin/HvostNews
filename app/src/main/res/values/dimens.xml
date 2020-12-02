@@ -144,4 +144,6 @@
     <dimen name="rvShopHeaderImageSize">200dp</dimen>
     <dimen name="listBackgroundRadius">10dp</dimen>
     <dimen name="buttonMediumTextSize">16sp</dimen>
+    <dimen name="checkboxSize">20dp</dimen>
+    <dimen name="domainTitleOnArticleRadius">10dp</dimen>
 </resources>

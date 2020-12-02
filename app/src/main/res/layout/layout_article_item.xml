@@ -11,25 +11,30 @@
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin" />
+        android:layout_marginBottom="@dimen/smallMargin"
+        android:background="@drawable/background_beveled_corners"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/default_image" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/textMargin"
-        android:textStyle="bold"
+        android:fontFamily="@font/gilroy_medium"
         android:text="@string/stub"
-        android:textColor="@color/titleText"
-        android:textSize="@dimen/articleTitleTextSize" />
+        android:textColor="@color/gray1"
+        android:textSize="@dimen/articleTitleTextSize"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/normalMargin"
+        android:fontFamily="@font/gilroy_medium"
         android:text="@string/stub"
-        android:textColor="@color/categoryText"
+        android:textColor="@color/gray2"
         android:textSize="@dimen/articleDescriptionTextSize" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,28 +47,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/background_category_item"
+            android:fontFamily="@font/gilroy_medium"
             android:gravity="center"
-            android:paddingStart="@dimen/normalMargin"
-            android:paddingEnd="@dimen/normalMargin"
+            android:paddingHorizontal="@dimen/normalMargin"
             android:text="@string/stub"
-            android:textColor="@color/categoryText"
+            android:textColor="@color/gray2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/category"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/xSmallMargin"
-            android:background="@drawable/background_category_item"
-            android:gravity="center"
-            android:paddingStart="@dimen/normalMargin"
-            android:paddingEnd="@dimen/normalMargin"
-            android:text="@string/stub"
-            android:textColor="@color/categoryText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/domain"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -81,10 +71,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/xSmallMargin"
+            android:fontFamily="@font/gilroy_medium"
             android:gravity="center"
-            android:paddingStart="@dimen/smallMargin"
-            android:paddingEnd="@dimen/smallMargin"
-            android:textColor="@color/categoryText"
+            android:paddingHorizontal="@dimen/smallMargin"
+            android:textColor="@color/gray3"
+            android:textSize="@dimen/textTitleSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/likesImg"
             app:layout_constraintTop_toTopOf="parent" />
@@ -103,10 +94,11 @@
             android:id="@+id/likes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="@font/gilroy_medium"
             android:gravity="center"
-            android:paddingStart="@dimen/smallMargin"
-            android:paddingEnd="@dimen/smallMargin"
-            android:textColor="@color/categoryText"
+            android:paddingHorizontal="@dimen/smallMargin"
+            android:textColor="@color/gray3"
+            android:textSize="@dimen/textTitleSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

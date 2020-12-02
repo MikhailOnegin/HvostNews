@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
+import ru.hvost.news.R
 import ru.hvost.news.databinding.RvFilterFooterBinding
 import ru.hvost.news.databinding.RvFilterItemBinding
 import ru.hvost.news.databinding.RvFilterItemInterestBinding
@@ -48,33 +49,37 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: InterestsCategory) {
             binding.expand.setOnClickListener { switchVisibility() }
-            binding.mainCheckbox.id = item.categoryId.toInt()
-            binding.mainCheckbox.text = item.categoryName
+            binding.title.text = item.categoryName
             when (item.state) {
-                CheckboxStates.SELECTED -> binding.mainCheckbox.isChecked = true
-                CheckboxStates.UNSELECTED -> binding.mainCheckbox.isChecked = false
-                CheckboxStates.INDETERMINATE -> binding.mainCheckbox.isChecked = true
+                CheckboxStates.SELECTED -> binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_checked)
+                CheckboxStates.UNSELECTED -> binding.mainCheckbox.setImageResource(android.R.color.transparent)
+                CheckboxStates.INDETERMINATE -> binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_indeterminate)
             }
-            binding.mainCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                when (isChecked) {
-                    true -> {
-                        for (interest in item.interests) {
-                            item.state = CheckboxStates.SELECTED
-                            interest.state = CheckboxStates.SELECTED
-                            item.sendParent = true
-                        }
-                        setChildCheckboxes(item)
-                    }
-                    false -> {
-                        for (interest in item.interests) {
-                            item.state = CheckboxStates.UNSELECTED
-                            interest.state = CheckboxStates.UNSELECTED
-                            item.sendParent = false
-                        }
-                        setChildCheckboxes(item)
-                    }
-                }
+            binding.mainCheckbox.setOnClickListener { checkState(item) }
+            setChildCheckboxes(item)
+        }
+
+        private fun checkState(item: InterestsCategory) {
+            when (item.state) {
+                CheckboxStates.SELECTED -> setUnselected(item)
+                CheckboxStates.UNSELECTED -> setSelected(item)
+                CheckboxStates.INDETERMINATE -> setUnselected(item)
             }
+        }
+
+        private fun setUnselected(item: InterestsCategory) {
+            binding.mainCheckbox.setImageResource(android.R.color.transparent)
+            item.state = CheckboxStates.UNSELECTED
+            item.interests.map { it.state = CheckboxStates.UNSELECTED }
+            item.sendParent = false
+            setChildCheckboxes(item)
+        }
+
+        private fun setSelected(item: InterestsCategory) {
+            binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_checked)
+            item.state = CheckboxStates.SELECTED
+            item.interests.map { it.state = CheckboxStates.SELECTED }
+            item.sendParent = true
             setChildCheckboxes(item)
         }
 
@@ -86,24 +91,27 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
                     null,
                     false
                 )
-                view.checkbox.id = interest.interestId.toInt()
                 view.checkbox.text = interest.interestName
-                if (item.sendParent || interest.state == CheckboxStates.SELECTED)
+                if (item.sendParent || interest.state == CheckboxStates.SELECTED) {
                     view.checkbox.isChecked = true
+                }
                 view.checkbox.setOnCheckedChangeListener { _, isChecked ->
                     when (isChecked) {
                         true -> {
                             interest.state = CheckboxStates.SELECTED
                             if (item.interests.size == item.interests.filter { it.state == CheckboxStates.SELECTED }.size) {
-                                binding.mainCheckbox.isChecked = true
+                                binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_checked)
                                 item.sendParent = true
+                                item.state = CheckboxStates.SELECTED
+                            } else if (item.interests.any { it.state == CheckboxStates.SELECTED } && (item.interests.size != item.interests.filter { it.state == CheckboxStates.SELECTED }.size)) {
+                                binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_indeterminate)
+                                item.state = CheckboxStates.INDETERMINATE
                             }
                         }
                         false -> {
                             interest.state = CheckboxStates.UNSELECTED
                             item.sendParent = false
                             checkParentIsChecked(item)
-                            //todo: indeterminate status for parent Checkbox
                         }
                     }
                 }
@@ -113,8 +121,9 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
 
         private fun checkParentIsChecked(item: InterestsCategory) {
             if (item.interests.filter { it.state == CheckboxStates.SELECTED }.isEmpty()) {
-                binding.mainCheckbox.isChecked = false
-                item.state = CheckboxStates.UNSELECTED
+                setUnselected(item)
+            } else if (item.interests.any { it.state == CheckboxStates.SELECTED } && (item.interests.size != item.interests.filter { it.state == CheckboxStates.SELECTED }.size)) {
+                binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_indeterminate)
             }
         }
 

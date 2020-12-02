@@ -35,8 +35,7 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
                 .into(binding.img)
             binding.title.text = articleItem.title
             binding.description.text = articleItem.shortDescription.parseAsHtml()
-            binding.domain.text = articleItem.domainTitle
-            binding.category.text = articleItem.categoryTitle
+            binding.domain.text = articleItem.categoryTitle
             binding.views.text = articleItem.viewsCount
             binding.likes.text = articleItem.likesCount.toString()
 
