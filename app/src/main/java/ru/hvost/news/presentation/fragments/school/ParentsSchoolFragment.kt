@@ -14,13 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_school_parents.*
 import ru.hvost.news.R
-import ru.hvost.news.data.api.response.OnlineLessonsResponse
-import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 import ru.hvost.news.databinding.FragmentSchoolParentsBinding
 import ru.hvost.news.models.CitiesOffline.CityOffline
-import ru.hvost.news.models.OnlineSchools
-import ru.hvost.news.models.toOnlineSchools
-import ru.hvost.news.presentation.adapters.recycler.OfflineLessonsAdapter
+import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarsAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolsOnlineAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
@@ -30,7 +26,7 @@ class ParentsSchoolFragment : Fragment() {
     private lateinit var binding: FragmentSchoolParentsBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var onlineSchoolsAdapter:SchoolsOnlineAdapter
-    private lateinit var offlineLessonsAdapter :OfflineLessonsAdapter
+    private lateinit var offlineSeminarsAdapter :OfflineSeminarsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +34,7 @@ class ParentsSchoolFragment : Fragment() {
     ): View? {
         binding = FragmentSchoolParentsBinding.inflate(inflater, container, false)
         onlineSchoolsAdapter = SchoolsOnlineAdapter()
-        offlineLessonsAdapter = OfflineLessonsAdapter()
+        offlineSeminarsAdapter = OfflineSeminarsAdapter()
         return binding.root
     }
 
@@ -66,7 +62,7 @@ class ParentsSchoolFragment : Fragment() {
                 )
             }
         }
-        offlineLessonsAdapter.onClickLesson = object : OfflineLessonsAdapter.OnClickOfflineLesson{
+        offlineSeminarsAdapter.onClickLesson = object : OfflineSeminarsAdapter.OnClickOfflineLesson{
             override fun onClick(lessonId: String) {
                 val bundle = Bundle()
                 bundle.putString("seminarId", lessonId)
@@ -95,7 +91,7 @@ class ParentsSchoolFragment : Fragment() {
         })
 
         schoolVM.offlineSeminars.observe(owner, Observer {
-            offlineLessonsAdapter.setSeminars(it.seminars)
+            offlineSeminarsAdapter.setSeminars(it.seminars)
         })
     }
 
@@ -116,14 +112,14 @@ class ParentsSchoolFragment : Fragment() {
         binding.constraintOfflineSeminars.setOnClickListener {
             it.isSelected = true
             constraint_onlineSchools.isSelected = false
-            binding.recyclerView.adapter = offlineLessonsAdapter
+            binding.recyclerView.adapter = offlineSeminarsAdapter
             binding.offlineSeminars.setTextColor(colorWhite)
             binding.onlineSchool.setTextColor(colorPrimary)
             binding.constraintSpinner.visibility = View.VISIBLE
         }
         binding.switchFilter.setOnCheckedChangeListener { compoundButton, b ->
-            if (binding.recyclerView.adapter is OfflineLessonsAdapter) {
-                offlineLessonsAdapter.filter(b)
+            if (binding.recyclerView.adapter is OfflineSeminarsAdapter) {
+                offlineSeminarsAdapter.filter(b)
             }
         }
 

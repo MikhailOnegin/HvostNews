@@ -8,6 +8,7 @@ data class OnlineSchools(
 ) {
     data class OnlineSchool(
         val domainId: Int,
+        val isRegistered:Boolean,
         val id: Long,
         val title: String,
         val image: String,
@@ -48,6 +49,7 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
                 OnlineSchools.OnlineSchool(
                     domainId = index,
                     id = schoolResponse.id ?: 0,
+                    isRegistered = schoolResponse.isRegistered ?: false,
                     title = schoolResponse.title ?: "",
                     image = schoolResponse.image ?: "",
                     userRank = schoolResponse.userRank ?: "",
