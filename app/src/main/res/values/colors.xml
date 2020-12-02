@@ -38,6 +38,7 @@
     <color name="gray4">#B9BEE1</color>
     <color name="gray5">#F0EBFA</color>
     <color name="lightGrayBackground">#F8F6FD</color>
+    <color name="red">#FF0000</color>
     <!-- App colors palette -->
 
     <color name="elevatedButtonBackgroundTintDisabled">#7D82AF</color>

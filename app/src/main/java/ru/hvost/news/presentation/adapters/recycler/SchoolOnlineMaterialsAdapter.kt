@@ -6,10 +6,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_lesson_online.view.*
-import kotlinx.android.synthetic.main.item_lesson_online.view.textView_title
+import kotlinx.android.synthetic.main.item_lesson_online_active.view.*
+import kotlinx.android.synthetic.main.item_lesson_online_active.view.constraint
+import kotlinx.android.synthetic.main.item_lesson_online_active.view.imageView_go
+import kotlinx.android.synthetic.main.item_lesson_online_active.view.textView_number
+import kotlinx.android.synthetic.main.item_lesson_online_finished.view.*
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
+import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
 import ru.hvost.news.R
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
@@ -21,6 +25,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
     var onClickLesson: OnClickLesson? = null
     var onClickLiterature: OnClickLiterature? = null
+    private var firstActiveLesson = true
 
     interface OnClickLesson {
         fun onClick(lessonId:String)
@@ -41,21 +46,31 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewSchool = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_lesson_online, parent, false)
+        val viewLessonActive = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_lesson_online_active, parent, false)
+
+        val viewLessonFinished = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_lesson_online_finished, parent, false)
 
         val viewLiterature = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_useful_literature, parent, false)
 
         return when (viewType) {
-            TYPE_LESSON -> LessonsViewHolder(viewSchool)
+            TYPE_LESSON_ACTIVE -> LessonActiveViewHolder(viewLessonActive)
+            TYPE_LESSON_FINISHED -> LessonFinishedViewHolder(viewLessonFinished)
             else -> UsefulLiteratureViewHolder(viewLiterature)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position >= lessons.size) return TYPE_USEFUL_LITERATURE
-        else TYPE_LESSON
+        return if (position >= lessons.size) TYPE_USEFUL_LITERATURE
+        else {
+            if(!lessons[position].isFinished){
+                TYPE_LESSON_ACTIVE
+            } else{
+                TYPE_LESSON_FINISHED
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -64,37 +79,49 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is LessonsViewHolder -> {
-                if (position < lessons.size) {
-                    val lesson = lessons[position]
-                    holder.bind(lesson)
-                }
+            is LessonActiveViewHolder -> {
+                val lesson = lessons[position]
+                holder.bind(lesson)
             }
-            is UsefulLiteratureViewHolder ->
-                    holder.bind(school)
+            is LessonFinishedViewHolder -> {
+                val lesson = lessons[position]
+                holder.bind(lesson)
+            }
+            is UsefulLiteratureViewHolder -> holder.bind(school)
         }
     }
 
 
-    inner class LessonsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class LessonActiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val constraint = itemView.constraint
         private val tVNumber = itemView.textView_number
         private val tVTittle = itemView.textView_title
         private val tVAge = itemView.textView_age
-        private val iVGo = itemView.imageView_go
+        private val iVGo = itemView.imageView_play
 
         fun bind(lesson: OnlineLessons.OnlineLesson) {
             tVNumber.text = lesson.lessonNumber.toString()
             tVTittle.text = lesson.lessonTitle
-            tVAge.text = lesson.petAge
-            iVGo.setOnClickListener {
-                //for Test
-                Toast.makeText(itemView.context, "Click", Toast.LENGTH_SHORT).show()
-            }
-            constraint.setOnClickListener {
-                onClickLesson?.onClick(lesson.lessonId)
+            val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
+            tVAge.text = age
+            if (firstActiveLesson) {
+                iVGo.visibility = View.VISIBLE
+                constraint.setOnClickListener {
+                    onClickLesson?.onClick(lesson.lessonId)
+                }
+                firstActiveLesson = false
             }
 
+        }
+    }
+
+    inner class LessonFinishedViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
+        private val tVNumber = itemView.textView_number_finished
+        private val tVTitle = itemView.textView_title_finished
+
+        fun bind(lesson: OnlineLessons.OnlineLesson){
+            tVNumber.text = lesson.lessonNumber.toString()
+            tVTitle.text = lesson.lessonTitle
         }
     }
 
@@ -131,7 +158,8 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     companion object {
-        const val TYPE_LESSON = 0
-        const val TYPE_USEFUL_LITERATURE = 1
+        const val TYPE_LESSON_ACTIVE = 0
+        const val TYPE_LESSON_FINISHED = 1
+        const val TYPE_USEFUL_LITERATURE = 2
     }
 }

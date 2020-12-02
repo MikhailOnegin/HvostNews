@@ -14,14 +14,15 @@ import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
 class ShopAdapter(
-    private val fullList: List<ShopItem>
+    private val fullList: List<ShopItem>,
+    private val onClick: (Long) -> Unit
 ) : ListAdapter<ShopItem, RecyclerView.ViewHolder>(ShopItemDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
             TYPE_CATEGORY -> CategoryVH.getViewHolder(parent, this)
             TYPE_HEADER -> HeaderVH.getViewHolder(parent)
-            TYPE_PRODUCT -> ProductVH.getViewHolder(parent)
+            TYPE_PRODUCT -> ProductVH.getViewHolder(parent, onClick)
             TYPE_MESSAGE -> MessageVH.getViewHolder(parent)
             else -> throw IllegalArgumentException("Wrong shop adapter view type.")
         }
@@ -117,7 +118,8 @@ class ShopAdapter(
     }
 
     class ProductVH(
-        private val binding: RvShopProductBinding
+        private val binding: RvShopProductBinding,
+        private val onClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -127,18 +129,22 @@ class ShopAdapter(
                 title.text = product.description.parseAsHtml()
                 price.text = "${moneyFormat.format(product.price.toInt())} \u20bd"
                 oldPrice.text = "${moneyFormat.format(product.oldPrice.toInt())} \u20bd"
+                root.setOnClickListener { onClick.invoke(product.id) }
             }
         }
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup): ProductVH {
+            fun getViewHolder(
+                parent: ViewGroup,
+                onClick: (Long) -> Unit
+            ): ProductVH {
                 val binding = RvShopProductBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return ProductVH(binding)
+                return ProductVH(binding, onClick)
             }
 
         }

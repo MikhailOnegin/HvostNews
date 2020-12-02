@@ -4,11 +4,11 @@
     <solid
         android:color="@color/defaultBackground"/>
 <size
-    android:width="40dp"
-    android:height="40dp"/>
+    android:width="32dp"
+    android:height="32dp"/>
     <padding
-        android:top="8dp"
-        android:bottom="8dp"
-        android:left="8dp"
-        android:right="8dp"/>
+        android:top="6dp"
+        android:bottom="6dp"
+        android:left="6dp"
+        android:right="6dp"/>
 </shape>

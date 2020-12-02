@@ -51,7 +51,7 @@ class RoundCornersImageView(
         outlinePaint.apply {
             color = outlineColor
             strokeWidth = outlineWidth
-            if(dropShadow) setShadowLayer(20f,shadowOffset, shadowOffset, shadowColor)
+            if(dropShadow) setShadowLayer(25f,shadowOffset, shadowOffset, shadowColor)
         }
     }
 

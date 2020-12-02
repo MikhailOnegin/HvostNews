@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/nestedCoordinatorLayout"
+            android:orientation="vertical"
+            android:background="@drawable/background_bottom_sheet_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/productContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/xLargeMargin">
+
+                <ru.hvost.news.presentation.customviews.RoundCornersImageView
+                    android:id="@+id/image"
+                    style="@style/OutlinedRoundedImageViewWithShadow"
+                    tools:src="@drawable/test_image"
+                    android:layout_width="@dimen/shopProductImageSize"
+                    android:layout_height="@dimen/shopProductImageSize"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/smallMargin"
+                    android:layout_marginTop="@dimen/smallMargin"/>
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/testCartLongText"
+                    android:maxLines="4"
+                    android:gravity="center_vertical|start"
+                    android:textColor="@color/TextColorPrimary"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:textSize="@dimen/cartItemTextSize"
+                    app:layout_constraintTop_toTopOf="@id/image"
+                    app:layout_constraintBottom_toTopOf="@id/article"
+                    app:layout_constraintStart_toEndOf="@id/image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/largeMargin"
+                    android:lineSpacingExtra="3dp"
+                    app:layout_constraintVertical_chainStyle="packed"/>
+
+                <TextView
+                    android:id="@+id/article"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numberStub"
+                    android:textSize="@dimen/addProductArticleTextSize"
+                    android:textColor="@color/gray4"
+                    android:fontFamily="@font/gilroy_bold"
+                    tools:text="Артикул: 70011525"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    app:layout_constraintBottom_toBottomOf="@id/image"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    android:layout_marginTop="@dimen/smallMargin"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/controlsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/productContainer"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin">
+
+                <View
+                    android:id="@+id/minus"
+                    android:layout_width="@dimen/cartItemButtonSize"
+                    android:layout_height="@dimen/cartItemButtonSize"
+                    android:background="@drawable/background_cart_minus"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="@dimen/cartItemButtonSize"
+                    android:layout_height="@dimen/cartItemButtonSize"
+                    android:text="@string/numberStub"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/TextColorPrimary"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:background="@drawable/background_cart_counter"
+                    app:layout_constraintStart_toEndOf="@id/minus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/smallMargin"/>
+
+                <View
+                    android:id="@+id/plus"
+                    android:layout_width="@dimen/cartItemButtonSize"
+                    android:layout_height="@dimen/cartItemButtonSize"
+                    android:background="@drawable/background_cart_plus"
+                    app:layout_constraintStart_toEndOf="@id/count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/smallMargin"/>
+
+                <ImageView
+                    android:id="@+id/multiply"
+                    app:srcCompat="@drawable/ic_multiply"
+                    android:scaleType="centerInside"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@string/multiplyIconCD"
+                    app:layout_constraintStart_toEndOf="@id/plus"
+                    app:layout_constraintEnd_toStartOf="@id/price"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numberStub"
+                    android:textSize="18sp"
+                    android:textColor="@color/TextColorPrimary"
+                    android:fontFamily="@font/gilroy_bold"
+                    app:layout_constraintStart_toEndOf="@id/multiply"
+                    app:layout_constraintEnd_toStartOf="@id/equals"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/priceHint"
+                    tools:text="12 650 \u20bd"/>
+
+                <TextView
+                    android:id="@+id/priceHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cartPriceHint"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray4"
+                    android:fontFamily="@font/gilroy_bold"
+                    app:layout_constraintStart_toStartOf="@id/price"
+                    app:layout_constraintTop_toBottomOf="@id/price"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/equals"
+                    app:srcCompat="@drawable/ic_equals"
+                    android:scaleType="centerInside"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="@string/equalsIconCD"
+                    app:layout_constraintStart_toEndOf="@id/price"
+                    app:layout_constraintEnd_toStartOf="@id/cost"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numberStub"
+                    android:textSize="18sp"
+                    android:textColor="#FA5F19"
+                    android:fontFamily="@font/gilroy_bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="12 650 \u20bd"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/infoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/controlsContainer">
+
+                <TextView
+                    android:id="@+id/brandTitle"
+                    style="@style/MakeOrderSummaryTextView.Secondary"
+                    android:text="@string/productBrandTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/normalMargin"
+                    android:layout_marginStart="@dimen/largeMargin"/>
+
+                <ru.hvost.news.presentation.customviews.DotFillerView
+                    style="@style/DotFiller"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toEndOf="@id/brandTitle"
+                    app:layout_constraintEnd_toStartOf="@id/brand"
+                    app:layout_constraintTop_toTopOf="@id/brandTitle"
+                    app:layout_constraintBottom_toBottomOf="@id/brandTitle"
+                    android:layout_marginStart="@dimen/xSmallMargin"
+                    android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+                <TextView
+                    android:id="@+id/brand"
+                    android:maxLines="2"
+                    android:gravity="end"
+                    android:maxWidth="@dimen/maxTextWidthProduct"
+                    style="@style/MakeOrderSummaryTextView"
+                    android:text="@string/stub"
+                    tools:text="Monge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/normalMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+                <TextView
+                    android:id="@+id/manufacturerTitle"
+                    style="@style/MakeOrderSummaryTextView.Secondary"
+                    android:text="@string/productManufacturerTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/manufacturer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/largeMargin"/>
+
+                <ru.hvost.news.presentation.customviews.DotFillerView
+                    style="@style/DotFiller"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toEndOf="@id/manufacturerTitle"
+                    app:layout_constraintEnd_toStartOf="@id/manufacturer"
+                    app:layout_constraintTop_toTopOf="@id/manufacturerTitle"
+                    app:layout_constraintBottom_toBottomOf="@id/manufacturerTitle"
+                    android:layout_marginStart="@dimen/xSmallMargin"
+                    android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+                <TextView
+                    android:id="@+id/manufacturer"
+                    android:maxLines="2"
+                    android:gravity="end"
+                    android:maxWidth="@dimen/maxTextWidthProduct"
+                    style="@style/MakeOrderSummaryTextView"
+                    android:text="@string/stub"
+                    tools:text="MONGE C. S.p.A."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/brand"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/normalMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+                <TextView
+                    android:id="@+id/commonCategoryTitle"
+                    style="@style/MakeOrderSummaryTextView.Secondary"
+                    android:text="@string/productCommonCategoryTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/commonCategory"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/largeMargin"/>
+
+                <ru.hvost.news.presentation.customviews.DotFillerView
+                    style="@style/DotFiller"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toEndOf="@id/commonCategoryTitle"
+                    app:layout_constraintEnd_toStartOf="@id/commonCategory"
+                    app:layout_constraintTop_toTopOf="@id/commonCategoryTitle"
+                    app:layout_constraintBottom_toBottomOf="@id/commonCategoryTitle"
+                    android:layout_marginStart="@dimen/xSmallMargin"
+                    android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+                <TextView
+                    android:id="@+id/commonCategory"
+                    android:maxLines="2"
+                    android:gravity="end"
+                    android:maxWidth="@dimen/maxTextWidthProduct"
+                    style="@style/MakeOrderSummaryTextView"
+                    android:text="@string/stub"
+                    tools:text="Корма для собак и кошек"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/manufacturer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/normalMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/buttonToDetailsScreen"
+                android:text="@string/buttonDetails"
+                style="@style/UnelevatedButton.Gray"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/secondaryButtonHeight"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <Button
+                android:id="@+id/buttonAddToCart"
+                android:text="@string/buttonAddToCart"
+                style="@style/UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:layout_marginBottom="@dimen/largeMargin"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

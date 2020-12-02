@@ -1,6 +1,8 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -25,7 +27,7 @@ import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OnlineLessonFragment : Fragment() {
+class OnlineLessonActiveFragment : Fragment() {
 
     private lateinit var binding: FragmentSchoolOnlineLessonBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -172,7 +174,11 @@ class OnlineLessonFragment : Fragment() {
                         view.textView_title.text = literature[i].name
                         view.textView_pet.text = literature[i].pet
                         view.constraint_literure.setOnClickListener {
-
+                            val newIntent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(literature[i].src)
+                            )
+                            startActivity(newIntent)
                         }
                         val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
                         (view.layoutParams as LinearLayout.LayoutParams).setMargins(
