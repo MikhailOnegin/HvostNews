@@ -7,32 +7,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.layout_add_pet.view.*
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentProfileBinding
-import ru.hvost.news.models.Species
 import ru.hvost.news.presentation.adapters.PetAdapter
-import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
-import ru.hvost.news.presentation.fragments.login.RegistrationVM
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.enums.State
-import ru.hvost.news.utils.events.DefaultNetworkEventObserver
-import ru.hvost.news.utils.events.NetworkEvent
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ProfileFragment : Fragment() {
 

@@ -1,10 +1,13 @@
 package ru.hvost.news.presentation.dialogs
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
@@ -20,6 +23,16 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
     private lateinit var binding: LayoutArticlesFilterBinding
     private lateinit var mainVM: MainViewModel
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener {
+            val behavior = (dialog as BottomSheetDialog).behavior
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.skipCollapsed = true
+        }
+        return dialog
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,7 +42,7 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private val onInterestsLoadingSuccess = {
+    private fun onInterestsLoadingSuccess() {
         val adapter = ArticlesFilterAdapter(mainVM)
         val interests = mainVM.interests.value
         val userInterests = mainVM.userDataResponse.value?.interests
@@ -50,6 +63,7 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
             } else {
                 (category as InterestsCategory).interests.map { interest ->
                     if (userInterests?.contains(interest.interestId) == true) {
+                        (category as InterestsCategory).state = CheckboxStates.INDETERMINATE
                         interest.state = CheckboxStates.SELECTED
                     }
                 }
@@ -65,7 +79,7 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
     }
 
     private fun setObservers() {
-        mainVM.interests.observe(viewLifecycleOwner, { onInterestsLoadingSuccess.invoke() })
+        mainVM.interests.observe(viewLifecycleOwner, { onInterestsLoadingSuccess() })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

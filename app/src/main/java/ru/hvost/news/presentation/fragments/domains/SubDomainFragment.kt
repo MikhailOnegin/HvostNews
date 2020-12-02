@@ -28,7 +28,7 @@ class SubDomainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         domainId = arguments?.getLong("DOMAIN_ID") ?: 0
         binding = FragmentSubdomainBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,7 +45,7 @@ class SubDomainFragment : Fragment() {
 
     private fun setListeners() {
         binding.showPopup.setOnClickListener { callPopup() }
-        binding.edit.setOnClickListener { findNavController().popBackStack() }
+        binding.toolbar.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun callPopup() {

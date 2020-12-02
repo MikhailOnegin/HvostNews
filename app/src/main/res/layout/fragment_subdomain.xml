@@ -3,118 +3,126 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/windowBackground"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/windowBackground"
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.domains.SubDomainFragment">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbarHeight"
-        android:background="@color/profileToolbarColorOpacity"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/edit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:padding="@dimen/toolbarButtonPadding"
-            android:src="@drawable/ic_action_back" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:theme="@style/AppTheme.Toolbar"
+        app:menu="@menu/menu_articles_toolbar"
+        app:navigationIcon="@drawable/ic_back">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/gilroy_medium"
             android:text="@string/articlesTitle"
-            android:textColor="@color/titleText"
-            android:textSize="@dimen/articleTitleTextSize"
+            android:textAppearance="@style/ToolbarTitleTextAppearance"
+            android:textColor="@color/gray1"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ntfy"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:padding="@dimen/toolbarButtonPadding"
-            android:src="@drawable/ic_notification" />
-
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray4" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/screenContentPadding"
-        tools:context=".presentation.fragments.domains.SubDomainFragment">
+        android:padding="@dimen/screenContentPadding">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:text="@string/stub"
-            android:textColor="@color/titleText"
-            android:textSize="@dimen/mainTitleTextSize"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/categories"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/showPopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/smallMargin"
-            android:src="@drawable/ic_show_popup"
-            app:layout_constraintBottom_toTopOf="@+id/categories"
-            app:layout_constraintStart_toEndOf="@id/title"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/categories"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            app:cardCornerRadius="@dimen/xSmallCorners"
-            app:layout_constraintBottom_toTopOf="@+id/list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:strokeColor="@color/gray1"
-            app:strokeWidth="@dimen/xSmallStrokeWidth">
+            android:background="@color/gray5"
+            android:stateListAnimator="@null"
+            app:elevation="0dp"
+            app:liftOnScroll="false">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/category_tabs"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:tabIndicatorColor="@color/gray1"
-                app:tabIndicatorGravity="stretch"
-                app:tabMode="scrollable"
-                app:tabPaddingEnd="@dimen/normalMargin"
-                app:tabPaddingStart="@dimen/normalMargin"
-                app:tabBackground="@drawable/background_category_tab_item"
-                app:tabSelectedTextColor="@android:color/white"
-                app:tabTextColor="@color/gray1" />
+                app:layout_scrollFlags="scroll|snap|enterAlways">
 
-        </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:text="@string/stub"
+                    android:textColor="@color/titleText"
+                    android:textSize="@dimen/mainTitleTextSize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/categories"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+                <ImageView
+                    android:id="@+id/showPopup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallMargin"
+                    android:src="@drawable/ic_show_popup"
+                    app:layout_constraintBottom_toTopOf="@+id/categories"
+                    app:layout_constraintStart_toEndOf="@id/title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/categories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    app:cardCornerRadius="@dimen/xSmallCorners"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    app:strokeColor="@color/gray1"
+                    app:strokeWidth="@dimen/xSmallStrokeWidth">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/category_tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        app:tabBackground="@drawable/background_category_tab_item"
+                        app:tabIndicatorColor="@color/gray1"
+                        app:tabIndicatorGravity="stretch"
+                        app:tabMode="scrollable"
+                        app:tabPaddingEnd="@dimen/normalMargin"
+                        app:tabPaddingStart="@dimen/normalMargin"
+                        app:tabSelectedTextColor="@android:color/white"
+                        app:tabTextColor="@color/gray1" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categories" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categories" />
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </LinearLayout>

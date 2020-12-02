@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentArticlesBinding
 import ru.hvost.news.databinding.FragmentDomainBinding
-import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.adapters.DomainAdapter
 
 class DomainFragment : Fragment() {
@@ -27,7 +25,7 @@ class DomainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDomainBinding.inflate(inflater, container, false)
         binding.tabLayout.getTabAt(1)?.select()
         return binding.root
