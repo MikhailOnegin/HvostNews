@@ -1,56 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windowBackground"
+    android:background="@drawable/window_background"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".presentation.fragments.profile.EditProfileFragment">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@android:color/white"
+        android:theme="@style/AppTheme.Toolbar"
+        app:navigationIcon="@drawable/ic_back">
 
-        <LinearLayout
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbarHeight"
-            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/editProfileTitle"
+            android:textAppearance="@style/ToolbarTitleTextAppearance"
+            android:textColor="@color/gray1"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:padding="@dimen/toolbarButtonPadding"
-                android:src="@drawable/ic_back" />
+    </androidx.appcompat.widget.Toolbar>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/gilroy_medium"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:text="@string/editProfileTitle"
-                android:textColor="@color/gray1"
-                android:textSize="@dimen/articleTitleTextSize" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray4_half_opacity" />
 
-            <ImageView
-                android:id="@+id/ntfy"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:padding="@dimen/toolbarButtonPadding" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray4" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,14 +50,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:fontFamily="@font/gilroy_bold"
-                android:hint="@string/surName">
+                android:hint="@string/surName"
+                app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/surname"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,14 +68,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:fontFamily="@font/gilroy_bold"
-                android:hint="@string/name">
+                android:hint="@string/name"
+                app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,14 +86,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:fontFamily="@font/gilroy_bold"
-                android:hint="@string/secondName">
+                android:hint="@string/secondName"
+                app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/patronymic"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,11 +104,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:fontFamily="@font/gilroy_bold"
                 android:hint="@string/birthday"
                 app:endIconDrawable="@drawable/ic_date"
                 app:endIconMode="custom"
-                app:endIconTint="@color/gray1">
+                app:endIconTint="@color/gray1"
+                app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/birthday"
@@ -123,7 +116,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:focusable="false" />
+                    android:focusable="false"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,14 +126,16 @@
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/gilroy_bold"
-                android:hint="@string/phone">
+                android:hint="@string/phone"
+                app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,14 +153,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:fontFamily="@font/gilroy_bold"
-                android:hint="@string/email">
+                android:hint="@string/email"
+                app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,14 +171,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:fontFamily="@font/gilroy_bold"
-                android:hint="@string/city">
+                android:hint="@string/city"
+                app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/city"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -198,13 +199,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
                 android:backgroundTint="@color/gray4_half_opacity"
-                android:fontFamily="@font/gilroy_bold"
+                android:fontFamily="@font/gilroy_medium"
                 android:text="@string/cancel"
                 android:textAllCaps="false"
+                android:textStyle="bold"
                 app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</LinearLayout>

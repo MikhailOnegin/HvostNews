@@ -23,8 +23,8 @@ class ArticleDetailFragment : Fragment() {
     private lateinit var mainVM: MainViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = FragmentArticleDetailBinding.inflate(inflater, container, false)
         return binding.root
@@ -34,11 +34,19 @@ class ArticleDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         findToBind()
+        setListeners()
+    }
+
+    private fun setListeners() {
+//        binding.likes.setOnClickListener {
+//            mainVM.setArticleLiked(arguments?.getLong("ITEM_ID").toString())
+//        }
     }
 
     private fun findToBind() {
         val type = arguments?.getString("TYPE")
         val id = arguments?.getLong("ITEM_ID")
+//        mainVM.setArticleViewed(arguments?.getLong("ITEM_ID").toString())
         if (type == "ALL") {
             bind(mainVM.allArticles.value?.filter { it.id == id })
         } else if (type == "INDIVIDUAL") {
@@ -57,10 +65,10 @@ class ArticleDetailFragment : Fragment() {
 
             binding.title.text = list[0].title
             Glide
-                    .with(binding.root)
-                    .load(APIService.baseUrl + list[0].imageUrl)
-                    .fitCenter()
-                    .into(binding.img)
+                .with(binding.root)
+                .load(APIService.baseUrl + list[0].imageUrl)
+                .fitCenter()
+                .into(binding.img)
             binding.description.text = list[0].description.parseAsHtml()
             binding.likes.text = list[0].likesCount.toString()
             binding.views.text = list[0].viewsCount

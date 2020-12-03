@@ -60,6 +60,14 @@ class MainViewModel : ViewModel() {
     private val _interests = MutableLiveData<List<CategoryItem>>()
     val interests: LiveData<List<CategoryItem>> = _interests
 
+    private val _articleViewedLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val articleViewedLoadingEvent: LiveData<NetworkEvent<State>> = _articleViewedLoadingEvent
+
+    private val _articleLikedLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val articleLikedLoadingEvent: LiveData<NetworkEvent<State>> = _articleLikedLoadingEvent
+    private val _articleIsLiked = MutableLiveData<AddLikedByUserResponse>()
+    val articleIsLiked: LiveData<AddLikedByUserResponse> = _articleIsLiked
+
     //Событие, сообщающее о необходимости закрытия инструкций.
     val closeInstructionsEvent = MutableLiveData<OneTimeEvent>()
 
@@ -370,6 +378,51 @@ class MainViewModel : ViewModel() {
             } catch (exc: Exception) {
                 _loadingOrdersEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _orders.value = listOf()
+            }
+        }
+    }
+
+    fun setArticleViewed(
+        articleId: String
+    ) {
+        viewModelScope.launch {
+            _articleViewedLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.setArticleViewedByUserAsync(
+                    App.getInstance().userToken,
+                    articleId
+                ).await()
+                if (result.result == "success") {
+                    _articleViewedLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _articleViewedLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
+                }
+            } catch (exc: Exception) {
+                _articleViewedLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    fun setArticleLiked(
+        articleId: String
+    ) {
+        viewModelScope.launch {
+            _articleLikedLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.setArticleLikedByUserAsync(
+                    App.getInstance().userToken,
+                    articleId
+                ).await()
+                if (result.result == "success") {
+                    _articleIsLiked.value = result
+                    _articleLikedLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _articleLikedLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _articleIsLiked.value = null
+                }
+            } catch (exc: Exception) {
+                _articleLikedLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _articleIsLiked.value = null
             }
         }
     }

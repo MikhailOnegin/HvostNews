@@ -1,54 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/windowBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.profile.PetProfileFragment">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbarHeight"
-        android:background="@color/profileToolbarColorOpacity"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:padding="@dimen/toolbarButtonPadding"
-            android:src="@drawable/ic_back" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:theme="@style/AppTheme.Toolbar"
+        app:navigationIcon="@drawable/ic_back">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/gilroy_medium"
             android:text="@string/petProfileTitle"
-            android:textColor="@color/titleText"
-            android:textSize="@dimen/articleTitleTextSize"
+            android:textAppearance="@style/ToolbarTitleTextAppearance"
+            android:textColor="@color/gray1"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ntfy"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:padding="@dimen/toolbarButtonPadding" />
-
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray4" />
+        android:background="@color/gray4_half_opacity" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.fragments.profile.PetProfileFragment">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,42 +50,43 @@
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:layout_marginEnd="@dimen/smallMargin"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:hint="@string/petName"
+                    app:hintTextColor="@color/gray4">
 
-                    <TextView
-                        style="@style/ProfileTitleTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/petName" />
-
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/name"
-                        style="@style/EditText"
+                        style="@style/TextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/petName" />
+                        android:fontFamily="@font/gilroy_medium"
+                        android:textStyle="bold" />
 
-                </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    style="@style/ElevatedButton"
+                    android:id="@+id/passport"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/ButtonHeight"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:backgroundTint="@color/gray4_half_opacity"
-                    android:text="passport"
-                    android:textColor="@color/gray1" />
+                    android:fontFamily="@font/gilroy_medium"
+                    android:text="@string/petPassportButton"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
             </LinearLayout>
 
             <Spinner
                 android:id="@+id/type"
-                style="@style/Spinner"
+                style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -145,40 +134,51 @@
 
             <Spinner
                 android:id="@+id/breed"
-                style="@style/Spinner"
+                style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin" />
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/birthday" />
-
-            <EditText
-                android:id="@+id/birthday"
-                style="@style/EditText"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:inputType="date"
-                android:text="@string/birthday" />
+                android:hint="@string/birthday"
+                app:endIconDrawable="@drawable/ic_date"
+                app:endIconMode="custom"
+                app:endIconTint="@color/gray1"
+                app:hintTextColor="@color/gray4">
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/food" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/birthday"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/delicious"
-                style="@style/EditText"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:inputType="date"
-                android:text="@string/food" />
+                android:hint="@string/food"
+                app:hintTextColor="@color/gray4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/delicious"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 style="@style/ProfileTitleTextView"
@@ -189,65 +189,162 @@
             <!--TODO: Игрушка       -->
             <Spinner
                 android:id="@+id/favToy"
+                style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:entries="@array/testItems" />
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/habbit" />
-
-            <EditText
-                android:id="@+id/badHabit"
-                style="@style/EditText"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:inputType="date"
-                android:text="@string/habbit" />
+                android:hint="@string/habbit"
+                app:hintTextColor="@color/gray4">
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/chip" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/badHabit"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/chip"
-                style="@style/EditText"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:inputType="date"
-                android:text="@string/chip" />
+                android:hint="@string/chip"
+                app:hintTextColor="@color/gray4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/chip"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!--TODO: все свитчи     -->
-            <androidx.appcompat.widget.SwitchCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/presentations" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/titules" />
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginBottom="@dimen/largeMargin"
+                android:orientation="horizontal">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/sport" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/presentations"
+                    android:textColor="@color/gray1"
+                    android:textStyle="bold" />
 
-            <androidx.appcompat.widget.SwitchCompat
+                <Switch
+                    android:id="@+id/switch_shows"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:thumb="@drawable/ic_baseline_brightness_1_24"
+                    android:track="@drawable/track_selector" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/saloons" />
+                android:layout_marginBottom="@dimen/largeMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/titules"
+                    android:textColor="@color/gray1"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switch_titules"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:thumb="@drawable/ic_baseline_brightness_1_24"
+                    android:track="@drawable/track_selector" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/largeMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/sport"
+                    android:textColor="@color/gray1"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switch_sport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:thumb="@drawable/ic_baseline_brightness_1_24"
+                    android:track="@drawable/track_selector" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/largeMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/saloons"
+                    android:textColor="@color/gray1"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/switch_saloons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:thumb="@drawable/ic_baseline_brightness_1_24"
+                    android:track="@drawable/track_selector" />
+
+            </LinearLayout>
 
             <TextView
                 style="@style/ProfileTitleTextView"
@@ -258,6 +355,7 @@
             <!--TODO: образование       -->
             <Spinner
                 android:id="@+id/education"
+                style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -265,6 +363,7 @@
 
             <!--TODO: кнопка сохранить       -->
             <Button
+                android:id="@+id/save"
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
@@ -272,23 +371,35 @@
                 android:text="@string/saveChanges" />
 
             <!--TODO: кнопка отмены        -->
+
             <Button
-                style="@style/ElevatedButton"
+                android:id="@+id/cancel"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_height="@dimen/smallHeightButton"
                 android:backgroundTint="@color/gray4_half_opacity"
+                android:fontFamily="@font/gilroy_medium"
                 android:text="@string/cancel"
-                android:textColor="@color/gray1" />
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
             <Button
                 android:id="@+id/delete"
-                style="@style/ElevatedButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
+                android:layout_height="@dimen/smallHeightButton"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="@string/delete"
                 android:backgroundTint="@android:color/white"
-                android:textColor="@color/gray1"
-                android:text="@string/delete" />
+                android:textAllCaps="false"
+                android:textColor="@color/titleText"
+                android:textSize="@dimen/ButtonTextSize"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/userProfileButtonLargeRadius"
+                app:layout_constraintTop_toBottomOf="@+id/work"
+                app:strokeColor="@color/btnStroke"
+                app:strokeWidth="@dimen/strokeWidthOutlinedButton" />
 
         </LinearLayout>
 

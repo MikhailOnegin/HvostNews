@@ -86,7 +86,7 @@ class AddToCartFragment : BottomSheetDialogFragment() {
     private fun inflateData(product: ShopProduct) {
         binding.apply {
             Glide.with(binding.root).load(product.imageUri).into(image)
-            title.text = product.description.parseAsHtml()
+            title.text = product.title.parseAsHtml()
             article.text = product.article
             brand.text = product.brand
             manufacturer.text = product.manufacturer
@@ -131,7 +131,7 @@ class AddToCartFragment : BottomSheetDialogFragment() {
     private fun navigateToDetailsScreen(productId: Long) {
         val bundle = Bundle()
         bundle.putLong(PRODUCT_ID, productId)
-        findNavController().navigate(R.id.action_addToCartFragment_to_productFragment)
+        findNavController().navigate(R.id.action_addToCartFragment_to_productFragment, bundle)
     }
 
     companion object {

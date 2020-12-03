@@ -368,4 +368,13 @@
     <string name="schedule">Расписание</string>
     <string name="completed">Завершено</string>
     <string name="you_participate">Вы записаны на мероприятине</string>
+    <string name="productWeightTitle">Вес</string>
+    <string name="productBarcodeTitle">Штрих-код</string>
+    <string name="productRegimeTitle">Особый температурный режим</string>
+    <string name="productTabDescription">Описание</string>
+    <string name="productTabComposition">Состав</string>
+    <string name="productTabIngridients">Ингредиенты</string>
+    <string name="productTabContraindication">Противопоказания</string>
+    <string name="productArticleTitle">Артикул:</string>
+    <string name="petPassportButton">Паспорт</string>
 </resources>

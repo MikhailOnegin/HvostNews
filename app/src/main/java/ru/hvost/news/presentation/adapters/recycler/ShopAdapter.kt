@@ -1,13 +1,16 @@
 package ru.hvost.news.presentation.adapters.recycler
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.moneyFormat
@@ -73,6 +76,12 @@ class ShopAdapter(
                 root.setOnClickListener {
                     adapter.handleClickOnCategory(position)
                 }
+                if(category.selectedProducts != 0) {
+                    counter.text = "${category.selectedProducts}"
+                    counter.visibility = View.VISIBLE
+                } else {
+                    counter.visibility = View.GONE
+                }
             }
         }
 
@@ -129,7 +138,12 @@ class ShopAdapter(
                 title.text = product.description.parseAsHtml()
                 price.text = "${moneyFormat.format(product.price.toInt())} \u20bd"
                 oldPrice.text = "${moneyFormat.format(product.oldPrice.toInt())} \u20bd"
+                oldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 root.setOnClickListener { onClick.invoke(product.id) }
+                checked.setImageResource(
+                    if(product.isInCart) R.drawable.ic_shop_checked
+                    else R.drawable.ic_shop_unchecked
+                )
             }
         }
 

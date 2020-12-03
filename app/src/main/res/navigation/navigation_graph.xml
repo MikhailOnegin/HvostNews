@@ -380,6 +380,14 @@
         android:id="@+id/productFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.ProductFragment"
         android:label="ProductFragment"
-        tools:layout="@layout/fragment_product"/>
+        tools:layout="@layout/fragment_product">
+        <action
+            android:id="@+id/action_productFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+    </fragment>
 
 </navigation>

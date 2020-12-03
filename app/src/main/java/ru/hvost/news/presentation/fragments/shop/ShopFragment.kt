@@ -5,21 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentShopBinding
 import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.ShopItem
 import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.EventObserver
 import ru.hvost.news.utils.moneyFormat
 
-class ShopFragment : Fragment() {
+class ShopFragment : BaseFragment() {
 
     private lateinit var binding: FragmentShopBinding
     private lateinit var cartVM: CartViewModel
@@ -36,22 +34,12 @@ class ShopFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
-        cartVM.loadProducts(
-            App.getInstance().userToken,
-            arguments?.getString(VOUCHER_CODE, "")
-        )
         setObservers()
     }
 
     override fun onStart() {
         super.onStart()
-        setSystemUiVisibility()
         setListeners()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        cartVM.resetShop()
     }
 
     private fun setObservers() {
@@ -97,16 +85,6 @@ class ShopFragment : Fragment() {
             val adapter = ShopAdapter(this, onProductClicked)
             adapter.submitList(this)
             binding.recyclerView.adapter = adapter
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    @SuppressLint("InlinedApi")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
         }
     }
 

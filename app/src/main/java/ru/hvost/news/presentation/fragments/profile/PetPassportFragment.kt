@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentEditProfileBinding
@@ -26,7 +27,7 @@ class PetPassportFragment : Fragment() {
     }
 
     private fun setListeners() {
-        TODO("Not yet implemented")
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
 }

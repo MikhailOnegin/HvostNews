@@ -29,25 +29,10 @@ class ProfileFragment : Fragment() {
     private lateinit var couponsMV: CouponViewModel
     private lateinit var navC: NavController
 
-    override fun onStart() {
-        setSystemUiVisibility()
-        super.onStart()
-    }
-
-    @Suppress("DEPRECATION")
-    @SuppressLint("InlinedApi")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -138,8 +123,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.edit.setOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
+        binding.toolbar.setNavigationOnClickListener { findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment) }
         binding.addPet.setOnClickListener { AddPetCustomDialog().show(childFragmentManager, "info_dialog") }
+        binding.logout.setOnClickListener {  }
         binding.buttonCoupons.setOnClickListener {
             navC.navigate(R.id.action_profileFragment_to_myCouponsFragment)
         }

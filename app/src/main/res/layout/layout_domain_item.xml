@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_item_list"
-    android:elevation="@dimen/listItemElevation"
     android:orientation="vertical"
     android:padding="@dimen/smallMargin">
 
@@ -21,6 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/smallMargin"
         android:layout_marginBottom="@dimen/smallMargin"
+        android:fontFamily="@font/gilroy_semibold"
+        android:text="@string/stub"
+        android:textColor="@color/gray1"
+        android:textSize="@dimen/textTitleSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
