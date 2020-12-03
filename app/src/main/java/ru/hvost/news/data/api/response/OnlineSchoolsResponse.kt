@@ -8,6 +8,7 @@ data class OnlineSchoolsResponse(
 ) {
     data class OnlineSchool(
         val id: Long?,
+        val isRegistered:Boolean,
         val title: String?,
         val image: String?,
         val userRank: String?,

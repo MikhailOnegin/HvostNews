@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.internal.IStreetViewPanoramaViewDelegate
 import kotlinx.android.synthetic.main.item_school_online.view.*
 import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.view.*
-import kotlinx.android.synthetic.main.layout_what_wait.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
@@ -22,7 +20,6 @@ import ru.hvost.news.models.OnlineSchools
 class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsViewHolder>() {
 
     private var schools = arrayListOf<OnlineSchools.OnlineSchool>()
-    private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
     var clickSchool: ClickSchool? = null
 
     interface ClickSchool {
@@ -68,7 +65,8 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
                 clickSchool?.onClick(onlineSchool.id.toString())
             }
 
-            val containerWait = itemView.linearLayout
+            val containerWait = itemView.linearLayout_lesson_numbers
+            containerWait.removeAllViews()
             for(i in onlineSchool.lessonsPassed.indices){
                 val number = onlineSchool.lessonsPassed[i].number
                 val isPassed = onlineSchool.lessonsPassed[i].isPassed

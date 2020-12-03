@@ -3,15 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:fitsSystemWindows="true"
         android:stateListAnimator="@null"
         app:elevation="0dp"
         app:liftOnScroll="false">
@@ -19,7 +17,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|snap|enterAlways">
+            android:paddingTop="24dp"
+            app:layout_scrollFlags="scroll">
 
 
             <TextView
@@ -186,12 +185,12 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="2px"
+                android:layout_height="1dp"
                 android:background="@color/gray4"
                 app:layout_constraintEnd_toStartOf="@+id/textView_lesson_status"
                 app:layout_constraintStart_toEndOf="@+id/textView_status_logo"
                 app:layout_constraintTop_toBottomOf="@+id/textView_status_logo"
-                app:srcCompat="@drawable/ic_line_point" />
+                app:srcCompat="@drawable/ic_line" />
 
             <ImageView
                 android:id="@+id/view2"
@@ -201,7 +200,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView_date"
                 app:layout_constraintStart_toEndOf="@+id/textView_date_logo"
                 app:layout_constraintTop_toBottomOf="@+id/textView_date_logo"
-                app:srcCompat="@drawable/ic_line_point" />
+                app:srcCompat="@drawable/ic_line" />
 
             <ImageView
                 android:layout_width="0dp"
@@ -210,7 +209,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView_sponsor"
                 app:layout_constraintStart_toEndOf="@+id/textView_sponsor_logo"
                 app:layout_constraintTop_toBottomOf="@+id/textView_sponsor_logo"
-                app:srcCompat="@drawable/ic_line_point" />
+                app:srcCompat="@drawable/ic_line" />
 
             <ImageView
                 android:id="@+id/view3"
@@ -220,7 +219,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView_city"
                 app:layout_constraintStart_toEndOf="@+id/textView_place_logo"
                 app:layout_constraintTop_toBottomOf="@+id/textView_place_logo"
-                app:srcCompat="@drawable/ic_line_point" />
+                app:srcCompat="@drawable/ic_line" />
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -289,11 +288,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="24dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

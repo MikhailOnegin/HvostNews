@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_lesson_online_active.view.*
 import kotlinx.android.synthetic.main.item_lesson_online_active.view.constraint
-import kotlinx.android.synthetic.main.item_lesson_online_active.view.imageView_go
 import kotlinx.android.synthetic.main.item_lesson_online_active.view.textView_number
 import kotlinx.android.synthetic.main.item_lesson_online_finished.view.*
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
@@ -23,11 +21,15 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private var school:OnlineSchools.OnlineSchool? = null
     private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
-    var onClickLesson: OnClickLesson? = null
+    var onClickLessonActive: OnClickLessonActive? = null
+    var onClickLessonFinished: OnClickLessonFinished? = null
     var onClickLiterature: OnClickLiterature? = null
     private var firstActiveLesson = true
 
-    interface OnClickLesson {
+    interface OnClickLessonActive {
+        fun onClick(lessonId:String)
+    }
+    interface OnClickLessonFinished {
         fun onClick(lessonId:String)
     }
 
@@ -37,6 +39,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
         this.lessons = lessons.toCollection(ArrayList())
+        this.firstActiveLesson = true
         notifyDataSetChanged()
     }
 
@@ -107,7 +110,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             if (firstActiveLesson) {
                 iVGo.visibility = View.VISIBLE
                 constraint.setOnClickListener {
-                    onClickLesson?.onClick(lesson.lessonId)
+                    onClickLessonActive?.onClick(lesson.lessonId)
                 }
                 firstActiveLesson = false
             }
@@ -118,10 +121,13 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     inner class LessonFinishedViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
         private val tVNumber = itemView.textView_number_finished
         private val tVTitle = itemView.textView_title_finished
-
+        private val constraint = itemView.constraintFinished
         fun bind(lesson: OnlineLessons.OnlineLesson){
             tVNumber.text = lesson.lessonNumber.toString()
             tVTitle.text = lesson.lessonTitle
+            constraint.setOnClickListener {
+                onClickLessonFinished?.onClick(lesson.lessonId)
+            }
         }
     }
 
@@ -129,7 +135,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
-                val container = itemView.linearLayout
+                val container = itemView.linearLayout_literature
                 container.removeAllViews()
                 for (i in school.literatures.indices) {
                     val view = LayoutLiteratureItemBinding.inflate(
@@ -153,7 +159,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                     container.addView(view)
                 }
             }
-
         }
     }
 

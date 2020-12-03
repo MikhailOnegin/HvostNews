@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/window_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -21,11 +22,13 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll">
 
+
+
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:paddingStart="24dp"
@@ -33,7 +36,7 @@
                 android:paddingEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView_logo">
+                app:layout_constraintTop_toBottomOf="@+id/constraint_registration">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_info"
@@ -86,7 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="@+id/include_lesson_numbers"
+                app:layout_constraintBottom_toBottomOf="@+id/constraint_registration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -189,6 +192,33 @@
                 android:background="@color/gray4"
                 app:layout_constraintTop_toBottomOf="@id/toolbar"
                 app:layout_scrollFlags="scroll|snap|enterAlways" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_registration"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_lesson_numbers">
+
+                <Button
+                    android:id="@+id/button_registration"
+                    style="@style/UnelevatedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="@string/participate"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
