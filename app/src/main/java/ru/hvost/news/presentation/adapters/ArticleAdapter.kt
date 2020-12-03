@@ -38,7 +38,7 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
             binding.domain.text = articleItem.categoryTitle
             binding.views.text = articleItem.viewsCount
             binding.likes.text = articleItem.likesCount.toString()
-
+            // TODO: setOnclickListener to like for setting like to article
             binding.root.setOnClickListener { onClick.invoke(articleItem.id) }
         }
 

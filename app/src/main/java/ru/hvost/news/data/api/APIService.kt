@@ -233,8 +233,20 @@ interface APIService {
         @Query("lessonId") lessonId: Long?
     ): Deferred<LessonTestesPassedResponse>
 
+    @GET("/rest/Articles/addArticleView/")
+    fun setArticleViewedByUserAsync(
+        @Query("userToken") userToken: String?,
+        @Query("articleId") articleId: String?
+    ): Deferred<AddViewedByUserResponse>
+
+    @GET("/rest/Articles/addArticleLike/") //TODO: доделать, когда добавят поле isLiked
+    fun setArticleLikedByUserAsync(
+        @Query("userToken") userToken: String?,
+        @Query("articleId") articleId: String?
+    ): Deferred<AddLikedByUserResponse>
+
     @GET("/rest/School/getCities/")
-    fun getOfflineCitiesAsync():Deferred<OfflineCitiesResponse>
+    fun getOfflineCitiesAsync(): Deferred<OfflineCitiesResponse>
 
     // Map
     @GET("/rest/Maps/getShops/")

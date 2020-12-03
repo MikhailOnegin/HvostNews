@@ -376,4 +376,5 @@
     <string name="productTabIngridients">Ингредиенты</string>
     <string name="productTabContraindication">Противопоказания</string>
     <string name="productArticleTitle">Артикул:</string>
+    <string name="petPassportButton">Паспорт</string>
 </resources>
