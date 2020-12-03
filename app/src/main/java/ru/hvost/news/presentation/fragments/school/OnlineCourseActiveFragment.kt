@@ -52,7 +52,7 @@ class OnlineCourseActiveFragment : Fragment() {
         navC = findNavController()
         val id = arguments?.getString("schoolId")
         binding.recyclerView.adapter = materialsAdapter
-        materialsAdapter.onClickLesson = object : SchoolOnlineMaterialsAdapter.OnClickLesson {
+        materialsAdapter.onClickLessonActive = object : SchoolOnlineMaterialsAdapter.OnClickLessonActive {
             override fun onClick(lessonId:String) {
                 val bundle = Bundle()
                 bundle.putString("schoolId", schoolId)
@@ -116,10 +116,13 @@ class OnlineCourseActiveFragment : Fragment() {
             schoolId?.run {
                 for(i in it.onlineSchools.indices){
                     val onlineSchool = it.onlineSchools[i]
+                    if(onlineSchool.isRegistered) binding.constraintRegistration.visibility = View.GONE
+                    else binding.constraintRegistration.visibility = View.VISIBLE
+
                     if(onlineSchool.id.toString() == this){
                         infoAdapter.setSchool(onlineSchool)
                         materialsAdapter.setSchool(onlineSchool)
-                        val containerNumbers = linearLayout
+                        val containerNumbers = linearLayout_lesson_numbers
                         val padding = resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
                         containerNumbers.setPadding(0,0,0, padding)
                         for(i in onlineSchool.lessonsPassed.indices){

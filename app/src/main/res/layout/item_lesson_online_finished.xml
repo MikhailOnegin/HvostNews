@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint"
+        android:id="@+id/constraintFinished"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginStart="24dp"

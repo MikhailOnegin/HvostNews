@@ -21,15 +21,14 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_online_lesson_option.view.*
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentSchoolOnlineLessonActiveBinding
+import ru.hvost.news.databinding.FragmentSchoolOnlineLessonFinishedBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OnlineLessonActiveFragment : Fragment() {
-
-    private lateinit var binding: FragmentSchoolOnlineLessonActiveBinding
+class OnlineLessonFinishedFragment: Fragment() {
+    private lateinit var binding: FragmentSchoolOnlineLessonFinishedBinding
     private lateinit var schoolVM: SchoolViewModel
     private var lessonId:Any? = null
     private var schoolId:Any? = null
@@ -41,7 +40,7 @@ class OnlineLessonActiveFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSchoolOnlineLessonActiveBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolOnlineLessonFinishedBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,58 +55,7 @@ class OnlineLessonActiveFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.buttonToAnswer.setOnClickListener {
-            var passed = true
-            for (i in 0 until buttons.size){
-                val button = buttons[i]
-                val answer = answers[button.text.toString()]
-                answer?.run {
-                   if(this){
-                       if(button.isActivated) {
-                           button.isEnabled = false
-                           button.setTextColor(resources.getColor(android.R.color.white))
-                       }
-                       if(button.isEnabled){
-                           passed = false
-                           button.setTextColor(resources.getColor(android.R.color.white))
-                           Handler(Looper.getMainLooper()).postDelayed({
-                               button.background = resources.getDrawable(R.drawable.selector_online_lesson_option)
-                               button.setTextColor(resources.getColor(R.color.gray1))
-                           }, 700)
-                       }
-                   }
-                    else{
-                       if(button.isActivated) {
-                           passed = false
-                           button.background = resources.getDrawable(android.R.color.holo_red_dark)
-                           button.setTextColor(resources.getColor(android.R.color.white))
-                           Handler(Looper.getMainLooper()).postDelayed({
-                               button.background = resources.getDrawable(R.drawable.selector_online_lesson_option)
-                               button.setTextColor(resources.getColor(R.color.gray1))
-                           }, 700)
-                       }
-                    }
-                }
-            }
-            if(passed) {Toast.makeText(requireContext(), "Урок сдан!", Toast.LENGTH_SHORT).show()
-                binding.buttonToAnswer.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorPrimary)
-                binding.buttonToAnswer.isEnabled = false
-                lessonId?.run {
-                    if (this is String){
-                        schoolVM.setLessonTestesPassed("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==",
-                            this.toLong())
-                    }
-                }
 
-            }
-            else{
-                for (i in 0 until buttons.size){
-                    buttons[i].isEnabled = true
-                    buttons[i].isActivated = false
-                    buttons[i].setTextColor(resources.getColor(R.color.gray1))
-                }
-            }
-        }
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -123,31 +71,6 @@ class OnlineLessonActiveFragment : Fragment() {
                         val lessonNumber = "${getString(R.string.lesson_number)} ${lesson.lessonNumber}"
                         binding.textViewLessonNumber.text = lessonNumber
                         binding.textViewQuestion.text = lesson.testQuestion
-                        val container = binding.linearLayoutAnswerOptions
-                        for (i in lesson.answersList.indices) {
-                            val answer = lesson.answersList[i]
-                            answers[answer.answer] = answer.isTrue
-                            val view = LayoutOnlineLessonOptionBinding.inflate(
-                                LayoutInflater.from(requireContext()),
-                                container,
-                                false
-                            ).root
-                            buttons.add(view.button_option)
-                            view.button_option.text = answer.answer
-                            view.button_option.setOnClickListener {
-                                if(view.button_option.isEnabled){
-                                    view.button_option.isActivated = !view.button_option.isActivated
-                                }
-                            }
-                            val margin = resources.getDimension(R.dimen.smallMargin).toInt()
-                            (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                0,
-                                margin,
-                                0,
-                                0
-                            )
-                            container.addView(view)
-                        }
                         return@Observer
                     }
                 }

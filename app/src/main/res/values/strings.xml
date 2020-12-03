@@ -112,7 +112,7 @@
     <string name="date_action">Дата проведения</string>
     <string name="sponsor">Организатор</string>
     <string name="head_spr_with_store">Школа ответственных родителей с зоомагазином "Мокрый нос"</string>
-    <string name="participate">Участвую</string>
+    <string name="participate">Записаться</string>
     <string name="about_seminar">О семинаре</string>
     <string name="schedule_for_puppy_owners">Расписание для владельцев щенков</string>
 
@@ -366,6 +366,6 @@
     <string name="productNotFoundToast">Продукт не найден.</string>
     <string name="seminar_info">О семинаре</string>
     <string name="schedule">Расписание</string>
-    <string name="comleted">Завершено</string>
-    <string name="you_prticipate">Вы записаны на мероприятине</string>
+    <string name="completed">Завершено</string>
+    <string name="you_participate">Вы записаны на мероприятине</string>
 </resources>

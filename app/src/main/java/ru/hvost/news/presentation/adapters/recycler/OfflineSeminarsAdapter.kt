@@ -11,8 +11,8 @@ import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OfflineSeminars
 import java.util.*
 
-class OfflineLessonsAdapter :
-    RecyclerView.Adapter<OfflineLessonsAdapter.OfflineLessonsViewHolder>() {
+class OfflineSeminarsAdapter :
+    RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
 
     private var lessonsFull = arrayListOf<OfflineSeminars.OfflineLesson>()
     private var lessons = arrayListOf<OfflineSeminars.OfflineLesson>()

@@ -64,6 +64,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 .into(iVInfo)
 
             val containerWait = itemView.gridLayout
+            containerWait.removeAllViews()
             for (i in school.wait.indices) {
                 val viewWait = LayoutWhatWaitBinding.inflate(
                     LayoutInflater.from(itemView.context),
@@ -83,7 +84,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 containerWait.addView(viewWait)
             }
 
-            val containerLiterature = itemView.linearLayout
+            val containerLiterature = itemView.linearLayout_literature
             containerLiterature.removeAllViews()
             for (i in school.literatures.indices) {
                 val viewLiterature = LayoutLiteratureItemBinding.inflate(

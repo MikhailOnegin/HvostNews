@@ -202,9 +202,11 @@ class SchoolViewModel: ViewModel() {
 
         for(i in 0 .. 10){
             val id = 17174 + i
+            val isRegistered = i>4
             onlineSchools11.add(
                 OnlineSchools.OnlineSchool(
                     i,
+                    isRegistered,
                     id.toLong(),
                     "Онлайн-школа для владельцев щенков",
                     "/upload/iblock/a74/shor_shkola273kh211_web.jpg",
