@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
@@ -13,11 +12,12 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCartBinding
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.presentation.adapters.recycler.CartAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.shop.CartViewModel.*
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
-class CartFragment : Fragment() {
+class CartFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartVM: CartViewModel
@@ -28,7 +28,7 @@ class CartFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
         binding.emptyView.text.text = getString(R.string.cartEmptyViewText)
         return binding.root
@@ -45,13 +45,7 @@ class CartFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
-        setSystemUi()
         cartVM.updateCartAsync(App.getInstance().userToken)
-    }
-
-    private fun setSystemUi() {
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.windowBackgroundTopGradientColor)
     }
 
     private fun setListeners() {

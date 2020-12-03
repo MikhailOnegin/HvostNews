@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
@@ -17,9 +16,10 @@ import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.Voucher
 import ru.hvost.news.models.VoucherItem
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.moneyFormat
 
-class ShopEntranceFragment : Fragment() {
+class ShopEntranceFragment : BaseFragment() {
 
     private lateinit var binding: FragmentShopEntranceBinding
     private lateinit var mainVM: MainViewModel
@@ -75,6 +75,11 @@ class ShopEntranceFragment : Fragment() {
     }
 
     private fun onGoToShopClicked() {
+        cartVM.resetShop()
+        cartVM.loadProducts(
+            App.getInstance().userToken,
+            (binding.spinner.selectedItem as Voucher).voucherCode
+        )
         val bundle = Bundle()
         bundle.putString(
             ShopFragment.VOUCHER_CODE,

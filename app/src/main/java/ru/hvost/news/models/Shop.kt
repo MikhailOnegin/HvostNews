@@ -20,7 +20,7 @@ class ShopHeader(
 class ShopCategory(
     id: Long,
     val name: String,
-    val selectedProducts: Int,
+    var selectedProducts: Int,
     var isExpanded: Boolean = true
 ) : ShopItem(id)
 
@@ -42,6 +42,12 @@ class ShopProduct(
     val manufacturer: String,
     val `class`: String,
     val productId: String,
+    val title: String,
+    val weight: String,
+    val barcode: String,
+    val regime: String,
+    val ingredients: String,
+    val contraindications: String,
     var isInCart: Boolean = false
 ) : ShopItem(id, categoryId)
 
@@ -61,6 +67,12 @@ fun List<ProductsResponse.Product>.toShopProducts(
             manufacturer = it.manufacturer ?: "",
             `class` = it.`class` ?: "",
             productId = it.productId ?: "",
+            title = it.title ?: "",
+            weight = it.weight ?: "",
+            barcode = it.barcode ?: "",
+            regime = it.specialTemperatureRegime ?: "",
+            ingredients = it.ingredients ?: "",
+            contraindications = it.contraindications ?: "",
             isInCart = false
         )
     }

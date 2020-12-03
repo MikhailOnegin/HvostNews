@@ -100,7 +100,7 @@
     <dimen name="popupWidth">325dp</dimen>
     <dimen name="makeOrderTextTitleTextSize">20sp</dimen>
     <dimen name="smallTextLineSpacingExtra">4dp</dimen>
-    <dimen name="makeOrderSummaryTextViewTextSize">16sp</dimen>
+    <dimen name="makeOrderSummaryTextViewTextSize">14sp</dimen>
     <dimen name="dotFillerDotSize">2dp</dimen>
     <dimen name="dotFillerDashSize">2dp</dimen>
     <dimen name="prizeItemPriceTextSize">48sp</dimen>
@@ -151,4 +151,9 @@
     <dimen name="shopImageHeight">400dp</dimen>
     <dimen name="checkboxSize">20dp</dimen>
     <dimen name="domainTitleOnArticleRadius">10dp</dimen>
+    <dimen name="productImageHeight">350dp</dimen>
+    <dimen name="productTitleTextSize">20sp</dimen>
+    <dimen name="productArticleTextSize">16sp</dimen>
+    <dimen name="productPriceTextSize">24sp</dimen>
+    <dimen name="productOldPriceTextSize">16sp</dimen>
 </resources>

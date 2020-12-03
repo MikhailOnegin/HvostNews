@@ -1,136 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@android:color/white"
+        android:elevation="@dimen/barsElevation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:liftOnScroll="false"
-        android:stateListAnimator="@null"
-        app:elevation="0dp">
+        android:layout_height="56dp"
+        app:layout_scrollFlags="noScroll">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:layout_scrollFlags="scroll">
-
-            <TextView
-                android:text="@string/shopEntranceTitle"
-                android:fontFamily="@font/gilroy_semibold"
-                android:textSize="22sp"
-                android:textColor="@color/TextColorPrimary"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cartContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="@dimen/largeMargin"/>
-
-            <LinearLayout
-                android:id="@+id/cartContainer"
-                android:background="@drawable/background_cart_layout"
-                android:gravity="center_vertical"
-                android:elevation="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <ImageView
-                    android:src="@drawable/ic_cart"
-                    android:contentDescription="@string/cartIconCD"
-                    android:layout_width="@dimen/icCartSize"
-                    android:layout_height="@dimen/icCartSize"
-                    android:layout_marginStart="@dimen/smallMargin"
-                    android:layout_marginTop="@dimen/smallMargin"
-                    android:layout_marginBottom="@dimen/smallMargin"/>
-
-                <TextView
-                    android:id="@+id/cartCount"
-                    tools:text="14"
-                    android:fontFamily="@font/gilroy_bold"
-                    android:textSize="@dimen/cartLayoutTextSize"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/smallMargin"
-                    android:layout_marginEnd="@dimen/xSmallMargin"/>
-
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="@dimen/cartLayoutDividerHeight"
-                    android:background="#1AB9BEE1"
-                    android:layout_marginStart="@dimen/smallMargin"
-                    android:layout_marginEnd="@dimen/smallMargin"/>
-
-                <TextView
-                    android:id="@+id/cartSum"
-                    tools:text="78 984 \u20bd"
-                    android:fontFamily="@font/gilroy_bold"
-                    android:textSize="@dimen/cartLayoutTextSize"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/xSmallMargin"
-                    android:layout_marginEnd="@dimen/largeMargin"/>
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider"
-                android:background="@color/gray4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Spinner
-            android:id="@+id/spinner"
-            style="@style/RegSpinner"
-            app:layout_scrollFlags="scroll"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/widgetsHeight"
-            android:layout_marginTop="@dimen/smallMargin"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <TextView
+            android:text="@string/shopEntranceTitle"
+            android:fontFamily="@font/gilroy_semibold"
+            android:textSize="22sp"
+            android:textColor="@color/TextColorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cartContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/largeMargin"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/cartContainer"
+            android:background="@drawable/background_cart_layout"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- sergeev: Отобразить крупные категории в соответствии с дизайном. -->
+            <ImageView
+                android:src="@drawable/ic_cart"
+                android:contentDescription="@string/cartIconCD"
+                android:layout_width="@dimen/icCartSize"
+                android:layout_height="@dimen/icCartSize"
+                android:layout_marginStart="@dimen/smallMargin"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/smallMargin"/>
 
-            <Button
-                android:id="@+id/button"
-                style="@style/ElevatedButton"
-                android:text="@string/buttonToShop"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/buttonHeight"
-                android:layout_marginStart="@dimen/largeMargin"
-                android:layout_marginEnd="@dimen/largeMargin"
-                android:layout_marginTop="@dimen/largeMargin"/>
+            <TextView
+                android:id="@+id/cartCount"
+                tools:text="14"
+                android:fontFamily="@font/gilroy_bold"
+                android:textSize="@dimen/cartLayoutTextSize"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/smallMargin"
+                android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="@dimen/cartLayoutDividerHeight"
+                android:background="#1AB9BEE1"
+                android:layout_marginStart="@dimen/smallMargin"
+                android:layout_marginEnd="@dimen/smallMargin"/>
+
+            <TextView
+                android:id="@+id/cartSum"
+                tools:text="78 984 \u20bd"
+                android:fontFamily="@font/gilroy_bold"
+                android:textSize="@dimen/cartLayoutTextSize"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/xSmallMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:liftOnScroll="false"
+            android:stateListAnimator="@null"
+            app:elevation="0dp">
+
+            <Spinner
+                android:id="@+id/spinner"
+                style="@style/RegSpinner"
+                app:layout_scrollFlags="scroll"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widgetsHeight"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button"
+                    style="@style/ElevatedButton"
+                    android:text="@string/buttonToShop"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"
+                    android:layout_marginTop="@dimen/largeMargin"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

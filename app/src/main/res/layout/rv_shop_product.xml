@@ -19,12 +19,11 @@
         android:layout_marginStart="@dimen/smallMargin"
         android:layout_marginTop="@dimen/smallMargin"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/checked"
         android:layout_width="@dimen/rvShopIconSize"
         android:layout_height="@dimen/rvShopIconSize"
         android:src="@drawable/ic_shop_unchecked"
-        android:background="@drawable/selector_light_unbounded"
         android:contentDescription="@string/removeIconCD"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="@id/oldPrice"

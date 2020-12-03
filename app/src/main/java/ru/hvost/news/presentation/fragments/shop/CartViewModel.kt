@@ -50,6 +50,9 @@ class CartViewModel : ViewModel() {
                     //sergeev: Устанавливать в зависимости от типа корзины.
                     productsCart.value = result.toCartItems()
                     _cartUpdateEvent.value = NetworkEvent(State.SUCCESS)
+                    viewModelScope.launch(Dispatchers.IO) {
+                        _shopItems.postValue(uniteShopAndCart())
+                    }
                 } else {
                     resetCarts()
                     _cartUpdateEvent.value = NetworkEvent(State.ERROR, result.error)
@@ -201,8 +204,27 @@ class CartViewModel : ViewModel() {
                         .toShopProducts(categoryId)
                 )
             }
-            _shopItems.postValue(result)
+            _shopItems.postValue(uniteShopAndCart(result))
         }
+    }
+
+    private fun uniteShopAndCart(shopItems: List<ShopItem>? = null): List<ShopItem> {
+        val items = shopItems ?: _shopItems.value ?: listOf()
+        val cartItems = productsCart.value?.filterIsInstance<CartProduct>() ?: listOf()
+        for(shopItem in items) {
+            if(shopItem is ShopCategory) shopItem.selectedProducts = 0
+            if(shopItem is ShopProduct) {
+                val isInCart = cartItems.firstOrNull {
+                    it.productId.toString() == shopItem.productId
+                } != null
+                shopItem.isInCart = isInCart
+                if(isInCart){
+                    (items.firstOrNull { it.id == shopItem.categoryId } as ShopCategory)
+                        .selectedProducts++
+                }
+            }
+        }
+        return items
     }
 
     fun resetShop() {
