@@ -20,6 +20,7 @@
     <dimen name="prizeItemPadding">20dp</dimen>
     <dimen name="iconPadding">7dp</dimen>
     <dimen name="iconMargin">10dp</dimen>
+    <dimen name="partnerSmallPadding">12dp</dimen>
     <dimen name="authorizationTitleTextSize">34sp</dimen>
     <dimen name="restorePasswordTextSize">14sp</dimen>
     <dimen name="buttonShapeAppearanceCornerSize">16dp</dimen>

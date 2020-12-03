@@ -123,6 +123,7 @@ class OnlineLessonActiveFragment : Fragment() {
                         val lessonNumber = "${getString(R.string.lesson_number)} ${lesson.lessonNumber}"
                         binding.textViewLessonNumber.text = lessonNumber
                         binding.textViewQuestion.text = lesson.testQuestion
+
                         val container = binding.linearLayoutAnswerOptions
                         for (i in lesson.answersList.indices) {
                             val answer = lesson.answersList[i]

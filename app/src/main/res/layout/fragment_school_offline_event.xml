@@ -183,43 +183,47 @@
                 app:navigationIcon="@drawable/ic_back"
                 app:title="@string/event" />
 
-            <ImageView
+            <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:background="@color/gray4"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="#DBDEEF"
                 app:layout_constraintEnd_toStartOf="@+id/textView_lesson_status"
                 app:layout_constraintStart_toEndOf="@+id/textView_status_logo"
-                app:layout_constraintTop_toBottomOf="@+id/textView_status_logo"
-                app:srcCompat="@drawable/ic_line" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_status_logo" />
 
-            <ImageView
+            <View
                 android:id="@+id/view2"
                 android:layout_width="0dp"
-                android:layout_height="2px"
-                android:background="@color/gray4"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="#DBDEEF"
                 app:layout_constraintEnd_toStartOf="@+id/textView_date"
                 app:layout_constraintStart_toEndOf="@+id/textView_date_logo"
-                app:layout_constraintTop_toBottomOf="@+id/textView_date_logo"
-                app:srcCompat="@drawable/ic_line" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_date_logo" />
 
-            <ImageView
+            <View
                 android:layout_width="0dp"
-                android:layout_height="2px"
-                android:background="@color/gray4"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="#DBDEEF"
                 app:layout_constraintEnd_toStartOf="@+id/textView_sponsor"
                 app:layout_constraintStart_toEndOf="@+id/textView_sponsor_logo"
-                app:layout_constraintTop_toBottomOf="@+id/textView_sponsor_logo"
-                app:srcCompat="@drawable/ic_line" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_sponsor_logo" />
 
-            <ImageView
+            <View
                 android:id="@+id/view3"
                 android:layout_width="0dp"
-                android:layout_height="2px"
-                android:background="@color/gray4"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="#DBDEEF"
                 app:layout_constraintEnd_toStartOf="@+id/textView_city"
                 app:layout_constraintStart_toEndOf="@+id/textView_place_logo"
-                app:layout_constraintTop_toBottomOf="@+id/textView_place_logo"
-                app:srcCompat="@drawable/ic_line" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_place_logo" />
 
             <LinearLayout
                 android:id="@+id/linearLayout3"

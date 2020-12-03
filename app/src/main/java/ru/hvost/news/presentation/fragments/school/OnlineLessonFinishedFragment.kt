@@ -28,6 +28,7 @@ import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 class OnlineLessonFinishedFragment: Fragment() {
+
     private lateinit var binding: FragmentSchoolOnlineLessonFinishedBinding
     private lateinit var schoolVM: SchoolViewModel
     private var lessonId:Any? = null
