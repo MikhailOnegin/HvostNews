@@ -80,7 +80,6 @@
                     android:id="@+id/categories"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
                     app:cardCornerRadius="@dimen/xSmallCorners"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +99,7 @@
                         app:tabPaddingEnd="@dimen/normalMargin"
                         app:tabPaddingStart="@dimen/normalMargin"
                         app:tabSelectedTextColor="@android:color/white"
+                        app:tabTextAppearance="@style/subdomainTabsCustomStyle"
                         app:tabTextColor="@color/gray1" />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -108,20 +108,12 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categories" />
-
-        </androidx.core.widget.NestedScrollView>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

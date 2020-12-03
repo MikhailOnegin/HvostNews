@@ -26,7 +26,7 @@ class PetProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPetProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,6 +42,7 @@ class PetProfileFragment : Fragment() {
         binding.sexMale.setOnClickListener(onSexClicked)
         binding.sexFemale.setOnClickListener(onSexClicked)
         binding.sexUnknown.setOnClickListener(onSexClicked)
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.delete.setOnClickListener {
             val petData =
                 mainVM.userPetsResponse.value?.filter { it.petId == arguments?.getString("PET_ID") }

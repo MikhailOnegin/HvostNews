@@ -6,10 +6,10 @@
         android:color="@android:color/white"/>
 
     <corners
-        android:radius="@dimen/itemListCorners"/>
+        android:radius="@dimen/userProfileButtonLargeRadius"/>
 
     <stroke
-        android:color="@color/imageBorder"
+        android:color="@color/gray5"
         android:width="5dp"/>
 
 </shape>

@@ -192,19 +192,15 @@ class ArticlesFragment : Fragment() {
             ) {
                 val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
-                    view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
+                    view.context?.resources?.getDimension(R.dimen.largeMargin)?.toInt() ?: 0
                 parent.adapter.run {
                     if (position == 0) {
                         outRect.top = elementMargin
                         outRect.bottom = elementMargin
-                        outRect.left = elementMargin
-                        outRect.right = elementMargin
 
                     } else {
                         outRect.top = 0
                         outRect.bottom = elementMargin
-                        outRect.left = elementMargin
-                        outRect.right = elementMargin
                     }
                 }
             }

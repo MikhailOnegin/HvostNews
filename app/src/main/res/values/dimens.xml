@@ -117,7 +117,7 @@
     <dimen name="orderImageShadowRadius">60dp</dimen>
     <dimen name="inviteTextSize">13sp</dimen>
     <dimen name="strokeWidthOutlinedButton">2dp</dimen>
-    <dimen name="smallHeightButton">50dp</dimen>
+    <dimen name="smallHeightButton">55dp</dimen>
     <dimen name="bottomSheetCornerRadius">30dp</dimen>
     <dimen name="rvVoucherCodeTextSize">18sp</dimen>
     <dimen name="rvVoucherTextSize">16sp</dimen>
@@ -146,4 +146,5 @@
     <dimen name="buttonMediumTextSize">16sp</dimen>
     <dimen name="checkboxSize">20dp</dimen>
     <dimen name="domainTitleOnArticleRadius">10dp</dimen>
+    <dimen name="subdomainTabTextSize">14sp</dimen>
 </resources>

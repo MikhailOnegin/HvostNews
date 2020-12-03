@@ -53,7 +53,7 @@ class PrizesFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.back.setOnClickListener { findNavController().popBackStack() }
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setObservers() {
@@ -107,8 +107,6 @@ class PrizesFragment : Fragment() {
                 parent.adapter.run {
                     outRect.top = elementMargin
                     outRect.bottom = elementMargin
-                    outRect.left = elementMargin
-                    outRect.right = elementMargin
                 }
             }
         })

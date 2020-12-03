@@ -339,6 +339,12 @@
         <item name="fontFamily">@font/gilroy_medium</item>
     </style>
 
+    <style name="subdomainTabsCustomStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/subdomainTabTextSize</item>
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/gilroy_medium</item>
+    </style>
+
     <style name="OutlinedRoundedImageViewWithShadow">
         <item name="android:scaleType">centerCrop</item>
         <item name="dropShadow">true</item>

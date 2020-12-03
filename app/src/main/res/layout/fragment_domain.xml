@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windowBackground"
+    android:background="@drawable/window_background"
     android:orientation="vertical"
     tools:context=".presentation.fragments.domains.DomainFragment">
 
@@ -14,13 +14,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_toolbar"
         android:theme="@style/AppTheme.Toolbar"
+        app:menu="@menu/menu_articles_toolbar"
         app:titleTextAppearance="@style/ToolbarTitleTextAppearance" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray4" />
+        android:background="@color/gray4_half_opacity" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray5"
+            android:background="@android:color/transparent"
             android:stateListAnimator="@null"
             app:elevation="0dp"
             app:liftOnScroll="false">
@@ -37,24 +38,19 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/windowBackground"
-                app:layout_scrollFlags="scroll|snap|enterAlways">
+                app:layout_scrollFlags="scroll">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/largeMargin"
                     android:background="@android:color/transparent"
-                    android:paddingHorizontal="@dimen/screenContentPadding"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tabGravity="fill"
                     app:tabIndicator="@android:color/transparent"
                     app:tabMode="scrollable"
-                    app:tabPaddingEnd="@dimen/normalMargin"
-                    app:tabPaddingStart="0dp"
                     app:tabSelectedTextColor="@color/gray1"
                     app:tabTextAppearance="@style/tabsCustomStyle"
                     app:tabTextColor="@color/gray4">
@@ -93,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/screenContentPadding"
+                android:paddingHorizontal="@dimen/smallMargin"
                 android:paddingBottom="@dimen/screenContentPadding"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />

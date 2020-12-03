@@ -24,25 +24,10 @@ class EditProfileFragment : Fragment() {
     private lateinit var mainVM: MainViewModel
     private var state: State? = null
 
-    override fun onStart() {
-        setSystemUiVisibility()
-        super.onStart()
-    }
-
-    @Suppress("DEPRECATION")
-    @SuppressLint("InlinedApi")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -83,7 +68,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.back.setOnClickListener { findNavController().popBackStack() }
+        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.cancel.setOnClickListener {
             if (state == State.SUCCESS) {
