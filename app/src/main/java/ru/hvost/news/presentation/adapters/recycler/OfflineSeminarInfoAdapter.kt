@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_offline_seminar_info.view.gridLayout
 import kotlinx.android.synthetic.main.layout_partner.view.*
-import kotlinx.android.synthetic.main.layout_partner.view.imageView
 import ru.hvost.news.R
 import ru.hvost.news.databinding.LayoutPartnerBinding
 import ru.hvost.news.models.OfflineSeminars
@@ -33,16 +32,47 @@ class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is InfoViewHolder) holder.bind()
+        if (holder is InfoViewHolder) holder.bind(seminar)
     }
 
     inner class InfoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-
-        fun bind(){
-                for (i  in 0 .. 10) {
-                    Log.i("eeee", "partners size")
+        fun bind(seminar:OfflineSeminars.OfflineLesson?){
+            seminar?.run {
+                Log.i("eeee", "seminar is not null")
+                val containerWait = itemView.gridLayout
+                containerWait.removeAllViews()
+                for (i in seminar.partners.indices) {
+                    val partner = seminar.partners[i]
+                    val viewPartner = LayoutPartnerBinding.inflate(
+                        LayoutInflater.from(itemView.context),
+                        containerWait,
+                        false
+                    ).root
+                    val param = GridLayout.LayoutParams()
+                    param.columnSpec = GridLayout.spec(
+                        GridLayout.UNDEFINED,
+                        GridLayout.FILL,
+                        1f
+                    )
+                    param.width = 0
+                    viewPartner.layoutParams = param
+                    val marginNormal = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                    val marginSmall = itemView.resources.getDimension(R.dimen.partnerSmallPadding).toInt()
+                    (viewPartner.layoutParams as GridLayout.LayoutParams).setMargins(
+                        0,
+                        marginSmall,
+                        marginNormal,
+                        0
+                    )
+                    viewPartner.textView_partner_title.text = partner.title
+                    containerWait.addView(viewPartner)
+                    Glide.with(itemView.context).load(partner.imageUrl)
+                        .placeholder(R.drawable.not_found).centerCrop()
+                        .into(viewPartner.imageView)
                 }
+            }
+
 
         }
 
