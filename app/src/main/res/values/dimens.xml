@@ -169,4 +169,5 @@
     <dimen name="viewsIconSize">32dp</dimen>
     <dimen name="articleTextSize">18sp</dimen>
     <dimen name="articleContentTitleTextSize">26sp</dimen>
+    <dimen name="spinnerDropdownItemTextSize">18sp</dimen>
 </resources>

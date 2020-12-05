@@ -4,14 +4,20 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@drawable/window_background</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:textColor">@color/TextColorDefault</item>
+        <item name="android:dropDownListViewStyle">@style/DropdownListViewStyle</item>
     </style>
 
     <style name="AppTheme.Toolbar">
         <item name="android:selectableItemBackground">?android:selectableItemBackground</item>
         <item name="android:colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="DropdownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:divider">@color/gray5</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 
     <style name="Spinner">
