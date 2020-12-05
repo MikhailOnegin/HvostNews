@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- sergeev: Устанавливать высоту динамически. -->
-<ru.hvost.news.presentation.customviews.RoundCornersImageView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/image"
-    tools:src="@drawable/test_image"
-    app:cornersRadius="@dimen/largeCorners"
-    android:scaleType="centerCrop"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="200dp"/>
+    android:layout_height="wrap_content">
+
+    <ru.hvost.news.presentation.customviews.RoundCornersImageView
+        android:id="@+id/image"
+        tools:src="@drawable/test_image"
+        app:cornersRadius="@dimen/largeCorners"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+</LinearLayout>

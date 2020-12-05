@@ -15,8 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"
         android:layout_marginTop="@dimen/largeMargin"/>
 
     <ImageView
@@ -80,9 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         app:layout_constraintTop_toBottomOf="@id/dateIcon"
-        android:layout_marginTop="@dimen/normalMargin"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"/>
+        android:layout_marginTop="@dimen/normalMargin"/>
 
     <TextView
         android:id="@+id/domain"
@@ -130,8 +126,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/domain"
-        app:layout_constraintBottom_toBottomOf="@id/domain"
-        android:layout_marginEnd="@dimen/largeMargin"/>
+        app:layout_constraintBottom_toBottomOf="@id/domain"/>
 
     <ImageView
         android:id="@+id/viewsIcon"
@@ -151,8 +146,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:layout_constraintTop_toBottomOf="@id/domain"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/normalMargin"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"/>
+        android:layout_marginBottom="@dimen/xLargeMargin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

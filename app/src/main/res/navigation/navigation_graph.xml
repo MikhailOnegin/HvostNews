@@ -40,7 +40,11 @@
         tools:layout="@layout/fragment_articles" >
         <action
             android:id="@+id/action_newsFragment_to_articleDetailFragment"
-            app:destination="@id/articleDetailFragment" />
+            app:destination="@id/articleDetailFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit"/>
         <action
             android:id="@+id/action_newsFragment_to_domainFragment"
             app:destination="@id/domainFragment" />
@@ -71,7 +75,11 @@
         android:label="SubDomainFragment" >
         <action
             android:id="@+id/action_subDomainFragment_to_articleDetailFragment"
-            app:destination="@id/articleDetailFragment" />
+            app:destination="@id/articleDetailFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit"/>
     </fragment>
 
     <fragment

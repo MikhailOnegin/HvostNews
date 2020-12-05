@@ -166,9 +166,9 @@ class ArticlesFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        val onActionClicked = { id: Long ->
+        val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putLong("ITEM_ID", id)
+            bundle.putString(ITEM_ID, id)
             bundle.putString("TYPE", "INDIVIDUAL")
             findNavController().navigate(R.id.action_newsFragment_to_articleDetailFragment, bundle)
         }
@@ -206,4 +206,11 @@ class ArticlesFragment : Fragment() {
             }
         })
     }
+
+    companion object {
+
+        const val ITEM_ID = "ITEM_ID"
+
+    }
+
 }

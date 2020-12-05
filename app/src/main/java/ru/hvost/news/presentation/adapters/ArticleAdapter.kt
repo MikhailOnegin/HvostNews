@@ -11,7 +11,7 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
 
-class ArticleAdapter(private val onClick: (Long) -> Unit) :
+class ArticleAdapter(private val onClick: (String) -> Unit) :
     ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
@@ -24,7 +24,7 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
 
     class ArticleViewHolder(
         private val binding: LayoutArticleItemBinding,
-        private val onClick: (Long) -> Unit
+        private val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(articleItem: Article) {
@@ -36,14 +36,14 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
             binding.title.text = articleItem.title
             binding.description.text = articleItem.shortDescription.parseAsHtml()
             binding.domain.text = articleItem.categoryTitle
-            binding.views.text = articleItem.viewsCount
+            binding.views.text = articleItem.viewsCount.toString()
             binding.likes.text = articleItem.likesCount.toString()
             // TODO: setOnclickListener to like for setting like to article
-            binding.root.setOnClickListener { onClick.invoke(articleItem.id) }
+            binding.root.setOnClickListener { onClick.invoke(articleItem.articleId) }
         }
 
         companion object {
-            fun getArticleVH(parent: ViewGroup, onClick: (Long) -> Unit): ArticleViewHolder {
+            fun getArticleVH(parent: ViewGroup, onClick: (String) -> Unit): ArticleViewHolder {
                 val binding = LayoutArticleItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,

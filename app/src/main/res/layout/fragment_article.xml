@@ -3,17 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
-        app:liftOnScroll="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:theme="@style/AppTheme.Toolbar"
+            android:elevation="@dimen/barsElevation"
             style="@style/Toolbar"
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="@drawable/ic_back"

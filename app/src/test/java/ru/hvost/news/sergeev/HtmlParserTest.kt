@@ -140,7 +140,7 @@ class HtmlParserTest {
         val simpleCase = "<h4>Чоп</h4><blockquote>Чип</blockquote><img res=\"asdf\">"
         val result = simpleCase.toHtmlContent()
         assert(result.size == 3)
-        assert(result[0] is HtmlHeader)
+        assert(result[0] is HtmlTitle)
         assert(result[1] is HtmlQuote)
         assert(result[2] is HtmlImage)
     }
@@ -151,7 +151,7 @@ class HtmlParserTest {
         val result = simpleCase.toHtmlContent()
         assert(result.size == 7)
         assert(result[0] is HtmlText)
-        assert(result[1] is HtmlHeader)
+        assert(result[1] is HtmlTitle)
         assert(result[2] is HtmlText)
         assert(result[3] is HtmlQuote)
         assert(result[4] is HtmlText)
@@ -163,7 +163,7 @@ class HtmlParserTest {
     fun parseTestArticle() {
         val result = testArticle.toHtmlContent()
         assert(result.size == 10)
-        assert(result[0] is HtmlHeader)
+        assert(result[0] is HtmlTitle)
         assert(result[1] is HtmlText)
         assert(result[2] is HtmlImage)
         assert(result[3] is HtmlText)
