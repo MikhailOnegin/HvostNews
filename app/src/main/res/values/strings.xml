@@ -377,4 +377,6 @@
     <string name="productTabContraindication">Противопоказания</string>
     <string name="productArticleTitle">Артикул:</string>
     <string name="petPassportButton">Паспорт</string>
+    <string name="articleTitle">Публикация</string>
+    <string name="buttonShare">Поделиться</string>
 </resources>

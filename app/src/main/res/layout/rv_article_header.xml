@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/title"
+        android:textSize="@dimen/articleDetailTitleTextSize"
+        android:textColor="@color/TextColorPrimary"
+        android:fontFamily="@font/gilroy_bold"
+        tools:text="Почему кошки мурчат и что это значит?"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/largeMargin"/>
+
+    <ImageView
+        android:id="@+id/dateIcon"
+        android:src="@drawable/ic_calendar"
+        android:scaleType="fitCenter"
+        android:padding="@dimen/articleIconPadding"
+        android:background="@drawable/background_article_icon"
+        tools:ignore="ContentDescription"
+        android:layout_width="@dimen/articleIconSize"
+        android:layout_height="@dimen/articleIconSize"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="@id/title"
+        android:layout_marginTop="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:textColor="@color/gray3"
+        android:textSize="@dimen/articleDateTextSize"
+        android:fontFamily="@font/gilroy_semibold"
+        tools:text="17 сентября, 2020"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dateIcon"
+        app:layout_constraintTop_toTopOf="@id/dateIcon"
+        app:layout_constraintBottom_toBottomOf="@id/dateIcon"
+        android:layout_marginStart="@dimen/smallMargin"/>
+
+    <ImageView
+        android:id="@+id/typeIcon"
+        android:src="@drawable/ic_article"
+        android:scaleType="fitCenter"
+        android:padding="@dimen/articleIconPadding"
+        android:background="@drawable/background_article_icon"
+        tools:ignore="ContentDescription"
+        android:layout_width="@dimen/articleIconSize"
+        android:layout_height="@dimen/articleIconSize"
+        app:layout_constraintTop_toTopOf="@id/dateIcon"
+        app:layout_constraintStart_toEndOf="@id/date"
+        android:layout_marginStart="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/type"
+        android:textColor="@color/gray3"
+        android:textSize="@dimen/articleDateTextSize"
+        android:fontFamily="@font/gilroy_semibold"
+        tools:text="Статья"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/typeIcon"
+        app:layout_constraintTop_toTopOf="@id/typeIcon"
+        app:layout_constraintBottom_toBottomOf="@id/typeIcon"
+        android:layout_marginStart="@dimen/smallMargin"/>
+
+    <!-- sergeev: Устанавливать высоту динамически. -->
+    <ru.hvost.news.presentation.customviews.RoundCornersImageView
+        android:id="@+id/image"
+        tools:src="@drawable/test_image"
+        app:cornersRadius="@dimen/smallCorners"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toBottomOf="@id/dateIcon"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/domain"
+        tools:text="Котята"
+        android:textSize="@dimen/articleChipsTextSize"
+        android:background="@drawable/background_chips"
+        android:fontFamily="@font/gilroy_semibold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/smallMargin"
+        android:paddingVertical="@dimen/xSmallMargin"
+        android:text="@string/stub"
+        android:textColor="@color/gray2"
+        android:maxWidth="@dimen/maxChipsWidth"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintStart_toStartOf="@id/image"
+        android:layout_marginTop="@dimen/normalMargin"/>
+
+    <TextView
+        android:id="@+id/category"
+        tools:text="Уход"
+        android:textSize="@dimen/articleChipsTextSize"
+        android:background="@drawable/background_chips"
+        android:fontFamily="@font/gilroy_semibold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/smallMargin"
+        android:paddingVertical="@dimen/xSmallMargin"
+        android:text="@string/stub"
+        android:textColor="@color/gray2"
+        android:maxWidth="@dimen/maxChipsWidth"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="@id/domain"
+        app:layout_constraintStart_toEndOf="@id/domain"
+        android:layout_marginStart="@dimen/smallMargin"/>
+
+    <TextView
+        android:id="@+id/views"
+        android:textColor="@color/gray3"
+        android:textSize="@dimen/articleDateTextSize"
+        android:fontFamily="@font/gilroy_semibold"
+        tools:text="47 850"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/domain"
+        app:layout_constraintBottom_toBottomOf="@id/domain"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <ImageView
+        android:id="@+id/viewsIcon"
+        android:src="@drawable/ic_views"
+        android:scaleType="fitCenter"
+        tools:ignore="ContentDescription"
+        android:layout_width="@dimen/viewsIconSize"
+        android:layout_height="@dimen/viewsIconSize"
+        app:layout_constraintTop_toTopOf="@id/views"
+        app:layout_constraintBottom_toBottomOf="@id/views"
+        app:layout_constraintEnd_toStartOf="@id/views"
+        android:layout_marginEnd="@dimen/smallMargin"/>
+
+    <View
+        android:id="@+id/divider"
+        android:background="@color/gray4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/domain"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

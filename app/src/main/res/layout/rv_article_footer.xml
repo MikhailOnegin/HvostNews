@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:id="@+id/divider"
+        android:background="@color/gray4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/buttonShare"
+        style="@style/UnelevatedButton"
+        android:text="@string/buttonShare"
+        app:icon="@drawable/ic_share"
+        app:iconTint="@android:color/white"
+        app:iconGravity="textEnd"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonLike"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:layout_marginBottom="@dimen/largeMargin"/>
+
+    <Button
+        android:id="@+id/buttonLike"
+        style="@style/UnelevatedButton.Gray"
+        tools:text="18 578"
+        android:text="@string/numberStub"
+        app:icon="@drawable/ic_like_outline"
+        app:iconTint="#7D82AF"
+        app:iconGravity="textStart"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintStart_toEndOf="@id/buttonShare"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:layout_marginBottom="@dimen/largeCorners"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
