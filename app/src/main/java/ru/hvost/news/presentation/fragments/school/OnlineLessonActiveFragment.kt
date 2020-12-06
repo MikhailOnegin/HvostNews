@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -24,6 +25,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolOnlineLessonActiveBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
+import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
@@ -31,11 +33,13 @@ class OnlineLessonActiveFragment : Fragment() {
 
     private lateinit var binding: FragmentSchoolOnlineLessonActiveBinding
     private lateinit var schoolVM: SchoolViewModel
-    private var lessonId:Any? = null
-    private var schoolId:Any? = null
+    private var lessonId:String? = null
+    private var schoolId:String? = null
     private val answers = mutableMapOf<String, Boolean>()
     private val buttons = mutableListOf<Button>()
     private var literature = mutableListOf<OnlineSchools.Literature>()
+    private var videoUrl:String? = null
+    private var lessons:List<OnlineLessons.OnlineLesson>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +52,8 @@ class OnlineLessonActiveFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[ SchoolViewModel::class.java]
-        lessonId = arguments?.get("lessonId")
-        schoolId = arguments?.get("schoolId")
+        lessonId = arguments?.getString("lessonId")
+        schoolId = arguments?.getString("schoolId")
         setListeners()
         setSystemUiVisibility()
         setObservers(this)
@@ -60,61 +64,46 @@ class OnlineLessonActiveFragment : Fragment() {
             var passed = true
             for (i in 0 until buttons.size){
                 val button = buttons[i]
+                button.isEnabled = false
                 val answer = answers[button.text.toString()]
                 answer?.run {
-                   if(this){
-                       if(button.isActivated) {
-                           button.isEnabled = false
-                           button.setTextColor(resources.getColor(android.R.color.white))
-                       }
-                       if(button.isEnabled){
-                           passed = false
-                           button.setTextColor(resources.getColor(android.R.color.white))
-                           Handler(Looper.getMainLooper()).postDelayed({
-                               button.background = resources.getDrawable(R.drawable.selector_online_lesson_option)
-                               button.setTextColor(resources.getColor(R.color.gray1))
-                           }, 700)
-                       }
-                   }
+                    if(this){
+                        button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+                        button.setTextColor(resources.getColor(android.R.color.white))
+                    }
                     else{
-                       if(button.isActivated) {
-                           passed = false
-                           button.background = resources.getDrawable(android.R.color.holo_red_dark)
-                           button.setTextColor(resources.getColor(android.R.color.white))
-                           Handler(Looper.getMainLooper()).postDelayed({
-                               button.background = resources.getDrawable(R.drawable.selector_online_lesson_option)
-                               button.setTextColor(resources.getColor(R.color.gray1))
-                           }, 700)
-                       }
+                        button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                        button.setTextColor(resources.getColor(android.R.color.white))
                     }
                 }
-            }
-            if(passed) {Toast.makeText(requireContext(), "Урок сдан!", Toast.LENGTH_SHORT).show()
-                binding.buttonToAnswer.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorPrimary)
-                binding.buttonToAnswer.isEnabled = false
+                (it as Button).text = resources.getString(R.string.next_lesson)
+                it.setOnClickListener {
+                    Toast.makeText(requireContext(),"next Lesson", Toast.LENGTH_SHORT).show()
+                }
                 lessonId?.run {
-                    if (this is String){
-                        schoolVM.setLessonTestesPassed("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==",
-                            this.toLong())
-                    }
+                    schoolVM.setLessonTestesPassed("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==", this.toLong())
                 }
+        }
 
-            }
-            else{
-                for (i in 0 until buttons.size){
-                    buttons[i].isEnabled = true
-                    buttons[i].isActivated = false
-                    buttons[i].setTextColor(resources.getColor(R.color.gray1))
-                }
+        binding.constraintVideo.setOnClickListener {
+            videoUrl?.run {
+                val newIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(this)
+                )
+                startActivity(newIntent)
             }
         }
+
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
+    }
 
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.onlineLessons.observe(owner, Observer {
+            lessons = it.lessons
             lessonId?.run {
                 for (i in it.lessons.indices){
                     val lesson = it.lessons[i]
@@ -157,8 +146,8 @@ class OnlineLessonActiveFragment : Fragment() {
         schoolVM.onlineSchools.observe(owner, Observer {
             schoolId?.run {
                 var onlineSchool: OnlineSchools.OnlineSchool? = null
-                for(i in it.onlineSchools.indices){
-                    if(it.onlineSchools[i].id.toString() == this ){
+                for (i in it.onlineSchools.indices) {
+                    if (it.onlineSchools[i].id.toString() == this) {
                         onlineSchool = it.onlineSchools[i]
                     }
                 }
