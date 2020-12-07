@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,18 +15,16 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:theme="@style/AppTheme.Toolbar"
-        app:menu="@menu/menu_articles_toolbar"
         app:navigationIcon="@drawable/ic_edit">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_medium"
+            android:fontFamily="@font/gilroy_semibold"
             android:text="@string/bnvProfile"
             android:textAppearance="@style/ToolbarTitleTextAppearance"
-            android:textColor="@color/gray1"
-            android:textStyle="bold" />
+            android:textColor="@color/gray1" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -74,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/xSmallMargin"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/hello"
                     android:textColor="@color/gray3_opacity"
                     android:textSize="16sp" />
@@ -83,22 +80,20 @@
                     android:id="@+id/second"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/stub"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/mainTitleTextSize"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/mainTitleTextSize" />
 
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/normalMargin"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/stub"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/mainTitleTextSize"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/mainTitleTextSize" />
 
                 <LinearLayout
                     android:id="@+id/button_coupons"
@@ -121,11 +116,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2.5"
-                        android:fontFamily="@font/gilroy_medium"
+                        android:fontFamily="@font/gilroy_semibold"
                         android:gravity="center_vertical"
                         android:text="@string/myCoupons"
                         android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/profileSmallTextSize" />
 
                     <TextView
                         android:id="@+id/couponsCount"
@@ -133,11 +128,11 @@
                         android:layout_height="@dimen/notification_count"
                         android:layout_marginEnd="@dimen/notificationButtonMargin"
                         android:background="@drawable/icon_background_count"
-                        android:fontFamily="@font/gilroy_medium"
+                        android:fontFamily="@font/gilroy_bold"
                         android:gravity="center"
                         android:text="@string/numberStub"
                         android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/counterTextSize" />
 
                 </LinearLayout>
 
@@ -161,11 +156,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2.5"
-                        android:fontFamily="@font/gilroy_medium"
+                        android:fontFamily="@font/gilroy_semibold"
                         android:gravity="center_vertical"
                         android:text="@string/myVauchers"
                         android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/profileSmallTextSize" />
 
                     <TextView
                         android:id="@+id/vouchersCount"
@@ -173,11 +168,11 @@
                         android:layout_height="@dimen/notification_count"
                         android:layout_marginEnd="@dimen/notificationButtonMargin"
                         android:background="@drawable/icon_background_count"
-                        android:fontFamily="@font/gilroy_medium"
+                        android:fontFamily="@font/gilroy_bold"
                         android:gravity="center"
                         android:text="@string/numberStub"
                         android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/counterTextSize" />
 
                 </LinearLayout>
 
@@ -195,11 +190,10 @@
                     android:id="@+id/inviteTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/inviteFriendTitle"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/inviteTextSize"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -207,29 +201,26 @@
                     android:id="@+id/balance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_bold"
                     android:text="@string/stub"
-                    android:textColor="@color/titleText"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/mainTitleTextSize"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/inviteTitle" />
 
-                <!-- TODO: Поправить оформение кнопки -->
                 <Button
                     android:id="@+id/choicePrize"
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/buttonHeight"
+                    android:layout_height="@dimen/profileToPrizesButtonHeight"
                     android:layout_marginTop="@dimen/normalMargin"
-                    android:layout_marginEnd="@dimen/profileTitleMargin"
+                    android:layout_marginEnd="@dimen/normalMargin"
                     android:backgroundTint="@color/whiteOpacity"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_bold"
                     android:text="@string/choosePrizes"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/ButtonTextSize"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/buttonMediumTextSize"
                     app:cornerRadius="@dimen/mediumCorners"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/invite"
@@ -240,12 +231,12 @@
                     android:id="@+id/invite"
                     style="@style/ElevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/buttonHeight"
+                    android:layout_height="@dimen/profileToPrizesButtonHeight"
                     android:layout_marginTop="@dimen/normalMargin"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_bold"
                     android:text="@string/invite"
                     android:textColor="@color/titleText"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/buttonMediumTextSize"
                     app:backgroundTint="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -267,7 +258,7 @@
                     android:background="@android:color/white"
                     android:orientation="horizontal"
                     android:paddingStart="@dimen/orderButtonPadding"
-                    android:paddingTop="@dimen/orderButtonPadding"
+                    android:paddingTop="@dimen/xLargeMargin"
                     android:paddingEnd="@dimen/orderButtonPadding"
                     android:paddingBottom="@dimen/normalMargin"
                     app:layout_constraintStart_toStartOf="parent"
@@ -277,11 +268,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/gilroy_medium"
+                        android:fontFamily="@font/gilroy_bold"
                         android:text="@string/yourPets"
                         android:textColor="@color/gray1"
-                        android:textSize="@dimen/profileTitleTextSize"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/profileTitleTextSize" />
 
                     <ImageView
                         android:id="@+id/addPet"
@@ -309,137 +299,143 @@
                 android:layout_height="wrap_content"
                 android:background="@color/gray5"
                 android:clipToPadding="false"
-                android:padding="25dp"
+                android:paddingVertical="@dimen/orderButtonPadding"
                 app:layout_constraintTop_toBottomOf="@+id/inviteFriends">
 
                 <TextView
                     android:id="@+id/titleOrders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:layout_marginHorizontal="@dimen/orderButtonPadding"
                     android:text="@string/ordersTitle"
                     android:textColor="@color/titleText"
                     android:textSize="@dimen/profileTitleTextSize"
-                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/ordersContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/work"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/ordersContainer"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normalMargin"
-                    android:background="@drawable/background_profile_order_item"
-                    android:elevation="@dimen/barsElevation"
-                    android:orientation="vertical"
+                    android:baselineAligned="false"
+                    android:clipToPadding="false"
                     android:padding="@dimen/orderButtonPadding"
+                    app:layout_constraintBottom_toTopOf="@+id/allOrders"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/titleOrders">
 
-                    <TextView
-                        android:id="@+id/inWorkStatus"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:id="@+id/work"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/normalMargin"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_profile_order_item"
+                        android:elevation="@dimen/barsElevation"
+                        android:orientation="vertical"
+                        android:paddingVertical="@dimen/semiNormalMargin">
+
+                        <TextView
+                            android:id="@+id/inWorkStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/stub"
+                            android:textColor="@color/titleText"
+                            android:textSize="@dimen/orderCountTextSize" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/inWorkStatus"
+                            android:textColor="@color/gray3"
+                            android:textSize="@dimen/profileTitleSize" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/construction"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/normalMargin"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_profile_order_item"
+                        android:elevation="@dimen/barsElevation"
                         android:fontFamily="@font/gilroy_medium"
-                        android:gravity="center"
-                        android:text="@string/stub"
-                        android:textColor="@color/titleText"
-                        android:textSize="@dimen/orderCountTextSize"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:orientation="vertical"
+                        android:paddingVertical="@dimen/semiNormalMargin"
+                        app:layout_constraintEnd_toStartOf="@id/finish"
+                        app:layout_constraintStart_toEndOf="@id/work"
+                        app:layout_constraintTop_toBottomOf="@id/titleOrders">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_medium"
-                        android:gravity="center"
-                        android:text="@string/inWorkStatus"
-                        android:textColor="@color/gray3"
-                        android:textSize="@dimen/profileTitleSize"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/constructedStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/stub"
+                            android:textColor="@color/titleText"
+                            android:textSize="@dimen/orderCountTextSize"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/constructedStatus"
+                            android:textColor="@color/gray3"
+                            android:textSize="@dimen/profileTitleSize"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/construction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normalMargin"
-                    android:background="@drawable/background_profile_order_item"
-                    android:elevation="@dimen/barsElevation"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:orientation="vertical"
-                    android:padding="@dimen/orderButtonPadding"
-                    app:layout_constraintEnd_toStartOf="@id/finish"
-                    app:layout_constraintStart_toEndOf="@id/work"
-                    app:layout_constraintTop_toBottomOf="@id/titleOrders">
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/constructedStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_medium"
-                        android:gravity="center"
-                        android:text="@string/stub"
-                        android:textColor="@color/titleText"
-                        android:textSize="@dimen/orderCountTextSize"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <LinearLayout
+                        android:id="@+id/finish"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_profile_order_item"
+                        android:elevation="@dimen/barsElevation"
+                        android:orientation="vertical"
+                        android:paddingVertical="@dimen/semiNormalMargin"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/titleOrders">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_medium"
-                        android:gravity="center"
-                        android:text="@string/constructedStatus"
-                        android:textColor="@color/gray3"
-                        android:textSize="@dimen/profileTitleSize"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/finishedStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/stub"
+                            android:textColor="@color/_2"
+                            android:textSize="@dimen/orderCountTextSize"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/finishedStatus"
+                            android:textColor="@color/_2"
+                            android:textSize="@dimen/profileTitleSize"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/finish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normalMargin"
-                    android:background="@drawable/background_profile_order_item"
-                    android:elevation="@dimen/barsElevation"
-                    android:orientation="vertical"
-                    android:padding="@dimen/orderButtonPadding"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleOrders">
-
-                    <TextView
-                        android:id="@+id/finishedStatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_medium"
-                        android:gravity="center"
-                        android:text="@string/stub"
-                        android:textColor="@color/_2"
-                        android:textSize="@dimen/orderCountTextSize"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_medium"
-                        android:gravity="center"
-                        android:text="@string/finishedStatus"
-                        android:textColor="@color/_2"
-                        android:textSize="@dimen/profileTitleSize"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -448,30 +444,28 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/ButtonHeight"
-                    android:layout_marginTop="@dimen/normalMargin"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:paddingHorizontal="@dimen/orderButtonPadding"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:layout_marginHorizontal="@dimen/orderButtonPadding"
                     android:paddingVertical="@dimen/buttonPadding"
                     android:text="@string/checkAllOrders"
                     android:textAllCaps="false"
                     android:textColor="@color/titleText"
                     android:textSize="@dimen/regSubtitleTextSize"
-                    android:textStyle="bold"
                     app:cornerRadius="@dimen/userProfileButtonLargeRadius"
-                    app:layout_constraintTop_toBottomOf="@+id/work"
+                    app:layout_constraintTop_toBottomOf="@+id/ordersContainer"
                     app:strokeColor="@color/btnStroke"
                     app:strokeWidth="@dimen/strokeWidthOutlinedButton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/orderInfo">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/orderInfo">
 
                 <Button
                     android:id="@+id/logout"
@@ -480,13 +474,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/screenContentPadding"
                     android:layout_marginBottom="@dimen/ButtonHeight"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_bold"
                     android:gravity="center"
+                    android:letterSpacing="-0.07"
                     android:text="@string/logout"
                     android:textAllCaps="false"
                     android:textColor="@color/gray1"
                     android:textSize="@dimen/regSubtitleTextSize"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

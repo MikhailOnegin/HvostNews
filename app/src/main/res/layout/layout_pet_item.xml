@@ -16,20 +16,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/textMargin"
-        android:fontFamily="@font/gilroy_medium"
+        android:fontFamily="@font/gilroy_semibold"
         android:paddingHorizontal="@dimen/profileCoverPadding"
         android:textColor="@color/gray1"
-        android:textSize="@dimen/ButtonTextSize"
-        android:textStyle="bold" />
+        android:textSize="@dimen/buttonMediumTextSize" />
 
     <TextView
         android:id="@+id/age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/textMargin"
-        android:fontFamily="@font/gilroy_medium"
+        android:fontFamily="@font/gilroy_semibold"
         android:paddingHorizontal="@dimen/profileCoverPadding"
         android:textColor="@color/gray4"
-        android:textSize="@dimen/ButtonTextSize" />
+        android:textSize="@dimen/buttonMediumTextSize" />
 
 </LinearLayout>

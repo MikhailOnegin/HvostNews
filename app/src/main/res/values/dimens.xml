@@ -163,4 +163,6 @@
     <dimen name="articleImageHeight">200dp</dimen>
     <dimen name="tabLayoutHeight">37dp</dimen>
     <dimen name="counterTextSize">11sp</dimen>
+    <dimen name="profileToPrizesButtonHeight">75dp</dimen>
+    <dimen name="semiNormalMargin">13dp</dimen>
 </resources>
