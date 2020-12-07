@@ -380,4 +380,5 @@
     <string name="articleTitle">Публикация</string>
     <string name="buttonShare">Поделиться</string>
     <string name="cantFindArticle">Статья не найдена.</string>
+    <string name="next_lesson">Следующий урок</string>
 </resources>
