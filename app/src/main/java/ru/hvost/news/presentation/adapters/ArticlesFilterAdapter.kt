@@ -31,7 +31,7 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         viewType: Int
     ): RecyclerView.ViewHolder {
         return when (viewType) {
-            TYPE_CATEGORY -> CategoryItemViewHolder.getCategoryVH(parent)
+            TYPE_CATEGORY -> CategoryItemViewHolder.getCategoryVH(parent, mainVM)
             TYPE_FOOTER -> FooterViewHolder.getFooterVH(parent, mainVM)
             else -> throw IllegalArgumentException("Wrong voucher view holder type.")
         }
@@ -45,7 +45,8 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
     }
 
     class CategoryItemViewHolder(
-        private val binding: RvFilterItemBinding
+        private val binding: RvFilterItemBinding,
+        mainVM: MainViewModel
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: InterestsCategory) {
             binding.expand.setOnClickListener { switchVisibility() }
@@ -136,14 +137,15 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
 
         companion object {
             fun getCategoryVH(
-                parent: ViewGroup
+                parent: ViewGroup,
+                mainVM: MainViewModel
             ): CategoryItemViewHolder {
                 val binding = RvFilterItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return CategoryItemViewHolder(binding)
+                return CategoryItemViewHolder(binding, mainVM)
             }
         }
     }

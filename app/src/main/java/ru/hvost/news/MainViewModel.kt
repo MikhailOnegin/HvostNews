@@ -79,6 +79,8 @@ class MainViewModel : ViewModel() {
     //событие, сообщающее об изменении интересов пользователя
     val updateArticlesWithNewInterests = MutableLiveData<OneTimeEvent>()
 
+//    val enableFilterButton = MutableLiveData<Boolean>()
+
     init {
         loadArticles()
         loadAllArticles()

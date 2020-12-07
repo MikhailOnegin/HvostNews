@@ -347,15 +347,14 @@
 
     <style name="tabsCustomStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">@dimen/tabTitleTextSize</item>
-        <item name="android:textStyle">bold</item>
         <item name="textAllCaps">false</item>
-        <item name="fontFamily">@font/gilroy_medium</item>
+        <item name="fontFamily">@font/gilroy_semibold</item>
     </style>
 
     <style name="subdomainTabsCustomStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">@dimen/subdomainTabTextSize</item>
         <item name="textAllCaps">false</item>
-        <item name="fontFamily">@font/gilroy_medium</item>
+        <item name="fontFamily">@font/gilroy_semibold</item>
     </style>
 
     <style name="OutlinedRoundedImageViewWithShadow">

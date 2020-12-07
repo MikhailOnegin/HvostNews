@@ -6,6 +6,8 @@ import android.view.*
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import android.widget.PopupWindow
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -45,7 +47,7 @@ class SubDomainFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.showPopup.setOnClickListener { callPopup() }
+        binding.titleContainer.setOnClickListener { callPopup() }
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
@@ -104,6 +106,32 @@ class SubDomainFragment : Fragment() {
             mainVM.categories?.filter { it.domain == domainId } ?: return
         for ((index, category) in categories.withIndex()) {
             val tab = binding.categoryTabs.newTab()
+            when {
+                index == 0 -> {
+                    tab.view.background =
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.background_category_first_tab_item,
+                            null
+                        )
+                }
+                (index + 1) == categories.size -> {
+                    tab.view.background =
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.background_category_last_tab_item,
+                            null
+                        )
+                }
+                else -> {
+                    tab.view.background =
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.background_category_tab_item,
+                            null
+                        )
+                }
+            }
             tab.tag = category.id
             tab.text = category.title
             binding.categoryTabs.addTab(tab)
@@ -129,21 +157,36 @@ class SubDomainFragment : Fragment() {
     }
 
     private fun setTabsListener() {
-        binding.categoryTabs.addOnTabSelectedListener(OnTabSelected(binding, mainVM))
+        binding.categoryTabs.addOnTabSelectedListener(OnTabSelected(binding, domainId, mainVM))
     }
 
     private class OnTabSelected(
         private val binding: FragmentSubdomainBinding,
+        private val domainId: Long?,
         private val mainVM: MainViewModel
     ) : TabLayout.OnTabSelectedListener {
+
         override fun onTabSelected(tab: TabLayout.Tab?) {
+            checkTabPosition(tab)
             updateList(tab)
         }
 
         override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
         override fun onTabReselected(tab: TabLayout.Tab?) {
+            checkTabPosition(tab)
             updateList(tab)
+        }
+
+        private fun checkTabPosition(tab: TabLayout.Tab?) {
+            val categories = mainVM.categories?.filter { it.domain == domainId }?.size ?: return
+            when (tab?.position) {
+                0 -> binding.categoryTabs.setSelectedTabIndicator(R.drawable.background_category_first_tab_indicator)
+                (categories - 1) -> binding.categoryTabs.setSelectedTabIndicator(
+                    R.drawable.background_category_last_tab_indicator
+                )
+                else -> binding.categoryTabs.setSelectedTabIndicator(R.drawable.background_category_tab_indicator)
+            }
         }
 
         private fun updateList(tab: TabLayout.Tab?) {

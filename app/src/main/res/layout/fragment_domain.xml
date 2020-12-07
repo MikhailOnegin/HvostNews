@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/window_background"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".presentation.fragments.domains.DomainFragment">
 
@@ -13,15 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_toolbar"
+        android:elevation="@dimen/barsElevation"
         android:theme="@style/AppTheme.Toolbar"
         app:menu="@menu/menu_articles_toolbar"
         app:titleTextAppearance="@style/ToolbarTitleTextAppearance" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray4_half_opacity" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -45,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/largeMargin"
+                    android:paddingHorizontal="@dimen/screenContentPadding"
                     android:background="@android:color/transparent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -89,8 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/smallMargin"
-                android:paddingBottom="@dimen/screenContentPadding"
+                android:paddingHorizontal="@dimen/screenContentPadding"
+                android:paddingTop="@dimen/xSmallMargin"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2" />
 
