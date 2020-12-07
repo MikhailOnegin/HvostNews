@@ -2,7 +2,9 @@ package ru.hvost.news.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.text.parseAsHtml
+import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +40,14 @@ class ArticleAdapter(private val onClick: (Long) -> Unit) :
             binding.domain.text = articleItem.categoryTitle
             binding.views.text = articleItem.viewsCount
             binding.likes.text = articleItem.likesCount.toString()
+
+            binding.img.doOnLayout {
+                val width = binding.img.width
+                val height = width / 1.625F
+                val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height.toInt())
+                binding.img.layoutParams = params
+            }
+
             // TODO: setOnclickListener to like for setting like to article
             binding.root.setOnClickListener { onClick.invoke(articleItem.id) }
         }

@@ -12,11 +12,10 @@
         android:button="@drawable/checkbox_selector"
         android:buttonTint="@color/gray4"
         android:buttonTintMode="multiply"
-        android:fontFamily="@font/gilroy_medium"
+        android:fontFamily="@font/gilroy_semibold"
         android:paddingLeft="@dimen/smallMargin"
         android:text="@string/stub"
         android:textColor="@color/gray1"
-        android:textSize="@dimen/smallButtonTextSize"
-        android:textStyle="bold" />
+        android:textSize="@dimen/smallButtonTextSize" />
 
 </LinearLayout>

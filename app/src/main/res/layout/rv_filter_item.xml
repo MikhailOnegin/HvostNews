@@ -26,12 +26,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fontFamily="@font/gilroy_medium"
+            android:fontFamily="@font/gilroy_semibold"
             android:gravity="center_vertical"
             android:text="@string/stub"
             android:textColor="@color/gray1"
-            android:textSize="@dimen/smallButtonTextSize"
-            android:textStyle="bold" />
+            android:textSize="@dimen/smallButtonTextSize" />
 
         <ImageButton
             android:id="@+id/expand"
