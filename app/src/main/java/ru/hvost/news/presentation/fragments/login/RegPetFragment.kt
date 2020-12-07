@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.fragments.login
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,9 +33,18 @@ class RegPetFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
+        setTestData() //sergeev: Выпилить из релиза
         return binding.root
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setTestData() {
+        binding.apply {
+            petName.setText("Мушу")
+            promocode.setText("CVXBCV55565527")
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -172,7 +172,7 @@ fun tryFormatDate(
 }
 
 //sergeev: заменить на empty_image
-val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/test_image")
+val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/empty_image")
 
 fun getUriForBackendImagePath(imagePath: String?): Uri {
     if(imagePath == null) return emptyImageUri
@@ -199,10 +199,6 @@ fun showNotReadyToast() {
         Toast.LENGTH_SHORT
     ).show()
 }
-
-val imageRegEx = Pattern.compile("(<img.*\">)")
-val quoteRegEx = Pattern.compile("(<p>[\\s\\S.]*[^[<blockquote>]]</p>)")
-val parRegEx = Pattern.compile("(<blockquote>[\\s\\S.]*</blockquote>)")
 
 class LinearRvItemDecorations(
     sideMarginsDimension: Int? = null,

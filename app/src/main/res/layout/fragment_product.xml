@@ -132,7 +132,7 @@
             <ru.hvost.news.presentation.customviews.RoundCornersImageView
                 android:id="@+id/image"
                 style="@style/OutlinedRoundedImageViewWithShadow"
-                android:src="@drawable/test_image"
+                tools:src="@drawable/test_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/productImageHeight"
                 app:layout_constraintStart_toStartOf="parent"

@@ -17,7 +17,8 @@ data class Article(
     val shareLink: String,
     val likesCount: Int,
     val articleId: String,
-    val content: String = testArticle
+    val articleUrl: String,
+    val isLiked: Boolean = false
 )
 
 fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
@@ -38,7 +39,8 @@ fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
                 viewsCount = article.viewsCount ?: 0,
                 shareLink = article.articleUrl ?: "",
                 likesCount = article.likesCount ?: 0,
-                articleId = article.articleId ?: ""
+                articleId = article.articleId ?: "",
+                articleUrl = article.articleUrl ?: ""
             )
         )
     }

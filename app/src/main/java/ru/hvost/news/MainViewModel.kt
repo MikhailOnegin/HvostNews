@@ -532,4 +532,12 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+    private val _shareArticleEvent = MutableLiveData<Event<String>>()
+    val shareArticleEvent: LiveData<Event<String>> = _shareArticleEvent
+
+    fun sendShareArticleEvent(articleUrl: String) {
+        _shareArticleEvent.value = Event(articleUrl)
+    }
+
 }

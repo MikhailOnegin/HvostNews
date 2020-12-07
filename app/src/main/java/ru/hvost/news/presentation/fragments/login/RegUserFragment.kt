@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.fragments.login
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,13 +26,29 @@ class RegUserFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegUserBinding.inflate(inflater, container, false)
         binding.phone.filters = arrayOf(PhoneInputFilter())
         binding.password.filters = arrayOf(PasswordInputFilter())
         binding.passwordConfirm.filters = arrayOf(PasswordInputFilter())
         binding.phone.setText(getString(R.string.phonePrefix))
+        setTestData() //sergeev: Выпилить из релиза
         return binding.root
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setTestData() {
+        binding.apply {
+            surname.setText("Сергеев")
+            name.setText("Денис")
+            patronymic.setText("Витальевич")
+            phone.setText("+7-963-095-67-22")
+            email.setText("phoenix.fact@gmail.com")
+            password.setText("1234567a")
+            passwordConfirm.setText("1234567a")
+            city.setText("Магнитогорск")
+            agreement.isChecked = true
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

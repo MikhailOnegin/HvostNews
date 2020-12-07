@@ -34,7 +34,7 @@
         style="@style/UnelevatedButton.Gray"
         tools:text="18 578"
         android:text="@string/numberStub"
-        app:icon="@drawable/ic_like_outline"
+        app:icon="@drawable/ic_like_unchecked"
         app:iconTint="#7D82AF"
         app:iconGravity="textStart"
         android:layout_width="0dp"

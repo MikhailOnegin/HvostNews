@@ -1,5 +1,7 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -10,20 +12,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.button.MaterialButton
 import ru.hvost.news.App
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
-class ArticleContentAdapter :
-    ListAdapter<ArticleContent, RecyclerView.ViewHolder>(ArticleContentDiffUtilCallback()) {
+class ArticleContentAdapter(
+    private val mainVM: MainViewModel,
+    var isLiked: Boolean
+) : ListAdapter<ArticleContent, RecyclerView.ViewHolder>(ArticleContentDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
             TYPE_HEADER -> ArticleHeaderVH.getViewHolder(parent)
-            TYPE_FOOTER -> ArticleFooterVH.getViewHolder(parent)
+            TYPE_FOOTER -> ArticleFooterVH.getViewHolder(parent, mainVM, this)
             TYPE_TITLE -> ArticleTitleVH.getViewHolder(parent)
             TYPE_QUOTE -> ArticleQuoteVH.getViewHolder(parent)
             TYPE_IMAGE -> ArticleImageVH.getViewHolder(parent)
@@ -102,24 +108,50 @@ class ArticleContentAdapter :
     }
 
     class ArticleFooterVH(
-        private val binding: RvArticleFooterBinding
+        private val binding: RvArticleFooterBinding,
+        private val mainVM: MainViewModel,
+        private val adapter: ArticleContentAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(footer: ArticleFooter) {
             binding.apply {
                 buttonLike.text = moneyFormat.format(footer.likesCount)
+                buttonShare.setOnClickListener {
+                    mainVM.sendShareArticleEvent(footer.shareLink)
+                }
+                buttonLike.setOnClickListener {
+                    adapter.isLiked = !adapter.isLiked
+                    if(adapter.isLiked){
+                        (buttonLike as MaterialButton).apply {
+                            setIconResource(R.drawable.ic_like_checked)
+                            iconTint = ColorStateList.valueOf(Color.parseColor("#FF0000"))
+                            text = moneyFormat.format(footer.likesCount + 1)
+                        }
+                    } else {
+                        (buttonLike as MaterialButton).apply {
+                            setIconResource(R.drawable.ic_like_unchecked)
+                            iconTint = ColorStateList.valueOf(Color.parseColor("#7D82AF"))
+                            text = moneyFormat.format(footer.likesCount)
+                        }
+                    }
+                    //sergeev: Вызывать метод бэкенда для установки/снятия лайка.
+                }
             }
         }
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup) : ArticleFooterVH {
+            fun getViewHolder(
+                parent: ViewGroup,
+                mainVM: MainViewModel,
+                adapter: ArticleContentAdapter
+            ) : ArticleFooterVH {
                 val binding = RvArticleFooterBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return ArticleFooterVH(binding)
+                return ArticleFooterVH(binding, mainVM, adapter)
             }
 
         }
