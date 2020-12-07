@@ -55,7 +55,9 @@ class MyCouponsFragment : Fragment() {
         binding.spinnerCoupons.adapter = spinnerAdapter
         setListeners()
         setObservers(this)
-            couponVM.getCoupons("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
+        App.getInstance().userToken?.run {
+            couponVM.getCoupons(this)
+        }
         setSystemUiVisibility()
     }
 

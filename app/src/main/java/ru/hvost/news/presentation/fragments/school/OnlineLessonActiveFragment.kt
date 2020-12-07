@@ -5,8 +5,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +27,7 @@ import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.enums.State
 
 class OnlineLessonActiveFragment : Fragment() {
 
@@ -38,7 +38,7 @@ class OnlineLessonActiveFragment : Fragment() {
     private val answers = mutableMapOf<String, Boolean>()
     private val buttons = mutableListOf<Button>()
     private var literature = mutableListOf<OnlineSchools.Literature>()
-    private var videoUrl:String? = null
+    private var lesson:OnlineLessons.OnlineLesson? = null
     private var lessons:List<OnlineLessons.OnlineLesson>? = null
 
     override fun onCreateView(
@@ -61,32 +61,45 @@ class OnlineLessonActiveFragment : Fragment() {
 
     private fun setListeners() {
         binding.buttonToAnswer.setOnClickListener {
-            var passed = true
-            for (i in 0 until buttons.size){
+            for (i in 0 until buttons.size) {
                 val button = buttons[i]
                 button.isEnabled = false
                 val answer = answers[button.text.toString()]
                 answer?.run {
-                    if(this){
-                        button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+                    if (this) {
+                        button.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+                        button.setTextColor(resources.getColor(android.R.color.white))
+                    } else {
+                        button.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
                         button.setTextColor(resources.getColor(android.R.color.white))
                     }
-                    else{
-                        button.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
-                        button.setTextColor(resources.getColor(android.R.color.white))
-                    }
                 }
-                (it as Button).text = resources.getString(R.string.next_lesson)
-                it.setOnClickListener {
-                    Toast.makeText(requireContext(),"next Lesson", Toast.LENGTH_SHORT).show()
-                }
-                lessonId?.run {
-                    schoolVM.setLessonTestesPassed("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==", this.toLong())
-                }
-        }
+            }
+            lessonId?.run {
+                schoolVM.setLessonTestesPassed(
+                    "eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==",
+                    this.toLong()
+                )
+            }
 
+
+        }
+            binding.imageViewPlay.setOnClickListener {
+
+                lesson?.videoUrl?.run {
+
+                    val newIntent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(this)
+                    )
+                    startActivity(newIntent)
+                }
+            }
         binding.constraintVideo.setOnClickListener {
-            videoUrl?.run {
+
+            lesson?.videoUrl?.run {
                 val newIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(this)
@@ -98,24 +111,43 @@ class OnlineLessonActiveFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-    }
+
     }
 
     private fun setObservers(owner: LifecycleOwner) {
+
+        schoolVM.lessonTestesPassedState.observe(owner, Observer {
+
+                binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
+                binding.buttonToAnswer.setOnClickListener {
+                    lessons?.let {
+                        for (i in it.indices){
+                            if (i < it.size-1){
+                                val lesson = it[i+1]
+                                lessonId?.let {
+                                }
+                            }
+                        }
+
+                    }
+            }
+
+        })
         schoolVM.onlineLessons.observe(owner, Observer {
             lessons = it.lessons
             lessonId?.run {
                 for (i in it.lessons.indices){
-                    val lesson = it.lessons[i]
-                    if(lesson.lessonId == this){
-                        binding.textViewTitle.text = lesson.lessonTitle
-                        val lessonNumber = "${getString(R.string.lesson_number)} ${lesson.lessonNumber}"
+                    val onlineLesson = it.lessons[i]
+                    if(onlineLesson.lessonId == this){
+                        lesson = onlineLesson
+                        binding.textViewTitle.text = onlineLesson.lessonTitle
+                        val lessonNumber = "${getString(R.string.lesson_number)} ${onlineLesson.lessonNumber}"
                         binding.textViewLessonNumber.text = lessonNumber
-                        binding.textViewQuestion.text = lesson.testQuestion
+                        binding.textViewQuestion.text = onlineLesson.testQuestion
 
                         val container = binding.linearLayoutAnswerOptions
-                        for (i in lesson.answersList.indices) {
-                            val answer = lesson.answersList[i]
+                        for (i in onlineLesson.answersList.indices) {
+                            val answer = onlineLesson.answersList[i]
                             answers[answer.answer] = answer.isTrue
                             val view = LayoutOnlineLessonOptionBinding.inflate(
                                 LayoutInflater.from(requireContext()),

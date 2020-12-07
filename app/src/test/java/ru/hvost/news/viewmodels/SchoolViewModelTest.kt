@@ -72,7 +72,7 @@ class SchoolViewModelTest {
     @Test
     fun setLessonsTestesPassed(){
         schoolVmTest.setLessonTestesPassed("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ", lessonId)
-        val result = schoolVmTest.setLessonTestesPassedState.getOrAwaitValueTest2(
+        val result = schoolVmTest.lessonTestesPassedState.getOrAwaitValueTest2(
             time = timeout,
             condition = {t:State? -> t != State.LOADING}
         )
