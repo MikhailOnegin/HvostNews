@@ -23,7 +23,7 @@ class RegParentFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegParentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,16 +35,6 @@ class RegParentFragment : Fragment() {
         registrationVM.interests.observe(viewLifecycleOwner) { onInterestsChanged(it) }
         if(registrationVM.species.value?.isEmpty() == true) registrationVM.loadSpecies()
         if(registrationVM.interests.value?.isEmpty() == true) registrationVM.loadInterests()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setSystemUi()
-    }
-
-    private fun setSystemUi() {
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.windowBackgroundTopGradientColor)
     }
 
     override fun onDestroy() {

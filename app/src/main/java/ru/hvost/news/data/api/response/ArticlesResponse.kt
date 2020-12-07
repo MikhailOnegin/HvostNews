@@ -5,6 +5,7 @@ data class ArticlesResponse(
     val articles: List<Article>?
 ) {
     data class Article(
+        val articleId: String?,
         val domainId: String?,
         val domainTitle: String?,
         val domainIcon: String?,
@@ -14,7 +15,7 @@ data class ArticlesResponse(
         val imageUrl: String?,
         val shortDescription: String?,
         val description: String?,
-        val viewsCount: String?,
+        val viewsCount: Int?,
         val articleUrl: String?,
         val likesCount: Int?
     )

@@ -13,9 +13,11 @@ data class Article(
     val imageUrl: String,
     val shortDescription: String,
     val description: String,
-    val viewsCount: String,
+    val viewsCount: Int,
     val shareLink: String,
-    val likesCount: Int
+    val likesCount: Int,
+    val articleId: String,
+    val content: String = testArticle
 )
 
 fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
@@ -33,9 +35,10 @@ fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
                 imageUrl = article.imageUrl ?: "",
                 shortDescription = article.shortDescription ?: "",
                 description = article.description ?: "",
-                viewsCount = article.viewsCount ?: "",
+                viewsCount = article.viewsCount ?: 0,
                 shareLink = article.articleUrl ?: "",
-                likesCount = article.likesCount ?: 0
+                likesCount = article.likesCount ?: 0,
+                articleId = article.articleId ?: ""
             )
         )
     }

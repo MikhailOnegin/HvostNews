@@ -15,12 +15,13 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentLoginBinding
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.hasTooLongField
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     private lateinit var authorizationVM: AuthorizationVM
     private lateinit var binding: FragmentLoginBinding

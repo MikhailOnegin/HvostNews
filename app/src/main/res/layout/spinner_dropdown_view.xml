@@ -7,13 +7,16 @@
 
     <TextView
         android:id="@+id/spinnerText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/smallMargin"
         android:text="@string/stub"
         android:textAppearance="@style/RegTextTextAppearance"
-        android:textColor="@color/TextColorSecondary"
+        android:textColor="@color/TextColorPrimary"
+        android:textSize="@dimen/spinnerDropdownItemTextSize"
+        android:fontFamily="@font/gilroy_semibold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/normalMargin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

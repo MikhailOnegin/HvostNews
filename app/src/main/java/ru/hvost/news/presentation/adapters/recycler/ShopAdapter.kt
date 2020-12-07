@@ -17,9 +17,14 @@ import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
 class ShopAdapter(
-    private val fullList: List<ShopItem>,
     private val onClick: (Long) -> Unit
 ) : ListAdapter<ShopItem, RecyclerView.ViewHolder>(ShopItemDiffUtilCallback()) {
+
+    private var fullList: List<ShopItem>? = null
+
+    fun setFullList(fullList: List<ShopItem>) {
+        this.fullList = fullList
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
@@ -56,13 +61,28 @@ class ShopAdapter(
             val list = currentList.toMutableList()
             list.addAll(
                 position + 1,
-                fullList.filter { it.categoryId == category.id }
+                fullList?.filter { it.categoryId == category.id } ?: listOf()
             )
             list
         } else {
             currentList.filter { it.categoryId != category.id }
         }
         submitList(newList)
+    }
+
+    fun submitList(list: List<ShopItem>?, isAfterChanging: Boolean = false) {
+        when {
+            currentList.isNullOrEmpty() -> super.submitList(list)
+            isAfterChanging -> {
+                val newList = list?.filter { new ->
+                    currentList.firstOrNull {  old ->
+                        new.id == old.id
+                    } != null
+                }
+                super.submitList(newList)
+            }
+            else -> super.submitList(list)
+        }
     }
 
     class CategoryVH(

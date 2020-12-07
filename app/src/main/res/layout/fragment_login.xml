@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/window_background"
+    android:background="@android:color/white"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
+        android:background="@drawable/background_toolbar"
+        android:elevation="0dp"
         android:theme="@style/AppTheme.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

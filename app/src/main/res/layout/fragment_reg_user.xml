@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
+    android:background="@android:color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/window_background"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/windowBackgroundTopGradientColor">
@@ -16,6 +17,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
+            android:background="@drawable/background_toolbar"
             android:theme="@style/AppTheme.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,6 +150,7 @@
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:hint="@string/hintPhone">
 
+                <!-- sergeev: Устанавливать курсор в конец. -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
                     android:layout_width="match_parent"

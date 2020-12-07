@@ -158,4 +158,16 @@
     <dimen name="productPriceTextSize">24sp</dimen>
     <dimen name="productOldPriceTextSize">16sp</dimen>
     <dimen name="subdomainTabTextSize">14sp</dimen>
+    <dimen name="articleDetailTitleTextSize">30sp</dimen>
+    <dimen name="articleIconCorners">12dp</dimen>
+    <dimen name="articleIconPadding">10dp</dimen>
+    <dimen name="articleIconSize">40dp</dimen>
+    <dimen name="articleDateTextSize">16sp</dimen>
+    <dimen name="articleChipsTextSize">16sp</dimen>
+    <dimen name="chipsStrokeWidth">3dp</dimen>
+    <dimen name="maxChipsWidth">100dp</dimen>
+    <dimen name="viewsIconSize">32dp</dimen>
+    <dimen name="articleTextSize">18sp</dimen>
+    <dimen name="articleContentTitleTextSize">26sp</dimen>
+    <dimen name="spinnerDropdownItemTextSize">18sp</dimen>
 </resources>

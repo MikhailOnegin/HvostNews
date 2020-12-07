@@ -21,6 +21,7 @@ class ShopFragment : BaseFragment() {
 
     private lateinit var binding: FragmentShopBinding
     private lateinit var cartVM: CartViewModel
+    private lateinit var adapter: ShopAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +29,10 @@ class ShopFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentShopBinding.inflate(inflater, container, false)
+        if(!::adapter.isInitialized) {
+            adapter = ShopAdapter(onProductClicked)
+        }
+        binding.recyclerView.adapter = adapter
         return binding.root
     }
 
@@ -82,9 +87,10 @@ class ShopFragment : BaseFragment() {
 
     private fun onShopItemsChanged(shopItems: List<ShopItem>?) {
         shopItems?.run {
-            val adapter = ShopAdapter(this, onProductClicked)
-            adapter.submitList(this)
-            binding.recyclerView.adapter = adapter
+            (binding.recyclerView.adapter as ShopAdapter).let {
+                it.setFullList(this)
+                it.submitList(this, isAfterChanging = true)
+            }
         }
     }
 
