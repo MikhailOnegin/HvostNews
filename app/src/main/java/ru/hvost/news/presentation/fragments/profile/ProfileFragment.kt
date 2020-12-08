@@ -17,6 +17,7 @@ import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentProfileBinding
+import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.PetAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
@@ -141,6 +142,7 @@ class ProfileFragment : Fragment() {
         binding.vouchers.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_vouchersFragment)
         }
+        binding.logout.setOnClickListener { (requireActivity() as MainActivity).userLogOut() }
     }
 
     private fun setRecyclerView() {

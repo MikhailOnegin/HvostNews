@@ -11,14 +11,24 @@ data class Pets(
     val breedName: String,
     val petBirthday: String,
     val petDelicies: String,
-    val petToy: String,
+    val petToy: List<Toy>,
     val petBadHabbit: String,
     val petChip: String,
     val isPetForShows: Boolean,
     val isSportsPet: Boolean,
     val hasTitles: Boolean,
     val visitsSaloons: Boolean,
-    val petEducation: String
+    val petEducation: List<Education>
+)
+
+data class Toy(
+    val toyId: String,
+    val name: String
+)
+
+data class Education(
+    val educationId: String?,
+    val name: String?
 )
 
 fun List<PetsResponse.Pet>.toPets(): List<Pets> {
@@ -34,14 +44,24 @@ fun List<PetsResponse.Pet>.toPets(): List<Pets> {
                 breedName = pet.breedName ?: "",
                 petBirthday = pet.petBirthday ?: "",
                 petDelicies = pet.petDelicies ?: "",
-                petToy = pet.petToy ?: "",
+                petToy = pet.petToy?.map {
+                    Toy(
+                        toyId = it.toyId ?: "",
+                        name = it.name ?: ""
+                    )
+                } ?: listOf(),
                 petBadHabbit = pet.petBadHabbit ?: "",
                 petChip = pet.petChip ?: "",
                 isPetForShows = pet.isPetForShows ?: false,
                 isSportsPet = pet.isSportsPet ?: false,
                 hasTitles = pet.hasTitles ?: false,
                 visitsSaloons = pet.visitsSaloons ?: false,
-                petEducation = pet.petEducation ?: ""
+                petEducation = pet.petEducation?.map {
+                    Education(
+                        educationId = it.educationId,
+                        name = it.name
+                    )
+                } ?: listOf()
             )
         )
     }

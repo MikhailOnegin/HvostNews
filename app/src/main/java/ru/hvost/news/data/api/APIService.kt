@@ -45,6 +45,12 @@ interface APIService {
         @Query("password") password: String
     ): Deferred<RegisterUserResponse>
 
+    @GET("/rest/PetProfile/getPetToys/")
+    fun getPetToysAsync(): Deferred<PetToysResponse>
+
+    @GET("/rest/PetProfile/getPetEducation/")
+    fun getPetEducationAsync(): Deferred<PetEducationResponse>
+
     @GET("/rest/Basket/getCart/")
     fun getCartAsync(
         @Query("userToken") userToken: String?

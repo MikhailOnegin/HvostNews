@@ -32,9 +32,9 @@
     </style>
 
     <style name="ProfileTitleTextView">
-        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:textColor">@color/gray4</item>
-        <item name="android:textSize">@dimen/textTitleSize</item>
+        <item name="android:textSize">@dimen/profileHintTextSize</item>
     </style>
 
     <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
@@ -80,6 +80,15 @@
         <item name="boxStrokeWidthFocused">1dp</item>
     </style>
 
+    <style name="ProfileTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/EditTextTextColorHints</item>
+        <item name="hintTextColor">@color/EditTextTextColorHints</item>
+        <item name="boxStrokeColor">@color/edit_text_box_stroke_color</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="hintTextAppearance">@style/ProfileTitleTextHintTextAppearance</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+    </style>
+
     <style name="TextInputEditText">
         <item name="android:textColor">@color/TextColorPrimary</item>
         <item name="android:imeOptions">actionNext</item>
@@ -99,6 +108,11 @@
     <style name="EditTextHintTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/gilroy_bold</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ProfileTitleTextHintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textSize">@dimen/profileHintTextSize</item>
     </style>
 
     <style name="ScreenTitle">

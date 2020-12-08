@@ -68,6 +68,16 @@ class MainViewModel : ViewModel() {
     private val _articleIsLiked = MutableLiveData<AddLikedByUserResponse>()
     val articleIsLiked: LiveData<AddLikedByUserResponse> = _articleIsLiked
 
+    private val _petToysLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petToysLoadingEvent: LiveData<NetworkEvent<State>> = _petToysLoadingEvent
+    private val _petToys = MutableLiveData<List<Toys>>()
+    val petToys: LiveData<List<Toys>> = _petToys
+
+    private val _petEducationLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petEducationLoadingEvent: LiveData<NetworkEvent<State>> = _petEducationLoadingEvent
+    private val _petEducation = MutableLiveData<List<PetEducation>>()
+    val petEducation: LiveData<List<PetEducation>> = _petEducation
+
     //Событие, сообщающее о необходимости закрытия инструкций.
     val closeInstructionsEvent = MutableLiveData<OneTimeEvent>()
 
@@ -92,6 +102,8 @@ class MainViewModel : ViewModel() {
         getPrizeCategories()
         updateVouchers(App.getInstance().userToken)
         loadInterests()
+        loadPetToys()
+        loadPetEducation()
     }
 
     fun getBonusBalance() {
@@ -401,6 +413,44 @@ class MainViewModel : ViewModel() {
                 }
             } catch (exc: Exception) {
                 _articleViewedLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    private fun loadPetEducation() {
+        viewModelScope.launch {
+            _petEducationLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.getPetEducationAsync().await()
+                if (result.result == "success") {
+                    _petEducationLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                    _petEducation.value = result.educations?.toEducation()
+                } else {
+                    _petEducationLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _petEducation.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petEducationLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petEducation.value = listOf()
+            }
+        }
+    }
+
+    private fun loadPetToys() {
+        viewModelScope.launch {
+            _petToysLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.getPetToysAsync().await()
+                if (result.result == "success") {
+                    _petToysLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                    _petToys.value = result.toys?.toToys()
+                } else {
+                    _petToysLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _petToys.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petToysLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petToys.value = listOf()
             }
         }
     }

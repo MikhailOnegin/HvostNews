@@ -377,4 +377,7 @@
     <string name="productTabContraindication">Противопоказания</string>
     <string name="productArticleTitle">Артикул:</string>
     <string name="petPassportButton">Паспорт</string>
+    <string name="cancelChanges">Отменить изменения</string>
+    <string name="push">Получать push-уведомления</string>
+    <string name="email_notification">Получать уведомления на email</string>
 </resources>

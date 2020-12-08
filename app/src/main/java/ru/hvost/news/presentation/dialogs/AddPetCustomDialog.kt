@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
@@ -40,8 +42,19 @@ class AddPetCustomDialog() : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener {
+            val behavior = (dialog as BottomSheetDialog).behavior
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.skipCollapsed = true
+        }
+        return dialog
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         mainVM.addPetEvent.observe(viewLifecycleOwner, onPetAdded)
+        binding.sexUnknown.isSelected = true
         setObservers()
         setListeners()
         super.onActivityCreated(savedInstanceState)

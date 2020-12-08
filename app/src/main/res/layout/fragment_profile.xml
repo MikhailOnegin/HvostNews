@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windowBackground"
+    android:background="@drawable/window_background"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".presentation.fragments.profile.ProfileFragment">
@@ -21,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_semibold"
             android:text="@string/bnvProfile"
             android:textAppearance="@style/ToolbarTitleTextAppearance"
             android:textColor="@color/gray1" />
@@ -279,6 +278,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.1"
                         android:padding="@dimen/xSmallMargin"
+                        android:background="@drawable/ripple_button"
                         android:src="@drawable/ic_plus" />
 
                 </LinearLayout>
@@ -322,7 +322,9 @@
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
                     android:clipToPadding="false"
-                    android:padding="@dimen/orderButtonPadding"
+                    android:paddingTop="@dimen/orderButtonPadding"
+                    android:paddingHorizontal="@dimen/orderButtonPadding"
+                    android:paddingBottom="@dimen/smallMargin"
                     app:layout_constraintBottom_toTopOf="@+id/allOrders"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
