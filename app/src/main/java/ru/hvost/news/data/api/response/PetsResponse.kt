@@ -7,19 +7,30 @@ data class PetsResponse(
     data class Pet(
         val petId: String?,
         val petName: String?,
+        val isArchived: Boolean?,
         val petSpecies: String?,
         val petSex: String?,
         val petBreed: String?,
         val breedName: String?,
         val petBirthday: String?,
         val petDelicies: String?,
-        val petToy: String?,
+        val petToy: List<Toy>?,
         val petBadHabbit: String?,
         val petChip: String?,
         val isPetForShows: Boolean?,
         val isSportsPet: Boolean?,
         val hasTitles: Boolean?,
         val visitsSaloons: Boolean?,
-        val petEducation: String?
-    )
+        val petEducation: List<Education>?
+    ){
+        data class Toy(
+            val toyId: String?,
+            val name: String?
+        )
+
+        data class Education(
+            val educationId: String?,
+            val name: String?
+        )
+    }
 }

@@ -15,7 +15,6 @@
         android:background="@android:color/white"
         android:elevation="@dimen/barsElevation"
         android:theme="@style/AppTheme.Toolbar"
-        app:menu="@menu/menu_articles_toolbar"
         app:navigationIcon="@drawable/ic_back">
 
         <TextView

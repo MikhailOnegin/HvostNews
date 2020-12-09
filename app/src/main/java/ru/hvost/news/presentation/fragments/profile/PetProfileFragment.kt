@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.fragments.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,19 +10,24 @@ import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPetProfileBinding
-import ru.hvost.news.models.Breeds
-import ru.hvost.news.models.Species
+import ru.hvost.news.models.*
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PetProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentPetProfileBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var onPetToysLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onPetEducationLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,14 +40,28 @@ class PetProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        initializeEventObservers()
         setObservers()
         setListeners()
+    }
+
+    private fun initializeEventObservers() {
+        onPetToysLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { onPetToysChanged(mainVM.petToys.value) }
+        )
+        onPetEducationLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { onPetEducationChanged(mainVM.petEducation.value) }
+        )
     }
 
     private fun setListeners() {
         binding.sexMale.setOnClickListener(onSexClicked)
         binding.sexFemale.setOnClickListener(onSexClicked)
         binding.sexUnknown.setOnClickListener(onSexClicked)
+        binding.birthday.setOnClickListener(openDatePickerDialog)
+        binding.passport.setOnClickListener { findNavController().navigate(R.id.action_petProfileFragment_to_petPassportFragment) }
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.delete.setOnClickListener {
             val petData =
@@ -53,6 +73,20 @@ class PetProfileFragment : Fragment() {
             }
         }
         setSpinnerListener()
+    }
+
+    private val openDatePickerDialog = View.OnClickListener { showDatePicker() }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun showDatePicker() {
+        val myFormat = "dd.MM.yyyy"
+        val sdf = SimpleDateFormat(myFormat)
+        ru.hvost.news.presentation.dialogs.DatePickerDialog(
+            onDateSelected = {
+                binding.birthday.setText(sdf.format(it.time))
+            },
+            maxDate = Date()
+        ).show(childFragmentManager, "date_picker")
     }
 
     private fun setSpinnerListener() {
@@ -95,6 +129,8 @@ class PetProfileFragment : Fragment() {
         mainVM.userPetsState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
         mainVM.petsSpeciesResponse.observe(viewLifecycleOwner) { onSpeciesChanged(it) }
         mainVM.petsBreedsResponse.observe(viewLifecycleOwner) { setBreeds(it) }
+        mainVM.petToysLoadingEvent.observe(viewLifecycleOwner, onPetToysLoadingEvent)
+        mainVM.petEducationLoadingEvent.observe(viewLifecycleOwner, onPetEducationLoadingEvent)
     }
 
     private fun onPetSexChanged(petSex: Int?) {
@@ -117,6 +153,32 @@ class PetProfileFragment : Fragment() {
                 Species::speciesName
             )
             binding.type.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun onPetEducationChanged(education: List<PetEducation>?) {
+        education?.run {
+            val adapter = SpinnerAdapter(
+                requireActivity(),
+                getString(R.string.education),
+                this,
+                PetEducation::name
+            )
+            binding.education.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun onPetToysChanged(toys: List<Toys>?) {
+        toys?.run {
+            val adapter = SpinnerAdapter(
+                requireActivity(),
+                getString(R.string.toy),
+                this,
+                Toys::name
+            )
+            binding.favToy.adapter = adapter
             adapter.notifyDataSetChanged()
         }
     }
@@ -153,6 +215,10 @@ class PetProfileFragment : Fragment() {
         binding.delicious.setText(petData[0].petDelicies)
         binding.badHabit.setText(petData[0].petBadHabbit)
         binding.chip.setText(petData[0].petChip)
+        binding.switchSaloons.isChecked = petData[0].visitsSaloons
+        binding.switchShows.isChecked = petData[0].isPetForShows
+        binding.switchSport.isChecked = petData[0].isSportsPet
+        binding.switchTitules.isChecked = petData[0].hasTitles
         onPetSexChanged(petData[0].petSex.toInt())
     }
 }

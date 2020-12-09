@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/windowBackground"
+    android:background="@drawable/window_background"
     android:orientation="vertical"
     tools:context=".presentation.fragments.profile.PetProfileFragment">
 
@@ -20,11 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_medium"
             android:text="@string/petProfileTitle"
             android:textAppearance="@style/ToolbarTitleTextAppearance"
-            android:textColor="@color/gray1"
-            android:textStyle="bold" />
+            android:textColor="@color/gray1" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -47,13 +45,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayout"
+                    style="@style/ProfileTextInputLayout"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/smallMargin"
                     android:layout_weight="1"
                     android:hint="@string/petName"
@@ -63,9 +62,7 @@
                         android:id="@+id/name"
                         style="@style/TextInputEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_medium"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,13 +70,13 @@
                     android:id="@+id/passport"
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/ButtonHeight"
+                    android:layout_marginTop="@dimen/xSmallMargin"
                     android:layout_weight="0.5"
                     android:backgroundTint="@color/gray4_half_opacity"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_bold"
                     android:text="@string/petPassportButton"
                     android:textAllCaps="false"
-                    android:textStyle="bold"
                     app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
             </LinearLayout>
@@ -93,7 +90,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/regSexHeight"
-                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginTop="@dimen/xLargeMargin"
                 android:layout_marginBottom="@dimen/normalMargin"
                 android:orientation="horizontal">
 
@@ -126,12 +123,6 @@
 
             </LinearLayout>
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/breed" />
-
             <Spinner
                 android:id="@+id/breed"
                 style="@style/RegSpinner"
@@ -140,7 +131,7 @@
                 android:layout_marginBottom="@dimen/smallMargin" />
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -156,14 +147,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:focusable="false"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:focusable="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -174,17 +163,9 @@
                     android:id="@+id/delicious"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/toy" />
 
             <!--TODO: Игрушка       -->
             <Spinner
@@ -192,11 +173,10 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:entries="@array/testItems" />
+                android:layout_marginBottom="@dimen/smallMargin" />
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -207,14 +187,12 @@
                     android:id="@+id/badHabit"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -225,9 +203,7 @@
                     android:id="@+id/chip"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -244,11 +220,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center_vertical"
                     android:text="@string/presentations"
                     android:textColor="@color/gray1"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/profileSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_shows"
@@ -272,11 +248,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center_vertical"
                     android:text="@string/titules"
                     android:textColor="@color/gray1"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/profileSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_titules"
@@ -300,11 +276,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center_vertical"
                     android:text="@string/sport"
                     android:textColor="@color/gray1"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/profileSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_sport"
@@ -328,11 +304,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center_vertical"
                     android:text="@string/saloons"
                     android:textColor="@color/gray1"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/profileSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_saloons"
@@ -346,20 +322,13 @@
 
             </LinearLayout>
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/education" />
-
             <!--TODO: образование       -->
             <Spinner
                 android:id="@+id/education"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:entries="@array/testItems" />
+                android:layout_marginBottom="@dimen/largeMargin" />
 
             <!--TODO: кнопка сохранить       -->
             <Button
@@ -368,7 +337,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/saveChanges" />
+                android:fontFamily="@font/gilroy_bold"
+                android:text="@string/saveChanges"
+                android:textSize="@dimen/buttonMediumTextSize" />
 
             <!--TODO: кнопка отмены        -->
 
@@ -378,10 +349,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
                 android:backgroundTint="@color/gray4_half_opacity"
-                android:fontFamily="@font/gilroy_medium"
-                android:text="@string/cancel"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="@string/cancelChanges"
                 android:textAllCaps="false"
-                android:textStyle="bold"
+                android:textSize="@dimen/buttonMediumTextSize"
                 app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
             <Button
@@ -389,13 +360,12 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
+                android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/delete"
-                android:backgroundTint="@android:color/white"
                 android:textAllCaps="false"
                 android:textColor="@color/titleText"
-                android:textSize="@dimen/ButtonTextSize"
-                android:textStyle="bold"
+                android:textSize="@dimen/buttonMediumTextSize"
                 app:cornerRadius="@dimen/userProfileButtonLargeRadius"
                 app:layout_constraintTop_toBottomOf="@+id/work"
                 app:strokeColor="@color/btnStroke"
