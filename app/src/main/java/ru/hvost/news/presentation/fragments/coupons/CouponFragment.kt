@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -57,7 +58,7 @@ class CouponFragment : Fragment() {
                 if(coupon.couponId == couponId ){
                     binding.textViewCode1.text = coupon.qrCode
                     binding.textViewCode2.text = coupon.qrCode
-                    Glide.with(requireContext()).load(baseUrl + coupon.qrCodeUrl)
+                    Glide.with(requireContext()).load(coupon.qrCodeUrl)
                         .placeholder(R.drawable.not_found)
                         .into(binding.imageViewCoupon)
                     binding.textViewCouponTitle.text = coupon.title
@@ -71,7 +72,7 @@ class CouponFragment : Fragment() {
                         binding.textViewCouponStatus.text = "Активный"
                         binding.textViewCouponStatus.background = resources.getDrawable(R.drawable.background_coupon_status_true)
                     }
-                    binding.textViewCouponDescription.text = coupon.description
+                    binding.textViewCouponDescription.text = coupon.description.parseAsHtml()
                 }
             }
         })

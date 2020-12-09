@@ -7,7 +7,7 @@ data class CouponInfo(
     val description: String
 )
 
-fun CouponInfoResponse.toOfflineLessons(): CouponInfo {
+fun CouponInfoResponse.toCouponsInfo(): CouponInfo {
     return CouponInfo(
         imageUrl = this.imageUrl ?: "",
         description = this.description ?: ""

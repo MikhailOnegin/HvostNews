@@ -82,7 +82,7 @@
                         app:srcCompat="@drawable/default_image" />
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/imageViewPlay"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView4"

@@ -206,10 +206,8 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<CouponsResponse>
 
-    @GET("/rest/School/getOnlineLessons/")
-    fun getCouponsInfoAsync(
-        @Query("userToken") userToken: String?
-    ): Deferred<CouponInfoResponse>
+    @GET("/rest/Coupons/getCouponsInfo/")
+    fun getCouponsInfoAsync(): Deferred<CouponInfoResponse>
 
     @GET("/rest/PetProfile/getPets/")
     fun getPetsAsync(
@@ -264,7 +262,7 @@ interface APIService {
         private val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
-        const val baseUrl = "http://hvost-news.testfact3.ru"
+            const val baseUrl = "http://hvost-news.testfact3.ru"
 
         val API: APIService by lazy {
             val okHttpClient = OkHttpClient.Builder()
