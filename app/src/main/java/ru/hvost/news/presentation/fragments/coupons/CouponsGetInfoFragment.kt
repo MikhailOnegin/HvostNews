@@ -2,10 +2,12 @@ package ru.hvost.news.presentation.fragments.coupons
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -34,7 +36,7 @@ class CouponsGetInfoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
-        couponVM.getCouponsInfo("eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==")
+        couponVM.getCouponsInfo()
         navC = findNavController()
         setListeners()
         setObservers()
@@ -50,8 +52,8 @@ class CouponsGetInfoFragment : Fragment() {
 
     private fun setObservers() {
         couponVM.couponsInfo.observe(viewLifecycleOwner, Observer {
-            binding.textViewGetCouponsInfo.text = it.description
-            Glide.with(requireContext()).load(baseUrl + it.imageUrl)
+            binding.textViewGetCouponsInfo.text = it.description.parseAsHtml()
+            Glide.with(requireContext()).load(it.imageUrl)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(binding.imageViewInfoGetCoupons)
         })

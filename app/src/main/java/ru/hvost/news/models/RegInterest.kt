@@ -16,7 +16,7 @@ data class RegInterest(
 fun List<InterestsResponse.Interest>?.toRegistrationInterests(): List<RegInterest> {
     val result = mutableListOf<RegInterest>()
     this?.run {
-        result.addAll(distinctBy { it.categoryId }.mapIndexed { index, interest ->
+        result.addAll(filter { it.id == it.categoryId }.mapIndexed { index, interest ->
             val imageUri = if(!interest.imageUrl.isNullOrBlank()){
                 Uri.parse(APIService.baseUrl + interest.imageUrl)
             }else emptyImageUri

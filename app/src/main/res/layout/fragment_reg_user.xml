@@ -63,7 +63,7 @@
                     app:layout_constraintTop_toBottomOf="@id/title"
                     android:layout_marginTop="@dimen/smallMargin"
                     android:progressBackgroundTint="@color/progressBackgroundTint"
-                    android:progressDrawable="@drawable/progress"
+                    android:progressDrawable="@drawable/progress_registration"
                     android:layout_marginStart="@dimen/largeMargin"
                     android:layout_marginEnd="@dimen/largeMargin"/>
 

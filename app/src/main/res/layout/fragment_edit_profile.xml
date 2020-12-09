@@ -43,10 +43,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/screenContentPadding">
+            android:paddingHorizontal="@dimen/largeMargin"
+            android:paddingVertical="@dimen/screenContentPadding">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -57,14 +58,12 @@
                     android:id="@+id/surname"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -75,14 +74,12 @@
                     android:id="@+id/name"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -93,14 +90,12 @@
                     android:id="@+id/patronymic"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -116,14 +111,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:focusable="false"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:focusable="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone"
@@ -133,23 +126,24 @@
                     android:id="@+id/phone"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/normalMargin"
-                android:fontFamily="@font/gilroy_medium"
-                android:paddingStart="@dimen/xSmallMargin"
+                android:layout_marginBottom="@dimen/xLargeMargin"
+                android:fontFamily="@font/gilroy_semibold"
+                android:paddingHorizontal="@dimen/xSmallMargin"
+                android:layout_marginTop="@dimen/xSmallMargin"
+                android:lineSpacingMultiplier="1.2"
                 android:text="@string/phoneHint"
-                android:textColor="@color/TextColorSecondary" />
+                android:textColor="@color/gray2"
+                android:textSize="@dimen/secondaryTextTextSize" />
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -160,14 +154,12 @@
                     android:id="@+id/email"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
@@ -178,19 +170,76 @@
                     android:id="@+id/city"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:gravity="center_vertical"
+                    android:text="@string/push"
+                    android:textColor="@color/gray1"
+                    android:textSize="@dimen/profileSubtitleTextSize" />
+
+                <Switch
+                    android:id="@+id/switch_push"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:thumb="@drawable/ic_baseline_brightness_1_24"
+                    android:track="@drawable/track_selector" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginBottom="@dimen/largeMargin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:gravity="center_vertical"
+                    android:text="@string/email_notification"
+                    android:textColor="@color/gray1"
+                    android:textSize="@dimen/profileSubtitleTextSize" />
+
+                <Switch
+                    android:id="@+id/switch_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:thumb="@drawable/ic_baseline_brightness_1_24"
+                    android:track="@drawable/track_selector" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/save"
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
-                android:fontFamily="@font/gilroy_medium"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:fontFamily="@font/gilroy_bold"
                 android:text="@string/saveChanges"
+                android:textSize="@dimen/buttonMediumTextSize"
                 android:textStyle="bold" />
 
             <Button
@@ -199,9 +248,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
                 android:backgroundTint="@color/gray4_half_opacity"
-                android:fontFamily="@font/gilroy_medium"
+                android:fontFamily="@font/gilroy_bold"
                 android:text="@string/cancel"
                 android:textAllCaps="false"
+                android:textSize="@dimen/buttonMediumTextSize"
                 android:textStyle="bold"
                 app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 

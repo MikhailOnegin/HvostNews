@@ -19,11 +19,11 @@ import ru.hvost.news.models.OnlineSchools
 class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var school:OnlineSchools.OnlineSchool? = null
-    private var lessons = arrayListOf<OnlineLessons.OnlineLesson>()
+    private var onlineLessons = arrayListOf<OnlineLessons.OnlineLesson>()
     var onClickLessonActive: OnClickLessonActive? = null
     var onClickLessonFinished: OnClickLessonFinished? = null
     var onClickLiterature: OnClickLiterature? = null
-    private var firstActiveLesson = true
+    private var firstActiveLessonId:String? = null
 
     interface OnClickLessonActive {
         fun onClick(lessonId:String)
@@ -37,8 +37,14 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
-        this.lessons = lessons.toCollection(ArrayList())
-        this.firstActiveLesson = true
+        for(i in lessons.indices){
+            val firstActiveLesson = lessons[i]
+            if(!firstActiveLesson.isFinished){
+                this.firstActiveLessonId = firstActiveLesson.lessonId
+                break
+            }
+        }
+        this.onlineLessons = lessons.toCollection(ArrayList())
         notifyDataSetChanged()
     }
 
@@ -65,9 +71,9 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position >= lessons.size) TYPE_USEFUL_LITERATURE
+        return if (position >= onlineLessons.size) TYPE_USEFUL_LITERATURE
         else {
-            if(!lessons[position].isFinished){
+            if(!onlineLessons[position].isFinished){
                 TYPE_LESSON_ACTIVE
             } else{
                 TYPE_LESSON_FINISHED
@@ -76,17 +82,17 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun getItemCount(): Int {
-        return lessons.size + 1
+        return onlineLessons.size + 1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is LessonActiveViewHolder -> {
-                val lesson = lessons[position]
+                val lesson = onlineLessons[position]
                 holder.bind(lesson)
             }
             is LessonFinishedViewHolder -> {
-                val lesson = lessons[position]
+                val lesson = onlineLessons[position]
                 holder.bind(lesson)
             }
             is UsefulLiteratureViewHolder -> holder.bind(school)
@@ -106,13 +112,15 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             tVTittle.text = lesson.lessonTitle
             val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
             tVAge.text = age
-            if (firstActiveLesson) {
-                iVGo.visibility = View.VISIBLE
-                constraint.setOnClickListener {
-                    onClickLessonActive?.onClick(lesson.lessonId)
+            firstActiveLessonId?.run {
+                if (this == lesson.lessonId) {
+                    iVGo.visibility = View.VISIBLE
+                    constraint.setOnClickListener {
+                        onClickLessonActive?.onClick(lesson.lessonId)
+                    }
                 }
-                firstActiveLesson = false
             }
+
 
         }
     }
@@ -131,7 +139,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     inner class UsefulLiteratureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
                 val container = itemView.linearLayout_literature

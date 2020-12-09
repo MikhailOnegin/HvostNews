@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windowBackground"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".presentation.fragments.domains.SubDomainFragment">
 
@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:elevation="@dimen/barsElevation"
         android:theme="@style/AppTheme.Toolbar"
-        app:menu="@menu/menu_articles_toolbar"
         app:navigationIcon="@drawable/ic_back">
 
         <TextView
@@ -29,21 +29,14 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray4" />
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/screenContentPadding">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray5"
+            android:background="@android:color/transparent"
             android:stateListAnimator="@null"
             app:elevation="0dp"
             app:liftOnScroll="false">
@@ -51,58 +44,64 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|snap|enterAlways">
+                app:layout_scrollFlags="scroll">
 
-                <TextView
-                    android:id="@+id/title"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/titleContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/smallMargin"
-                    android:text="@string/stub"
-                    android:textColor="@color/titleText"
-                    android:textSize="@dimen/mainTitleTextSize"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/categories"
+                    android:layout_marginTop="@dimen/largeMargin"
+                    android:layout_marginBottom="@dimen/largeMargin"
+                    app:layout_constraintBottom_toTopOf="@+id/category_tabs"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/showPopup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/smallMargin"
-                    android:src="@drawable/ic_show_popup"
-                    app:layout_constraintBottom_toTopOf="@+id/categories"
-                    app:layout_constraintStart_toEndOf="@id/title"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:paddingStart="@dimen/largeMargin"
+                        android:paddingEnd="@dimen/normalMargin"
+                        android:text="@string/stub"
+                        android:textColor="@color/titleText"
+                        android:textSize="@dimen/mainTitleTextSize"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/categories"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/smallMargin"
+                        android:src="@drawable/ic_button_expand"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/title"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/category_tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/xSmallCorners"
+                    android:layout_height="@dimen/tabLayoutHeight"
+                    android:background="@android:color/transparent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title"
-                    app:strokeColor="@color/gray1"
-                    app:strokeWidth="@dimen/xSmallStrokeWidth">
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/category_tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/white"
-                        app:tabBackground="@drawable/background_category_tab_item"
-                        app:tabIndicatorColor="@color/gray1"
-                        app:tabIndicatorGravity="stretch"
-                        app:tabMode="scrollable"
-                        app:tabPaddingEnd="@dimen/normalMargin"
-                        app:tabPaddingStart="@dimen/normalMargin"
-                        app:tabSelectedTextColor="@android:color/white"
-                        app:tabTextAppearance="@style/subdomainTabsCustomStyle"
-                        app:tabTextColor="@color/gray1" />
-
-                </com.google.android.material.card.MaterialCardView>
+                    app:layout_constraintTop_toBottomOf="@id/titleContainer"
+                    app:tabGravity="fill"
+                    android:paddingHorizontal="@dimen/xLargeMargin"
+                    android:clipToPadding="false"
+                    app:tabIndicatorColor="@color/gray1"
+                    app:tabIndicatorGravity="stretch"
+                    app:tabMode="scrollable"
+                    app:tabIndicator="@drawable/background_category_first_tab_indicator"
+                    app:tabPaddingEnd="@dimen/normalMargin"
+                    app:tabPaddingStart="@dimen/normalMargin"
+                    app:tabSelectedTextColor="@android:color/white"
+                    app:tabTextAppearance="@style/subdomainTabsCustomStyle"
+                    app:tabTextColor="@color/gray1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,6 +111,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/largeMargin"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

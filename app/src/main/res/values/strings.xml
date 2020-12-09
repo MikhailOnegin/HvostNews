@@ -377,8 +377,15 @@
     <string name="productTabContraindication">Противопоказания</string>
     <string name="productArticleTitle">Артикул:</string>
     <string name="petPassportButton">Паспорт</string>
+    <string name="cancelChanges">Отменить изменения</string>
+    <string name="push">Получать push-уведомления</string>
+    <string name="email_notification">Получать уведомления на email</string>
     <string name="articleTitle">Публикация</string>
     <string name="buttonShare">Поделиться</string>
     <string name="cantFindArticle">Статья не найдена.</string>
     <string name="next_lesson">Следующий урок</string>
+    <string name="reviews">Отзывы</string>
+    <string name="work_time">Время работы</string>
+    <string name="shareArticleTitle">Поделиться статьёй</string>
+    <string name="splashScreenCD">Заставка</string>
 </resources>

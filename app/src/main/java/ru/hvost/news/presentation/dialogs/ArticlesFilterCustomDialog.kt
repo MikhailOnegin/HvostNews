@@ -59,11 +59,14 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
         interests?.map { category ->
             if (userInterests?.contains((category as InterestsCategory).categoryId) == true) {
                 (category as InterestsCategory).state = CheckboxStates.SELECTED
-                (category as InterestsCategory).sendParent = true
+                category.sendParent = true
+                category.interests.map { interest ->
+                    interest.state = CheckboxStates.SELECTED
+                }
             } else {
                 (category as InterestsCategory).interests.map { interest ->
                     if (userInterests?.contains(interest.interestId) == true) {
-                        (category as InterestsCategory).state = CheckboxStates.INDETERMINATE
+                        category.state = CheckboxStates.INDETERMINATE
                         interest.state = CheckboxStates.SELECTED
                     }
                 }

@@ -223,10 +223,10 @@ class SchoolViewModel: ViewModel() {
     }
 
     private val mutableSetLessonTestesPassedState:MutableLiveData<State> = MutableLiveData()
-    val setLessonTestesPassedState:LiveData<State> = mutableSetLessonTestesPassedState
+    val lessonTestesPassedState:LiveData<State> = mutableSetLessonTestesPassedState
 
     private val mutableSetLessonTestesPassed:MutableLiveData<LessonTestesPassedResponse> = MutableLiveData()
-    val setLessonTestesPassed:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassed
+    val lessonTestesPassed:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassed
 
     fun setLessonTestesPassed(userToken:String, lessonId:Long){
         viewModelScope.launch {
