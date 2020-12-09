@@ -3,7 +3,6 @@ package ru.hvost.news.yunusov
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.hvost.news.utils.imageRegEx
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -382,4 +382,5 @@
     <string name="cantFindArticle">Статья не найдена.</string>
     <string name="next_lesson">Следующий урок</string>
     <string name="shareArticleTitle">Поделиться статьёй</string>
+    <string name="splashScreenCD">Заставка</string>
 </resources>

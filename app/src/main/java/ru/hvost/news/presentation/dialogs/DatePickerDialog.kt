@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.dialogs
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Build
 import android.os.Build.VERSION_CODES
@@ -17,6 +18,7 @@ class DatePickerDialog(
         private val maxDate: Date? = null
 ) : DialogFragment() {
 
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
         val contentView = LayoutInflater.from(requireActivity())
