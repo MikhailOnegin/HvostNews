@@ -106,9 +106,25 @@
         <item name="android:textCursorDrawable">@drawable/text_cursor_drawable</item>
     </style>
 
+    <style name="ProfilesTextInputEditText">
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:inputType">text</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textAppearance">@style/ProfilesEditTextTextAppearance</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textCursorDrawable">@drawable/text_cursor_drawable</item>
+    </style>
+
     <style name="EditTextTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ProfilesEditTextTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="EditTextHintTextAppearance" parent="TextAppearance.AppCompat">
@@ -264,6 +280,11 @@
         <item name="android:textSize">@dimen/toolbarTitleTextSize</item>
     </style>
 
+    <style name="ToolbarTitleTextAppearanceLarge" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textSize">@dimen/toolbarTitleTextSizeLarge</item>
+    </style>
+
     <style name="RegTextView">
         <item name="android:textAppearance">@style/RegTextTextAppearance</item>
         <item name="android:textColor">@color/TextColorSecondary</item>
@@ -386,5 +407,4 @@
         <item name="textAllCaps">false</item>
         <item name="fontFamily">@font/gilroy_bold</item>
     </style>
-
 </resources>

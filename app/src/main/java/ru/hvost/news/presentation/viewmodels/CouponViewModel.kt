@@ -12,29 +12,30 @@ import ru.hvost.news.models.Coupons
 import ru.hvost.news.models.toCouponsInfo
 import ru.hvost.news.models.toOfflineLessons
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.NetworkEvent
 
 class CouponViewModel : ViewModel() {
 
-    private val mutableCouponsState: MutableLiveData<State> = MutableLiveData()
-    val couponsState: LiveData<State> = mutableCouponsState
+    private val _mutableCouponsLoadingEvent: MutableLiveData<NetworkEvent<State>> = MutableLiveData<NetworkEvent<State>>()
+    val couponsLoadingEvent: LiveData<NetworkEvent<State>> = _mutableCouponsLoadingEvent
 
-    private val mutableCoupons: MutableLiveData<Coupons> = MutableLiveData()
-    val coupons: LiveData<Coupons> = mutableCoupons
+    private val _mutableCoupons: MutableLiveData<Coupons> = MutableLiveData()
+    val coupons: LiveData<Coupons> = _mutableCoupons
     var couponsCount: Int? = null
 
     fun getCoupons(userToken: String) {
         viewModelScope.launch {
-            mutableCouponsState.value = State.LOADING
+            _mutableCouponsLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getCouponsAsync(userToken).await()
-                mutableCoupons.value = response.toOfflineLessons()
-                couponsCount = mutableCoupons.value?.coupons?.size
+                _mutableCoupons.value = response.toOfflineLessons()
+                couponsCount = _mutableCoupons.value?.coupons?.size
                 if (response.result == "success") {
-                    mutableCouponsState.value = State.SUCCESS
-                } else mutableCouponsState.value = State.ERROR
+                    _mutableCouponsLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else _mutableCouponsLoadingEvent.value = NetworkEvent(State.ERROR)
             } catch (exc: Exception) {
                 Log.i("eeee", "getCoupons() ERROR: ${exc.message}")
-                mutableCouponsState.value = State.FAILURE
+                _mutableCouponsLoadingEvent.value = NetworkEvent(State.FAILURE)
             }
         }
         //val couponsList = mutableListOf<Coupons.Coupon>()

@@ -38,7 +38,7 @@ class CouponsVMTest {
         @Test
         fun getCoupons() = coroutineRule.testDispatcher.runBlockingTest {
             couponVmTest.getCoupons(userToken)
-            val result = couponVmTest.couponsState.getOrAwaitValueTest2(
+            val result = couponVmTest.couponsLoadingEvent.getOrAwaitValueTest2(
                 time = timeout,
                 condition = { t: State? -> t != State.LOADING }
             )

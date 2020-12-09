@@ -83,7 +83,7 @@ class VouchersAdapter(
         }
 
         private fun setSpecies(voucher: Voucher) {
-            val species = mainVM.petsSpeciesResponse.value?.firstOrNull {
+            val species = mainVM.petsSpecies.value?.firstOrNull {
                 it.speciesId.toString() == voucher.petSpecies
             }?.speciesName ?: stub
             binding.species.text = species
@@ -102,9 +102,7 @@ class VouchersAdapter(
                 )
                 return VoucherVH(binding, mainVM)
             }
-
         }
-
     }
 
     class VoucherFooterVH(
@@ -128,9 +126,7 @@ class VouchersAdapter(
                 )
                 return VoucherFooterVH(binding, mainVM)
             }
-
         }
-
     }
 
     class VoucherItemDiffUtilCallback : DiffUtil.ItemCallback<VoucherItem>() {

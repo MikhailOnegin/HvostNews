@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/bnvProfile"
-            android:textAppearance="@style/ToolbarTitleTextAppearance"
+            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
             android:textColor="@color/gray1" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -73,7 +73,7 @@
                     android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/hello"
                     android:textColor="@color/gray3_opacity"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/subtitleProfileTextSize" />
 
                 <TextView
                     android:id="@+id/second"
@@ -218,6 +218,7 @@
                     android:fontFamily="@font/gilroy_bold"
                     android:text="@string/choosePrizes"
                     android:textAllCaps="false"
+                    android:letterSpacing="-0.03"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/buttonMediumTextSize"
                     app:cornerRadius="@dimen/mediumCorners"
@@ -445,14 +446,16 @@
                     android:id="@+id/allOrders"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/ButtonHeight"
+                    android:layout_height="65dp"
                     android:fontFamily="@font/gilroy_bold"
                     android:layout_marginHorizontal="@dimen/orderButtonPadding"
+                    android:layout_marginTop="@dimen/smallMargin"
                     android:paddingVertical="@dimen/buttonPadding"
                     android:text="@string/checkAllOrders"
                     android:textAllCaps="false"
                     android:textColor="@color/titleText"
-                    android:textSize="@dimen/regSubtitleTextSize"
+                    android:textSize="@dimen/ButtonTextSize"
+                    android:letterSpacing="-0.03"
                     app:cornerRadius="@dimen/userProfileButtonLargeRadius"
                     app:layout_constraintTop_toBottomOf="@+id/ordersContainer"
                     app:strokeColor="@color/btnStroke"
@@ -482,7 +485,7 @@
                     android:text="@string/logout"
                     android:textAllCaps="false"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/regSubtitleTextSize"
+                    android:textSize="@dimen/ButtonTextSize"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

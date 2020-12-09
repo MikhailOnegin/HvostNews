@@ -16,26 +16,14 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPrizesBinding
 import ru.hvost.news.presentation.adapters.PrizeCategoryAdapter
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 class PrizesFragment : Fragment() {
 
     private lateinit var binding: FragmentPrizesBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var onBonusBalanceLoadingEvent: DefaultNetworkEventObserver
 
-    override fun onStart() {
-        setSystemUiVisibility()
-        super.onStart()
-    }
-
-    @Suppress("DEPRECATION")
-    @SuppressLint("InlinedApi")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +36,18 @@ class PrizesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        initializeObservers()
         setListeners()
         setObservers()
+    }
+
+    private fun initializeObservers() {
+        onBonusBalanceLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = {
+                binding.balance.text = mainVM.bonusBalance.value?.bonusBalance.toString()
+            }
+        )
     }
 
     private fun setListeners() {
@@ -57,18 +55,8 @@ class PrizesFragment : Fragment() {
     }
 
     private fun setObservers() {
-        mainVM.bonusBalanceState.observe(viewLifecycleOwner, { onBalanceChanged(it) })
+        mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
         mainVM.prizeCategoriesState.observe(viewLifecycleOwner, { onPrizeCategoriesChanged(it) })
-    }
-
-    private fun onBalanceChanged(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                binding.balance.text = mainVM.bonusBalanceResponse.value?.bonusBalance.toString()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
     }
 
     private fun onPrizeCategoriesChanged(state: State?) {
