@@ -7,7 +7,6 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import android.widget.PopupWindow
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -203,7 +202,7 @@ class SubDomainFragment : Fragment() {
         binding.title.text = filteredList?.get(0)?.domainTitle
         val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putString(ArticlesFragment.ITEM_ID, id)
+            bundle.putString(ArticlesFragment.ARTICLE_ID, id)
             bundle.putString("TYPE", "ALL")
             findNavController().navigate(
                 R.id.action_subDomainFragment_to_articleDetailFragment,

@@ -21,7 +21,6 @@ import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.OneTimeEvent
-import kotlin.reflect.jvm.internal.impl.util.Check
 
 class ArticlesFragment : Fragment() {
 
@@ -168,7 +167,7 @@ class ArticlesFragment : Fragment() {
     private fun setRecyclerView() {
         val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putString(ITEM_ID, id)
+            bundle.putString(ARTICLE_ID, id)
             bundle.putString("TYPE", "INDIVIDUAL")
             findNavController().navigate(R.id.action_newsFragment_to_articleDetailFragment, bundle)
         }
@@ -209,7 +208,7 @@ class ArticlesFragment : Fragment() {
 
     companion object {
 
-        const val ITEM_ID = "ITEM_ID"
+        const val ARTICLE_ID = "article_id"
 
     }
 

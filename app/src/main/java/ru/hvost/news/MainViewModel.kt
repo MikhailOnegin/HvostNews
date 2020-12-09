@@ -91,7 +91,14 @@ class MainViewModel : ViewModel() {
 
 //    val enableFilterButton = MutableLiveData<Boolean>()
 
+    private val _loadingArticlesEvent = MutableLiveData<NetworkEvent<State>>()
+    val loadingArticlesEvent: LiveData<NetworkEvent<State>> = _loadingArticlesEvent
+
     init {
+        initializeData()
+    }
+
+    fun initializeData() {
         loadArticles()
         loadAllArticles()
         loadUserData()
@@ -194,14 +201,20 @@ class MainViewModel : ViewModel() {
     fun loadArticles() {
         viewModelScope.launch {
             articlesState.value = State.LOADING
+            _loadingArticlesEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getArticlesAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
                     articles.value = response.articles?.toArticles()
                     articlesState.value = State.SUCCESS
-                } else articlesState.value = State.ERROR
+                    _loadingArticlesEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    articlesState.value = State.ERROR
+                    _loadingArticlesEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
             } catch (exc: Exception) {
                 articlesState.value = State.FAILURE
+                _loadingArticlesEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
@@ -581,13 +594,6 @@ class MainViewModel : ViewModel() {
                 _interests.value = listOf()
             }
         }
-    }
-
-    private val _shareArticleEvent = MutableLiveData<Event<String>>()
-    val shareArticleEvent: LiveData<Event<String>> = _shareArticleEvent
-
-    fun sendShareArticleEvent(articleUrl: String) {
-        _shareArticleEvent.value = Event(articleUrl)
     }
 
 }
