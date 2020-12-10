@@ -15,90 +15,142 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.Toolbar"
         app:navigationIcon="@drawable/ic_back"
-        app:title="@string/fragmentRegisterVoucherTitle"
-        android:background="@android:color/transparent"
-        app:layout_scrollFlags="scroll|snap|enterAlways"/>
+        app:title="@string/fragmentRegisterVoucherTitle"/>
 
-    <View
-        android:id="@+id/divider"
-        android:background="@color/gray4"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/container"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_scrollFlags="scroll|snap|enterAlways"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/voucherCodeLayout"
-        style="@style/TextInputLayout"
-        android:hint="@string/hintVoucher"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"
-        android:layout_marginTop="@dimen/largeMargin">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/voucherCode"
-            tools:text="CK0067742MNGCMX201102"
-            style="@style/TextInputEditText"
-            android:imeOptions="actionDone"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="@dimen/xLargeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                app:srcCompat="@drawable/image_reg_coupon"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/regCouponCD"/>
 
-    <ru.hvost.news.presentation.customviews.ValueHolderView
-        android:id="@+id/voucherProgram"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/widgetsHeight"
-        android:layout_marginTop="@dimen/smallMargin"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"
-        app:showIcon="false"
-        app:holderHint="@string/voucherProgramHint"/>
+            <TextView
+                style="@style/RegTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:text="@string/regCouponHintTitle"
+                android:textColor="@color/TextColorPrimary"
+                android:textSize="16sp"/>
 
-    <Spinner
-        android:id="@+id/spinner"
-        style="@style/RegSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/widgetsHeight"
-        android:layout_marginTop="@dimen/smallMargin"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"/>
+            <TextView
+                style="@style/RegTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:text="@string/newVoucherHint"/>
 
-    <Button
-        android:id="@+id/buttonCheckCode"
-        style="@style/UnelevatedButton"
-        android:text="@string/buttonCheckCode"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/buttonHeight"
-        android:layout_marginTop="@dimen/largeMargin"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/voucherCodeLayout"
+                style="@style/TextInputLayout"
+                android:hint="@string/hintVoucher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/largeMargin">
 
-    <Button
-        android:id="@+id/buttonActivate"
-        style="@style/UnelevatedButton"
-        android:text="@string/buttonActivateCode"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/buttonHeight"
-        android:layout_marginTop="@dimen/largeMargin"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/voucherCode"
+                    tools:text="CK0067742MNGCMX201102"
+                    style="@style/TextInputEditText"
+                    android:imeOptions="actionDone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/buttonCancel"
-        style="@style/UnelevatedButton.Gray"
-        android:text="@string/buttonCancel"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/registerButtonHeight"
-        app:layout_constraintTop_toBottomOf="@id/buttonLogin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginEnd="@dimen/largeMargin"
-        android:layout_marginTop="@dimen/smallMargin"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ru.hvost.news.presentation.customviews.ValueHolderView
+                android:id="@+id/voucherProgram"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/widgetsHeight"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                app:showIcon="false"
+                app:holderHint="@string/voucherProgramHint"/>
+
+            <LinearLayout
+                android:id="@+id/controlsLayout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/smallMargin">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    style="@style/RegSpinner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/widgetsHeight"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/smallMargin"/>
+
+                <ImageButton
+                    android:id="@+id/addPet"
+                    android:src="@drawable/ic_plus"
+                    android:background="@drawable/selector_light_oval"
+                    android:contentDescription="@string/addPetButtonCD"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonCheckCode"
+                style="@style/UnelevatedButton"
+                android:text="@string/buttonCheckCode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <Button
+                android:id="@+id/buttonActivate"
+                style="@style/UnelevatedButton"
+                android:text="@string/buttonActivateCode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/buttonHeight"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <Button
+                android:id="@+id/buttonCancel"
+                style="@style/UnelevatedButton.Gray"
+                android:text="@string/buttonCancel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/registerButtonHeight"
+                app:layout_constraintTop_toBottomOf="@id/buttonLogin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/smallMargin"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -355,6 +355,20 @@
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_vouchersFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_vouchersFragment_to_shopFragment"
+            app:destination="@id/shopFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -362,27 +376,6 @@
         android:name="ru.hvost.news.presentation.fragments.vouchers.RegisterVoucherFragment"
         android:label="RegisterVoucherFragment"
         tools:layout="@layout/fragment_register_voucher"/>
-
-    <fragment
-        android:id="@+id/shopEntranceFragment"
-        android:name="ru.hvost.news.presentation.fragments.shop.ShopEntranceFragment"
-        android:label="ShopEntranceFragment"
-        tools:layout="@layout/fragment_shop_entrance">
-        <action
-            android:id="@+id/action_shopEntranceFragment_to_shopFragment"
-            app:destination="@id/shopFragment"
-            app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit" />
-        <action
-            android:id="@+id/action_shopEntranceFragment_to_cartFragment"
-            app:destination="@id/cartFragment"
-            app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit" />
-    </fragment>
 
     <fragment
         android:id="@+id/productFragment"

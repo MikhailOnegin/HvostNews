@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
@@ -15,9 +14,11 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegisterVoucherBinding
 import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
-class RegisterVoucherFragment : Fragment() {
+class RegisterVoucherFragment : BaseFragment() {
 
     private lateinit var binding: FragmentRegisterVoucherBinding
     private lateinit var vouchersVM: VouchersViewModel
@@ -45,6 +46,7 @@ class RegisterVoucherFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
+        mainVM.loadPetsData()
     }
 
     override fun onDestroy() {
@@ -60,7 +62,14 @@ class RegisterVoucherFragment : Fragment() {
         }
         binding.buttonCancel.setOnClickListener { onClearVoucher() }
         binding.buttonActivate.setOnClickListener { onActivateButtonClicked() }
-        //sergeev: Реализовать добавление нового питомца.
+        binding.addPet.setOnClickListener { onAddPetClicked() }
+    }
+
+    private fun onAddPetClicked() {
+        AddPetCustomDialog().show(
+            childFragmentManager,
+            "addPetDialog"
+        )
     }
 
     private fun onActivateButtonClicked() {
@@ -102,13 +111,13 @@ class RegisterVoucherFragment : Fragment() {
                 binding.voucherCode.isEnabled = false
                 binding.voucherProgram.visibility = View.VISIBLE
                 binding.buttonActivate.visibility = View.VISIBLE
-                binding.spinner.visibility = View.VISIBLE
+                binding.controlsLayout.visibility = View.VISIBLE
                 binding.buttonCheckCode.visibility = View.GONE
             } else {
                 binding.voucherCode.isEnabled = true
                 binding.voucherProgram.visibility = View.GONE
                 binding.buttonActivate.visibility = View.GONE
-                binding.spinner.visibility = View.GONE
+                binding.controlsLayout.visibility = View.GONE
                 binding.buttonCheckCode.visibility = View.VISIBLE
             }
         }

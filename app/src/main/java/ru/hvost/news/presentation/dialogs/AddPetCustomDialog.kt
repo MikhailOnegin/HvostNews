@@ -2,7 +2,6 @@ package ru.hvost.news.presentation.dialogs
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,17 +13,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.DialogQrCodeBinding
 import ru.hvost.news.databinding.LayoutAddPetBinding
 import ru.hvost.news.models.Species
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
-import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddPetCustomDialog() : BottomSheetDialogFragment() {
+class AddPetCustomDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: LayoutAddPetBinding
     private lateinit var onPetAdded: DefaultNetworkEventObserver
@@ -36,7 +33,7 @@ class AddPetCustomDialog() : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = LayoutAddPetBinding.inflate(inflater, container, false)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         initializeObservers()
