@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_school_parents.*
+import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentsBinding
 import ru.hvost.news.models.CitiesOffline.CityOffline
@@ -86,7 +88,10 @@ class ParentsSchoolFragment : Fragment() {
             adapter.clear()
             (binding.spinner.adapter as SpinnerAdapter<CityOffline>).addAll(it.cities)
             (binding.spinner.adapter as SpinnerAdapter<CityOffline>).getItem(0)?.run {
-                schoolVM.getOfflineSeminars(this.cityId)
+                val cityId = this.cityId
+                App.getInstance().userToken?.run {
+                    schoolVM.getOfflineSeminars(cityId, this)
+                }
             }
         })
 
@@ -131,7 +136,11 @@ class ParentsSchoolFragment : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 (binding.spinner.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
                     ?.run {
-                        schoolVM.getOfflineSeminars(this.cityId)
+                        val cityId = this.cityId
+                        App.getInstance().userToken?.run {
+                            schoolVM.getOfflineSeminars(cityId, this)
+                        }
+
                     }
             }
         }
