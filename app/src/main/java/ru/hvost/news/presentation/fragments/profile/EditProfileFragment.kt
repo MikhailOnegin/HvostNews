@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.databinding.FragmentEditProfileBinding
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import java.text.SimpleDateFormat
@@ -19,7 +20,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class EditProfileFragment : Fragment() {
+class EditProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var mainVM: MainViewModel

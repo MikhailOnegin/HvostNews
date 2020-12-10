@@ -2,17 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_prize_item"
-    android:orientation="vertical"
-    android:padding="@dimen/prizeItemPadding">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/gilroy_medium"
-        android:textColor="@color/gray1"
-        android:textSize="@dimen/prizeItemTextSize"
-        android:textStyle="bold" />
+        android:background="@drawable/background_prize_item"
+        android:orientation="vertical"
+        android:padding="@dimen/prizeItemPadding">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_semibold"
+            android:textColor="@color/gray1"
+            android:textSize="@dimen/prizeItemTextSize" />
+
+    </LinearLayout>
 
 </LinearLayout>

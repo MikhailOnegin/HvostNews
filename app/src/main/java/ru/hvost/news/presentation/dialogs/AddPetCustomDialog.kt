@@ -36,6 +36,9 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     ): View {
         binding = LayoutAddPetBinding.inflate(inflater, container, false)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        if (mainVM.petsSpeciesLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            onSpeciesChanged()
+        }
         initializeObservers()
         return binding.root
     }

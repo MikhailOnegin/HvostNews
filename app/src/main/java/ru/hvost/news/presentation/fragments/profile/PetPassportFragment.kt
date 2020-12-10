@@ -10,8 +10,9 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentEditProfileBinding
 import ru.hvost.news.databinding.FragmentPetPassportBinding
+import ru.hvost.news.presentation.fragments.BaseFragment
 
-class PetPassportFragment : Fragment() {
+class PetPassportFragment : BaseFragment() {
 
     private lateinit var binding: FragmentPetPassportBinding
     private lateinit var mainVM: MainViewModel

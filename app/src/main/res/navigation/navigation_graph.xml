@@ -214,7 +214,11 @@
         android:id="@+id/choicePrizeFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.ChoicePrizeFragment"
         android:label="fragment_choice_prize"
-        tools:layout="@layout/fragment_choice_prize" />
+        tools:layout="@layout/fragment_choice_prize" >
+        <action
+            android:id="@+id/action_choicePrizeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/petPassportFragment"

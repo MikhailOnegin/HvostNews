@@ -6,13 +6,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -57,6 +54,7 @@ class InviteFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) setBalance()
         initializeEventObservers()
         setObservers()
         setListeners()
@@ -65,13 +63,15 @@ class InviteFragment : Fragment() {
     private fun initializeEventObservers() {
         onBonusBalanceLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
-            doOnSuccess = {
-                val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
-                binding.balanceBefore.text = balance.dec().toString()
-                binding.balance.text = balance.toString()
-                binding.balanceAfter.text = balance.inc().toString()
-            }
+            doOnSuccess = { setBalance() }
         )
+    }
+
+    private fun setBalance() {
+        val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
+        binding.balanceBefore.text = balance.dec().toString()
+        binding.balance.text = balance.toString()
+        binding.balanceAfter.text = balance.inc().toString()
     }
 
     private fun setListeners() {
@@ -86,10 +86,8 @@ class InviteFragment : Fragment() {
 
     private fun showInviteInstructions() {
         requireActivity().findNavController(R.id.nav_host_fragment_invite_instructions).apply {
-            //Обновляем граф в NavController, чтобы всегда начинать с первого фрагмента.
             setGraph(R.navigation.navigation_popup_invite_info)
         }
-        //Показываем контейнер с инструкциями.
         binding.instructionsContainer.visibility = View.VISIBLE
     }
 
@@ -121,8 +119,6 @@ class InviteFragment : Fragment() {
         mainVM.closeInstructionsEvent.observe(
             viewLifecycleOwner,
             OneTimeEvent.Observer { onCloseInstructionsEvent() }
-            /* OneTimeEvent.Observer - специальный Observer для объектов типа OneTimeEvent.
-            * Реализация гарантирует, что обработчик сработает только один раз по одному событию. */
         )
     }
 
