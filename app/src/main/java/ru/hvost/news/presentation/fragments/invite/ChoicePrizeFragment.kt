@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -18,15 +19,21 @@ import kotlinx.android.synthetic.main.layout_prize_products.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentChoicePrizeBinding
+import ru.hvost.news.models.CartFooter
+import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.Prize
 import ru.hvost.news.presentation.adapters.PrizeAdapter
 import ru.hvost.news.presentation.adapters.PrizeProductsAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.moneyFormat
 
-class ChoicePrizeFragment : Fragment() {
+class ChoicePrizeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentChoicePrizeBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var cartVM: CartViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,17 +46,29 @@ class ChoicePrizeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
         setListeners()
         setObservers()
     }
 
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+//        binding.toolbar.setOnMenuItemClickListener (onMenuItemClicked)
     }
 
     private fun setObservers() {
         mainVM.prizesState.observe(viewLifecycleOwner, { onPrizesChanged(it) })
         mainVM.prizeToCartState.observe(viewLifecycleOwner, { onCartChanged(it) })
+        cartVM.apply {
+            productsCart.observe(viewLifecycleOwner) { onCartCountChanged(it) }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun onCartCountChanged(cartItems: List<CartItem>?) {
+        cartItems?.run {
+            binding.cartCount.text = "${if(this.isEmpty()) this.size else this.size - 1}"
+        }
     }
 
     private fun onCartChanged(state: State?) {

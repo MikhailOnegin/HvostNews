@@ -1,13 +1,11 @@
 package ru.hvost.news.presentation.fragments.invite
 
-import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +13,11 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPrizesBinding
 import ru.hvost.news.presentation.adapters.PrizeCategoryAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
-class PrizesFragment : Fragment() {
+class PrizesFragment : BaseFragment() {
 
     private lateinit var binding: FragmentPrizesBinding
     private lateinit var mainVM: MainViewModel
@@ -36,6 +35,8 @@ class PrizesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS)
+            binding.balance.text = mainVM.bonusBalance.value?.bonusBalance.toString()
         initializeObservers()
         setListeners()
         setObservers()

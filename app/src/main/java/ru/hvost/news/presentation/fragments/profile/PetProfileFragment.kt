@@ -16,13 +16,14 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPetProfileBinding
 import ru.hvost.news.models.*
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PetProfileFragment : Fragment() {
+class PetProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentPetProfileBinding
     private lateinit var mainVM: MainViewModel
@@ -43,16 +44,27 @@ class PetProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        checkIsDataLoaded()
         initializeEventObservers()
         setObservers()
         setListeners()
     }
-    //yunusov: Поправить вывод информации о животном
+
+    private fun checkIsDataLoaded() {
+        if (mainVM.petToysLoadingEvent.value?.peekContent() == State.SUCCESS)
+            onPetToysChanged(mainVM.petToys.value)
+        if (mainVM.petEducationLoadingEvent.value?.peekContent() == State.SUCCESS)
+            onPetEducationChanged(mainVM.petEducation.value)
+        if (mainVM.userPetsLoadingEvent.value?.peekContent() == State.SUCCESS)
+            bindData()
+        if (mainVM.petsSpeciesLoadingEvent.value?.peekContent() == State.SUCCESS)
+            onSpeciesChanged()
+    }
 
     private fun initializeEventObservers() {
         onPetToysLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
-            doOnSuccess = { onPetToysChanged(mainVM.petToys.value) }
+            doOnSuccess = { }
         )
         onPetEducationLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,

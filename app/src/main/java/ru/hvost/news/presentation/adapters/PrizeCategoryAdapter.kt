@@ -2,6 +2,8 @@ package ru.hvost.news.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,8 +27,17 @@ class PrizeCategoryAdapter(private val onClick: (String) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: PrizeCategory) {
             binding.title.text = category.prizeCategoryName.replace("Приз для", "")
-
             binding.root.setOnClickListener { onClick.invoke(category.prizeCategoryId) }
+
+            binding.container.doOnLayout {
+                val width = it.width
+                val height = width / 5.4F
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    height.toInt()
+                )
+                binding.container.layoutParams = params
+            }
         }
 
         companion object {

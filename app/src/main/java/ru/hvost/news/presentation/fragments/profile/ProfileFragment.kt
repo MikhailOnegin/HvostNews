@@ -18,11 +18,12 @@ import ru.hvost.news.databinding.FragmentProfileBinding
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.PetAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var mainVM: MainViewModel
@@ -45,24 +46,50 @@ class ProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        initializeLinks()
         couponsMV = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
-        couponsMV.getCoupons(App.getInstance().userToken!!)
-        if (couponsMV.couponsLoadingEvent.value?.peekContent() == State.SUCCESS) binding.couponsCount.text =
-            couponsMV.couponsCount.toString()
+        mainVM.updateOrders(App.getInstance().userToken)
+        checkIsDataLoaded()
         initializeEventObservers()
         setObservers()
         setListeners()
         navC = findNavController()
     }
 
-    private fun initializeLinks() {
-        mainVM.loadUserData()
-        mainVM.loadPetsData()
-        mainVM.loadSpecies()
-        mainVM.loadPetToys()
-        mainVM.loadPetEducation()
-        mainVM.updateOrders(App.getInstance().userToken)
+    private fun checkIsDataLoaded() {
+        if (mainVM.userDataLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            bindData()
+        } else if (mainVM.changeUserDataLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            mainVM.loadUserData()
+        } else {
+            mainVM.loadUserData()
+        }
+        if (couponsMV.couponsLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            binding.couponsCount.text = couponsMV.couponsCount.toString()
+        } else {
+            couponsMV.getCoupons(App.getInstance().userToken!!)
+        }
+        if (mainVM.userPetsLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            setRecyclerView()
+        } else {
+            mainVM.loadPetsData()
+        }
+        if (mainVM.petsSpeciesLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.loadSpecies()
+        }
+        if (mainVM.petToysLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.loadPetToys()
+        }
+        if (mainVM.petEducationLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.loadPetEducation()
+        }
+        if (mainVM.petEducationLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.loadPetEducation()
+        }
+        if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            binding.balance.text = mainVM.bonusBalance.value?.bonusBalance.toString()
+        } else {
+            mainVM.getBonusBalance()
+        }
     }
 
     private fun initializeEventObservers() {
@@ -95,7 +122,7 @@ class ProfileFragment : Fragment() {
         mainVM.userDataLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
         mainVM.userPetsLoadingEvent.observe(viewLifecycleOwner, onUserPetsLoadingEvent)
         mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
-//        couponsMV.couponsState.observe(viewLifecycleOwner, onCouponsLoadingEvent)
+        couponsMV.couponsLoadingEvent.observe(viewLifecycleOwner, onCouponsLoadingEvent)
         mainVM.ordersInWork.observe(
             viewLifecycleOwner,
             { binding.inWorkStatus.text = it.toString() })

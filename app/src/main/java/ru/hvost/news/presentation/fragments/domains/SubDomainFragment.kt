@@ -18,10 +18,11 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSubdomainBinding
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.adapters.PopupWindowDomainAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.utils.enums.State
 
-class SubDomainFragment : Fragment() {
+class SubDomainFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSubdomainBinding
     private lateinit var mainVM: MainViewModel
