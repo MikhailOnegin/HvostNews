@@ -1,31 +1,33 @@
 package ru.hvost.news.presentation.fragments.vouchers
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentVouchersBinding
-import ru.hvost.news.models.Voucher
-import ru.hvost.news.models.VoucherFooter
-import ru.hvost.news.models.VoucherItem
+import ru.hvost.news.models.*
 import ru.hvost.news.presentation.adapters.recycler.VouchersAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.presentation.fragments.shop.CartViewModel
+import ru.hvost.news.presentation.fragments.shop.ShopFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 import ru.hvost.news.utils.getValue
 
-class VouchersFragment : Fragment() {
+class VouchersFragment : BaseFragment() {
 
     private lateinit var binding: FragmentVouchersBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var cartVM: CartViewModel
     private lateinit var loadingVouchersEventObserver: DefaultNetworkEventObserver
 
     override fun onCreateView(
@@ -41,6 +43,7 @@ class VouchersFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
         setObservers()
         setRecyclerView()
     }
@@ -48,12 +51,17 @@ class VouchersFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
-        mainVM.updateVouchers(App.getInstance().userToken)
+        App.getInstance().userToken.run {
+            mainVM.updateVouchers(this)
+            cartVM.updateCartAsync(this)
+        }
     }
 
     private fun setListeners() {
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.spinner.onItemSelectedListener = SpinnerListener(mainVM)
+        binding.cartContainer.setOnClickListener {
+            findNavController().navigate(R.id.action_vouchersFragment_to_cartFragment)
+        }
     }
 
     class SpinnerListener(
@@ -74,6 +82,7 @@ class VouchersFragment : Fragment() {
         mainVM.vouchers.observe(viewLifecycleOwner) { onVouchersUpdated(it) }
         mainVM.vouchersFilter.observe(viewLifecycleOwner) { onVouchersFilterChanged(it) }
         mainVM.vouchersFooterClickEvent.observe(viewLifecycleOwner, footerClickObserver)
+        cartVM.productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
     }
 
     private val footerClickObserver = OneTimeEvent.Observer {
@@ -100,10 +109,13 @@ class VouchersFragment : Fragment() {
         binding.recyclerView.addItemDecoration(LinearRvItemDecorations(
             marginBetweenElementsDimension = R.dimen.largeMargin
         ))
-        binding.recyclerView.adapter = VouchersAdapter(mainVM)
+        binding.recyclerView.adapter = VouchersAdapter(mainVM, onGoToShopClicked)
     }
 
     private fun onVouchersUpdated(vouchers: List<VoucherItem>?) {
+        if(vouchers.isNullOrEmpty()) {
+            findNavController().navigate(R.id.action_vouchersFragment_to_registerVoucherFragment)
+        }
         (binding.recyclerView.adapter as VouchersAdapter).submitList(vouchers)
         setSpinner(vouchers)
     }
@@ -128,6 +140,27 @@ class VouchersFragment : Fragment() {
             doOnError = { findNavController().popBackStack() },
             doOnFailure = { findNavController().popBackStack() }
         )
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun onCartChanged(cartItems: List<CartItem>?) {
+        cartItems?.run {
+            binding.cartCount.text = "${if(this.isEmpty()) this.size else this.size - 1}"
+        }
+    }
+
+    private val onGoToShopClicked = { voucherCode: String ->
+        cartVM.resetShop()
+        cartVM.loadProducts(
+            App.getInstance().userToken,
+            voucherCode
+        )
+        val bundle = Bundle()
+        bundle.putString(
+            ShopFragment.VOUCHER_CODE,
+            voucherCode
+        )
+        findNavController().navigate(R.id.action_vouchersFragment_to_shopFragment, bundle)
     }
 
 }

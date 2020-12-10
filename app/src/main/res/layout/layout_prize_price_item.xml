@@ -2,29 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_item_list"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingVertical="@dimen/largeMargin">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/cost"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/gilroy_medium"
-        android:textAlignment="center"
-        android:textColor="@color/gray1"
-        android:textSize="@dimen/prizeItemPriceTextSize"
-        android:textStyle="bold" />
+        android:background="@drawable/background_item_list"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/largeMargin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/gilroy_medium"
-        android:text="@string/cartForBonusesType3"
-        android:textAlignment="center"
-        android:textColor="@color/gray1"
-        android:textSize="@dimen/ButtonTextSize"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:textAlignment="center"
+            android:textColor="@color/gray1"
+            android:textSize="@dimen/prizeItemPriceTextSize"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gilroy_medium"
+            android:text="@string/cartForBonusesType3"
+            android:textAlignment="center"
+            android:textColor="@color/gray1"
+            android:textSize="@dimen/ButtonTextSize"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>

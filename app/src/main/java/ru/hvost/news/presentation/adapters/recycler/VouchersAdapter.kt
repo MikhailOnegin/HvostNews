@@ -16,17 +16,17 @@ import ru.hvost.news.models.Voucher
 import ru.hvost.news.models.VoucherFooter
 import ru.hvost.news.models.VoucherItem
 import ru.hvost.news.utils.events.OneTimeEvent
-import ru.hvost.news.utils.showNotReadyToast
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 
 class VouchersAdapter(
-    private val mainVM: MainViewModel
+    private val mainVM: MainViewModel,
+    private val onGoToShopClicked: (String) -> Unit
 ) : ListAdapter<VoucherItem, RecyclerView.ViewHolder>(VoucherItemDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
-            TYPE_VOUCHER -> VoucherVH.getViewHolder(parent, mainVM)
+            TYPE_VOUCHER -> VoucherVH.getViewHolder(parent, mainVM, onGoToShopClicked)
             TYPE_FOOTER -> VoucherFooterVH.getViewHolder(parent, mainVM)
             else -> throw IllegalArgumentException("Wrong voucher view holder type.")
         }
@@ -53,7 +53,8 @@ class VouchersAdapter(
 
     class VoucherVH(
         private val binding: RvVoucherBinding,
-        private val mainVM: MainViewModel
+        private val mainVM: MainViewModel,
+        private val onGoToShopClicked: (String) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
 
         private val until = App.getInstance().getString(R.string.dateUntil)
@@ -76,8 +77,7 @@ class VouchersAdapter(
                 }
                 if(prevVoucher == null) divider.visibility = View.GONE
                 button.setOnClickListener {
-                    //sergeev: Настроить переход в магазин.
-                    showNotReadyToast()
+                    onGoToShopClicked.invoke(voucher.voucherCode)
                 }
             }
         }
@@ -93,14 +93,15 @@ class VouchersAdapter(
 
             fun getViewHolder(
                 parent: ViewGroup,
-                mainVM: MainViewModel
+                mainVM: MainViewModel,
+                onGoToShopClicked: (String) -> Unit
             ): VoucherVH {
                 val binding = RvVoucherBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return VoucherVH(binding, mainVM)
+                return VoucherVH(binding, mainVM, onGoToShopClicked)
             }
         }
     }

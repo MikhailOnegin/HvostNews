@@ -1,87 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/window_background"
-    android:orientation="vertical"
-    tools:context=".presentation.fragments.invite.ChoicePrizeFragment">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:theme="@style/AppTheme.Toolbar"
-        app:navigationIcon="@drawable/ic_back">
+        android:layout_height="match_parent"
+        android:background="@drawable/window_background"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".presentation.fragments.invite.ChoicePrizeFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_medium"
-            android:text="@string/choosePrizes"
-            android:textAppearance="@style/ToolbarTitleTextAppearance"
-            android:textColor="@color/gray1"
-            android:textStyle="bold" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:stateListAnimator="@null"
-            app:elevation="0dp"
-            app:liftOnScroll="false">
+            android:background="@android:color/white"
+            android:theme="@style/AppTheme.Toolbar"
+            app:navigationIcon="@drawable/ic_back">
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/choosePrizes"
+                android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
+                android:textColor="@color/gray1" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:stateListAnimator="@null"
+                app:elevation="0dp"
+                app:liftOnScroll="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/profileCoverPadding"
+                    android:paddingTop="@dimen/xLargeMargin"
+                    app:layout_scrollFlags="scroll">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/normalMargin"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:text="@string/prizeFor"
+                        android:textColor="@color/gray1"
+                        android:textSize="@dimen/mainTitleTextSize" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/normalMargin"
+                        android:fontFamily="@font/gilroy_semibold"
+                        android:text="@string/inPrize"
+                        android:textColor="@color/gray1"
+                        android:textSize="@dimen/prizesSubtitleTextSize" />
+
+                </LinearLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/priceList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:orientation="vertical"
-                app:layout_scrollFlags="scroll"
-                android:padding="@dimen/screenContentPadding">
+                android:paddingHorizontal="@dimen/normalMargin"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:spanCount="2" />
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/smallMargin"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:text="@string/prizeFor"
-                    android:textColor="@color/gray1"
-                    android:textSize="@dimen/mainTitleTextSize"
-                    android:textStyle="bold" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/normalMargin"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:text="@string/inPrize"
-                    android:textColor="@color/gray1"
-                    android:textSize="@dimen/subtitleTextSize"
-                    android:textStyle="bold" />
+    </LinearLayout>
 
-            </LinearLayout>
+    <TextView
+        android:id="@+id/cartCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/xSmallMargin"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="@string/stub"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/normalMargin"
+        android:textColor="@color/_2"
+        android:textSize="@dimen/textViewWithDotTextSize"
+        app:drawableStartCompat="@drawable/ic_cart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/priceList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/normalMargin"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:spanCount="2" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

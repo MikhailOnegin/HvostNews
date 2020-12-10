@@ -49,7 +49,7 @@
     <dimen name="rvSelectionIconPadding">6dp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
     <dimen name="articleDescriptionTextSize">16sp</dimen>
-    <dimen name="prizeItemTextSize">16sp</dimen>
+    <dimen name="prizeItemTextSize">18sp</dimen>
     <dimen name="ButtonHeight">60dp</dimen>
     <dimen name="textTitleSize">14sp</dimen>
     <dimen name="mainTitleTextSize">32sp</dimen>
@@ -182,4 +182,5 @@
     <dimen name="toolbarTitleTextSizeLarge">22sp</dimen>
     <dimen name="subtitleProfileTextSize">18sp</dimen>
     <dimen name="ordersSubtitleTextSize">15sp</dimen>
+    <dimen name="prizesSubtitleTextSize">22sp</dimen>
 </resources>

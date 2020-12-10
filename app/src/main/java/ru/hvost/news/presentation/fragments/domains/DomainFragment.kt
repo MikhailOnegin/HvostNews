@@ -15,8 +15,9 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentDomainBinding
 import ru.hvost.news.presentation.adapters.DomainAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 
-class DomainFragment : Fragment() {
+class DomainFragment : BaseFragment() {
 
     private lateinit var binding: FragmentDomainBinding
     private lateinit var mainVM: MainViewModel

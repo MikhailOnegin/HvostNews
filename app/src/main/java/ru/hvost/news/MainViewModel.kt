@@ -117,6 +117,7 @@ class MainViewModel : ViewModel() {
         getPrizeCategories()
         updateVouchers(App.getInstance().userToken)
         loadInterests()
+        loadSpecies()
     }
 
     fun getBonusBalance() {

@@ -3,12 +3,15 @@ package ru.hvost.news.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
@@ -44,11 +47,20 @@ class ArticleAdapter(private val onClick: (String) -> Unit) :
             binding.img.doOnLayout {
                 val width = binding.img.width
                 val height = width / 1.625F
-                val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height.toInt())
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    height.toInt()
+                )
                 binding.img.layoutParams = params
             }
-
-            // TODO: setOnclickListener to like for setting like to article
+            if (articleItem.isLiked) {
+                binding.likes.setCompoundDrawables(
+                    ContextCompat.getDrawable(binding.root.context, R.drawable.ic_like_checked),
+                    null,
+                    null,
+                    null
+                )
+            }
             binding.root.setOnClickListener { onClick.invoke(articleItem.articleId) }
         }
 

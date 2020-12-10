@@ -20,11 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_medium"
             android:text="@string/choosePrizes"
-            android:textAppearance="@style/ToolbarTitleTextAppearance"
-            android:textColor="@color/gray1"
-            android:textStyle="bold" />
+            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
+            android:textColor="@color/gray1" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -45,34 +43,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/smallMargin"
                 android:orientation="vertical"
-                app:layout_scrollFlags="scroll"
-                android:padding="@dimen/screenContentPadding">
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                android:paddingTop="@dimen/xLargeMargin"
+                app:layout_scrollFlags="scroll">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/normalMargin"
+                    android:layout_marginBottom="@dimen/largeMargin"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/smallMargin"
-                        android:fontFamily="@font/gilroy_medium"
+                        android:fontFamily="@font/gilroy_bold"
                         android:text="@string/balance"
                         android:textColor="@color/gray1"
-                        android:textSize="@dimen/mainTitleTextSize"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/mainTitleTextSize" />
 
                     <TextView
                         android:id="@+id/balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_medium"
+                        android:fontFamily="@font/gilroy_bold"
                         android:textColor="@color/_1"
-                        android:textSize="@dimen/mainTitleTextSize"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/mainTitleTextSize" />
 
                 </LinearLayout>
 
@@ -80,11 +78,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/normalMargin"
-                    android:fontFamily="@font/gilroy_medium"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/owner"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/articleTitleTextSize"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/prizesSubtitleTextSize" />
 
             </LinearLayout>
 
@@ -96,7 +93,7 @@
             android:layout_height="wrap_content"
             android:clipToPadding="true"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/screenContentPadding"
+            android:paddingHorizontal="@dimen/profileCoverPadding"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

@@ -323,7 +323,7 @@
     <string name="ageForMonthType3">месяцев</string>
     <string name="lesson">Урок</string>
     <string name="partner_page">Страница партнера</string>
-    <string name="fragmentVouchersTitle">Мои промокоды</string>
+    <string name="fragmentVouchersTitle">Интернет-магазин</string>
     <string name="buttonGoToShop">Перейти в магазин</string>
     <string name="rvVoucherNameHint">Имя питомца</string>
     <string name="rvVoucherSpeciesHint">Вид</string>
@@ -391,4 +391,6 @@
     <string name="videos_past_semianars">Видео с прошлых семинаров</string>
     <string name="participation_in_promotions">Участие в акциях</string>
     <string name="create_feedback">Отсавить отзыв</string>
+    <string name="newVoucherHint">Если у вас уже имеется подарочный купон, вы можете ввести в поле ниже указанное на нем кодовое слово и получить доступ в магазин.</string>
+    <string name="addPetButtonCD">Добавить питомца</string>
 </resources>
