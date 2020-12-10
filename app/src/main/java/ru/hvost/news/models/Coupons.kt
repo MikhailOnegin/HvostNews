@@ -44,7 +44,7 @@ fun List<CouponsResponse.Coupon>?.toOfflineLessons(): List<Coupons.Coupon> {
                     description = couponResponse.description ?: "",
                     expirationDate = couponResponse.expirationDate ?: "",
                     address = couponResponse.address ?: "",
-                    qrCodeUrl = couponResponse.qRImageUrl ?: "",
+                    qrCodeUrl = couponResponse.qrCodeImageUrl ?: "",
                     qrCode = couponResponse.qrCode ?: "",
 
 
