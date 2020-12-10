@@ -22,12 +22,14 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentInviteBinding
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
 class InviteFragment : Fragment() {
 
     private lateinit var binding: FragmentInviteBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var onBonusBalanceLoadingEvent: DefaultNetworkEventObserver
 
     override fun onStart() {
         setSystemUiVisibility()
@@ -45,8 +47,8 @@ class InviteFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = FragmentInviteBinding.inflate(inflater, container, false)
         return binding.root
@@ -55,8 +57,21 @@ class InviteFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        initializeEventObservers()
         setObservers()
         setListeners()
+    }
+
+    private fun initializeEventObservers() {
+        onBonusBalanceLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = {
+                val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
+                binding.balanceBefore.text = balance.dec().toString()
+                binding.balance.text = balance.toString()
+                binding.balanceAfter.text = balance.inc().toString()
+            }
+        )
     }
 
     private fun setListeners() {
@@ -85,10 +100,10 @@ class InviteFragment : Fragment() {
     private fun copyRefLink() {
         val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip: ClipData =
-                ClipData.newPlainText("simple text", mainVM.inviteLinkResponse.value?.inviteLink)
+            ClipData.newPlainText("simple text", mainVM.inviteLinkResponse.value?.inviteLink)
         clipboard.setPrimaryClip(clip)
         Toast.makeText(requireActivity(), getString(R.string.refLinkCopied), Toast.LENGTH_SHORT)
-                .show()
+            .show()
     }
 
     private fun shareRefLink() {
@@ -100,14 +115,14 @@ class InviteFragment : Fragment() {
     }
 
     private fun setObservers() {
-        mainVM.bonusBalanceState.observe(viewLifecycleOwner, { onBalanceChanged(it) })
+        mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
         mainVM.inviteLinkState.observe(viewLifecycleOwner, { onLinkChanged(it) })
         mainVM.sendInviteState.observe(viewLifecycleOwner, { onInviteSended(it) })
         mainVM.closeInstructionsEvent.observe(
-                viewLifecycleOwner,
-                OneTimeEvent.Observer { onCloseInstructionsEvent() }
-                /* OneTimeEvent.Observer - специальный Observer для объектов типа OneTimeEvent.
-                * Реализация гарантирует, что обработчик сработает только один раз по одному событию. */
+            viewLifecycleOwner,
+            OneTimeEvent.Observer { onCloseInstructionsEvent() }
+            /* OneTimeEvent.Observer - специальный Observer для объектов типа OneTimeEvent.
+            * Реализация гарантирует, что обработчик сработает только один раз по одному событию. */
         )
     }
 
@@ -119,9 +134,9 @@ class InviteFragment : Fragment() {
         when (state) {
             State.SUCCESS -> {
                 Toast.makeText(
-                        requireActivity(),
-                        getString(R.string.sendedSuccessfull),
-                        Toast.LENGTH_SHORT
+                    requireActivity(),
+                    getString(R.string.sendedSuccessfull),
+                    Toast.LENGTH_SHORT
                 ).show()
             }
             State.FAILURE, State.ERROR -> {
@@ -133,19 +148,6 @@ class InviteFragment : Fragment() {
         when (state) {
             State.SUCCESS -> {
                 binding.link.setText(mainVM.inviteLinkResponse.value?.inviteLink)
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
-    }
-
-    private fun onBalanceChanged(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                val balance = mainVM.bonusBalanceResponse.value?.bonusBalance ?: 98
-                binding.balanceBefore.text = balance.dec().toString()
-                binding.balance.text = balance.toString()
-                binding.balanceAfter.text = balance.inc().toString()
             }
             State.FAILURE, State.ERROR -> {
             }

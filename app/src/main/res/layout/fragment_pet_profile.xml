@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/petProfileTitle"
-            android:textAppearance="@style/ToolbarTitleTextAppearance"
+            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
             android:textColor="@color/gray1" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -75,6 +75,8 @@
                     android:layout_weight="0.5"
                     android:backgroundTint="@color/gray4_half_opacity"
                     android:fontFamily="@font/gilroy_bold"
+                    android:textSize="@dimen/profileSwitchTextSize"
+                    android:letterSpacing="-0.03"
                     android:text="@string/petPassportButton"
                     android:textAllCaps="false"
                     app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
@@ -224,7 +226,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/presentations"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSubtitleTextSize" />
+                    android:textSize="@dimen/profileSwitchTextSize" />
 
                 <Switch
                     android:id="@+id/switch_shows"
@@ -252,7 +254,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/titules"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSubtitleTextSize" />
+                    android:textSize="@dimen/profileSwitchTextSize" />
 
                 <Switch
                     android:id="@+id/switch_titules"
@@ -280,7 +282,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/sport"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSubtitleTextSize" />
+                    android:textSize="@dimen/profileSwitchTextSize" />
 
                 <Switch
                     android:id="@+id/switch_sport"
@@ -308,7 +310,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/saloons"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSubtitleTextSize" />
+                    android:textSize="@dimen/profileSwitchTextSize" />
 
                 <Switch
                     android:id="@+id/switch_saloons"

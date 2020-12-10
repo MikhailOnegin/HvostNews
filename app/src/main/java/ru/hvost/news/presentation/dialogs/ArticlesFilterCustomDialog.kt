@@ -17,11 +17,14 @@ import ru.hvost.news.models.CheckboxStates
 import ru.hvost.news.models.FilterFooter
 import ru.hvost.news.models.InterestsCategory
 import ru.hvost.news.presentation.adapters.ArticlesFilterAdapter
+import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
 
     private lateinit var binding: LayoutArticlesFilterBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var onUserDataLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
@@ -45,7 +48,7 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
     private fun onInterestsLoadingSuccess() {
         val adapter = ArticlesFilterAdapter(mainVM)
         val interests = mainVM.interests.value
-        val userInterests = mainVM.userDataResponse.value?.interests
+        val userInterests = mainVM.userData.value?.interests
         val actual = checkInterestsStates(interests, userInterests)?.toMutableList()
         actual?.add(FilterFooter)
         binding.list.adapter = adapter
@@ -77,12 +80,21 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        if (mainVM.interestsLoadingEvent.value?.peekContent() == State.SUCCESS) onInterestsLoadingSuccess()
+        initializeObservers()
         setObservers()
         super.onActivityCreated(savedInstanceState)
     }
 
+    private fun initializeObservers() {
+        onUserDataLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { onInterestsLoadingSuccess() }
+        )
+    }
+
     private fun setObservers() {
-        mainVM.interests.observe(viewLifecycleOwner, { onInterestsLoadingSuccess() })
+        mainVM.interestsLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
