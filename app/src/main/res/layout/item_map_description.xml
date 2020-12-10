@@ -117,4 +117,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
+    <include
+        android:id="@+id/include_promotions"
+        layout="@layout/layout_participation_in_promotions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_site" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -388,4 +388,7 @@
     <string name="work_time">Время работы</string>
     <string name="shareArticleTitle">Поделиться статьёй</string>
     <string name="splashScreenCD">Заставка</string>
+    <string name="videos_past_semianars">Видео с прошлых семинаров</string>
+    <string name="participation_in_promotions">Участие в акциях</string>
+    <string name="create_feedback">Отсавить отзыв</string>
 </resources>
