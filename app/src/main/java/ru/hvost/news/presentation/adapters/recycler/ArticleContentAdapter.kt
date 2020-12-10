@@ -14,22 +14,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import ru.hvost.news.App
-import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
+import ru.hvost.news.presentation.fragments.articles.ArticleViewModel
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
 class ArticleContentAdapter(
-    private val mainVM: MainViewModel,
+    private val articleVM: ArticleViewModel,
     var isLiked: Boolean
 ) : ListAdapter<ArticleContent, RecyclerView.ViewHolder>(ArticleContentDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
             TYPE_HEADER -> ArticleHeaderVH.getViewHolder(parent)
-            TYPE_FOOTER -> ArticleFooterVH.getViewHolder(parent, mainVM, this)
+            TYPE_FOOTER -> ArticleFooterVH.getViewHolder(parent, articleVM, this)
             TYPE_TITLE -> ArticleTitleVH.getViewHolder(parent)
             TYPE_QUOTE -> ArticleQuoteVH.getViewHolder(parent)
             TYPE_IMAGE -> ArticleImageVH.getViewHolder(parent)
@@ -58,6 +58,14 @@ class ArticleContentAdapter(
             is HtmlImage -> TYPE_IMAGE
             is HtmlText -> TYPE_TEXT
         }
+    }
+
+    override fun onCurrentListChanged(
+        previousList: MutableList<ArticleContent>,
+        currentList: MutableList<ArticleContent>
+    ) {
+        super.onCurrentListChanged(previousList, currentList)
+        articleVM.sendRecyclerViewReadyEvent()
     }
 
     class ArticleHeaderVH(
@@ -109,7 +117,7 @@ class ArticleContentAdapter(
 
     class ArticleFooterVH(
         private val binding: RvArticleFooterBinding,
-        private val mainVM: MainViewModel,
+        private val articleVM: ArticleViewModel,
         private val adapter: ArticleContentAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -117,7 +125,7 @@ class ArticleContentAdapter(
             binding.apply {
                 buttonLike.text = moneyFormat.format(footer.likesCount)
                 buttonShare.setOnClickListener {
-                    mainVM.sendShareArticleEvent(footer.shareLink)
+                    articleVM.sendShareArticleEvent(footer.shareLink)
                 }
                 buttonLike.setOnClickListener {
                     adapter.isLiked = !adapter.isLiked
@@ -143,7 +151,7 @@ class ArticleContentAdapter(
 
             fun getViewHolder(
                 parent: ViewGroup,
-                mainVM: MainViewModel,
+                articleVM: ArticleViewModel,
                 adapter: ArticleContentAdapter
             ) : ArticleFooterVH {
                 val binding = RvArticleFooterBinding.inflate(
@@ -151,7 +159,7 @@ class ArticleContentAdapter(
                     parent,
                     false
                 )
-                return ArticleFooterVH(binding, mainVM, adapter)
+                return ArticleFooterVH(binding, articleVM, adapter)
             }
 
         }

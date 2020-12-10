@@ -77,7 +77,7 @@ class RegisterVoucherFragment : Fragment() {
             isReadyToCheckVoucher.observe(viewLifecycleOwner) { onIsReadyToCheckChanged(it) }
             isVoucherCorrect.observe(viewLifecycleOwner) { onIsVoucherCorrectChanged(it) }
         }
-        mainVM.userPetsResponse.observe(viewLifecycleOwner) { onPetsChanged(it) }
+        mainVM.userPets.observe(viewLifecycleOwner) { onPetsChanged(it) }
     }
 
     private fun onPetsChanged(pets: List<Pets>?) {

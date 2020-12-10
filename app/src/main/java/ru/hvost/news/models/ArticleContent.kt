@@ -135,7 +135,7 @@ fun processString(
 }
 
 fun Article.toArticleContent() : List<ArticleContent> {
-    val result = this.description.toHtmlContent().toMutableList()
+    val result = this.content.toHtmlContent().toMutableList()
     result.add(0, ArticleHeader(
         id = UniqueIdGenerator.nextId(),
         title = title,

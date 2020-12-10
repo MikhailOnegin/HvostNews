@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.databinding.FragmentEditProfileBinding
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -22,7 +23,7 @@ class EditProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var mainVM: MainViewModel
-    private var state: State? = null
+    private lateinit var onUserDataLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,29 +36,25 @@ class EditProfileFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        if (mainVM.userDataLoadingEvent.value?.peekContent() == State.SUCCESS) bindData()
+        initializeObservers()
         setObservers()
         setListeners()
     }
 
-    private fun setObservers() {
-        mainVM.userDataState.observe(viewLifecycleOwner, {
-            state = it
-            setDataToBind(it)
-        })
+    private fun initializeObservers() {
+        onUserDataLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { bindData() }
+        )
     }
 
-    private fun setDataToBind(state: State) {
-        when (state) {
-            State.SUCCESS -> {
-                bindData()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
+    private fun setObservers() {
+        mainVM.userDataLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
     }
 
     private fun bindData() {
-        val userData = mainVM.userDataResponse.value
+        val userData = mainVM.userData.value
         binding.surname.setText(userData?.surname)
         binding.name.setText(userData?.name)
         binding.patronymic.setText(userData?.patronymic)
@@ -70,19 +67,7 @@ class EditProfileFragment : Fragment() {
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.birthday.setOnClickListener(openDatePickerDialog)
-        binding.cancel.setOnClickListener {
-            if (state == State.SUCCESS) {
-                bindData()
-            } else {
-                binding.surname.setText("")
-                binding.name.setText("")
-                binding.patronymic.setText("")
-                binding.birthday.setText("")
-                binding.phone.setText("")
-                binding.email.setText("")
-                binding.city.setText("")
-            }
-        }
+        binding.cancel.setOnClickListener { findNavController().popBackStack() }
         binding.save.setOnClickListener { tryToSend() }
     }
 

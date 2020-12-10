@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:theme="@style/AppTheme.Toolbar"
+        android:elevation="@dimen/barsElevation"
         app:navigationIcon="@drawable/ic_back">
 
         <TextView
@@ -23,17 +24,11 @@
             android:layout_gravity="center"
             android:fontFamily="@font/gilroy_medium"
             android:text="@string/editProfileTitle"
-            android:textAppearance="@style/ToolbarTitleTextAppearance"
+            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
             android:textColor="@color/gray1"
             android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray4_half_opacity" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,7 +39,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/largeMargin"
-            android:paddingVertical="@dimen/screenContentPadding">
+            android:paddingTop="@dimen/largeMargin"
+            android:paddingBottom="@dimen/screenContentPadding">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/ProfileTextInputLayout"

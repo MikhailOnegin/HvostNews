@@ -28,6 +28,7 @@ class AddPetCustomDialog() : BottomSheetDialogFragment() {
 
     private lateinit var binding: LayoutAddPetBinding
     private lateinit var onPetAdded: DefaultNetworkEventObserver
+    private lateinit var onPetSpeciesLoadingEvent: DefaultNetworkEventObserver
     private lateinit var mainVM: MainViewModel
     private var petSex: Int = RegistrationVM.SEX_UNKNOWN
 
@@ -61,25 +62,19 @@ class AddPetCustomDialog() : BottomSheetDialogFragment() {
     }
 
     private fun setObservers() {
-        mainVM.petsSpeciesState.observe(viewLifecycleOwner) {
-            onSpeciesChanged(it)
-        }
+        mainVM.petsSpeciesLoadingEvent.observe(viewLifecycleOwner, onPetSpeciesLoadingEvent)
     }
 
-    private fun onSpeciesChanged(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                mainVM.petsSpeciesResponse.value?.run {
-                    val adapter = SpinnerAdapter(
-                        requireActivity(),
-                        getString(R.string.addPetTitle),
-                        this,
-                        Species::speciesName
-                    )
-                    binding.type.adapter = adapter
-                    adapter.notifyDataSetChanged()
-                }
-            }
+    private fun onSpeciesChanged() {
+        mainVM.petsSpecies.value?.run {
+            val adapter = SpinnerAdapter(
+                requireActivity(),
+                getString(R.string.addPetTitle),
+                this,
+                Species::speciesName
+            )
+            binding.type.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -147,6 +142,10 @@ class AddPetCustomDialog() : BottomSheetDialogFragment() {
                 ).show()
                 dismiss()
             },
+        )
+        onPetSpeciesLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { onSpeciesChanged() }
         )
     }
 

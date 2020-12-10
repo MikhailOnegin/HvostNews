@@ -3,7 +3,8 @@ package ru.hvost.news.data.api.response
 data class ArticlesResponse(
     val result: String?,
     val error: String?,
-    val articles: List<Article>?
+    val articles: List<Article>?,
+    val article: Article?
 ) {
     data class Article(
         val articleId: String?,
@@ -18,6 +19,7 @@ data class ArticlesResponse(
         val description: String?,
         val viewsCount: Int?,
         val articleUrl: String?,
-        val likesCount: Int?
+        val likesCount: Int?,
+        val content: String?
     )
 }

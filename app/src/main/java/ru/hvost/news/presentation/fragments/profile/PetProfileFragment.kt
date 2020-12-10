@@ -27,6 +27,9 @@ class PetProfileFragment : Fragment() {
     private lateinit var binding: FragmentPetProfileBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var onPetToysLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onUserPetsLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onPetSpeciesLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onPetBreedsLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onPetEducationLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
@@ -44,6 +47,7 @@ class PetProfileFragment : Fragment() {
         setObservers()
         setListeners()
     }
+    //yunusov: Поправить вывод информации о животном
 
     private fun initializeEventObservers() {
         onPetToysLoadingEvent = DefaultNetworkEventObserver(
@@ -54,6 +58,18 @@ class PetProfileFragment : Fragment() {
             anchorView = binding.root,
             doOnSuccess = { onPetEducationChanged(mainVM.petEducation.value) }
         )
+        onUserPetsLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { bindData() }
+        )
+        onPetBreedsLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { setBreeds() }
+        )
+        onPetSpeciesLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { onSpeciesChanged() }
+        )
     }
 
     private fun setListeners() {
@@ -63,9 +79,10 @@ class PetProfileFragment : Fragment() {
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.passport.setOnClickListener { findNavController().navigate(R.id.action_petProfileFragment_to_petPassportFragment) }
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.cancel.setOnClickListener { findNavController().popBackStack() }
         binding.delete.setOnClickListener {
             val petData =
-                mainVM.userPetsResponse.value?.filter { it.petId == arguments?.getString("PET_ID") }
+                mainVM.userPets.value?.filter { it.petId == arguments?.getString("PET_ID") }
             if (!petData.isNullOrEmpty()) {
                 mainVM.deletePet(petData[0].petId)
                 mainVM.loadPetsData()
@@ -100,7 +117,7 @@ class PetProfileFragment : Fragment() {
     }
 
     private fun sendSpecies(position: Long) {
-        val pet = mainVM.petsSpeciesResponse.value?.filter { it.id == position }
+        val pet = mainVM.petsSpecies.value?.filter { it.id == position }
         if (pet.isNullOrEmpty()) return
         mainVM.loadBreeds(pet[0].speciesId)
     }
@@ -126,9 +143,9 @@ class PetProfileFragment : Fragment() {
     }
 
     private fun setObservers() {
-        mainVM.userPetsState.observe(viewLifecycleOwner, Observer { setDataToBind(it) })
-        mainVM.petsSpeciesResponse.observe(viewLifecycleOwner) { onSpeciesChanged(it) }
-        mainVM.petsBreedsResponse.observe(viewLifecycleOwner) { setBreeds(it) }
+        mainVM.userPetsLoadingEvent.observe(viewLifecycleOwner, onUserPetsLoadingEvent)
+        mainVM.petsSpeciesLoadingEvent.observe(viewLifecycleOwner, onPetSpeciesLoadingEvent)
+        mainVM.petsBreedsLoadingEvent.observe(viewLifecycleOwner, onPetBreedsLoadingEvent)
         mainVM.petToysLoadingEvent.observe(viewLifecycleOwner, onPetToysLoadingEvent)
         mainVM.petEducationLoadingEvent.observe(viewLifecycleOwner, onPetEducationLoadingEvent)
     }
@@ -144,8 +161,8 @@ class PetProfileFragment : Fragment() {
         }
     }
 
-    private fun onSpeciesChanged(species: List<Species>?) {
-        species?.run {
+    private fun onSpeciesChanged() {
+        mainVM.petsSpecies.value?.run {
             val adapter = SpinnerAdapter(
                 requireActivity(),
                 getString(R.string.speciesSpinnerHint),
@@ -183,18 +200,8 @@ class PetProfileFragment : Fragment() {
         }
     }
 
-    private fun setDataToBind(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                bindData()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
-    }
-
-    private fun setBreeds(breeds: List<Breeds>?) {
-        breeds?.run {
+    private fun setBreeds() {
+        mainVM.petsBreeds.value?.run {
             val adapter = SpinnerAdapter(
                 requireActivity(),
                 getString(R.string.breedsSpinnerHint),
@@ -208,7 +215,7 @@ class PetProfileFragment : Fragment() {
 
     private fun bindData() {
         val petData =
-            mainVM.userPetsResponse.value?.filter { it.petId == arguments?.getString("PET_ID") }
+            mainVM.userPets.value?.filter { it.petId == arguments?.getString("PET_ID") }
         if (petData.isNullOrEmpty()) return
         binding.name.setText(petData[0].petName)
         binding.birthday.setText(petData[0].petBirthday)

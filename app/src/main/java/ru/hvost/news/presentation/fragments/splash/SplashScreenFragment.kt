@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSplashScreenBinding
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -20,7 +21,11 @@ class SplashScreenFragment : Fragment() {
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var splashAnimation: AnimationDrawable
     private lateinit var splashVM: SplashViewModel
+    private lateinit var mainVM: MainViewModel
     private lateinit var finishObserver: DefaultNetworkEventObserver
+    private lateinit var loadingArticlesEventObserver: DefaultNetworkEventObserver
+    private var isAnimationOver = false
+    private var isDataLoaded = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +43,7 @@ class SplashScreenFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         splashVM = ViewModelProvider(this)[SplashViewModel::class.java]
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
     }
 
@@ -53,8 +59,19 @@ class SplashScreenFragment : Fragment() {
     }
 
     fun setObservers() {
-        splashVM.splashFinishEvent.observe(viewLifecycleOwner) {
-            if(App.getInstance().userToken != null) {
+        splashVM.splashFinishEvent.observe(viewLifecycleOwner) { onTimerEnds() }
+        mainVM.loadingArticlesEvent.observe(viewLifecycleOwner, loadingArticlesEventObserver)
+    }
+
+    private fun onTimerEnds() {
+        splashAnimation.stop()
+        isAnimationOver = true
+        tryMoveFurther()
+    }
+
+    private fun tryMoveFurther() {
+        if(isAnimationOver && isDataLoaded) {
+            if (App.getInstance().userToken != null) {
                 findNavController().navigate(R.id.action_splashScreen_to_newsFragment)
             } else {
                 findNavController().navigate(R.id.action_splashScreen_to_loginFragment)
@@ -72,6 +89,15 @@ class SplashScreenFragment : Fragment() {
                     findNavController().navigate(R.id.action_splashScreen_to_loginFragment)
                 }
             }
+        )
+        loadingArticlesEventObserver = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = {
+                isDataLoaded = true
+                tryMoveFurther()
+            },
+            doOnError = { mainVM.initializeData() },
+            doOnFailure = { mainVM.initializeData() }
         )
     }
 

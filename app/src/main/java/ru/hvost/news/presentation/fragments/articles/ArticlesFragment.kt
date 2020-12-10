@@ -19,15 +19,17 @@ import ru.hvost.news.models.InterestsCategory
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
-import kotlin.reflect.jvm.internal.impl.util.Check
 
-class ArticlesFragment : Fragment() {
+class ArticlesFragment : BaseFragment() {
 
     private lateinit var binding: FragmentArticlesBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var navC: NavController
+    private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
     private val filterDialog = ArticlesFilterCustomDialog()
 
     override fun onCreateView(
@@ -43,9 +45,21 @@ class ArticlesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        mainVM.loadUserData()
         navC = findNavController()
+        initializeObservers()
         setListeners()
         setObservers()
+    }
+
+    private fun initializeObservers() {
+        onChangeUserDataLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = {
+                mainVM.loadArticles()
+                mainVM.loadUserData()
+            }
+        )
     }
 
     private fun setListeners() {
@@ -102,23 +116,12 @@ class ArticlesFragment : Fragment() {
 
     private fun setObservers() {
         mainVM.articlesState.observe(viewLifecycleOwner, { onArticleStateChanged(it) })
-        mainVM.changeUserDataState.observe(viewLifecycleOwner, { updateData(it) })
+        mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
         mainVM.closeArticlesFilterCustomDialog.observe(
             viewLifecycleOwner,
             OneTimeEvent.Observer { closeDialog() })
         mainVM.updateArticlesWithNewInterests.observe(viewLifecycleOwner,
             OneTimeEvent.Observer { updateArticles() })
-    }
-
-    private fun updateData(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                mainVM.loadArticles()
-                mainVM.loadUserData()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
     }
 
     private fun updateArticles() {
@@ -142,8 +145,8 @@ class ArticlesFragment : Fragment() {
     private fun closeDialog() {
         mainVM.interests.value?.map { category ->
             (category as InterestsCategory).sendParent = false
-            (category as InterestsCategory).state = CheckboxStates.UNSELECTED
-            (category as InterestsCategory).interests.map { interest ->
+            category.state = CheckboxStates.UNSELECTED
+            category.interests.map { interest ->
                 interest.state = CheckboxStates.UNSELECTED
             }
         }
@@ -168,7 +171,7 @@ class ArticlesFragment : Fragment() {
     private fun setRecyclerView() {
         val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putString(ITEM_ID, id)
+            bundle.putString(ARTICLE_ID, id)
             bundle.putString("TYPE", "INDIVIDUAL")
             findNavController().navigate(R.id.action_newsFragment_to_articleDetailFragment, bundle)
         }
@@ -194,14 +197,7 @@ class ArticlesFragment : Fragment() {
                 val elementMargin =
                     view.context?.resources?.getDimension(R.dimen.largeMargin)?.toInt() ?: 0
                 parent.adapter.run {
-                    if (position == 0) {
-                        outRect.top = elementMargin
-                        outRect.bottom = elementMargin
-
-                    } else {
-                        outRect.top = 0
-                        outRect.bottom = elementMargin
-                    }
+                    outRect.bottom = elementMargin
                 }
             }
         })
@@ -209,7 +205,7 @@ class ArticlesFragment : Fragment() {
 
     companion object {
 
-        const val ITEM_ID = "ITEM_ID"
+        const val ARTICLE_ID = "article_id"
 
     }
 

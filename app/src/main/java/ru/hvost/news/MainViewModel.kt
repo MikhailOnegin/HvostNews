@@ -17,19 +17,6 @@ class MainViewModel : ViewModel() {
     val allArticles = MutableLiveData<List<Article>>()
     val allArticlesState = MutableLiveData<State>()
 
-    val userDataState = MutableLiveData<State>()
-    val userDataResponse = MutableLiveData<UserDataResponse>()
-    val changeUserDataState = MutableLiveData<State>()
-
-    val userPetsState = MutableLiveData<State>()
-    val userPetsResponse = MutableLiveData<List<Pets>>()
-
-    val petsSpeciesState = MutableLiveData<State>()
-    val petsSpeciesResponse = MutableLiveData<List<Species>>()
-
-    val petsBreedsState = MutableLiveData<State>()
-    val petsBreedsResponse = MutableLiveData<List<Breeds>>()
-
     val petDeleteState = MutableLiveData<State>()
     val petDeleteResponse = MutableLiveData<DeletePetResponse>()
 
@@ -38,9 +25,6 @@ class MainViewModel : ViewModel() {
 
     val sendInviteState = MutableLiveData<State>()
     val sendInviteResponse = MutableLiveData<SendToEmailResponse>()
-
-    val bonusBalanceState = MutableLiveData<State>()
-    val bonusBalanceResponse = MutableLiveData<BonusBalanceResponse>()
 
     val prizeCategoriesState = MutableLiveData<State>()
     val prizeCategoriesResponse = MutableLiveData<List<PrizeCategory>>()
@@ -78,6 +62,33 @@ class MainViewModel : ViewModel() {
     private val _petEducation = MutableLiveData<List<PetEducation>>()
     val petEducation: LiveData<List<PetEducation>> = _petEducation
 
+    private val _userPetsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val userPetsLoadingEvent: LiveData<NetworkEvent<State>> = _userPetsLoadingEvent
+    private val _userPets = MutableLiveData<List<Pets>>()
+    val userPets: LiveData<List<Pets>> = _userPets
+
+    private val _petsSpeciesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petsSpeciesLoadingEvent: LiveData<NetworkEvent<State>> = _petsSpeciesLoadingEvent
+    private val _petsSpecies = MutableLiveData<List<Species>>()
+    val petsSpecies: LiveData<List<Species>> = _petsSpecies
+
+    private val _userDataLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val userDataLoadingEvent: LiveData<NetworkEvent<State>> = _userDataLoadingEvent
+    private val _changeUserDataLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val changeUserDataLoadingEvent: LiveData<NetworkEvent<State>> = _changeUserDataLoadingEvent
+    private val _userData = MutableLiveData<UserDataResponse>()
+    val userData: LiveData<UserDataResponse> = _userData
+
+    private val _petsBreedsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petsBreedsLoadingEvent: LiveData<NetworkEvent<State>> = _petsBreedsLoadingEvent
+    private val _petsBreeds = MutableLiveData<List<Breeds>>()
+    val petsBreeds: LiveData<List<Breeds>> = _petsBreeds
+
+    private val _bonusBalanceLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val bonusBalanceLoadingEvent: LiveData<NetworkEvent<State>> = _bonusBalanceLoadingEvent
+    private val _bonusBalance = MutableLiveData<BonusBalanceResponse>()
+    val bonusBalance: LiveData<BonusBalanceResponse> = _bonusBalance
+
     //Событие, сообщающее о необходимости закрытия инструкций.
     val closeInstructionsEvent = MutableLiveData<OneTimeEvent>()
 
@@ -91,33 +102,39 @@ class MainViewModel : ViewModel() {
 
 //    val enableFilterButton = MutableLiveData<Boolean>()
 
+    private val _loadingArticlesEvent = MutableLiveData<NetworkEvent<State>>()
+    val loadingArticlesEvent: LiveData<NetworkEvent<State>> = _loadingArticlesEvent
+
     init {
+        initializeData()
+    }
+
+    fun initializeData() {
         loadArticles()
         loadAllArticles()
-        loadUserData()
-        loadPetsData()
-        loadSpecies()
         getBonusBalance()
         getInviteLink()
         getPrizeCategories()
         updateVouchers(App.getInstance().userToken)
         loadInterests()
-        loadPetToys()
-        loadPetEducation()
     }
 
     fun getBonusBalance() {
         viewModelScope.launch {
-            bonusBalanceState.value = State.LOADING
+            _bonusBalanceLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response =
                     APIService.API.getBonusBalanceAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
-                    bonusBalanceResponse.value = response
-                    bonusBalanceState.value = State.SUCCESS
-                } else bonusBalanceState.value = State.ERROR
+                    _bonusBalance.value = response
+                    _bonusBalanceLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _bonusBalanceLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _bonusBalance.value = null
+                }
             } catch (exc: Exception) {
-                bonusBalanceState.value = State.FAILURE
+                _bonusBalanceLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _bonusBalance.value = null
             }
         }
     }
@@ -194,14 +211,20 @@ class MainViewModel : ViewModel() {
     fun loadArticles() {
         viewModelScope.launch {
             articlesState.value = State.LOADING
+            _loadingArticlesEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getArticlesAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
                     articles.value = response.articles?.toArticles()
                     articlesState.value = State.SUCCESS
-                } else articlesState.value = State.ERROR
+                    _loadingArticlesEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    articlesState.value = State.ERROR
+                    _loadingArticlesEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
             } catch (exc: Exception) {
                 articlesState.value = State.FAILURE
+                _loadingArticlesEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
@@ -249,45 +272,57 @@ class MainViewModel : ViewModel() {
 
     fun loadUserData() {
         viewModelScope.launch {
-            userDataState.value = State.LOADING
+            _userDataLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getUserDataAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
-                    userDataResponse.value = response
-                    userDataState.value = State.SUCCESS
-                } else userDataState.value = State.ERROR
+                    _userData.value = response
+                    _userDataLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _userDataLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _userData.value = null
+                }
             } catch (exc: Exception) {
-                userDataState.value = State.FAILURE
+                _userDataLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _userData.value = null
             }
         }
     }
 
     fun loadPetsData() {
         viewModelScope.launch {
-            userPetsState.value = State.LOADING
+            _userPetsLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getPetsAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
-                    userPetsResponse.value = response.pets?.toPets()
-                    userPetsState.value = State.SUCCESS
-                } else userPetsState.value = State.ERROR
+                    _userPets.value = response.pets?.toPets()
+                    _userPetsLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _userPetsLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _userPets.value = listOf()
+                }
             } catch (exc: Exception) {
-                userPetsState.value = State.FAILURE
+                _userPetsLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _userPets.value = listOf()
             }
         }
     }
 
     fun loadSpecies() {
         viewModelScope.launch {
-            petsSpeciesState.value = State.LOADING
+            _petsSpeciesLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getSpeciesAsync().await()
                 if (response.result == "success") {
-                    petsSpeciesResponse.value = response.species?.toSpecies()
-                    petsSpeciesState.value = State.SUCCESS
-                } else petsSpeciesState.value = State.ERROR
+                    _petsSpecies.value = response.species?.toSpecies()
+                    _petsSpeciesLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petsSpeciesLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _petsSpecies.value = listOf()
+                }
             } catch (exc: Exception) {
-                petsSpeciesState.value = State.FAILURE
+                _petsSpeciesLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _petsSpecies.value = listOf()
             }
         }
     }
@@ -296,15 +331,19 @@ class MainViewModel : ViewModel() {
         specId: Int
     ) {
         viewModelScope.launch {
-            petsBreedsState.value = State.LOADING
+            _petsBreedsLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getBreedsAsync(specId).await()
                 if (response.result == "success") {
-                    petsBreedsResponse.value = response.breeds?.toBreeds()
-                    petsBreedsState.value = State.SUCCESS
-                } else petsBreedsState.value = State.ERROR
+                    _petsBreeds.value = response.breeds?.toBreeds()
+                    _petsBreedsLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petsBreedsLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _petsBreeds.value = listOf()
+                }
             } catch (exc: Exception) {
-                petsBreedsState.value = State.FAILURE
+                _petsBreedsLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _petsBreeds.value = listOf()
             }
         }
     }
@@ -341,7 +380,7 @@ class MainViewModel : ViewModel() {
         interests: String? = null
     ) {
         viewModelScope.launch {
-            changeUserDataState.value = State.LOADING
+            _changeUserDataLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getUpdateUserProfileAsync(
                     userToken = App.getInstance().userToken,
@@ -355,10 +394,12 @@ class MainViewModel : ViewModel() {
                     interests = interests
                 ).await()
                 if (response.result == "success") {
-                    changeUserDataState.value = State.SUCCESS
-                } else changeUserDataState.value = State.ERROR
+                    _changeUserDataLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _changeUserDataLoadingEvent.value = NetworkEvent(State.ERROR)
+                }
             } catch (exc: Exception) {
-                changeUserDataState.value = State.FAILURE
+                _changeUserDataLoadingEvent.value = NetworkEvent(State.FAILURE)
             }
         }
     }
@@ -417,7 +458,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun loadPetEducation() {
+    fun loadPetEducation() {
         viewModelScope.launch {
             _petEducationLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -436,7 +477,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun loadPetToys() {
+    fun loadPetToys() {
         viewModelScope.launch {
             _petToysLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -581,13 +622,6 @@ class MainViewModel : ViewModel() {
                 _interests.value = listOf()
             }
         }
-    }
-
-    private val _shareArticleEvent = MutableLiveData<Event<String>>()
-    val shareArticleEvent: LiveData<Event<String>> = _shareArticleEvent
-
-    fun sendShareArticleEvent(articleUrl: String) {
-        _shareArticleEvent.value = Event(articleUrl)
     }
 
 }

@@ -76,6 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/normalMargin"
+                    android:layout_marginBottom="@dimen/normalMargin"
                     android:paddingHorizontal="@dimen/smallMargin"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

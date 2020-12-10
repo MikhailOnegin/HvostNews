@@ -126,6 +126,12 @@ interface APIService {
         @Query("userToken") userToken: String? = null
     ): Deferred<ArticlesResponse>
 
+    @GET("/rest/Articles/getArticle/")
+    fun getArticleAsync(
+        @Query("userToken") userToken: String? = null,
+        @Query("articleId") articleId: String?
+    ): Deferred<ArticlesResponse>
+
     @GET("/rest/Registration/getSpecies/")
     fun getSpeciesAsync(): Deferred<SpeciesResponse>
 

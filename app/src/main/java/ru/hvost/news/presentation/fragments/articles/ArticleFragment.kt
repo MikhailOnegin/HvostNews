@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.fragments.articles
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticleBinding
 import ru.hvost.news.models.Article
@@ -16,44 +16,31 @@ import ru.hvost.news.presentation.adapters.recycler.ArticleContentAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.createSnackbar
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.Event
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class ArticleFragment : BaseFragment() {
 
     private lateinit var binding: FragmentArticleBinding
-    private lateinit var mainVM: MainViewModel
+    private lateinit var articleVM: ArticleViewModel
+    private lateinit var loadingArticleEventObserver: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentArticleBinding.inflate(inflater, container, false)
+        setViews()
+        initializeObservers()
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        val article = mainVM.allArticles.value?.firstOrNull {
-            it.articleId == arguments?.getString(ArticlesFragment.ITEM_ID)
-        }
-        setRecyclerView(article)
-        setGUI(article)
+        articleVM = ViewModelProvider(this)[ArticleViewModel::class.java]
+        articleVM.loadArticle(arguments?.getString(ArticlesFragment.ARTICLE_ID))
         setObservers()
-    }
-
-    private fun setGUI(article: Article?) {
-        if(article == null) {
-            createSnackbar(
-                anchorView = binding.root,
-                text = getString(R.string.cantFindArticle),
-                onButtonClicked = { findNavController().popBackStack() }
-            ).show()
-        } else {
-            (binding.recyclerView.adapter as ArticleContentAdapter).submitList(
-                article.toArticleContent()
-            )
-        }
     }
 
     override fun onStart() {
@@ -66,7 +53,44 @@ class ArticleFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        mainVM.shareArticleEvent.observe(viewLifecycleOwner) { onShareArticleEvent(it) }
+        articleVM.apply {
+            shareArticleEvent.observe(viewLifecycleOwner) { onShareArticleEvent(it) }
+            article.observe(viewLifecycleOwner) { onArticleChanged(it) }
+            loadArticleEvent.observe(viewLifecycleOwner, loadingArticleEventObserver)
+            recyclerViewReadyEvent.observe(viewLifecycleOwner) { onRecyclerViewReadyEvent(it) }
+        }
+    }
+
+    private fun onRecyclerViewReadyEvent(event: OneTimeEvent?) {
+        event?.getEventIfNotHandled()?.run {
+            binding.progress.visibility = View.GONE
+            ObjectAnimator.ofFloat(
+                binding.recyclerView,
+                "alpha",
+                0f, 1f
+            ).apply {
+                duration = 300L
+            }.start()
+        }
+    }
+
+    private fun onArticleChanged(article: Article?) {
+        if(article == null) {
+            createSnackbar(
+                anchorView = binding.root,
+                text = getString(R.string.cantFindArticle),
+                onButtonClicked = { findNavController().popBackStack() }
+            ).show()
+        } else {
+            binding.recyclerView.apply {
+                val contentAdapter = ArticleContentAdapter(
+                    articleVM = articleVM,
+                    isLiked = article.isLiked
+                )
+                adapter = contentAdapter
+                contentAdapter.submitList(article.toArticleContent())
+            }
+        }
     }
 
     private fun onShareArticleEvent(event: Event<String>?) {
@@ -80,11 +104,20 @@ class ArticleFragment : BaseFragment() {
         }
     }
 
-    fun setRecyclerView(article: Article?) {
-        binding.recyclerView.apply {
-            adapter = ArticleContentAdapter(mainVM, isLiked = article?.isLiked ?: false)
-            addItemDecoration(LinearRvItemDecorations(R.dimen.largeMargin))
+    private fun setViews() {
+        binding.apply {
+            recyclerView.addItemDecoration(LinearRvItemDecorations(R.dimen.largeMargin))
+            recyclerView.alpha = 0f
+            progress.visibility = View.VISIBLE
         }
+    }
+
+    private fun initializeObservers() {
+        loadingArticleEventObserver = DefaultNetworkEventObserver(
+            binding.root,
+            doOnError = { findNavController().popBackStack() },
+            doOnFailure = { findNavController().popBackStack() }
+        )
     }
 
 }
