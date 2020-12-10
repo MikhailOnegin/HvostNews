@@ -17,6 +17,7 @@ import ru.hvost.news.databinding.LayoutAddPetBinding
 import ru.hvost.news.models.Species
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
+import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import java.text.SimpleDateFormat
 import java.util.*
