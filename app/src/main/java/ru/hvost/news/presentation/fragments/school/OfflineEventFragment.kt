@@ -53,7 +53,7 @@ class OfflineEventFragment : Fragment() {
                     val seminar = it.seminars[i]
                     infoAdapter.setSeminar(seminar)
                     scheduleAdapter.setSeminar(seminar)
-                    if (seminar.id == seminarId) {
+                    if (seminar.id.toString() == seminarId) {
                         binding.textViewTitle.text = seminar.title
                         if (seminar.isFinished) {
                             binding.textViewLessonStatus.text = getString(R.string.completed)

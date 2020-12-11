@@ -7,32 +7,44 @@ data class OfflineSeminars(
 {
     data class OfflineLesson(
         val domainId:Int,
-        val id:String,
+        val id: Int,
         val title: String,
+        val description: String,
         val imageUrl: String,
         val isFinished: Boolean,
         val date: String,
         val city: String,
+        val participate:Boolean,
         val sponsor: String,
-        val description: String,
-        val participate: Boolean,
-        val videos: List<Video>,
         val partners: List<Partner>,
-        val schedule: List<Schedule>
+        val videos: List<Video>,
+        val wait: List<Wait>,
+        val petShedules: List<PetSchedule>
     )
     data class Video(
-        val title:String?,
-        val videoUrl:String?
+        val title: String,
+        val imageVideoUrl:String,
+        val videoUrl: String
     )
     data class Partner(
-        val title:String?,
-        val imageUrl:String?
+        val name: String,
+        val image: String
+    )
+    data class PetSchedule(
+        val petTypeId: String,
+        val petTypeName: String,
+        val schedules: List<Schedule>
     )
     data class Schedule(
         val title: String,
-        val date:String,
+        val description: String,
+        val date: String,
         val timeStart: String,
         val timeFinish: String
+    )
+    data class Wait(
+        val imageUrl: String,
+        val head: String
     )
 }
 
@@ -49,7 +61,7 @@ fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<Offlin
             result.add(
                 OfflineSeminars.OfflineLesson(
                     domainId = index,
-                    id = offlineLessonResponse.id ?: "",
+                    id = offlineLessonResponse.id ?: 0,
                     title = offlineLessonResponse.title ?: "",
                     imageUrl = offlineLessonResponse.imageUrl ?: "",
                     isFinished = offlineLessonResponse.isFinished ?: false,
@@ -58,9 +70,10 @@ fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<Offlin
                     sponsor = offlineLessonResponse.sponsor ?: "",
                     description = offlineLessonResponse.description ?: "",
                     participate = offlineLessonResponse.participate ?: false,
-                    schedule = offlineLessonResponse.schedule.toSchedules(),
                     videos = offlineLessonResponse.videos.toVideos(),
-                    partners = offlineLessonResponse.partners.toPartners()
+                    partners = offlineLessonResponse.partners.toPartners(),
+                    wait = offlineLessonResponse.wait.toWait(),
+                    petShedules = offlineLessonResponse.petShedules.toPetSchedules(),
                 )
             )
         }
@@ -75,6 +88,7 @@ fun List<OfflineSeminarsResponse.Video>?.toVideos(): List<OfflineSeminars.Video>
             result.add(
                 OfflineSeminars.Video(
                     title = video.title ?: "",
+                    imageVideoUrl = video.imageVideoUrl ?: "",
                     videoUrl = video.videoUrl ?: ""
                 )
             )
@@ -88,8 +102,8 @@ fun List<OfflineSeminarsResponse.Partner>?.toPartners(): List<OfflineSeminars.Pa
         for ((index, partner) in this.withIndex()) {
             result.add(
                 OfflineSeminars.Partner(
-                    title = partner.title ?: "",
-                    imageUrl = partner.imageUrl ?: ""
+                    name = partner.name ?: "",
+                    image = partner.image ?: ""
                 )
             )
         }
@@ -104,9 +118,41 @@ fun List<OfflineSeminarsResponse.Schedule>?.toSchedules(): List<OfflineSeminars.
             result.add(
                 OfflineSeminars.Schedule(
                     title = schedule.title ?: "",
+                    description = schedule.description ?: "",
                     date =  schedule.date ?: "",
                     timeStart =  schedule.timeStart?: "",
                     timeFinish = schedule.timeFinish?: ""
+                )
+            )
+        }
+    }
+    return result
+}
+
+fun List<OfflineSeminarsResponse.PetSchedule>?.toPetSchedules(): List<OfflineSeminars.PetSchedule>{
+    val result = mutableListOf<OfflineSeminars.PetSchedule>()
+    this?.run {
+        for ((index, petSchedule) in this.withIndex()) {
+            result.add(
+                OfflineSeminars.PetSchedule(
+                    petTypeId = petSchedule.petTypeId ?: "",
+                    petTypeName = petSchedule.petTypeName ?: "",
+                    schedules = petSchedule.schedules.toSchedules()
+                )
+            )
+        }
+    }
+    return result
+}
+
+fun List<OfflineSeminarsResponse.Wait>?.toWait(): List<OfflineSeminars.Wait>{
+    val result = mutableListOf<OfflineSeminars.Wait>()
+    this?.run {
+        for ((index, wait) in this.withIndex()) {
+            result.add(
+                OfflineSeminars.Wait(
+                    imageUrl = wait.imageUrl ?: "",
+                    head = wait.head ?: ""
                 )
             )
         }

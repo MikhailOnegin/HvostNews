@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_lesson_online_active.view.*
-import kotlinx.android.synthetic.main.item_lesson_online_active.view.textView_number
-import kotlinx.android.synthetic.main.item_lesson_online_finished.view.*
+import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.*
+import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.textView_number
+import kotlinx.android.synthetic.main.item_school_lesson_online_finished.view.*
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
@@ -55,10 +55,10 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val viewLessonActive = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_lesson_online_active, parent, false)
+            .inflate(R.layout.item_school_lesson_online_active, parent, false)
 
         val viewLessonFinished = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_lesson_online_finished, parent, false)
+            .inflate(R.layout.item_school_lesson_online_finished, parent, false)
 
         val viewLiterature = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_useful_literature, parent, false)

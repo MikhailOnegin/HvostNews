@@ -19,71 +19,71 @@ class SchoolViewModel: ViewModel() {
     private val mutableOfflineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
     val offlineSeminars:LiveData<OfflineSeminars> = mutableOfflineSeminars
 
-    fun getOfflineSeminars(cityId:String){
-        //viewModelScope.launch {
-        //    mutableOfflineLessonsState.value = State.LOADING
-        //    try {
-        //        val response = APIService.API.getOfflineSeminarsAsync(cityId).await()
-        //        mutableOfflineSeminars.value = response.toOfflineLessons()
-        //        if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
-        //        else mutableOfflineLessonsState.value = State.ERROR
-        //    } catch (exc: Exception) {
-        //        Log.i("eeee", "getOfflineLessons() ERROR: ${exc.message}")
-        //        mutableOfflineLessonsState.value = State.FAILURE
-        //    }
+    fun getOfflineSeminars(cityId:String, userToken: String){
+        viewModelScope.launch {
+            mutableOfflineLessonsState.value = State.LOADING
+            try {
+                val response = APIService.API.getOfflineSeminarsAsync(cityId, userToken).await()
+                mutableOfflineSeminars.value = response.toOfflineLessons()
+                if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
+                else mutableOfflineLessonsState.value = State.ERROR
+            } catch (exc: Exception) {
+                Log.i("eeee", "getOfflineLessons() ERROR: ${exc.message}")
+                mutableOfflineLessonsState.value = State.FAILURE
+            }
+        }
+        //val seminars = mutableListOf<OfflineSeminars.OfflineLesson>()
+        //val videos = mutableListOf<OfflineSeminars.Video>()
+        //val partners = mutableListOf<OfflineSeminars.Partner>()
+        //val schedule = mutableListOf<OfflineSeminars.Schedule>()
+//
+        //for(i in 0 ..10){
+        //    partners.add(
+        //        OfflineSeminars.Partner(
+        //            "Бетховен",
+        //            "http://hvost-news.testfact3.ru/upload/iblock/a74/shor_shkola273kh211_web.jpg"
+        //        )
+        //    )
         //}
-        val seminars = mutableListOf<OfflineSeminars.OfflineLesson>()
-        val videos = mutableListOf<OfflineSeminars.Video>()
-        val partners = mutableListOf<OfflineSeminars.Partner>()
-        val schedule = mutableListOf<OfflineSeminars.Schedule>()
-
-        for(i in 0 ..10){
-            partners.add(
-                OfflineSeminars.Partner(
-                    "Бетховен",
-                    "http://hvost-news.testfact3.ru/upload/iblock/a74/shor_shkola273kh211_web.jpg"
-                )
-            )
-        }
-        for( i in 0 .. 10){
-            videos.add(
-                OfflineSeminars.Video(
-                    "Обработка щенков от паразитов",
-                    "https://www.youtube.com/watch?v=PyqkKvVZcQQ&ab_channel=%D0%A1%D1%82%D0%B5%D0%BF%D0%B0%D1%88%D0%BA%D0%B8%D0%BD%D0%B4%D0%BE%D0%BC"
-                )
-            )
-        }
-        for( i in 0 .. 10){
-            schedule.add(
-                OfflineSeminars.Schedule(
-                    "Обработка от паразитов",
-                    "21.10.21",
-                    "13:00",
-                    "14:00"
-                )
-            )
-        }
-
-        for (i in 0 .. 10){
-            val isFinished = i>4
-            seminars.add(OfflineSeminars.OfflineLesson(
-                i,
-                "123 $i",
-                "Как подобрать корм",
-                "/upload/iblock/f81/273kh211_banner3_web.jpg",
-                isFinished,
-                "29.02.2020",
-                "Новосибирск",
-                "Мокрый нос",
-                "На что стоит обращать внимание при выборе готовых рационов.<br>\\r\\n • Ошибки и подводные камни при использовании промышленных кормов.<br>\\r\\n • Как профилактировать заболевания выращивания малыша.<br>\\r\\n •&nbsp;Периоды роста и критические этапы развития.<br>",
-                isFinished,
-                videos,
-                partners,
-                schedule
-            ))
-        }
-        val offlineSeminars2 = OfflineSeminars(seminars)
-        mutableOfflineSeminars.value = offlineSeminars2
+        //for( i in 0 .. 10){
+        //    videos.add(
+        //        OfflineSeminars.Video(
+        //            "Обработка щенков от паразитов",
+        //            "https://www.youtube.com/watch?v=PyqkKvVZcQQ&ab_channel=%D0%A1%D1%82%D0%B5%D0%BF%D0%B0%D1%88%D0%BA%D0%B8%D0%BD%D0%B4%D0%BE%D0%BC"
+        //        )
+        //    )
+        //}
+        //for( i in 0 .. 10){
+        //    schedule.add(
+        //        OfflineSeminars.Schedule(
+        //            "Обработка от паразитов",
+        //            "21.10.21",
+        //            "13:00",
+        //            "14:00"
+        //        )
+        //    )
+        //}
+//
+        //for (i in 0 .. 10){
+        //    val isFinished = i>4
+        //    seminars.add(OfflineSeminars.OfflineLesson(
+        //        i,
+        //        "123 $i",
+        //        "Как подобрать корм",
+        //        "/upload/iblock/f81/273kh211_banner3_web.jpg",
+        //        isFinished,
+        //        "29.02.2020",
+        //        "Новосибирск",
+        //        "Мокрый нос",
+        //        "На что стоит обращать внимание при выборе готовых рационов.<br>\\r\\n • Ошибки и подводные камни при использовании промышленных кормов.<br>\\r\\n • Как профилактировать заболевания выращивания малыша.<br>\\r\\n •&nbsp;Периоды роста и критические этапы развития.<br>",
+        //        isFinished,
+        //        videos,
+        //        partners,
+        //        schedule
+        //    ))
+        //}
+        //val offlineSeminars2 = OfflineSeminars(seminars)
+        //mutableOfflineSeminars.value = offlineSeminars2
     }
 
     private val mutableOnlineLessonsState:MutableLiveData<State> = MutableLiveData()
