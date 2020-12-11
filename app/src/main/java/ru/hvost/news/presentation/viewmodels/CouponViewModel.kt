@@ -16,7 +16,7 @@ import ru.hvost.news.utils.events.NetworkEvent
 
 class CouponViewModel : ViewModel() {
 
-    private val _mutableCouponsLoadingEvent: MutableLiveData<NetworkEvent<State>> = MutableLiveData<NetworkEvent<State>>()
+    private val _mutableCouponsLoadingEvent: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val couponsLoadingEvent: LiveData<NetworkEvent<State>> = _mutableCouponsLoadingEvent
 
     private val _mutableCoupons: MutableLiveData<Coupons> = MutableLiveData()

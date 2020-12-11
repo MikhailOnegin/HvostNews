@@ -8,7 +8,7 @@ data class OfflineSeminarsResponse(
     val lessons: List<OfflineLesson>?
 ) {
     data class OfflineLesson(
-        val id: String?,
+        val id: Int?,
         val title: String?,
         val description: String?,
         val imageUrl: String?,
@@ -17,22 +17,34 @@ data class OfflineSeminarsResponse(
         val city: String?,
         val participate:Boolean?,
         val sponsor: String?,
-        val videos: List<Video>?,
         val partners: List<Partner>?,
-        val schedule: List<Schedule>?
+        val videos: List<Video>?,
+        val wait: List<Wait>?,
+        val petShedules: List<PetSchedule>?
     )
     data class Video(
         val title: String?,
+        val imageVideoUrl:String?,
         val videoUrl: String?
     )
     data class Partner(
-        val title: String?,
-        val imageUrl: String?
+        val name: String?,
+        val image: String?
+    )
+    data class PetSchedule(
+        val petTypeId: String?,
+        val petTypeName: String?,
+        val schedules: List<Schedule>?
     )
     data class Schedule(
         val title: String?,
+        val description: String?,
         val date: String?,
         val timeStart: String?,
         val timeFinish: String?
+    )
+    data class Wait(
+        val imageUrl: String?,
+        val head: String?
     )
 }
