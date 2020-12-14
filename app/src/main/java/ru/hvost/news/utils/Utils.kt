@@ -19,6 +19,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import java.lang.StringBuilder
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -171,7 +172,22 @@ fun tryFormatDate(
     } ?: return default
 }
 
-//sergeev: заменить на empty_image
+val jsonDoubleFormat = DecimalFormat("0.######").apply {
+    val symbols = DecimalFormatSymbols()
+    symbols.decimalSeparator = '.'
+    decimalFormatSymbols = symbols
+}
+
+fun tryParseDoubleValue(string: String?): Double{
+    if(string.isNullOrBlank()) return 0.0
+    val doubleFormat = jsonDoubleFormat
+    return try {
+        doubleFormat.parse(string)?.toDouble() ?: 0.0
+    }catch (exc: ParseException){
+        0.0
+    }
+}
+
 val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/empty_image")
 
 fun getUriForBackendImagePath(imagePath: String?): Uri {

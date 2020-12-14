@@ -15,7 +15,7 @@
     <dimen name="imageHeight">150dp</dimen>
     <dimen name="smallImageHeight">50dp</dimen>
     <dimen name="categoryHeight">22dp</dimen>
-    <dimen name="toolbarHeight">60dp</dimen>
+    <dimen name="toolbarHeight">56dp</dimen>
     <dimen name="logoPadding">20dp</dimen>
     <dimen name="prizeItemPadding">20dp</dimen>
     <dimen name="iconPadding">7dp</dimen>

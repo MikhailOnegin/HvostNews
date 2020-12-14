@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/spinnerText"
+    android:background="@drawable/ripple_spinner_view_dropdown"
+    android:text="@string/stub"
+    android:textAppearance="@style/RegTextTextAppearance"
+    android:textColor="@color/TextColorPrimary"
+    android:textSize="@dimen/spinnerDropdownItemTextSize"
+    android:fontFamily="@font/gilroy_semibold"
+    android:paddingStart="@dimen/normalMargin"
+    android:paddingEnd="@dimen/normalMargin"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/widgetsHeight"/>

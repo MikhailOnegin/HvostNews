@@ -86,6 +86,19 @@
         <item name="boxStrokeWidthFocused">1dp</item>
     </style>
 
+    <style name="TextInputLayoutExposedDropDownMenu"
+        parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="android:textColorHint">@color/EditTextTextColorHints</item>
+        <item name="hintTextColor">@color/EditTextTextColorHints</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="hintTextAppearance">@style/EditTextHintTextAppearance</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconDrawable">@drawable/ic_clear</item>
+        <item name="endIconTint">@color/gray4</item>
+    </style>
+
     <style name="ProfileTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textColorHint">@color/EditTextTextColorHints</item>
         <item name="hintTextColor">@color/EditTextTextColorHints</item>
@@ -407,4 +420,5 @@
         <item name="textAllCaps">false</item>
         <item name="fontFamily">@font/gilroy_bold</item>
     </style>
+
 </resources>

@@ -393,4 +393,6 @@
     <string name="create_feedback">Отсавить отзыв</string>
     <string name="newVoucherHint">Если у вас уже имеется подарочный купон, вы можете ввести в поле ниже указанное на нем кодовое слово и получить доступ в магазин.</string>
     <string name="addPetButtonCD">Добавить питомца</string>
+    <string name="settingsCD">Настройки</string>
+    <string name="mapsQueryHint">Поиск по адресу или названию</string>
 </resources>
