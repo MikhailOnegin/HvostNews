@@ -183,4 +183,5 @@
     <dimen name="subtitleProfileTextSize">18sp</dimen>
     <dimen name="ordersSubtitleTextSize">15sp</dimen>
     <dimen name="prizesSubtitleTextSize">22sp</dimen>
+    <dimen name="spinnerDropdownItemSubtitleTextSize">16sp</dimen>
 </resources>

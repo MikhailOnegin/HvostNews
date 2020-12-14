@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.yandex.mapkit.Animation
@@ -21,6 +20,7 @@ import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentMapBinding
 import ru.hvost.news.models.Shop
+import ru.hvost.news.presentation.adapters.autocomplete.AutoCompleteShopsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.showNotReadyToast
 
@@ -42,7 +42,7 @@ class MapFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
         setObservers()
-        if(mapVM.shops.value == null) mapVM.loadShops(App.getInstance().userToken)
+        if(mapVM.shops.value.isNullOrEmpty()) mapVM.loadShops(App.getInstance().userToken)
     }
 
     override fun onStart() {
@@ -88,20 +88,16 @@ class MapFragment : BaseFragment() {
     }
 
     private fun setAutoCompleteTextView(shops: List<Shop>) {
-        binding.search.setAdapter(ArrayAdapter(
+        binding.search.setAdapter(AutoCompleteShopsAdapter(
             requireActivity(),
             R.layout.suggestions_dropdown_view,
-            shops.map { it.name }
+            shops
         ))
         binding.search.onItemClickListener = AdapterView.OnItemClickListener {
                 parent, _, position, _ ->
             parent?.run {
-                val name = adapter.getItem(position) as String
-                Toast.makeText(
-                    App.getInstance(),
-                    name,
-                    Toast.LENGTH_SHORT
-                ).show()
+                val shop = adapter.getItem(position) as Shop
+                moveCameraToPosition(Point(shop.latitude, shop.longitude))
             }
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE)
             (imm as InputMethodManager).hideSoftInputFromWindow(binding.root.windowToken, 0)

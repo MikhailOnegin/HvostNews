@@ -13,7 +13,13 @@ data class Shop(
     val regime: String,
     //val phone: List<String>, //sergeev: Вернуть после исправления ошибки на бэке.
     val website: String
-)
+) {
+
+    override fun toString(): String {
+        return name
+    }
+
+}
 
 fun List<ShopsResponse.ShopResponse>?.toShops(): List<Shop> {
     if(this == null) return listOf()
