@@ -60,7 +60,7 @@ class SplashScreenFragment : Fragment() {
 
     fun setObservers() {
         splashVM.splashFinishEvent.observe(viewLifecycleOwner) { onTimerEnds() }
-        mainVM.loadingArticlesEvent.observe(viewLifecycleOwner, loadingArticlesEventObserver)
+        mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, loadingArticlesEventObserver)
     }
 
     private fun onTimerEnds() {
@@ -72,7 +72,7 @@ class SplashScreenFragment : Fragment() {
     private fun tryMoveFurther() {
         if(isAnimationOver && isDataLoaded) {
             if (App.getInstance().userToken != null) {
-                findNavController().navigate(R.id.action_splashScreen_to_newsFragment)
+                findNavController().navigate(R.id.action_splashScreen_to_feedFragment)
             } else {
                 findNavController().navigate(R.id.action_splashScreen_to_loginFragment)
             }
@@ -84,7 +84,7 @@ class SplashScreenFragment : Fragment() {
             anchorView = binding.root,
             doOnSuccess = {
                 if(App.getInstance().userToken != null) {
-                    findNavController().navigate(R.id.action_splashScreen_to_newsFragment)
+                    findNavController().navigate(R.id.action_splashScreen_to_feedFragment)
                 } else {
                     findNavController().navigate(R.id.action_splashScreen_to_loginFragment)
                 }

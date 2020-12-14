@@ -24,7 +24,7 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
 
     private lateinit var binding: LayoutArticlesFilterBinding
     private lateinit var mainVM: MainViewModel
-    private lateinit var onUserDataLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onInterestsLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
@@ -45,7 +45,7 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun onInterestsLoadingSuccess() {
+    private fun onInterestsLoadingSuccess() { //yunusov: обработать пустые интересы пользователя
         val adapter = ArticlesFilterAdapter(mainVM)
         val interests = mainVM.interests.value
         val userInterests = mainVM.userData.value?.interests
@@ -87,14 +87,14 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
     }
 
     private fun initializeObservers() {
-        onUserDataLoadingEvent = DefaultNetworkEventObserver(
+        onInterestsLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
             doOnSuccess = { onInterestsLoadingSuccess() }
         )
     }
 
     private fun setObservers() {
-        mainVM.interestsLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
+        mainVM.interestsLoadingEvent.observe(viewLifecycleOwner, onInterestsLoadingEvent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

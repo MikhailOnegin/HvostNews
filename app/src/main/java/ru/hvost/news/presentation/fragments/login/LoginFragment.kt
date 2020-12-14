@@ -136,7 +136,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun navigateToMainScreen() {
-        findNavController().navigate(R.id.action_loginFragment_to_newsFragment)
+        findNavController().navigate(R.id.action_loginFragment_to_feedFragment)
     }
 
 }
