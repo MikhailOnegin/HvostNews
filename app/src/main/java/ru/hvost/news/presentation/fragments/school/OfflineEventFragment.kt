@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,7 @@ class OfflineEventFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSchoolOfflineEventBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,7 +48,7 @@ class OfflineEventFragment : Fragment() {
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.offlineSeminars.observe(owner, Observer {
+        schoolVM.offlineSeminars.observe(owner, {
             seminarId?.run {
                 for (i in it.seminars.indices) {
                     val seminar = it.seminars[i]
@@ -58,8 +59,19 @@ class OfflineEventFragment : Fragment() {
                         if (seminar.isFinished) {
                             binding.textViewLessonStatus.text = getString(R.string.completed)
                             binding.textViewLessonStatus.setTextColor(resources.getColor(R.color.red))
-                            binding.buttonParticipate.visibility = View.GONE
-                        } else {
+                            binding.buttonParticipate.text = "Подписаться"
+                            binding.buttonParticipate.setOnClickListener {
+                                binding.buttonParticipate.text = "Вы подписаны на уведомления"
+                                binding.buttonParticipate.setTextColor(resources.getColor(R.color.gray1))
+                                binding.buttonParticipate.background.setTint(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.gray4
+                                    )
+                                )
+                            }
+                        }
+                        else {
                             binding.textViewLessonStatus.text = getString(R.string.active)
                             binding.textViewLessonStatus.setTextColor(resources.getColor(R.color.colorPrimary))
                             binding.buttonParticipate.visibility = View.VISIBLE

@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,26 +15,25 @@ import ru.hvost.news.utils.events.NetworkEvent
 
 class CouponViewModel : ViewModel() {
 
-    private val _mutableCouponsLoadingEvent: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
-    val couponsLoadingEvent: LiveData<NetworkEvent<State>> = _mutableCouponsLoadingEvent
+    private val _couponsState: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val couponsState: LiveData<NetworkEvent<State>> = _couponsState
 
-    private val _mutableCoupons: MutableLiveData<Coupons> = MutableLiveData()
-    val coupons: LiveData<Coupons> = _mutableCoupons
+    private val _coupons: MutableLiveData<Coupons> = MutableLiveData()
+    val coupons: LiveData<Coupons> = _coupons
     var couponsCount: Int? = null
 
     fun getCoupons(userToken: String) {
         viewModelScope.launch {
-            _mutableCouponsLoadingEvent.value = NetworkEvent(State.LOADING)
+            _couponsState.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getCouponsAsync(userToken).await()
-                _mutableCoupons.value = response.toOfflineLessons()
-                couponsCount = _mutableCoupons.value?.coupons?.size
+                _coupons.value = response.toOfflineLessons()
+                couponsCount = _coupons.value?.coupons?.size
                 if (response.result == "success") {
-                    _mutableCouponsLoadingEvent.value = NetworkEvent(State.SUCCESS)
-                } else _mutableCouponsLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _couponsState.value = NetworkEvent(State.SUCCESS)
+                } else _couponsState.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                Log.i("eeee", "getCoupons() ERROR: ${exc.message}")
-                _mutableCouponsLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _couponsState.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
         //val couponsList = mutableListOf<Coupons.Coupon>()
@@ -68,38 +66,23 @@ class CouponViewModel : ViewModel() {
         //mutableCoupons.value = coupons
     }
 
-    private val mutableCouponsInfoState: MutableLiveData<State> = MutableLiveData()
-    val couponsInfoState: LiveData<State> = mutableCouponsInfoState
+    private val _couponsInfoState: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val couponsInfoState: LiveData<NetworkEvent<State>> = _couponsInfoState
 
     private val mutableCouponsInfo: MutableLiveData<CouponInfo> = MutableLiveData()
     val couponsInfo: LiveData<CouponInfo> = mutableCouponsInfo
 
     fun getCouponsInfo() {
         viewModelScope.launch {
-            mutableCouponsInfoState.value = State.LOADING
+            _couponsInfoState.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getCouponsInfoAsync().await()
                 mutableCouponsInfo.value = response.toCouponsInfo()
-                if (response.result == "success") mutableCouponsInfoState.value = State.SUCCESS
-                else mutableCouponsInfoState.value = State.ERROR
+                if (response.result == "success") _couponsInfoState.value = NetworkEvent(State.SUCCESS)
+                else _couponsInfoState.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                Log.i("eeee", "getCouponsInfo() ${exc.message.toString()}")
-                mutableCouponsInfoState.value = State.FAILURE
+                _couponsInfoState.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
-            //val couponInfo = CouponInfo("/upload/iblock/a74/shor_shkola273kh211_web.jpg",
-        //"Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание" +
-        //        "Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание Текстовое описание"
-            //
-            //    )
-        //mutableCouponsInfo.value  = couponInfo
     }
 }

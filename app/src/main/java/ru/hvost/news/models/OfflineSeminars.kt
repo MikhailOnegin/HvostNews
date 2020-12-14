@@ -19,7 +19,7 @@ data class OfflineSeminars(
         val partners: List<Partner>,
         val videos: List<Video>,
         val wait: List<Wait>,
-        val petShedules: List<PetSchedule>
+        val petSchedules: List<PetSchedule>
     )
     data class Video(
         val title: String,
@@ -73,7 +73,7 @@ fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<Offlin
                     videos = offlineLessonResponse.videos.toVideos(),
                     partners = offlineLessonResponse.partners.toPartners(),
                     wait = offlineLessonResponse.wait.toWait(),
-                    petShedules = offlineLessonResponse.petShedules.toPetSchedules(),
+                    petSchedules = offlineLessonResponse.petSchedules.toPetSchedules(),
                 )
             )
         }

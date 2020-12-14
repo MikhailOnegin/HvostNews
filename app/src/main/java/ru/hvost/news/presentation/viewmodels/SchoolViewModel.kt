@@ -10,84 +10,32 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LessonTestesPassedResponse
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.NetworkEvent
 
 class SchoolViewModel: ViewModel() {
 
-    private val mutableOfflineLessonsState:MutableLiveData<State> = MutableLiveData()
-    val offlineLessonsState:LiveData<State> = mutableOfflineLessonsState
+    private val mutableOfflineLessonsState:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val offlineLessonsState:LiveData<NetworkEvent<State>> = mutableOfflineLessonsState
 
     private val mutableOfflineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
     val offlineSeminars:LiveData<OfflineSeminars> = mutableOfflineSeminars
 
     fun getOfflineSeminars(cityId:String, userToken: String){
         viewModelScope.launch {
-            mutableOfflineLessonsState.value = State.LOADING
+            mutableOfflineLessonsState.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getOfflineSeminarsAsync(cityId, userToken).await()
                 mutableOfflineSeminars.value = response.toOfflineLessons()
-                if (response.result == "success") mutableOfflineLessonsState.value = State.SUCCESS
-                else mutableOfflineLessonsState.value = State.ERROR
+                if (response.result == "success") mutableOfflineLessonsState.value = NetworkEvent(State.SUCCESS)
+                else mutableOfflineLessonsState.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                Log.i("eeee", "getOfflineLessons() ERROR: ${exc.message}")
-                mutableOfflineLessonsState.value = State.FAILURE
+                mutableOfflineLessonsState.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
-        //val seminars = mutableListOf<OfflineSeminars.OfflineLesson>()
-        //val videos = mutableListOf<OfflineSeminars.Video>()
-        //val partners = mutableListOf<OfflineSeminars.Partner>()
-        //val schedule = mutableListOf<OfflineSeminars.Schedule>()
-//
-        //for(i in 0 ..10){
-        //    partners.add(
-        //        OfflineSeminars.Partner(
-        //            "Бетховен",
-        //            "http://hvost-news.testfact3.ru/upload/iblock/a74/shor_shkola273kh211_web.jpg"
-        //        )
-        //    )
-        //}
-        //for( i in 0 .. 10){
-        //    videos.add(
-        //        OfflineSeminars.Video(
-        //            "Обработка щенков от паразитов",
-        //            "https://www.youtube.com/watch?v=PyqkKvVZcQQ&ab_channel=%D0%A1%D1%82%D0%B5%D0%BF%D0%B0%D1%88%D0%BA%D0%B8%D0%BD%D0%B4%D0%BE%D0%BC"
-        //        )
-        //    )
-        //}
-        //for( i in 0 .. 10){
-        //    schedule.add(
-        //        OfflineSeminars.Schedule(
-        //            "Обработка от паразитов",
-        //            "21.10.21",
-        //            "13:00",
-        //            "14:00"
-        //        )
-        //    )
-        //}
-//
-        //for (i in 0 .. 10){
-        //    val isFinished = i>4
-        //    seminars.add(OfflineSeminars.OfflineLesson(
-        //        i,
-        //        "123 $i",
-        //        "Как подобрать корм",
-        //        "/upload/iblock/f81/273kh211_banner3_web.jpg",
-        //        isFinished,
-        //        "29.02.2020",
-        //        "Новосибирск",
-        //        "Мокрый нос",
-        //        "На что стоит обращать внимание при выборе готовых рационов.<br>\\r\\n • Ошибки и подводные камни при использовании промышленных кормов.<br>\\r\\n • Как профилактировать заболевания выращивания малыша.<br>\\r\\n •&nbsp;Периоды роста и критические этапы развития.<br>",
-        //        isFinished,
-        //        videos,
-        //        partners,
-        //        schedule
-        //    ))
-        //}
-        //val offlineSeminars2 = OfflineSeminars(seminars)
-        //mutableOfflineSeminars.value = offlineSeminars2
     }
 
-    private val mutableOnlineLessonsState:MutableLiveData<State> = MutableLiveData()
-    val onlineLessonsState:LiveData<State> = mutableOnlineLessonsState
+    private val mutableOnlineLessonsState:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val onlineLessonsState:LiveData<NetworkEvent<State>> = mutableOnlineLessonsState
 
     private val mutableOnlineLessons:MutableLiveData<OnlineLessons> = MutableLiveData()
     val onlineLessons:LiveData<OnlineLessons> = mutableOnlineLessons
@@ -98,21 +46,20 @@ class SchoolViewModel: ViewModel() {
         //    try {
         //        val response = APIService.API.getOnlineLessonsAsync(userToken,schoolId).await()
         //        mutableOnlineLessons.value = response.toOfflineLessons()
-        //        if (response.result == "success") mutableOnlineLessonsState.value = State.SUCCESS
-        //        else mutableOnlineLessonsState.value = State.ERROR
+        //        if (response.result == "success") mutableOnlineLessonsState.value = NetworkEvent(State.SUCCESS)
+        //        else mutableOnlineLessonsState.value = NetworkEvent(State.ERROR, response.error)
         //    } catch (exc: Exception) {
-        //        Log.i("eeee", " getOnlineLessons() ERROR: ${exc.message.toString()}")
-        //        mutableOnlineLessonsState.value = State.FAILURE
+        //        mutableOnlineLessonsState.value = NetworkEvent(State.FAILURE, exc.toString())
         //    }
         //}
         val onlineLessons = mutableListOf<OnlineLessons.OnlineLesson>()
         val answerList = mutableListOf<OnlineLessons.Answer>()
 
-            answerList.add(
-                OnlineLessons.Answer(
-                    "Чёрт",
-                    false
-                ))
+        answerList.add(
+            OnlineLessons.Answer(
+                "Чёрт",
+                false
+            ))
         answerList.add(
             OnlineLessons.Answer(
                 "Программист",
@@ -148,25 +95,25 @@ class SchoolViewModel: ViewModel() {
         mutableOnlineLessons.value = onlineLessons2
     }
 
-    private val mutableOnlineSchoolsState:MutableLiveData<State> = MutableLiveData()
-    val onlineSchoolsState:LiveData<State> = mutableOnlineSchoolsState
+    private val mutableOnlineSchoolsState:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val onlineSchoolsState:LiveData<NetworkEvent<State>> = mutableOnlineSchoolsState
 
     private val mutableOnlineSchools:MutableLiveData<OnlineSchools> = MutableLiveData()
     val onlineSchools:LiveData<OnlineSchools> = mutableOnlineSchools
 
     fun getOnlineSchools(userToken: String){
-       //viewModelScope.launch {
-       //    mutableOnlineSchoolsState.value = State.LOADING
-       //    try {
-       //        val response = APIService.API.getOnlineSchoolsAsync(userToken).await()
-       //        mutableOnlineSchools.value = response.toOnlineSchools()
-       //        if (response.result == "success") mutableOnlineSchoolsState.value = State.SUCCESS
-       //        else mutableOnlineSchoolsState.value = State.ERROR
-       //    } catch (exc: Exception) {
-       //        Log.i("eeee", " getOnlineSchools() ERROR: ${exc.message.toString()}")
-       //        mutableOnlineSchoolsState.value = State.FAILURE
-       //    }
-       //}
+        //viewModelScope.launch {
+        //    mutableOnlineSchoolsState.value = NetworkEvent(State.LOADING)
+        //    try {
+        //        val response = APIService.API.getOnlineSchoolsAsync(userToken).await()
+        //        mutableOnlineSchools.value = response.toOnlineSchools()
+        //        if (response.result == "success") mutableOnlineSchoolsState.value = NetworkEvent(State.SUCCESS)
+        //        else mutableOnlineSchoolsState.value = NetworkEvent(State.ERROR, response.error)
+        //    } catch (exc: Exception) {
+        //        Log.i("eeee", " getOnlineSchools() ERROR: ${exc.message.toString()}")
+        //        mutableOnlineSchoolsState.value = NetworkEvent(State.FAILURE, exc.toString())
+        //    }
+        //}
         val onlineSchools11 = mutableListOf<OnlineSchools.OnlineSchool>()
         val literatures = mutableListOf<OnlineSchools.Literature>()
         val lessonPassed = mutableListOf<OnlineSchools.LessonPassed>()
@@ -184,10 +131,10 @@ class SchoolViewModel: ViewModel() {
         for (i in 0 .. 10){
             literatures.add(
                 OnlineSchools.Literature(
-                "Вакцинация",
-                "Для кота",
-                "https://www.ozon.ru/context/detail/id/147372948/?utm_source=google&utm_medium=cpc&utm_campaign=RF_Product_Shopping_Books_newclients&gclid=Cj0KCQiAzZL-BRDnARIsAPCJs72eVknuneOeB2yBjvzq8h-6SrmXzQlAAPvhmmUU8JUJmhZIjL_8LnQaAqCuEALw_wcB"
-            ))
+                    "Вакцинация",
+                    "Для кота",
+                    "https://www.ozon.ru/context/detail/id/147372948/?utm_source=google&utm_medium=cpc&utm_campaign=RF_Product_Shopping_Books_newclients&gclid=Cj0KCQiAzZL-BRDnARIsAPCJs72eVknuneOeB2yBjvzq8h-6SrmXzQlAAPvhmmUU8JUJmhZIjL_8LnQaAqCuEALw_wcB"
+                ))
         }
 
         for (i in 0 .. 10){
@@ -222,44 +169,42 @@ class SchoolViewModel: ViewModel() {
         mutableOnlineSchools.value = onlineSchools21
     }
 
-    private val mutableSetLessonTestesPassedState:MutableLiveData<State> = MutableLiveData()
-    val lessonTestesPassedState:LiveData<State> = mutableSetLessonTestesPassedState
+    private val mutableSetLessonTestesPassedState:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val lessonTestesPassedState:LiveData<NetworkEvent<State>> = mutableSetLessonTestesPassedState
 
     private val mutableSetLessonTestesPassed:MutableLiveData<LessonTestesPassedResponse> = MutableLiveData()
     val lessonTestesPassed:LiveData<LessonTestesPassedResponse> = mutableSetLessonTestesPassed
 
     fun setLessonTestesPassed(userToken:String, lessonId:Long){
         viewModelScope.launch {
-            mutableSetLessonTestesPassedState.value = State.LOADING
+            mutableSetLessonTestesPassedState.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.setLessonTestesPassedAsync(userToken, lessonId).await()
                 mutableSetLessonTestesPassed.value = response
-                if (response.result == "success") mutableSetLessonTestesPassedState.value = State.SUCCESS
-                else mutableSetLessonTestesPassedState.value = State.ERROR
+                if (response.result == "success") mutableSetLessonTestesPassedState.value = NetworkEvent(State.SUCCESS)
+                else mutableSetLessonTestesPassedState.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                Log.i("eeee", " setLessonsTestesPassed() ERROR: ${exc.message.toString()}")
-                mutableSetLessonTestesPassedState.value = State.FAILURE
+                mutableSetLessonTestesPassedState.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
 
-    private val mutableOfflineCitiesState:MutableLiveData<State> = MutableLiveData()
-    val offlineCitiesState:LiveData<State> = mutableOfflineCitiesState
+    private val mutableOfflineCitiesState:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val offlineCitiesState:LiveData<NetworkEvent<State>> = mutableOfflineCitiesState
 
     private val mutableOfflineCities:MutableLiveData<CitiesOffline> = MutableLiveData()
     val offlineCities:LiveData<CitiesOffline> = mutableOfflineCities
 
     fun getOfflineCities(){
         viewModelScope.launch {
-            mutableOfflineCitiesState.value = State.LOADING
+            mutableOfflineCitiesState.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getOfflineCitiesAsync().await()
                 mutableOfflineCities.value = response.toOfflineLessons()
-                if (response.result == "success") mutableOfflineCitiesState.value = State.SUCCESS
-                else mutableOfflineCitiesState.value = State.ERROR
+                if (response.result == "success") mutableOfflineCitiesState.value = NetworkEvent(State.SUCCESS)
+                else mutableOfflineCitiesState.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                Log.i("eeee", " getOfflineCities() ERROR: ${exc.message.toString()}")
-                mutableOfflineCitiesState.value = State.FAILURE
+                mutableOfflineCitiesState.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }

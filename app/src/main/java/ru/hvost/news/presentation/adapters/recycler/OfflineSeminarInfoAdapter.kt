@@ -1,15 +1,15 @@
 package ru.hvost.news.presentation.adapters.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_school_offline_seminar_info.view.gridLayout
+import kotlinx.android.synthetic.main.item_school_online_info.view.*
 import kotlinx.android.synthetic.main.layout_partner.view.*
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.LayoutPartnerBinding
 import ru.hvost.news.models.OfflineSeminars
 
@@ -23,12 +23,12 @@ class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_school_offline_seminar_info, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_school_offline_seminar_info_partners, parent, false)
         return InfoViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return 2
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -39,7 +39,6 @@ class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
         fun bind(seminar:OfflineSeminars.OfflineLesson?){
             seminar?.run {
-                Log.i("eeee", "seminar is not null")
                 val containerWait = itemView.gridLayout
                 containerWait.removeAllViews()
                 for (i in seminar.partners.indices) {
@@ -67,7 +66,7 @@ class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     )
                     viewPartner.textView_partner_title.text = partner.name
                     containerWait.addView(viewPartner)
-                    Glide.with(itemView.context).load(partner.image)
+                    Glide.with(itemView.context).load(baseUrl + partner.image)
                         .placeholder(R.drawable.not_found).centerCrop()
                         .into(viewPartner.imageView)
                 }
@@ -75,7 +74,6 @@ class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
 
         }
-
     }
 
 }

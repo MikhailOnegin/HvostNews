@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCouponBinding
-import ru.hvost.news.models.Coupons
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
@@ -56,7 +55,7 @@ class CouponFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setObservers(owner: LifecycleOwner) {
-        couponVM.couponsLoadingEvent.observe(viewLifecycleOwner, onCouponsLoadingEvent)
+        couponVM.couponsState.observe(viewLifecycleOwner, onCouponsLoadingEvent)
 //        couponVM.coupons.observe(owner, Observer {
 //            for (i in it.coupons.indices){
 //                val coupon = it.coupons[i]
