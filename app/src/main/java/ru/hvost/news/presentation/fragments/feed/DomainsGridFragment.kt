@@ -1,89 +1,69 @@
-package ru.hvost.news.presentation.fragments.domains
+package ru.hvost.news.presentation.fragments.feed
 
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayout
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentDomainBinding
+import ru.hvost.news.databinding.FragmentDomainsGridBinding
+import ru.hvost.news.databinding.FragmentFeedListBinding
 import ru.hvost.news.presentation.adapters.DomainAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
-class DomainFragment : BaseFragment() {
+class DomainsGridFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentDomainBinding
+    private lateinit var binding: FragmentDomainsGridBinding
     private lateinit var mainVM: MainViewModel
-    private lateinit var navC: NavController
+    private lateinit var onArticlesLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDomainBinding.inflate(inflater, container, false)
-        binding.tabLayout.getTabAt(1)?.select()
+    ): View? {
+        binding = FragmentDomainsGridBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    private class OnTabSelected(
-        private val nav: NavController
-    ) : TabLayout.OnTabSelectedListener {
-        override fun onTabSelected(tab: TabLayout.Tab?) {
-            when (tab?.text) {
-                "Лента" -> {
-                    val bundle = Bundle()
-                    bundle.putString("CATEGORY", "ARTICLES")
-//                    nav.navigate(
-//                        R.id.action_domainFragment_to_newsFragment,
-//                        bundle
-//                    )
-                }
-                "Новости" -> {
-                    val bundle = Bundle()
-                    bundle.putString("CATEGORY", "NEWS")
-//                    nav.navigate(
-//                        R.id.action_domainFragment_to_newsFragment,
-//                        bundle
-//                    )
-                }
-            }
-        }
-
-        override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-        override fun onTabReselected(tab: TabLayout.Tab?) {
-            when (tab?.text) {
-                "Лента" -> nav.popBackStack()
-                "Новости" -> nav.popBackStack()
-            }
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        navC = findNavController()
-        binding.tabLayout.addOnTabSelectedListener(OnTabSelected(navC))
-        setRecyclerView()
+        if (mainVM.articlesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
+        initializeObservers()
+        setDecoration()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
+    }
+
+    private fun initializeObservers() {
+        onArticlesLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { setRecyclerView() }
+        )
     }
 
     private fun setRecyclerView() {
         val onActionClicked = { domain: Long ->
             val bundle = Bundle()
             bundle.putLong("DOMAIN_ID", domain)
-//            findNavController().navigate(R.id.action_domainFragment_to_subDomainFragment, bundle)
+            requireActivity().findNavController(R.id.nav_host_fragment)
+                .navigate(R.id.action_feedFragment_to_subDomainFragment, bundle)
         }
         val adapter = DomainAdapter(onActionClicked)
         binding.list.adapter = adapter
         adapter.submitList(mainVM.domains)
-        setDecoration()
     }
 
     private fun setDecoration() {
@@ -105,5 +85,4 @@ class DomainFragment : BaseFragment() {
             }
         })
     }
-
 }

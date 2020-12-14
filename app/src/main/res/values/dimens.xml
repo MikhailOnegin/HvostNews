@@ -173,7 +173,7 @@
     <dimen name="spinnerDropdownItemTextSize">18sp</dimen>
     <dimen name="filterHintTextSize">16sp</dimen>
     <dimen name="articleImageHeight">200dp</dimen>
-    <dimen name="tabLayoutHeight">37dp</dimen>
+    <dimen name="tabLayoutHeight">50dp</dimen>
     <dimen name="counterTextSize">13sp</dimen>
     <dimen name="profileToPrizesButtonHeight">75dp</dimen>
     <dimen name="semiNormalMargin">13dp</dimen>

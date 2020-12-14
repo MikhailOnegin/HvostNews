@@ -4,11 +4,10 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import android.widget.PopupWindow
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
@@ -21,11 +20,14 @@ import ru.hvost.news.presentation.adapters.PopupWindowDomainAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 class SubDomainFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSubdomainBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var nav: NavController
+    private lateinit var onAllArticlesLoadingEvent: DefaultNetworkEventObserver
     private var domainId: Long = 0
 
     override fun onCreateView(
@@ -40,15 +42,33 @@ class SubDomainFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        nav = findNavController()
+        checkIsDataLoaded()
+        initializeObservers()
         setObservers()
-        setRecyclerView(domainId)
         setDecoration()
         setListeners()
     }
 
+    private fun initializeObservers() {
+        onAllArticlesLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { setData() }
+        )
+    }
+
+    private fun setData() {
+        setTabs(domainId)
+        setRecyclerView(domainId)
+    }
+
+    private fun checkIsDataLoaded() {
+        if (mainVM.allArticlesLoadingEvent.value?.peekContent() == State.SUCCESS) setData()
+    }
+
     private fun setListeners() {
         binding.titleContainer.setOnClickListener { callPopup() }
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.toolbar.setNavigationOnClickListener { nav.popBackStack() }
     }
 
     private fun callPopup() {
@@ -143,26 +163,17 @@ class SubDomainFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        mainVM.allArticlesState.observe(viewLifecycleOwner, Observer { onAllArticlesChange(it) })
-    }
-
-    private fun onAllArticlesChange(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                setTabs(domainId)
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
+        mainVM.allArticlesLoadingEvent.observe(viewLifecycleOwner, onAllArticlesLoadingEvent)
     }
 
     private fun setTabsListener() {
-        binding.categoryTabs.addOnTabSelectedListener(OnTabSelected(binding, domainId, mainVM))
+        binding.categoryTabs.addOnTabSelectedListener(OnTabSelected(binding, domainId, nav, mainVM))
     }
 
     private class OnTabSelected(
         private val binding: FragmentSubdomainBinding,
         private val domainId: Long?,
+        private val nav: NavController,
         private val mainVM: MainViewModel
     ) : TabLayout.OnTabSelectedListener {
 
@@ -190,7 +201,17 @@ class SubDomainFragment : BaseFragment() {
         }
 
         private fun updateList(tab: TabLayout.Tab?) {
-            val adapter = binding.list.adapter as ArticleAdapter
+            val onActionClicked = { id: String ->
+                val bundle = Bundle()
+                bundle.putString(ArticlesFragment.ARTICLE_ID, id)
+                bundle.putString("TYPE", "ALL")
+                nav.navigate(
+                    R.id.action_subDomainFragment_to_articleDetailFragment,
+                    bundle
+                )
+            }
+            val adapter = ArticleAdapter(onActionClicked)
+            binding.list.adapter = adapter
             val originList = mainVM.allArticles.value ?: listOf()
             adapter.submitList(
                 originList.filter { it.categoryId == tab?.tag.toString() }
@@ -205,7 +226,7 @@ class SubDomainFragment : BaseFragment() {
             val bundle = Bundle()
             bundle.putString(ArticlesFragment.ARTICLE_ID, id)
             bundle.putString("TYPE", "ALL")
-            findNavController().navigate(
+            nav.navigate(
                 R.id.action_subDomainFragment_to_articleDetailFragment,
                 bundle
             )
@@ -223,18 +244,12 @@ class SubDomainFragment : BaseFragment() {
                 parent: RecyclerView,
                 state: RecyclerView.State
             ) {
-                val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
                     view.context?.resources?.getDimension(R.dimen.largeMargin)?.toInt() ?: 0
                 parent.adapter.run {
-                    if (position == 0) {
-                        outRect.top = elementMargin
-                        outRect.bottom = elementMargin
+                    outRect.top = elementMargin
+                    outRect.bottom = elementMargin
 
-                    } else {
-                        outRect.top = 0
-                        outRect.bottom = elementMargin
-                    }
                 }
             }
         })

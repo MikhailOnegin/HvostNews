@@ -12,11 +12,6 @@ import ru.hvost.news.utils.events.OneTimeEvent
 
 class MainViewModel : ViewModel() {
 
-    val articlesState = MutableLiveData<State>()
-    val articles = MutableLiveData<List<Article>>()
-    val allArticles = MutableLiveData<List<Article>>()
-    val allArticlesState = MutableLiveData<State>()
-
     val petDeleteState = MutableLiveData<State>()
     val petDeleteResponse = MutableLiveData<DeletePetResponse>()
 
@@ -43,6 +38,15 @@ class MainViewModel : ViewModel() {
     val interestsLoadingEvent: LiveData<NetworkEvent<State>> = _interestsLoadingEvent
     private val _interests = MutableLiveData<List<CategoryItem>>()
     val interests: LiveData<List<CategoryItem>> = _interests
+
+    private val _articlesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val articlesLoadingEvent: LiveData<NetworkEvent<State>> = _articlesLoadingEvent
+    private val _articles = MutableLiveData<List<Article>>()
+    val articles: LiveData<List<Article>> = _articles
+    private val _allArticlesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val allArticlesLoadingEvent: LiveData<NetworkEvent<State>> = _allArticlesLoadingEvent
+    private val _allArticles = MutableLiveData<List<Article>>()
+    val allArticles: LiveData<List<Article>> = _allArticles
 
     private val _articleViewedLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val articleViewedLoadingEvent: LiveData<NetworkEvent<State>> = _articleViewedLoadingEvent
@@ -102,9 +106,6 @@ class MainViewModel : ViewModel() {
 
 //    val enableFilterButton = MutableLiveData<Boolean>()
 
-    private val _loadingArticlesEvent = MutableLiveData<NetworkEvent<State>>()
-    val loadingArticlesEvent: LiveData<NetworkEvent<State>> = _loadingArticlesEvent
-
     init {
         initializeData()
     }
@@ -112,6 +113,7 @@ class MainViewModel : ViewModel() {
     fun initializeData() {
         loadArticles()
         loadAllArticles()
+        loadUserData()
         getBonusBalance()
         getInviteLink()
         getPrizeCategories()
@@ -211,21 +213,19 @@ class MainViewModel : ViewModel() {
 
     fun loadArticles() {
         viewModelScope.launch {
-            articlesState.value = State.LOADING
-            _loadingArticlesEvent.value = NetworkEvent(State.LOADING)
+            _articlesLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getArticlesAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
-                    articles.value = response.articles?.toArticles()
-                    articlesState.value = State.SUCCESS
-                    _loadingArticlesEvent.value = NetworkEvent(State.SUCCESS)
+                    _articles.value = response.articles?.toArticles()
+                    _articlesLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    articlesState.value = State.ERROR
-                    _loadingArticlesEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _articlesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _articles.value = listOf()
                 }
             } catch (exc: Exception) {
-                articlesState.value = State.FAILURE
-                _loadingArticlesEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _articlesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _articles.value = listOf()
             }
         }
     }
@@ -256,17 +256,25 @@ class MainViewModel : ViewModel() {
 
     private fun loadAllArticles() {
         viewModelScope.launch {
-            allArticlesState.value = State.LOADING
+            _allArticlesLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getArticlesAsync().await()
                 if (response.result == "success") {
-                    allArticles.value = response.articles?.toArticles()
+                    _allArticles.value = response.articles?.toArticles()
                     categories = allArticles.value?.toCategory()
                     domains = allArticles.value?.toOfflineLessons()
-                    allArticlesState.value = State.SUCCESS
-                } else allArticlesState.value = State.ERROR
+                    _allArticlesLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _allArticlesLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _allArticles.value = listOf()
+                    categories = listOf()
+                    domains = listOf()
+                }
             } catch (exc: Exception) {
-                allArticlesState.value = State.FAILURE
+                _allArticlesLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _allArticles.value = listOf()
+                categories = listOf()
+                domains = listOf()
             }
         }
     }
