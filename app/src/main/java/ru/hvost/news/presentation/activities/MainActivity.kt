@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.yandex.mapkit.MapKitFactory
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
         binding.bnv.setupWithNavController(findNavController(R.id.nav_host_fragment))
+        MapKitFactory.setApiKey(APIService.YANDEX_MAPKIT_KEY)
+        MapKitFactory.initialize(this)
     }
 
     @Suppress("DEPRECATION")

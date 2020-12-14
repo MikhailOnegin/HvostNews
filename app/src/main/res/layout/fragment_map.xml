@@ -1,57 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
-    <include
-        android:id="@+id/include_filter"
-        layout="@layout/layout_map_filter"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextQuery"
-        style="@style/EditText"
-        android:textSize="16sp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/lightGrayBackground"
-        android:hint="Поиск по адресу или названию"
-        android:inputType="textPersonName"
-        android:padding="16dp"
-        android:textColorHint="@color/EditTextTextColorHints"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton_filter"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton_filter"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButton_filter"/>
-
-    <ImageButton
-        android:id="@+id/imageButton_filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/lightGrayBackground"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_tune_24" />
+    android:layout_height="match_parent">
 
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/mapView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/lightGrayBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton_filter">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    </com.yandex.mapkit.mapview.MapView>
 </androidx.constraintlayout.widget.ConstraintLayout>
