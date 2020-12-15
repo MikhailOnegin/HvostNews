@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
@@ -42,9 +44,24 @@ class FeedFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        checkTabsState()
         initializeObservers()
         setObservers()
         setListeners()
+    }
+
+    private fun checkTabsState() {
+        when (mainVM.feedTabState) {
+            MainViewModel.Companion.ButtonSelected.FEED -> {
+                setFeedTabSelected()
+            }
+            MainViewModel.Companion.ButtonSelected.DOMAINS -> {
+                setDomainsTabSelected()
+            }
+            MainViewModel.Companion.ButtonSelected.NEWS -> {
+                setNewsTabSelected()
+            }
+        }
     }
 
     private fun initializeObservers() {
@@ -103,76 +120,98 @@ class FeedFragment : BaseFragment() {
     }
 
     private val onSelectTabButton = { view: View ->
+        val navOptions = NavOptions.Builder()
+        navOptions
+            .setEnterAnim(R.anim.fragment_enter)
+            .setExitAnim(R.anim.fragment_exit)
+            .setPopEnterAnim(R.anim.fragment_enter)
+            .setPopExitAnim(R.anim.fragment_exit)
+
         when (view.id) {
             R.id.articles -> {
-                binding.articles.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray1
-                    )
-                )
-                binding.domains.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray4
-                    )
-                )
-                binding.news.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray4
-                    )
-                )
-                binding.articlesFilter.visibility = View.VISIBLE
+                mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.FEED
+                setFeedTabSelected()
                 requireActivity().findNavController(R.id.fragmentContainerView)
-                    .navigate(R.id.feedListFragment)
+                    .navigate(R.id.feedListFragment, null, navOptions.build())
             }
             R.id.domains -> {
-                binding.articles.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray4
-                    )
-                )
-                binding.domains.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray1
-                    )
-                )
-                binding.news.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray4
-                    )
-                )
-                binding.articlesFilter.visibility = View.GONE
+                mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.DOMAINS
+                setDomainsTabSelected()
                 requireActivity().findNavController(R.id.fragmentContainerView)
-                    .navigate(R.id.domainsGridFragment)
+                    .navigate(R.id.domainsGridFragment, null, navOptions.build())
             }
             R.id.news -> {
-                binding.articles.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray4
-                    )
-                )
-                binding.domains.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray4
-                    )
-                )
-                binding.news.setTextColor(
-                    ContextCompat.getColor(
-                        App.getInstance(),
-                        R.color.gray1
-                    )
-                )
-                binding.articlesFilter.visibility = View.GONE
+                mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.NEWS
+                setNewsTabSelected()
                 requireActivity().findNavController(R.id.fragmentContainerView)
-                    .navigate(R.id.newsListFragment)
+                    .navigate(R.id.newsListFragment, null, navOptions.build())
             }
         }
+    }
+
+    private fun setNewsTabSelected() {
+        binding.articles.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray4
+            )
+        )
+        binding.domains.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray4
+            )
+        )
+        binding.news.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray1
+            )
+        )
+        binding.articlesFilter.visibility = View.GONE
+    }
+
+    private fun setDomainsTabSelected() {
+        binding.articles.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray4
+            )
+        )
+        binding.domains.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray1
+            )
+        )
+        binding.news.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray4
+            )
+        )
+        binding.articlesFilter.visibility = View.GONE
+    }
+
+    private fun setFeedTabSelected() {
+        binding.articles.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray1
+            )
+        )
+        binding.domains.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray4
+            )
+        )
+        binding.news.setTextColor(
+            ContextCompat.getColor(
+                App.getInstance(),
+                R.color.gray4
+            )
+        )
+        binding.articlesFilter.visibility = View.VISIBLE
     }
 }

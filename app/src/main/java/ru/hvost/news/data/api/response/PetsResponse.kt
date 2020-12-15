@@ -2,6 +2,7 @@ package ru.hvost.news.data.api.response
 
 data class PetsResponse(
     val result: String?,
+    val error: String?,
     val pets: List<Pet>?
 ) {
     data class Pet(

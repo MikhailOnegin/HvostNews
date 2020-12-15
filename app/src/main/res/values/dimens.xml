@@ -188,4 +188,5 @@
     <dimen name="mapsSwitchTextSize">18sp</dimen>
     <dimen name="mapsPartnersTitleTextSize">22sp</dimen>
     <dimen name="mapsSelectsTextSize">16sp</dimen>
+    <dimen name="dialogTopPadding">48dp</dimen>
 </resources>
