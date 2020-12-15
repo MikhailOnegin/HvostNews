@@ -184,4 +184,5 @@
     <dimen name="ordersSubtitleTextSize">15sp</dimen>
     <dimen name="prizesSubtitleTextSize">22sp</dimen>
     <dimen name="spinnerDropdownItemSubtitleTextSize">16sp</dimen>
+    <dimen name="dialogTopPadding">48dp</dimen>
 </resources>

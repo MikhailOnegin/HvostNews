@@ -106,6 +106,8 @@ class MainViewModel : ViewModel() {
 
 //    val enableFilterButton = MutableLiveData<Boolean>()
 
+    var feedTabState: Enum<ButtonSelected> = ButtonSelected.FEED
+
     init {
         initializeData()
     }
@@ -132,11 +134,11 @@ class MainViewModel : ViewModel() {
                     _bonusBalance.value = response
                     _bonusBalanceLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _bonusBalanceLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _bonusBalanceLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                     _bonusBalance.value = null
                 }
             } catch (exc: Exception) {
-                _bonusBalanceLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _bonusBalanceLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _bonusBalance.value = null
             }
         }
@@ -265,13 +267,13 @@ class MainViewModel : ViewModel() {
                     domains = allArticles.value?.toOfflineLessons()
                     _allArticlesLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _allArticlesLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _allArticlesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                     _allArticles.value = listOf()
                     categories = listOf()
                     domains = listOf()
                 }
             } catch (exc: Exception) {
-                _allArticlesLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _allArticlesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _allArticles.value = listOf()
                 categories = listOf()
                 domains = listOf()
@@ -288,11 +290,11 @@ class MainViewModel : ViewModel() {
                     _userData.value = response
                     _userDataLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _userDataLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _userDataLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                     _userData.value = null
                 }
             } catch (exc: Exception) {
-                _userDataLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _userDataLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _userData.value = null
             }
         }
@@ -307,11 +309,11 @@ class MainViewModel : ViewModel() {
                     _userPets.value = response.pets?.toPets()
                     _userPetsLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _userPetsLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _userPetsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                     _userPets.value = listOf()
                 }
             } catch (exc: Exception) {
-                _userPetsLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _userPetsLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _userPets.value = listOf()
             }
         }
@@ -326,11 +328,11 @@ class MainViewModel : ViewModel() {
                     _petsSpecies.value = response.species?.toSpecies()
                     _petsSpeciesLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _petsSpeciesLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _petsSpeciesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                     _petsSpecies.value = listOf()
                 }
             } catch (exc: Exception) {
-                _petsSpeciesLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _petsSpeciesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _petsSpecies.value = listOf()
             }
         }
@@ -347,11 +349,11 @@ class MainViewModel : ViewModel() {
                     _petsBreeds.value = response.breeds?.toBreeds()
                     _petsBreedsLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _petsBreedsLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _petsBreedsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                     _petsBreeds.value = listOf()
                 }
             } catch (exc: Exception) {
-                _petsBreedsLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _petsBreedsLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _petsBreeds.value = listOf()
             }
         }
@@ -405,10 +407,10 @@ class MainViewModel : ViewModel() {
                 if (response.result == "success") {
                     _changeUserDataLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _changeUserDataLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _changeUserDataLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                 }
             } catch (exc: Exception) {
-                _changeUserDataLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _changeUserDataLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
@@ -633,4 +635,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    companion object {
+        enum class ButtonSelected { FEED, DOMAINS, NEWS }
+    }
 }

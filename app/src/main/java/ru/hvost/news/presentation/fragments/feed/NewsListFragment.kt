@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
@@ -55,7 +56,8 @@ class NewsListFragment : BaseFragment() {
             val bundle = Bundle()
             bundle.putString(ArticlesFragment.ARTICLE_ID, id)
             bundle.putString("TYPE", "INDIVIDUAL")
-//            findNavController().navigate(R.id.action_newsFragment_to_articleDetailFragment, bundle)
+            requireActivity().findNavController(R.id.nav_host_fragment)
+                .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
         }
         val adapter = ArticleAdapter(onActionClicked)
         binding.list.adapter = adapter
