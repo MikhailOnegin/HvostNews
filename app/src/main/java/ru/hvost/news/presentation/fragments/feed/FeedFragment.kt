@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
@@ -27,6 +28,8 @@ class FeedFragment : BaseFragment() {
     private lateinit var mainVM: MainViewModel
     private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
     private val filterDialog = ArticlesFilterCustomDialog()
+    private val navOptions = NavOptions.Builder()
+
 
     override fun onStart() {
         super.onStart()
@@ -44,10 +47,19 @@ class FeedFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        initializeNavOptions()
         checkTabsState()
         initializeObservers()
         setObservers()
         setListeners()
+    }
+
+    private fun initializeNavOptions() {
+        navOptions
+            .setEnterAnim(R.anim.fragment_enter)
+            .setExitAnim(R.anim.fragment_exit)
+            .setPopEnterAnim(R.anim.fragment_enter)
+            .setPopExitAnim(R.anim.fragment_exit)
     }
 
     private fun checkTabsState() {
@@ -120,13 +132,6 @@ class FeedFragment : BaseFragment() {
     }
 
     private val onSelectTabButton = { view: View ->
-        val navOptions = NavOptions.Builder()
-        navOptions
-            .setEnterAnim(R.anim.fragment_enter)
-            .setExitAnim(R.anim.fragment_exit)
-            .setPopEnterAnim(R.anim.fragment_enter)
-            .setPopExitAnim(R.anim.fragment_exit)
-
         when (view.id) {
             R.id.articles -> {
                 mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.FEED

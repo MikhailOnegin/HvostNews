@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentDomainBinding
 import ru.hvost.news.databinding.FragmentDomainsGridBinding
 import ru.hvost.news.databinding.FragmentFeedListBinding
 import ru.hvost.news.presentation.adapters.DomainAdapter
@@ -74,13 +71,14 @@ class DomainsGridFragment : BaseFragment() {
                 parent: RecyclerView,
                 state: RecyclerView.State
             ) {
-                val elementMargin =
+                val elementMarginHorizontal =
                     view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
+                val elementMarginBottom =
+                    view.context?.resources?.getDimension(R.dimen.normalMargin)?.toInt() ?: 0
                 parent.adapter.run {
-                    outRect.top = elementMargin
-                    outRect.bottom = elementMargin
-                    outRect.left = elementMargin
-                    outRect.right = elementMargin
+                    outRect.bottom = elementMarginBottom
+                    outRect.left = elementMarginHorizontal
+                    outRect.right = elementMarginHorizontal
                 }
             }
         })
