@@ -23,7 +23,6 @@
 
     <TextView
         android:id="@+id/subtitle"
-        android:background="@drawable/ripple_spinner_view_dropdown"
         android:text="@string/stub"
         android:textAppearance="@style/RegTextTextAppearance"
         android:textColor="@color/TextColorSecondary"

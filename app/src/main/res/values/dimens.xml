@@ -184,4 +184,8 @@
     <dimen name="ordersSubtitleTextSize">15sp</dimen>
     <dimen name="prizesSubtitleTextSize">22sp</dimen>
     <dimen name="spinnerDropdownItemSubtitleTextSize">16sp</dimen>
+    <dimen name="popupElevation">16dp</dimen>
+    <dimen name="mapsSwitchTextSize">18sp</dimen>
+    <dimen name="mapsPartnersTitleTextSize">22sp</dimen>
+    <dimen name="mapsSelectsTextSize">16sp</dimen>
 </resources>

@@ -10,6 +10,7 @@ import ru.hvost.news.models.Shop
 import ru.hvost.news.models.toShops
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class MapViewModel: ViewModel() {
 
@@ -35,6 +36,13 @@ class MapViewModel: ViewModel() {
                 _shops.value = listOf()
             }
         }
+    }
+
+    private val _optionsClickedEvent = MutableLiveData<OneTimeEvent>()
+    val optionsClickedEvent: LiveData<OneTimeEvent> = _optionsClickedEvent
+
+    fun sendOptionsClickedEvent() {
+        _optionsClickedEvent.value = OneTimeEvent()
     }
 
 }

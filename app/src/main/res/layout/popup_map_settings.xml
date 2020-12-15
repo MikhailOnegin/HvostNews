@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/controlsContainer"
+    android:elevation="@dimen/popupElevation"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <Switch
+        android:id="@+id/switchActions"
+        android:text="@string/mapsActionsSwitch"
+        android:textColor="@color/TextColorPrimary"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textSize="@dimen/mapsSwitchTextSize"
+        android:checked="false"
+        android:thumb="@drawable/ic_baseline_brightness_1_24"
+        android:track="@drawable/track_selector"
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <View
+        android:id="@+id/divider"
+        android:background="@color/gray5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/switchActions"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/partnersTypeTitle"
+        android:text="@string/mapsPartnersTitle"
+        android:textColor="@color/TextColorPrimary"
+        android:fontFamily="@font/gilroy_bold"
+        android:textSize="@dimen/mapsPartnersTitleTextSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin"/>
+
+    <TextView
+        android:id="@+id/vets"
+        android:text="@string/mapsVetsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/partnersTypeTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        style="@style/MapsControlsTextView" />
+
+    <TextView
+        android:id="@+id/zoos"
+        android:text="@string/mapsZoosTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/vets"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/smallMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        style="@style/MapsControlsTextView" />
+
+    <TextView
+        android:id="@+id/grooms"
+        android:text="@string/mapsGroomsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/vets"
+        app:layout_constraintStart_toEndOf="@id/zoos"
+        android:layout_marginTop="@dimen/smallMargin"
+        android:layout_marginStart="@dimen/smallMargin"
+        style="@style/MapsControlsTextView" />
+
+    <Button
+        android:id="@+id/reset"
+        style="@style/UnelevatedButton.Gray"
+        android:text="@string/buttonReset"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/buttonHeight"
+        app:layout_constraintTop_toBottomOf="@id/zoos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginBottom="@dimen/largeMargin"/>
+
+    <Button
+        android:id="@+id/apply"
+        style="@style/UnelevatedButton"
+        android:text="@string/buttonShow"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/buttonHeight"
+        app:layout_constraintTop_toBottomOf="@id/zoos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginEnd="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginBottom="@dimen/largeMargin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
