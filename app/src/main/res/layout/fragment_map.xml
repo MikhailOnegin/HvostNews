@@ -1,57 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/include_filter"
-        layout="@layout/layout_map_filter"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/searchContainer"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/editTextQuery"
-        style="@style/EditText"
-        android:textSize="16sp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/lightGrayBackground"
-        android:hint="Поиск по адресу или названию"
-        android:inputType="textPersonName"
-        android:padding="16dp"
-        android:textColorHint="@color/EditTextTextColorHints"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton_filter"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton_filter"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButton_filter"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchInputLayout"
+            style="@style/TextInputLayoutExposedDropDownMenu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/imageButton_filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/lightGrayBackground"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_tune_24" />
+            <AutoCompleteTextView
+                android:id="@+id/search"
+                style="@style/TextInputEditText"
+                android:hint="@string/mapsQueryHint"
+                android:popupTheme="@style/DropdownListViewStyle"
+                android:paddingStart="@dimen/largeMargin"
+                android:popupBackground="@drawable/background_suggestions_popup"
+                android:imeOptions="actionDone"
+                android:completionThreshold="1"
+                tools:ignore="RtlSymmetry"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/settings"
+            android:background="@drawable/selector_light_oval"
+            android:src="@drawable/ic_map_settings"
+            android:scaleType="fitCenter"
+            android:padding="@dimen/normalMargin"
+            android:contentDescription="@string/settingsCD"
+            android:layout_width="@dimen/toolbarHeight"
+            android:layout_height="@dimen/toolbarHeight"
+            android:layout_marginEnd="@dimen/normalMargin"/>
+
+    </LinearLayout>
 
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/mapView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/lightGrayBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton_filter">
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </com.yandex.mapkit.mapview.MapView>
 </androidx.constraintlayout.widget.ConstraintLayout>

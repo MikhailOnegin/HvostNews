@@ -9,14 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="ru.hvost.news.presentation.fragments.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_newsFragment"
-            app:destination="@id/newsFragment"
-            app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_passRestoreFragment"
             app:destination="@id/passRestoreFragment"
@@ -31,44 +24,14 @@
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/newsFragment"
-        android:name="ru.hvost.news.presentation.fragments.articles.ArticlesFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_articles" >
         <action
-            android:id="@+id/action_newsFragment_to_articleDetailFragment"
-            app:destination="@id/articleDetailFragment"
+            android:id="@+id/action_loginFragment_to_feedFragment"
+            app:destination="@id/feedFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit"/>
-        <action
-            android:id="@+id/action_newsFragment_to_domainFragment"
-            app:destination="@id/domainFragment" />
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
-
-    <fragment
-        android:id="@+id/articleDetailFragment"
-        android:name="ru.hvost.news.presentation.fragments.articles.ArticleFragment"
-        android:label="fragment_article_detail"
-        tools:layout="@layout/fragment_article" />
-
-    <fragment
-        android:id="@+id/domainFragment"
-        android:name="ru.hvost.news.presentation.fragments.domains.DomainFragment"
-        android:label="fragment_domain"
-        tools:layout="@layout/fragment_domain" >
-        <action
-            android:id="@+id/action_domainFragment_to_subDomainFragment"
-            app:destination="@id/subDomainFragment" />
-        <action
-            android:id="@+id/action_domainFragment_to_newsFragment"
-            app:destination="@id/newsFragment" />
-    </fragment>
-
     <fragment
         android:id="@+id/subDomainFragment"
         android:name="ru.hvost.news.presentation.fragments.domains.SubDomainFragment"
@@ -79,14 +42,18 @@
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit"/>
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
-
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="ru.hvost.news.presentation.fragments.articles.ArticleFragment"
+        android:label="fragment_article_detail"
+        tools:layout="@layout/fragment_article" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="ru.hvost.news.presentation.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
@@ -95,8 +62,7 @@
             app:destination="@id/petProfileFragment" />
         <action
             android:id="@+id/action_profileFragment_to_myCouponsFragment"
-            app:destination="@+id/myCouponsFragment"
-            />
+            app:destination="@+id/myCouponsFragment" />
         <action
             android:id="@+id/action_profileFragment_to_inviteFragment"
             app:destination="@id/inviteFragment" />
@@ -123,13 +89,13 @@
         android:id="@+id/editProfileFragment"
         android:name="ru.hvost.news.presentation.fragments.profile.EditProfileFragment"
         android:label="EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile"/>
+        tools:layout="@layout/fragment_edit_profile" />
 
     <fragment
         android:id="@+id/petProfileFragment"
         android:name="ru.hvost.news.presentation.fragments.profile.PetProfileFragment"
         android:label="fragment_pet_profile"
-        tools:layout="@layout/fragment_pet_profile" >
+        tools:layout="@layout/fragment_pet_profile">
         <action
             android:id="@+id/action_petProfileFragment_to_petPassportFragment"
             app:destination="@id/petPassportFragment" />
@@ -139,15 +105,13 @@
         android:id="@+id/myCouponsFragment"
         android:name="ru.hvost.news.presentation.fragments.coupons.MyCouponsFragment"
         android:label="My Coupons"
-        tools:layout="@layout/fragment_coupons_my" >
+        tools:layout="@layout/fragment_coupons_my">
         <action
             android:id="@+id/action_myCouponsFragment_to_couponFragment"
-            app:destination="@+id/couponFragment"
-            />
+            app:destination="@+id/couponFragment" />
         <action
             android:id="@+id/action_myCouponsFragment_to_infoGetCouponsFragment"
-            app:destination="@+id/infoGetCouponsFragment"
-            />
+            app:destination="@+id/infoGetCouponsFragment" />
     </fragment>
 
     <fragment
@@ -166,15 +130,13 @@
         android:id="@+id/parentsSchoolFragment"
         android:name="ru.hvost.news.presentation.fragments.school.ParentsSchoolFragment"
         android:label="Parents school"
-        tools:layout="@layout/fragment_school_parents" >
+        tools:layout="@layout/fragment_school_parents">
         <action
             android:id="@+id/action_parentSchoolFragment_to_onlineCourseActiveFragment"
-            app:destination="@+id/onlineCourseActiveFragment"
-            />
+            app:destination="@+id/onlineCourseActiveFragment" />
         <action
             android:id="@+id/action_parentSchoolFragment_to_offline_event_fragment"
-            app:destination="@+id/offlineEventFragment"
-            />
+            app:destination="@+id/offlineEventFragment" />
     </fragment>
 
 
@@ -189,32 +151,29 @@
         android:id="@+id/onlineCourseActiveFragment"
         android:name="ru.hvost.news.presentation.fragments.school.OnlineCourseActiveFragment"
         android:label="Online course active"
-        tools:layout="@layout/fragment_school_online" >
+        tools:layout="@layout/fragment_school_online">
         <action
             android:id="@+id/action_onlineCourseActiveFragment_to_onlineLessonFragment"
-            app:destination="@+id/onlineLessonFragment"
-            />
+            app:destination="@+id/onlineLessonFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/onlineLessonFragment"
         android:name="ru.hvost.news.presentation.fragments.school.OnlineLessonActiveFragment"
         android:label="Online lesson"
-        tools:layout="@layout/fragment_school_online_lesson_active"
-        />
+        tools:layout="@layout/fragment_school_online_lesson_active" />
 
     <fragment
         android:id="@+id/offlineEventFragment"
         android:name="ru.hvost.news.presentation.fragments.school.OfflineEventFragment"
         android:label="Offline event"
-        tools:layout="@layout/fragment_school_offline_event"
-        />
+        tools:layout="@layout/fragment_school_offline_event" />
 
     <fragment
         android:id="@+id/choicePrizeFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.ChoicePrizeFragment"
         android:label="fragment_choice_prize"
-        tools:layout="@layout/fragment_choice_prize" >
+        tools:layout="@layout/fragment_choice_prize">
         <action
             android:id="@+id/action_choicePrizeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
@@ -230,7 +189,7 @@
         android:id="@+id/inviteFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.InviteFragment"
         android:label="fragment_invite"
-        tools:layout="@layout/fragment_invite" >
+        tools:layout="@layout/fragment_invite">
         <action
             android:id="@+id/action_inviteFragment_to_prizesFragment"
             app:destination="@id/prizesFragment" />
@@ -240,7 +199,7 @@
         android:id="@+id/prizesFragment"
         android:name="ru.hvost.news.presentation.fragments.invite.PrizesFragment"
         android:label="fragment_prizes"
-        tools:layout="@layout/fragment_prizes" >
+        tools:layout="@layout/fragment_prizes">
         <action
             android:id="@+id/action_prizesFragment_to_choicePrizeFragment"
             app:destination="@id/choicePrizeFragment" />
@@ -281,7 +240,7 @@
         android:id="@+id/passRestoreFragment"
         android:name="ru.hvost.news.presentation.fragments.login.PassRestoreFragment"
         android:label="PassRestoreFragment"
-        tools:layout="@layout/fragment_pass_restore"/>
+        tools:layout="@layout/fragment_pass_restore" />
 
 
     <fragment
@@ -291,21 +250,19 @@
         tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment_to_partnersPageFragment"
-            app:destination="@+id/partners_page_fragment"
-            />
+            app:destination="@+id/partners_page_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/partners_page_fragment"
         android:name="ru.hvost.news.presentation.fragments.map.PartnersPageFragment"
-        android:label="PartnersPage"
-        />
+        android:label="PartnersPage" />
 
     <fragment
         android:id="@+id/regParentFragment"
         android:name="ru.hvost.news.presentation.fragments.login.RegParentFragment"
         android:label="RegParentFragment"
-        tools:layout="@layout/fragment_reg_parent"/>
+        tools:layout="@layout/fragment_reg_parent" />
 
     <fragment
         android:id="@+id/cartFragment"
@@ -339,13 +296,13 @@
         android:id="@+id/finishOrderFragment"
         android:name="ru.hvost.news.presentation.fragments.shop.FinishOrderFragment"
         android:label="FinishOrderFragment"
-        tools:layout="@layout/fragment_finish_order"/>
+        tools:layout="@layout/fragment_finish_order" />
 
     <fragment
         android:id="@+id/ordersFragment"
         android:name="ru.hvost.news.presentation.fragments.orders.OrdersFragment"
         android:label="OrdersFragment"
-        tools:layout="@layout/fragment_orders"/>
+        tools:layout="@layout/fragment_orders" />
 
     <fragment
         android:id="@+id/vouchersFragment"
@@ -379,7 +336,7 @@
         android:id="@+id/registerVoucherFragment"
         android:name="ru.hvost.news.presentation.fragments.vouchers.RegisterVoucherFragment"
         android:label="RegisterVoucherFragment"
-        tools:layout="@layout/fragment_register_voucher"/>
+        tools:layout="@layout/fragment_register_voucher" />
 
     <fragment
         android:id="@+id/productFragment"
@@ -410,14 +367,34 @@
             app:popUpTo="@id/splashScreen"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashScreen_to_newsFragment"
-            app:destination="@id/newsFragment"
+            android:id="@+id/action_splashScreen_to_feedFragment"
+            app:destination="@id/feedFragment"
             app:enterAnim="@anim/fragment_slide_left"
             app:exitAnim="@anim/fragment_no_changes"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit"
             app:popUpTo="@id/splashScreen"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="ru.hvost.news.presentation.fragments.feed.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed">
+        <action
+            android:id="@+id/action_feedFragment_to_subDomainFragment"
+            app:destination="@id/subDomainFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_feedFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
 </navigation>

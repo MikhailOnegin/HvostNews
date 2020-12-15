@@ -39,7 +39,7 @@ class SchoolViewModelTest {
         schoolVmTest = SchoolViewModel()
     }
 
-    @Test
+/*    @Test
     fun getOfflineLessons() = coroutineRule.testDispatcher.runBlockingTest {
         schoolVmTest.getOfflineSeminars(cityId)
         val result = schoolVmTest.offlineLessonsState.getOrAwaitValueTest2(
@@ -47,7 +47,7 @@ class SchoolViewModelTest {
             condition = { t: State? -> t != State.LOADING }
         )
         assertEquals("Ошибка загрузки оффлайн уроков", State.SUCCESS, result)
-    }
+    }*/
 
     @Test
     fun getOnlineLessons() = coroutineRule.testDispatcher.runBlockingTest {

@@ -3,7 +3,6 @@ package ru.hvost.news.presentation.fragments.profile
 import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,7 +62,7 @@ class ProfileFragment : BaseFragment() {
         } else {
             mainVM.loadUserData()
         }
-        if (couponsMV.couponsLoadingEvent.value?.peekContent() == State.SUCCESS) {
+        if (couponsMV.couponsState.value?.peekContent() == State.SUCCESS) {
             binding.couponsCount.text = couponsMV.couponsCount.toString()
         } else {
             couponsMV.getCoupons(App.getInstance().userToken!!)
@@ -122,7 +121,7 @@ class ProfileFragment : BaseFragment() {
         mainVM.userDataLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
         mainVM.userPetsLoadingEvent.observe(viewLifecycleOwner, onUserPetsLoadingEvent)
         mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
-        couponsMV.couponsLoadingEvent.observe(viewLifecycleOwner, onCouponsLoadingEvent)
+        couponsMV.couponsState.observe(viewLifecycleOwner, onCouponsLoadingEvent)
         mainVM.ordersInWork.observe(
             viewLifecycleOwner,
             { binding.inWorkStatus.text = it.toString() })

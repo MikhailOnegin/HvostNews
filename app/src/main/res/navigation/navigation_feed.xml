@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph_registration.xml"
+    app:startDestination="@id/feedListFragment">
+    <fragment
+        android:id="@+id/feedListFragment"
+        android:name="ru.hvost.news.presentation.fragments.feed.FeedListFragment"
+        android:label="fragment_feed_list"
+        tools:layout="@layout/fragment_feed_list" />
+    <fragment
+        android:id="@+id/domainsGridFragment"
+        android:name="ru.hvost.news.presentation.fragments.feed.DomainsGridFragment"
+        android:label="fragment_domains_grid"
+        tools:layout="@layout/fragment_domains_grid" />
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="ru.hvost.news.presentation.fragments.feed.NewsListFragment"
+        android:label="fragment_news_list"
+        tools:layout="@layout/fragment_news_list" />
+</navigation>

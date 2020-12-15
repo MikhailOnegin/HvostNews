@@ -34,7 +34,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-        dataBinding = true
     }
 
     testOptions{
@@ -51,6 +50,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -60,9 +60,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.1"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.1"
-    implementation 'com.google.android.material:material:1.3.0-alpha03'
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.2"
+    implementation 'com.google.android.material:material:1.3.0-alpha04'
     implementation 'androidx.biometric:biometric:1.0.1'
 
     //Retrofit
@@ -107,6 +107,7 @@ dependencies {
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:2.19.0'
 
-    // Yandex MapKit full
-    implementation 'com.yandex.android:maps.mobile:4.0.0-full'
+    // Yandex MapKit lite
+    implementation 'com.yandex.android:maps.mobile:4.0.0-lite'
+
 }

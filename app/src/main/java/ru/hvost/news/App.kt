@@ -2,7 +2,6 @@ package ru.hvost.news
 
 import android.app.Application
 import androidx.preference.PreferenceManager
-import com.yandex.mapkit.MapKitFactory
 import java.lang.IllegalStateException
 
 class App : Application() {
@@ -29,9 +28,6 @@ class App : Application() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val userToken = prefs.getString(PREF_USER_TOKEN, null)
         if(userToken != null) logIn(userToken)
-
-        // yandex Map
-        MapKitFactory.setApiKey("71fcd725-4e14-4eb6-95be-0dadad11466f")
     }
 
     companion object {

@@ -20,7 +20,7 @@ data class OfflineSeminarsResponse(
         val partners: List<Partner>?,
         val videos: List<Video>?,
         val wait: List<Wait>?,
-        val petShedules: List<PetSchedule>?
+        val petSchedules: List<PetSchedule>?
     )
     data class Video(
         val title: String?,

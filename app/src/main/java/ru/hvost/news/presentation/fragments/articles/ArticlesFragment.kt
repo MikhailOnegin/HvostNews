@@ -2,7 +2,6 @@ package ru.hvost.news.presentation.fragments.articles
 
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,7 +92,7 @@ class ArticlesFragment : BaseFragment() {
         private fun updateList(tab: TabLayout.Tab?) {
             when (tab?.text) {
                 "Лента" -> loadArticles()
-                "Статьи" -> nav.navigate(R.id.action_newsFragment_to_domainFragment)
+//                "Статьи" -> nav.navigate(R.id.action_newsFragment_to_domainFragment)
                 "Новости" -> loadNews()
             }
         }
@@ -115,13 +114,13 @@ class ArticlesFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        mainVM.articlesState.observe(viewLifecycleOwner, { onArticleStateChanged(it) })
-        mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
-        mainVM.closeArticlesFilterCustomDialog.observe(
-            viewLifecycleOwner,
-            OneTimeEvent.Observer { closeDialog() })
-        mainVM.updateArticlesWithNewInterests.observe(viewLifecycleOwner,
-            OneTimeEvent.Observer { updateArticles() })
+//        mainVM.articlesState.observe(viewLifecycleOwner, { onArticleStateChanged(it) })
+//        mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
+//        mainVM.closeArticlesFilterCustomDialog.observe(
+//            viewLifecycleOwner,
+//            OneTimeEvent.Observer { closeDialog() })
+//        mainVM.updateArticlesWithNewInterests.observe(viewLifecycleOwner,
+//            OneTimeEvent.Observer { updateArticles() })
     }
 
     private fun updateArticles() {
@@ -173,7 +172,7 @@ class ArticlesFragment : BaseFragment() {
             val bundle = Bundle()
             bundle.putString(ARTICLE_ID, id)
             bundle.putString("TYPE", "INDIVIDUAL")
-            findNavController().navigate(R.id.action_newsFragment_to_articleDetailFragment, bundle)
+//            findNavController().navigate(R.id.action_newsFragment_to_articleDetailFragment, bundle)
         }
         val adapter = ArticleAdapter(onActionClicked)
         binding.list.adapter = adapter

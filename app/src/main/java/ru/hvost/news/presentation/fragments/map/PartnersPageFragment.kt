@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.hvost.news.databinding.FragmentMapPartnersPageBinding
-import ru.hvost.news.presentation.viewmodels.MapViewModel
 
 class PartnersPageFragment : Fragment() {
 

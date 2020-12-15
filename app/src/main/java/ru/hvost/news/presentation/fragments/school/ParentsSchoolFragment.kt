@@ -33,7 +33,7 @@ class ParentsSchoolFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSchoolParentsBinding.inflate(inflater, container, false)
         onlineSchoolsAdapter = SchoolsOnlineAdapter()
         offlineSeminarsAdapter = OfflineSeminarsAdapter()

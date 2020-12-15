@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar_schedule.view.*
 import kotlinx.android.synthetic.main.layout_partner.view.*
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.LayoutPartnerBinding
 import ru.hvost.news.models.OfflineSeminars
 
@@ -38,7 +39,6 @@ class OfflineSeminarScheduleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolde
     inner class ScheduleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         fun bind(seminar:OfflineSeminars.OfflineLesson?){
             seminar?.run {
-                Log.i("eeee", "seminar Schedule is not null")
             val containerWait = itemView.gridLayout
             containerWait.removeAllViews()
             for (i in seminar.partners.indices) {
@@ -66,7 +66,7 @@ class OfflineSeminarScheduleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolde
                 )
                 viewPartner.textView_partner_title.text = partner.name
                 containerWait.addView(viewPartner)
-                Glide.with(itemView.context).load(partner.image)
+                Glide.with(itemView.context).load(baseUrl + partner.image)
                     .placeholder(R.drawable.not_found).centerCrop()
                     .into(viewPartner.imageView)
             }
