@@ -1,16 +1,12 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_school_offline_event.*
@@ -18,9 +14,10 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
 import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarScheduleAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OfflineEventFragment : Fragment() {
+class OfflineEventFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOfflineEventBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -43,8 +40,7 @@ class OfflineEventFragment : Fragment() {
         setListeners()
         seminarId = arguments?.getString("seminarId")
         setObservers(this)
-        setSystemUiVisibility()
-        binding.recyclerView.adapter = infoAdapter
+        //binding.recyclerView.adapter = infoAdapter
     }
 
     private fun setObservers(owner: LifecycleOwner) {
@@ -58,11 +54,11 @@ class OfflineEventFragment : Fragment() {
                         binding.textViewTitle.text = seminar.title
                         if (seminar.isFinished) {
                             binding.textViewLessonStatus.text = getString(R.string.completed)
-                            binding.textViewLessonStatus.setTextColor(resources.getColor(R.color.red))
+                            binding.textViewLessonStatus.setTextColor(ContextCompat.getColor(requireContext(),R.color.red ))
                             binding.buttonParticipate.text = "Подписаться"
                             binding.buttonParticipate.setOnClickListener {
                                 binding.buttonParticipate.text = "Вы подписаны на уведомления"
-                                binding.buttonParticipate.setTextColor(resources.getColor(R.color.gray1))
+                                binding.buttonParticipate.setTextColor(ContextCompat.getColor(requireContext(),R.color.gray1 ))
                                 binding.buttonParticipate.background.setTint(
                                     ContextCompat.getColor(
                                         requireContext(),
@@ -73,11 +69,11 @@ class OfflineEventFragment : Fragment() {
                         }
                         else {
                             binding.textViewLessonStatus.text = getString(R.string.active)
-                            binding.textViewLessonStatus.setTextColor(resources.getColor(R.color.colorPrimary))
+                            binding.textViewLessonStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
                             binding.buttonParticipate.visibility = View.VISIBLE
                             if (seminar.participate) {
                                 binding.buttonParticipate.text = getString(R.string.you_participate)
-                                binding.buttonParticipate.setTextColor(resources.getColor(R.color.gray1))
+                                binding.buttonParticipate.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray1))
                                 binding.buttonParticipate.background.setTint(
                                     ContextCompat.getColor(
                                         requireContext(),
@@ -87,7 +83,7 @@ class OfflineEventFragment : Fragment() {
                                 binding.buttonParticipate.isEnabled = false
                             } else {
                                 binding.buttonParticipate.text = getString(R.string.participate)
-                                binding.buttonParticipate.setTextColor(resources.getColor(android.R.color.white))
+                                binding.buttonParticipate.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
                                 binding.buttonParticipate.background.setTint(
                                     ContextCompat.getColor(
                                         requireContext(),
@@ -119,14 +115,14 @@ class OfflineEventFragment : Fragment() {
         binding.constraintSeminarInfo.setOnClickListener {
             it.isSelected = true
             constraint_seminar_schedule.isSelected = false
-            binding.recyclerView.adapter = infoAdapter
+           // binding.recyclerView.adapter = infoAdapter
             binding.seminarInfo.setTextColor(colorWhite)
             binding.seminarSchedule.setTextColor(colorPrimary)
         }
         binding.constraintSeminarSchedule.setOnClickListener {
             it.isSelected = true
             constraint_seminar_info.isSelected = false
-            binding.recyclerView.adapter = scheduleAdapter
+           // binding.recyclerView.adapter = scheduleAdapter
             binding.seminarSchedule.setTextColor(colorWhite)
             binding.seminarInfo.setTextColor(colorPrimary)
         }
@@ -136,13 +132,4 @@ class OfflineEventFragment : Fragment() {
         }
     }
 
-    @SuppressLint("InlinedApi")
-    @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
 }

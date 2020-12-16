@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -25,10 +22,11 @@ import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
 
-class OnlineCourseActiveFragment : Fragment() {
+class OnlineCourseActiveFragment :  BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOnlineBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -104,15 +102,14 @@ class OnlineCourseActiveFragment : Fragment() {
                 }
             }
         }
-        setSystemUiVisibility()
         setListeners()
     }
 
     fun setObservers(owner: LifecycleOwner) {
-        schoolVM.onlineLessons.observe(owner, Observer {
+        schoolVM.onlineLessons.observe(owner, {
             materialsAdapter.setLessons(it.lessons)
         })
-        schoolVM.onlineSchools.observe(owner, Observer {
+        schoolVM.onlineSchools.observe(owner, {
             schoolId?.run {
                 for(i in it.onlineSchools.indices){
                     val onlineSchool = it.onlineSchools[i]
@@ -125,9 +122,9 @@ class OnlineCourseActiveFragment : Fragment() {
                         val containerNumbers = linearLayout_lesson_numbers
                         val padding = resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
                         containerNumbers.setPadding(0,0,0, padding)
-                        for(i in onlineSchool.lessonsPassed.indices){
-                            val number = onlineSchool.lessonsPassed[i].number
-                            val isPassed = onlineSchool.lessonsPassed[i].isPassed
+                        for(q in onlineSchool.lessonsPassed.indices){
+                            val number = onlineSchool.lessonsPassed[q].number
+                            val isPassed = onlineSchool.lessonsPassed[q].isPassed
                             val viewWait = LayoutLessonNumberBinding.inflate(
                                 LayoutInflater.from(requireContext()),
                                 containerNumbers,
@@ -136,8 +133,8 @@ class OnlineCourseActiveFragment : Fragment() {
                             viewWait.textView_lesson_number.setBackgroundResource(R.drawable.selector_lesson_number)
                             viewWait.textView_lesson_number.text = number.toString()
                             viewWait.textView_lesson_number.isSelected = isPassed
-                            if (isPassed) viewWait.textView_lesson_number.setTextColor(resources.getColor(R.color.gray3))
-                            else viewWait.textView_lesson_number.setTextColor(resources.getColor(android.R.color.white))
+                            if (isPassed) viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(requireContext(),R.color.gray3))
+                            else viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(requireContext(),android.R.color.white))
                             val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
                             (viewWait.layoutParams as LinearLayout.LayoutParams).setMargins(
                                 0,
@@ -147,9 +144,7 @@ class OnlineCourseActiveFragment : Fragment() {
                             )
                             containerNumbers.addView(viewWait)
                         }
-
                     }
-
                 }
             }
         })
@@ -176,16 +171,6 @@ class OnlineCourseActiveFragment : Fragment() {
         }
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
-        }
-    }
-
-    @SuppressLint("InlinedApi")
-    @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
         }
     }
 }

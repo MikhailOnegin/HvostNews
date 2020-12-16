@@ -84,7 +84,7 @@ fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<Offlin
 fun List<OfflineSeminarsResponse.Video>?.toVideos(): List<OfflineSeminars.Video>{
     val result = mutableListOf<OfflineSeminars.Video>()
     this?.run {
-        for ((index, video) in this.withIndex()) {
+        for (video in this.iterator()) {
             result.add(
                 OfflineSeminars.Video(
                     title = video.title ?: "",
@@ -99,7 +99,7 @@ fun List<OfflineSeminarsResponse.Video>?.toVideos(): List<OfflineSeminars.Video>
 fun List<OfflineSeminarsResponse.Partner>?.toPartners(): List<OfflineSeminars.Partner>{
     val result = mutableListOf<OfflineSeminars.Partner>()
     this?.run {
-        for ((index, partner) in this.withIndex()) {
+        for ( partner in this.iterator()) {
             result.add(
                 OfflineSeminars.Partner(
                     name = partner.name ?: "",
@@ -114,7 +114,7 @@ fun List<OfflineSeminarsResponse.Partner>?.toPartners(): List<OfflineSeminars.Pa
 fun List<OfflineSeminarsResponse.Schedule>?.toSchedules(): List<OfflineSeminars.Schedule>{
     val result = mutableListOf<OfflineSeminars.Schedule>()
     this?.run {
-        for ((index, schedule) in this.withIndex()) {
+        for (schedule in this.iterator()) {
             result.add(
                 OfflineSeminars.Schedule(
                     title = schedule.title ?: "",
@@ -132,7 +132,7 @@ fun List<OfflineSeminarsResponse.Schedule>?.toSchedules(): List<OfflineSeminars.
 fun List<OfflineSeminarsResponse.PetSchedule>?.toPetSchedules(): List<OfflineSeminars.PetSchedule>{
     val result = mutableListOf<OfflineSeminars.PetSchedule>()
     this?.run {
-        for ((index, petSchedule) in this.withIndex()) {
+        for (petSchedule in this.iterator()) {
             result.add(
                 OfflineSeminars.PetSchedule(
                     petTypeId = petSchedule.petTypeId ?: "",
@@ -148,7 +148,7 @@ fun List<OfflineSeminarsResponse.PetSchedule>?.toPetSchedules(): List<OfflineSem
 fun List<OfflineSeminarsResponse.Wait>?.toWait(): List<OfflineSeminars.Wait>{
     val result = mutableListOf<OfflineSeminars.Wait>()
     this?.run {
-        for ((index, wait) in this.withIndex()) {
+        for (wait in this.iterator()) {
             result.add(
                 OfflineSeminars.Wait(
                     imageUrl = wait.imageUrl ?: "",
