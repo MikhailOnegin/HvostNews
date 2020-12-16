@@ -2,6 +2,8 @@ package ru.hvost.news.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,14 @@ class PopupWindowDomainAdapter(private val onClick: (Long) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(domainItem: Domain) {
+            binding.container.doOnLayout {
+                val width = it.width
+                val height = width / 3.1F
+                binding.container.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    height.toInt()
+                )
+            }
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + domainItem.img)

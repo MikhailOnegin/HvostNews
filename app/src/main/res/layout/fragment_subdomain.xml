@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -9,12 +10,11 @@
     tools:context=".presentation.fragments.domains.SubDomainFragment">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:stateListAnimator="@null"
-        app:elevation="0dp"
-        app:liftOnScroll="false">
+        android:background="@android:color/white"
+        app:liftOnScroll="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -45,8 +45,8 @@
                 android:id="@+id/titleContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/xLargeMargin"
                 android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/xLargeMargin"
                 android:layout_marginBottom="@dimen/largeMargin"
                 android:background="@drawable/ripple_rectangle_button"
                 app:layout_constraintBottom_toTopOf="@+id/category_tabs"
@@ -58,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gilroy_bold"
+                    android:paddingStart="0dp"
                     android:paddingEnd="@dimen/smallMargin"
                     android:text="@string/stub"
                     android:textColor="@color/titleText"
