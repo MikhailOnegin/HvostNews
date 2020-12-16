@@ -1,19 +1,25 @@
 package ru.hvost.news.presentation.fragments.map
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.PopupWindow
-import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.map.CameraPosition
-import com.yandex.mapkit.map.MapObjectTapListener
+import com.yandex.mapkit.map.*
 import com.yandex.runtime.ui_view.ViewProvider
 import ru.hvost.news.App
 import ru.hvost.news.R
@@ -22,7 +28,6 @@ import ru.hvost.news.databinding.PopupMapSettingsBinding
 import ru.hvost.news.models.Shop
 import ru.hvost.news.presentation.adapters.autocomplete.AutoCompleteShopsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
-import ru.hvost.news.utils.events.OneTimeEvent
 import ru.hvost.news.utils.events.OneTimeEvent.Observer
 import ru.hvost.news.utils.showNotReadyToast
 
@@ -30,6 +35,20 @@ class MapFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var mapVM: MapViewModel
+    private lateinit var cameraPosition: CameraPosition
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val defaultLatitude = 55.755814
+    private val defaultLongitude = 37.617635
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+            onRequestPermissionResult
+        )
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,13 +71,61 @@ class MapFragment : BaseFragment() {
         setListeners()
         MapKitFactory.getInstance().onStart()
         binding.mapView.onStart()
-        moveCameraToPosition(Point(53.398767,58.984585))
+        if (::cameraPosition.isInitialized) {
+            binding.mapView.map.move(cameraPosition)
+        } else {
+            initializeCameraPosition()
+        }
     }
 
     override fun onStop() {
         super.onStop()
         MapKitFactory.getInstance().onStop()
         binding.mapView.onStop()
+        cameraPosition = binding.mapView.map.cameraPosition
+    }
+
+    private val onRequestPermissionResult = { permissionGranted: Boolean ->
+        if (permissionGranted) {
+            tryMoveToUsersLastLocation()
+        } else {
+            moveCameraToDefaultPosition()
+        }
+    }
+
+    private fun initializeCameraPosition() {
+        when (PackageManager.PERMISSION_GRANTED) {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) -> {
+                tryMoveToUsersLastLocation()
+            }
+            else -> {
+                requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
+    }
+
+    private fun tryMoveToUsersLastLocation() {
+        try {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
+                    moveCameraToPosition(
+                        Point(
+                            it.latitude,
+                            it.longitude
+                        )
+                    )
+                } else moveCameraToDefaultPosition()
+            }
+        } catch (exc: SecurityException) {
+            moveCameraToDefaultPosition()
+        }
+    }
+
+    private fun moveCameraToDefaultPosition() {
+        moveCameraToPosition(Point(defaultLatitude, defaultLongitude))
     }
 
     private fun moveCameraToPosition(point: Point) {
@@ -133,20 +200,19 @@ class MapFragment : BaseFragment() {
         for (shop in shops) {
             val view = LayoutInflater.from(requireActivity())
                 .inflate(R.layout.view_landmark, null)
-            mapObjects.addPlacemark(
+            val mapObject = mapObjects.addPlacemark(
                 Point(shop.latitude, shop.longitude),
                 ViewProvider(view)
             )
+            mapObject.userData = shop.id
         }
         mapObjects.addTapListener(mapObjectTapListener)
     }
 
-    private val mapObjectTapListener = MapObjectTapListener { mapObject, point ->
-        Toast.makeText(
-            App.getInstance(),
-            "$mapObject $point",
-            Toast.LENGTH_SHORT
-        ).show()
+    private val mapObjectTapListener = MapObjectTapListener { mapObject, _ ->
+        val bundle = Bundle()
+        bundle.putLong(PartnersPageFragment.SHOP_ID, mapObject.userData as Long)
+        findNavController().navigate(R.id.action_mapFragment_to_partnersPageFragment, bundle)
         true
     }
 
