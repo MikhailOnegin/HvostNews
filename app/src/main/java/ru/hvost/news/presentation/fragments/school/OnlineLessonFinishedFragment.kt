@@ -1,19 +1,14 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.annotation.SuppressLint
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,11 +18,11 @@ import kotlinx.android.synthetic.main.layout_online_lesson_option.view.*
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolOnlineLessonFinishedBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
-import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
 import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OnlineLessonFinishedFragment: Fragment() {
+class OnlineLessonFinishedFragment: BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOnlineLessonFinishedBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -51,7 +46,6 @@ class OnlineLessonFinishedFragment: Fragment() {
         lessonId = arguments?.get("lessonId")
         schoolId = arguments?.get("schoolId")
         setListeners()
-        setSystemUiVisibility()
         setObservers(this)
     }
 
@@ -117,15 +111,4 @@ class OnlineLessonFinishedFragment: Fragment() {
             }
         })
     }
-
-    @SuppressLint("InlinedApi")
-    @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
-
 }

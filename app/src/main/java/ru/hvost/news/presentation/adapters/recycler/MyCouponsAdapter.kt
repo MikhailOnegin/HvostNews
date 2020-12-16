@@ -3,6 +3,7 @@ package ru.hvost.news.presentation.adapters.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_coupon.view.*
@@ -66,11 +67,9 @@ class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
             tVCouponMaxDate.text = coupon.expirationDate
             if (coupon.isUsed) {
                 tVUsed.text = itemView.context.getString(R.string.used)
-                tVUsed.background =
-                    itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
+                tVUsed.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_staus_false)
             } else {
-                tVUsed.background =
-                    itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
+                tVUsed.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_status_true)
                 tVUsed.text = itemView.context.getString(R.string.active)
             }
             if(coupon.address.isNotBlank()){

@@ -1,29 +1,24 @@
 package ru.hvost.news.presentation.fragments.coupons
 
-import android.annotation.SuppressLint
+
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.AdapterView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_coupons_my.view.*
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCouponsMyBinding
 import ru.hvost.news.models.Coupons
 import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.getValue
 
-class MyCouponsFragment : Fragment() {
+class MyCouponsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCouponsMyBinding
     private lateinit var couponVM: CouponViewModel
@@ -33,7 +28,7 @@ class MyCouponsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCouponsMyBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,11 +53,10 @@ class MyCouponsFragment : Fragment() {
         App.getInstance().userToken?.run {
             couponVM.getCoupons(this)
         }
-        setSystemUiVisibility()
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        couponVM.coupons.observe(owner, Observer {
+        couponVM.coupons.observe(owner, {
             adapter.setCoupons(it.coupons)
         })
     }
@@ -89,20 +83,7 @@ class MyCouponsFragment : Fragment() {
             navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)
         }
         binding.imageInfo.setOnClickListener {
-            Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
             navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)
         }
     }
-
-    @SuppressLint("InlinedApi")
-    @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
-
-
 }
