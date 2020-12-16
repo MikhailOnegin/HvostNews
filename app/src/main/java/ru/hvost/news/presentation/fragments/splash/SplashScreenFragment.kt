@@ -16,7 +16,7 @@ import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 class SplashScreenFragment : Fragment() {
 
-    private val showSplashScreen = true
+    private val showSplashScreen = false
 
     private lateinit var binding: FragmentSplashScreenBinding
     private lateinit var splashAnimation: AnimationDrawable

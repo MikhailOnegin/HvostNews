@@ -5,4 +5,5 @@
     <integer name="regProgressAnimationTime">1500</integer>
     <integer name="minPassLength">8</integer>
     <integer name="popup_animation_duration">300</integer>
+    <integer name="filtersContainerAnimationTime">300</integer>
 </resources>
