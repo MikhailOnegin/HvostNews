@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
             android:orientation="vertical"
+            android:layout_marginBottom="@dimen/normalMargin"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <LinearLayout
@@ -92,7 +93,6 @@
                 android:id="@+id/articlesFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/normalMargin"
                 android:orientation="horizontal"
                 android:paddingHorizontal="@dimen/profileCoverPadding">
 
