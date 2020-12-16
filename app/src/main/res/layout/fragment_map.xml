@@ -1,59 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/topContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/searchContainer"
-        android:orientation="horizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topContainer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbarHeight"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/searchInputLayout"
-            style="@style/TextInputLayoutExposedDropDownMenu"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-
-            <AutoCompleteTextView
-                android:id="@+id/search"
-                style="@style/TextInputEditText"
-                android:hint="@string/mapsQueryHint"
-                android:popupTheme="@style/DropdownListViewStyle"
-                android:paddingStart="@dimen/largeMargin"
-                android:popupBackground="@drawable/background_suggestions_popup"
-                android:imeOptions="actionDone"
-                android:completionThreshold="1"
-                tools:ignore="RtlSymmetry"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/settings"
-            android:background="@drawable/selector_light_oval"
-            android:src="@drawable/ic_map_settings"
-            android:scaleType="fitCenter"
-            android:padding="@dimen/normalMargin"
-            android:contentDescription="@string/settingsCD"
-            android:layout_width="@dimen/toolbarHeight"
+        <LinearLayout
+            android:id="@+id/searchContainer"
+            android:orientation="horizontal"
+            android:elevation="@dimen/barsElevation"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/toolbarHeight"
-            android:layout_marginEnd="@dimen/normalMargin"/>
+            app:layout_constraintTop_toTopOf="parent">
 
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/searchInputLayout"
+                style="@style/TextInputLayoutExposedDropDownMenu"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
 
-    <com.yandex.mapkit.mapview.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/searchContainer"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+                <AutoCompleteTextView
+                    android:id="@+id/search"
+                    style="@style/TextInputEditText"
+                    android:hint="@string/mapsQueryHint"
+                    android:popupTheme="@style/DropdownListViewStyle"
+                    android:paddingStart="@dimen/largeMargin"
+                    android:popupBackground="@drawable/background_suggestions_popup"
+                    android:imeOptions="actionDone"
+                    android:completionThreshold="1"
+                    tools:ignore="RtlSymmetry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/settings"
+                android:background="@drawable/selector_light_oval"
+                android:src="@drawable/ic_map_settings"
+                android:scaleType="fitCenter"
+                android:padding="@dimen/normalMargin"
+                android:contentDescription="@string/settingsCD"
+                android:layout_width="@dimen/toolbarHeight"
+                android:layout_height="@dimen/toolbarHeight"
+                android:layout_marginEnd="@dimen/normalMargin"/>
+
+        </LinearLayout>
+
+        <com.yandex.mapkit.mapview.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/searchContainer"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

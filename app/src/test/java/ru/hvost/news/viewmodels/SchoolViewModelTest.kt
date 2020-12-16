@@ -47,7 +47,7 @@ class SchoolViewModelTest {
             condition = { t: State? -> t != State.LOADING }
         )
         assertEquals("Ошибка загрузки оффлайн уроков", State.SUCCESS, result)
-    }*/
+    }
 
     @Test
     fun getOnlineLessons() = coroutineRule.testDispatcher.runBlockingTest {
@@ -88,5 +88,6 @@ class SchoolViewModelTest {
         )
         assertEquals("Ошибка что то там",State.SUCCESS, result)
     }
+    */
 
 }

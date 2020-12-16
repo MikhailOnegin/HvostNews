@@ -3,11 +3,10 @@ package ru.hvost.news.presentation.fragments.map
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.yandex.mapkit.Animation
@@ -19,9 +18,12 @@ import com.yandex.runtime.ui_view.ViewProvider
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentMapBinding
+import ru.hvost.news.databinding.PopupMapSettingsBinding
 import ru.hvost.news.models.Shop
 import ru.hvost.news.presentation.adapters.autocomplete.AutoCompleteShopsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.events.OneTimeEvent
+import ru.hvost.news.utils.events.OneTimeEvent.Observer
 import ru.hvost.news.utils.showNotReadyToast
 
 class MapFragment : BaseFragment() {
@@ -74,16 +76,37 @@ class MapFragment : BaseFragment() {
 
     private fun setObservers() {
         mapVM.shops.observe(viewLifecycleOwner) { onShopsLoaded(it) }
+        mapVM.optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
     }
 
     private fun setListeners() {
         binding.settings.setOnClickListener { showNotReadyToast() }
+        binding.settings.setOnClickListener { mapVM.sendOptionsClickedEvent() }
+    }
+
+    @Suppress("DEPRECATION")
+    private val onOptionsClicked = {
+        val popupBinding = PopupMapSettingsBinding.inflate(
+            LayoutInflater.from(requireActivity()), null, false
+        )
+        val popup = PopupWindow(popupBinding.root)
+        popup.apply {
+            setWindowLayoutMode(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+            )
+            isOutsideTouchable = true
+            animationStyle = R.style.MapsPopupAnimation
+            elevation = resources.getDimension(R.dimen.popupElevation)
+            setOnDismissListener { popup.dismiss() }
+        }
+        popup.showAtLocation(binding.settings, Gravity.NO_GRAVITY, 0, 0)
     }
 
     private fun onShopsLoaded(shops: List<Shop>?) {
         shops?.run {
             setShopsOnMap(this)
-            setAutoCompleteTextView(this)
+            setAutoCompleteTextView(this.toMutableList())
         }
     }
 

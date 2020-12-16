@@ -62,7 +62,7 @@ class ProfileFragment : BaseFragment() {
         } else {
             mainVM.loadUserData()
         }
-        if (couponsMV.couponsState.value?.peekContent() == State.SUCCESS) {
+        if (couponsMV.couponsEvent.value?.peekContent() == State.SUCCESS) {
             binding.couponsCount.text = couponsMV.couponsCount.toString()
         } else {
             couponsMV.getCoupons(App.getInstance().userToken!!)
@@ -121,7 +121,7 @@ class ProfileFragment : BaseFragment() {
         mainVM.userDataLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
         mainVM.userPetsLoadingEvent.observe(viewLifecycleOwner, onUserPetsLoadingEvent)
         mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
-        couponsMV.couponsState.observe(viewLifecycleOwner, onCouponsLoadingEvent)
+        couponsMV.couponsEvent.observe(viewLifecycleOwner, onCouponsLoadingEvent)
         mainVM.ordersInWork.observe(
             viewLifecycleOwner,
             { binding.inWorkStatus.text = it.toString() })

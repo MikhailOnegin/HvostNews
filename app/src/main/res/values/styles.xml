@@ -421,4 +421,20 @@
         <item name="fontFamily">@font/gilroy_bold</item>
     </style>
 
+    <style name="MapsControlsTextView">
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textColor">@color/sex_text_color</item>
+        <item name="android:textSize">@dimen/mapsSelectsTextSize</item>
+        <item name="android:background">@drawable/background_maps_selector</item>
+        <item name="android:paddingStart">@dimen/largeMargin</item>
+        <item name="android:paddingEnd">@dimen/largeMargin</item>
+        <item name="android:paddingTop">@dimen/smallMargin</item>
+        <item name="android:paddingBottom">@dimen/smallMargin</item>
+    </style>
+
+    <style name="MapsPopupAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_maps_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_maps_exit</item>
+    </style>
+
 </resources>

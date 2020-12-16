@@ -3,6 +3,7 @@ package ru.hvost.news.presentation.adapters.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
@@ -64,13 +65,12 @@ class OfflineSeminarsAdapter :
                 .placeholder(R.drawable.not_found).centerCrop().into(iVLesson)
             if (lesson.isFinished) {
                 tVStatus.text = "Завершено"
-                iVStatus.background =
-                    itemView.resources.getDrawable(R.drawable.background_coupon_status_true)
+                iVStatus.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_staus_false)
             }
             if (!lesson.isFinished) {
                 tVStatus.text = "Активно"
-                iVStatus.background =
-                    itemView.resources.getDrawable(R.drawable.background_coupon_staus_false)
+
+                iVStatus.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_status_true)
             }
             tVTitle.text = lesson.title
             tVDate.text = lesson.date

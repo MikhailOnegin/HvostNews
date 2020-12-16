@@ -395,4 +395,11 @@
     <string name="addPetButtonCD">Добавить питомца</string>
     <string name="settingsCD">Настройки</string>
     <string name="mapsQueryHint">Поиск по адресу или названию</string>
+    <string name="mapsActionsSwitch">Участвует в акции</string>
+    <string name="mapsPartnersTitle">Тип партнера</string>
+    <string name="mapsVetsTitle">Ветеринарные клиники</string>
+    <string name="mapsZoosTitle">Зоомагазины</string>
+    <string name="mapsGroomsTitle">Груминг-салоны</string>
+    <string name="buttonReset">Сбросить</string>
+    <string name="buttonShow">Показать</string>
 </resources>

@@ -6,7 +6,7 @@
 
     <Button
         android:id="@+id/cancel"
-        style="@style/ElevatedButton"
+        style="@style/UnelevatedButton.Gray"
         android:layout_width="0dp"
         android:layout_height="@dimen/ButtonHeight"
         android:layout_marginEnd="@dimen/smallMargin"
@@ -20,7 +20,7 @@
 
     <Button
         android:id="@+id/show"
-        style="@style/ElevatedButton"
+        style="@style/UnelevatedButton"
         android:layout_width="0dp"
         android:layout_height="@dimen/ButtonHeight"
         android:layout_weight="1"

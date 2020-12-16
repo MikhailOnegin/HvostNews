@@ -15,8 +15,8 @@ import ru.hvost.news.utils.events.NetworkEvent
 
 class CouponViewModel : ViewModel() {
 
-    private val _couponsState: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
-    val couponsState: LiveData<NetworkEvent<State>> = _couponsState
+    private val _couponsEvent: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val couponsEvent: LiveData<NetworkEvent<State>> = _couponsEvent
 
     private val _coupons: MutableLiveData<Coupons> = MutableLiveData()
     val coupons: LiveData<Coupons> = _coupons
@@ -24,16 +24,16 @@ class CouponViewModel : ViewModel() {
 
     fun getCoupons(userToken: String) {
         viewModelScope.launch {
-            _couponsState.value = NetworkEvent(State.LOADING)
+            _couponsEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getCouponsAsync(userToken).await()
                 _coupons.value = response.toOfflineLessons()
                 couponsCount = _coupons.value?.coupons?.size
                 if (response.result == "success") {
-                    _couponsState.value = NetworkEvent(State.SUCCESS)
-                } else _couponsState.value = NetworkEvent(State.ERROR, response.error)
+                    _couponsEvent.value = NetworkEvent(State.SUCCESS)
+                } else _couponsEvent.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                _couponsState.value = NetworkEvent(State.FAILURE, exc.toString())
+                _couponsEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
         //val couponsList = mutableListOf<Coupons.Coupon>()
@@ -66,22 +66,22 @@ class CouponViewModel : ViewModel() {
         //mutableCoupons.value = coupons
     }
 
-    private val _couponsInfoState: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
-    val couponsInfoState: LiveData<NetworkEvent<State>> = _couponsInfoState
+    private val _couponsInfoEvent: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val couponsInfoEvent: LiveData<NetworkEvent<State>> = _couponsInfoEvent
 
     private val mutableCouponsInfo: MutableLiveData<CouponInfo> = MutableLiveData()
     val couponsInfo: LiveData<CouponInfo> = mutableCouponsInfo
 
     fun getCouponsInfo() {
         viewModelScope.launch {
-            _couponsInfoState.value = NetworkEvent(State.LOADING)
+            _couponsInfoEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getCouponsInfoAsync().await()
                 mutableCouponsInfo.value = response.toCouponsInfo()
-                if (response.result == "success") _couponsInfoState.value = NetworkEvent(State.SUCCESS)
-                else _couponsInfoState.value = NetworkEvent(State.ERROR, response.error)
+                if (response.result == "success") _couponsInfoEvent.value = NetworkEvent(State.SUCCESS)
+                else _couponsInfoEvent.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                _couponsInfoState.value = NetworkEvent(State.FAILURE, exc.toString())
+                _couponsInfoEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online.view.*
@@ -78,8 +79,8 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
 
                 viewWait.textView_lesson_number.text = number.toString()
                 viewWait.textView_lesson_number.isSelected = isPassed
-                if (isPassed) viewWait.textView_lesson_number.setTextColor(itemView.resources.getColor(R.color.gray3))
-                else viewWait.textView_lesson_number.setTextColor(itemView.resources.getColor(android.R.color.white))
+                if (isPassed) viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(itemView.context,R.color.gray3))
+                else viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(itemView.context,android.R.color.white))
 
                 val margin = itemView.resources.getDimension(R.dimen.marginLessonNumber).toInt()
                 (viewWait.layoutParams as LinearLayout.LayoutParams).setMargins(

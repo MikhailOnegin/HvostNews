@@ -49,7 +49,7 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
                 OnlineSchools.OnlineSchool(
                     domainId = index,
                     id = schoolResponse.id ?: 0,
-                    isRegistered = schoolResponse.isRegistered ?: false,
+                    isRegistered = schoolResponse.isRegistered,
                     title = schoolResponse.title ?: "",
                     image = schoolResponse.image ?: "",
                     userRank = schoolResponse.userRank ?: "",
@@ -68,7 +68,7 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
 fun List<OnlineSchoolsResponse.Literature>?.toLiteratures():List<OnlineSchools.Literature>{
     val result = mutableListOf<OnlineSchools.Literature>()
     this?.run {
-        for ((index, literature) in this.withIndex()) {
+        for (literature in this.iterator()) {
             result.add(
                 OnlineSchools.Literature(
                     name = literature.name ?: "",
@@ -84,7 +84,7 @@ fun List<OnlineSchoolsResponse.Literature>?.toLiteratures():List<OnlineSchools.L
 fun List<OnlineSchoolsResponse.Wait>?.toWait(): List <OnlineSchools.Wait>{
     val result = mutableListOf<OnlineSchools.Wait>()
     this?.run {
-        for ((index, wait) in this.withIndex()) {
+        for (wait in this.iterator()) {
             result.add(
                 OnlineSchools.Wait(
                     head = wait.head ?: "",
@@ -100,7 +100,7 @@ fun List<OnlineSchoolsResponse.Wait>?.toWait(): List <OnlineSchools.Wait>{
 fun List<OnlineSchoolsResponse.LessonPassed>?.toNotNull():List<OnlineSchools.LessonPassed>{
     val result = mutableListOf<OnlineSchools.LessonPassed>()
     this?.run {
-        for ((index, lessonPassed) in this.withIndex()) {
+        for (lessonPassed in this.iterator()) {
             result.add(
                 OnlineSchools.LessonPassed(
                     lessonPassed.number ?:0,

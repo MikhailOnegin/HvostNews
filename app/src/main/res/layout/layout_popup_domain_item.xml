@@ -2,24 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_popup_domain_item"
-    android:elevation="@dimen/listItemElevation"
-    android:orientation="horizontal"
-    android:padding="@dimen/smallMargin">
+    android:background="@drawable/background_popup_domain_item">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/xSmallMargin"
-        android:paddingEnd="0dp"
-        android:text="@string/stub" />
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/listItemElevation"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/normalMargin"
+        android:paddingEnd="0dp">
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="@dimen/smallImageHeight"
-        android:layout_height="@dimen/smallImageHeight" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/gilroy_semibold"
+            android:textSize="@dimen/dialogSubtitleTextSize"
+            android:textColor="@color/gray1"
+            android:text="@string/stub" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="@dimen/smallImageHeight"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </LinearLayout>

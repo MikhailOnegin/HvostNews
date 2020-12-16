@@ -4,7 +4,6 @@
     android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:paddingHorizontal="@dimen/smallMargin"
-    android:layout_marginTop="@dimen/smallMargin"
-    android:paddingTop="@dimen/smallMargin"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />

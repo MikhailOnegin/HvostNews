@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="126dp"
     android:layout_gravity="fill"
@@ -37,6 +36,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:scaleType="centerCrop"
+            android:contentDescription="@string/not_found"
             app:srcCompat="@drawable/default_image" />
 
         <TextView

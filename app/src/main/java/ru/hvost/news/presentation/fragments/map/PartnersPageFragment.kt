@@ -9,8 +9,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.hvost.news.databinding.FragmentMapPartnersPageBinding
+import ru.hvost.news.presentation.fragments.BaseFragment
 
-class PartnersPageFragment : Fragment() {
+class PartnersPageFragment :    BaseFragment() {
 
     private lateinit var binding: FragmentMapPartnersPageBinding
     private lateinit var mapVM: MapViewModel
@@ -28,13 +29,4 @@ class PartnersPageFragment : Fragment() {
         mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
     }
 
-    @SuppressLint("InlinedApi")
-    @Suppress("DEPRECATION")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
-        }
-    }
 }
