@@ -1,15 +1,17 @@
 package ru.hvost.news.presentation.fragments.feed
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.MeasureSpec
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
@@ -65,13 +67,13 @@ class FeedFragment : BaseFragment() {
     private fun checkTabsState() {
         when (mainVM.feedTabState) {
             MainViewModel.Companion.ButtonSelected.FEED -> {
-                setFeedTabSelected()
+                setTabSelected(0)
             }
             MainViewModel.Companion.ButtonSelected.DOMAINS -> {
-                setDomainsTabSelected()
+                setTabSelected(1)
             }
             MainViewModel.Companion.ButtonSelected.NEWS -> {
-                setNewsTabSelected()
+                setTabSelected(2)
             }
         }
     }
@@ -135,88 +137,95 @@ class FeedFragment : BaseFragment() {
         when (view.id) {
             R.id.articles -> {
                 mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.FEED
-                setFeedTabSelected()
-                requireActivity().findNavController(R.id.fragmentContainerView)
-                    .navigate(R.id.feedListFragment, null, navOptions.build())
+                setTabSelected(0)
+                animateFiltersAndGoToDestination(true, R.id.feedListFragment)
             }
             R.id.domains -> {
                 mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.DOMAINS
-                setDomainsTabSelected()
-                requireActivity().findNavController(R.id.fragmentContainerView)
-                    .navigate(R.id.domainsGridFragment, null, navOptions.build())
+                setTabSelected(1)
+                animateFiltersAndGoToDestination(false, R.id.domainsGridFragment)
             }
             R.id.news -> {
                 mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.NEWS
-                setNewsTabSelected()
-                requireActivity().findNavController(R.id.fragmentContainerView)
-                    .navigate(R.id.newsListFragment, null, navOptions.build())
+                setTabSelected(2)
+                animateFiltersAndGoToDestination(false, R.id.newsListFragment)
             }
         }
     }
 
-    private fun setNewsTabSelected() {
-        binding.articles.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                R.color.gray4
-            )
+    private var areFiltersExpanded = true
+
+    private fun animateFiltersAndGoToDestination(
+        shouldExpandFilters: Boolean,
+        destination: Int
+    ) {
+        if ((shouldExpandFilters && areFiltersExpanded)
+            || (!shouldExpandFilters && !areFiltersExpanded)) {
+            goToDestination(destination)
+            return
+        }
+        binding.articlesFilter.measure(
+            MeasureSpec.makeMeasureSpec(binding.filtersContainer.width, MeasureSpec.EXACTLY),
+            MeasureSpec.makeMeasureSpec(binding.filtersContainer.height, MeasureSpec.AT_MOST)
         )
-        binding.domains.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                R.color.gray4
+        val height = binding.articlesFilter.measuredHeight
+        val startValue = if (shouldExpandFilters) 0 else binding.articlesFilter.height
+        val endValue = if (shouldExpandFilters) height else 0
+        val animator = ValueAnimator.ofInt(startValue, endValue)
+        animator.duration = resources.getInteger(R.integer.filtersContainerAnimationTime).toLong()
+        animator.addUpdateListener {
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                it.animatedValue as Int
             )
-        )
-        binding.news.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                R.color.gray1
-            )
-        )
-        binding.articlesFilter.visibility = View.GONE
+            binding.articlesFilter.layoutParams = params
+        }
+        animator.addListener(FiltersAnimationListener(shouldExpandFilters, destination))
+        animator.start()
     }
 
-    private fun setDomainsTabSelected() {
-        binding.articles.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                R.color.gray4
-            )
-        )
-        binding.domains.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                R.color.gray1
-            )
-        )
-        binding.news.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                R.color.gray4
-            )
-        )
-        binding.articlesFilter.visibility = View.GONE
+    inner class FiltersAnimationListener(
+        private val shouldExpandFilters: Boolean,
+        private val destination: Int
+    ) : Animator.AnimatorListener {
+
+        override fun onAnimationStart(animation: Animator?) { }
+
+        override fun onAnimationEnd(animation: Animator?) {
+            areFiltersExpanded = shouldExpandFilters
+            goToDestination(destination)
+        }
+
+        override fun onAnimationCancel(animation: Animator?) { }
+
+        override fun onAnimationRepeat(animation: Animator?) { }
+
     }
 
-    private fun setFeedTabSelected() {
+    private fun goToDestination(destination: Int) {
+        requireActivity().findNavController(R.id.fragmentContainerView)
+            .navigate(destination, null, navOptions.build())
+    }
+
+    private fun setTabSelected(position: Int) {
         binding.articles.setTextColor(
             ContextCompat.getColor(
                 App.getInstance(),
-                R.color.gray1
+                if (position == 0) R.color.gray1 else R.color.gray4
             )
         )
         binding.domains.setTextColor(
             ContextCompat.getColor(
                 App.getInstance(),
-                R.color.gray4
+                if (position == 1) R.color.gray1 else R.color.gray4
             )
         )
         binding.news.setTextColor(
             ContextCompat.getColor(
                 App.getInstance(),
-                R.color.gray4
+                if (position == 2) R.color.gray1 else R.color.gray4
             )
         )
-        binding.articlesFilter.visibility = View.VISIBLE
     }
+
 }

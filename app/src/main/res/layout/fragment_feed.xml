@@ -28,6 +28,7 @@
             app:titleTextAppearance="@style/ToolbarTitleTextAppearance" />
 
         <LinearLayout
+            android:id="@+id/filtersContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
