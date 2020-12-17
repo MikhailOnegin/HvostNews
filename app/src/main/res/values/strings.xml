@@ -402,4 +402,11 @@
     <string name="mapsGroomsTitle">Груминг-салоны</string>
     <string name="buttonReset">Сбросить</string>
     <string name="buttonShow">Показать</string>
+    <string name="submitPhoneTitle">Вы авторизовались по email</string>
+    <string name="submitPhoneHint">Уважаемый пользователь, вы авторизовались с помощью e-mail. Для дальнейшего использования приложения необходимо указать ваш работающий номер телефона</string>
+    <string name="submitPhoneEditTextHint">Ваш номер телефона</string>
+    <string name="buttonCheck">Проверить</string>
+    <string name="submitPhoneHint2">После нажатия «Проверить» на указанный номер будет отправлен код подтверждения</string>
+    <string name="hintCode">Код подтверждения</string>
+    <string name="buttonSendAgain">Отправить код еще раз</string>
 </resources>

@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
+import ru.hvost.news.data.api.response.LoginResponse
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 
 class AuthorizationVM: ViewModel(){
 
     private val _loginEvent = MutableLiveData<NetworkEvent<State>>()
     val loginEvent: LiveData<NetworkEvent<State>> = _loginEvent
+    var loginResponse: LoginResponse? = null
 
     fun logIn(login: String, password: String){
         viewModelScope.launch {
@@ -21,7 +24,9 @@ class AuthorizationVM: ViewModel(){
             try{
                 val response = APIService.API.loginAsync(login, password).await()
                 if(response.result == "success" && response.userToken != null) {
-                    App.getInstance().logIn(response.userToken)
+                    loginResponse = response
+                    if (response.isPhoneRegistered == true)
+                        App.getInstance().logIn(response.userToken) //sergeev: добавить и после подтверждения номера телефона.
                     _loginEvent.value = NetworkEvent(State.SUCCESS)
                 }
                 else _loginEvent.value = NetworkEvent(State.ERROR, response.error)
@@ -47,6 +52,13 @@ class AuthorizationVM: ViewModel(){
                 _passRestoreEvent.value = NetworkEvent(State.FAILURE)
             }
         }
+    }
+
+    private val _readyToSubmitPhone = MutableLiveData(Event(false))
+    val readyToSubmitPhone: LiveData<Event<Boolean>> = _readyToSubmitPhone
+
+    fun setReadyToSubmitPhone(ready: Boolean) {
+        _readyToSubmitPhone.value = Event(ready)
     }
 
 }

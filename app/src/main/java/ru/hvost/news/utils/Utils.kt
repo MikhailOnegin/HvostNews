@@ -92,7 +92,7 @@ fun hasTooLongField(vararg fields: TextInputEditText): Boolean {
 }
 
 class PhoneInputFilter : InputFilter {
-
+    //sergeev: Настроить подстановку шаблона, если поле пустое.
     private val filterRegex = "\\+?|\\+[7]?|\\+[7]-\\d{0,3}|\\+[7]-\\d{3}-\\d{0,3}" +
             "|\\+[7]-\\d{3}-\\d{3}-\\d{0,2}|\\+[7]-\\d{3}-\\d{3}-\\d{2}-\\d{0,2}"
     private val pattern = Pattern.compile(filterRegex)
