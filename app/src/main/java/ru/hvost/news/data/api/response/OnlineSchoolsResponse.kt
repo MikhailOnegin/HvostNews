@@ -3,23 +3,26 @@ package ru.hvost.news.data.api.response
 data class OnlineSchoolsResponse(
     val result: String?,
     val error: String?,
-    val onlineSchools: List<OnlineSchool>?,
+    val schools: List<OnlineSchool>?,
 
-) {
+    ) {
     data class OnlineSchool(
         val id: Long?,
-        val isRegistered:Boolean,
         val title: String?,
         val image: String?,
+        val imageDetailUrl: String?,
+        val participate:Boolean?,
         val userRank: String?,
         val description: String?,
+        val images: List<String>?,
+        val wait: List<Wait>?,
         val literatures: List<Literature>?,
         val lessonsPassed: List<LessonPassed>?,
-        val wait: List<Wait>?
+
     )
 
     data class LessonPassed(
-        val number: Int?,
+        val lessonNumber: Int?,
         val isPassed: Boolean?
     )
 
@@ -31,6 +34,5 @@ data class OnlineSchoolsResponse(
     data class Wait(
         val head: String?,
         val imageUrl: String?,
-        val description: String?
     )
 }
