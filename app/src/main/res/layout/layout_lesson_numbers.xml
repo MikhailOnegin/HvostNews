@@ -18,7 +18,7 @@
             android:id="@+id/linearLayout_lesson_numbers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:paddingBottom="8dp" />
     </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

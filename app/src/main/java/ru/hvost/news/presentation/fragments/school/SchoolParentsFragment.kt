@@ -22,7 +22,7 @@ import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.getValue
 
-class ParentsSchoolFragment : BaseFragment() {
+class SchoolParentsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolParentsBinding
     private lateinit var schoolVM: SchoolViewModel

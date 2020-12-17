@@ -1,94 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/window_background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragments.school.SchoolOnlineFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:stateListAnimator="@null"
-        app:elevation="0dp"
-        app:liftOnScroll="false">
+        android:animateLayoutChanges="true"
+        android:background="@android:color/white"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_online_school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_scrollFlags="scroll|snap"
+            app:navigationIcon="@drawable/ic_back">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/online_lesson"
+                android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
+                android:textColor="@color/gray1" />
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
-
-
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:paddingStart="24dp"
-                android:paddingTop="24dp"
-                android:paddingEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraint_registration">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_info"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/cartSelectorHeight"
-                    android:layout_weight="1"
-                    android:background="@drawable/sex_selector_left">
-
-                    <TextView
-                        android:id="@+id/school_info_title"
-                        style="@style/CartTypeTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/about_course"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_materials"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/cartSelectorHeight"
-                    android:layout_weight="1"
-                    android:background="@drawable/sex_selector_right">
-
-                    <TextView
-                        android:id="@+id/school_materials_title"
-                        style="@style/CartTypeTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/course_materials"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
+            app:layout_scrollFlags="scroll|snap">
 
             <ImageView
                 android:id="@+id/imageView_logo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:scaleType="centerCrop"
                 android:contentDescription="@string/not_found"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="@+id/constraint_registration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +71,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="56dp"
                 android:layout_marginEnd="120dp"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
@@ -120,7 +79,7 @@
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView_rank"
@@ -165,34 +124,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@android:color/transparent"
-                android:theme="@style/AppTheme.Toolbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_scrollFlags="scroll|snap|enterAlways"
-                app:navigationIcon="@drawable/ic_back"
-                app:title="@string/online_lesson" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray4"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                app:layout_scrollFlags="scroll|snap|enterAlways" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_registration"
@@ -211,7 +148,7 @@
                     android:layout_height="70dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
-                    android:text="@string/participate"
+                    android:text="@string/registration"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -220,8 +157,62 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="24dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_info"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cartSelectorHeight"
+                android:layout_weight="1"
+                android:background="@drawable/sex_selector_left">
+
+                <TextView
+                    android:id="@+id/school_info_title"
+                    style="@style/CartTypeTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_course"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_materials"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cartSelectorHeight"
+                android:layout_weight="1"
+                android:background="@drawable/sex_selector_right">
+
+                <TextView
+                    android:id="@+id/school_materials_title"
+                    style="@style/CartTypeTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/course_materials"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -230,7 +221,6 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"

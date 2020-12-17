@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@android:color/white" >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -14,25 +15,26 @@
         app:elevation="0dp"
         app:liftOnScroll="false">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_coupons_how_get"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
             android:theme="@style/AppTheme.Toolbar"
             app:layout_scrollFlags="scroll|snap|enterAlways"
-            app:navigationIcon="@drawable/ic_back"
-            app:title="@string/how_get_coupons" />
+            app:navigationIcon="@drawable/ic_back">
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/container"
-            app:layout_scrollFlags="scroll|snap|enterAlways" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/how_get_coupons"
+                android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
+                android:textColor="@color/gray1" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

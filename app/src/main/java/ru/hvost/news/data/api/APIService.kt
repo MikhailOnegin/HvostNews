@@ -259,6 +259,13 @@ interface APIService {
     @GET("/rest/School/getCities/")
     fun getOfflineCitiesAsync(): Deferred<OfflineCitiesResponse>
 
+    @GET("/rest/School/setParticipate/")
+    fun setParticipateAsync(
+        @Query("userToken") userToken: String?,
+        @Query("schoolId") schoolId: String?,
+        @Query("petId") petId: String?
+    ): Deferred<SetParticipateResponse>
+
     // Map
     @GET("/rest/Maps/getShops/")
     fun getShopsAsync(

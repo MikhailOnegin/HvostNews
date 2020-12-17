@@ -22,7 +22,7 @@ import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OnlineLessonFinishedFragment: BaseFragment() {
+class LessonOnlineFinishedFragment: BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOnlineLessonFinishedBinding
     private lateinit var schoolVM: SchoolViewModel

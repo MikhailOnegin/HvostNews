@@ -77,7 +77,7 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
             val containerWait = itemView.linearLayout_lesson_numbers
             containerWait.removeAllViews()
             for(i in onlineSchool.lessonsPassed.indices){
-                val number = onlineSchool.lessonsPassed[i].number
+                val number = (i + 1).toString()
                 val isPassed = onlineSchool.lessonsPassed[i].isPassed
                     val viewWait = LayoutLessonNumberBinding.inflate(
                         LayoutInflater.from(itemView.context),
@@ -85,10 +85,10 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
                         false
                     ).root
 
-                viewWait.textView_lesson_number.text = number.toString()
+                viewWait.textView_lesson_number.text = number
                 viewWait.textView_lesson_number.isSelected = isPassed
-                if (isPassed) viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(itemView.context,R.color.gray3))
-                else viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(itemView.context,android.R.color.white))
+                if (isPassed) viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(itemView.context,android.R.color.white))
+                else viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(itemView.context,R.color.gray3))
 
                 val margin = itemView.resources.getDimension(R.dimen.marginLessonNumber).toInt()
                 (viewWait.layoutParams as LinearLayout.LayoutParams).setMargins(

@@ -26,7 +26,7 @@ import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class OnlineLessonActiveFragment : BaseFragment() {
+class LessonOnlineActiveFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOnlineLessonActiveBinding
     private lateinit var schoolVM: SchoolViewModel

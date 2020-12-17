@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_school_online.*
 import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.*
+import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
@@ -25,9 +27,11 @@ import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 
-class OnlineCourseActiveFragment :  BaseFragment() {
+class SchoolOnlineFragment :  BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOnlineBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -78,12 +82,11 @@ class OnlineCourseActiveFragment :  BaseFragment() {
             }
         }
         setObservers(this)
-        id?.run {
-            schoolId = this
-            schoolVM.getOnlineLessons(
-                "eyJpdiI6Ik93PT0iLCJ2YWx1ZSI6ImZJVFpNQ3FJXC95eXBPbUg2QVhydDh2cURPNXI5WmR4VUNBdVBIbkU1MEhRPSIsInBhc3N3b3JkIjoiTkhOUFcyZ3dXbjVpTnpReVptWXdNek5oTlRZeU5UWmlOR1kwT1RabE5HSXdOMlJtTkRnek9BPT0ifQ==",
-                this
-            )
+        id?.let {id ->
+            schoolId = id
+            App.getInstance().userToken?.run {
+                schoolVM.getOnlineLessons(this, id)
+            }
             val schoolsResponse = schoolVM.onlineSchools.value
             schoolsResponse?.run {
                 val schools = this.onlineSchools
@@ -92,8 +95,8 @@ class OnlineCourseActiveFragment :  BaseFragment() {
                         val idSchool = schools[i].id.toString()
                         if (idSchool == this) {
                             val school = schools[i]
-                            binding.textViewTitle.text = school.title
-                            binding.textViewRank.text = school.userRank
+                            if (school.title.isNotBlank()) binding.textViewTitle.text = school.title
+                            if (school.userRank.isNotBlank()) binding.textViewRank.text = school.userRank
                             Glide.with(requireContext()).load(APIService.baseUrl + school.image)
                                 .placeholder(R.drawable.not_found).centerCrop()
                                 .into(binding.imageViewLogo)
@@ -114,28 +117,43 @@ class OnlineCourseActiveFragment :  BaseFragment() {
             schoolId?.run {
                 for(i in it.onlineSchools.indices){
                     val onlineSchool = it.onlineSchools[i]
-                    if(onlineSchool.isRegistered) binding.constraintRegistration.visibility = View.GONE
-                    else binding.constraintRegistration.visibility = View.VISIBLE
+
 
                     if(onlineSchool.id.toString() == this){
                         infoAdapter.setSchool(onlineSchool)
                         materialsAdapter.setSchool(onlineSchool)
+
+                        if(onlineSchool.participate) binding.constraintRegistration.visibility = View.GONE
+                        else {
+                            binding.constraintRegistration.visibility = View.VISIBLE
+                            binding.buttonRegistration.setOnClickListener {
+                                val bundle = Bundle()
+                                schoolId?.run{
+                                    bundle.putString("schoolId", this)
+                                }
+                                findNavController().navigate(R.id.action_schoolOnlineActiveFragment_to_registrationFragment, bundle)
+                            }
+                        }
+
                         val containerNumbers = linearLayout_lesson_numbers
                         val padding = resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
                         containerNumbers.setPadding(0,0,0, padding)
+
                         for(q in onlineSchool.lessonsPassed.indices){
-                            val number = onlineSchool.lessonsPassed[q].number
+                            val number = (q + 1).toString()
                             val isPassed = onlineSchool.lessonsPassed[q].isPassed
                             val viewWait = LayoutLessonNumberBinding.inflate(
                                 LayoutInflater.from(requireContext()),
                                 containerNumbers,
                                 false
                             ).root
-                            viewWait.textView_lesson_number.setBackgroundResource(R.drawable.selector_lesson_number)
-                            viewWait.textView_lesson_number.text = number.toString()
+                            viewWait.textView_lesson_number.background = ContextCompat.getDrawable(requireContext(), R.drawable.selector_lesson_number)
+                            viewWait.textView_lesson_number.isSelected = onlineSchool.lessonsPassed[q].isPassed
+                            viewWait.textView_lesson_number.text = number
                             viewWait.textView_lesson_number.isSelected = isPassed
-                            if (isPassed) viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(requireContext(),R.color.gray3))
-                            else viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(requireContext(),android.R.color.white))
+
+                            if (isPassed) viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(requireContext(),android.R.color.white))
+                            else viewWait.textView_lesson_number.setTextColor(ContextCompat.getColor(requireContext(),R.color.gray3))
                             val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
                             (viewWait.layoutParams as LinearLayout.LayoutParams).setMargins(
                                 0,
@@ -147,6 +165,11 @@ class OnlineCourseActiveFragment :  BaseFragment() {
                         }
                     }
                 }
+            }
+        })
+        schoolVM.setParticipateEvent.observe(owner, {
+            if(it.getContentIfNotHandled() == State.SUCCESS){
+                Toast.makeText(requireContext(), "Вы записаны на урок", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -170,7 +193,7 @@ class OnlineCourseActiveFragment :  BaseFragment() {
             binding.schoolMaterialsTitle.setTextColor(colorWhite)
             binding.schoolInfoTitle.setTextColor(colorPrimary)
         }
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarOnlineSchool.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }
