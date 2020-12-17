@@ -1,17 +1,16 @@
 package ru.hvost.news.presentation.fragments.map
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import ru.hvost.news.App
 import ru.hvost.news.databinding.FragmentMapPartnersPageBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
 
-class PartnersPageFragment :    BaseFragment() {
+class PartnersPageFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMapPartnersPageBinding
     private lateinit var mapVM: MapViewModel
@@ -19,7 +18,7 @@ class PartnersPageFragment :    BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMapPartnersPageBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -27,6 +26,17 @@ class PartnersPageFragment :    BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
+        Toast.makeText(
+            App.getInstance(),
+            "${arguments?.getLong(SHOP_ID)}",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    companion object {
+
+        const val SHOP_ID = "shop_id"
+
     }
 
 }

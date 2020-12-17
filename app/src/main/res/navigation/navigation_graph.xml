@@ -250,13 +250,18 @@
         tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment_to_partnersPageFragment"
-            app:destination="@+id/partners_page_fragment" />
+            app:destination="@+id/partners_page_fragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/partners_page_fragment"
         android:name="ru.hvost.news.presentation.fragments.map.PartnersPageFragment"
-        android:label="PartnersPage" />
+        android:label="PartnersPage"
+        tools:layout="@layout/fragment_map_partners_page"/>
 
     <fragment
         android:id="@+id/regParentFragment"
