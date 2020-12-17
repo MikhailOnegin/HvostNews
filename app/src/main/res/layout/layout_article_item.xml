@@ -1,107 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/listItemElevation"
-    android:orientation="vertical">
+    android:elevation="@dimen/listItemElevation">
 
-    <ru.hvost.news.presentation.customviews.RoundCornersImageView
-        android:id="@+id/img"
+    <LinearLayout
+        android:id="@+id/imgContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:scaleType="centerCrop"
-        app:cornersRadius="@dimen/xSmallCorners"
-        app:outlineColor="@android:color/white"
-        app:outlineWidth="@dimen/imageOutlineWidth"
-        tools:src="@drawable/test_image" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ru.hvost.news.presentation.customviews.RoundCornersImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/normalMargin"
+            android:scaleType="centerCrop"
+            app:cornersRadius="@dimen/xSmallCorners"
+            app:outlineColor="@android:color/white"
+            app:outlineWidth="@dimen/imageOutlineWidth"
+            tools:src="@drawable/test_image" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/textMargin"
-        android:lineSpacingMultiplier="1.15"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginBottom="@dimen/smallMargin"
         android:fontFamily="@font/gilroy_bold"
+        android:lineSpacingMultiplier="1.15"
         android:text="@string/stub"
         android:textColor="@color/gray1"
-        android:textSize="@dimen/articleTitleTextSize" />
+        android:textSize="@dimen/articleTitleTextSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgContainer" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/smallMargin"
         android:layout_marginBottom="@dimen/normalMargin"
-        android:lineSpacingMultiplier="1.25"
         android:fontFamily="@font/gilroy_semibold"
+        android:lineSpacingMultiplier="1.25"
         android:text="@string/stub"
         android:textColor="@color/gray2"
-        android:textSize="@dimen/articleDescriptionTextSize" />
+        android:textSize="@dimen/articleDescriptionTextSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/categoryHeight"
-        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/domain"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:background="@drawable/background_chips"
+        android:fontFamily="@font/gilroy_semibold"
+        android:gravity="center"
+        android:maxWidth="@dimen/maxChipsWidth"
+        android:paddingHorizontal="@dimen/smallMargin"
+        android:paddingVertical="@dimen/xSmallMargin"
+        android:text="@string/stub"
+        android:textColor="@color/gray2"
+        android:textSize="@dimen/articleChipsTextSize"
+        app:layout_constraintStart_toStartOf="@id/description"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        tools:text="Котята" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/xLargeMargin"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textColor="@color/gray3"
+        android:textSize="@dimen/articleDateTextSize"
+        app:layout_constraintBottom_toBottomOf="@id/domain"
+        app:layout_constraintEnd_toStartOf="@id/likesIcon"
+        app:layout_constraintTop_toTopOf="@id/domain"
+        tools:text="47 850" />
 
-            <TextView
-                android:id="@+id/domain"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/background_category_item"
-                android:fontFamily="@font/gilroy_semibold"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/smallMargin"
-                android:text="@string/stub"
-                android:textColor="@color/gray2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/viewsIcon"
+        android:layout_width="@dimen/viewsIconSize"
+        android:layout_height="@dimen/viewsIconSize"
+        android:layout_marginEnd="@dimen/smallMargin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_views"
+        app:layout_constraintBottom_toBottomOf="@id/views"
+        app:layout_constraintEnd_toStartOf="@id/views"
+        app:layout_constraintTop_toTopOf="@id/views"
+        tools:ignore="ContentDescription" />
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gilroy_semibold"
+        android:textColor="@color/gray3"
+        android:textSize="@dimen/articleDateTextSize"
+        app:layout_constraintBottom_toBottomOf="@id/domain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/domain"
+        tools:text="47 850" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="@dimen/categoryHeight"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/likesIcon"
+        android:layout_width="@dimen/viewsIconSize"
+        android:layout_height="@dimen/viewsIconSize"
+        android:layout_marginEnd="@dimen/smallMargin"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_likes"
+        app:layout_constraintBottom_toBottomOf="@id/likes"
+        app:layout_constraintEnd_toStartOf="@id/likes"
+        app:layout_constraintTop_toTopOf="@id/likes"
+        tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/views"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawablePadding="@dimen/xSmallMargin"
-                android:fontFamily="@font/gilroy_semibold"
-                android:gravity="center_vertical"
-                android:text="@string/stub"
-                android:textColor="@color/gray3"
-                android:textSize="@dimen/secondaryTextTextSize"
-                app:drawableLeftCompat="@drawable/ic_views" />
-
-            <TextView
-                android:id="@+id/likes"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:drawablePadding="@dimen/xSmallMargin"
-                android:fontFamily="@font/gilroy_semibold"
-                android:gravity="center_vertical"
-                android:text="@string/stub"
-                android:textColor="@color/gray3"
-                android:textSize="@dimen/secondaryTextTextSize"
-                app:drawableLeftCompat="@drawable/ic_likes" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
