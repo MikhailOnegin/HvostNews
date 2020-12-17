@@ -19,7 +19,7 @@ import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 
 class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsViewHolder>() {
-
+    private var schoolsFull = arrayListOf<OnlineSchools.OnlineSchool>()
     private var schools = arrayListOf<OnlineSchools.OnlineSchool>()
     var clickSchool: ClickSchool? = null
 
@@ -35,7 +35,15 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
 
 
     fun setSchools(onlineSchools: List<OnlineSchools.OnlineSchool>) {
+        this.schoolsFull = onlineSchools.toCollection(ArrayList())
         this.schools = onlineSchools.toCollection(ArrayList())
+        notifyDataSetChanged()
+    }
+    fun filterYourSchools(s:String){
+        when(s){
+            "Ваши семинары" -> schools = schoolsFull.filter { it.participate }.toCollection(ArrayList())
+            "Все семинары" -> schools = schoolsFull
+        }
         notifyDataSetChanged()
     }
 
