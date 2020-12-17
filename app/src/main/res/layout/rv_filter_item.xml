@@ -43,14 +43,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/interests"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/smallMargin"
-        android:background="@drawable/background_interests_list"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/normalMargin"
-        android:visibility="gone" />
-
 </LinearLayout>

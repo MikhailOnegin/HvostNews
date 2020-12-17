@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/ButtonHeight"
-    android:orientation="vertical">
+    android:layout_marginHorizontal="@dimen/smallMargin"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/smallMargin">
 
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="@dimen/normalMargin"
         android:button="@drawable/checkbox_selector"
         android:buttonTint="@color/gray4"
         android:buttonTintMode="multiply"
         android:fontFamily="@font/gilroy_semibold"
-        android:paddingLeft="@dimen/smallMargin"
+        android:paddingHorizontal="@dimen/smallMargin"
         android:text="@string/stub"
         android:textColor="@color/gray1"
         android:textSize="@dimen/smallButtonTextSize" />

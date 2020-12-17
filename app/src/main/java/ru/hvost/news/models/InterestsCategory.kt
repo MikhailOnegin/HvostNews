@@ -5,45 +5,51 @@ import ru.hvost.news.data.api.response.InterestsResponse
 enum class CheckboxStates { SELECTED, UNSELECTED, INDETERMINATE }
 
 data class InterestsCategory(
-    val categoryId: String,
+    val categoryId: Long,
     val categoryName: String,
+    val imageUrl: String,
     var state: Enum<CheckboxStates>,
+    var isExpanded: Boolean,
     var sendParent: Boolean,
-    val interests: List<Interests>
-) : CategoryItem() {
-    data class Interests(
-        val interestId: String,
-        val interestName: String,
-        var state: Enum<CheckboxStates>,
-        val imageUri: String
-    )
-}
+) : CategoryItem(id = categoryId)
 
-object FilterFooter : CategoryItem()
+data class Interests(
+    val interestId: Long,
+    val interestName: String,
+    val parentCategoryId: Long,
+    var state: Enum<CheckboxStates>,
+) : CategoryItem(interestId, parentCategoryId)
 
-sealed class CategoryItem
+data class FilterFooter(
+    var buttonEnabled: Boolean? = false
+) : CategoryItem(0)
+
+sealed class CategoryItem(
+    val id: Long,
+    val parentId: Long = 0
+)
 
 fun List<InterestsResponse.Interest>?.toSortedInterests(): List<CategoryItem> {
     val result = mutableListOf<CategoryItem>()
-    result.addAll(this?.distinctBy { it.categoryId }
-        ?.map {
+    result.addAll(this?.map {
+        if (it.id == it.categoryId) {
             InterestsCategory(
-                categoryId = it.categoryId ?: "",
-                categoryName = it.categoryName ?: "",
+                categoryId = it.id?.toLong() ?: 0,
+                categoryName = it.name ?: "",
+                imageUrl = it.imageUrl ?: "",
                 state = CheckboxStates.UNSELECTED,
                 sendParent = false,
-                interests = this.filter { item ->
-                    item.categoryId == it.categoryId && item.id != it.categoryId
-                }.map { interest ->
-                    InterestsCategory.Interests(
-                        interestId = interest.id ?: "",
-                        interestName = interest.name ?: "",
-                        state = CheckboxStates.UNSELECTED,
-                        imageUri = interest.imageUrl ?: ""
-                    )
-                }
+                isExpanded = false
+            )
+        } else {
+            Interests(
+                interestId = it.id?.toLong() ?: 0,
+                interestName = it.name ?: "",
+                parentCategoryId = it.categoryId?.toLong() ?: 0,
+                state = CheckboxStates.UNSELECTED
             )
         }
+    }
         ?: listOf())
     return result
 }

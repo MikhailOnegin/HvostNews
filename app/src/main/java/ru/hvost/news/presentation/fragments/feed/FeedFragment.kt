@@ -105,31 +105,31 @@ class FeedFragment : BaseFragment() {
     }
 
     private fun closeDialog() {
-        mainVM.interests.value?.map { category ->
-            (category as InterestsCategory).sendParent = false
-            category.state = CheckboxStates.UNSELECTED
-            category.interests.map { interest ->
-                interest.state = CheckboxStates.UNSELECTED
-            }
-        }
+//        mainVM.interests.value?.map { category ->
+//            (category as InterestsCategory).sendParent = false
+//            category.state = CheckboxStates.UNSELECTED
+//            category.interests.map { interest ->
+//                interest.state = CheckboxStates.UNSELECTED
+//            }
+//        }
         filterDialog.dismiss()
     }
 
     private fun updateArticles() {
-        val interests = mainVM.interests.value ?: listOf()
-        val sendList: MutableList<String> = mutableListOf()
-        interests.map { category ->
-            if ((category as InterestsCategory).sendParent) {
-                sendList.add(category.categoryId)
-            } else {
-                category.interests.map { interest ->
-                    if (interest.state == CheckboxStates.SELECTED) {
-                        sendList.add(interest.interestId)
-                    }
-                }
-            }
-        }
-        mainVM.changeUserData(interests = sendList.joinToString())
+//        val interests = mainVM.interests.value ?: listOf()
+//        val sendList: MutableList<String> = mutableListOf()
+//        interests.map { category ->
+//            if ((category as InterestsCategory).sendParent) {
+//                sendList.add(category.categoryId)
+//            } else {
+//                category.interests.map { interest ->
+//                    if (interest.state == CheckboxStates.SELECTED) {
+//                        sendList.add(interest.interestId)
+//                    }
+//                }
+//            }
+//        }
+//        mainVM.changeUserData(interests = sendList.joinToString())
         closeDialog()
     }
 
