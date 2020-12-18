@@ -10,8 +10,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
+import ru.hvost.news.correctTestUserToken
 import ru.hvost.news.utils.rules.MainCoroutineRule
 import ru.hvost.news.getOrAwaitValue
+import ru.hvost.news.inCorrectTestUserToken
 import ru.hvost.news.presentation.fragments.login.AuthorizationVM
 import ru.hvost.news.utils.enums.State
 
@@ -41,7 +43,7 @@ class AuthorizationVMTest {
 
     @Test
     fun logIn_correctCredentials_setsLoginEventToSuccess() = coroutineRule.testDispatcher.runBlockingTest {
-        authorizationVM.logIn("sergeev@studiofact.ru", "1234567A")
+        authorizationVM.logIn("test@sergeev.ru", "passw0rd")
         val result = authorizationVM.loginEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
     }
@@ -58,6 +60,27 @@ class AuthorizationVMTest {
         authorizationVM.restorePassAsync("phoenix.fact@gmail.com")
         val result = authorizationVM.passRestoreEvent.getOrAwaitValue(attempts = 2)
         assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
+    }
+
+    @Test
+    fun requestSms_correctCredentials_setsRequestSmsEventToSuccess() = coroutineRule.testDispatcher.runBlockingTest {
+        authorizationVM.requestSms(correctTestUserToken, "79630956722")
+        val result = authorizationVM.requestSmsEvent.getOrAwaitValue(attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.SUCCESS))
+    }
+
+    @Test
+    fun requestSms_incorrectCredentials_setsRequestSmsEventToError() = coroutineRule.testDispatcher.runBlockingTest {
+        authorizationVM.requestSms(inCorrectTestUserToken, "796309567")
+        val result = authorizationVM.requestSmsEvent.getOrAwaitValue(attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
+    }
+
+    @Test
+    fun sendSecretCode_incorrectCredentials_setsSendSecretCodeEventToError() = coroutineRule.testDispatcher.runBlockingTest {
+        authorizationVM.sendSecretCode(inCorrectTestUserToken, "796309567", "321242")
+        val result = authorizationVM.sendSecretCodeEvent.getOrAwaitValue(attempts = 2)
+        assertThat(result.getContentIfNotHandled(), `is`(State.ERROR))
     }
 
 }

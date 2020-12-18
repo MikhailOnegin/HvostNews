@@ -44,7 +44,6 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder){
-
            is MainViewHolder -> {onlineSchool?.run {
                holder.bind(this)
            }

@@ -11,7 +11,7 @@
     <dimen name="listItemElevation">5dp</dimen>
     <dimen name="screenContentPadding">16dp</dimen>
     <dimen name="profileCoverPadding">25dp</dimen>
-    <dimen name="logoOnlineSchoolPadding">24dp</dimen>
+    <dimen name="logoOnlineSchoolPadding">16dp</dimen>
     <dimen name="imageHeight">150dp</dimen>
     <dimen name="smallImageHeight">50dp</dimen>
     <dimen name="categoryHeight">22dp</dimen>
@@ -48,7 +48,7 @@
     <dimen name="rvInterestTextSize">18sp</dimen>
     <dimen name="rvSelectionIconPadding">6dp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
-    <dimen name="articleDescriptionTextSize">16sp</dimen>
+    <dimen name="articleDescriptionTextSize">18sp</dimen>
     <dimen name="prizeItemTextSize">18sp</dimen>
     <dimen name="ButtonHeight">60dp</dimen>
     <dimen name="textTitleSize">14sp</dimen>

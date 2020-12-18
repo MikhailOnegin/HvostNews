@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ActivityMainBinding
+import java.lang.AssertionError
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,8 +32,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
         binding.bnv.setupWithNavController(findNavController(R.id.nav_host_fragment))
-        MapKitFactory.setApiKey(APIService.YANDEX_MAPKIT_KEY)
-        MapKitFactory.initialize(this)
+        initializeMaps()
+    }
+
+    private fun initializeMaps() {
+        try {
+            MapKitFactory.setApiKey(APIService.YANDEX_MAPKIT_KEY)
+            MapKitFactory.initialize(this)
+        } catch (exc: AssertionError) {
+            if(App.LOG_ENABLED) {
+                Log.e(App.DEBUG_TAG, "Can\'t initialize yandex maps: $exc")
+            }
+        }
     }
 
     @Suppress("DEPRECATION")
@@ -43,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun userLogOut() {
+        hideBnv()
         viewModelStore.clear()
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         val navController = findNavController(R.id.nav_host_fragment)
@@ -79,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    fun hideBnv() {
+    private fun hideBnv() {
         if(!isBnvShown) return
         val animator = ObjectAnimator.ofFloat(
             binding.bnv,

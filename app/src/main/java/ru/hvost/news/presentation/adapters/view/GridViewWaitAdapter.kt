@@ -23,7 +23,6 @@ class GridViewWaitAdapter(private val context:Context, private val wait:List<Onl
             .placeholder(R.drawable.not_found).centerCrop()
             .into(iVLogo)
         tVSection.text = waitItem.head
-        tVDescription.text = waitItem.description
         return view
     }
 

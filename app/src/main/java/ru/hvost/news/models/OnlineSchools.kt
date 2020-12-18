@@ -8,12 +8,12 @@ data class OnlineSchools(
 ) {
     data class OnlineSchool(
         val domainId: Int,
-        val isRegistered:Boolean,
         val id: Long,
         val title: String,
         val image: String,
         val userRank: String,
         val description: String,
+        val participate: Boolean,
         val literatures: List<Literature>,
         val lessonsPassed: List<LessonPassed>,
         val wait :List<Wait>
@@ -32,12 +32,11 @@ data class OnlineSchools(
     data class Wait(
         val head: String,
         val imageUrl: String,
-        val description: String
     )
 }
 fun OnlineSchoolsResponse.toOnlineSchools(): OnlineSchools{
     return OnlineSchools(
-        onlineSchools = this.onlineSchools.toOnlineSchools()
+        onlineSchools = this.schools.toOnlineSchools()
     )
     }
 
@@ -49,11 +48,11 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
                 OnlineSchools.OnlineSchool(
                     domainId = index,
                     id = schoolResponse.id ?: 0,
-                    isRegistered = schoolResponse.isRegistered,
                     title = schoolResponse.title ?: "",
                     image = schoolResponse.image ?: "",
                     userRank = schoolResponse.userRank ?: "",
                     description = schoolResponse.description ?: "",
+                    participate = schoolResponse.participate ?: false,
                     literatures = schoolResponse.literatures.toLiteratures(),
                     lessonsPassed = schoolResponse.lessonsPassed.toNotNull(),
                     wait = schoolResponse.wait.toWait()
@@ -89,7 +88,6 @@ fun List<OnlineSchoolsResponse.Wait>?.toWait(): List <OnlineSchools.Wait>{
                 OnlineSchools.Wait(
                     head = wait.head ?: "",
                     imageUrl = wait.imageUrl ?: "",
-                    description = wait.description ?:""
                 )
             )
         }
@@ -103,7 +101,7 @@ fun List<OnlineSchoolsResponse.LessonPassed>?.toNotNull():List<OnlineSchools.Les
         for (lessonPassed in this.iterator()) {
             result.add(
                 OnlineSchools.LessonPassed(
-                    lessonPassed.number ?:0,
+                    lessonPassed.lessonNumber ?:0,
                     lessonPassed.isPassed?: false
                 )
             )

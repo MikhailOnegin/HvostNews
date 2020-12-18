@@ -3,7 +3,6 @@ package ru.hvost.news.presentation.fragments.login
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,12 +38,14 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.login.setText("test@sergeev.ru")
+        binding.password.setText("passw0rd")
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        authorizationVM = ViewModelProvider(this)[AuthorizationVM::class.java]
+        authorizationVM = ViewModelProvider(requireActivity())[AuthorizationVM::class.java]
         setObservers()
     }
 
@@ -85,7 +86,11 @@ class LoginFragment : BaseFragment() {
         when(event.getContentIfNotHandled()){
             State.SUCCESS -> {
                 binding.progress.visibility = View.GONE
-                navigateToMainScreen()
+                if (authorizationVM.loginResponse?.isPhoneRegistered == true) {
+                    navigateToMainScreen()
+                } else {
+                    navigateToSubmitPhoneScreen()
+                }
             }
             State.ERROR -> {
                 binding.progress.visibility = View.GONE
@@ -137,6 +142,10 @@ class LoginFragment : BaseFragment() {
 
     private fun navigateToMainScreen() {
         findNavController().navigate(R.id.action_loginFragment_to_feedFragment)
+    }
+
+    private fun navigateToSubmitPhoneScreen() {
+        findNavController().navigate(R.id.action_loginFragment_to_submitPhoneFragment)
     }
 
 }

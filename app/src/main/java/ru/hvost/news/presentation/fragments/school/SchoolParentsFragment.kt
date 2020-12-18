@@ -19,16 +19,18 @@ import ru.hvost.news.presentation.adapters.recycler.SchoolsOnlineAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
-import ru.hvost.news.utils.createSnackbar
-import ru.hvost.news.utils.enums.State
-import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.getValue
 
-class ParentsSchoolFragment : BaseFragment() {
+class SchoolParentsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolParentsBinding
     private lateinit var schoolVM: SchoolViewModel
     private var onlineSchoolsAdapter = SchoolsOnlineAdapter()
     private var offlineSeminarsAdapter = OfflineSeminarsAdapter()
+    private lateinit var citiesEvent: DefaultNetworkEventObserver
+    private lateinit var offlineSeminarsEvent: DefaultNetworkEventObserver
+    private lateinit var onlineSchoolsEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +48,12 @@ class ParentsSchoolFragment : BaseFragment() {
             schoolVM.getOnlineSchools(this)
         }
         schoolVM.getOfflineCities()
-        binding.spinner.setSelection(0, false)
-        binding.spinner.adapter =
+        binding.spinnerOfflineSeminars.setSelection(0, false)
+        binding.spinnerOnlineSchools.setSelection(0, false)
+        binding.spinnerOfflineSeminars.adapter =
             SpinnerAdapter(requireContext(), "", arrayListOf(), CityOffline::name)
+        binding.spinnerOnlineSchools.adapter =
+            SpinnerAdapter(requireContext(), "", arrayListOf("Все семинары", "Ваши семинары"), String::getValue)
         onlineSchoolsAdapter.clickSchool = object : SchoolsOnlineAdapter.ClickSchool {
 
             override fun onClick(schoolId: String) {
@@ -71,85 +76,29 @@ class ParentsSchoolFragment : BaseFragment() {
                     )
                 }
             }
+        initializeEvents()
         setObservers(this)
         setListeners()
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.onlineSchoolsEvent.observe(owner, {
-            onlineNetworkEvent(it)
-        })
+        schoolVM.onlineSchoolsEvent.observe(owner, onlineSchoolsEvent)
 
-        schoolVM.offlineCitiesEvent.observe(owner, {
-            citiesEvent(it)
-        })
+        schoolVM.offlineCitiesEvent.observe(owner, citiesEvent)
 
-        schoolVM.offlineSeminarsEvent.observe(owner, {
-            offlineSeminarsEvent(it)
-        })
-    }
-
-    private val onlineNetworkEvent = { event: NetworkEvent<State> ->
-        when (event.getContentIfNotHandled()) {
-            State.SUCCESS -> {
-                schoolVM.onlineSchools.value?.onlineSchools?.run {
-                    onlineSchoolsAdapter.setSchools(this)
-                }
-            }
-            State.ERROR -> {
-                createSnackbar(
-                    binding.root,
-                    event.error,
-                    getString(R.string.buttonOk)
-                ).show()
-            }
-            State.FAILURE -> {
-                createSnackbar(
-                    binding.root,
-                    getString(R.string.networkFailureMessage),
-                    getString(R.string.buttonOk)
-                ).show()
-            }
-            State.LOADING -> { }
-            else -> { }
-        }
-    }
-
-    private val offlineSeminarsEvent = { event: NetworkEvent<State> ->
-        when (event.getContentIfNotHandled()) {
-            State.SUCCESS -> {
-                schoolVM.offlineSeminars.value?.seminars?.run {
-                    offlineSeminarsAdapter.setSeminars(this)
-                }
-            }
-            State.ERROR -> {
-                createSnackbar(
-                    binding.root,
-                    event.error,
-                    getString(R.string.buttonOk)
-                ).show()
-            }
-            State.FAILURE -> {
-                createSnackbar(
-                    binding.root,
-                    getString(R.string.networkFailureMessage),
-                    getString(R.string.buttonOk)
-                ).show()
-            }
-            State.LOADING -> { }
-            else -> { }
-        }
+        schoolVM.offlineSeminarsEvent.observe(owner, offlineSeminarsEvent)
     }
 
     @Suppress("UNCHECKED_CAST")
-    private val citiesEvent = { event: NetworkEvent<State> ->
-        when (event.getContentIfNotHandled()) {
-            State.SUCCESS -> {
+    private fun initializeEvents(){
+        citiesEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = {
                 schoolVM.offlineCities.value?.run {
-                    val adapter = (binding.spinner.adapter as SpinnerAdapter<CityOffline>)
+                    val adapter = (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
                     adapter.clear()
-                    (binding.spinner.adapter as SpinnerAdapter<CityOffline>).addAll(this.cities)
-                    (binding.spinner.adapter as SpinnerAdapter<CityOffline>).getItem(0)?.run {
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(this.cities)
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(0)?.run {
                         val cityId = this.cityId
                         App.getInstance().userToken?.run {
                             schoolVM.getOfflineSeminars(cityId, this)
@@ -157,23 +106,23 @@ class ParentsSchoolFragment : BaseFragment() {
                     }
                 }
             }
-            State.ERROR -> {
-                createSnackbar(
-                    binding.root,
-                    event.error,
-                    getString(R.string.buttonOk)
-                ).show()
+        )
+        offlineSeminarsEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = {
+                schoolVM.offlineSeminars.value?.seminars?.run {
+                    offlineSeminarsAdapter.setSeminars(this)
+                }
             }
-            State.FAILURE -> {
-                createSnackbar(
-                    binding.root,
-                    getString(R.string.networkFailureMessage),
-                    getString(R.string.buttonOk)
-                ).show()
+        )
+        onlineSchoolsEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = {
+                schoolVM.onlineSchools.value?.onlineSchools?.run {
+                    onlineSchoolsAdapter.setSchools(this)
+                }
             }
-            State.LOADING -> { }
-            else -> { }
-        }
+        )
     }
 
     private fun setListeners() {
@@ -189,7 +138,8 @@ class ParentsSchoolFragment : BaseFragment() {
             binding.recyclerView.adapter = onlineSchoolsAdapter
             binding.onlineSchool.setTextColor(colorWhite)
             binding.offlineSeminars.setTextColor(colorPrimary)
-            binding.constraintSpinner.visibility = View.GONE
+            binding.constraintSpinnerOfflineSeminars.visibility = View.GONE
+            binding.constraintSpinnerOnlineSchools.visibility = View.VISIBLE
         }
         binding.constraintOfflineSeminars.setOnClickListener {
             it.isSelected = true
@@ -197,7 +147,8 @@ class ParentsSchoolFragment : BaseFragment() {
             binding.recyclerView.adapter = offlineSeminarsAdapter
             binding.offlineSeminars.setTextColor(colorWhite)
             binding.onlineSchool.setTextColor(colorPrimary)
-            binding.constraintSpinner.visibility = View.VISIBLE
+            binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
+            binding.constraintSpinnerOnlineSchools.visibility = View.GONE
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
             if (binding.recyclerView.adapter is OfflineSeminarsAdapter) {
@@ -205,12 +156,12 @@ class ParentsSchoolFragment : BaseFragment() {
             }
         }
 
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinnerOfflineSeminars.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
             @Suppress("UNCHECKED_CAST")
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                (binding.spinner.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
+                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
                     ?.run {
                         val cityId = this.cityId
                         App.getInstance().userToken?.run {
@@ -219,5 +170,17 @@ class ParentsSchoolFragment : BaseFragment() {
                     }
             }
         }
+        binding.spinnerOnlineSchools.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+            @Suppress("UNCHECKED_CAST")
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                (binding.spinnerOnlineSchools.adapter as SpinnerAdapter<String>).getItem(p2)
+                    ?.run {
+                        onlineSchoolsAdapter.filterYourSchools(this)
+                    }
+            }
+        }
+
     }
 }
