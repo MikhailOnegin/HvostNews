@@ -7,6 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import ru.hvost.news.utils.UniqueIdGenerator
 import ru.hvost.news.utils.WordEnding
+import ru.hvost.news.utils.getClearPhoneString
 import ru.hvost.news.utils.getWordEndingType
 
 @RunWith(AndroidJUnit4::class)
@@ -46,6 +47,14 @@ class UtilsTest {
         assertThat(UniqueIdGenerator.nextId(), `is`(3L))
         assertThat(UniqueIdGenerator.nextId(), `is`(4L))
         assertThat(UniqueIdGenerator.nextId(), `is`(5L))
+    }
+
+    @Test
+    fun getClearPhoneStringWorksCorrect() {
+        assertThat(getClearPhoneString(null), `is`(""))
+        assertThat(getClearPhoneString("79630956722"), `is`("79630956722"))
+        assertThat(getClearPhoneString("7-963-095-67-22"), `is`("79630956722"))
+        assertThat(getClearPhoneString("7A9=630+956-72CO2"), `is`("79630956722"))
     }
 
 }

@@ -20,6 +20,19 @@ interface APIService {
         @Query("password") password: String?
     ): Deferred<LoginResponse>
 
+    @GET("/rest/Authorization/requestSMS/")
+    fun requestSMSAsync(
+        @Query("userToken") userToken: String?,
+        @Query("phone") phone: String?
+    ): Deferred<SimpleResponse>
+
+    @GET("/rest/Authorization/sendSecretCode/")
+    fun sendSecretCodeAsync(
+        @Query("userToken") userToken: String?,
+        @Query("phone") phone: String?,
+        @Query("secretCode") secretCode: String?
+    ): Deferred<SimpleResponse>
+
     @GET("/rest/Authorization/restorePassword/")
     fun restorePassAsync(
         @Query("email") email: String?

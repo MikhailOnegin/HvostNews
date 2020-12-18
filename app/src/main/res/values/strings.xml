@@ -413,4 +413,8 @@
     <string name="complete_registration">Завершить регистрацию</string>
     <string name="accept_terms_of_agreement">Я принимаю условия Соглашения об использовании материалов и сервисов и даю своё согласиена обработку моих персоальных данных, определённых в политике конфиденциальности.
     </string>
+    <string name="timerText1">Через</string>
+    <string name="timerSeconds1">секунду</string>
+    <string name="timerSeconds2">секунды</string>
+    <string name="timerSeconds3">секунд</string>
 </resources>

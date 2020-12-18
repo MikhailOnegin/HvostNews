@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
@@ -21,16 +23,16 @@ class AuthorizationVM: ViewModel(){
     fun logIn(login: String, password: String){
         viewModelScope.launch {
             _loginEvent.value = NetworkEvent(State.LOADING)
-            try{
+            try {
                 val response = APIService.API.loginAsync(login, password).await()
-                if(response.result == "success" && response.userToken != null) {
+                if (response.result == "success" && response.userToken != null) {
                     loginResponse = response
                     if (response.isPhoneRegistered == true)
-                        App.getInstance().logIn(response.userToken) //sergeev: добавить и после подтверждения номера телефона.
+                        App.getInstance().logIn(response.userToken)
                     _loginEvent.value = NetworkEvent(State.SUCCESS)
                 }
                 else _loginEvent.value = NetworkEvent(State.ERROR, response.error)
-            }catch (exc: Exception){
+            } catch (exc: Exception){
                 _loginEvent.value = NetworkEvent(State.FAILURE)
             }
         }
@@ -42,13 +44,13 @@ class AuthorizationVM: ViewModel(){
     fun restorePassAsync(email: String){
         viewModelScope.launch {
             _passRestoreEvent.value = NetworkEvent(State.LOADING)
-            try{
+            try {
                 val response = APIService.API.restorePassAsync(email).await()
-                if(response.result == "success") {
+                if (response.result == "success") {
                     _passRestoreEvent.value = NetworkEvent(State.SUCCESS)
                 }
                 else _passRestoreEvent.value = NetworkEvent(State.ERROR, response.error)
-            }catch (exc: Exception){
+            } catch (exc: Exception){
                 _passRestoreEvent.value = NetworkEvent(State.FAILURE)
             }
         }
@@ -59,6 +61,64 @@ class AuthorizationVM: ViewModel(){
 
     fun setReadyToSubmitPhone(ready: Boolean) {
         _readyToSubmitPhone.value = Event(ready)
+    }
+
+    private val _requestSmsEvent = MutableLiveData<NetworkEvent<State>>()
+    val requestSmsEvent: LiveData<NetworkEvent<State>> = _requestSmsEvent
+
+    fun requestSms(userToken: String?, phone: String?) {
+        startTimer()
+        viewModelScope.launch {
+            _requestSmsEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response = APIService.API.requestSMSAsync(
+                    userToken = userToken,
+                    phone = phone
+                ).await()
+                if (response.result == "success") {
+                    _requestSmsEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _requestSmsEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
+            } catch (exc: Exception) {
+                _requestSmsEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    private val _sendSecretCodeEvent = MutableLiveData<NetworkEvent<State>>()
+    val sendSecretCodeEvent: LiveData<NetworkEvent<State>> = _sendSecretCodeEvent
+
+    fun sendSecretCode(userToken: String?, phone: String?, secretCode: String?) {
+        viewModelScope.launch {
+            _sendSecretCodeEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response = APIService.API.sendSecretCodeAsync(
+                    userToken = userToken,
+                    phone = phone,
+                    secretCode = secretCode
+                ).await()
+                if (response.result == "success") {
+                    _sendSecretCodeEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _sendSecretCodeEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
+            } catch (exc: Exception) {
+                _sendSecretCodeEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    private val _timerTickEvent = MutableLiveData<Event<Int>>()
+    val timerTickEvent: LiveData<Event<Int>> = _timerTickEvent
+
+    private fun startTimer() {
+        viewModelScope.launch(Dispatchers.IO) {
+            for (i in 120 downTo 0) {
+                _timerTickEvent.postValue(Event(i))
+                delay(1000L)
+            }
+        }
     }
 
 }

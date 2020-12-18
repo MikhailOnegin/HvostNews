@@ -267,3 +267,12 @@ object UniqueIdGenerator {
     fun nextId() = ++uniqueId
 
 }
+
+fun getClearPhoneString(source: String?): String {
+    if (source == null) return ""
+    val builder = StringBuilder()
+    for (char in source) {
+        if (char.isDigit()) builder.append(char)
+    }
+    return builder.toString()
+}

@@ -40,6 +40,10 @@ class App : Application() {
 
         const val PREF_USER_TOKEN = "pref_user_token"
 
+        const val DEBUG_TAG = "HVOST_DEBUG"
+
+        val LOG_ENABLED = BuildConfig.DEBUG
+
     }
 
 }

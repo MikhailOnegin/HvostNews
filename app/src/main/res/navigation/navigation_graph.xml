@@ -436,6 +436,16 @@
         android:id="@+id/submitPhoneFragment"
         android:name="ru.hvost.news.presentation.fragments.login.SubmitPhoneFragment"
         android:label="SubmitPhoneFragment"
-        tools:layout="@layout/fragment_submit_phone"/>
+        tools:layout="@layout/fragment_submit_phone">
+        <action
+            android:id="@+id/action_submitPhoneFragment_to_feedFragment"
+            app:destination="@id/feedFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/submitPhoneFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

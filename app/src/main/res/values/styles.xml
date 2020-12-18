@@ -69,8 +69,8 @@
     </style>
 
     <style name="UnelevatedButton.Gray">
-        <item name="android:textColor">@color/TextColorPrimary</item>
-        <item name="backgroundTint">@color/unelevatedButtonBackgroundTint</item>
+        <item name="android:textColor">@color/unelevated_gray_button_text_color</item>
+        <item name="backgroundTint">@color/unelevated_gray_button_background_tint</item>
     </style>
 
     <style name="bnvTextAppearance" parent="TextAppearance.AppCompat">
