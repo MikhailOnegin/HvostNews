@@ -2,20 +2,51 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/window_background"
-    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@android:color/white" >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:stateListAnimator="@null"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp"
-        app:liftOnScroll="false">
+        android:animateLayoutChanges="true"
+        android:background="@android:color/white"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_coupons_my"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
+            app:navigationIcon="@drawable/ic_back">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/my_coupons"
+                android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
+                android:textColor="@color/gray1" />
+
+            <ImageButton
+                android:id="@+id/imageButton_coupons_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="24dp"
+                android:elevation="2dp"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_question"
+                android:contentDescription="@string/not_found"
+                />
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,29 +54,6 @@
             android:paddingBottom="24dp"
             app:layout_scrollFlags="scroll|snap|enterAlways">
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
-                app:layout_scrollFlags="scroll|snap|enterAlways" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:theme="@style/AppTheme.Toolbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_scrollFlags="scroll|snap|enterAlways"
-                app:navigationIcon="@drawable/ic_back"
-                app:title="@string/my_coupons" />
 
             <Spinner
                 android:id="@+id/spinner_coupons"
@@ -53,25 +61,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <ImageButton
-                android:id="@+id/imageInfo"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_marginEnd="24dp"
-                android:elevation="2dp"
-                android:background="@null"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_question"
-                android:contentDescription="@string/not_found"
-                app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

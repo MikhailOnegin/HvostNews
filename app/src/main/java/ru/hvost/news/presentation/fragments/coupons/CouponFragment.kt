@@ -113,7 +113,7 @@ class CouponFragment : BaseFragment() {
 
 
     private fun setListeners() {
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarCouponPage.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

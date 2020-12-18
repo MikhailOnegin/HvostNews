@@ -436,5 +436,8 @@
         <item name="android:windowEnterAnimation">@anim/popup_maps_enter</item>
         <item name="android:windowExitAnimation">@anim/popup_maps_exit</item>
     </style>
-
+    <style name="CheckBoxStyle" parent="Theme.AppCompat.Light">
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/gray1</item>
+    </style>
 </resources>

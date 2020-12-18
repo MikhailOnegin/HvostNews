@@ -409,4 +409,8 @@
     <string name="submitPhoneHint2">После нажатия «Проверить» на указанный номер будет отправлен код подтверждения</string>
     <string name="hintCode">Код подтверждения</string>
     <string name="buttonSendAgain">Отправить код еще раз</string>
+    <string name="registration2">Регистрация</string>
+    <string name="complete_registration">Завершить регистрацию</string>
+    <string name="accept_terms_of_agreement">Я принимаю условия Соглашения об использовании материалов и сервисов и даю своё согласиена обработку моих персоальных данных, определённых в политике конфиденциальности.
+    </string>
 </resources>
