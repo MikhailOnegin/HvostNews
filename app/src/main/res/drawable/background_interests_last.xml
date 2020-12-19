@@ -6,5 +6,6 @@
         android:color="@color/gray5"
         />
     <corners
-        android:radius="@dimen/listBackgroundRadius"/>
+        android:bottomLeftRadius="@dimen/listBackgroundRadius"
+        android:bottomRightRadius="@dimen/listBackgroundRadius" />
 </shape>

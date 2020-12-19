@@ -189,4 +189,7 @@
     <dimen name="mapsPartnersTitleTextSize">22sp</dimen>
     <dimen name="mapsSelectsTextSize">16sp</dimen>
     <dimen name="dialogTopPadding">48dp</dimen>
+    <dimen name="submitDialogTitleTextSize">20sp</dimen>
+    <dimen name="submitDialogMessageTextSize">18sp</dimen>
+    <dimen name="dialogButtonHeight">60dp</dimen>
 </resources>

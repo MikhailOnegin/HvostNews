@@ -103,12 +103,13 @@
                     android:layout_weight="1"
                     android:layout_height="@dimen/widgetsHeight"
                     android:layout_marginStart="@dimen/largeMargin"
-                    android:layout_marginEnd="@dimen/smallMargin"/>
+                    android:layout_marginEnd="@dimen/normalMargin"/>
 
                 <ImageButton
                     android:id="@+id/addPet"
                     android:src="@drawable/ic_plus"
-                    android:background="@drawable/selector_light_oval"
+                    android:tint="@android:color/white"
+                    android:background="@drawable/background_round_green_button"
                     android:contentDescription="@string/addPetButtonCD"
                     android:layout_gravity="center_vertical"
                     android:layout_width="48dp"
@@ -140,6 +141,8 @@
             <Button
                 android:id="@+id/buttonCancel"
                 style="@style/UnelevatedButton.Gray"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:text="@string/buttonCancel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/registerButtonHeight"

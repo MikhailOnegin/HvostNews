@@ -417,4 +417,8 @@
     <string name="timerSeconds1">секунду</string>
     <string name="timerSeconds2">секунды</string>
     <string name="timerSeconds3">секунд</string>
+    <string name="promocodeOverrideWarning">На этого питомца уже зарегистрирован промокод. Если активировать новый промокод, доступ к товарам в интернет-магазине по старому промокоду будет утрачен.</string>
+    <string name="promocodeOverrideWarningTitle">Активировать новый промокод?</string>
+    <string name="buttonYes">Да</string>
+    <string name="buttonNo">Нет</string>
 </resources>

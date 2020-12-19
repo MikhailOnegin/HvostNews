@@ -12,11 +12,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.LayoutArticlesFilterBinding
-import ru.hvost.news.models.CategoryItem
-import ru.hvost.news.models.CheckboxStates
-import ru.hvost.news.models.FilterFooter
-import ru.hvost.news.models.InterestsCategory
+import ru.hvost.news.models.*
 import ru.hvost.news.presentation.adapters.ArticlesFilterAdapter
+import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
@@ -47,30 +45,31 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
 
     private fun onInterestsLoadingSuccess() { //yunusov: обработать пустые интересы пользователя
         val adapter = ArticlesFilterAdapter(mainVM)
-        val interests = mainVM.interests.value
-        val userInterests = mainVM.userData.value?.interests
-        val actual = checkInterestsStates(interests, userInterests)?.toMutableList()
-        actual?.add(FilterFooter)
         binding.list.adapter = adapter
-        adapter.submitList(actual)
+        val interests = mainVM.interests.value?.toMutableList()
+        val userInterests = mainVM.userData.value?.interests
+        val actual = checkInterestsStates(interests, userInterests).toMutableList()
+        actual.add(FilterFooter())
+        actual.run {
+            adapter.setFullList(this)
+            adapter.submitList(this.filter { it is InterestsCategory || it is FilterFooter })
+        }
     }
 
     private fun checkInterestsStates(
         interests: List<CategoryItem>?,
         userInterests: List<String>?
-    ): List<CategoryItem>? {
-        interests?.map { category ->
-            if (userInterests?.contains((category as InterestsCategory).categoryId) == true) {
-                (category as InterestsCategory).state = CheckboxStates.SELECTED
-                category.sendParent = true
-                category.interests.map { interest ->
-                    interest.state = CheckboxStates.SELECTED
-                }
-            } else {
-                (category as InterestsCategory).interests.map { interest ->
-                    if (userInterests?.contains(interest.interestId) == true) {
-                        category.state = CheckboxStates.INDETERMINATE
-                        interest.state = CheckboxStates.SELECTED
+    ): List<CategoryItem> {
+        if (interests == null) return listOf()
+        for (item in interests) {
+            if (userInterests?.contains(item.id.toString()) == true) {
+                when (item) {
+                    is InterestsCategory -> {
+                        item.state = CheckboxStates.SELECTED
+                        item.sendParent = true
+                    }
+                    is Interests -> {
+                        item.state = CheckboxStates.SELECTED
                     }
                 }
             }

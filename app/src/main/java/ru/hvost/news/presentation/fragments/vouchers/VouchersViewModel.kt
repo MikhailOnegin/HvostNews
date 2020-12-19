@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
+import ru.hvost.news.data.api.response.SimpleResponse
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
 
@@ -56,19 +57,28 @@ class VouchersViewModel : ViewModel() {
 
     private val _registerVoucherEvent = MutableLiveData<NetworkEvent<State>>()
     val registerVoucherEvent: LiveData<NetworkEvent<State>> = _registerVoucherEvent
+    var registerVoucherResponse: SimpleResponse? = null
 
-    fun registerVoucher(voucherCode: String?, petId: String?) {
+    fun registerVoucher(
+        voucherCode: String?,
+        petId: String?,
+        forceRegister: Boolean
+    ) {
         viewModelScope.launch {
             try {
-                val response = APIService.API.registerVoucherAsync(
+                registerVoucherResponse = APIService.API.registerVoucherAsync(
                     userToken = App.getInstance().userToken,
                     voucherCode = voucherCode,
-                    petId = petId
+                    petId = petId,
+                    forceRegister = forceRegister
                 ).await()
-                if(response.result == "success") {
+                if(registerVoucherResponse?.result == "success") {
                     _registerVoucherEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _registerVoucherEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _registerVoucherEvent.value = NetworkEvent(
+                        State.ERROR,
+                        registerVoucherResponse?.error
+                    )
                 }
             } catch (exc: Exception) {
                 _registerVoucherEvent.value = NetworkEvent(State.FAILURE, exc.toString())

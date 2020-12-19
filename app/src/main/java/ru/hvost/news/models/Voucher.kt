@@ -51,7 +51,7 @@ data class Voucher(
 class VoucherFooter : VoucherItem() {
 
     override fun equals(other: Any?): Boolean {
-        return this === other
+        return true
     }
 
     override fun hashCode(): Int {

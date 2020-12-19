@@ -1,10 +1,12 @@
 package ru.hvost.news.presentation.fragments.login
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -82,6 +84,7 @@ class SubmitPhoneFragment : BaseFragment() {
                 phone = getClearPhoneString(binding.phone.text.toString()),
                 secretCode = binding.code.text.toString()
             )
+            hideKeyboard()
         }
     }
 
@@ -123,6 +126,7 @@ class SubmitPhoneFragment : BaseFragment() {
             userToken = authorizationVM.loginResponse?.userToken,
             phone = getClearPhoneString(binding.phone.text.toString())
         )
+        hideKeyboard()
     }
 
     private fun setPhoneField(phone: String?) {
@@ -146,6 +150,11 @@ class SubmitPhoneFragment : BaseFragment() {
 
     private fun setPhoneStartTemplate() {
         binding.phone.setText("+7-")
+    }
+
+    private fun hideKeyboard() {
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
 }

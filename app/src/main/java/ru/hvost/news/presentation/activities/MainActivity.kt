@@ -93,27 +93,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideBnv() {
-        if(!isBnvShown) return
-        val animator = ObjectAnimator.ofFloat(
-            binding.bnv,
-            "alpha",
-            1f,
-            0f
-        )
-        animator.duration = 1000L
-        animator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {}
-
-            override fun onAnimationEnd(animation: Animator?) {
-                binding.bnv.visibility = View.GONE
-                isBnvShown = false
-            }
-
-            override fun onAnimationCancel(animation: Animator?) {}
-
-            override fun onAnimationRepeat(animation: Animator?) {}
-        })
-        animator.start()
+        binding.bnv.visibility = View.GONE
+        isBnvShown = false
     }
 
 }
