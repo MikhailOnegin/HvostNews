@@ -2,18 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/ButtonHeight"
-    android:orientation="vertical">
+    android:layout_marginHorizontal="@dimen/smallMargin"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/smallMargin">
 
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/childCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginStart="@dimen/normalMargin"
-        android:button="@drawable/checkbox_selector"
-        android:buttonTint="@color/gray4"
-        android:buttonTintMode="multiply"
+        android:layout_marginEnd="@dimen/smallMargin"
+        android:background="@drawable/checkbox"
+        android:gravity="center"
+        android:scaleType="center" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:fontFamily="@font/gilroy_semibold"
-        android:paddingLeft="@dimen/smallMargin"
+        android:gravity="center_vertical"
         android:text="@string/stub"
         android:textColor="@color/gray1"
         android:textSize="@dimen/smallButtonTextSize" />
