@@ -17,8 +17,10 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentFeedBinding
 import ru.hvost.news.models.CheckboxStates
+import ru.hvost.news.models.Interests
 import ru.hvost.news.models.InterestsCategory
 import ru.hvost.news.presentation.activities.MainActivity
+import ru.hvost.news.presentation.adapters.ArticlesFilterAdapter
 import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -105,31 +107,45 @@ class FeedFragment : BaseFragment() {
     }
 
     private fun closeDialog() {
-//        mainVM.interests.value?.map { category ->
-//            (category as InterestsCategory).sendParent = false
-//            category.state = CheckboxStates.UNSELECTED
-//            category.interests.map { interest ->
-//                interest.state = CheckboxStates.UNSELECTED
-//            }
-//        }
+        clearAllInterests()
         filterDialog.dismiss()
     }
 
+    private fun clearAllInterests() {
+        mainVM.interests.value?.map {
+            when (it) {
+                is InterestsCategory -> {
+                    it.state = CheckboxStates.UNSELECTED
+                    it.sendParent = false
+                }
+                is Interests -> it.state = CheckboxStates.UNSELECTED
+                else -> {
+                }
+            }
+        }
+    }
+
     private fun updateArticles() {
-//        val interests = mainVM.interests.value ?: listOf()
-//        val sendList: MutableList<String> = mutableListOf()
-//        interests.map { category ->
-//            if ((category as InterestsCategory).sendParent) {
-//                sendList.add(category.categoryId)
-//            } else {
-//                category.interests.map { interest ->
-//                    if (interest.state == CheckboxStates.SELECTED) {
-//                        sendList.add(interest.interestId)
-//                    }
-//                }
-//            }
-//        }
-//        mainVM.changeUserData(interests = sendList.joinToString())
+        val sendList: MutableList<String> = mutableListOf()
+        mainVM.interests.value?.map {
+            when (it) {
+                is InterestsCategory -> {
+                    if (it.state == CheckboxStates.SELECTED && it.sendParent)
+                        sendList.add(it.categoryId.toString())
+                }
+                is Interests -> {
+                    val parentId = mainVM.interests.value?.filter { category ->
+                        category is InterestsCategory && category.categoryId == it.parentCategoryId
+                    }?.first()
+                    if (it.state == CheckboxStates.SELECTED && !(parentId as InterestsCategory).sendParent)
+                        sendList.add(it.interestId.toString())
+                }
+                else -> {
+                }
+            }
+        }
+        mainVM.changeUserData(interests = sendList.joinToString())
+        clearAllInterests()
         closeDialog()
     }
 
@@ -160,7 +176,8 @@ class FeedFragment : BaseFragment() {
         destination: Int
     ) {
         if ((shouldExpandFilters && areFiltersExpanded)
-            || (!shouldExpandFilters && !areFiltersExpanded)) {
+            || (!shouldExpandFilters && !areFiltersExpanded)
+        ) {
             goToDestination(destination)
             return
         }
@@ -189,16 +206,16 @@ class FeedFragment : BaseFragment() {
         private val destination: Int
     ) : Animator.AnimatorListener {
 
-        override fun onAnimationStart(animation: Animator?) { }
+        override fun onAnimationStart(animation: Animator?) {}
 
         override fun onAnimationEnd(animation: Animator?) {
             areFiltersExpanded = shouldExpandFilters
             goToDestination(destination)
         }
 
-        override fun onAnimationCancel(animation: Animator?) { }
+        override fun onAnimationCancel(animation: Animator?) {}
 
-        override fun onAnimationRepeat(animation: Animator?) { }
+        override fun onAnimationRepeat(animation: Animator?) {}
 
     }
 

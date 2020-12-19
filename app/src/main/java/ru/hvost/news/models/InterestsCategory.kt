@@ -17,7 +17,7 @@ data class Interests(
     val interestId: Long,
     val interestName: String,
     val parentCategoryId: Long,
-    var state: Enum<CheckboxStates>,
+    var state: Enum<CheckboxStates>
 ) : CategoryItem(interestId, parentCategoryId)
 
 data class FilterFooter(
