@@ -120,7 +120,8 @@ interface APIService {
     fun registerVoucherAsync(
         @Query("userToken") userToken: String?,
         @Query("voucherCode") voucherCode: String?,
-        @Query("petId") petId: String?
+        @Query("petId") petId: String?,
+        @Query("forceRegister") forceRegister: Boolean = false
     ): Deferred<SimpleResponse>
 
     @GET("/rest/OnlineShop/getProducts/")

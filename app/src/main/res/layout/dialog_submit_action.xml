@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottom_sheet_prize_products"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/smallMargin"
+        android:padding="@dimen/largeMargin"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/title"
+            tools:text="@string/promocodeOverrideWarningTitle"
+            android:fontFamily="@font/gilroy_bold"
+            android:textSize="@dimen/submitDialogTitleTextSize"
+            android:textColor="@color/TextColorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xLargeMargin"/>
+
+        <TextView
+            android:id="@+id/message"
+            tools:text="@string/promocodeOverrideWarning"
+            android:fontFamily="@font/gilroy_semibold"
+            android:textSize="@dimen/submitDialogMessageTextSize"
+            android:textColor="@color/gray3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/largeMargin">
+
+            <Button
+                android:id="@+id/buttonSubmit"
+                style="@style/UnelevatedButton"
+                android:text="@string/buttonYes"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dialogButtonHeight"
+                android:layout_marginEnd="@dimen/xSmallMargin"/>
+
+            <Button
+                android:id="@+id/buttonCancel"
+                style="@style/UnelevatedButton.Gray"
+                android:text="@string/buttonNo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/dialogButtonHeight"
+                android:layout_marginStart="@dimen/xSmallMargin"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

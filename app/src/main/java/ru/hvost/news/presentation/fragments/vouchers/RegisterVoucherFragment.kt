@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
@@ -16,8 +17,12 @@ import ru.hvost.news.databinding.FragmentRegisterVoucherBinding
 import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
+import ru.hvost.news.presentation.dialogs.SubmitActionDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.createSnackbar
+import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.NetworkEvent
 
 class RegisterVoucherFragment : BaseFragment() {
 
@@ -25,7 +30,7 @@ class RegisterVoucherFragment : BaseFragment() {
     private lateinit var vouchersVM: VouchersViewModel
     private lateinit var mainVM: MainViewModel
     private lateinit var checkVouchersEventObserver: DefaultNetworkEventObserver
-    private lateinit var registerVouchersEventObserver: DefaultNetworkEventObserver
+    private lateinit var registerVouchersEventObserver: RegisterVoucherNetworkEventObserver
     private lateinit var loadingVouchersEventObserver: DefaultNetworkEventObserver
 
     override fun onCreateView(
@@ -34,7 +39,6 @@ class RegisterVoucherFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterVoucherBinding.inflate(inflater, container, false)
-        initializeObservers()
         return binding.root
     }
 
@@ -42,6 +46,7 @@ class RegisterVoucherFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         vouchersVM = ViewModelProvider(requireActivity())[VouchersViewModel::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        initializeObservers()
         setObservers()
     }
 
@@ -74,10 +79,11 @@ class RegisterVoucherFragment : BaseFragment() {
         )
     }
 
-    private fun onActivateButtonClicked() {
+    private fun onActivateButtonClicked(forceRegister: Boolean = false) {
         vouchersVM.registerVoucher(
             voucherCode = binding.voucherCode.text.toString(),
-            petId = (binding.spinner.selectedItem as Pets).petId
+            petId = (binding.spinner.selectedItem as Pets).petId,
+            forceRegister = forceRegister
         )
     }
 
@@ -135,11 +141,13 @@ class RegisterVoucherFragment : BaseFragment() {
             binding.root,
             doOnSuccess = onVoucherCheckSuccess
         )
-        registerVouchersEventObserver = DefaultNetworkEventObserver(
+        registerVouchersEventObserver = RegisterVoucherNetworkEventObserver(
             binding.root,
             doOnSuccess = {
                 mainVM.updateVouchers(App.getInstance().userToken)
-            }
+            },
+            doOnError = onRegisterVoucherError,
+            vouchersVM = vouchersVM
         )
         loadingVouchersEventObserver = DefaultNetworkEventObserver(
             binding.root,
@@ -149,6 +157,19 @@ class RegisterVoucherFragment : BaseFragment() {
                 }
             }
         )
+    }
+
+    private val onRegisterVoucherError = {
+        if (vouchersVM.registerVoucherResponse?.result == "attention") {
+            SubmitActionDialog(
+                title = getString(R.string.promocodeOverrideWarningTitle),
+                message = getString(R.string.promocodeOverrideWarning),
+                onSubmitButtonClicked = { onActivateButtonClicked(forceRegister = true) }
+            ).show(
+                childFragmentManager,
+                "submit_override_voucher_dialog"
+            )
+        }
     }
 
     private val onVoucherCheckSuccess = {
@@ -166,6 +187,47 @@ class RegisterVoucherFragment : BaseFragment() {
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
         vouchersVM.checkVoucher(binding.voucherCode.text.toString())
+    }
+
+    class RegisterVoucherNetworkEventObserver(
+        private val anchorView: View,
+        private val doOnSuccess: (()->Unit)? = null,
+        private val doOnError: (()->Unit)? = null,
+        private val doOnFailure: (()->Unit)? = null,
+        private val vouchersVM: VouchersViewModel
+    ) : Observer<NetworkEvent<State>> {
+
+        @Suppress("ControlFlowWithEmptyBody")
+        override fun onChanged(event: NetworkEvent<State>?) {
+            event?.run {
+                event.getContentIfNotHandled()?.run {
+                    val context = App.getInstance()
+                    when(this) {
+                        State.SUCCESS -> doOnSuccess?.invoke()
+                        State.ERROR -> {
+                            if (vouchersVM.registerVoucherResponse?.result != "attention") {
+                                createSnackbar(
+                                    anchorView = anchorView,
+                                    text = error ?: context.getString(R.string.networkErrorMessage),
+                                    context.getString(R.string.buttonOk),
+                                    doOnError
+                                ).show()
+                            } else { doOnError?.invoke() }
+                        }
+                        State.FAILURE -> {
+                            createSnackbar(
+                                anchorView = anchorView,
+                                text = context.getString(R.string.networkFailureMessage),
+                                context.getString(R.string.buttonOk),
+                                doOnFailure
+                            ).show()
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
+
     }
 
 }
