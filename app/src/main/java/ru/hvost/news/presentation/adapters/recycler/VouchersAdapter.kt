@@ -139,7 +139,7 @@ class VouchersAdapter(
         }
 
         override fun areContentsTheSame(oldItem: VoucherItem, newItem: VoucherItem): Boolean {
-            return false
+            return oldItem is VoucherFooter && newItem is VoucherFooter
         }
 
     }

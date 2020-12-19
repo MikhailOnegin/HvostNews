@@ -337,12 +337,14 @@
         android:label="VouchersFragment"
         tools:layout="@layout/fragment_vouchers">
         <action
-            android:id="@+id/action_vouchersFragment_to_registerVoucherFragment"
+            android:id="@+id/action_vouchersFragment_to_registerVoucherFragment_when_vouchers_empty"
             app:destination="@id/registerVoucherFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit" />
+            app:popExitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/vouchersFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_vouchersFragment_to_cartFragment"
             app:destination="@id/cartFragment"
@@ -357,13 +359,30 @@
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_vouchersFragment_to_registerVoucherFragment"
+            app:destination="@id/registerVoucherFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/registerVoucherFragment"
         android:name="ru.hvost.news.presentation.fragments.vouchers.RegisterVoucherFragment"
         android:label="RegisterVoucherFragment"
-        tools:layout="@layout/fragment_register_voucher" />
+        tools:layout="@layout/fragment_register_voucher" >
+        <action
+            android:id="@+id/action_registerVoucherFragment_to_vouchersFragment"
+            app:destination="@id/vouchersFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/registerVoucherFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/productFragment"

@@ -547,8 +547,8 @@ class MainViewModel : ViewModel() {
             try {
                 val result = APIService.API.getVouchersAsync(userToken).await()
                 if (result.result == "success") {
-                    _loadingVouchersEvent.value = NetworkEvent(State.SUCCESS)
                     _vouchers.value = result.toVouchers()
+                    _loadingVouchersEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _loadingVouchersEvent.value = NetworkEvent(State.ERROR, result.error)
                     _vouchers.value = listOf()

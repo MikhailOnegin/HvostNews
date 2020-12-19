@@ -113,8 +113,8 @@ class VouchersFragment : BaseFragment() {
     }
 
     private fun onVouchersUpdated(vouchers: List<VoucherItem>?) {
-        if(vouchers.isNullOrEmpty()) {
-            findNavController().navigate(R.id.action_vouchersFragment_to_registerVoucherFragment)
+        if(vouchers?.size == 1) {
+            findNavController().navigate(R.id.action_vouchersFragment_to_registerVoucherFragment_when_vouchers_empty)
         }
         (binding.recyclerView.adapter as VouchersAdapter).submitList(vouchers)
         setSpinner(vouchers)

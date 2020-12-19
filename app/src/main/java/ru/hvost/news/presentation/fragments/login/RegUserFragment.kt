@@ -43,9 +43,9 @@ class RegUserFragment : Fragment() {
             name.setText("Денис")
             patronymic.setText("Витальевич")
             phone.setText("+7-963-095-67-22")
-            email.setText("phoenix.fact@gmail.com")
-            password.setText("1234567a")
-            passwordConfirm.setText("1234567a")
+            email.setText("test@sergeev.ru")
+            password.setText("passw0rd")
+            passwordConfirm.setText("passw0rd")
             city.setText("Магнитогорск")
             agreement.isChecked = true
         }

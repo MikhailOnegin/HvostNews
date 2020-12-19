@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegisterVoucherBinding
@@ -25,6 +26,7 @@ class RegisterVoucherFragment : BaseFragment() {
     private lateinit var mainVM: MainViewModel
     private lateinit var checkVouchersEventObserver: DefaultNetworkEventObserver
     private lateinit var registerVouchersEventObserver: DefaultNetworkEventObserver
+    private lateinit var loadingVouchersEventObserver: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,7 +88,10 @@ class RegisterVoucherFragment : BaseFragment() {
             isReadyToCheckVoucher.observe(viewLifecycleOwner) { onIsReadyToCheckChanged(it) }
             isVoucherCorrect.observe(viewLifecycleOwner) { onIsVoucherCorrectChanged(it) }
         }
-        mainVM.userPets.observe(viewLifecycleOwner) { onPetsChanged(it) }
+        mainVM.run {
+            userPets.observe(viewLifecycleOwner) { onPetsChanged(it) }
+            loadingVouchersEvent.observe(viewLifecycleOwner, loadingVouchersEventObserver)
+        }
     }
 
     private fun onPetsChanged(pets: List<Pets>?) {
@@ -103,6 +108,7 @@ class RegisterVoucherFragment : BaseFragment() {
     private fun onClearVoucher() {
         vouchersVM.reset()
         binding.voucherCode.setText("")
+        binding.buttonCancel.visibility = View.GONE
     }
 
     private fun onIsVoucherCorrectChanged(isCorrect: Boolean?) {
@@ -113,6 +119,7 @@ class RegisterVoucherFragment : BaseFragment() {
                 binding.buttonActivate.visibility = View.VISIBLE
                 binding.controlsLayout.visibility = View.VISIBLE
                 binding.buttonCheckCode.visibility = View.GONE
+                binding.buttonCancel.visibility = View.VISIBLE
             } else {
                 binding.voucherCode.isEnabled = true
                 binding.voucherProgram.visibility = View.GONE
@@ -130,7 +137,17 @@ class RegisterVoucherFragment : BaseFragment() {
         )
         registerVouchersEventObserver = DefaultNetworkEventObserver(
             binding.root,
-            doOnSuccess = { findNavController().popBackStack() }
+            doOnSuccess = {
+                mainVM.updateVouchers(App.getInstance().userToken)
+            }
+        )
+        loadingVouchersEventObserver = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = {
+                if ((mainVM.vouchers.value?.size ?: 0) > 1) {
+                    findNavController().navigate(R.id.action_registerVoucherFragment_to_vouchersFragment)
+                }
+            }
         )
     }
 
