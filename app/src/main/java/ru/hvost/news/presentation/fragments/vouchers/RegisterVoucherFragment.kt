@@ -44,7 +44,7 @@ class RegisterVoucherFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        vouchersVM = ViewModelProvider(requireActivity())[VouchersViewModel::class.java]
+        vouchersVM = ViewModelProvider(this)[VouchersViewModel::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         initializeObservers()
         setObservers()
