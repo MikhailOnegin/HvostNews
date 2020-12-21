@@ -13,7 +13,6 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
-import ru.hvost.news.utils.viewsFormat
 
 class ArticleAdapter(
     private val onClick: (String) -> Unit,
@@ -44,8 +43,8 @@ class ArticleAdapter(
             binding.title.text = articleItem.title
             binding.description.text = articleItem.shortDescription.parseAsHtml()
             binding.domain.text = articleItem.categoryTitle
-            binding.views.text = viewsFormat.format(articleItem.viewsCount)
-            binding.likes.text = viewsFormat.format(articleItem.likesCount)
+            binding.views.text = articleItem.viewsCount.toString()
+            binding.likes.text = articleItem.likesCount.toString()
 
             binding.img.doOnLayout {
                 val width = binding.img.width
