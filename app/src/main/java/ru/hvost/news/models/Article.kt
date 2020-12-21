@@ -13,12 +13,12 @@ data class Article(
     val imageUrl: String,
     val shortDescription: String,
     val content: String,
-    val viewsCount: Int,
+    var viewsCount: Int,
     val shareLink: String,
-    val likesCount: Int,
+    var likesCount: Int,
     val articleId: String,
     val articleUrl: String,
-    val isLiked: Boolean = false
+    var isLiked: Boolean
 )
 
 fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
@@ -40,7 +40,8 @@ fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
                 shareLink = article.articleUrl ?: "",
                 likesCount = article.likesCount ?: 0,
                 articleId = article.articleId ?: "",
-                articleUrl = article.articleUrl ?: ""
+                articleUrl = article.articleUrl ?: "",
+                isLiked = article.isLiked ?: false
             )
         )
     }

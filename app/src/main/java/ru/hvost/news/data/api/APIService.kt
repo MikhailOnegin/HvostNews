@@ -264,10 +264,11 @@ interface APIService {
         @Query("articleId") articleId: String?
     ): Deferred<AddViewedByUserResponse>
 
-    @GET("/rest/Articles/addArticleLike/") //TODO: доделать, когда добавят поле isLiked
+    @GET("/rest/Articles/setLiked/")
     fun setArticleLikedByUserAsync(
         @Query("userToken") userToken: String?,
-        @Query("articleId") articleId: String?
+        @Query("articleId") articleId: String?,
+        @Query("liked") liked: Boolean?
     ): Deferred<AddLikedByUserResponse>
 
     @GET("/rest/School/getCities/")
