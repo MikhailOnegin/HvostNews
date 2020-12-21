@@ -42,7 +42,7 @@ fun List<OnlineLessonsResponse.OnlineLesson>?.toOnlineLessons(): List<OnlineLess
                     lessonTitle = onlineLessonResponse.lessonTitle ?: "",
                     petAge = onlineLessonResponse.petAge ?: "",
                     lessonNumber = onlineLessonResponse.lessonNumber ?: 0,
-                    isFinished = onlineLessonResponse.isFinished ?: true,
+                    isFinished = onlineLessonResponse.isFinished ?: false,
                     videoUrl = onlineLessonResponse.videoUrl ?: "",
                     testQuestion = onlineLessonResponse.testQuestion ?: "",
                     answersList = onlineLessonResponse.answersList.toAnswers()

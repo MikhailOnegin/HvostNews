@@ -168,8 +168,10 @@ class RegistrationVM : ViewModel() {
             else {
                 val builder = StringBuilder()
                 for((index, interest) in this.withIndex()){
-                    builder.append(interest.interestId)
-                    if(index != size-1) builder.append(",")
+                    if (interest.isSelected) {
+                        if (builder.isNotEmpty()) builder.append(",")
+                        builder.append(interest.interestId)
+                    }
                 }
                 builder.toString()
             }

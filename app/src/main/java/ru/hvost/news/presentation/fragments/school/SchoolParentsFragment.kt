@@ -151,9 +151,7 @@ class SchoolParentsFragment : BaseFragment() {
             binding.constraintSpinnerOnlineSchools.visibility = View.GONE
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
-            if (binding.recyclerView.adapter is OfflineSeminarsAdapter) {
                 offlineSeminarsAdapter.filter(b)
-            }
         }
 
         binding.spinnerOfflineSeminars.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

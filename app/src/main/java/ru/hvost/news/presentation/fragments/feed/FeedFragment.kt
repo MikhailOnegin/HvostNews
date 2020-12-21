@@ -38,6 +38,15 @@ class FeedFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         (requireActivity() as MainActivity).showBnv()
+        if (mainVM.feedTabState == MainViewModel.Companion.ButtonSelected.FEED)
+            binding.articlesFilter.visibility = View.VISIBLE
+        else {
+            binding.articlesFilter.visibility = View.INVISIBLE
+            binding.articlesFilter.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                0
+            )
+        }
     }
 
     override fun onCreateView(
@@ -150,21 +159,23 @@ class FeedFragment : BaseFragment() {
     }
 
     private val onSelectTabButton = { view: View ->
-        when (view.id) {
-            R.id.articles -> {
-                mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.FEED
-                setTabSelected(0)
-                animateFiltersAndGoToDestination(true, R.id.feedListFragment)
-            }
-            R.id.domains -> {
-                mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.DOMAINS
-                setTabSelected(1)
-                animateFiltersAndGoToDestination(false, R.id.domainsGridFragment)
-            }
-            R.id.news -> {
-                mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.NEWS
-                setTabSelected(2)
-                animateFiltersAndGoToDestination(false, R.id.newsListFragment)
+        if (!isAnimationRunning) {
+            when (view.id) {
+                R.id.articles -> {
+                    mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.FEED
+                    setTabSelected(0)
+                    animateFiltersAndGoToDestination(true, R.id.feedListFragment)
+                }
+                R.id.domains -> {
+                    mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.DOMAINS
+                    setTabSelected(1)
+                    animateFiltersAndGoToDestination(false, R.id.domainsGridFragment)
+                }
+                R.id.news -> {
+                    mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.NEWS
+                    setTabSelected(2)
+                    animateFiltersAndGoToDestination(false, R.id.newsListFragment)
+                }
             }
         }
     }
@@ -201,14 +212,21 @@ class FeedFragment : BaseFragment() {
         animator.start()
     }
 
+    private var isAnimationRunning = false
+
     inner class FiltersAnimationListener(
         private val shouldExpandFilters: Boolean,
         private val destination: Int
     ) : Animator.AnimatorListener {
 
-        override fun onAnimationStart(animation: Animator?) {}
+        override fun onAnimationStart(animation: Animator?) {
+            isAnimationRunning = true
+            if (!shouldExpandFilters) binding.articlesFilter.visibility = View.INVISIBLE
+        }
 
         override fun onAnimationEnd(animation: Animator?) {
+            isAnimationRunning = false
+            if (shouldExpandFilters) binding.articlesFilter.visibility = View.VISIBLE
             areFiltersExpanded = shouldExpandFilters
             goToDestination(destination)
         }

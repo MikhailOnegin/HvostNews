@@ -83,10 +83,10 @@ class RegistrationVMTest {
     }
 
     @Test
-    fun createInterestsIdsWorksCorrectlyWithOneValue() = runBlockingTest {
+    fun createInterestsIdsWorksCorrectlyWithTwoValues() = runBlockingTest {
         val data = MutableLiveData<List<RegInterest>>()
         data.value = listOf(
-            RegInterest(1L, "12", "Chop", emptyImageUri)
+            RegInterest(1L, "12", "Chop", emptyImageUri, isSelected = true)
         )
         registrationVM.createInterestsIds(data)
         assertThat(registrationVM.interestsIds, `is`("12"))
@@ -96,12 +96,12 @@ class RegistrationVMTest {
     fun createInterestsIdsWorksCorrectlyWithManyValues() = runBlockingTest {
         val data = MutableLiveData<List<RegInterest>>()
         data.value = listOf(
-            RegInterest(1L, "12", "Chop", emptyImageUri),
-            RegInterest(1L, "7", "Chop", emptyImageUri),
-            RegInterest(1L, "24", "Chop", emptyImageUri)
+            RegInterest(1L, "12", "Chop", emptyImageUri, isSelected = true),
+            RegInterest(1L, "7", "Chop", emptyImageUri, isSelected = false),
+            RegInterest(1L, "24", "Chop", emptyImageUri, isSelected = true)
         )
         registrationVM.createInterestsIds(data)
-        assertThat(registrationVM.interestsIds, `is`("12,7,24"))
+        assertThat(registrationVM.interestsIds, `is`("12,24"))
     }
 
 }

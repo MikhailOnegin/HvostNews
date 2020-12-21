@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.GridLayout.spec
 import android.widget.LinearLayout
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online_info.view.*
@@ -54,60 +55,74 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tVDescription = itemView.textView_description_wait
         private val iVInfo = itemView.imageView_info
-        fun bind(school: OnlineSchools.OnlineSchool){
+        private val includeLiterature = itemView.include_literature
+        private val constraintWhatWait = itemView.constraint_what_wait
 
-            tVDescription.text = school.description
+        fun bind(school: OnlineSchools.OnlineSchool){
+            tVDescription.text = school.description.parseAsHtml()
 
             Glide.with(itemView.context).load(APIService.baseUrl + school.image)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(iVInfo)
 
-            val containerWait = itemView.gridLayout
-            containerWait.removeAllViews()
-            for (i in school.wait.indices) {
-                val viewWait = LayoutWhatWaitBinding.inflate(
-                    LayoutInflater.from(itemView.context),
-                    containerWait,
-                    false
-                ).root
-                val param = GridLayout.LayoutParams()
-                param.columnSpec = spec(
-                    GridLayout.UNDEFINED,
-                    GridLayout.FILL,
-                    1f
-                )
-                param.width = 0
-                viewWait.layoutParams = param
-                viewWait.textView_section.text = school.wait[i].head
-                viewWait.textView_description.text = school.literatures[i].pet
-                containerWait.addView(viewWait)
-            }
+            if(school.wait.isNotEmpty()) {
+                constraintWhatWait.visibility = View.VISIBLE
+                val containerWait = itemView.gridLayout
+                containerWait.removeAllViews()
+                for (i in school.wait.indices) {
+                    val viewWait = LayoutWhatWaitBinding.inflate(
+                        LayoutInflater.from(itemView.context),
+                        containerWait,
+                        false
+                    ).root
+                    val param = GridLayout.LayoutParams()
+                    param.columnSpec = spec(
+                        GridLayout.UNDEFINED,
+                        GridLayout.FILL,
+                        1f
+                    )
+                    param.width = 0
+                    val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
 
-            val containerLiterature = itemView.linearLayout_literature
-            containerLiterature.removeAllViews()
-            for (i in school.literatures.indices) {
-                val viewLiterature = LayoutLiteratureItemBinding.inflate(
-                    LayoutInflater.from(itemView.context),
-                    containerLiterature,
-                    false
-                ).root
-
-                viewLiterature.textView_title.text = school.literatures[i].name
-                viewLiterature.textView_pet.text = school.literatures[i].pet
-                viewLiterature.constraint_literure.setOnClickListener {
-                    onClickLiterature?.onClick(school.literatures[i].src)
+                    viewWait.layoutParams = param
+                    viewWait.textView_description.text = school.wait[i].head
+                    (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
+                        margin / 2,
+                        margin / 2,
+                        margin / 2,
+                        margin / 2
+                    )
+                    containerWait.addView(viewWait)
                 }
-                val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
-                (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
-                    0,
-                    margin,
-                    margin,
-                    0
-                )
-                containerLiterature.addView(viewLiterature)
             }
 
 
+            if(school.literatures.isNotEmpty()) {
+                includeLiterature.visibility = View.VISIBLE
+                val containerLiterature = itemView.linearLayout_literature
+                containerLiterature.removeAllViews()
+                for (i in school.literatures.indices) {
+                    val viewLiterature = LayoutLiteratureItemBinding.inflate(
+                        LayoutInflater.from(itemView.context),
+                        containerLiterature,
+                        false
+                    ).root
+
+                    viewLiterature.textView_title.text = school.literatures[i].title
+                    viewLiterature.textView_pet.text = school.literatures[i].pet
+                    viewLiterature.constraint_literure.setOnClickListener {
+                        onClickLiterature?.onClick(school.literatures[i].fileUrl)
+                    }
+                    val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                    (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
+                        0,
+                        margin,
+                        margin,
+                        0
+                    )
+                    containerLiterature.addView(viewLiterature)
+                }
+            }
+        }
     }
-}
 }
