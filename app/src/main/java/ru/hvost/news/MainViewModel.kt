@@ -449,7 +449,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun setArticleViewed(
-        articleId: String
+        articleId: String?
     ) {
         viewModelScope.launch {
             _articleViewedLoadingEvent.value = NetworkEvent(State.LOADING)
@@ -508,14 +508,16 @@ class MainViewModel : ViewModel() {
     }
 
     fun setArticleLiked(
-        articleId: String
+        articleId: String,
+        liked: Boolean
     ) {
         viewModelScope.launch {
             _articleLikedLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val result = APIService.API.setArticleLikedByUserAsync(
                     App.getInstance().userToken,
-                    articleId
+                    articleId,
+                    liked
                 ).await()
                 if (result.result == "success") {
                     _articleIsLiked.value = result

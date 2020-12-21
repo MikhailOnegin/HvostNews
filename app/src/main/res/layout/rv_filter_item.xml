@@ -36,9 +36,10 @@
             android:id="@+id/expand"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginVertical="@dimen/normalMargin"
             android:layout_marginEnd="@dimen/normalMargin"
             android:layout_weight="0.1"
-            android:background="@android:color/transparent"
+            android:background="@drawable/ripple_round_button"
             android:src="@drawable/ic_button_expand" />
 
     </LinearLayout>
