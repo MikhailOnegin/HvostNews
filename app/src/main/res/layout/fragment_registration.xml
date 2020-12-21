@@ -36,7 +36,7 @@
         android:id="@+id/spinner_pets"
         style="@style/RegSpinner"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
@@ -46,8 +46,8 @@
 
     <ImageButton
         android:id="@+id/imageButton_add_pet"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:layout_marginEnd="24dp"
         android:background="@null"
         android:contentDescription="@string/not_found"
@@ -59,17 +59,21 @@
 
     <CheckBox
         android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
+        style="@style/CheckBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:button="@drawable/image_checkbox"
-        android:enabled="true"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:theme="@style/CheckBoxStyle"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/gilroy_semibold"
+        android:paddingStart="16dp"
+        android:text="@string/accept_terms_of_agreement"
+        android:textColor="@color/gray2"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_pets" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_pets"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/textView21"
@@ -86,26 +90,27 @@
         app:layout_constraintTop_toTopOf="@+id/checkBox2" />
 
     <Button
-                android:id="@+id/button_complete_registration"
-                style="@style/ElevatedButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                android:backgroundTint="#7D82AF"
-                android:fontFamily="@font/gilroy_bold"
-                android:paddingLeft="32dp"
-                android:paddingTop="24dp"
-                android:paddingRight="32dp"
-                android:paddingBottom="24dp"
-                android:text="@string/complete_registration"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/button_complete_registration"
+        style="@style/UnelevatedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:enabled="false"
+        android:fontFamily="@font/gilroy_bold"
+        android:paddingLeft="32dp"
+        android:paddingTop="24dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="24dp"
+        android:text="@string/complete_registration"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
 
     <TextView
         android:id="@+id/textView_head"

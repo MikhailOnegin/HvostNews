@@ -1,15 +1,32 @@
 package ru.hvost.news.presentation.fragments.school
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.CheckBox
+import android.widget.Spinner
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.size
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_registration.*
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
+import ru.hvost.news.R
 import ru.hvost.news.data.api.response.PetsResponse
 import ru.hvost.news.databinding.FragmentRegistrationBinding
 import ru.hvost.news.models.CitiesOffline
@@ -46,8 +63,24 @@ class RegistrationFragment: BaseFragment() {
         setListeners()
         setObservers(this)
         binding.spinnerPets.setSelection(0, false)
-        binding.spinnerPets.adapter = SpinnerAdapter(requireContext(), "", arrayListOf(), Pets::petName)
         idSchool = arguments?.getString("schoolId")
+        val text = resources.getString(R.string.accept_terms_of_agreement)
+        val spannable = SpannableString(text)
+        val colorSpan = ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        val clickableSpan1 = object :ClickableSpan(){
+            override fun onClick(p0: View) {
+                val newIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://yandex.ru/legal/rules")
+                )
+                startActivity(newIntent)
+            }
+        }
+        spannable.setSpan(clickableSpan1,19, 46, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(colorSpan, 19, 46, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding.checkBox2.text = spannable
+        binding.checkBox2.movementMethod = LinkMovementMethod.getInstance()
+
 
     }
 
@@ -64,23 +97,33 @@ class RegistrationFragment: BaseFragment() {
     private fun setObservers(owner:LifecycleOwner) {
         schoolVM.onlineSchools.observe(owner, {
             idSchool?.run {
-                for(i in it.onlineSchools.indices){
+                for (i in it.onlineSchools.indices) {
                     val school = it.onlineSchools[i]
-                        if(school.id.toString() == this){
-                        val head = "Регистрация на онлайн семинар ${school.title}"
+                    if (school.id.toString() == this) {
+                        val head = "Регистрация на онлайн семинар \"${school.title}\""
                         binding.textViewHead.text = head
                     }
                 }
             }
         })
         mainVM.userPets.observe(owner, {
-            pets = it
-            val adapter = (binding.spinnerPets.adapter as SpinnerAdapter<Pets>)
-            adapter.clear()
-            (binding.spinnerPets.adapter as SpinnerAdapter<Pets>).addAll(it)
+            if (it.isNotEmpty()) {
+                binding.spinnerPets.isEnabled = true
+                pets = it
+                binding.spinnerPets.adapter =
+                    SpinnerAdapter(requireContext(), "", arrayListOf(), Pets::petName)
+                val adapter = (binding.spinnerPets.adapter as SpinnerAdapter<Pets>)
+                adapter.clear()
+                (binding.spinnerPets.adapter as SpinnerAdapter<Pets>).addAll(it)
+            }
+
+        })
+        schoolVM.enabledRegister.observe(owner, {
+            binding.buttonCompleteRegistration.isEnabled = it
         })
     }
 
+    @SuppressLint("UseCompatLoadingForColorStateLists")
     @Suppress("UNCHECKED_CAST")
     private fun setListeners() {
         binding.toolbarRegistration.setNavigationOnClickListener {
@@ -116,6 +159,17 @@ class RegistrationFragment: BaseFragment() {
 
                 }
                 findNavController().popBackStack()
+            }
+        }
+        binding.checkBox2.setOnCheckedChangeListener { _, b ->
+            schoolVM.enabledRegister.value = b && binding.spinnerPets.adapter is SpinnerAdapter<*> && binding.spinnerPets.size > 0
+        }
+        binding.spinnerPets.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+            @Suppress("UNCHECKED_CAST")
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                schoolVM.enabledRegister.value = binding.checkBox2.isChecked && binding.spinnerPets.adapter is SpinnerAdapter<*> && binding.spinnerPets.size > 0
             }
         }
     }

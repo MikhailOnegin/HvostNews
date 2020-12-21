@@ -15,6 +15,8 @@ import ru.hvost.news.utils.events.NetworkEvent
 
 class SchoolViewModel: ViewModel() {
 
+    val enabledRegister:MutableLiveData<Boolean> = MutableLiveData(false)
+
     private val _offlineSeminarsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineSeminarsEvent:LiveData<NetworkEvent<State>> = _offlineSeminarsEvent
 

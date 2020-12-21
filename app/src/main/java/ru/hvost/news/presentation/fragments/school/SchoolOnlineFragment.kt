@@ -3,7 +3,6 @@ package ru.hvost.news.presentation.fragments.school
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,6 @@ import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.enums.State
-import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 
 class SchoolOnlineFragment :  BaseFragment() {
@@ -52,13 +50,14 @@ class SchoolOnlineFragment :  BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+
         navC = findNavController()
-        val id = arguments?.getString("schoolId")
+        val schoolId = arguments?.getString("schoolId")
         binding.recyclerView.adapter = materialsAdapter
         materialsAdapter.onClickLessonActive = object : SchoolOnlineMaterialsAdapter.OnClickLessonActive {
             override fun onClick(lessonId:String) {
                 val bundle = Bundle()
-                bundle.putString("schoolId", schoolId)
+                bundle.putString("schoolId", this@SchoolOnlineFragment.schoolId)
                 bundle.putString("lessonId", lessonId)
                 navC.navigate(R.id.action_onlineCourseActiveFragment_to_onlineLessonFragment, bundle)
             }
@@ -82,15 +81,15 @@ class SchoolOnlineFragment :  BaseFragment() {
             }
         }
         setObservers(this)
-        id?.let {id ->
-            schoolId = id
+        schoolId?.let { id ->
+            this.schoolId = id
             App.getInstance().userToken?.run {
                 schoolVM.getOnlineLessons(this, id)
             }
             val schoolsResponse = schoolVM.onlineSchools.value
             schoolsResponse?.run {
                 val schools = this.onlineSchools
-                schoolId?.run {
+                this@SchoolOnlineFragment.schoolId?.run {
                     for (i in schools.indices) {
                         val idSchool = schools[i].id.toString()
                         if (idSchool == this) {
@@ -107,6 +106,9 @@ class SchoolOnlineFragment :  BaseFragment() {
             }
         }
         setListeners()
+        App.getInstance().userToken?.run {
+            schoolVM.getOnlineSchools(this)
+        }
     }
 
     fun setObservers(owner: LifecycleOwner) {
@@ -115,6 +117,7 @@ class SchoolOnlineFragment :  BaseFragment() {
         })
         schoolVM.onlineSchools.observe(owner, {
             schoolId?.run {
+                val d = ""
                 for (i in it.onlineSchools.indices) {
                     val onlineSchool = it.onlineSchools[i]
 
@@ -122,8 +125,8 @@ class SchoolOnlineFragment :  BaseFragment() {
                         infoAdapter.setSchool(onlineSchool)
                         materialsAdapter.setSchool(onlineSchool)
 
-                        if (onlineSchool.participate) binding.constraintRegistration.visibility =
-                            View.GONE
+                        if (onlineSchool.participate) {
+                            binding.constraintRegistration.visibility = View.GONE}
                         else {
                             binding.constraintRegistration.visibility = View.VISIBLE
                             binding.buttonRegistration.setOnClickListener {

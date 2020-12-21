@@ -7,6 +7,7 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
 import android.view.View
+import android.widget.SpinnerAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -276,3 +277,4 @@ fun getClearPhoneString(source: String?): String {
     }
     return builder.toString()
 }
+
