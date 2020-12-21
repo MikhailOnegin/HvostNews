@@ -11,6 +11,7 @@ data class OnlineSchools(
         val id: Long,
         val title: String,
         val image: String,
+        val imageDetailUrl: String,
         val userRank: String,
         val description: String,
         val participate: Boolean,
@@ -25,9 +26,9 @@ data class OnlineSchools(
     )
 
     data class Literature(
-        val name: String,
+        val title: String,
         val pet: String,
-        val src: String,
+        val fileUrl: String,
     )
     data class Wait(
         val head: String,
@@ -50,10 +51,11 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
                     id = schoolResponse.id ?: 0,
                     title = schoolResponse.title ?: "",
                     image = schoolResponse.image ?: "",
+                    imageDetailUrl = schoolResponse.imageDetailUrl ?: "",
                     userRank = schoolResponse.userRank ?: "",
                     description = schoolResponse.description ?: "",
                     participate = schoolResponse.participate ?: false,
-                    literatures = schoolResponse.literatures.toLiteratures(),
+                    literatures = schoolResponse.literature.toLiteratures(),
                     lessonsPassed = schoolResponse.lessonsPassed.toNotNull(),
                     wait = schoolResponse.wait.toWait()
 
@@ -70,9 +72,9 @@ fun List<OnlineSchoolsResponse.Literature>?.toLiteratures():List<OnlineSchools.L
         for (literature in this.iterator()) {
             result.add(
                 OnlineSchools.Literature(
-                    name = literature.name ?: "",
+                    title = literature.title ?: "",
                     pet = literature.pet ?: "",
-                    src = literature.src ?: ""
+                    fileUrl = literature.fileUrl ?: ""
                 )
             )
         }

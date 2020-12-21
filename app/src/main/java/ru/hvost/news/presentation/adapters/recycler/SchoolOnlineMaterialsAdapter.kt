@@ -139,30 +139,38 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     inner class UsefulLiteratureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val constraintRoot = itemView.constraint_root
+
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
-                val container = itemView.linearLayout_literature
-                container.removeAllViews()
-                for (i in school.literatures.indices) {
-                    val view = LayoutLiteratureItemBinding.inflate(
-                        LayoutInflater.from(itemView.context),
-                        container,
-                        false
-                    ).root
+                if (school.literatures.isNotEmpty()) {
 
-                    view.textView_title.text = school.literatures[i].name
-                    view.textView_pet.text = school.literatures[i].pet
-                    view.constraint_literure.setOnClickListener {
-                        onClickLiterature?.onClick(school.literatures[i].src)
+                    val container = itemView.linearLayout_literature
+                    container.removeAllViews()
+                    for (i in school.literatures.indices) {
+                        val view = LayoutLiteratureItemBinding.inflate(
+                            LayoutInflater.from(itemView.context),
+                            container,
+                            false
+                        ).root
+
+                        view.textView_title.text = school.literatures[i].title
+                        view.textView_pet.text = school.literatures[i].pet
+                        view.constraint_literure.setOnClickListener {
+                            onClickLiterature?.onClick(school.literatures[i].fileUrl)
+                        }
+                        val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                        (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                            0,
+                            margin,
+                            margin,
+                            0
+                        )
+                        container.addView(view)
                     }
-                    val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
-                    (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                        0,
-                        margin,
-                        margin,
-                        0
-                    )
-                    container.addView(view)
+                }
+                else{
+                   constraintRoot.visibility = View.GONE
                 }
             }
         }
