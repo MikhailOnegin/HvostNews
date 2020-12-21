@@ -30,13 +30,13 @@ class LessonOnlineActiveFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOnlineLessonActiveBinding
     private lateinit var schoolVM: SchoolViewModel
-    private var lessonId:String? = null
-    private var schoolId:String? = null
+    private var lessonId: String? = null
+    private var schoolId: String? = null
     private val answers = mutableMapOf<String, Boolean>()
     private val buttons = mutableListOf<Button>()
     private var literature = mutableListOf<OnlineSchools.Literature>()
-    private var lesson:OnlineLessons.OnlineLesson? = null
-    private var lessons:List<OnlineLessons.OnlineLesson>? = null
+    private var lesson: OnlineLessons.OnlineLesson? = null
+    private var lessons: List<OnlineLessons.OnlineLesson>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +48,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        schoolVM = ViewModelProvider(requireActivity())[ SchoolViewModel::class.java]
+        schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
         setListeners()
@@ -63,11 +63,31 @@ class LessonOnlineActiveFragment : BaseFragment() {
                 val answer = answers[button.text.toString()]
                 answer?.run {
                     if (this) {
-                        button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-                        button.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+                        button.backgroundTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.colorPrimary
+                            )
+                        )
+                        button.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                android.R.color.white
+                            )
+                        )
                     } else {
-                        button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.red))
-                        button.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+                        button.backgroundTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.red
+                            )
+                        )
+                        button.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                android.R.color.white
+                            )
+                        )
                     }
                 }
             }
@@ -84,17 +104,17 @@ class LessonOnlineActiveFragment : BaseFragment() {
 
 
         }
-            binding.imageViewPlay.setOnClickListener {
+        binding.imageViewPlay.setOnClickListener {
 
-                lesson?.videoUrl?.run {
+            lesson?.videoUrl?.run {
 
-                    val newIntent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(this)
-                    )
-                    startActivity(newIntent)
-                }
+                val newIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(this)
+                )
+                startActivity(newIntent)
             }
+        }
         binding.constraintVideo.setOnClickListener {
 
             lesson?.videoUrl?.run {
@@ -106,7 +126,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
             }
         }
 
-        binding.toolbar.setNavigationOnClickListener {
+        binding.toolbarOnlineLesson.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -116,30 +136,29 @@ class LessonOnlineActiveFragment : BaseFragment() {
 
         schoolVM.lessonTestesPassedEvent.observe(owner, {
 
-                binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
-                binding.buttonToAnswer.setOnClickListener {
-                    lessons?.let {
-                        for (i in it.indices){
-                            if (i < it.size-1){
-                                //val lesson = it[i+1]
-                                lessonId?.let {
-                                }
+            binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
+            binding.buttonToAnswer.setOnClickListener {
+                lessons?.let {
+                    for (i in it.indices) {
+                        if (i < it.size - 1) {
+                            //val lesson = it[i+1]
+                            lessonId?.let {
                             }
                         }
-
                     }
+                }
             }
-
         })
         schoolVM.onlineLessons.observe(owner, Observer {
             lessons = it.lessons
             lessonId?.run {
-                for (i in it.lessons.indices){
+                for (i in it.lessons.indices) {
                     val onlineLesson = it.lessons[i]
-                    if(onlineLesson.lessonId == this){
+                    if (onlineLesson.lessonId == this) {
                         lesson = onlineLesson
                         binding.textViewTitle.text = onlineLesson.lessonTitle
-                        val lessonNumber = "${getString(R.string.lesson_number)} ${onlineLesson.lessonNumber}"
+                        val lessonNumber =
+                            "${getString(R.string.lesson_number)} ${onlineLesson.lessonNumber}"
                         binding.textViewLessonNumber.text = lessonNumber
                         binding.textViewQuestion.text = onlineLesson.testQuestion
 
@@ -155,7 +174,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             buttons.add(view.button_option)
                             view.button_option.text = answer.answer
                             view.button_option.setOnClickListener {
-                                if(view.button_option.isEnabled){
+                                if (view.button_option.isEnabled) {
                                     view.button_option.isActivated = !view.button_option.isActivated
                                 }
                             }
@@ -191,12 +210,12 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             container,
                             false
                         ).root
-                        view.textView_title.text = literature[i].name
+                        view.textView_title.text = literature[i].title
                         view.textView_pet.text = literature[i].pet
                         view.constraint_literure.setOnClickListener {
                             val newIntent = Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(literature[i].src)
+                                Uri.parse(literature[i].fileUrl)
                             )
                             startActivity(newIntent)
                         }

@@ -16,10 +16,10 @@ data class OnlineSchoolsResponse(
         val description: String?,
         val images: List<String>?,
         val wait: List<Wait>?,
-        val literatures: List<Literature>?,
+        val literature: List<Literature>?,
         val lessonsPassed: List<LessonPassed>?,
 
-    )
+        )
 
     data class LessonPassed(
         val lessonNumber: Int?,
@@ -27,9 +27,9 @@ data class OnlineSchoolsResponse(
     )
 
     data class Literature(
-         val name: String?,
-         val pet: String?,
-         val src: String?,
+        val title: String?,
+        val pet: String?,
+        val fileUrl: String?,
     )
     data class Wait(
         val head: String?,

@@ -89,12 +89,12 @@ class LessonOnlineFinishedFragment: BaseFragment() {
                             container,
                             false
                         ).root
-                        view.textView_title.text = literature[i].name
+                        view.textView_title.text = literature[i].title
                         view.textView_pet.text = literature[i].pet
                         view.constraint_literure.setOnClickListener {
                             val newIntent = Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse(literature[i].src)
+                                Uri.parse(literature[i].fileUrl)
                             )
                             startActivity(newIntent)
                         }
