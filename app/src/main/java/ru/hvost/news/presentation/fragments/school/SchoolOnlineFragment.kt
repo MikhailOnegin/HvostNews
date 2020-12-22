@@ -24,6 +24,7 @@ import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
+import ru.hvost.news.presentation.dialogs.SuccessRegistrationSeminarDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.enums.State
@@ -50,7 +51,14 @@ class SchoolOnlineFragment :  BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
-
+        val title = arguments?.getString("title")
+        schoolVM.successRegistration.value?.run {
+            if(this && title != null){
+                SuccessRegistrationSeminarDialog(title).show(childFragmentManager,
+                    "success_registration_dialog")
+                schoolVM.successRegistration.value = false
+            }
+        }
         navC = findNavController()
         val schoolId = arguments?.getString("schoolId")
         binding.recyclerView.adapter = materialsAdapter
@@ -125,21 +133,8 @@ class SchoolOnlineFragment :  BaseFragment() {
                         infoAdapter.setSchool(onlineSchool)
                         materialsAdapter.setSchool(onlineSchool)
 
-                        if (onlineSchool.participate) {
-                            binding.constraintRegistration.visibility = View.GONE}
-                        else {
-                            binding.constraintRegistration.visibility = View.VISIBLE
-                            binding.buttonRegistration.setOnClickListener {
-                                val bundle = Bundle()
-                                schoolId?.run {
-                                    bundle.putString("schoolId", this)
-                                }
-                                findNavController().navigate(
-                                    R.id.action_schoolOnlineActiveFragment_to_registrationFragment,
-                                    bundle
-                                )
-                            }
-                        }
+                        if (onlineSchool.participate) binding.constraintRegistration.visibility = View.GONE
+                        else binding.constraintRegistration.visibility = View.VISIBLE
 
                         val containerNumbers = linearLayout_lesson_numbers
                         val padding =
@@ -213,6 +208,16 @@ class SchoolOnlineFragment :  BaseFragment() {
             binding.recyclerView.adapter = materialsAdapter
             binding.schoolMaterialsTitle.setTextColor(colorWhite)
             binding.schoolInfoTitle.setTextColor(colorPrimary)
+        }
+        binding.buttonRegistration.setOnClickListener {
+            val bundle = Bundle()
+            schoolId?.run {
+                bundle.putString("schoolId", this)
+            }
+            findNavController().navigate(
+                R.id.action_schoolOnlineActiveFragment_to_registrationFragment,
+                bundle
+            )
         }
         binding.toolbarOnlineSchool.setNavigationOnClickListener {
             findNavController().popBackStack()

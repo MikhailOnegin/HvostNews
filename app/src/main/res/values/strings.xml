@@ -422,4 +422,8 @@
     <string name="buttonYes">Да</string>
     <string name="buttonNo">Нет</string>
     <string name="partnersPageTitle">Страница партнера</string>
+    <string name="success">Успешно</string>
+    <string name="good">Хорошо</string>
+    <string name="no_required_attachments_fo_intent">Нет нужных приложений для открытия файла</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 </resources>

@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         private val constraintWhatWait = itemView.constraint_what_wait
 
         fun bind(school: OnlineSchools.OnlineSchool){
+            tVDescription.movementMethod = LinkMovementMethod()
             tVDescription.text = school.description.parseAsHtml()
 
             Glide.with(itemView.context).load(APIService.baseUrl + school.image)

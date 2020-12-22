@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_online_lesson_option.view.*
 import ru.hvost.news.App
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.FragmentSchoolOnlineLessonActiveBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
@@ -25,6 +26,9 @@ import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.startIntent
+
 
 class LessonOnlineActiveFragment : BaseFragment() {
 
@@ -37,6 +41,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
     private var literature = mutableListOf<OnlineSchools.Literature>()
     private var lesson: OnlineLessons.OnlineLesson? = null
     private var lessons: List<OnlineLessons.OnlineLesson>? = null
+    private lateinit var lessonTestPassedEvent:DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +56,52 @@ class LessonOnlineActiveFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
+        initializedEvents()
         setListeners()
         setObservers(this)
+    }
+
+    private fun initializedEvents() {
+        lessonTestPassedEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnLoading = {
+                binding.buttonToAnswer.isEnabled = false
+            },
+            doOnSuccess = {
+                binding.buttonToAnswer.isEnabled = true
+                binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
+                binding.buttonToAnswer.setOnClickListener {
+                    lessons?.let { lessons ->
+                        lessonId?.let { lessonId ->
+                            for (i in lessons.indices) {
+                                val lesson = lessons[i]
+                                if (lesson.lessonId == lessonId) {
+                                    if (i < lessons.size - 2) {
+                                        schoolId?.let { schoolId ->
+                                            val bundle = Bundle()
+                                            bundle.putString("lessonId", lessonId)
+                                            bundle.putString("schoolId", schoolId)
+                                            findNavController().navigate(
+                                                R.id.action_onlineLessonFragment_toOnlineLessonFragment,
+                                                bundle
+                                            )
+                                        }
+                                    } else {
+                                        TODO()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            doOnError = {
+                binding.buttonToAnswer.isEnabled = true
+                        },
+            doOnFailure = {
+                binding.buttonToAnswer.isEnabled = true
+            }
+        )
     }
 
     private fun setListeners() {
@@ -120,7 +169,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
             lesson?.videoUrl?.run {
                 val newIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(this)
+                    Uri.parse(baseUrl + this)
                 )
                 startActivity(newIntent)
             }
@@ -134,21 +183,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
 
     private fun setObservers(owner: LifecycleOwner) {
 
-        schoolVM.lessonTestesPassedEvent.observe(owner, {
-
-            binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
-            binding.buttonToAnswer.setOnClickListener {
-                lessons?.let {
-                    for (i in it.indices) {
-                        if (i < it.size - 1) {
-                            //val lesson = it[i+1]
-                            lessonId?.let {
-                            }
-                        }
-                    }
-                }
-            }
-        })
+        schoolVM.lessonTestesPassedEvent.observe(owner, lessonTestPassedEvent)
         schoolVM.onlineLessons.observe(owner, Observer {
             lessons = it.lessons
             lessonId?.run {
@@ -163,8 +198,8 @@ class LessonOnlineActiveFragment : BaseFragment() {
                         binding.textViewQuestion.text = onlineLesson.testQuestion
 
                         val container = binding.linearLayoutAnswerOptions
-                        for (q in onlineLesson.answersList.indices) {
-                            val answer = onlineLesson.answersList[q]
+                        for (q in onlineLesson.answerList.indices) {
+                            val answer = onlineLesson.answerList[q]
                             answers[answer.answer] = answer.isTrue
                             val view = LayoutOnlineLessonOptionBinding.inflate(
                                 LayoutInflater.from(requireContext()),
@@ -204,30 +239,29 @@ class LessonOnlineActiveFragment : BaseFragment() {
                     literature.addAll(this.literatures)
                     val container = binding.includeLiterature.linearLayoutLiterature
                     container.removeAllViews()
-                    for (i in literature.indices) {
-                        val view = LayoutLiteratureItemBinding.inflate(
-                            LayoutInflater.from(requireContext()),
-                            container,
-                            false
-                        ).root
-                        view.textView_title.text = literature[i].title
-                        view.textView_pet.text = literature[i].pet
-                        view.constraint_literure.setOnClickListener {
-                            val newIntent = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(literature[i].fileUrl)
+                    if(literature.isNotEmpty()) {
+                        for (i in literature.indices) {
+                            val view = LayoutLiteratureItemBinding.inflate(
+                                LayoutInflater.from(requireContext()),
+                                container,
+                                false
+                            ).root
+                            view.textView_title.text = literature[i].title
+                            view.textView_pet.text = literature[i].pet
+                            view.constraint_literure.setOnClickListener {
+                                startIntent(requireContext(), literature[i].fileUrl)
+                            }
+                            val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
+                            (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                0,
+                                margin,
+                                margin,
+                                0
                             )
-                            startActivity(newIntent)
+                            container.addView(view)
                         }
-                        val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
-                        (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                            0,
-                            margin,
-                            margin,
-                            0
-                        )
-                        container.addView(view)
                     }
+                    else binding.includeLiterature.constraintRoot.visibility = View.GONE
                 }
             }
         })

@@ -1,6 +1,9 @@
 package ru.hvost.news.utils
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
 import android.text.InputFilter
@@ -11,13 +14,16 @@ import android.widget.SpinnerAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
+import java.lang.Exception
 import java.lang.StringBuilder
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -276,5 +282,23 @@ fun getClearPhoneString(source: String?): String {
         if (char.isDigit()) builder.append(char)
     }
     return builder.toString()
+}
+
+fun startIntent(context: Context, url:String){
+    val fileIntent  = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse(url)
+    )
+    try {
+        context.startActivity(fileIntent)
+    }
+    catch (e: Exception){
+        if(e is ActivityNotFoundException){
+            Toast.makeText(context,context.getString(R.string.no_required_attachments_fo_intent), Toast.LENGTH_SHORT).show()
+        }
+        else {
+            Toast.makeText(context, context.getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+        }
+    }
 }
 
