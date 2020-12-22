@@ -18,6 +18,7 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class FeedListFragment : BaseFragment() {
 
@@ -44,15 +45,13 @@ class FeedListFragment : BaseFragment() {
 
     private fun setObservers() {
         mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
-//        mainVM.articles.observe(viewLifecycleOwner, { onArticlesChanged() })
+        mainVM.likedArticleList.observe(viewLifecycleOwner, { onArticlesChanged(it) })
     }
 
-//    private fun onArticlesChanged() {
-//        val current = (binding.list.adapter as ArticleAdapter).currentList
-//        if (current.isNullOrEmpty()) return
-//        (binding.list.adapter as ArticleAdapter).submitList(current.toMutableList())
-//        //yunusov: доделть коррекцию лайков и просмотров
-//    }
+    private fun onArticlesChanged(list: List<Article>?) {
+        val adapter = (binding.list.adapter as ArticleAdapter)
+        adapter.submitList(list)
+    }
 
     private fun initializeObservers() {
         onArticlesLoadingEvent = DefaultNetworkEventObserver(

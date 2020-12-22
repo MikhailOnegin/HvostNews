@@ -41,7 +41,7 @@ class ArticleFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         articleVM = ViewModelProvider(this)[ArticleViewModel::class.java]
-        mainVM = ViewModelProvider(this)[MainViewModel::class.java]
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         articleVM.loadArticle(arguments?.getString(ArticlesFragment.ARTICLE_ID))
         setObservers()
     }

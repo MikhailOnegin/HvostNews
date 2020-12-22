@@ -43,6 +43,7 @@ class MainViewModel : ViewModel() {
     val articlesLoadingEvent: LiveData<NetworkEvent<State>> = _articlesLoadingEvent
     private val _articles = MutableLiveData<List<Article>>()
     val articles: LiveData<List<Article>> = _articles
+    val likedArticleList = MutableLiveData<List<Article>>()
     private val _allArticlesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val allArticlesLoadingEvent: LiveData<NetworkEvent<State>> = _allArticlesLoadingEvent
     private val _allArticles = MutableLiveData<List<Article>>()

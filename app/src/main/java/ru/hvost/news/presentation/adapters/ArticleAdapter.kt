@@ -13,6 +13,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
+import ru.hvost.news.utils.moneyFormat
 
 class ArticleAdapter(
     private val onClick: (String) -> Unit,
@@ -43,8 +44,8 @@ class ArticleAdapter(
             binding.title.text = articleItem.title
             binding.description.text = articleItem.shortDescription.parseAsHtml()
             binding.domain.text = articleItem.categoryTitle
-            binding.views.text = articleItem.viewsCount.toString()
-            binding.likes.text = articleItem.likesCount.toString()
+            binding.views.text = moneyFormat.format(articleItem.viewsCount)
+            binding.likes.text = moneyFormat.format(articleItem.likesCount)
 
             binding.img.doOnLayout {
                 val width = binding.img.width
@@ -56,7 +57,7 @@ class ArticleAdapter(
                 binding.img.layoutParams = params
             }
             if (articleItem.isLiked) {
-                binding.likesIcon.setImageResource(R.drawable.ic_like_checked)
+                binding.likesIcon.setImageResource(R.drawable.ic_feed_likes_checked)
             } else {
                 binding.likesIcon.setImageResource(R.drawable.ic_likes)
             }
@@ -73,12 +74,14 @@ class ArticleAdapter(
         private fun changeLikeIcon(item: Article) {
             item.isLiked = !item.isLiked
             if (item.isLiked) {
-                binding.likesIcon.setImageResource(R.drawable.ic_like_checked)
-                binding.likes.text = binding.likes.text.toString().toInt().plus(1).toString()
+                binding.likesIcon.setImageResource(R.drawable.ic_feed_likes_checked)
+                binding.likes.text =
+                    moneyFormat.format(binding.likes.text.toString().toInt().plus(1))
                 item.likesCount = item.likesCount.plus(1)
             } else {
                 binding.likesIcon.setImageResource(R.drawable.ic_likes)
-                binding.likes.text = binding.likes.text.toString().toInt().minus(1).toString()
+                binding.likes.text =
+                    moneyFormat.format(binding.likes.text.toString().toInt().minus(1))
                 item.likesCount = item.likesCount.minus(1)
             }
         }

@@ -23,7 +23,7 @@ class ArticleHeader(
 
 class ArticleFooter(
     id:Long,
-    val likesCount: Int,
+    var likesCount: Int,
     val shareLink: String
 ) : ArticleContent(id)
 
