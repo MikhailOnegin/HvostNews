@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticleBinding
 import ru.hvost.news.models.Article
@@ -24,6 +25,7 @@ class ArticleFragment : BaseFragment() {
 
     private lateinit var binding: FragmentArticleBinding
     private lateinit var articleVM: ArticleViewModel
+    private lateinit var mainVM: MainViewModel
     private lateinit var loadingArticleEventObserver: DefaultNetworkEventObserver
 
     override fun onCreateView(
@@ -39,6 +41,7 @@ class ArticleFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         articleVM = ViewModelProvider(this)[ArticleViewModel::class.java]
+        mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         articleVM.loadArticle(arguments?.getString(ArticlesFragment.ARTICLE_ID))
         setObservers()
     }
@@ -75,17 +78,23 @@ class ArticleFragment : BaseFragment() {
     }
 
     private fun onArticleChanged(article: Article?) {
-        if(article == null) {
+        if (article == null) {
             createSnackbar(
                 anchorView = binding.root,
                 text = getString(R.string.cantFindArticle),
                 onButtonClicked = { findNavController().popBackStack() }
             ).show()
         } else {
+            val onActionLiked = { id: String, isLiked: Boolean ->
+                mainVM.setArticleLiked(id, isLiked)
+            }
             binding.recyclerView.apply {
                 val contentAdapter = ArticleContentAdapter(
                     articleVM = articleVM,
-                    isLiked = article.isLiked
+                    isLiked = article.isLiked,
+                    mainVM = mainVM,
+                    itemId = arguments?.getString(ArticlesFragment.ARTICLE_ID),
+                    setLiked = onActionLiked
                 )
                 adapter = contentAdapter
                 contentAdapter.submitList(article.toArticleContent())
@@ -115,6 +124,7 @@ class ArticleFragment : BaseFragment() {
     private fun initializeObservers() {
         loadingArticleEventObserver = DefaultNetworkEventObserver(
             binding.root,
+            doOnSuccess = { mainVM.setArticleViewed(arguments?.getString(ArticlesFragment.ARTICLE_ID)) },
             doOnError = { findNavController().popBackStack() },
             doOnFailure = { findNavController().popBackStack() }
         )

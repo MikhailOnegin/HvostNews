@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentFeedListBinding
+import ru.hvost.news.models.Article
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
@@ -43,7 +44,15 @@ class FeedListFragment : BaseFragment() {
 
     private fun setObservers() {
         mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
+//        mainVM.articles.observe(viewLifecycleOwner, { onArticlesChanged() })
     }
+
+//    private fun onArticlesChanged() {
+//        val current = (binding.list.adapter as ArticleAdapter).currentList
+//        if (current.isNullOrEmpty()) return
+//        (binding.list.adapter as ArticleAdapter).submitList(current.toMutableList())
+//        //yunusov: доделть коррекцию лайков и просмотров
+//    }
 
     private fun initializeObservers() {
         onArticlesLoadingEvent = DefaultNetworkEventObserver(
@@ -60,7 +69,10 @@ class FeedListFragment : BaseFragment() {
             requireActivity().findNavController(R.id.nav_host_fragment)
                 .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
         }
-        val adapter = ArticleAdapter(onActionClicked)
+        val onActionLiked = { id: String, isLiked: Boolean ->
+            mainVM.setArticleLiked(id, isLiked)
+        }
+        val adapter = ArticleAdapter(onActionClicked, onActionLiked)
         binding.list.adapter = adapter
         adapter.submitList(mainVM.articles.value)
     }

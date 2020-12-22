@@ -59,7 +59,10 @@ class NewsListFragment : BaseFragment() {
             requireActivity().findNavController(R.id.nav_host_fragment)
                 .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
         }
-        val adapter = ArticleAdapter(onActionClicked)
+        val onActionLiked = { id: String, isLiked: Boolean ->
+            mainVM.setArticleLiked(id, isLiked)
+        }
+        val adapter = ArticleAdapter(onActionClicked, onActionLiked)
         binding.list.adapter = adapter
         adapter.submitList(mainVM.allArticles.value?.filter { it.categoryTitle == "Новости" })
     }

@@ -28,13 +28,13 @@ class SubDomainFragment : BaseFragment() {
     private lateinit var mainVM: MainViewModel
     private lateinit var nav: NavController
     private lateinit var onAllArticlesLoadingEvent: DefaultNetworkEventObserver
-    private var domainId: Long = 0
+    private var domain: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        domainId = arguments?.getLong("DOMAIN_ID") ?: 0
+        domain = if (domain == null) arguments?.getLong("DOMAIN_ID") else domain
         binding = FragmentSubdomainBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -58,8 +58,8 @@ class SubDomainFragment : BaseFragment() {
     }
 
     private fun setData() {
-        setTabs(domainId)
-        setRecyclerView(domainId)
+        setTabs(domain)
+        setRecyclerView(domain)
     }
 
     private fun checkIsDataLoaded() {
@@ -122,6 +122,7 @@ class SubDomainFragment : BaseFragment() {
     }
 
     private fun setTabs(domainId: Long?) {
+        binding.categoryTabs.removeAllTabs()
         val categories =
             mainVM.categories?.filter { it.domain == domainId } ?: return
         for ((index, category) in categories.withIndex()) {
@@ -167,7 +168,7 @@ class SubDomainFragment : BaseFragment() {
     }
 
     private fun setTabsListener() {
-        binding.categoryTabs.addOnTabSelectedListener(OnTabSelected(binding, domainId, nav, mainVM))
+        binding.categoryTabs.addOnTabSelectedListener(OnTabSelected(binding, domain, nav, mainVM))
     }
 
     private class OnTabSelected(
@@ -210,30 +211,22 @@ class SubDomainFragment : BaseFragment() {
                     bundle
                 )
             }
-            val adapter = ArticleAdapter(onActionClicked)
+            val onActionLiked = { id: String, isLiked: Boolean ->
+                mainVM.setArticleLiked(id, isLiked)
+            }
+            val adapter = ArticleAdapter(onActionClicked, onActionLiked)
             binding.list.adapter = adapter
-            val originList = mainVM.allArticles.value ?: listOf()
-            adapter.submitList(
-                originList.filter { it.categoryId == tab?.tag.toString() }
-            )
+            val originList =
+                mainVM.allArticles.value?.filter { it.categoryId == tab?.tag.toString() }
+                    ?: listOf()
+            adapter.submitList(originList)
         }
     }
 
     private fun setRecyclerView(domainId: Long?) {
+        domain = domainId ?: domain
         val filteredList = mainVM.allArticles.value?.filter { it.domainId == domainId.toString() }
         binding.title.text = filteredList?.get(0)?.domainTitle
-        val onActionClicked = { id: String ->
-            val bundle = Bundle()
-            bundle.putString(ArticlesFragment.ARTICLE_ID, id)
-            bundle.putString("TYPE", "ALL")
-            nav.navigate(
-                R.id.action_subDomainFragment_to_articleDetailFragment,
-                bundle
-            )
-        }
-        val adapter = ArticleAdapter(onActionClicked)
-        binding.list.adapter = adapter
-        adapter.submitList(filteredList)
     }
 
     private fun setDecoration() {

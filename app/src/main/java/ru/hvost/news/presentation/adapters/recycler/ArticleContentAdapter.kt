@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import ru.hvost.news.App
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
@@ -23,13 +24,23 @@ import java.lang.IllegalArgumentException
 
 class ArticleContentAdapter(
     private val articleVM: ArticleViewModel,
-    var isLiked: Boolean
+    private val mainVM: MainViewModel,
+    var isLiked: Boolean,
+    var itemId: String?,
+    private val setLiked: (String, Boolean) -> Unit
 ) : ListAdapter<ArticleContent, RecyclerView.ViewHolder>(ArticleContentDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             TYPE_HEADER -> ArticleHeaderVH.getViewHolder(parent)
-            TYPE_FOOTER -> ArticleFooterVH.getViewHolder(parent, articleVM, this)
+            TYPE_FOOTER -> ArticleFooterVH.getViewHolder(
+                parent,
+                articleVM,
+                mainVM,
+                this,
+                itemId,
+                setLiked
+            )
             TYPE_TITLE -> ArticleTitleVH.getViewHolder(parent)
             TYPE_QUOTE -> ArticleQuoteVH.getViewHolder(parent)
             TYPE_IMAGE -> ArticleImageVH.getViewHolder(parent)
@@ -39,7 +50,7 @@ class ArticleContentAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(val item = getItem(position)) {
+        when (val item = getItem(position)) {
             is ArticleHeader -> (holder as ArticleHeaderVH).bind(item)
             is ArticleFooter -> (holder as ArticleFooterVH).bind(item)
             is HtmlTitle -> (holder as ArticleTitleVH).bind(item)
@@ -50,7 +61,7 @@ class ArticleContentAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(getItem(position)) {
+        return when (getItem(position)) {
             is ArticleHeader -> TYPE_HEADER
             is ArticleFooter -> TYPE_FOOTER
             is HtmlTitle -> TYPE_TITLE
@@ -102,7 +113,7 @@ class ArticleContentAdapter(
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup) : ArticleHeaderVH {
+            fun getViewHolder(parent: ViewGroup): ArticleHeaderVH {
                 val binding = RvArticleHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -118,7 +129,10 @@ class ArticleContentAdapter(
     class ArticleFooterVH(
         private val binding: RvArticleFooterBinding,
         private val articleVM: ArticleViewModel,
-        private val adapter: ArticleContentAdapter
+        private val adapter: ArticleContentAdapter,
+        private val itemId: String?,
+        private val setLiked: (String, Boolean) -> Unit,
+        private val mainVM: MainViewModel
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(footer: ArticleFooter) {
@@ -127,15 +141,22 @@ class ArticleContentAdapter(
                 buttonShare.setOnClickListener {
                     articleVM.sendShareArticleEvent(footer.shareLink)
                 }
+                if (adapter.isLiked) {
+                    (buttonLike as MaterialButton).setIconResource(R.drawable.ic_like_checked)
+                    buttonLike.iconTint = ColorStateList.valueOf(Color.parseColor("#FF0000"))
+                }
                 buttonLike.setOnClickListener {
                     adapter.isLiked = !adapter.isLiked
-                    if(adapter.isLiked){
+                    if (!itemId.isNullOrEmpty()) setLiked(itemId, adapter.isLiked)
+                    if (adapter.isLiked) {
+                        changeCount(true)
                         (buttonLike as MaterialButton).apply {
                             setIconResource(R.drawable.ic_like_checked)
                             iconTint = ColorStateList.valueOf(Color.parseColor("#FF0000"))
                             text = moneyFormat.format(footer.likesCount + 1)
                         }
                     } else {
+                        changeCount(false)
                         (buttonLike as MaterialButton).apply {
                             setIconResource(R.drawable.ic_like_unchecked)
                             iconTint = ColorStateList.valueOf(Color.parseColor("#7D82AF"))
@@ -147,19 +168,26 @@ class ArticleContentAdapter(
             }
         }
 
+        private fun changeCount(plus: Boolean) {
+//            mainVM.articles.value?.firstOrNull { it.id == itemId?.toLong() }?.likesCount?.plus(if (plus) 1 else -1)
+        }
+
         companion object {
 
             fun getViewHolder(
                 parent: ViewGroup,
                 articleVM: ArticleViewModel,
-                adapter: ArticleContentAdapter
-            ) : ArticleFooterVH {
+                mainVM: MainViewModel,
+                adapter: ArticleContentAdapter,
+                itemId: String?,
+                setLiked: (String, Boolean) -> Unit
+            ): ArticleFooterVH {
                 val binding = RvArticleFooterBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return ArticleFooterVH(binding, articleVM, adapter)
+                return ArticleFooterVH(binding, articleVM, adapter, itemId, setLiked, mainVM)
             }
 
         }
@@ -176,7 +204,7 @@ class ArticleContentAdapter(
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup) : ArticleTitleVH {
+            fun getViewHolder(parent: ViewGroup): ArticleTitleVH {
                 val binding = RvArticleTitleBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -199,7 +227,7 @@ class ArticleContentAdapter(
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup) : ArticleQuoteVH {
+            fun getViewHolder(parent: ViewGroup): ArticleQuoteVH {
                 val binding = RvArticleQuoteBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -230,7 +258,7 @@ class ArticleContentAdapter(
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup) : ArticleImageVH {
+            fun getViewHolder(parent: ViewGroup): ArticleImageVH {
                 val binding = RvArticleImageBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -253,7 +281,7 @@ class ArticleContentAdapter(
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup) : ArticleTextVH {
+            fun getViewHolder(parent: ViewGroup): ArticleTextVH {
                 val binding = RvArticleTextBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,

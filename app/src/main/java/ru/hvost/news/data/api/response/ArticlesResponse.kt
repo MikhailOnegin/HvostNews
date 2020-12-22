@@ -20,6 +20,7 @@ data class ArticlesResponse(
         val viewsCount: Int?,
         val articleUrl: String?,
         val likesCount: Int?,
-        val content: String?
+        val content: String?,
+        val isLiked: Boolean?
     )
 }

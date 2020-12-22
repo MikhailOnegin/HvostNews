@@ -18,9 +18,10 @@
             style="@style/Toolbar"
             android:background="@drawable/background_toolbar"
             android:theme="@style/AppTheme.Toolbar"
+            app:navigationIcon="@drawable/ic_back"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_back"/>
+            android:layout_height="wrap_content"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
