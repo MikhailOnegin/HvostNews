@@ -445,4 +445,15 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/gray1</item>
     </style>
+
+    <style name="PartnersPageTextView">
+        <item name="android:textSize">@dimen/partnerDescriptionTextSize</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
+
+    <style name="PartnersPageTextView.Title">
+        <item name="android:textColor">@color/gray4</item>
+    </style>
+
 </resources>

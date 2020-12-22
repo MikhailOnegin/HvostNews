@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootCoordinator"
     android:background="@android:color/white"
     android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
+            android:theme="@style/AppTheme.Toolbar"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/partnersPageTitle"
             app:layout_scrollFlags="scroll|enterAlways|snap"
@@ -42,6 +44,158 @@
                 android:layout_marginTop="@dimen/largeMargin"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/name"
+                tools:text="Бетховен"
+                android:textSize="@dimen/partnerNameTextSize"
+                android:textColor="@color/TextColorPrimary"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/mapView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/favourite"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <ImageView
+                android:id="@+id/favourite"
+                android:src="@drawable/ic_heart"
+                android:contentDescription="@string/likeCD"
+                android:layout_width="@dimen/mapsFavouriteIconSize"
+                android:layout_height="@dimen/mapsFavouriteIconSize"
+                app:layout_constraintTop_toTopOf="@id/name"
+                app:layout_constraintBottom_toBottomOf="@id/name"
+                app:layout_constraintStart_toEndOf="@id/name"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/description"
+                tools:text="Зоомагазин, ветеренарная атпека"
+                android:textSize="@dimen/partnerDescriptionTextSize"
+                android:textColor="@color/gray3"
+                android:fontFamily="@font/gilroy_semibold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/descriptionTitle"
+                android:text="@string/mapsPartnerDescriptionTitle"
+                android:textSize="@dimen/partnerDescriptionTextSize"
+                android:textColor="@color/TextColorPrimary"
+                android:fontFamily="@font/gilroy_bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                android:layout_marginTop="@dimen/xLargeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray4"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTitle"
+                android:layout_marginTop="@dimen/normalMargin"/>
+
+            <TextView
+                android:id="@+id/addressTitle"
+                style="@style/PartnersPageTextView.Title"
+                android:text="@string/mapsPartnerAddressTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/address"
+                style="@style/PartnersPageTextView"
+                tools:text="г. Москва, ул. Ленина, 27"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/addressTitle"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/regimeTitle"
+                android:text="@string/mapsPartnerRegimeTitle"
+                style="@style/PartnersPageTextView.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/address"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/regime"
+                tools:text="Пн - Пт: 09:00 - 21:00\nСб - Вс: 10:00 - 20:00"
+                style="@style/PartnersPageTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/regimeTitle"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/phonesTitle"
+                android:text="@string/mapsPartnerPhonesTitle"
+                style="@style/PartnersPageTextView.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/regime"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <LinearLayout
+                android:id="@+id/phones"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/phonesTitle"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/normalMargin"
+                android:layout_marginEnd="@dimen/normalMargin"/>
+
+            <TextView
+                android:id="@+id/websiteTitle"
+                android:text="@string/mapsPartnerWebsiteTitle"
+                style="@style/PartnersPageTextView.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/phones"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"/>
+
+            <TextView
+                android:id="@+id/website"
+                android:autoLink="web"
+                android:textColorLink="@color/colorPrimary"
+                tools:text="http://bethovkin.ru"
+                style="@style/PartnersPageTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/websiteTitle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:layout_marginBottom="@dimen/largeMargin"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

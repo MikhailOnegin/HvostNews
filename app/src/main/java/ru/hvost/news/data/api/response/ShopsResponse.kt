@@ -13,7 +13,7 @@ data class ShopsResponse(
         val shortDescription: String?,
         val address: String?,
         val regime: String?,
-        //val phone: List<String>?, //sergeev: Вернуть после исправления ошибки на бэке.
+        val phone: List<String>?,
         val website: String?
     )
 
