@@ -421,4 +421,5 @@
     <string name="promocodeOverrideWarningTitle">Активировать новый промокод?</string>
     <string name="buttonYes">Да</string>
     <string name="buttonNo">Нет</string>
+    <string name="partnersPageTitle">Страница партнера</string>
 </resources>

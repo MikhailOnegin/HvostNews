@@ -28,35 +28,45 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/title"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normalMargin"
-        android:layout_marginBottom="@dimen/smallMargin"
-        android:fontFamily="@font/gilroy_bold"
-        android:lineSpacingMultiplier="1.15"
-        android:text="@string/stub"
-        android:textColor="@color/gray1"
-        android:textSize="@dimen/articleTitleTextSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/imgContainer">
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/smallMargin"
-        android:layout_marginBottom="@dimen/normalMargin"
-        android:fontFamily="@font/gilroy_semibold"
-        android:lineSpacingMultiplier="1.25"
-        android:text="@string/stub"
-        android:textColor="@color/gray2"
-        android:textSize="@dimen/articleDescriptionTextSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:layout_marginBottom="@dimen/smallMargin"
+            android:fontFamily="@font/gilroy_bold"
+            android:lineSpacingMultiplier="1.15"
+            android:text="@string/stub"
+            android:textColor="@color/gray1"
+            android:textSize="@dimen/articleTitleTextSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:layout_marginBottom="@dimen/normalMargin"
+            android:fontFamily="@font/gilroy_semibold"
+            android:lineSpacingMultiplier="1.25"
+            android:text="@string/stub"
+            android:textColor="@color/gray2"
+            android:textSize="@dimen/articleDescriptionTextSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/domain"
@@ -72,8 +82,8 @@
         android:text="@string/stub"
         android:textColor="@color/gray2"
         android:textSize="@dimen/articleChipsTextSize"
-        app:layout_constraintStart_toStartOf="@id/description"
-        app:layout_constraintTop_toBottomOf="@id/description"
+        app:layout_constraintStart_toStartOf="@id/container"
+        app:layout_constraintTop_toBottomOf="@id/container"
         tools:text="Котята" />
 
     <TextView

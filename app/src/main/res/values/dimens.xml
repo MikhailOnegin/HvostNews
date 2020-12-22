@@ -192,4 +192,5 @@
     <dimen name="submitDialogTitleTextSize">20sp</dimen>
     <dimen name="submitDialogMessageTextSize">18sp</dimen>
     <dimen name="dialogButtonHeight">60dp</dimen>
+    <dimen name="mapViewHeight">200dp</dimen>
 </resources>

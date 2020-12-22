@@ -3,8 +3,6 @@ package ru.hvost.news.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.parseAsHtml
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.DiffUtil
@@ -16,11 +14,14 @@ import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
 
-class ArticleAdapter(private val onClick: (String) -> Unit) :
+class ArticleAdapter(
+    private val onClick: (String) -> Unit,
+    private val setLiked: (String, Boolean) -> Unit
+) :
     ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        return ArticleViewHolder.getArticleVH(parent, onClick)
+        return ArticleViewHolder.getArticleVH(parent, onClick, setLiked)
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
@@ -29,7 +30,8 @@ class ArticleAdapter(private val onClick: (String) -> Unit) :
 
     class ArticleViewHolder(
         private val binding: LayoutArticleItemBinding,
-        private val onClick: (String) -> Unit
+        private val onClick: (String) -> Unit,
+        private val setLiked: (String, Boolean) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(articleItem: Article) {
@@ -54,24 +56,45 @@ class ArticleAdapter(private val onClick: (String) -> Unit) :
                 binding.img.layoutParams = params
             }
             if (articleItem.isLiked) {
-                binding.likes.setCompoundDrawables(
-                    ContextCompat.getDrawable(binding.root.context, R.drawable.ic_like_checked),
-                    null,
-                    null,
-                    null
-                )
+                binding.likesIcon.setImageResource(R.drawable.ic_like_checked)
+            } else {
+                binding.likesIcon.setImageResource(R.drawable.ic_likes)
             }
-            binding.root.setOnClickListener { onClick.invoke(articleItem.articleId) }
+            binding.apply {
+                imgContainer.setOnClickListener { onClick.invoke(articleItem.articleId) }
+                container.setOnClickListener { onClick.invoke(articleItem.articleId) }
+                likesIcon.setOnClickListener {
+                    setLiked.invoke(articleItem.articleId, !articleItem.isLiked)
+                    changeLikeIcon(articleItem)
+                }
+            }
+        }
+
+        private fun changeLikeIcon(item: Article) {
+            item.isLiked = !item.isLiked
+            if (item.isLiked) {
+                binding.likesIcon.setImageResource(R.drawable.ic_like_checked)
+                binding.likes.text = binding.likes.text.toString().toInt().plus(1).toString()
+                item.likesCount = item.likesCount.plus(1)
+            } else {
+                binding.likesIcon.setImageResource(R.drawable.ic_likes)
+                binding.likes.text = binding.likes.text.toString().toInt().minus(1).toString()
+                item.likesCount = item.likesCount.minus(1)
+            }
         }
 
         companion object {
-            fun getArticleVH(parent: ViewGroup, onClick: (String) -> Unit): ArticleViewHolder {
+            fun getArticleVH(
+                parent: ViewGroup,
+                onClick: (String) -> Unit,
+                setLiked: (String, Boolean) -> Unit
+            ): ArticleViewHolder {
                 val binding = LayoutArticleItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return ArticleViewHolder(binding, onClick)
+                return ArticleViewHolder(binding, onClick, setLiked)
             }
         }
 

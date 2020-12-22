@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -41,7 +42,7 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         return when (viewType) {
             TYPE_CATEGORY -> CategoryItemViewHolder.getCategoryVH(parent, this, mainVM)
             TYPE_INTERESTS -> InterestViewHolder.getInterestVH(parent, this, mainVM)
-            TYPE_FOOTER -> FooterViewHolder.getFooterVH(parent, mainVM)
+            TYPE_FOOTER -> FooterViewHolder.getFooterVH(parent, this, mainVM)
             else -> throw IllegalArgumentException("Wrong voucher view holder type.")
         }
     }
@@ -95,12 +96,27 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
                 (adapter.fullList?.any { it is Interests && it.parentCategoryId == item.categoryId && it.state == CheckboxStates.SELECTED } == true && !item.sendParent)
             if (isChildSelected) item.state = CheckboxStates.INDETERMINATE
             binding.title.text = item.categoryName
+            if (item.isExpanded) binding.expand.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_button_expanded
+                )
+            )
+            else binding.expand.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_button_expand
+                )
+            )
             when (item.state) {
                 CheckboxStates.SELECTED -> binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_checked)
                 CheckboxStates.UNSELECTED -> binding.mainCheckbox.setImageResource(android.R.color.transparent)
                 CheckboxStates.INDETERMINATE -> binding.mainCheckbox.setImageResource(R.drawable.ic_checkbox_indeterminate)
             }
-            binding.mainCheckbox.setOnClickListener { changeState(item) }
+            binding.apply {
+                mainCheckbox.setOnClickListener { changeState(item) }
+                title.setOnClickListener { changeState(item) }
+            }
         }
 
         private fun changeState(item: InterestsCategory) {
@@ -143,9 +159,17 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
 
     class FooterViewHolder(
         private val binding: RvFilterFooterBinding,
+        private val adapter: ArticlesFilterAdapter,
         private val mainVM: MainViewModel
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
+            binding.show.isEnabled = !adapter.fullList?.filter {
+                when (it) {
+                    is InterestsCategory -> it.state == CheckboxStates.SELECTED
+                    is Interests -> it.state == CheckboxStates.SELECTED
+                    else -> false
+                }
+            }.isNullOrEmpty()
             binding.cancel.setOnClickListener {
                 mainVM.closeArticlesFilterCustomDialog.value = OneTimeEvent()
             }
@@ -157,6 +181,7 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         companion object {
             fun getFooterVH(
                 parent: ViewGroup,
+                adapter: ArticlesFilterAdapter,
                 mainVM: MainViewModel
             ): FooterViewHolder {
                 val binding = RvFilterFooterBinding.inflate(
@@ -164,7 +189,7 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
                     parent,
                     false
                 )
-                return FooterViewHolder(binding, mainVM)
+                return FooterViewHolder(binding, adapter, mainVM)
             }
         }
     }
@@ -202,7 +227,10 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
                 else -> binding.childCheckbox.setImageResource(android.R.color.transparent)
             }
             binding.title.text = item.interestName
-            binding.childCheckbox.setOnClickListener { changeState(item) }
+            binding.apply {
+                childCheckbox.setOnClickListener { changeState(item) }
+                title.setOnClickListener { changeState(item) }
+            }
         }
 
         private fun changeState(item: Interests) {
