@@ -19,6 +19,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
 import ru.hvost.news.presentation.fragments.articles.ArticleViewModel
+import ru.hvost.news.utils.events.OneTimeEvent
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
@@ -149,27 +150,31 @@ class ArticleContentAdapter(
                     adapter.isLiked = !adapter.isLiked
                     if (!itemId.isNullOrEmpty()) setLiked(itemId, adapter.isLiked)
                     if (adapter.isLiked) {
-                        changeCount(true)
+                        changeCount(footer, true)
                         (buttonLike as MaterialButton).apply {
                             setIconResource(R.drawable.ic_like_checked)
                             iconTint = ColorStateList.valueOf(Color.parseColor("#FF0000"))
-                            text = moneyFormat.format(footer.likesCount + 1)
+                            text = moneyFormat.format(footer.likesCount)
                         }
                     } else {
-                        changeCount(false)
+                        changeCount(footer, false)
                         (buttonLike as MaterialButton).apply {
                             setIconResource(R.drawable.ic_like_unchecked)
                             iconTint = ColorStateList.valueOf(Color.parseColor("#7D82AF"))
                             text = moneyFormat.format(footer.likesCount)
                         }
                     }
-                    //sergeev: Вызывать метод бэкенда для установки/снятия лайка.
                 }
             }
         }
 
-        private fun changeCount(plus: Boolean) {
-//            mainVM.articles.value?.firstOrNull { it.id == itemId?.toLong() }?.likesCount?.plus(if (plus) 1 else -1)
+        private fun changeCount(footer: ArticleFooter, plus: Boolean) {
+            mainVM.articles.value?.firstOrNull { it.articleId == itemId }?.apply {
+                likesCount = likesCount.plus(if (plus) 1 else -1)
+                isLiked = plus
+            }
+            footer.likesCount = footer.likesCount.plus(if (plus) 1 else -1)
+            mainVM.likedArticleList.value = mainVM.articles.value?.toMutableList()
         }
 
         companion object {
