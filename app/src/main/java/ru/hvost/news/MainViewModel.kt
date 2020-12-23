@@ -24,15 +24,18 @@ class MainViewModel : ViewModel() {
     val prizeCategoriesState = MutableLiveData<State>()
     val prizeCategoriesResponse = MutableLiveData<List<PrizeCategory>>()
 
-    val prizeToCartState = MutableLiveData<State>()
-    val prizeToCartResponse = MutableLiveData<PrizeToCartResponse>()
-
-    val prizesState = MutableLiveData<State>()
-    val prizesResponse = MutableLiveData<PrizesResponse>()
-    val prizes = MutableLiveData<List<Prize>>()
-
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
+
+    private val _prizesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val prizesLoadingEvent: LiveData<NetworkEvent<State>> = _prizesLoadingEvent
+    private val _prizes = MutableLiveData<List<Prize>>()
+    val prizes: LiveData<List<Prize>> = _prizes
+
+    private val _changeCartLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val changeCartLoadingEvent: LiveData<NetworkEvent<State>> = _changeCartLoadingEvent
+    private val _cartChange = MutableLiveData<PrizeToCartResponse>()
+    val cartChange: LiveData<PrizeToCartResponse> = _cartChange
 
     private val _interestsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val interestsLoadingEvent: LiveData<NetworkEvent<State>> = _interestsLoadingEvent
@@ -136,11 +139,9 @@ class MainViewModel : ViewModel() {
                     _bonusBalanceLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _bonusBalanceLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
-                    _bonusBalance.value = null
                 }
             } catch (exc: Exception) {
                 _bonusBalanceLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
-                _bonusBalance.value = null
             }
         }
     }
@@ -165,16 +166,18 @@ class MainViewModel : ViewModel() {
         id: String?
     ) {
         viewModelScope.launch {
-            prizeToCartState.value = State.LOADING
+            _changeCartLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response =
                     APIService.API.addPrizeToCartAsync(App.getInstance().userToken, id).await()
                 if (response.result == "success") {
-                    prizeToCartResponse.value = response
-                    prizeToCartState.value = State.SUCCESS
-                } else prizeToCartState.value = State.ERROR
+                    _cartChange.value = response
+                    _changeCartLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _changeCartLoadingEvent.value = NetworkEvent(State.ERROR)
+                }
             } catch (exc: Exception) {
-                prizeToCartState.value = State.FAILURE
+                _changeCartLoadingEvent.value = NetworkEvent(State.FAILURE)
             }
         }
     }
@@ -237,22 +240,21 @@ class MainViewModel : ViewModel() {
         prizeCategoryId: String
     ) {
         viewModelScope.launch {
-            prizesState.value = State.LOADING
+            _prizesLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response =
                     APIService.API.getPrizesAsync(App.getInstance().userToken, prizeCategoryId)
                         .await()
                 if (response.result == "success") {
-                    prizesResponse.value = response
-                    prizes.value = response.prizes?.toPrize()
-                    prizesState.value = State.SUCCESS
+                    _prizes.value = response.prizes?.toPrize()
+                    _prizesLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    prizes.value = listOf()
-                    prizesState.value = State.ERROR
+                    _prizes.value = listOf()
+                    _prizesLoadingEvent.value = NetworkEvent(State.ERROR)
                 }
             } catch (exc: Exception) {
-                prizes.value = listOf()
-                prizesState.value = State.FAILURE
+                _prizes.value = listOf()
+                _prizesLoadingEvent.value = NetworkEvent(State.FAILURE)
             }
         }
     }
@@ -292,11 +294,9 @@ class MainViewModel : ViewModel() {
                     _userDataLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _userDataLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
-                    _userData.value = null
                 }
             } catch (exc: Exception) {
                 _userDataLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
-                _userData.value = null
             }
         }
     }
@@ -525,11 +525,9 @@ class MainViewModel : ViewModel() {
                     _articleLikedLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _articleLikedLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
-                    _articleIsLiked.value = null
                 }
             } catch (exc: Exception) {
                 _articleLikedLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
-                _articleIsLiked.value = null
             }
         }
     }
@@ -610,11 +608,9 @@ class MainViewModel : ViewModel() {
                     _addPetEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _addPetEvent.value = NetworkEvent(State.ERROR, result.error)
-                    _addPetResponse.value = null
                 }
             } catch (exc: Exception) {
                 _addPetEvent.value = NetworkEvent(State.FAILURE, exc.toString())
-                _addPetResponse.value = null
             }
         }
     }

@@ -27,6 +27,7 @@ import ru.hvost.news.presentation.adapters.PrizeProductsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.moneyFormat
 
 class ChoicePrizeFragment : BaseFragment() {
@@ -34,6 +35,8 @@ class ChoicePrizeFragment : BaseFragment() {
     private lateinit var binding: FragmentChoicePrizeBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var cartVM: CartViewModel
+    private lateinit var onPrizesLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onCartChangeLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,18 +50,41 @@ class ChoicePrizeFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
+        initializeObservers()
         setListeners()
         setObservers()
     }
 
+    private fun initializeObservers() {
+        onPrizesLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = {
+                binding.title.text = mainVM.prizeCategoriesResponse.value?.filter {
+                    it.prizeCategoryId == arguments?.getString("PRIZE_ID")
+                }?.get(0)?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")
+                setRecyclerView()
+            }
+        )
+        onCartChangeLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = {
+                Toast.makeText(
+                    requireActivity(),
+                    getString(R.string.addedToCartSuccessfull),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
+    }
+
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
-//        binding.toolbar.setOnMenuItemClickListener (onMenuItemClicked)
+//        binding.cartCount.setOnClickListener { findNavController().navigate(R.id.action_choicePrizeFragment_to_cartFragment) }
     }
 
     private fun setObservers() {
-        mainVM.prizesState.observe(viewLifecycleOwner, { onPrizesChanged(it) })
-        mainVM.prizeToCartState.observe(viewLifecycleOwner, { onCartChanged(it) })
+        mainVM.prizesLoadingEvent.observe(viewLifecycleOwner, onPrizesLoadingEvent)
+        mainVM.changeCartLoadingEvent.observe(viewLifecycleOwner, onCartChangeLoadingEvent)
         cartVM.apply {
             productsCart.observe(viewLifecycleOwner) { onCartCountChanged(it) }
         }
@@ -67,34 +93,7 @@ class ChoicePrizeFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     private fun onCartCountChanged(cartItems: List<CartItem>?) {
         cartItems?.run {
-            binding.cartCount.text = "${if(this.isEmpty()) this.size else this.size - 1}"
-        }
-    }
-
-    private fun onCartChanged(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                Toast.makeText(
-                    requireActivity(),
-                    getString(R.string.addedToCartSuccessfull),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
-    }
-
-    private fun onPrizesChanged(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                binding.title.text = mainVM.prizeCategoriesResponse.value?.filter {
-                    it.prizeCategoryId == arguments?.getString("PRIZE_ID")
-                }?.get(0)?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")
-                setRecyclerView()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
+            binding.cartCount.text = "${if (this.isEmpty()) this.size else this.size - 1}"
         }
     }
 
@@ -114,8 +113,9 @@ class ChoicePrizeFragment : BaseFragment() {
         val productsAdapter = PrizeProductsAdapter()
         bottomSheetBinding.title.text = "Приз за " + prize.prizeCost + " баллов"
         bottomSheetBinding.products.adapter = productsAdapter
-        bottomSheetBinding.setOnClickListener {
+        bottomSheetBinding.toCart.setOnClickListener {
             mainVM.addPrizeToCart(prize.prizeId)
+            detailDialog.dismiss()
         }
         productsAdapter.submitList(prize.products)
         detailDialog.setContentView(bottomSheetBinding)

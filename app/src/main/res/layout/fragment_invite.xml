@@ -345,6 +345,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/inviteInstructions"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/buttonHeight"
                     android:gravity="center"

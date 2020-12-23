@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -82,6 +83,13 @@ class InviteFragment : Fragment() {
             findNavController().navigate(R.id.action_inviteFragment_to_prizesFragment)
         }
         binding.instructions.setOnClickListener { showInviteInstructions() }
+        binding.inviteInstructions.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(INSTRUCTIONS_LINK)
+            )
+            startActivity(intent)
+        }
     }
 
     private fun showInviteInstructions() {
@@ -148,5 +156,9 @@ class InviteFragment : Fragment() {
             State.FAILURE, State.ERROR -> {
             }
         }
+    }
+
+    companion object {
+        private const val INSTRUCTIONS_LINK = "https://hvost.news/upload/iblock/8f6/Konkurs-Priglasi-druga-KHvost.nyus-novyy-2020.pdf"
     }
 }

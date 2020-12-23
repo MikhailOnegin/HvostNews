@@ -22,11 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/xLargeMargin"
             android:layout_marginBottom="@dimen/normalMargin"
-            android:fontFamily="@font/gilroy_medium"
+            android:fontFamily="@font/gilroy_semibold"
             android:text="@string/stub"
             android:textColor="@color/gray1"
             android:textSize="@dimen/mainTitleTextSize"
-            android:textStyle="bold"
             app:layout_scrollFlags="scroll|snap|enterAlways" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -44,7 +43,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray4" />
+                android:background="@color/gray5" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/products"
@@ -55,7 +54,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <Button
-                style="@style/ElevatedButton"
+                android:id="@+id/toCart"
+                style="@style/UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
                 android:layout_marginBottom="@dimen/smallMargin"

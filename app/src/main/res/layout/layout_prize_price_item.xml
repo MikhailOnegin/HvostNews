@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background_prize_cost_item">
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_item_list"
+        android:layout_margin="5dp"
+        android:background="@drawable/background_prize_cost_item_list"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingVertical="@dimen/largeMargin">
