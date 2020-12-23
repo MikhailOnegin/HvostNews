@@ -11,8 +11,9 @@ data class Shop(
     val shortDescription: String,
     val address: String,
     val regime: String,
-    //val phone: List<String>, //sergeev: Вернуть после исправления ошибки на бэке.
-    val website: String
+    val phones: List<String>,
+    val website: String,
+    var isFavourite: Boolean = false
 ) {
 
     override fun toString(): String {
@@ -32,7 +33,8 @@ fun List<ShopsResponse.ShopResponse>?.toShops(): List<Shop> {
             shortDescription = shop.shortDescription.orEmpty(),
             address = shop.address.orEmpty(),
             regime = shop.regime.orEmpty(),
-            website = shop.website.orEmpty()
+            website = shop.website.orEmpty(),
+            phones = shop.phone.orEmpty()
         )
     }
 }

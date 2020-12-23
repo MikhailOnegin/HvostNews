@@ -422,4 +422,15 @@
     <string name="buttonYes">Да</string>
     <string name="buttonNo">Нет</string>
     <string name="partnersPageTitle">Страница партнера</string>
+    <string name="likeCD">Избранное</string>
+    <string name="mapsPartnerDescriptionTitle">Описание</string>
+    <string name="mapsPartnerAddressTitle">Адрес</string>
+    <string name="mapsPartnerRegimeTitle">Время работы</string>
+    <string name="mapsPartnerPhonesTitle">Телефон</string>
+    <string name="mapsPartnerWebsiteTitle">Сайт</string>
+    <string name="shopNotFound">Магазин не найден</string>
+    <string name="success">Успешно</string>
+    <string name="good">Хорошо</string>
+    <string name="no_required_attachments_fo_intent">Нет нужных приложений для открытия файла</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 </resources>

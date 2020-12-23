@@ -1,6 +1,7 @@
 package ru.hvost.news.models
 
 import ru.hvost.news.data.api.response.OnlineLessonsResponse
+import ru.hvost.news.utils.emptyImageUri
 import java.io.Serializable
 
 data class OnlineLessons(
@@ -11,12 +12,13 @@ data class OnlineLessons(
         val lessonId:String,
         val lessonTitle: String,
         val petAge: String,
-        val lessonNumber: Int,
+        val lessonNumber: String,
         val isFinished: Boolean,
         val videoUrl: String,
+        val imageVideoUrl: String,
         val testQuestion: String,
-        val answersList: List<Answer>
-    ): Serializable
+        val answerList: List<Answer>
+    )
 
     data class Answer(
         val answer: String,
@@ -41,11 +43,12 @@ fun List<OnlineLessonsResponse.OnlineLesson>?.toOnlineLessons(): List<OnlineLess
                     lessonId = onlineLessonResponse.lessonId?: "",
                     lessonTitle = onlineLessonResponse.lessonTitle ?: "",
                     petAge = onlineLessonResponse.petAge ?: "",
-                    lessonNumber = onlineLessonResponse.lessonNumber ?: 0,
+                    lessonNumber = onlineLessonResponse.lessonNumber ?: "",
                     isFinished = onlineLessonResponse.isFinished ?: false,
                     videoUrl = onlineLessonResponse.videoUrl ?: "",
+                    imageVideoUrl = onlineLessonResponse.imageVideoUrl ?: "",
                     testQuestion = onlineLessonResponse.testQuestion ?: "",
-                    answersList = onlineLessonResponse.answersList.toAnswers()
+                    answerList = onlineLessonResponse.answerList.toAnswers()
                 )
             )
         }

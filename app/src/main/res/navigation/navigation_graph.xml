@@ -183,7 +183,12 @@
         android:id="@+id/onlineLessonFragment"
         android:name="ru.hvost.news.presentation.fragments.school.LessonOnlineActiveFragment"
         android:label="Online lesson"
-        tools:layout="@layout/fragment_school_online_lesson_active" />
+        tools:layout="@layout/fragment_school_online_lesson_active" >
+        <action
+            android:id="@+id/action_onlineLessonFragment_toOnlineLessonFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit" />
+    </fragment>
 
     <fragment
         android:id="@+id/offlineEventFragment"
@@ -449,6 +454,10 @@
         android:name="ru.hvost.news.presentation.fragments.school.RegistrationFragment"
         android:label="Registration"
         tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_schoolOnlineActiveFragment"
+            app:destination="@+id/schoolOnlineActiveFragment"
+            />
     </fragment>
 
     <fragment

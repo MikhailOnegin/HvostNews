@@ -110,8 +110,10 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         fun bind(lesson: OnlineLessons.OnlineLesson) {
             tVNumber.text = lesson.lessonNumber.toString()
             tVTittle.text = lesson.lessonTitle
-            val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
-            tVAge.text = age
+            if(lesson.petAge.isNotBlank()){
+                val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
+                tVAge.text = age
+            }
             firstActiveLessonId?.run {
                 if (this == lesson.lessonId) {
                     iVGo.visibility = View.VISIBLE

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/phone"
+    style="@style/PartnersPageTextView"
+    tools:text="8 800 200 00 00"
+    android:paddingStart="@dimen/smallMargin"
+    android:paddingEnd="@dimen/smallMargin"
+    android:background="@drawable/selector_light_rect"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>

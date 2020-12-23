@@ -132,7 +132,7 @@ class MapFragment : BaseFragment() {
         binding.mapView.map.move(
             CameraPosition(
                 point,
-                18.0f,
+                14.0f,
                 0.0f,
                 0.0f
             ),

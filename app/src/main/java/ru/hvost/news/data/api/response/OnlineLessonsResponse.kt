@@ -8,12 +8,13 @@ data class OnlineLessonsResponse(
     data class OnlineLesson(
         val lessonId: String?,
         val lessonTitle: String?,
-        val petAge: String?,
-        val lessonNumber: Int?,
+        val lessonNumber: String?,
         val isFinished: Boolean?,
+        val petAge: String?,
         val videoUrl: String?,
+        val imageVideoUrl: String?,
         val testQuestion: String?,
-        val answersList: List<Answer>?
+        val answerList: List<Answer>?
     )
 
     data class Answer(

@@ -9,6 +9,7 @@ import ru.hvost.news.utils.enums.State
 
 class DefaultNetworkEventObserver(
     private val anchorView: View,
+    private val doOnLoading: (()->Unit)? = null,
     private val doOnSuccess: (()->Unit)? = null,
     private val doOnError: (()->Unit)? = null,
     private val doOnFailure: (()->Unit)? = null
@@ -19,6 +20,7 @@ class DefaultNetworkEventObserver(
             event.getContentIfNotHandled()?.run {
                 val context = App.getInstance()
                 when(this) {
+                    State.LOADING -> doOnLoading?.invoke()
                     State.SUCCESS -> doOnSuccess?.invoke()
                     State.ERROR -> {
                         createSnackbar(
@@ -36,7 +38,6 @@ class DefaultNetworkEventObserver(
                             doOnFailure
                         ).show()
                     }
-                    else -> {}
                 }
             }
         }

@@ -20,21 +20,13 @@
             android:id="@+id/toolbar_online_school"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Toolbar"
             android:background="@android:color/white"
             android:elevation="@dimen/barsElevation"
             android:theme="@style/AppTheme.Toolbar"
+            app:title="@string/online_lesson"
             app:layout_scrollFlags="scroll|snap"
-            app:navigationIcon="@drawable/ic_back">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/gilroy_semibold"
-                android:text="@string/online_lesson"
-                android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
-                android:textColor="@color/gray1" />
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:navigationIcon="@drawable/ic_back"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_1"
@@ -46,6 +38,7 @@
                 android:id="@+id/imageView_logo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:animateLayoutChanges="true"
                 android:contentDescription="@string/not_found"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="@+id/constraint_registration"
@@ -137,6 +130,7 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="16dp"
                 android:visibility="gone"
+                android:animateLayoutChanges="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include_lesson_numbers">

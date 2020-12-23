@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -58,6 +59,7 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
 
 
     inner class SchoolsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         private val clSchool = itemView.constraint_school
         private val ivSchool = itemView.imageView_school
         private val tvTitle = itemView.textView_title
@@ -67,10 +69,14 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
         fun bind(onlineSchool: OnlineSchools.OnlineSchool) {
             if (onlineSchool.title.isNotBlank()) tvTitle.text = onlineSchool.title
             if (onlineSchool.userRank.isNotBlank()) tvRank.text = onlineSchool.userRank
+
             Glide.with(itemView.context).load(baseUrl + onlineSchool.image)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(ivSchool)
             clSchool.setOnClickListener {
+                clickSchool?.onClick(onlineSchool.id.toString())
+            }
+            ivSchool.setOnClickListener {
                 clickSchool?.onClick(onlineSchool.id.toString())
             }
 

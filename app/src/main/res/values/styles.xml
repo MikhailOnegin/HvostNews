@@ -171,6 +171,11 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:popupBackground">@drawable/spinner_popup_background</item>
     </style>
+    <style name="EmptySpinner">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:popupBackground">@drawable/spinner_popup_background</item>
+        <item name="android:textColor">@color/gray4</item>
+    </style>
 
     <style name="SexTextView">
         <item name="android:textAppearance">@style/RegTextTextAppearance</item>
@@ -440,4 +445,15 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/gray1</item>
     </style>
+
+    <style name="PartnersPageTextView">
+        <item name="android:textSize">@dimen/partnerDescriptionTextSize</item>
+        <item name="android:textColor">@color/TextColorPrimary</item>
+        <item name="android:fontFamily">@font/gilroy_semibold</item>
+    </style>
+
+    <style name="PartnersPageTextView.Title">
+        <item name="android:textColor">@color/gray4</item>
+    </style>
+
 </resources>
