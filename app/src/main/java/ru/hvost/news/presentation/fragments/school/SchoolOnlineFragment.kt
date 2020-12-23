@@ -125,7 +125,6 @@ class SchoolOnlineFragment :  BaseFragment() {
         })
         schoolVM.onlineSchools.observe(owner, {
             schoolId?.run {
-                val d = ""
                 for (i in it.onlineSchools.indices) {
                     val onlineSchool = it.onlineSchools[i]
 
@@ -140,7 +139,7 @@ class SchoolOnlineFragment :  BaseFragment() {
                         val padding =
                             resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
                         containerNumbers.setPadding(0, 0, 0, padding)
-
+                        containerNumbers.removeAllViews()
                         for (q in onlineSchool.lessonsPassed.indices) {
                             val number = (q + 1).toString()
                             val isPassed = onlineSchool.lessonsPassed[q].isPassed

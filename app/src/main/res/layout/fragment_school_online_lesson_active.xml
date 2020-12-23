@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/imageView_vedeo"
                         android:layout_width="0dp"
                         android:layout_height="220dp"
                         android:contentDescription="@string/not_found"
@@ -78,9 +78,9 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="@string/not_found"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView_vedeo"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/imageView4"
+                        app:layout_constraintStart_toStartOf="@+id/imageView_vedeo"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_play2" />
 
@@ -134,13 +134,14 @@
 
             <Button
                 android:id="@+id/button_to_answer"
-                style="@style/ElevatedButton"
+                style="@style/UnelevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/btn_answer_online_lesson"
+                android:enabled="false"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:backgroundTint="@color/gray1"
                 android:fontFamily="@font/gilroy_bold"
                 android:paddingLeft="32dp"
                 android:paddingTop="24dp"
