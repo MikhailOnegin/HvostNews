@@ -429,4 +429,8 @@
     <string name="mapsPartnerPhonesTitle">Телефон</string>
     <string name="mapsPartnerWebsiteTitle">Сайт</string>
     <string name="shopNotFound">Магазин не найден</string>
+    <string name="success">Успешно</string>
+    <string name="good">Хорошо</string>
+    <string name="no_required_attachments_fo_intent">Нет нужных приложений для открытия файла</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 </resources>

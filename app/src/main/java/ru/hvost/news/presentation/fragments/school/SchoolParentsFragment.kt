@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,14 +43,15 @@ class SchoolParentsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        App.getInstance().userToken?.run {
+            Log.i("eeee", this)
+        }
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         binding.recyclerView.adapter = onlineSchoolsAdapter
         App.getInstance().userToken?.run {
             schoolVM.getOnlineSchools(this)
         }
         schoolVM.getOfflineCities()
-        binding.spinnerOfflineSeminars.setSelection(0, false)
-        binding.spinnerOnlineSchools.setSelection(0, false)
         binding.spinnerOfflineSeminars.adapter =
             SpinnerAdapter(requireContext(), "", arrayListOf(), CityOffline::name)
         binding.spinnerOnlineSchools.adapter =

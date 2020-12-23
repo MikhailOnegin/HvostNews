@@ -178,7 +178,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_next_lesson" />
+                app:layout_constraintTop_toBottomOf="@+id/button_to_answer" />
 
             <LinearLayout
                 android:id="@+id/linearLayout_answer_options"
@@ -189,28 +189,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_question" />
 
-            <Button
-                android:id="@+id/button_next_lesson"
-                style="@style/ElevatedButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:fontFamily="@font/gilroy_bold"
-                android:paddingLeft="32dp"
-                android:paddingTop="24dp"
-                android:paddingRight="32dp"
-                android:paddingBottom="24dp"
-                android:text="@string/next_lesson"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="17sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_to_answer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

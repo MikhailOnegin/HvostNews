@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,9 +32,11 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.response.PetsResponse
 import ru.hvost.news.databinding.FragmentRegistrationBinding
 import ru.hvost.news.models.CitiesOffline
+import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.dialogs.AddPetRegistrationDialog
+import ru.hvost.news.presentation.dialogs.SuccessRegistrationSeminarDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -44,6 +48,8 @@ class RegistrationFragment: BaseFragment() {
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var mainVM: MainViewModel
     private lateinit var loadPetsEvent:DefaultNetworkEventObserver
+    private lateinit var setParticipateEvent:DefaultNetworkEventObserver
+    private var onlineSchool:OnlineSchools.OnlineSchool? = null
     private var idSchool:String? = null
     private var pets: List<Pets>? = null
 
@@ -60,8 +66,10 @@ class RegistrationFragment: BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         mainVM.loadPetsData()
+        initializedEvents()
         setListeners()
         setObservers(this)
+
         binding.spinnerPets.setSelection(0, false)
         idSchool = arguments?.getString("schoolId")
         val text = resources.getString(R.string.accept_terms_of_agreement)
@@ -89,7 +97,35 @@ class RegistrationFragment: BaseFragment() {
         loadPetsEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
             doOnSuccess = {
+                mainVM.userPets.value?.run {
+                    if (this.isNotEmpty()) {
+                        binding.spinnerPets.isEnabled = true
+                        pets = this
+                        binding.spinnerPets.adapter =
+                            SpinnerAdapter(requireContext(), "", arrayListOf(), Pets::petName)
+                        val adapter = (binding.spinnerPets.adapter as SpinnerAdapter<Pets>)
+                        adapter.clear()
+                        (binding.spinnerPets.adapter as SpinnerAdapter<Pets>).addAll(this)
+                    }
+                }
             }
+        )
+        setParticipateEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnLoading = { binding.buttonCompleteRegistration.isEnabled = false },
+            doOnSuccess = {
+                binding.buttonCompleteRegistration.isEnabled = false
+                onlineSchool?.run {
+                    schoolVM.successRegistration.value = true
+                    val bundle = Bundle()
+                    bundle.putString("title", title)
+                    bundle.putString("schoolId", id.toString())
+                    findNavController().navigate(R.id.action_registrationFragment_to_schoolOnlineActiveFragment, bundle)
+                }
+
+                          },
+            doOnError = { binding.buttonCompleteRegistration.isEnabled = true },
+            doOnFailure = { binding.buttonCompleteRegistration.isEnabled = true }
         )
     }
 
@@ -100,27 +136,18 @@ class RegistrationFragment: BaseFragment() {
                 for (i in it.onlineSchools.indices) {
                     val school = it.onlineSchools[i]
                     if (school.id.toString() == this) {
+                        onlineSchool = school
                         val head = "Регистрация на онлайн семинар \"${school.title}\""
                         binding.textViewHead.text = head
                     }
                 }
             }
         })
-        mainVM.userPets.observe(owner, {
-            if (it.isNotEmpty()) {
-                binding.spinnerPets.isEnabled = true
-                pets = it
-                binding.spinnerPets.adapter =
-                    SpinnerAdapter(requireContext(), "", arrayListOf(), Pets::petName)
-                val adapter = (binding.spinnerPets.adapter as SpinnerAdapter<Pets>)
-                adapter.clear()
-                (binding.spinnerPets.adapter as SpinnerAdapter<Pets>).addAll(it)
-            }
-
-        })
+        mainVM.userPetsLoadingEvent.observe(owner, loadPetsEvent)
         schoolVM.enabledRegister.observe(owner, {
             binding.buttonCompleteRegistration.isEnabled = it
         })
+        schoolVM.setParticipateEvent.observe(owner, setParticipateEvent)
     }
 
     @SuppressLint("UseCompatLoadingForColorStateLists")
@@ -136,7 +163,6 @@ class RegistrationFragment: BaseFragment() {
             )
         }
         binding.buttonCompleteRegistration.setOnClickListener {
-            if(binding.checkBox2.isChecked && binding.spinnerPets.size > 0 ){
                 var petId:String? = null
                     (binding.spinnerPets.adapter as SpinnerAdapter<Pets>).getItem(0)?.let {pets2 ->
                         pets?.let {
@@ -150,16 +176,11 @@ class RegistrationFragment: BaseFragment() {
                 }
                 App.getInstance().userToken?.let {userToken ->
                     idSchool?.let { idSchool ->
-
                         petId?.let {idPet ->
                             schoolVM.setParticipate(userToken, idSchool, idPet)
                         }
-
                     }
-
                 }
-                findNavController().popBackStack()
-            }
         }
         binding.checkBox2.setOnCheckedChangeListener { _, b ->
             schoolVM.enabledRegister.value = b && binding.spinnerPets.adapter is SpinnerAdapter<*> && binding.spinnerPets.size > 0
