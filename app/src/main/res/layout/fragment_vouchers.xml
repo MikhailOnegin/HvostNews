@@ -29,34 +29,34 @@
 
         <LinearLayout
             android:id="@+id/cartContainer"
-            android:background="@drawable/background_cart_layout"
-            android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/background_cart_layout"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:src="@drawable/ic_cart"
-                android:contentDescription="@string/cartIconCD"
                 android:layout_width="@dimen/icCartSize"
-                android:layout_height="@dimen/icCartSize"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/smallMargin"
                 android:layout_marginTop="@dimen/smallMargin"
-                android:layout_marginBottom="@dimen/smallMargin"/>
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:contentDescription="@string/cartIconCD"
+                android:src="@drawable/ic_cart" />
 
             <TextView
                 android:id="@+id/cartCount"
-                tools:text="14"
-                android:fontFamily="@font/gilroy_bold"
-                android:textSize="@dimen/cartLayoutTextSize"
-                android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/smallMargin"
-                android:layout_marginEnd="@dimen/largeMargin"/>
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:fontFamily="@font/gilroy_bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/cartLayoutTextSize"
+                tools:text="14" />
 
         </LinearLayout>
 

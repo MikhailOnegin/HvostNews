@@ -59,6 +59,7 @@
     <dimen name="iconBackgroundRadius">15dp</dimen>
     <dimen name="notificationButtonMargin">15dp</dimen>
     <dimen name="iconSize">40dp</dimen>
+    <dimen name="iconEditTextEndMargin">40dp</dimen>
     <dimen name="notification_count">30dp</dimen>
     <dimen name="profileTitleMargin">9dp</dimen>
     <dimen name="orderButtonPadding">25dp</dimen>
@@ -90,11 +91,12 @@
     <dimen name="emptyViewTextSize">26sp</dimen>
     <dimen name="cartItemTextSize">16sp</dimen>
     <dimen name="cartPrizeImageSize">80dp</dimen>
-    <dimen name="dialogTitleTextSize">24sp</dimen>
-    <dimen name="profileTitleMidTextSize">24sp</dimen>
+    <dimen name="dialogTitleTextSize">26sp</dimen>
+    <dimen name="profileTitleMidTextSize">26sp</dimen>
     <dimen name="profileSubtitleTextSize">16sp</dimen>
+    <dimen name="inviteSubtitleTextSize">18sp</dimen>
     <dimen name="profileSmallTextSize">16sp</dimen>
-    <dimen name="dialogSubtitleTextSize">16sp</dimen>
+    <dimen name="dialogSubtitleTextSize">18sp</dimen>
     <dimen name="balanceStrokeWidth">10dp</dimen>
     <dimen name="balanceTextSize">100sp</dimen>
     <dimen name="mainBalanceTextSize">120sp</dimen>
@@ -196,4 +198,5 @@
     <dimen name="partnerNameTextSize">32sp</dimen>
     <dimen name="mapsFavouriteIconSize">28dp</dimen>
     <dimen name="partnerDescriptionTextSize">16sp</dimen>
+    <dimen name="popupCornerRadius">25dp</dimen>
 </resources>

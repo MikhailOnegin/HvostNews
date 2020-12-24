@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragments.invite.InviteFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.fragments.invite.InviteFragment">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,14 +28,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray5"
+                    android:fontFamily="@font/gilroy_bold"
                     android:paddingHorizontal="@dimen/xLargeMargin"
-                    android:paddingTop="@dimen/largeMargin"
+                    android:paddingTop="@dimen/xLargeMargin"
                     android:paddingBottom="@dimen/largeMargin"
                     android:text="@string/inviteFriends"
                     android:textAlignment="center"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/mainTitleTextSize"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/mainTitleTextSize" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -78,8 +78,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="@dimen/normalMargin"
                                 android:layout_marginEnd="@dimen/normalMargin"
+                                android:fontFamily="@font/gilroy_regular"
                                 android:gravity="center_vertical"
-                                android:text="99"
+                                android:text="@string/numberStub"
                                 android:textColor="@color/gray5"
                                 android:textSize="@dimen/balanceTextSize"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -91,8 +92,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/normalMargin"
+                                android:fontFamily="@font/gilroy_regular"
                                 android:gravity="center"
-                                android:text="99"
+                                android:text="@string/numberStub"
                                 android:textColor="@color/gray1"
                                 android:textSize="@dimen/mainBalanceTextSize"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -106,8 +108,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/normalMargin"
                                 android:layout_marginTop="@dimen/normalMargin"
+                                android:fontFamily="@font/gilroy_regular"
                                 android:gravity="center_vertical"
-                                android:text="99"
+                                android:text="@string/numberStub"
                                 android:textColor="@color/gray5"
                                 android:textSize="@dimen/balanceTextSize"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -121,9 +124,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/largeMargin"
+                            android:fontFamily="@font/gilroy_semibold"
                             android:text="@string/balance"
                             android:textAlignment="center"
                             android:textAllCaps="true"
+                            android:textColor="@color/gray3"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -138,17 +143,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/normalMargin"
                         android:layout_marginBottom="@dimen/normalMargin"
-                        android:paddingHorizontal="@dimen/orderButtonPadding"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:paddingHorizontal="@dimen/xLargeMargin"
                         android:paddingVertical="@dimen/buttonPadding"
                         android:text="@string/instruction"
                         android:textAllCaps="false"
                         android:textColor="@color/gray1"
+                        android:textSize="@dimen/inviteSubtitleTextSize"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/mainBalanceInfo"
-                        app:strokeColor="@color/btnStroke"
-                        app:strokeWidth="3dp" />
+                        app:strokeColor="@color/gray4"
+                        app:strokeWidth="2dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -169,19 +176,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/largeMargin"
                         android:layout_marginBottom="@dimen/xSmallMargin"
+                        android:fontFamily="@font/gilroy_bold"
                         android:text="@string/throughSocials"
                         android:textAlignment="center"
                         android:textColor="@color/gray1"
-                        android:textSize="@dimen/profileTitleMidTextSize"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/profileTitleMidTextSize" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/gilroy_semibold"
                         android:text="@string/shareSocialsDescription"
                         android:textAlignment="center"
                         android:textColor="@color/gray3"
-                        android:textSize="@dimen/profileSubtitleTextSize" />
+                        android:textSize="@dimen/inviteSubtitleTextSize" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -232,29 +240,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/largeMargin"
                         android:layout_marginBottom="@dimen/xSmallMargin"
+                        android:fontFamily="@font/gilroy_bold"
                         android:text="@string/throughEmail"
                         android:textAlignment="center"
                         android:textColor="@color/gray1"
-                        android:textSize="@dimen/profileTitleMidTextSize"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/profileTitleMidTextSize" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/normalMargin"
+                        android:layout_marginBottom="@dimen/xLargeMargin"
+                        android:fontFamily="@font/gilroy_semibold"
                         android:text="@string/sendThroughEmail"
                         android:textAlignment="center"
                         android:textColor="@color/gray3"
-                        android:textSize="@dimen/profileSubtitleTextSize" />
+                        android:textSize="@dimen/inviteSubtitleTextSize" />
 
-                    <EditText
-                        android:id="@+id/mail"
-                        style="@style/EditText"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/ProfileTextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/smallMargin"
                         android:hint="@string/emailInputHint"
-                        android:textStyle="normal|bold" />
+                        app:hintTextColor="@color/gray4">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/mail"
+                            style="@style/TextInputEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/sendToEmail"
@@ -273,7 +289,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:layout_marginBottom="@dimen/largeMargin"
                     android:orientation="vertical"
                     android:padding="@dimen/screenContentPadding">
 
@@ -282,51 +298,63 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/largeMargin"
                         android:layout_marginBottom="@dimen/xSmallMargin"
+                        android:fontFamily="@font/gilroy_bold"
                         android:text="@string/throughRef"
                         android:textAlignment="center"
                         android:textColor="@color/gray1"
-                        android:textSize="@dimen/profileTitleMidTextSize"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/profileTitleMidTextSize" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/normalMargin"
+                        android:fontFamily="@font/gilroy_semibold"
                         android:text="@string/sendThroughRef"
                         android:textAlignment="center"
                         android:textColor="@color/gray3"
-                        android:textSize="@dimen/profileSubtitleTextSize" />
+                        android:textSize="@dimen/inviteSubtitleTextSize" />
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/link"
-                            style="@style/EditText"
-                            android:layout_width="0dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/linkContainer"
+                            style="@style/ProfileTextInputLayout"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="@dimen/normalMargin"
-                            android:layout_weight="1"
-                            android:text="@string/stub"
-                            android:textStyle="bold" />
+                            app:endIconDrawable="@drawable/ic_share"
+                            app:endIconMode="custom"
+                            app:endIconTint="@color/_2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/link"
+                                style="@style/TextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/stub" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                         <ImageView
                             android:id="@+id/copy"
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="@dimen/normalMargin"
-                            android:src="@drawable/ic_edit_copy" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginEnd="@dimen/iconEditTextEndMargin"
+                            android:layout_marginBottom="2dp"
+                            android:background="@android:color/white"
+                            android:paddingHorizontal="@dimen/smallMargin"
+                            android:src="@drawable/ic_edit_copy"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                            android:id="@+id/share"
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_edit_share" />
-
-                    </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
@@ -334,7 +362,7 @@
                     android:id="@+id/toPrizes"
                     style="@style/ElevatedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/ButtonHeight"
+                    android:layout_height="@dimen/buttonHeight"
                     android:layout_marginHorizontal="@dimen/screenContentPadding"
                     android:layout_marginBottom="@dimen/smallMargin"
                     android:backgroundTint="@color/_1"
@@ -348,12 +376,12 @@
                     android:id="@+id/inviteInstructions"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/buttonHeight"
+                    android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center"
                     android:padding="@dimen/screenContentPadding"
                     android:text="@string/rules"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/ButtonTextSize"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/ButtonTextSize" />
 
             </LinearLayout>
 
