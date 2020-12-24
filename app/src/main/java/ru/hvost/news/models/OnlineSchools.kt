@@ -15,7 +15,7 @@ data class OnlineSchools(
         val userRank: String,
         val description: String,
         val participate: Boolean,
-        val literatures: List<Literature>,
+        val literature: List<Literature>,
         val lessonsPassed: List<LessonPassed>,
         val wait :List<Wait>
     )
@@ -55,7 +55,7 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
                     userRank = schoolResponse.userRank ?: "",
                     description = schoolResponse.description ?: "",
                     participate = schoolResponse.participate ?: false,
-                    literatures = schoolResponse.literature.toLiteratures(),
+                    literature = schoolResponse.literature.toLiteratures(),
                     lessonsPassed = schoolResponse.lessonsPassed.toNotNull(),
                     wait = schoolResponse.wait.toWait()
 

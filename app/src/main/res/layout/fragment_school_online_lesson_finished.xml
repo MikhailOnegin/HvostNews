@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/imageView_vedeo"
                         android:layout_width="0dp"
                         android:layout_height="220dp"
                         android:scaleType="centerCrop"

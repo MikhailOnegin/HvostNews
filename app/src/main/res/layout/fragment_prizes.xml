@@ -1,102 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/window_background"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".presentation.fragments.invite.PrizesFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:theme="@style/AppTheme.Toolbar"
-        app:navigationIcon="@drawable/ic_back">
+        app:liftOnScroll="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/choosePrizes"
-            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
-            android:textColor="@color/gray1" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@android:color/transparent"
-            android:stateListAnimator="@null"
-            app:elevation="0dp"
-            app:layout_scrollFlags="scroll|snap|enterAlways"
-            app:liftOnScroll="false">
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_scrollFlags="scroll|snap"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/choosePrizes"
+            app:titleTextAppearance="@style/ToolbarTitleTextAppearanceLarge"
+            app:titleTextColor="@color/gray1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/profileCoverPadding"
+            android:paddingTop="@dimen/xLargeMargin"
+            app:layout_scrollFlags="scroll|snap|enterAlways">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/smallMargin"
-                android:orientation="vertical"
-                android:paddingHorizontal="@dimen/profileCoverPadding"
-                android:paddingTop="@dimen/xLargeMargin"
-                app:layout_scrollFlags="scroll">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/largeMargin"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/smallMargin"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:text="@string/balance"
-                        android:textColor="@color/gray1"
-                        android:textSize="@dimen/mainTitleTextSize" />
-
-                    <TextView
-                        android:id="@+id/balance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:textColor="@color/_1"
-                        android:textSize="@dimen/mainTitleTextSize" />
-
-                </LinearLayout>
+                android:layout_marginBottom="@dimen/largeMargin"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/normalMargin"
-                    android:fontFamily="@font/gilroy_semibold"
-                    android:text="@string/owner"
+                    android:layout_marginEnd="@dimen/smallMargin"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:text="@string/balance"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/prizesSubtitleTextSize" />
+                    android:textSize="@dimen/mainTitleTextSize" />
+
+                <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:textColor="@color/_1"
+                    android:textSize="@dimen/mainTitleTextSize" />
 
             </LinearLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/owner"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/prizesSubtitleTextSize" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/prizeList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="true"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/profileCoverPadding"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/prizeList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/profileCoverPadding"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!--</LinearLayout>-->
