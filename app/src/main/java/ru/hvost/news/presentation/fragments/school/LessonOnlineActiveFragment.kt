@@ -77,10 +77,10 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             for (i in lessons.indices) {
                                 val lesson = lessons[i]
                                 if (lesson.lessonId == lessonId) {
-                                    if (i < lessons.size - 2) {
+                                    if (i < lessons.size - 1) {
                                         schoolId?.let { schoolId ->
                                             val bundle = Bundle()
-                                            bundle.putString("lessonId", lessonId)
+                                            bundle.putString("lessonId", lesson.lessonId)
                                             bundle.putString("schoolId", schoolId)
                                             findNavController().navigate(
                                                 R.id.action_onlineLessonFragment_toOnlineLessonFragment,
@@ -90,7 +90,8 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     } else {
                                         Toast.makeText(
                                             requireContext(),
-                                            "Last lesson",
+                                            "It is last lesson\n" +
+                                                    "you finished",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -206,8 +207,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     view.constraint_literure.setOnClickListener {
                                         startIntent(requireContext(), literature[i].fileUrl)
                                     }
-                                    val margin =
-                                        resources.getDimension(R.dimen.marginLessonNumber).toInt()
+                                    val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
                                     (view.layoutParams as LinearLayout.LayoutParams).setMargins(
                                         0,
                                         margin,
@@ -234,7 +234,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-        binding.buttonToAnswer.setOnClickListener { buttonAnswer ->
+        binding.buttonToAnswer.setOnClickListener {
             for (i in buttons.indices) {
                 val button = buttons[i]
                 val isTrue = answers[button.text.toString()]
@@ -249,7 +249,6 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             button.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
                         }
                     }
-
                 }
             }
             App.getInstance().userToken?.let { userToken ->
