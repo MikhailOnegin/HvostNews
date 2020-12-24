@@ -145,21 +145,21 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
-                if (school.literatures.isNotEmpty()) {
+                if (school.literature.isNotEmpty()) {
 
                     val container = itemView.linearLayout_literature
                     container.removeAllViews()
-                    for (i in school.literatures.indices) {
+                    for (i in school.literature.indices) {
                         val view = LayoutLiteratureItemBinding.inflate(
                             LayoutInflater.from(itemView.context),
                             container,
                             false
                         ).root
 
-                        view.textView_title.text = school.literatures[i].title
-                        view.textView_pet.text = school.literatures[i].pet
+                        view.textView_title.text = school.literature[i].title
+                        view.textView_pet.text = school.literature[i].pet
                         view.constraint_literure.setOnClickListener {
-                            onClickLiterature?.onClick(school.literatures[i].fileUrl)
+                            onClickLiterature?.onClick(school.literature[i].fileUrl)
                         }
                         val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
                         (view.layoutParams as LinearLayout.LayoutParams).setMargins(
