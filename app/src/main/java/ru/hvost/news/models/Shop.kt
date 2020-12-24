@@ -48,31 +48,34 @@ class ShopProduct(
     val regime: String,
     val ingredients: String,
     val contraindications: String,
+    val composition: String,
     var isInCart: Boolean = false
 ) : ShopItem(id, categoryId)
 
-fun List<ProductsResponse.Product>.toShopProducts(
+fun List<ProductsResponse.Product>?.toShopProducts(
     categoryId: Long
 ): List<ShopProduct> {
+    if (this == null) return listOf()
     return map {
         ShopProduct(
             id = UniqueIdGenerator.nextId(),
             categoryId = categoryId,
             imageUri = getUriForBackendImagePath(it.imageUrl),
-            description = it.description ?: "",
+            description = it.description.orEmpty(),
             price = it.price ?: 0f,
             oldPrice = it.oldPrice ?: 0f,
-            article = it.article ?: "",
-            brand = it.brand ?: "",
-            manufacturer = it.manufacturer ?: "",
-            `class` = it.`class` ?: "",
-            productId = it.productId ?: "",
-            title = it.title ?: "",
-            weight = it.weight ?: "",
-            barcode = it.barcode ?: "",
-            regime = it.specialTemperatureRegime ?: "",
-            ingredients = it.ingredients ?: "",
-            contraindications = it.contraindications ?: "",
+            article = it.article.orEmpty(),
+            brand = it.brand.orEmpty(),
+            manufacturer = it.manufacturer.orEmpty(),
+            `class` = it.`class`.orEmpty(),
+            productId = it.productId.orEmpty(),
+            title = it.title.orEmpty(),
+            weight = it.weight.orEmpty(),
+            barcode = it.barcode.orEmpty(),
+            regime = it.specialTemperatureRegime.orEmpty(),
+            ingredients = it.ingredients.orEmpty(),
+            contraindications = it.contraindications.orEmpty(),
+            composition = it.composition.orEmpty(),
             isInCart = false
         )
     }

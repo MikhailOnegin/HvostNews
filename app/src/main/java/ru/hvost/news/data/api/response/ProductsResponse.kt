@@ -3,14 +3,24 @@ package ru.hvost.news.data.api.response
 data class ProductsResponse(
     val result: String?,
     val error: String?,
-    val products: List<Product>?
+    val domains: List<Domain>?
 ) {
 
-    data class Product(
-        val domain: String?,
+    data class Domain(
         val domainId: String?,
-        val category: String?,
+        val domainTitle: String?,
+        val domainDescription: String?,
+        val categories: List<Category>?
+    )
+
+    data class Category(
         val categoryId: String?,
+        val categoryTitle: String?,
+        val categoryDescription: String?,
+        val products: List<Product>?
+    )
+
+    data class Product(
         val productId: String?,
         val title: String?,
         val imageUrl: String?,
@@ -25,7 +35,8 @@ data class ProductsResponse(
         val specialTemperatureRegime: String?,
         val description: String?,
         val ingredients: String?,
-        val contraindications: String?
+        val contraindications: String?,
+        val composition: String?
     )
 
 }
