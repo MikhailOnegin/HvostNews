@@ -60,6 +60,12 @@ class LessonOnlineActiveFragment : BaseFragment() {
         initializedEvents()
         setListeners()
         setObservers(this)
+        App.getInstance().userToken?.let{userToken ->
+            schoolId?.let {schoolId ->
+                schoolVM.getOnlineLessons(userToken, schoolId)
+            }
+
+        }
     }
 
     private fun initializedEvents() {
@@ -75,12 +81,13 @@ class LessonOnlineActiveFragment : BaseFragment() {
                     lessons?.let { lessons ->
                         lessonId?.let { lessonId ->
                             for (i in lessons.indices) {
-                                val lesson = lessons[i]
-                                if (lesson.lessonId == lessonId) {
+
+                                if (lessons[i].lessonId == lessonId) {
                                     if (i < lessons.size - 1) {
+                                        val nextLesson = lessons[i+1]
                                         schoolId?.let { schoolId ->
                                             val bundle = Bundle()
-                                            bundle.putString("lessonId", lesson.lessonId)
+                                            bundle.putString("lessonId", nextLesson.lessonId)
                                             bundle.putString("schoolId", schoolId)
                                             findNavController().navigate(
                                                 R.id.action_onlineLessonFragment_toOnlineLessonFragment,
@@ -91,7 +98,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                         Toast.makeText(
                                             requireContext(),
                                             "It is last lesson\n" +
-                                                    "you finished",
+                                                    "you are finished",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
