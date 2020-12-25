@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.FragmentCouponBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
@@ -62,9 +63,9 @@ class CouponFragment : BaseFragment() {
                         if (coupon.couponId == couponId) {
                             binding.textViewCode1.text = coupon.qrCode
                             binding.textViewCode2.text = coupon.qrCode
-                            Glide.with(requireContext()).load(coupon.qrCodeUrl)
+                            Glide.with(requireContext()).load(baseUrl + coupon.imageQRCodeUrl)
                                 .placeholder(R.drawable.not_found)
-                                .into(binding.imageViewCoupon)
+                                .into( binding.imageViewCoupon)
                             binding.textViewCouponTitle.text = coupon.title
                             if (coupon.expirationDate.isBlank()) binding.textViewCouponActivity.text =
                                 resources.getString(R.string.not_found)

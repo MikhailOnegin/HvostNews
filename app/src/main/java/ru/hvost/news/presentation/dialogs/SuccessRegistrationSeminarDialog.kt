@@ -41,8 +41,8 @@ class SuccessRegistrationSeminarDialog( private val title:String ): BottomSheetD
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val description = "Регистрация прошла успешно, вы зарегисстрированы на этот семинар" +
-                "\" $title \""
+        val description = "Регистрация прошла успешно, вы зарегисстрированы на этот семинар " +
+                "\"$title \""
         binding.textViewDescription.text = description
         setListeners()
     }

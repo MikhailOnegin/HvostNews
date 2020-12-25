@@ -60,6 +60,12 @@ class LessonOnlineActiveFragment : BaseFragment() {
         initializedEvents()
         setListeners()
         setObservers(this)
+        App.getInstance().userToken?.let{userToken ->
+            schoolId?.let {schoolId ->
+                schoolVM.getOnlineLessons(userToken, schoolId)
+            }
+
+        }
     }
 
     private fun initializedEvents() {
@@ -75,12 +81,13 @@ class LessonOnlineActiveFragment : BaseFragment() {
                     lessons?.let { lessons ->
                         lessonId?.let { lessonId ->
                             for (i in lessons.indices) {
-                                val lesson = lessons[i]
-                                if (lesson.lessonId == lessonId) {
-                                    if (i < lessons.size - 2) {
+
+                                if (lessons[i].lessonId == lessonId) {
+                                    if (i < lessons.size - 1) {
+                                        val nextLesson = lessons[i+1]
                                         schoolId?.let { schoolId ->
                                             val bundle = Bundle()
-                                            bundle.putString("lessonId", lessonId)
+                                            bundle.putString("lessonId", nextLesson.lessonId)
                                             bundle.putString("schoolId", schoolId)
                                             findNavController().navigate(
                                                 R.id.action_onlineLessonFragment_toOnlineLessonFragment,
@@ -90,7 +97,8 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     } else {
                                         Toast.makeText(
                                             requireContext(),
-                                            "Last lesson",
+                                            "It is last lesson\n" +
+                                                    "you are finished",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
@@ -206,8 +214,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     view.constraint_literure.setOnClickListener {
                                         startIntent(requireContext(), literature[i].fileUrl)
                                     }
-                                    val margin =
-                                        resources.getDimension(R.dimen.marginLessonNumber).toInt()
+                                    val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
                                     (view.layoutParams as LinearLayout.LayoutParams).setMargins(
                                         0,
                                         margin,
@@ -234,7 +241,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-        binding.buttonToAnswer.setOnClickListener { buttonAnswer ->
+        binding.buttonToAnswer.setOnClickListener {
             for (i in buttons.indices) {
                 val button = buttons[i]
                 val isTrue = answers[button.text.toString()]
@@ -249,7 +256,6 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             button.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
                         }
                     }
-
                 }
             }
             App.getInstance().userToken?.let { userToken ->
