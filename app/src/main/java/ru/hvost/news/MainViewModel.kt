@@ -15,17 +15,21 @@ class MainViewModel : ViewModel() {
     val petDeleteState = MutableLiveData<State>()
     val petDeleteResponse = MutableLiveData<DeletePetResponse>()
 
-    val inviteLinkState = MutableLiveData<State>()
-    val inviteLinkResponse = MutableLiveData<InviteLinkResponse>()
-
-    val sendInviteState = MutableLiveData<State>()
-    val sendInviteResponse = MutableLiveData<SendToEmailResponse>()
-
     val prizeCategoriesState = MutableLiveData<State>()
     val prizeCategoriesResponse = MutableLiveData<List<PrizeCategory>>()
 
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
+
+    private val _inviteLinkLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val inviteLinkLoadingEvent: LiveData<NetworkEvent<State>> = _inviteLinkLoadingEvent
+    private val _inviteLink = MutableLiveData<InviteLinkResponse>()
+    val inviteLink: LiveData<InviteLinkResponse> = _inviteLink
+
+    private val _sendInviteLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val sendInviteLoadingEvent: LiveData<NetworkEvent<State>> = _sendInviteLoadingEvent
+    private val _sendInviteResponse = MutableLiveData<SendToEmailResponse>()
+    val sendInviteResponse: LiveData<SendToEmailResponse> = _sendInviteResponse
 
     private val _prizesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val prizesLoadingEvent: LiveData<NetworkEvent<State>> = _prizesLoadingEvent
@@ -184,16 +188,16 @@ class MainViewModel : ViewModel() {
 
     fun getInviteLink() {
         viewModelScope.launch {
-            inviteLinkState.value = State.LOADING
+            _inviteLinkLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response =
                     APIService.API.getInviteLinkAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
-                    inviteLinkResponse.value = response
-                    inviteLinkState.value = State.SUCCESS
-                } else inviteLinkState.value = State.ERROR
+                    _inviteLink.value = response
+                    _inviteLinkLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else _inviteLinkLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                inviteLinkState.value = State.FAILURE
+                _inviteLinkLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
@@ -202,17 +206,17 @@ class MainViewModel : ViewModel() {
         email: String?
     ) {
         viewModelScope.launch {
-            sendInviteState.value = State.LOADING
+            _sendInviteLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response =
                     APIService.API.sendInviteToEmailAsync(App.getInstance().userToken, email)
                         .await()
                 if (response.result == "success") {
-                    sendInviteResponse.value = response
-                    sendInviteState.value = State.SUCCESS
-                } else sendInviteState.value = State.ERROR
+                    _sendInviteResponse.value = response
+                    _sendInviteLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else _sendInviteLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
-                sendInviteState.value = State.FAILURE
+                _sendInviteLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }

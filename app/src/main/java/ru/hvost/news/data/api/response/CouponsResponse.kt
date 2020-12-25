@@ -17,7 +17,7 @@ data class CouponsResponse (
         val description: String?,
         val expirationDate: String?,
         val address: String?,
-        val qrCodeImageUrl: String?,
+        val imageQRCodeUrl: String?,
         val qrCode: String?
     ): Serializable
 }

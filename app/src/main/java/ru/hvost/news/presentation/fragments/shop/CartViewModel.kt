@@ -173,7 +173,7 @@ class CartViewModel : ViewModel() {
                 ).await()
                 if(response.result == "success") {
                     _productsLoadingEvent.value = NetworkEvent(State.SUCCESS)
-                    createShopItemsList(response.products)
+                    createShopItemsList(response.domains)
                 } else {
                     _productsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                 }
@@ -186,23 +186,25 @@ class CartViewModel : ViewModel() {
     private val _shopItems = MutableLiveData<List<ShopItem>>()
     val shopItems: LiveData<List<ShopItem>> = _shopItems
 
-    private fun createShopItemsList(responseList: List<ProductsResponse.Product>?) {
+    private fun createShopItemsList(
+        responseList: List<ProductsResponse.Domain>?,
+        domainId: String? = null,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = mutableListOf<ShopItem>()
-            val categories = responseList?.distinctBy { it.categoryId } ?: listOf()
-            val products = responseList ?: listOf()
-            for(category in categories) {
-                val categoryId = UniqueIdGenerator.nextId()
-                result.add(ShopCategory(
-                    id = categoryId,
-                    name = category.category ?: "",
-                    selectedProducts = 0,
-                    isExpanded = true
-                ))
-                result.addAll(
-                    products.filter { it.categoryId == category.categoryId }
-                        .toShopProducts(categoryId)
-                )
+            val domain = if (domainId == null) responseList?.firstOrNull()
+                else responseList?.firstOrNull{ it.domainId == domainId }
+            domain?.run {
+                for (category in categories.orEmpty()) {
+                    val categoryId = UniqueIdGenerator.nextId()
+                    result.add(ShopCategory(
+                        id = categoryId,
+                        name = category.categoryTitle.orEmpty(),
+                        selectedProducts = 0,
+                        isExpanded = true
+                    ))
+                    result.addAll(category.products.toShopProducts(categoryId))
+                }
             }
             _shopItems.postValue(uniteShopAndCart(result))
         }

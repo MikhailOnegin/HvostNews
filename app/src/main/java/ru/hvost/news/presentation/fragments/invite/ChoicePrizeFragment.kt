@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.layout_prize_products.view.*
+import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentChoicePrizeBinding
@@ -79,7 +80,7 @@ class ChoicePrizeFragment : BaseFragment() {
 
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
-//        binding.cartCount.setOnClickListener { findNavController().navigate(R.id.action_choicePrizeFragment_to_cartFragment) }
+        binding.cartCount.setOnClickListener { findNavController().navigate(R.id.action_choicePrizeFragment_to_cartFragment) }
     }
 
     private fun setObservers() {

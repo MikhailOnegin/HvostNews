@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.*
 import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.textView_number
@@ -39,7 +40,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
         for(i in lessons.indices){
             val firstActiveLesson = lessons[i]
-            if(!firstActiveLesson.isFinished){
+            if(!firstActiveLesson.isTestPassed){
                 this.firstActiveLessonId = firstActiveLesson.lessonId
                 break
             }
@@ -73,7 +74,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     override fun getItemViewType(position: Int): Int {
         return if (position >= onlineLessons.size) TYPE_USEFUL_LITERATURE
         else {
-            if(!onlineLessons[position].isFinished){
+            if(!onlineLessons[position].isTestPassed){
                 TYPE_LESSON_ACTIVE
             } else{
                 TYPE_LESSON_FINISHED
@@ -122,8 +123,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
             }
-
-
         }
     }
 
@@ -131,10 +130,12 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         private val tVNumber = itemView.textView_number_finished
         private val tVTitle = itemView.textView_title_finished
         private val constraint = itemView.constraintlessonFinished
+
         fun bind(lesson: OnlineLessons.OnlineLesson){
             tVNumber.text = lesson.lessonNumber.toString()
             tVTitle.text = lesson.lessonTitle
             constraint.setOnClickListener {
+                Toast.makeText(itemView.context, "sad", Toast.LENGTH_SHORT).show()
                 onClickLessonFinished?.onClick(lesson.lessonId)
             }
         }

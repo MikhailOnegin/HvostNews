@@ -186,6 +186,7 @@
         tools:layout="@layout/fragment_school_online_lesson_active" >
         <action
             android:id="@+id/action_onlineLessonFragment_toOnlineLessonFragment"
+            app:destination="@+id/onlineLessonFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit" />
     </fragment>

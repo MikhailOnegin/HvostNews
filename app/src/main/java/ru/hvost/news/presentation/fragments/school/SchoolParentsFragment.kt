@@ -43,9 +43,6 @@ class SchoolParentsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        App.getInstance().userToken?.run {
-            Log.i("eeee", this)
-        }
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         binding.recyclerView.adapter = onlineSchoolsAdapter
         App.getInstance().userToken?.run {
