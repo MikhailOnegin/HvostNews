@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +9,10 @@
     tools:context=".presentation.fragments.invite.popup.GetPrizesPopup">
 
     <LinearLayout
+        android:id="@+id/mainContainer"
         android:layout_width="@dimen/popupWidth"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@drawable/background_invite_popup"
         android:orientation="vertical"
         android:padding="@dimen/screenContentPadding"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,16 +30,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/smallMargin"
+            android:fontFamily="@font/gilroy_bold"
             android:text="@string/dialogGetPrizesTitle"
             android:textAlignment="center"
             android:textColor="@color/gray1"
-            android:textSize="@dimen/dialogTitleTextSize"
-            android:textStyle="bold" />
+            android:textSize="@dimen/dialogTitleTextSize" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normalMargin"
+            android:fontFamily="@font/gilroy_semibold"
             android:text="@string/dialogGetPrizesSubtitle"
             android:textAlignment="center"
             android:textColor="@color/gray3"
@@ -47,10 +48,40 @@
 
         <Button
             android:id="@+id/done"
+            style="@style/UnelevatedButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/buttonHeight"
-            android:text="@string/dialogGetPrizesButtonText"
-            android:textColor="@android:color/white" />
+            android:text="@string/dialogGetPrizesButtonText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/largeMargin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainContainer">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/smallMargin"
+            android:alpha="0.5"
+            android:src="@drawable/ic_tab_view_indicator" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/smallMargin"
+            android:alpha="0.5"
+            android:src="@drawable/ic_tab_view_indicator" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_tab_view_indicator" />
 
     </LinearLayout>
 

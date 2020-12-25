@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPrizesBinding
 import ru.hvost.news.presentation.adapters.PrizeCategoryAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
@@ -21,6 +23,7 @@ class PrizesFragment : BaseFragment() {
 
     private lateinit var binding: FragmentPrizesBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var cartVM: CartViewModel
     private lateinit var onBonusBalanceLoadingEvent: DefaultNetworkEventObserver
 
 
@@ -37,6 +40,8 @@ class PrizesFragment : BaseFragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS)
             binding.balance.text = mainVM.bonusBalance.value?.bonusBalance.toString()
+        cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
+        cartVM.updateCartAsync(App.getInstance().userToken)
         initializeObservers()
         setListeners()
         setObservers()

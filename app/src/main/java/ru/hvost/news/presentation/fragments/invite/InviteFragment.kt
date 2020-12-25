@@ -28,6 +28,8 @@ class InviteFragment : Fragment() {
     private lateinit var binding: FragmentInviteBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var onBonusBalanceLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onSendInviteLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onInviteLinkLoadingEvent: DefaultNetworkEventObserver
 
     override fun onStart() {
         setSystemUiVisibility()
@@ -55,10 +57,15 @@ class InviteFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) setBalance()
+        checkIsDataLoaded()
         initializeEventObservers()
         setObservers()
         setListeners()
+    }
+
+    private fun checkIsDataLoaded() {
+        if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) setBalance()
+        if (mainVM.inviteLinkLoadingEvent.value?.peekContent() == State.SUCCESS) setLink()
     }
 
     private fun initializeEventObservers() {
@@ -66,6 +73,24 @@ class InviteFragment : Fragment() {
             anchorView = binding.root,
             doOnSuccess = { setBalance() }
         )
+        onSendInviteLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = {
+                Toast.makeText(
+                    requireActivity(),
+                    getString(R.string.sendedSuccessfull),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        )
+        onInviteLinkLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { setLink() }
+        )
+    }
+
+    private fun setLink() {
+        binding.link.setText(mainVM.inviteLink.value?.inviteLink)
     }
 
     private fun setBalance() {
@@ -76,7 +101,7 @@ class InviteFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.share.setOnClickListener { shareRefLink() }
+        binding.linkContainer.setEndIconOnClickListener { shareRefLink() }
         binding.copy.setOnClickListener { copyRefLink() }
         binding.sendToEmail.setOnClickListener { sendToEmail() }
         binding.toPrizes.setOnClickListener {
@@ -106,7 +131,7 @@ class InviteFragment : Fragment() {
     private fun copyRefLink() {
         val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip: ClipData =
-            ClipData.newPlainText("simple text", mainVM.inviteLinkResponse.value?.inviteLink)
+            ClipData.newPlainText("simple text", mainVM.inviteLink.value?.inviteLink)
         clipboard.setPrimaryClip(clip)
         Toast.makeText(requireActivity(), getString(R.string.refLinkCopied), Toast.LENGTH_SHORT)
             .show()
@@ -116,14 +141,14 @@ class InviteFragment : Fragment() {
         val intent = Intent()
         intent.action = Intent.ACTION_SEND
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, mainVM.inviteLinkResponse.value?.inviteLink)
+        intent.putExtra(Intent.EXTRA_TEXT, mainVM.inviteLink.value?.inviteLink)
         startActivity(Intent.createChooser(intent, "Link to share: "))
     }
 
     private fun setObservers() {
         mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
-        mainVM.inviteLinkState.observe(viewLifecycleOwner, { onLinkChanged(it) })
-        mainVM.sendInviteState.observe(viewLifecycleOwner, { onInviteSended(it) })
+        mainVM.inviteLinkLoadingEvent.observe(viewLifecycleOwner, onInviteLinkLoadingEvent)
+        mainVM.sendInviteLoadingEvent.observe(viewLifecycleOwner, onSendInviteLoadingEvent)
         mainVM.closeInstructionsEvent.observe(
             viewLifecycleOwner,
             OneTimeEvent.Observer { onCloseInstructionsEvent() }
@@ -134,31 +159,8 @@ class InviteFragment : Fragment() {
         binding.instructionsContainer.visibility = View.GONE
     }
 
-    private fun onInviteSended(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                Toast.makeText(
-                    requireActivity(),
-                    getString(R.string.sendedSuccessfull),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
-    }
-
-    private fun onLinkChanged(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                binding.link.setText(mainVM.inviteLinkResponse.value?.inviteLink)
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
-    }
-
     companion object {
-        private const val INSTRUCTIONS_LINK = "https://hvost.news/upload/iblock/8f6/Konkurs-Priglasi-druga-KHvost.nyus-novyy-2020.pdf"
+        private const val INSTRUCTIONS_LINK =
+            "https://hvost.news/upload/iblock/8f6/Konkurs-Priglasi-druga-KHvost.nyus-novyy-2020.pdf"
     }
 }

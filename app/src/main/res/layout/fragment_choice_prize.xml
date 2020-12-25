@@ -18,16 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
             app:layout_scrollFlags="scroll|snap">
-
-            <!--yunusov: Починить Elevation-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
-                android:elevation="@dimen/barsElevation"
                 android:theme="@style/AppTheme.Toolbar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -38,17 +36,16 @@
                 app:titleTextAppearance="@style/ToolbarTitleTextAppearanceLarge"
                 app:titleTextColor="@color/gray1" />
 
-            <!--yunusov: Починить отображение корзины-->
-
             <TextView
                 android:id="@+id/cartCount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/normalMargin"
                 android:layout_marginEnd="@dimen/normalMargin"
                 android:drawablePadding="@dimen/xSmallMargin"
+                android:background="@drawable/ripple_round_button"
                 android:fontFamily="@font/gilroy_bold"
-                android:text="@string/stub"
+                android:text="@string/numberStub"
                 android:textColor="@color/_2"
                 android:textSize="@dimen/textViewWithDotTextSize"
                 app:drawableStartCompat="@drawable/ic_cart"
@@ -59,7 +56,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/profileCoverPadding"
             android:paddingTop="@dimen/xLargeMargin"
