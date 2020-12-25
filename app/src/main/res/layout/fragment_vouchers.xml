@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:elevation="@dimen/barsElevation"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:layout_scrollFlags="noScroll">
+        app:liftOnScroll="true">
 
-        <TextView
-            android:text="@string/shopEntranceTitle"
-            android:fontFamily="@font/gilroy_semibold"
-            android:textSize="22sp"
-            android:textColor="@color/TextColorPrimary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/cartContainer"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/largeMargin"/>
-
-        <LinearLayout
-            android:id="@+id/cartContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_cart_layout"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="@dimen/icCartSize"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/smallMargin"
-                android:layout_marginTop="@dimen/smallMargin"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:contentDescription="@string/cartIconCD"
-                android:src="@drawable/ic_cart" />
-
-            <TextView
-                android:id="@+id/cartCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/smallMargin"
-                android:layout_marginEnd="@dimen/largeMargin"
-                android:fontFamily="@font/gilroy_bold"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/cartLayoutTextSize"
-                tools:text="14" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:background="@android:color/white"
-            app:liftOnScroll="false"
-            android:stateListAnimator="@null"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@android:color/white"
+                android:elevation="@dimen/barsElevation"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_scrollFlags="scroll"
+                app:layout_collapseMode="pin">
+
+                <TextView
+                    android:text="@string/shopEntranceTitle"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:textSize="22sp"
+                    android:textColor="@color/TextColorPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cartContainer"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/largeMargin"/>
+
+                <LinearLayout
+                    android:id="@+id/cartContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_cart_layout"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/icCartSize"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/smallMargin"
+                        android:layout_marginTop="@dimen/smallMargin"
+                        android:layout_marginBottom="@dimen/smallMargin"
+                        android:contentDescription="@string/cartIconCD"
+                        android:src="@drawable/ic_cart" />
+
+                    <TextView
+                        android:id="@+id/cartCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/smallMargin"
+                        android:layout_marginEnd="@dimen/largeMargin"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/cartLayoutTextSize"
+                        tools:text="14" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Spinner
                 android:id="@+id/spinner"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/widgetsHeight"
-                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginTop="@dimen/toolbarHeight"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"
                 app:layout_scrollFlags="scroll|snap"/>
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

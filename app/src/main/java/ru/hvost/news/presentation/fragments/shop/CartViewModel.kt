@@ -162,22 +162,31 @@ class CartViewModel : ViewModel() {
 
     private val _productsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val productsLoadingEvent: LiveData<NetworkEvent<State>> = _productsLoadingEvent
+    private val _domains = MutableLiveData<List<ShopDomain>>()
+    val domains: LiveData<List<ShopDomain>> = _domains
+    private var responseDomains: List<ProductsResponse.Domain>? = null
 
     fun loadProducts(userToken: String?, voucherCode: String?) {
         viewModelScope.launch {
             _productsLoadingEvent.value = NetworkEvent(State.LOADING)
+            _domains.value = null
             try {
                 val response = APIService.API.getProductsAsync(
                     userToken = userToken,
                     voucherCode = voucherCode
                 ).await()
                 if(response.result == "success") {
+                    _domains.value = response.domains.toShopDomains()
+                    responseDomains = response.domains
                     _productsLoadingEvent.value = NetworkEvent(State.SUCCESS)
-                    createShopItemsList(response.domains)
                 } else {
+                    _domains.value = listOf()
+                    responseDomains = null
                     _productsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                 }
             } catch (exc: Exception) {
+                _domains.value = listOf()
+                responseDomains = null
                 _productsLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
@@ -186,14 +195,13 @@ class CartViewModel : ViewModel() {
     private val _shopItems = MutableLiveData<List<ShopItem>>()
     val shopItems: LiveData<List<ShopItem>> = _shopItems
 
-    private fun createShopItemsList(
-        responseList: List<ProductsResponse.Domain>?,
-        domainId: String? = null,
+    fun createShopItemsList(
+        domainId: String? = null
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = mutableListOf<ShopItem>()
-            val domain = if (domainId == null) responseList?.firstOrNull()
-                else responseList?.firstOrNull{ it.domainId == domainId }
+            val domain = if (domainId == null) responseDomains?.firstOrNull()
+                else responseDomains?.firstOrNull{ it.domainId == domainId }
             domain?.run {
                 for (category in categories.orEmpty()) {
                     val categoryId = UniqueIdGenerator.nextId()
@@ -227,6 +235,10 @@ class CartViewModel : ViewModel() {
             }
         }
         return items
+    }
+
+    fun clearShopItems() {
+        _shopItems.value = null
     }
 
     fun resetShop() {

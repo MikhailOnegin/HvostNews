@@ -199,4 +199,7 @@
     <dimen name="mapsFavouriteIconSize">28dp</dimen>
     <dimen name="partnerDescriptionTextSize">16sp</dimen>
     <dimen name="popupCornerRadius">25dp</dimen>
+    <dimen name="shopDomainsTitleTextSize">32sp</dimen>
+    <dimen name="shopDomainsImageHeight">250dp</dimen>
+    <dimen name="shopDomainsCategoryTextSize">24sp</dimen>
 </resources>

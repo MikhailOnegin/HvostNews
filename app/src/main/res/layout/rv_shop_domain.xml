@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLinearLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="UnusedAttribute">
+
+    <TextView
+        android:id="@+id/title"
+        android:fontFamily="@font/gilroy_bold"
+        android:textSize="@dimen/shopDomainsTitleTextSize"
+        android:textColor="@color/TextColorPrimary"
+        tools:text="Первый шаг для щенков"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginBottom="@dimen/largeMargin"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:foreground="@drawable/selector_light_rect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ru.hvost.news.presentation.customviews.RoundCornersImageView
+            android:id="@+id/image"
+            tools:src="@drawable/empty_image"
+            app:cornersRadius="@dimen/smallCorners"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shopDomainsImageHeight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/category"
+            android:fontFamily="@font/gilroy_semibold"
+            android:textSize="@dimen/shopDomainsCategoryTextSize"
+            android:textColor="@color/TextColorPrimary"
+            tools:text="Мелкие породы"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/image"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginEnd="@dimen/largeMargin"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -359,15 +359,15 @@
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
         <action
-            android:id="@+id/action_vouchersFragment_to_shopFragment"
-            app:destination="@id/shopFragment"
+            android:id="@+id/action_vouchersFragment_to_registerVoucherFragment"
+            app:destination="@id/registerVoucherFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
         <action
-            android:id="@+id/action_vouchersFragment_to_registerVoucherFragment"
-            app:destination="@id/registerVoucherFragment"
+            android:id="@+id/action_vouchersFragment_to_shopDomainsFragment"
+            app:destination="@id/shopDomainsFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
@@ -475,6 +475,27 @@
             app:popExitAnim="@anim/fragment_exit"
             app:popUpTo="@id/submitPhoneFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shopDomainsFragment"
+        android:name="ru.hvost.news.presentation.fragments.shop.ShopDomainsFragment"
+        android:label="ShopDomainsFragment"
+        tools:layout="@layout/fragment_shop_domains">
+        <action
+            android:id="@+id/action_shopDomainsFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+        <action
+            android:id="@+id/action_shopDomainsFragment_to_shopFragment"
+            app:destination="@id/shopFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
 </navigation>
