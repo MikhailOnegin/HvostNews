@@ -19,7 +19,6 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
 import ru.hvost.news.presentation.fragments.articles.ArticleViewModel
-import ru.hvost.news.utils.events.OneTimeEvent
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
@@ -173,8 +172,13 @@ class ArticleContentAdapter(
                 likesCount = likesCount.plus(if (plus) 1 else -1)
                 isLiked = plus
             }
-            footer.likesCount = footer.likesCount.plus(if (plus) 1 else -1)
+            mainVM.allArticles.value?.firstOrNull { it.articleId == itemId }?.apply {
+                likesCount = likesCount.plus(if (plus) 1 else -1)
+                isLiked = plus
+            }
             mainVM.likedArticleList.value = mainVM.articles.value?.toMutableList()
+            mainVM.likedAllArticles.value = mainVM.allArticles.value?.toMutableList()
+            footer.likesCount = footer.likesCount.plus(if (plus) 1 else -1)
         }
 
         companion object {

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentNewsListBinding
+import ru.hvost.news.models.Article
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
@@ -42,6 +43,12 @@ class NewsListFragment : BaseFragment() {
 
     private fun setObservers() {
         mainVM.allArticlesLoadingEvent.observe(viewLifecycleOwner, onAllArticlesLoadingEvent)
+        mainVM.likedAllArticles.observe(viewLifecycleOwner, { onAllArticlesChanged(it) })
+    }
+
+    private fun onAllArticlesChanged(list: List<Article>?) {
+        val adapter = (binding.list.adapter as ArticleAdapter)
+        adapter.submitList(list?.filter { it.categoryTitle == "Новости" })
     }
 
     private fun initializeObservers() {
