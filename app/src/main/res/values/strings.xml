@@ -155,6 +155,7 @@
     <string name="requiredField">Обязательно для заполнения</string>
     <string name="tooBigField">Слишком много символов</string>
     <string name="agreementRequired">Вы должны принять условия обработки персональных данных.</string>
+    <string name="ordersIsNull">У вас нет ни одного заказа.</string>
     <string name="registrationTitle">Регистрация</string>
     <string name="regStepUser">Ваши данные</string>
     <string name="regStepPet">Ваш питомец</string>
