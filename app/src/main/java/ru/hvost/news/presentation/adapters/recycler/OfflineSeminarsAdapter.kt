@@ -3,7 +3,6 @@ package ru.hvost.news.presentation.adapters.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
@@ -15,8 +14,8 @@ import java.util.*
 class OfflineSeminarsAdapter :
     RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
 
-    private var lessonsFull = arrayListOf<OfflineSeminars.OfflineLesson>()
-    private var lessons = arrayListOf<OfflineSeminars.OfflineLesson>()
+    private var lessonsFull = arrayListOf<OfflineSeminars.OfflineSeminar>()
+    private var lessons = arrayListOf<OfflineSeminars.OfflineSeminar>()
     private var showFinished = true
     var onClickLesson:OnClickOfflineLesson? = null
 
@@ -24,7 +23,7 @@ class OfflineSeminarsAdapter :
         fun onClick(lessonId:String)
     }
 
-    fun setSeminars(seminars: List<OfflineSeminars.OfflineLesson>) {
+    fun setSeminars(seminars: List<OfflineSeminars.OfflineSeminar>) {
         this.lessonsFull = seminars.toCollection(ArrayList())
         this.lessons = seminars.toCollection(ArrayList())
         notifyDataSetChanged()
@@ -60,24 +59,23 @@ class OfflineSeminarsAdapter :
         private val tVDate = itemView.textView_lesson_date
         private val tVCity = itemView.textView_lesson_city
 
-        fun bind(lesson: OfflineSeminars.OfflineLesson) {
-            Glide.with(itemView.context).load(baseUrl + lesson.imageUrl)
+        fun bind(seminar: OfflineSeminars.OfflineSeminar) {
+            Glide.with(itemView.context).load(baseUrl + seminar.imageUrl)
                 .placeholder(R.drawable.not_found).centerCrop().into(iVLesson)
-            if (lesson.isFinished) {
+            if (seminar.isFinished) {
                 tVStatus.text = "Завершено"
-                iVStatus.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_staus_false)
+                iVStatus.isSelected = false
             }
-            if (!lesson.isFinished) {
+            if (!seminar.isFinished) {
                 tVStatus.text = "Активно"
-
-                iVStatus.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_status_true)
+                iVStatus.isSelected = true
             }
-            tVTitle.text = lesson.title
-            tVDate.text = lesson.date
-            tVCity.text = lesson.city
+            tVTitle.text = seminar.title
+            tVDate.text = seminar.date
+            tVCity.text = seminar.city
 
             constraint.setOnClickListener {
-                onClickLesson?.onClick(lesson.id.toString())
+                onClickLesson?.onClick(seminar.id.toString())
             }
         }
     }

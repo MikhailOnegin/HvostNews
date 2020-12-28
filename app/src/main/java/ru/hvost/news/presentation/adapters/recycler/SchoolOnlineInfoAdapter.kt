@@ -13,11 +13,11 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online_info.view.*
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
-import kotlinx.android.synthetic.main.layout_what_wait.view.*
+import kotlinx.android.synthetic.main.layout_what_wait_school_online.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
-import ru.hvost.news.databinding.LayoutWhatWaitBinding
+import ru.hvost.news.databinding.LayoutWhatWaitSchoolOnlineBinding
 import ru.hvost.news.models.OnlineSchools
 
 class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -72,7 +72,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 val containerWait = itemView.gridLayout
                 containerWait.removeAllViews()
                 for (i in school.wait.indices) {
-                    val viewWait = LayoutWhatWaitBinding.inflate(
+                    val viewWait = LayoutWhatWaitSchoolOnlineBinding.inflate(
                         LayoutInflater.from(itemView.context),
                         containerWait,
                         false

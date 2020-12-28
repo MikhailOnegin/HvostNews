@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.*
 import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.textView_number
@@ -90,7 +89,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         when (holder) {
             is LessonActiveViewHolder -> {
                 val lesson = onlineLessons[position]
-                holder.bind(lesson)
+                holder.bind(lesson, position)
             }
             is LessonFinishedViewHolder -> {
                 val lesson = onlineLessons[position]
@@ -108,14 +107,15 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         private val tVAge = itemView.textView_age
         private val iVGo = itemView.imageView_play
 
-        fun bind(lesson: OnlineLessons.OnlineLesson) {
-            tVNumber.text = lesson.lessonNumber.toString()
+        fun bind(lesson: OnlineLessons.OnlineLesson, position:Int) {
+            tVNumber.text = lesson.lessonNumber
             tVTittle.text = lesson.lessonTitle
             if(lesson.petAge.isNotBlank()){
                 val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
                 tVAge.text = age
             }
             firstActiveLessonId?.run {
+                val v = position
                 if (this == lesson.lessonId) {
                     iVGo.visibility = View.VISIBLE
                     constraint.setOnClickListener {
@@ -129,13 +129,12 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     inner class LessonFinishedViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
         private val tVNumber = itemView.textView_number_finished
         private val tVTitle = itemView.textView_title_finished
-        private val constraint = itemView.constraintlessonFinished
+        private val constraint = itemView.constraint_lesson_Finished
 
         fun bind(lesson: OnlineLessons.OnlineLesson){
-            tVNumber.text = lesson.lessonNumber.toString()
+            tVNumber.text = lesson.lessonNumber
             tVTitle.text = lesson.lessonTitle
             constraint.setOnClickListener {
-                Toast.makeText(itemView.context, "sad", Toast.LENGTH_SHORT).show()
                 onClickLessonFinished?.onClick(lesson.lessonId)
             }
         }
@@ -147,7 +146,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
                 if (school.literature.isNotEmpty()) {
-
                     val container = itemView.linearLayout_literature
                     container.removeAllViews()
                     for (i in school.literature.indices) {
