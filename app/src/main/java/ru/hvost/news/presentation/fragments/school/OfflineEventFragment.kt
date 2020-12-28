@@ -40,7 +40,7 @@ class OfflineEventFragment : BaseFragment() {
         setListeners()
         seminarId = arguments?.getString("seminarId")
         setObservers(this)
-        //binding.recyclerView.adapter = infoAdapter
+        binding.recyclerView.adapter = infoAdapter
     }
 
     private fun setObservers(owner: LifecycleOwner) {
@@ -115,14 +115,14 @@ class OfflineEventFragment : BaseFragment() {
         binding.constraintSeminarInfo.setOnClickListener {
             it.isSelected = true
             constraint_seminar_schedule.isSelected = false
-           // binding.recyclerView.adapter = infoAdapter
+           binding.recyclerView.adapter = infoAdapter
             binding.seminarInfo.setTextColor(colorWhite)
             binding.seminarSchedule.setTextColor(colorPrimary)
         }
         binding.constraintSeminarSchedule.setOnClickListener {
             it.isSelected = true
             constraint_seminar_info.isSelected = false
-           // binding.recyclerView.adapter = scheduleAdapter
+           binding.recyclerView.adapter = scheduleAdapter
             binding.seminarSchedule.setTextColor(colorWhite)
             binding.seminarInfo.setTextColor(colorPrimary)
         }

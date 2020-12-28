@@ -1,10 +1,10 @@
 package ru.hvost.news.presentation.fragments.invite
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
+import android.content.*
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -115,6 +115,56 @@ class InviteFragment : Fragment() {
             )
             startActivity(intent)
         }
+        setSocialsShare()
+    }
+
+    private fun setSocialsShare() {
+        binding.vk.setOnClickListener(onSelectTabButton)
+        binding.facebook.setOnClickListener(onSelectTabButton)
+        binding.ok.setOnClickListener(onSelectTabButton)
+    }
+
+    private val onSelectTabButton = { view: View ->
+        when (view.id) {
+            R.id.vk -> {
+                shareIntent("vk")
+            }
+            R.id.facebook -> {
+                shareIntent("facebook")
+            }
+            R.id.ok -> {
+                shareIntent("ok")
+            }
+            else -> {
+            }
+        }
+    }
+
+    private fun shareIntent(to: String) {
+        val intent = Intent()
+        intent.apply {
+            action = Intent.ACTION_SEND
+            intent.type = "text/plain"
+        }
+        val intentList = requireActivity().packageManager.queryIntentActivities(intent, 0)
+        if (intentList.isNullOrEmpty()) return
+
+        for (item in intentList) {
+            if (item.activityInfo.packageName.toLowerCase().contains(to)
+                || item.activityInfo.name.toLowerCase().contains(to)
+            ) {
+                if (to == "ok" && (item.activityInfo.packageName.toLowerCase()
+                        .contains("facebook") || item.activityInfo.name.toLowerCase().contains("facebook"))
+                ) continue
+                intent.component = ComponentName(
+                    item.activityInfo.packageName,
+                    item.activityInfo.name
+                )
+                intent.putExtra(Intent.EXTRA_TEXT, SOCIALS_SHARE_LINK)
+                break
+            }
+        }
+        startActivity(Intent.createChooser(intent, "Select"))
     }
 
     private fun showInviteInstructions() {
@@ -122,6 +172,20 @@ class InviteFragment : Fragment() {
             setGraph(R.navigation.navigation_popup_invite_info)
         }
         binding.instructionsContainer.visibility = View.VISIBLE
+        animateFadeDialog(true)
+    }
+
+    private fun animateFadeDialog(toFull: Boolean) {
+        val alpha = binding.instructionsContainer.alpha
+        val startValue = if (toFull) alpha else 1f
+        val endValue = if (toFull) 1f else 0f
+        val animator = ValueAnimator.ofFloat(startValue, endValue)
+        animator.duration = resources.getInteger(R.integer.filtersContainerAnimationTime).toLong()
+        animator.addUpdateListener {
+            binding.instructionsContainer.alpha = it.animatedValue as Float
+        }
+        if (!toFull) animator.addListener(OnDialogDismissAnimationListener())
+        animator.start()
     }
 
     private fun sendToEmail() {
@@ -156,10 +220,25 @@ class InviteFragment : Fragment() {
     }
 
     private fun onCloseInstructionsEvent() {
-        binding.instructionsContainer.visibility = View.GONE
+        animateFadeDialog(false)
+    }
+
+    inner class OnDialogDismissAnimationListener() : Animator.AnimatorListener {
+
+        override fun onAnimationStart(animation: Animator?) {}
+
+        override fun onAnimationEnd(animation: Animator?) {
+            binding.instructionsContainer.visibility = View.GONE
+        }
+
+        override fun onAnimationCancel(animation: Animator?) {}
+
+        override fun onAnimationRepeat(animation: Animator?) {}
+
     }
 
     companion object {
+        private const val SOCIALS_SHARE_LINK = "https://hvost.news/invite/"
         private const val INSTRUCTIONS_LINK =
             "https://hvost.news/upload/iblock/8f6/Konkurs-Priglasi-druga-KHvost.nyus-novyy-2020.pdf"
     }

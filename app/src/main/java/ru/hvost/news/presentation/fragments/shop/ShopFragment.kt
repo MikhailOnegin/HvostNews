@@ -47,6 +47,11 @@ class ShopFragment : BaseFragment() {
         setListeners()
     }
 
+    override fun onStop() {
+        super.onStop()
+        cartVM.clearShopItems()
+    }
+
     private fun setObservers() {
         cartVM.apply {
             shopItems.observe(viewLifecycleOwner) { onShopItemsChanged(it) }
@@ -92,12 +97,6 @@ class ShopFragment : BaseFragment() {
                 it.submitList(this, isAfterChanging = true)
             }
         }
-    }
-
-    companion object {
-
-        const val VOUCHER_CODE = "voucher_code"
-
     }
 
 }

@@ -64,11 +64,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_lesson_number">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_video"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imageView_vedeo"
+                        android:id="@+id/imageView_video"
                         android:layout_width="0dp"
                         android:layout_height="220dp"
                         android:scaleType="centerCrop"
@@ -78,6 +79,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/default_image" />
+                    <ImageView
+                        android:id="@+id/imageViewPlay"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="@string/not_found"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView_video"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView_video"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_play2" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

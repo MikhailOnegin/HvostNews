@@ -17,7 +17,7 @@ import ru.hvost.news.presentation.adapters.recycler.VouchersAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.shop.CartViewModel
-import ru.hvost.news.presentation.fragments.shop.ShopFragment
+import ru.hvost.news.presentation.fragments.shop.ShopDomainsFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
@@ -149,18 +149,15 @@ class VouchersFragment : BaseFragment() {
         }
     }
 
-    private val onGoToShopClicked = { voucherCode: String ->
+    private val onGoToShopClicked = { voucherCode: String, voucherProgram: String ->
         cartVM.resetShop()
         cartVM.loadProducts(
             App.getInstance().userToken,
             voucherCode
         )
         val bundle = Bundle()
-        bundle.putString(
-            ShopFragment.VOUCHER_CODE,
-            voucherCode
-        )
-        findNavController().navigate(R.id.action_vouchersFragment_to_shopFragment, bundle)
+        bundle.putString(ShopDomainsFragment.VOUCHER_PROGRAM, voucherProgram)
+        findNavController().navigate(R.id.action_vouchersFragment_to_shopDomainsFragment, bundle)
     }
 
 }

@@ -21,7 +21,7 @@ import java.lang.IllegalArgumentException
 
 class VouchersAdapter(
     private val mainVM: MainViewModel,
-    private val onGoToShopClicked: (String) -> Unit
+    private val onGoToShopClicked: (String, String) -> Unit
 ) : ListAdapter<VoucherItem, RecyclerView.ViewHolder>(VoucherItemDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -54,7 +54,7 @@ class VouchersAdapter(
     class VoucherVH(
         private val binding: RvVoucherBinding,
         private val mainVM: MainViewModel,
-        private val onGoToShopClicked: (String) -> Unit
+        private val onGoToShopClicked: (String, String) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
 
         private val until = App.getInstance().getString(R.string.dateUntil)
@@ -77,7 +77,7 @@ class VouchersAdapter(
                 }
                 if(prevVoucher == null) divider.visibility = View.GONE
                 button.setOnClickListener {
-                    onGoToShopClicked.invoke(voucher.voucherCode)
+                    onGoToShopClicked.invoke(voucher.voucherCode, voucher.voucherProgram)
                 }
             }
         }
@@ -94,7 +94,7 @@ class VouchersAdapter(
             fun getViewHolder(
                 parent: ViewGroup,
                 mainVM: MainViewModel,
-                onGoToShopClicked: (String) -> Unit
+                onGoToShopClicked: (String, String) -> Unit
             ): VoucherVH {
                 val binding = RvVoucherBinding.inflate(
                     LayoutInflater.from(parent.context),
