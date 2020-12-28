@@ -97,10 +97,10 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     } else {
                                         Toast.makeText(
                                             requireContext(),
-                                            "It is last lesson\n" +
-                                                    "you are finished",
+                                            "you are finished",
                                             Toast.LENGTH_SHORT
                                         ).show()
+                                        findNavController().popBackStack()
                                     }
                                 }
                             }
@@ -139,7 +139,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     }
                                     Glide.with(requireContext()).load(onlineLesson.imageVideoUrl)
                                         .placeholder(R.drawable.not_found).centerCrop()
-                                        .into(binding.imageViewVedeo)
+                                        .into(binding.imageViewPlay)
 
                                     val containerOptions = binding.linearLayoutAnswerOptions
                                     containerOptions.removeAllViews()
