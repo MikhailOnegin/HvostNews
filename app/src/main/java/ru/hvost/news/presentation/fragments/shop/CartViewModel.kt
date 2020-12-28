@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
+import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.ProductsResponse
 import ru.hvost.news.models.*
@@ -205,13 +206,23 @@ class CartViewModel : ViewModel() {
             domain?.run {
                 for (category in categories.orEmpty()) {
                     val categoryId = UniqueIdGenerator.nextId()
-                    result.add(ShopCategory(
+                    val shopCategory = ShopCategory(
                         id = categoryId,
                         name = category.categoryTitle.orEmpty(),
                         selectedProducts = 0,
                         isExpanded = true
-                    ))
-                    result.addAll(category.products.toShopProducts(categoryId))
+                    )
+                    result.add(shopCategory)
+                    if (category.products.isNullOrEmpty()) {
+                        result.add(ShopMessage(
+                            id = UniqueIdGenerator.nextId(),
+                            categoryId = categoryId,
+                            message = App.getInstance().getString(R.string.shopPreviouslyOrdered)
+                        ))
+                        shopCategory.isEmpty = true
+                    } else {
+                        result.addAll(category.products.toShopProducts(categoryId))
+                    }
                 }
             }
             _shopItems.postValue(uniteShopAndCart(result))

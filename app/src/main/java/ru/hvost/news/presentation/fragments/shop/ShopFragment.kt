@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentShopBinding
 import ru.hvost.news.models.CartFooter
@@ -39,6 +40,7 @@ class ShopFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
+        setGui()
         setObservers()
     }
 
@@ -50,6 +52,15 @@ class ShopFragment : BaseFragment() {
     override fun onStop() {
         super.onStop()
         cartVM.clearShopItems()
+    }
+
+    private fun setGui() {
+        cartVM.domains.value?.firstOrNull {
+            it.domainId == arguments?.getString(DOMAIN_ID)
+        }?.run {
+            Glide.with(binding.root).load(imageUri).into(binding.image)
+            binding.text.text = domainTitle
+        }
     }
 
     private fun setObservers() {
@@ -97,6 +108,12 @@ class ShopFragment : BaseFragment() {
                 it.submitList(this, isAfterChanging = true)
             }
         }
+    }
+
+    companion object {
+
+        const val DOMAIN_ID = "domain_id"
+
     }
 
 }

@@ -18,7 +18,7 @@ fun List<ProductsResponse.Domain>?.toShopDomains(): List<ShopDomain> {
             id = (index + 1).toLong(),
             domainId = domain.domainId.orEmpty(),
             domainTitle = domain.domainTitle.orEmpty(),
-            imageUri = getUriForBackendImagePath(domain.imageUrl)
+            imageUri = getUriForBackendImagePath(domain.domainImageUrl)
         )
     }
 }

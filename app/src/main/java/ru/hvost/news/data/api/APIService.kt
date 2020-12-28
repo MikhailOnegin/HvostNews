@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ru.hvost.news.BuildConfig
 import ru.hvost.news.data.api.response.*
 import java.util.concurrent.TimeUnit
 
@@ -304,7 +305,7 @@ interface APIService {
             okHttpClient.connectTimeout(20, TimeUnit.SECONDS)
             okHttpClient.readTimeout(20, TimeUnit.SECONDS)
             okHttpClient.writeTimeout(20, TimeUnit.SECONDS)
-            okHttpClient.authenticator(HTTPAuthenticator())
+            if (BuildConfig.DEBUG) okHttpClient.authenticator(HTTPAuthenticator())
             val retrofit = Retrofit.Builder()
                 .client(okHttpClient.build())
                 .baseUrl(baseUrl)
