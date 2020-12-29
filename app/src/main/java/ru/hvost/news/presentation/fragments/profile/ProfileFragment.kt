@@ -14,11 +14,13 @@ import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentProfileBinding
+import ru.hvost.news.models.Order
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.PetAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
+import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
@@ -85,7 +87,8 @@ class ProfileFragment : BaseFragment() {
             mainVM.loadPetEducation()
         }
         if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) {
-            binding.balance.text = mainVM.bonusBalance.value?.bonusBalance.toString()
+            val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
+            binding.balance.text = balance.toString()
         } else {
             mainVM.getBonusBalance()
         }
@@ -103,7 +106,8 @@ class ProfileFragment : BaseFragment() {
         onBonusBalanceLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
             doOnSuccess = {
-                binding.balance.text = mainVM.bonusBalance.value?.bonusBalance.toString()
+                val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
+                binding.balance.text = balance.toString()
             }
         )
         onCouponsLoadingEvent = DefaultNetworkEventObserver(
@@ -158,7 +162,15 @@ class ProfileFragment : BaseFragment() {
             findNavController().navigate(R.id.action_profileFragment_to_prizesFragment)
         }
         binding.allOrders.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
+            if (mainVM.orders.value.isNullOrEmpty()) {
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.ordersIsNull),
+                    getString(R.string.buttonOk)
+                ).show()
+            } else {
+                findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
+            }
         }
         binding.vouchers.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_vouchersFragment)

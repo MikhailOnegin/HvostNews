@@ -57,7 +57,11 @@ class PetAdapter(private val onClick: (String) -> Unit) :
                 }
                 binding.age.text = "$age $years"
             }
-            binding.name.text = pet.petName + ", " + pet.breedName
+            if (pet.breedName.isEmpty()) {
+                binding.name.text = pet.petName
+            } else {
+                binding.name.text = pet.petName + ", " + pet.breedName
+            }
             binding.root.setOnClickListener { onClick.invoke(pet.petId) }
         }
 

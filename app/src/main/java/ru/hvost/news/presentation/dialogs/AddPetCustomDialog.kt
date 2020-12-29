@@ -29,6 +29,8 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     private lateinit var onPetSpeciesLoadingEvent: DefaultNetworkEventObserver
     private lateinit var mainVM: MainViewModel
     private var petSex: Int = RegistrationVM.SEX_UNKNOWN
+    private val myFormat = "dd.MM.yyyy"
+    private val sdf = SimpleDateFormat(myFormat)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +59,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         mainVM.addPetEvent.observe(viewLifecycleOwner, onPetAdded)
         binding.sexUnknown.isSelected = true
+        binding.birthday.setText(sdf.format(Date().time))
         setObservers()
         setListeners()
         super.onActivityCreated(savedInstanceState)
@@ -96,8 +99,6 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
 
     @SuppressLint("SimpleDateFormat")
     private fun showDatePicker() {
-        val myFormat = "dd.MM.yyyy"
-        val sdf = SimpleDateFormat(myFormat)
         DatePickerDialog(
             onDateSelected = {
                 binding.birthday.setText(sdf.format(it.time))
