@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentFinishOrderBinding
-import ru.hvost.news.utils.showNotReadyToast
+import ru.hvost.news.presentation.fragments.BaseFragment
 import java.lang.StringBuilder
 
-class FinishOrderFragment : Fragment() {
+class FinishOrderFragment : BaseFragment() {
 
     private lateinit var binding: FragmentFinishOrderBinding
 
@@ -22,7 +21,7 @@ class FinishOrderFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFinishOrderBinding.inflate(inflater, container, false)
         setTitle()
         return binding.root
@@ -55,13 +54,18 @@ class FinishOrderFragment : Fragment() {
     }
 
     private fun onToOrdersClicked() {
-        showNotReadyToast()
-        //sergeev: Переход к заказам.
+        disableButtons()
+        findNavController().navigate(R.id.action_finishOrderFragment_to_profileFragment)
     }
 
     private fun onToFeedClicked() {
-        showNotReadyToast()
-        //sergeev: Переход в ленту.
+        disableButtons()
+        findNavController().navigate(R.id.action_finishOrderFragment_to_feedFragment)
+    }
+
+    private fun disableButtons() {
+        binding.toFeed.isClickable = false
+        binding.toOrders.isClickable = false
     }
 
     companion object {

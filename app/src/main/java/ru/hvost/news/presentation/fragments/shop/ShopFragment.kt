@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentShopBinding
 import ru.hvost.news.models.*
+import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.EventObserver
@@ -29,7 +31,7 @@ class ShopFragment : BaseFragment() {
     ): View {
         binding = FragmentShopBinding.inflate(inflater, container, false)
         if(!::adapter.isInitialized) {
-            adapter = ShopAdapter(onProductClicked)
+            adapter = ShopAdapter(onProductClicked, onGoToMapClicked)
         }
         binding.recyclerView.adapter = adapter
         return binding.root
@@ -45,6 +47,13 @@ class ShopFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
+        (requireActivity() as MainActivity).setBnvChecked(R.id.vouchersFragment)
+    }
+
+    private val onGoToMapClicked: () -> Unit = {
+        requireActivity().findViewById<BottomNavigationView>(R.id.bnv)?.run {
+            selectedItemId = R.id.mapFragment
+        }
     }
 
     private fun setGui() {

@@ -6,19 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
+import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentMakeOrderBinding
 import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
+import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.*
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.EventObserver
 
-class MakeOrderFragment : Fragment() {
+class MakeOrderFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMakeOrderBinding
     private lateinit var cartVM: CartViewModel
@@ -28,7 +29,7 @@ class MakeOrderFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMakeOrderBinding.inflate(inflater, container, false)
         fields = arrayOf(
             binding.name, binding.phone, binding.email,
@@ -73,6 +74,7 @@ class MakeOrderFragment : Fragment() {
     }
 
     private fun onFinishEvent(orderNumber: Int) {
+        cartVM.updateCartAsync(App.getInstance().userToken)
         val bundle = Bundle()
         bundle.putInt(FinishOrderFragment.ORDER_NUMBER, orderNumber)
         findNavController().navigate(R.id.action_makeOrderFragment_to_finishOrderFragment, bundle)
