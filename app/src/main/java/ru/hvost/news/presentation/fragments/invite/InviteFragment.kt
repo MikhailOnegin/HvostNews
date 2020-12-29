@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -42,7 +43,7 @@ class InviteFragment : Fragment() {
         requireActivity().window.run {
             decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.transparent)
+            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.white)
         }
     }
 
@@ -95,9 +96,19 @@ class InviteFragment : Fragment() {
 
     private fun setBalance() {
         val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
-        binding.balanceBefore.text = balance.dec().toString()
         binding.balance.text = balance.toString()
-        binding.balanceAfter.text = balance.inc().toString()
+        if (balance > 0) {
+            binding.balanceBefore.text = balance.dec().toString()
+            binding.balanceAfter.text = balance.inc().toString()
+        } else {
+            binding.balanceBefore.visibility = View.GONE
+            binding.balanceAfter.visibility = View.GONE
+        }
+        binding.balanceBefore.text =
+            if (balance == 0) balance.toString() else balance.dec().toString()
+        binding.balance.text = balance.toString()
+        binding.balanceAfter.text =
+            if (balance == 0) balance.toString() else balance.inc().toString()
     }
 
     private fun setListeners() {
@@ -154,7 +165,8 @@ class InviteFragment : Fragment() {
                 || item.activityInfo.name.toLowerCase().contains(to)
             ) {
                 if (to == "ok" && (item.activityInfo.packageName.toLowerCase()
-                        .contains("facebook") || item.activityInfo.name.toLowerCase().contains("facebook"))
+                        .contains("facebook") || item.activityInfo.name.toLowerCase()
+                        .contains("facebook"))
                 ) continue
                 intent.component = ComponentName(
                     item.activityInfo.packageName,

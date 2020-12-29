@@ -10,7 +10,7 @@ data class ProductsResponse(
         val domainId: String?,
         val domainTitle: String?,
         val domainDescription: String?,
-        val imageUrl: String?,
+        val domainImageUrl: String?,
         val categories: List<Category>?
     )
 

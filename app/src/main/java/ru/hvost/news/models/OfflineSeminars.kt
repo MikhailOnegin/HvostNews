@@ -3,9 +3,9 @@ package ru.hvost.news.models
 import ru.hvost.news.data.api.response.OfflineSeminarsResponse
 
 data class OfflineSeminars(
-    val seminars: List<OfflineLesson>)
+    val seminars: List<OfflineSeminar>)
 {
-    data class OfflineLesson(
+    data class OfflineSeminar(
         val domainId:Int,
         val id: Int,
         val title: String,
@@ -54,12 +54,12 @@ fun OfflineSeminarsResponse.toOfflineLessons(): OfflineSeminars{
         )
     }
 
-fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<OfflineSeminars.OfflineLesson> {
-    val result = mutableListOf<OfflineSeminars.OfflineLesson>()
+fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<OfflineSeminars.OfflineSeminar> {
+    val result = mutableListOf<OfflineSeminars.OfflineSeminar>()
     this?.run {
         for ((index, offlineLessonResponse) in this.withIndex()) {
             result.add(
-                OfflineSeminars.OfflineLesson(
+                OfflineSeminars.OfflineSeminar(
                     domainId = index,
                     id = offlineLessonResponse.id ?: 0,
                     title = offlineLessonResponse.title ?: "",

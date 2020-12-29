@@ -21,7 +21,8 @@ class ShopCategory(
     id: Long,
     val name: String,
     var selectedProducts: Int,
-    var isExpanded: Boolean = true
+    var isExpanded: Boolean = true,
+    var isEmpty: Boolean = false
 ) : ShopItem(id)
 
 class ShopMessage(

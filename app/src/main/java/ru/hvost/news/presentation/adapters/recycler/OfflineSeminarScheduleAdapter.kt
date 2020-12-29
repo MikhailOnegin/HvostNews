@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.adapters.recycler
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,9 @@ import ru.hvost.news.models.OfflineSeminars
 
 class OfflineSeminarScheduleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var seminar: OfflineSeminars.OfflineLesson? = null
+    private var seminar: OfflineSeminars.OfflineSeminar? = null
 
-    fun setSeminar(seminar:OfflineSeminars.OfflineLesson){
+    fun setSeminar(seminar:OfflineSeminars.OfflineSeminar){
         this.seminar = seminar
         notifyDataSetChanged()
     }
@@ -37,7 +36,7 @@ class OfflineSeminarScheduleAdapter: RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     inner class ScheduleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bind(seminar:OfflineSeminars.OfflineLesson?){
+        fun bind(seminar:OfflineSeminars.OfflineSeminar?){
             seminar?.run {
             val containerWait = itemView.gridLayout
             containerWait.removeAllViews()

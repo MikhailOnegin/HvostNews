@@ -88,7 +88,9 @@ class ShopDomainsFragment : BaseFragment() {
 
     private val onDomainClicked = { domainId: String ->
         cartVM.createShopItemsList(domainId)
-        findNavController().navigate(R.id.action_shopDomainsFragment_to_shopFragment)
+        val bundle = Bundle()
+        bundle.putString(ShopFragment.DOMAIN_ID, domainId)
+        findNavController().navigate(R.id.action_shopDomainsFragment_to_shopFragment, bundle)
     }
 
     private fun onDomainsChanged(domains: List<ShopDomain>?) {

@@ -15,9 +15,9 @@ import ru.hvost.news.models.OfflineSeminars
 
 class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var seminar:OfflineSeminars.OfflineLesson? = null
+    private var seminar:OfflineSeminars.OfflineSeminar? = null
 
-    fun setSeminar(seminar:OfflineSeminars.OfflineLesson){
+    fun setSeminar(seminar:OfflineSeminars.OfflineSeminar){
         this.seminar = seminar
         notifyDataSetChanged()
     }
@@ -28,7 +28,7 @@ class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return 1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -37,7 +37,7 @@ class OfflineSeminarInfoAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()
 
     inner class InfoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-        fun bind(seminar:OfflineSeminars.OfflineLesson?){
+        fun bind(seminar:OfflineSeminars.OfflineSeminar?){
             seminar?.run {
                 val containerWait = itemView.gridLayout
                 containerWait.removeAllViews()

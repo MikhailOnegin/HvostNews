@@ -52,7 +52,12 @@ class SchoolParentsFragment : BaseFragment() {
         binding.spinnerOfflineSeminars.adapter =
             SpinnerAdapter(requireContext(), "", arrayListOf(), CityOffline::name)
         binding.spinnerOnlineSchools.adapter =
-            SpinnerAdapter(requireContext(), "", arrayListOf("Все семинары", "Ваши семинары"), String::getValue)
+            SpinnerAdapter(
+                requireContext(),
+                "",
+                arrayListOf("Все семинары", "Ваши семинары"),
+                String::getValue
+            )
         onlineSchoolsAdapter.clickSchool = object : SchoolsOnlineAdapter.ClickSchool {
 
             override fun onClick(schoolId: String) {
@@ -89,15 +94,20 @@ class SchoolParentsFragment : BaseFragment() {
     }
 
     @Suppress("UNCHECKED_CAST")
-    private fun initializeEvents(){
+    private fun initializeEvents() {
         citiesEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
             doOnSuccess = {
                 schoolVM.offlineCities.value?.run {
-                    val adapter = (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
+                    val adapter =
+                        (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
                     adapter.clear()
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(this.cities)
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(0)?.run {
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
+                        this.cities
+                    )
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
+                        0
+                    )?.run {
                         val cityId = this.cityId
                         App.getInstance().userToken?.run {
                             schoolVM.getOfflineSeminars(cityId, this)
@@ -150,33 +160,39 @@ class SchoolParentsFragment : BaseFragment() {
             binding.constraintSpinnerOnlineSchools.visibility = View.GONE
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
-                offlineSeminarsAdapter.filter(b)
+            offlineSeminarsAdapter.filter(b)
         }
 
-        binding.spinnerOfflineSeminars.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-            @Suppress("UNCHECKED_CAST")
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
-                    ?.run {
-                        val cityId = this.cityId
-                        App.getInstance().userToken?.run {
-                            schoolVM.getOfflineSeminars(cityId, this)
+        binding.spinnerOfflineSeminars.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                @Suppress("UNCHECKED_CAST")
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
+                        p2
+                    )
+                        ?.run {
+                            val cityId = this.cityId
+                            App.getInstance().userToken?.run {
+                                schoolVM.getOfflineSeminars(cityId, this)
+                            }
                         }
-                    }
+                }
             }
-        }
-        binding.spinnerOnlineSchools.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+        binding.spinnerOnlineSchools.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                @Suppress("UNCHECKED_CAST")
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    (binding.spinnerOnlineSchools.adapter as SpinnerAdapter<String>).getItem(p2)
+                        ?.run {
+                            onlineSchoolsAdapter.filterYourSchools(this)
+                        }
+                }
             }
-            @Suppress("UNCHECKED_CAST")
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                (binding.spinnerOnlineSchools.adapter as SpinnerAdapter<String>).getItem(p2)
-                    ?.run {
-                        onlineSchoolsAdapter.filterYourSchools(this)
-                    }
-            }
-        }
     }
 }

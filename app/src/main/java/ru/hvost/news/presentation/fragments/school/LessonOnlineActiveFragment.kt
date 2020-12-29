@@ -1,8 +1,6 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.content.res.ColorStateList
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +16,7 @@ import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_online_lesson_option.view.*
 import ru.hvost.news.App
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.FragmentSchoolOnlineLessonActiveBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
@@ -27,7 +26,7 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
-import ru.hvost.news.utils.startIntent
+import ru.hvost.news.utils.startIntentLiterature
 
 
 class LessonOnlineActiveFragment : BaseFragment() {
@@ -60,8 +59,8 @@ class LessonOnlineActiveFragment : BaseFragment() {
         initializedEvents()
         setListeners()
         setObservers(this)
-        App.getInstance().userToken?.let{userToken ->
-            schoolId?.let {schoolId ->
+        App.getInstance().userToken?.let { userToken ->
+            schoolId?.let { schoolId ->
                 schoolVM.getOnlineLessons(userToken, schoolId)
             }
 
@@ -76,15 +75,17 @@ class LessonOnlineActiveFragment : BaseFragment() {
             },
             doOnSuccess = {
                 binding.buttonToAnswer.isEnabled = true
+                for (i in buttons.indices) {
+                    buttons[i].isEnabled = false
+                }
                 binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
                 binding.buttonToAnswer.setOnClickListener {
                     lessons?.let { lessons ->
                         lessonId?.let { lessonId ->
                             for (i in lessons.indices) {
-
                                 if (lessons[i].lessonId == lessonId) {
                                     if (i < lessons.size - 1) {
-                                        val nextLesson = lessons[i+1]
+                                        val nextLesson = lessons[i + 1]
                                         schoolId?.let { schoolId ->
                                             val bundle = Bundle()
                                             bundle.putString("lessonId", nextLesson.lessonId)
@@ -123,28 +124,29 @@ class LessonOnlineActiveFragment : BaseFragment() {
                     if (onlineLessons.isNotEmpty()) {
                         lessonId?.run {
                             for (i in onlineLessons.indices) {
-                                val onlineLesson = onlineLessons[i]
-                                if (onlineLesson.lessonId == this) {
-                                    lesson = onlineLesson
-                                    binding.textViewTitle.text = onlineLesson.lessonTitle
+                                val lesson = onlineLessons[i]
+                                if (lesson.lessonId == this) {
+                                    this@LessonOnlineActiveFragment.lesson = lesson
+                                    binding.textViewTitle.text = lesson.lessonTitle
                                     val lessonNumber =
-                                        "${getString(R.string.lesson_number)} ${onlineLesson.lessonNumber}"
+                                        "${getString(R.string.lesson_number)} ${lesson.lessonNumber}"
                                     binding.textViewLessonNumber.text = lessonNumber
-                                    binding.textViewQuestion.text = onlineLesson.testQuestion
+                                    binding.textViewQuestion.text = lesson.testQuestion
                                     binding.imageViewPlay.setOnClickListener {
-                                        startIntent(requireContext(), onlineLesson.videoUrl)
+                                        startIntentLiterature(requireContext(), lesson.videoUrl)
                                     }
                                     binding.constraintVideo.setOnClickListener {
-                                        startIntent(requireContext(), onlineLesson.videoUrl)
+                                        startIntentLiterature(requireContext(), lesson.videoUrl)
                                     }
-                                    Glide.with(requireContext()).load(onlineLesson.imageVideoUrl)
+                                    Glide.with(requireContext())
+                                        .load(baseUrl + lesson.imageVideoUrl)
                                         .placeholder(R.drawable.not_found).centerCrop()
-                                        .into(binding.imageViewPlay)
+                                        .into(binding.imageViewVideo)
 
                                     val containerOptions = binding.linearLayoutAnswerOptions
                                     containerOptions.removeAllViews()
-                                    for (q in onlineLesson.answerList.indices) {
-                                        val answer = onlineLesson.answerList[q]
+                                    for (q in lesson.answerList.indices) {
+                                        val answer = lesson.answerList[q]
                                         answers[answer.answer] = answer.isTrue
                                         val view = LayoutOnlineLessonOptionBinding.inflate(
                                             LayoutInflater.from(requireContext()),
@@ -154,6 +156,9 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                         buttons.add(view.button_option)
                                         view.button_option.text = answer.answer
                                         view.button_option.setOnClickListener {
+                                            for (c in buttons.indices) {
+                                                buttons[c].isSelected = false
+                                            }
                                             schoolVM.selectLessonAnswersCount.value?.run {
                                                 if (it.isSelected) schoolVM.selectLessonAnswersCount.value =
                                                     this - 1
@@ -212,9 +217,13 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     view.textView_title.text = literature[i].title
                                     view.textView_pet.text = literature[i].pet
                                     view.constraint_literure.setOnClickListener {
-                                        startIntent(requireContext(), literature[i].fileUrl)
+                                        startIntentLiterature(
+                                            requireContext(),
+                                            literature[i].fileUrl
+                                        )
                                     }
-                                    val margin = resources.getDimension(R.dimen.marginLessonNumber).toInt()
+                                    val margin =
+                                        resources.getDimension(R.dimen.marginLessonNumber).toInt()
                                     (view.layoutParams as LinearLayout.LayoutParams).setMargins(
                                         0,
                                         margin,
@@ -242,30 +251,52 @@ class LessonOnlineActiveFragment : BaseFragment() {
 
     private fun setListeners() {
         binding.buttonToAnswer.setOnClickListener {
-            for (i in buttons.indices) {
-                val button = buttons[i]
-                val isTrue = answers[button.text.toString()]
-                isTrue?.run {
-                    if (this) {
-                        button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.colorPrimary)
-                        button.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
-                    }
-                    else{
-                        if(button.isSelected) {
-                            button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.red)
-                            button.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            if (buttons.size > 0) {
+                for (i in buttons.indices) {
+                    val button = buttons[i]
+                    if (button.isSelected) {
+                        for (q in buttons.indices) {
+                            val isTrue = answers[button.text.toString()]
+                            isTrue?.run {
+                                if (this) {
+                                    button.backgroundTintList = ContextCompat.getColorStateList(
+                                        requireContext(),
+                                        R.color.colorPrimary
+                                    )
+                                    button.setTextColor(
+                                        ContextCompat.getColor(
+                                            requireContext(),
+                                            android.R.color.white
+                                        )
+                                    )
+                                } else {
+                                    if (button.isSelected) {
+                                        button.backgroundTintList =
+                                            ContextCompat.getColorStateList(
+                                                requireContext(),
+                                                R.color.red
+                                            )
+                                        button.setTextColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                android.R.color.white
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        App.getInstance().userToken?.let { userToken ->
+                            lessonId?.let { lessonId ->
+                                schoolVM.setLessonTestesPassed(userToken, lessonId.toLong())
+                            }
                         }
                     }
                 }
             }
-            App.getInstance().userToken?.let { userToken ->
-                lessonId?.let { lessonId ->
-                    schoolVM.setLessonTestesPassed(userToken, lessonId.toLong())
-                }
-            }
         }
 
-        binding.toolbarOnlineLesson.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
     }

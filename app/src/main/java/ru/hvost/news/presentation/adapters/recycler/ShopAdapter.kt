@@ -1,15 +1,18 @@
 package ru.hvost.news.presentation.adapters.recycler
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
@@ -31,7 +34,7 @@ class ShopAdapter(
             TYPE_CATEGORY -> CategoryVH.getViewHolder(parent, this)
             TYPE_HEADER -> HeaderVH.getViewHolder(parent)
             TYPE_PRODUCT -> ProductVH.getViewHolder(parent, onClick)
-            TYPE_MESSAGE -> MessageVH.getViewHolder(parent)
+            TYPE_MESSAGE -> MessageVH.getViewHolder(parent, this)
             else -> throw IllegalArgumentException("Wrong shop adapter view type.")
         }
     }
@@ -102,6 +105,15 @@ class ShopAdapter(
                 } else {
                     counter.visibility = View.GONE
                 }
+                image.setImageResource(
+                    if (category.isExpanded) R.drawable.ic_chevron_up
+                    else R.drawable.ic_chevron_down
+                )
+                val color = if (category.isEmpty)
+                    ContextCompat.getColor(App.getInstance(), R.color.gray4)
+                else ContextCompat.getColor(App.getInstance(), R.color.gray1)
+                image.imageTintList = ColorStateList.valueOf(color)
+                text.setTextColor(color)
             }
         }
 
@@ -186,24 +198,33 @@ class ShopAdapter(
     }
 
     class MessageVH(
-        private val binding: RvShopMessageBinding
+        private val binding: RvShopMessageBinding,
+        private val adapter: ShopAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(message: ShopMessage) {
             binding.apply {
                 text.text = message.message
+                close.setOnClickListener {
+                    val category = adapter.currentList.firstOrNull { it.id == message.categoryId }
+                    val position = adapter.currentList.indexOf(category)
+                    adapter.handleClickOnCategory(position)
+                }
             }
         }
 
         companion object {
 
-            fun getViewHolder(parent: ViewGroup): MessageVH {
+            fun getViewHolder(
+                parent: ViewGroup,
+                adapter: ShopAdapter
+            ): MessageVH {
                 val binding = RvShopMessageBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return MessageVH(binding)
+                return MessageVH(binding, adapter)
             }
 
         }

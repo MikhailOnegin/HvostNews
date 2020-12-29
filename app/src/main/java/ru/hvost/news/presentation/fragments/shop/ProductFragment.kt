@@ -105,7 +105,7 @@ class ProductFragment : BaseFragment(){
         override fun onTabSelected(tab: TabLayout.Tab?) {
              val text = when(tab?.position) {
                 0 -> product.description.parseAsHtml()
-                1 -> stub.parseAsHtml() //sergeev: Добавить поле после доработки на бэке.
+                1 -> product.composition.parseAsHtml()
                 2 -> product.ingredients.parseAsHtml()
                 3 -> product.contraindications.parseAsHtml()
                 else -> stub.parseAsHtml()
@@ -114,9 +114,7 @@ class ProductFragment : BaseFragment(){
             if(binding.text.text.isNullOrBlank()) binding.text.text = stub
         }
 
-        override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-        }
+        override fun onTabUnselected(tab: TabLayout.Tab?) { }
 
         override fun onTabReselected(tab: TabLayout.Tab?) {
             onTabSelected(tab)

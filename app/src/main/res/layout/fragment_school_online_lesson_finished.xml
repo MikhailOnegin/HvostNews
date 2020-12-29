@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -12,28 +11,19 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:stateListAnimator="@null"
-        app:elevation="0dp"
         app:liftOnScroll="false">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            style="@style/Toolbar"
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
             android:theme="@style/AppTheme.Toolbar"
-            app:layout_scrollFlags="scroll|snap|enterAlways"
+            app:layout_scrollFlags="scroll|snap"
             app:navigationIcon="@drawable/ic_back"
-            app:title="@string/lesson" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/container"
-            app:layout_scrollFlags="scroll|snap|enterAlways" />
+            app:title="@string/lesson"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -143,7 +133,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="428dp" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_right_answer" />
 
             <TextView
                 android:id="@+id/textView_right_answer"
@@ -162,8 +152,8 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="11dp"
-                android:layout_height="11dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="@string/not_found"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_lesson_number"
