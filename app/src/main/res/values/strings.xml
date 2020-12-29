@@ -436,4 +436,5 @@
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="shopToolbarTitle">Товары</string>
     <string name="shopPreviouslyOrdered">Вы уже заказывали товар из данной категории.</string>
+    <string name="last_semiтars_video">Видео с прошлых семинаров</string>
 </resources>
