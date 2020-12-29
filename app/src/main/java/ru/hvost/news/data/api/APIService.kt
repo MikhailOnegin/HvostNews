@@ -202,23 +202,32 @@ interface APIService {
         @Query("interests") interests: String?
     ): Deferred<UserDataResponse>
 
+    @GET("/rest/PetProfile/updatePet/")
+    fun updatePetAsync(
+        @Query("userToken") userToken: String?,
+//        @Query("petName") petName: String?,
+//        @Query("petSpecies") petSpecies: String?,
+//        @Query("petSex") petSex: String?,
+//        @Query("petBreed") petBreed: String?,
+//        @Query("petBirthday") petBirthday: String?,
+//        @Query("petDelicies") petDelicies: String?,
+//        @Query("petToy") petToy: String?,
+//        @Query("petBadHabbit") petBadHabbit: String?,
+//        @Query("petChip") petChip: String?,
+//        @Query("isPetForShows") isPetForShows: Boolean?,
+//        @Query("hasTitles") hasTitles: Boolean?,
+//        @Query("isSportsPet") isSportsPet: Boolean?,
+//        @Query("visitsSaloons") visitsSaloons: Boolean?,
+//        @Query("petEducation") petEducation: String?
+    ): Deferred<UpdatePetResponse>
+
     @GET("/rest/PetProfile/addPet/")
     fun addPetAsync(
         @Query("userToken") userToken: String?,
         @Query("petName") petName: String?,
         @Query("petSpecies") petSpecies: String?,
-        @Query("petSex") petSex: String?,
-        @Query("petBreed") petBreed: String?,
+        @Query("petSex")  petSex: String?,
         @Query("petBirthday") petBirthday: String?,
-        @Query("petDelicies") petDelicies: String?,
-        @Query("petToy") petToy: String?,
-        @Query("petBadHabbit") petBadHabbit: String?,
-        @Query("petChip") petChip: String?,
-        @Query("isPetForShows") isPetForShows: Boolean?,
-        @Query("hasTitles") hasTitles: Boolean?,
-        @Query("isSportsPet") isSportsPet: Boolean?,
-        @Query("visitsSaloons") visitsSaloons: Boolean?,
-        @Query("petEducation") petEducation: String?
     ): Deferred<AddPetResponse>
 
     // Coupons
@@ -292,6 +301,7 @@ interface APIService {
 
         //sergeev: Заменить на ключ заказчика.
         const val YANDEX_MAPKIT_KEY = "96bc77a4-1010-4770-85ad-9d324f7eee03"
+
         //sergeev: Заменить на боевой сервер.
         const val baseUrl = "http://hvost-news.testfact3.ru"
 

@@ -572,21 +572,10 @@ class MainViewModel : ViewModel() {
     val addPetResponse: LiveData<AddPetResponse> = _addPetResponse
 
     fun addPet(
-        //TODO: поправить отправляемые данные
         petName: String,
         petSpecies: String,
-        petSex: String,
-//        petBreed: String,
+        petSex: String?,
         petBirthday: String,
-//        petDelicies: String,
-//        petToy: String,
-//        petBadHabbit: String,
-//        petChip: String,
-//        isPetForShows: Boolean,
-//        hasTitles: Boolean,
-//        isSportsPet: Boolean,
-//        visitsSaloons: Boolean,
-//        petEducation: String
     ) {
         viewModelScope.launch {
             _addPetEvent.value = NetworkEvent(State.LOADING)
@@ -596,17 +585,7 @@ class MainViewModel : ViewModel() {
                     petName = petName,
                     petSpecies = petSpecies,
                     petSex = petSex,
-                    petBreed = "502",
                     petBirthday = petBirthday,
-                    petDelicies = "1",
-                    petToy = "222",
-                    petBadHabbit = "1",
-                    petChip = "111",
-                    isPetForShows = true,
-                    hasTitles = true,
-                    isSportsPet = true,
-                    visitsSaloons = true,
-                    petEducation = "111"
                 ).await()
                 if (result.result == "success") {
                     _addPetResponse.value = result
@@ -616,6 +595,45 @@ class MainViewModel : ViewModel() {
                 }
             } catch (exc: Exception) {
                 _addPetEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    private val _updatePetEvent = MutableLiveData<NetworkEvent<State>>()
+    val updatePetEvent: LiveData<NetworkEvent<State>> = _updatePetEvent
+    private val _updatePetResponse = MutableLiveData<UpdatePetResponse>()
+    val updatePetResponse: LiveData<UpdatePetResponse> = _updatePetResponse
+
+    fun updatePet(
+        petName: String,
+        petSpecies: String,
+        petSex: String,
+        petBreed: String,
+        petBirthday: String,
+        petDelicies: String,
+        petToy: String,
+        petBadHabbit: String,
+        petChip: String,
+        isPetForShows: Boolean,
+        hasTitles: Boolean,
+        isSportsPet: Boolean,
+        visitsSaloons: Boolean,
+        petEducation: String
+    ) {
+        viewModelScope.launch {
+            _updatePetEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.updatePetAsync(
+                    userToken = App.getInstance().userToken
+                ).await()
+                if (result.result == "success") {
+                    _updatePetResponse.value = result
+                    _updatePetEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _updatePetEvent.value = NetworkEvent(State.ERROR, result.error)
+                }
+            } catch (exc: Exception) {
+                _updatePetEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
