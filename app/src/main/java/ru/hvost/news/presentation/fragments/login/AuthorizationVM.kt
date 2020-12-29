@@ -67,7 +67,6 @@ class AuthorizationVM: ViewModel(){
     val requestSmsEvent: LiveData<NetworkEvent<State>> = _requestSmsEvent
 
     fun requestSms(userToken: String?, phone: String?) {
-        startTimer()
         viewModelScope.launch {
             _requestSmsEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -76,6 +75,7 @@ class AuthorizationVM: ViewModel(){
                     phone = phone
                 ).await()
                 if (response.result == "success") {
+                    startTimer()
                     _requestSmsEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _requestSmsEvent.value = NetworkEvent(State.ERROR, response.error)
