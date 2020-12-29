@@ -41,4 +41,6 @@
         android:layout_marginEnd="@dimen/largeMargin"
         android:layout_marginStart="@dimen/xLargeMargin"/>
 
+    <!-- sergeev: Добавить кнопку перехода в карты. -->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

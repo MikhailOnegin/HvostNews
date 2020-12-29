@@ -87,6 +87,7 @@ class ShopDomainsFragment : BaseFragment() {
     }
 
     private val onDomainClicked = { domainId: String ->
+        cartVM.resetShop()
         cartVM.createShopItemsList(domainId)
         val bundle = Bundle()
         bundle.putString(ShopFragment.DOMAIN_ID, domainId)

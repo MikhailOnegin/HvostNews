@@ -9,6 +9,7 @@
 
     <ru.hvost.news.presentation.customviews.RoundCornersImageView
         android:id="@+id/image"
+        android:visibility="gone"
         style="@style/OutlinedRoundedImageViewWithShadow"
         app:outlineWidth="2dp"
         tools:src="@drawable/test_image"
@@ -26,11 +27,11 @@
         android:textColor="@color/TextColorPrimary"
         android:fontFamily="@font/gilroy_semibold"
         android:textSize="@dimen/cartItemTextSize"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/image"
         app:layout_constraintBottom_toTopOf="@id/divider"
+        android:layout_marginTop="@dimen/largeMargin"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
         android:lineSpacingExtra="@dimen/textLineSpacingExtra"

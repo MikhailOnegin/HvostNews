@@ -10,9 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentShopBinding
-import ru.hvost.news.models.CartFooter
-import ru.hvost.news.models.CartItem
-import ru.hvost.news.models.ShopItem
+import ru.hvost.news.models.*
 import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.EventObserver
@@ -47,11 +45,6 @@ class ShopFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        cartVM.clearShopItems()
     }
 
     private fun setGui() {
@@ -104,10 +97,33 @@ class ShopFragment : BaseFragment() {
     private fun onShopItemsChanged(shopItems: List<ShopItem>?) {
         shopItems?.run {
             (binding.recyclerView.adapter as ShopAdapter).let {
+                //sergeev: Не сворачивать список при возврате из деталки.
                 it.setFullList(this)
-                it.submitList(this, isAfterChanging = true)
+                it.submitList(
+                    collapseListToFirstCategory(this),
+                    isAfterChanging = true
+                )
             }
         }
+    }
+
+    private fun collapseListToFirstCategory(shopItems: List<ShopItem>): List<ShopItem> {
+        val result = mutableListOf<ShopItem>()
+        val categories = shopItems.filterIsInstance<ShopCategory>().toMutableList()
+        var isEnough = false
+        for ((index, category) in categories.withIndex()){
+            result.add(category)
+            if (!isEnough &&
+                shopItems.firstOrNull { it is ShopProduct && it.categoryId == category.id } != null
+            ) {
+                result.addAll(index + 1, shopItems.filter { it.categoryId == category.id })
+                category.isExpanded = true
+                isEnough = true
+            } else {
+                category.isExpanded = false
+            }
+        }
+        return result
     }
 
     companion object {

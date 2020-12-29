@@ -1,88 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/toolbarContainer"
-        android:background="@android:color/white"
-        android:elevation="@dimen/barsElevation"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
-            android:theme="@style/AppTheme.Toolbar"
-            android:elevation="0dp"
-            app:navigationIcon="@drawable/ic_back"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbarContainer"
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
-        <LinearLayout
-            android:id="@+id/cartContainer"
-            android:background="@drawable/background_cart_layout"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/smallMargin">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                app:title="@string/productToolbarTitle"
+                android:theme="@style/AppTheme.Toolbar"
+                android:elevation="0dp"
+                app:navigationIcon="@drawable/ic_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
-                android:src="@drawable/ic_cart"
-                android:contentDescription="@string/cartIconCD"
-                android:layout_width="@dimen/icCartSize"
-                android:layout_height="@dimen/icCartSize"
-                android:layout_marginStart="@dimen/smallMargin"
-                android:layout_marginTop="@dimen/smallMargin"
-                android:layout_marginBottom="@dimen/smallMargin"/>
-
-            <TextView
-                android:id="@+id/cartCount"
-                tools:text="14"
-                android:fontFamily="@font/gilroy_bold"
-                android:textSize="@dimen/cartLayoutTextSize"
-                android:textColor="@color/colorPrimary"
+            <LinearLayout
+                android:id="@+id/cartContainer"
+                android:background="@drawable/background_cart_layout"
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/smallMargin"
-                android:layout_marginEnd="@dimen/xSmallMargin"/>
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/smallMargin">
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="@dimen/cartLayoutDividerHeight"
-                android:background="#1AB9BEE1"
-                android:layout_marginStart="@dimen/smallMargin"
-                android:layout_marginEnd="@dimen/smallMargin"/>
+                <ImageView
+                    android:src="@drawable/ic_cart"
+                    android:contentDescription="@string/cartIconCD"
+                    android:layout_width="@dimen/icCartSize"
+                    android:layout_height="@dimen/icCartSize"
+                    android:layout_marginStart="@dimen/smallMargin"
+                    android:layout_marginTop="@dimen/smallMargin"
+                    android:layout_marginBottom="@dimen/smallMargin"/>
 
-            <TextView
-                android:id="@+id/cartSum"
-                tools:text="78 984 \u20bd"
-                android:fontFamily="@font/gilroy_bold"
-                android:textSize="@dimen/cartLayoutTextSize"
-                android:textColor="@color/colorPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/xSmallMargin"
-                android:layout_marginEnd="@dimen/largeMargin"/>
+                <TextView
+                    android:id="@+id/cartCount"
+                    tools:text="14"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:textSize="@dimen/cartLayoutTextSize"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallMargin"
+                    android:layout_marginEnd="@dimen/xSmallMargin"/>
 
-        </LinearLayout>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="@dimen/cartLayoutDividerHeight"
+                    android:background="#1AB9BEE1"
+                    android:layout_marginStart="@dimen/smallMargin"
+                    android:layout_marginEnd="@dimen/smallMargin"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/cartSum"
+                    tools:text="78 984 \u20bd"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:textSize="@dimen/cartLayoutTextSize"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/xSmallMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbarContainer"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@drawable/window_background"
@@ -467,4 +474,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

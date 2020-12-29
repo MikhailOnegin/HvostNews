@@ -101,9 +101,14 @@ class ShopAdapter(
                 }
                 if(category.selectedProducts != 0) {
                     counter.text = "${category.selectedProducts}"
+                    counter.setBackgroundResource(R.drawable.background_shop_circle_colored)
                     counter.visibility = View.VISIBLE
                 } else {
-                    counter.visibility = View.GONE
+                    if (category.isEmpty) {
+                        counter.text = ""
+                        counter.setBackgroundResource(R.drawable.ic_question)
+                        counter.visibility = View.VISIBLE
+                    } else counter.visibility = View.GONE
                 }
                 image.setImageResource(
                     if (category.isExpanded) R.drawable.ic_chevron_up
@@ -139,7 +144,7 @@ class ShopAdapter(
         fun bind(header: ShopHeader) {
             binding.run {
                 Glide.with(binding.root).load(header.imageUri).into(image)
-                title.text = header.text
+                title.text = header.text.parseAsHtml()
             }
         }
 
