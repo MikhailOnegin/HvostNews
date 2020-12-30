@@ -118,7 +118,7 @@ class CartFragment : BaseFragment() {
     }
 
     private fun setEmptyViewVisibility(list: List<Any>?) {
-        when(list?.size == 1) {
+        when(list.isNullOrEmpty()) {
             true -> {
                 binding.recyclerView.visibility = View.GONE
                 binding.emptyView.root.visibility = View.VISIBLE

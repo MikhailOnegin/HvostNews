@@ -114,12 +114,12 @@ class CartAdapter(
             binding.run {
                 title.text = item.title.parseAsHtml()
                 val forPrep = App.getInstance().getString(R.string.cartForPrep)
-                val bonuses = when(getWordEndingType(item.bonusPrice)){
+                val bonuses = when(getWordEndingType(item.bonusPrice.toInt())){
                     WordEnding.TYPE_1 -> App.getInstance().getString(R.string.cartForBonusesType1)
                     WordEnding.TYPE_2 -> App.getInstance().getString(R.string.cartForBonusesType2)
                     WordEnding.TYPE_3 -> App.getInstance().getString(R.string.cartForBonusesType3)
                 }
-                binding.bonuses.text = "$forPrep ${item.bonusPrice} $bonuses"
+                binding.bonuses.text = "$forPrep ${item.bonusPrice.toInt()} $bonuses"
                 if(position == size - 2) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 binding.remove.setOnClickListener {
@@ -156,12 +156,12 @@ class CartAdapter(
         fun bind(item: CartFooter) {
             binding.run {
                 if(item.isForPrizes){
-                    val bonuses = when(getWordEndingType(item.bonusesCost)){
+                    val bonuses = when(getWordEndingType(item.bonusesCost.toInt())){
                         WordEnding.TYPE_1 -> App.getInstance().getString(R.string.cartForBonusesType1)
                         WordEnding.TYPE_2 -> App.getInstance().getString(R.string.cartForBonusesType2)
                         WordEnding.TYPE_3 -> App.getInstance().getString(R.string.cartForBonusesType3)
                     }
-                    total.text = "${item.bonusesCost} $bonuses"
+                    total.text = "${item.bonusesCost.toInt()} $bonuses"
                     oldPrice.visibility = View.GONE
                     oldPriceTitle.visibility = View.GONE
                 }else{

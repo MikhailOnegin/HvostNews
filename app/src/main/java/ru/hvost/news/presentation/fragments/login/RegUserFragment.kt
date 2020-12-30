@@ -32,6 +32,7 @@ class RegUserFragment : Fragment() {
         binding.password.filters = arrayOf(PasswordInputFilter())
         binding.passwordConfirm.filters = arrayOf(PasswordInputFilter())
         binding.phone.setText(getString(R.string.phonePrefix))
+        binding.phone.setSelection(binding.phone.length())
         setTestData() //sergeev: Выпилить из релиза
         return binding.root
     }

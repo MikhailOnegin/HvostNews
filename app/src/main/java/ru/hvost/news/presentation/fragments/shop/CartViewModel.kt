@@ -49,8 +49,14 @@ class CartViewModel : ViewModel() {
             try {
                 val result = APIService.API.getCartAsync(userToken).await()
                 if(result.result == "success") {
-                    //sergeev: Устанавливать в зависимости от типа корзины.
-                    productsCart.value = result.toCartItems()
+                    if (result.isPrizes == true) {
+                        currentCartType.value = CartType.Prizes
+                        prizesCart.value = result.toCartItems()
+                    }
+                    else {
+                        currentCartType.value = CartType.Products
+                        productsCart.value = result.toCartItems()
+                    }
                     _cartUpdateEvent.value = NetworkEvent(State.SUCCESS)
                     viewModelScope.launch(Dispatchers.IO) {
                         _shopItems.postValue(uniteShopAndCart())

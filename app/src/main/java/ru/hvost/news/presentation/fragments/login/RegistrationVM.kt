@@ -36,7 +36,7 @@ class RegistrationVM : ViewModel() {
     val petSex = MutableLiveData<Int>()
     val petBirthday = MutableLiveData<Date>()
     var petSpeciesId: Int = -1
-    var voucher: String? = null //sergeev: Обязательно ли наличие ваучера при регистрации?
+    var voucher: String? = null
     var petName: String? = null
     //interests
     var interestsIds: String? = null
