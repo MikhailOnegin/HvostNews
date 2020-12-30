@@ -1,230 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/windowBackground"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".presentation.fragments.profile.PetPassportFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:theme="@style/AppTheme.Toolbar"
-        app:navigationIcon="@drawable/ic_back">
+        app:liftOnScroll="false">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_medium"
-            android:text="@string/petPassportTitle"
-            android:textAppearance="@style/ToolbarTitleTextAppearance"
-            android:textColor="@color/gray1"
-            android:textStyle="bold" />
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/petPassportTitle"
+            app:titleTextAppearance="@style/ToolbarTitleTextAppearanceLarge"
+            app:titleTextColor="@color/gray1" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <View
-        android:id="@+id/view"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray4_half_opacity" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/screenContentPadding">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:hint="@string/petName"
-                app:hintTextColor="@color/gray4">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/city"
-                    style="@style/TextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:textColor="@color/gray1"
-                    android:textSize="@dimen/mainTitleTextSize"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/clean" />
+            android:paddingVertical="@dimen/profileCoverPadding">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/vaccination"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/gilroy_bold"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                android:text="@string/petName"
+                android:textColor="@color/gray4"
+                android:textSize="@dimen/textTitleSize" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/gilroy_bold"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                android:text="@string/stub"
                 android:textColor="@color/gray1"
-                android:textSize="@dimen/articleTitleTextSize"
-                android:textStyle="bold" />
-
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/vaccine" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/vaccine"
-                android:textColor="@color/gray1" />
-
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/vaccineDate" />
+                android:textSize="@dimen/mainTitleTextSize" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/profileCoverPadding">
 
-                <EditText
+                <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="@string/vaccineDate"
-                    android:textColor="@color/gray1" />
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:gravity="center_vertical"
+                    android:text="@string/clean"
+                    android:textColor="@color/gray1"
+                    android:textSize="@dimen/dialogSubtitleTextSize" />
 
-                <Button
-                    android:layout_width="0dp"
+                <Switch
+                    android:id="@+id/switch_clean"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:text="ntfy" />
+                    android:checked="true"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:thumb="@drawable/ic_baseline_brightness_1_24"
+                    android:track="@drawable/track_selector" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:background="@color/gray4" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:fontFamily="@font/gilroy_bold"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                android:text="@string/vaccination"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:hint="@string/vaccine"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:hintTextColor="@color/gray4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vaccine"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:hint="@string/vaccineDate"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:endIconDrawable="@drawable/ic_notification"
+                app:endIconMode="custom"
+                app:endIconTint="@color/_1"
+                app:hintTextColor="@color/gray4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/vaccineDate"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/xLargeMargin"
+                android:paddingHorizontal="@dimen/profileCoverPadding" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/deworming"
                 android:textColor="@color/gray1"
                 android:textSize="@dimen/articleTitleTextSize"
                 android:textStyle="bold" />
 
-            <TextView
-                style="@style/ProfileTitleTextView"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/drug" />
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:hint="@string/drug"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:hintTextColor="@color/gray4">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/drug"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/drug"
-                android:textColor="@color/gray1" />
+                android:layout_marginBottom="@dimen/xLargeMargin"
+                android:hint="@string/dewormingDate"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:endIconDrawable="@drawable/ic_notification"
+                app:endIconMode="custom"
+                app:endIconTint="@color/gray1"
+                app:hintTextColor="@color/gray4">
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/dewormingDate" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dewormingDate"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/smallMargin"
-                    android:layout_weight="1"
-                    android:text="@string/vaccine"
-                    android:textColor="@color/gray1" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:text="ntfy" />
-
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/ekzo"
                 android:textColor="@color/gray1"
                 android:textSize="@dimen/articleTitleTextSize"
                 android:textStyle="bold" />
 
-            <TextView
-                style="@style/ProfileTitleTextView"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/drug" />
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:hint="@string/drug"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:hintTextColor="@color/gray4">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/parazites"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/drug"
-                android:textColor="@color/gray1" />
+                android:layout_marginBottom="@dimen/xLargeMargin"
+                android:hint="@string/ekzoDate"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:endIconDrawable="@drawable/ic_notification"
+                app:endIconMode="custom"
+                app:endIconTint="@color/gray1"
+                app:hintTextColor="@color/gray4">
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ekzoDate" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/parazitesDate"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/smallMargin"
-                    android:layout_weight="1"
-                    android:baselineAligned="false"
-                    android:text="@string/vaccine"
-                    android:textColor="@color/gray1" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:text="ntfy" />
-
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/diet"
                 android:textColor="@color/gray1"
                 android:textSize="@dimen/articleTitleTextSize"
@@ -233,13 +260,13 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:entries="@array/testItems" />
+                android:layout_marginBottom="@dimen/xLargeMargin" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/diseases"
                 android:textColor="@color/gray1"
                 android:textSize="@dimen/articleTitleTextSize"
@@ -249,71 +276,98 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <Button
                 android:id="@+id/delete"
-                style="@style/ElevatedButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
+                android:layout_marginHorizontal="@dimen/profileCoverPadding"
+                android:layout_marginBottom="@dimen/xLargeMargin"
                 android:backgroundTint="@android:color/white"
-                android:textColor="@color/gray1"
-                android:text="@string/add" />
+                android:fontFamily="@font/gilroy_bold"
+                android:text="@string/add"
+                android:textAllCaps="false"
+                android:textColor="@color/titleText"
+                android:textSize="@dimen/buttonMediumTextSize"
+                app:cornerRadius="@dimen/userProfileButtonLargeRadius"
+                app:layout_constraintTop_toBottomOf="@+id/work"
+                app:strokeColor="@color/btnStroke"
+                app:strokeWidth="@dimen/strokeWidthOutlinedButton" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/clinic"
                 android:textColor="@color/gray1"
                 android:textSize="@dimen/articleTitleTextSize"
                 android:textStyle="bold" />
 
-            <TextView
-                style="@style/ProfileTitleTextView"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/clinicName" />
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:hint="@string/clinicName"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:hintTextColor="@color/gray4">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/clinicName"
-                android:textColor="@color/gray1" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/clinicName"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <TextView
-                style="@style/ProfileTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/address" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/address"
-                android:textColor="@color/gray1" />
+                android:layout_marginBottom="@dimen/xLargeMargin"
+                android:hint="@string/address"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                app:hintTextColor="@color/gray4">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address"
+                    style="@style/TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/buttonHeight"
+                android:layout_marginHorizontal="@dimen/profileCoverPadding"
                 android:padding="@dimen/smallMargin"
                 android:text="@string/saveChanges" />
 
             <Button
-                style="@style/ElevatedButton"
+                android:id="@+id/cancel"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
+                android:layout_marginHorizontal="@dimen/profileCoverPadding"
                 android:backgroundTint="@color/gray4_half_opacity"
+                android:fontFamily="@font/gilroy_bold"
+                android:letterSpacing="-0.03"
                 android:padding="@dimen/smallMargin"
                 android:text="@string/cancel"
-                android:textColor="@color/gray1" />
+                android:textAllCaps="false"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/ButtonTextSize"
+                app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
