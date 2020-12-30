@@ -28,7 +28,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     private lateinit var onPetAdded: DefaultNetworkEventObserver
     private lateinit var onPetSpeciesLoadingEvent: DefaultNetworkEventObserver
     private lateinit var mainVM: MainViewModel
-    private var petSex: Int = RegistrationVM.SEX_UNKNOWN
+    private var petSex: Int? = null
     private val myFormat = "dd.MM.yyyy"
     private val sdf = SimpleDateFormat(myFormat)
 
@@ -113,16 +113,19 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
                 binding.sexMale.isSelected = true
                 binding.sexFemale.isSelected = false
                 binding.sexUnknown.isSelected = false
+                petSex = RegistrationVM.SEX_MALE
             }
             R.id.sexFemale -> {
                 binding.sexMale.isSelected = false
                 binding.sexFemale.isSelected = true
                 binding.sexUnknown.isSelected = false
+                petSex = RegistrationVM.SEX_FEMALE
             }
             R.id.sexUnknown -> {
                 binding.sexMale.isSelected = false
                 binding.sexFemale.isSelected = false
                 binding.sexUnknown.isSelected = true
+                petSex = null
             }
         }
     }
