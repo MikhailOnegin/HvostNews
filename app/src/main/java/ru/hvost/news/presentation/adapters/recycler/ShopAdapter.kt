@@ -20,7 +20,8 @@ import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
 class ShopAdapter(
-    private val onClick: (Long) -> Unit
+    private val onClick: (Long) -> Unit,
+    private val onGoToMapClicked: () -> Unit
 ) : ListAdapter<ShopItem, RecyclerView.ViewHolder>(ShopItemDiffUtilCallback()) {
 
     private var fullList: List<ShopItem>? = null
@@ -44,7 +45,7 @@ class ShopAdapter(
             is ShopCategory -> (holder as CategoryVH).bind(item, position)
             is ShopHeader -> (holder as HeaderVH).bind(item)
             is ShopProduct -> (holder as ProductVH).bind(item)
-            is ShopMessage -> (holder as MessageVH).bind(item)
+            is ShopMessage -> (holder as MessageVH).bind(item, onGoToMapClicked)
         }
     }
 
@@ -101,9 +102,14 @@ class ShopAdapter(
                 }
                 if(category.selectedProducts != 0) {
                     counter.text = "${category.selectedProducts}"
+                    counter.setBackgroundResource(R.drawable.background_shop_circle_colored)
                     counter.visibility = View.VISIBLE
                 } else {
-                    counter.visibility = View.GONE
+                    if (category.isEmpty) {
+                        counter.text = ""
+                        counter.setBackgroundResource(R.drawable.ic_question)
+                        counter.visibility = View.VISIBLE
+                    } else counter.visibility = View.GONE
                 }
                 image.setImageResource(
                     if (category.isExpanded) R.drawable.ic_chevron_up
@@ -139,7 +145,7 @@ class ShopAdapter(
         fun bind(header: ShopHeader) {
             binding.run {
                 Glide.with(binding.root).load(header.imageUri).into(image)
-                title.text = header.text
+                title.text = header.text.parseAsHtml()
             }
         }
 
@@ -202,7 +208,7 @@ class ShopAdapter(
         private val adapter: ShopAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(message: ShopMessage) {
+        fun bind(message: ShopMessage, onGoToMapClicked: () -> Unit) {
             binding.apply {
                 text.text = message.message
                 close.setOnClickListener {
@@ -210,6 +216,7 @@ class ShopAdapter(
                     val position = adapter.currentList.indexOf(category)
                     adapter.handleClickOnCategory(position)
                 }
+                button.setOnClickListener { onGoToMapClicked.invoke() }
             }
         }
 

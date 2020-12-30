@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/window_background"
-    android:fitsSystemWindows="true"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".presentation.fragments.profile.EditProfileFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:theme="@style/AppTheme.Toolbar"
-        android:elevation="@dimen/barsElevation"
-        app:navigationIcon="@drawable/ic_back">
+        app:liftOnScroll="false">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_medium"
-            android:text="@string/editProfileTitle"
-            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
-            android:textColor="@color/gray1"
-            android:textStyle="bold" />
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
+            android:theme="@style/AppTheme.Toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/editProfileTitle"
+            app:titleTextAppearance="@style/ToolbarTitleTextAppearanceLarge"
+            app:titleTextColor="@color/gray1" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +50,7 @@
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:hint="@string/surName"
                 app:hintTextColor="@color/gray4">
 
@@ -62,7 +66,7 @@
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:hint="@string/name"
                 app:hintTextColor="@color/gray4">
 
@@ -78,7 +82,7 @@
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:hint="@string/secondName"
                 app:hintTextColor="@color/gray4">
 
@@ -94,7 +98,7 @@
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:hint="@string/birthday"
                 app:endIconDrawable="@drawable/ic_date"
                 app:endIconMode="custom"
@@ -129,11 +133,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xSmallMargin"
                 android:layout_marginBottom="@dimen/xLargeMargin"
                 android:fontFamily="@font/gilroy_semibold"
-                android:paddingHorizontal="@dimen/xSmallMargin"
-                android:layout_marginTop="@dimen/xSmallMargin"
                 android:lineSpacingMultiplier="1.2"
+                android:paddingHorizontal="@dimen/xSmallMargin"
                 android:text="@string/phoneHint"
                 android:textColor="@color/gray2"
                 android:textSize="@dimen/secondaryTextTextSize" />
@@ -142,6 +146,7 @@
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normalMargin"
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:hint="@string/email"
                 app:hintTextColor="@color/gray4">
@@ -158,7 +163,7 @@
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:hint="@string/city"
                 app:hintTextColor="@color/gray4">
 
@@ -184,7 +189,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/push"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSubtitleTextSize" />
+                    android:textSize="@dimen/dialogSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_push"
@@ -213,7 +218,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/email_notification"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSubtitleTextSize" />
+                    android:textSize="@dimen/dialogSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_email"
@@ -231,12 +236,9 @@
                 android:id="@+id/save"
                 style="@style/ElevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:layout_marginTop="@dimen/normalMargin"
-                android:fontFamily="@font/gilroy_bold"
-                android:text="@string/saveChanges"
-                android:textSize="@dimen/buttonMediumTextSize"
-                android:textStyle="bold" />
+                android:text="@string/buttonSave" />
 
             <Button
                 android:id="@+id/cancel"
@@ -245,14 +247,14 @@
                 android:layout_height="@dimen/smallHeightButton"
                 android:backgroundTint="@color/gray4_half_opacity"
                 android:fontFamily="@font/gilroy_bold"
+                android:letterSpacing="-0.01"
                 android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textSize="@dimen/buttonMediumTextSize"
-                android:textStyle="bold"
                 app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

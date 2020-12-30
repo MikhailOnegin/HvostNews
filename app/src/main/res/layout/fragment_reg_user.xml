@@ -151,7 +151,6 @@
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:hint="@string/hintPhone">
 
-                <!-- sergeev: Устанавливать курсор в конец. -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone"
                     android:layout_width="match_parent"
@@ -161,7 +160,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- sergeev: Зачем? -->
             <TextView
                 style="@style/RegTextView"
                 android:layout_width="match_parent"

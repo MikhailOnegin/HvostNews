@@ -202,9 +202,10 @@ interface APIService {
         @Query("interests") interests: String?
     ): Deferred<UserDataResponse>
 
-    @GET("/rest/PetProfile/addPet/")
-    fun addPetAsync(
+    @GET("/rest/PetProfile/updatePet/")
+    fun updatePetAsync(
         @Query("userToken") userToken: String?,
+        @Query("petId") petId: String?,
         @Query("petName") petName: String?,
         @Query("petSpecies") petSpecies: String?,
         @Query("petSex") petSex: String?,
@@ -219,6 +220,15 @@ interface APIService {
         @Query("isSportsPet") isSportsPet: Boolean?,
         @Query("visitsSaloons") visitsSaloons: Boolean?,
         @Query("petEducation") petEducation: String?
+    ): Deferred<UpdatePetResponse>
+
+    @GET("/rest/PetProfile/addPet/")
+    fun addPetAsync(
+        @Query("userToken") userToken: String?,
+        @Query("petName") petName: String?,
+        @Query("petSpecies") petSpecies: String?,
+        @Query("petSex") petSex: String?,
+        @Query("petBirthday") petBirthday: String?,
     ): Deferred<AddPetResponse>
 
     // Coupons
@@ -265,6 +275,12 @@ interface APIService {
         @Query("articleId") articleId: String?
     ): Deferred<AddViewedByUserResponse>
 
+    @GET("/rest/PetVeterinaryProfile/getPetPassport/")
+    fun getPetPassportAsync(
+        @Query("userToken") userToken: String?,
+        @Query("petId") petId: String?
+    ): Deferred<PetPassportResponse>
+
     @GET("/rest/Articles/setLiked/")
     fun setArticleLikedByUserAsync(
         @Query("userToken") userToken: String?,
@@ -292,6 +308,7 @@ interface APIService {
 
         //sergeev: Заменить на ключ заказчика.
         const val YANDEX_MAPKIT_KEY = "96bc77a4-1010-4770-85ad-9d324f7eee03"
+
         //sergeev: Заменить на боевой сервер.
         const val baseUrl = "http://hvost-news.testfact3.ru"
 

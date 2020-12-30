@@ -572,21 +572,10 @@ class MainViewModel : ViewModel() {
     val addPetResponse: LiveData<AddPetResponse> = _addPetResponse
 
     fun addPet(
-        //TODO: поправить отправляемые данные
         petName: String,
         petSpecies: String,
-        petSex: String,
-//        petBreed: String,
+        petSex: String?,
         petBirthday: String,
-//        petDelicies: String,
-//        petToy: String,
-//        petBadHabbit: String,
-//        petChip: String,
-//        isPetForShows: Boolean,
-//        hasTitles: Boolean,
-//        isSportsPet: Boolean,
-//        visitsSaloons: Boolean,
-//        petEducation: String
     ) {
         viewModelScope.launch {
             _addPetEvent.value = NetworkEvent(State.LOADING)
@@ -596,17 +585,7 @@ class MainViewModel : ViewModel() {
                     petName = petName,
                     petSpecies = petSpecies,
                     petSex = petSex,
-                    petBreed = "502",
                     petBirthday = petBirthday,
-                    petDelicies = "1",
-                    petToy = "222",
-                    petBadHabbit = "1",
-                    petChip = "111",
-                    isPetForShows = true,
-                    hasTitles = true,
-                    isSportsPet = true,
-                    visitsSaloons = true,
-                    petEducation = "111"
                 ).await()
                 if (result.result == "success") {
                     _addPetResponse.value = result
@@ -616,6 +595,88 @@ class MainViewModel : ViewModel() {
                 }
             } catch (exc: Exception) {
                 _addPetEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    private val _petPassportLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petPassportLoadingEvent: LiveData<NetworkEvent<State>> = _petPassportLoadingEvent
+    private val _petPassportResponse = MutableLiveData<PetPassportResponse>()
+    val petPassportResponse: LiveData<PetPassportResponse> = _petPassportResponse
+
+    fun getPetPassport(petId: String) {
+        viewModelScope.launch {
+            _petPassportLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.getPetPassportAsync(
+                    userToken = App.getInstance().userToken,
+                    petId = petId
+                ).await()
+                if (result.result == "success") {
+                    _petPassportResponse.value = result
+                    _petPassportLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petPassportLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
+                    _petPassportResponse.value = null
+                }
+            } catch (exc: Exception) {
+                _petPassportLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petPassportResponse.value = null
+            }
+        }
+    }
+
+    private val _updatePetLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val updatePetLoadingEvent: LiveData<NetworkEvent<State>> = _updatePetLoadingEvent
+    private val _updatePetResponse = MutableLiveData<UpdatePetResponse>()
+    val updatePetResponse: LiveData<UpdatePetResponse> = _updatePetResponse
+
+    fun updatePet(
+        petId: String,
+        petName: String,
+        petSpecies: String,
+        petSex: String,
+        petBreed: String,
+        petBirthday: String,
+        petDelicies: String,
+        petToy: String,
+        petBadHabbit: String,
+        petChip: String,
+        isPetForShows: Boolean,
+        hasTitles: Boolean,
+        isSportsPet: Boolean,
+        visitsSaloons: Boolean,
+        petEducation: String
+    ) {
+        viewModelScope.launch {
+            _updatePetLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val result = APIService.API.updatePetAsync(
+                    userToken = App.getInstance().userToken,
+                    petId = petId,
+                    petName = petName,
+                    petSpecies = petSpecies,
+                    petSex = petSex,
+                    petBreed = petBreed,
+                    petBirthday = petBirthday,
+                    petDelicies = petDelicies,
+                    petToy = petToy,
+                    petBadHabbit = petBadHabbit,
+                    petChip = petChip,
+                    isPetForShows = isPetForShows,
+                    hasTitles = hasTitles,
+                    isSportsPet = isSportsPet,
+                    visitsSaloons = visitsSaloons,
+                    petEducation = petEducation
+                ).await()
+                if (result.result == "success") {
+                    _updatePetResponse.value = result
+                    _updatePetLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _updatePetLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
+                }
+            } catch (exc: Exception) {
+                _updatePetLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }

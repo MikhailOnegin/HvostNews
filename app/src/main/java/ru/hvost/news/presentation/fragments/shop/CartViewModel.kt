@@ -16,6 +16,7 @@ import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.events.OneTimeEvent
+import ru.hvost.news.utils.getUriForBackendImagePath
 import kotlin.Exception
 
 class CartViewModel : ViewModel() {
@@ -48,8 +49,14 @@ class CartViewModel : ViewModel() {
             try {
                 val result = APIService.API.getCartAsync(userToken).await()
                 if(result.result == "success") {
-                    //sergeev: Устанавливать в зависимости от типа корзины.
-                    productsCart.value = result.toCartItems()
+                    if (result.isPrizes == true) {
+                        currentCartType.value = CartType.Prizes
+                        prizesCart.value = result.toCartItems()
+                    }
+                    else {
+                        currentCartType.value = CartType.Products
+                        productsCart.value = result.toCartItems()
+                    }
                     _cartUpdateEvent.value = NetworkEvent(State.SUCCESS)
                     viewModelScope.launch(Dispatchers.IO) {
                         _shopItems.postValue(uniteShopAndCart())
@@ -221,6 +228,12 @@ class CartViewModel : ViewModel() {
                         ))
                         shopCategory.isEmpty = true
                     } else {
+                        result.add(ShopHeader(
+                            id = UniqueIdGenerator.nextId(),
+                            categoryId = categoryId,
+                            imageUri = getUriForBackendImagePath(null),
+                            text = category.categoryDescription.orEmpty()
+                        ))
                         result.addAll(category.products.toShopProducts(categoryId))
                     }
                 }
@@ -246,10 +259,6 @@ class CartViewModel : ViewModel() {
             }
         }
         return items
-    }
-
-    fun clearShopItems() {
-        _shopItems.value = null
     }
 
     fun resetShop() {

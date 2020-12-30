@@ -149,7 +149,8 @@ class SubmitPhoneFragment : BaseFragment() {
     }
 
     private fun setPhoneStartTemplate() {
-        binding.phone.setText("+7-")
+        binding.phone.setText(getString(R.string.phonePrefix))
+        binding.phone.setSelection(binding.phone.length())
     }
 
     private fun hideKeyboard() {

@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/window_background"
-    android:fitsSystemWindows="true"
+    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context=".presentation.fragments.profile.ProfileFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:theme="@style/AppTheme.Toolbar"
-        app:navigationIcon="@drawable/ic_edit">
+        app:liftOnScroll="false">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/bnvProfile"
-            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
-            android:textColor="@color/gray1" />
+            android:background="@android:color/white"
+            android:elevation="@dimen/barsElevation"
+            android:theme="@style/AppTheme.Toolbar"
+            app:navigationIcon="@drawable/ic_edit">
 
-    </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/bnvProfile"
+                android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
+                android:textColor="@color/gray1" />
 
-    <View
-        android:id="@+id/view"
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray4_half_opacity" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -495,6 +498,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -69,7 +69,6 @@
         app:layout_constraintBottom_toBottomOf="@id/typeIcon"
         android:layout_marginStart="@dimen/smallMargin"/>
 
-    <!-- sergeev: Устанавливать высоту динамически. -->
     <ru.hvost.news.presentation.customviews.RoundCornersImageView
         android:id="@+id/image"
         tools:src="@drawable/test_image"

@@ -97,4 +97,8 @@ class MainActivity : AppCompatActivity() {
         isBnvShown = false
     }
 
+    fun setBnvChecked(id: Int) {
+        binding.bnv.menu.findItem(id).isChecked = true
+    }
+
 }

@@ -55,7 +55,6 @@
         android:layout_marginEnd="@dimen/largeMargin"
         android:hint="@string/hintPhone">
 
-        <!-- sergeev: Устанавливать курсор в конец. -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/phone"
             android:layout_width="match_parent"

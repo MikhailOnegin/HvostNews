@@ -28,12 +28,11 @@ class OrdersFragment : Fragment(){
     private lateinit var mainVM: MainViewModel
     private lateinit var loadingObserver: DefaultNetworkEventObserver
 
-    //sergeev: Настроить emptyView, либо просто не пускать на экран.
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
         binding.recyclerViewOrders.adapter = OrderProductsAdapter()
         initializeObservers()

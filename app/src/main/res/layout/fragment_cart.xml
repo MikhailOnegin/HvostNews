@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/Toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.Toolbar"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="@string/cartTitle"
-        app:layout_scrollFlags="scroll"/>
+        android:background="@android:color/white"
+        app:liftOnScroll="true">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/window_background">
-
-        <com.google.android.material.appbar.AppBarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:liftOnScroll="false"
-            android:stateListAnimator="@null"
-            app:elevation="0dp">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap"
+            app:titleEnabled="false">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:theme="@style/AppTheme.Toolbar"
+                app:title="@string/cartTitle"
+                app:navigationIcon="@drawable/ic_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin"/>
 
             <LinearLayout
+                android:id="@+id/selectorsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:baselineAligned="false"
                 android:padding="@dimen/normalMargin"
-                app:layout_scrollFlags="scroll">
+                android:baselineAligned="false"
+                android:layout_marginTop="@dimen/toolbarHeight">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/products"
@@ -106,22 +106,22 @@
 
             </LinearLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <include
-            android:id="@+id/emptyView"
-            layout="@layout/layout_empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/layout_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
