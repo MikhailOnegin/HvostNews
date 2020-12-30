@@ -205,20 +205,21 @@ interface APIService {
     @GET("/rest/PetProfile/updatePet/")
     fun updatePetAsync(
         @Query("userToken") userToken: String?,
-//        @Query("petName") petName: String?,
-//        @Query("petSpecies") petSpecies: String?,
-//        @Query("petSex") petSex: String?,
-//        @Query("petBreed") petBreed: String?,
-//        @Query("petBirthday") petBirthday: String?,
-//        @Query("petDelicies") petDelicies: String?,
-//        @Query("petToy") petToy: String?,
-//        @Query("petBadHabbit") petBadHabbit: String?,
-//        @Query("petChip") petChip: String?,
-//        @Query("isPetForShows") isPetForShows: Boolean?,
-//        @Query("hasTitles") hasTitles: Boolean?,
-//        @Query("isSportsPet") isSportsPet: Boolean?,
-//        @Query("visitsSaloons") visitsSaloons: Boolean?,
-//        @Query("petEducation") petEducation: String?
+        @Query("petId") petId: String?,
+        @Query("petName") petName: String?,
+        @Query("petSpecies") petSpecies: String?,
+        @Query("petSex") petSex: String?,
+        @Query("petBreed") petBreed: String?,
+        @Query("petBirthday") petBirthday: String?,
+        @Query("petDelicies") petDelicies: String?,
+        @Query("petToy") petToy: String?,
+        @Query("petBadHabbit") petBadHabbit: String?,
+        @Query("petChip") petChip: String?,
+        @Query("isPetForShows") isPetForShows: Boolean?,
+        @Query("hasTitles") hasTitles: Boolean?,
+        @Query("isSportsPet") isSportsPet: Boolean?,
+        @Query("visitsSaloons") visitsSaloons: Boolean?,
+        @Query("petEducation") petEducation: String?
     ): Deferred<UpdatePetResponse>
 
     @GET("/rest/PetProfile/addPet/")
@@ -226,7 +227,7 @@ interface APIService {
         @Query("userToken") userToken: String?,
         @Query("petName") petName: String?,
         @Query("petSpecies") petSpecies: String?,
-        @Query("petSex")  petSex: String?,
+        @Query("petSex") petSex: String?,
         @Query("petBirthday") petBirthday: String?,
     ): Deferred<AddPetResponse>
 
@@ -273,6 +274,12 @@ interface APIService {
         @Query("userToken") userToken: String?,
         @Query("articleId") articleId: String?
     ): Deferred<AddViewedByUserResponse>
+
+    @GET("/rest/PetVeterinaryProfile/getPetPassport/")
+    fun getPetPassportAsync(
+        @Query("userToken") userToken: String?,
+        @Query("petId") petId: String?
+    ): Deferred<PetPassportResponse>
 
     @GET("/rest/Articles/setLiked/")
     fun setArticleLikedByUserAsync(

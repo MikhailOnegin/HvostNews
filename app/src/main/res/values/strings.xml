@@ -33,7 +33,7 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    <string name="clean">Стерилизованный / кастрированный</string>
+    <string name="clean">Стерилизованный</string>
     <string name="vaccine">Название вакцины</string>
     <string name="vaccineDate">Дата последней вакцинации</string>
     <string name="vaccination">Вакцинация</string>
