@@ -10,5 +10,15 @@ data class UserDataResponse(
     val email: String?,
     val city: String?,
     val birthday: String?,
-    val interests: List<String>?
-)
+    val interests: List<String>?,
+    val deliveryAddresses: List<DeliveryAddress>?
+) {
+
+    data class DeliveryAddress(
+        val city: String?,
+        val street: String?,
+        val house: String?,
+        val flat: String?
+    )
+
+}

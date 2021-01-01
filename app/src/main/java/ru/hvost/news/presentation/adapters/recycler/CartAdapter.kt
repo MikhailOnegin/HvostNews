@@ -40,10 +40,10 @@ class CartAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)){
             TYPE_PRODUCT -> {
-                (holder as CartProductVH).bind(getItem(position) as CartProduct, position, itemCount)
+                (holder as CartProductVH).bind(getItem(position) as CartProduct, position)
             }
             TYPE_PRIZE -> {
-                (holder as CartPrizeVH).bind(getItem(position) as CartProduct, position, itemCount)
+                (holder as CartPrizeVH).bind(getItem(position) as CartProduct, position)
             }
             TYPE_FOOTER -> {
                 (holder as CartFooterVH).bind(getItem(position) as CartFooter)
@@ -67,14 +67,14 @@ class CartAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: CartProduct, position: Int, size: Int) {
+        fun bind(item: CartProduct, position: Int) {
             Glide.with(binding.root).load(item.imageUri).into(binding.image)
             binding.run {
                 title.text = item.title.parseAsHtml()
                 count.text = item.count.toString()
                 price.text = "${moneyFormat.format(item.price.toInt())} \u20bd"
                 cost.text = "${moneyFormat.format(item.price.toInt() * item.count)} \u20bd"
-                if(position == size - 2) divider.visibility = View.GONE
+                if(position == 0) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 minus.setOnClickListener {
                     if(cartVM.cartChangesPermitted) cartVM.removeProductFromCart(item.productId, 1)
@@ -109,7 +109,7 @@ class CartAdapter(
     ): RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: CartProduct, position: Int, size: Int) {
+        fun bind(item: CartProduct, position: Int) {
             Glide.with(binding.root).load(item.imageUri).into(binding.image)
             binding.run {
                 title.text = item.title.parseAsHtml()
@@ -120,7 +120,7 @@ class CartAdapter(
                     WordEnding.TYPE_3 -> App.getInstance().getString(R.string.cartForBonusesType3)
                 }
                 binding.bonuses.text = "$forPrep ${item.bonusPrice.toInt()} $bonuses"
-                if(position == size - 2) divider.visibility = View.GONE
+                if(position == 0) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 binding.remove.setOnClickListener {
                     if(cartVM.cartChangesPermitted) cartVM.removePrizeFromCart(item.productId)

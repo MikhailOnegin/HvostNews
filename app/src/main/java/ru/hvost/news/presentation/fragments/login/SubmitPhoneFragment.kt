@@ -15,13 +15,9 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSubmitPhoneBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
-import ru.hvost.news.utils.PhoneInputFilter
-import ru.hvost.news.utils.WordEnding
+import ru.hvost.news.utils.*
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.EventObserver
-import ru.hvost.news.utils.getClearPhoneString
-import ru.hvost.news.utils.getWordEndingType
-import java.util.regex.Pattern
 
 class SubmitPhoneFragment : BaseFragment() {
 
@@ -130,26 +126,7 @@ class SubmitPhoneFragment : BaseFragment() {
     }
 
     private fun setPhoneField(phone: String?) {
-        if (phone.isNullOrBlank()) setPhoneStartTemplate()
-        else {
-            val pattern = Pattern.compile("7[0-9]{10}")
-            val matcher = pattern.matcher(phone)
-            if (matcher.matches()) {
-                val builder = StringBuilder(phone)
-                builder.insert(0, "+")
-                builder.insert(2, "-")
-                builder.insert(6, "-")
-                builder.insert(10, "-")
-                builder.insert(13, "-")
-                binding.phone.setText(builder.toString())
-            } else {
-                setPhoneStartTemplate()
-            }
-        }
-    }
-
-    private fun setPhoneStartTemplate() {
-        binding.phone.setText(getString(R.string.phonePrefix))
+        binding.phone.setText(formatPhoneString(phone))
         binding.phone.setSelection(binding.phone.length())
     }
 

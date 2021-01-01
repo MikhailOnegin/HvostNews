@@ -50,6 +50,7 @@ class ShopDomainsFragment : BaseFragment() {
             productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
             domains.observe(viewLifecycleOwner) { onDomainsChanged(it) }
             productsLoadingEvent.observe(viewLifecycleOwner) { onLoadingEvent(it) }
+            cartCounter.observe(viewLifecycleOwner) { onCartCounterChanged(it) }
         }
     }
 
@@ -101,13 +102,18 @@ class ShopDomainsFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     private fun onCartChanged(cartItems: List<CartItem>?) {
         cartItems?.run {
-            binding.cartCount.text = "${if(this.isEmpty()) this.size else this.size - 1}"
             try {
                 val total = (cartItems.last() as CartFooter).totalCost
                 binding.cartSum.text = "${moneyFormat.format(total)} \u20bd"
             } catch (exc: Exception) {
                 binding.cartSum.text = "0 \u20bd"
             }
+        }
+    }
+
+    private fun onCartCounterChanged(cartItems: Int?) {
+        cartItems?.run {
+            binding.cartCount.text = "$cartItems"
         }
     }
 

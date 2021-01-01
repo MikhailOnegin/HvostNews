@@ -43,12 +43,16 @@ class CartViewModel : ViewModel() {
         readyToMakeOrder.value = false
     }
 
+    private val _cartCounter = MutableLiveData(0)
+    val cartCounter: LiveData<Int> = _cartCounter
+
     fun updateCartAsync(userToken: String?) {
         _cartUpdateEvent.value = NetworkEvent(State.LOADING)
         viewModelScope.launch {
             try {
                 val result = APIService.API.getCartAsync(userToken).await()
                 if(result.result == "success") {
+                    _cartCounter.value = result.products?.size ?: 0
                     when (result.isPrizes) {
                         true -> {
                             currentCartType.value = CartType.Prizes

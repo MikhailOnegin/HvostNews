@@ -42,6 +42,7 @@
 
         <TextView
             android:id="@+id/category"
+            android:lineSpacingExtra="@dimen/textLineSpacingExtra"
             android:fontFamily="@font/gilroy_semibold"
             android:textSize="@dimen/shopDomainsCategoryTextSize"
             android:textColor="@color/TextColorPrimary"

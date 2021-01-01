@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentMakeOrderBinding
 import ru.hvost.news.models.CartFooter
@@ -23,6 +24,7 @@ class MakeOrderFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMakeOrderBinding
     private lateinit var cartVM: CartViewModel
+    private lateinit var mainVM: MainViewModel
     private lateinit var fields: Array<TextInputEditText>
 
     override fun onCreateView(
@@ -36,19 +38,35 @@ class MakeOrderFragment : BaseFragment() {
             binding.city, binding.street, binding.house, binding.flat
         )
         binding.phone.filters = arrayOf(PhoneInputFilter())
-        binding.phone.setText(getString(R.string.phonePrefix))
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        setUserData()
         setObservers()
     }
 
     override fun onStart() {
         super.onStart()
         setListeners()
+    }
+
+    private fun setUserData() {
+        binding.run {
+            name.setText(mainVM.userData.value?.name)
+            phone.setText(formatPhoneString(mainVM.userData.value?.phone))
+            email.setText(mainVM.userData.value?.email)
+            mainVM.userData.value?.deliveryAddresses?.lastOrNull()?.let {
+                city.setText(it.city)
+                street.setText(it.street)
+                house.setText(it.house)
+                flat.setText(it.flat)
+            }
+        }
+        setReadyToMakeOrder()
     }
 
     private fun setObservers() {
@@ -88,7 +106,38 @@ class MakeOrderFragment : BaseFragment() {
             binding.discount.text = "${moneyFormat.format(discount)} %"
             binding.discountSum.text = "${moneyFormat.format(discountSum)} \u20bd"
             binding.delivery.text = "${moneyFormat.format(deliveryCost)} \u20bd"
-            binding.total.text = "${moneyFormat.format(totalCost)} \u20bd"
+            if (isForPrizes) {
+                setProductViewsVisibility(false)
+                val bonuses = when(getWordEndingType(bonusesCost.toInt())){
+                    WordEnding.TYPE_1 -> App.getInstance().getString(R.string.cartForBonusesType1)
+                    WordEnding.TYPE_2 -> App.getInstance().getString(R.string.cartForBonusesType2)
+                    WordEnding.TYPE_3 -> App.getInstance().getString(R.string.cartForBonusesType3)
+                }
+                binding.total.text = "${moneyFormat.format(bonusesCost)} $bonuses"
+            } else {
+                setProductViewsVisibility(true)
+                binding.total.text = "${moneyFormat.format(totalCost)} \u20bd"
+            }
+        }
+    }
+
+    private fun setProductViewsVisibility(visible: Boolean) {
+        binding.run {
+            if (visible) {
+                discountTitle.visibility = View.VISIBLE
+                discountFiller.visibility = View.VISIBLE
+                discount.visibility = View.VISIBLE
+                discountSumTitle.visibility = View.VISIBLE
+                discountSumFiller.visibility = View.VISIBLE
+                discountSum.visibility = View.VISIBLE
+            } else {
+                discountTitle.visibility = View.GONE
+                discountFiller.visibility = View.GONE
+                discount.visibility = View.GONE
+                discountSumTitle.visibility = View.GONE
+                discountSumFiller.visibility = View.GONE
+                discountSum.visibility = View.GONE
+            }
         }
     }
 

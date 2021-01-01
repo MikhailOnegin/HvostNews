@@ -10,13 +10,10 @@ import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
 import android.view.View
-import android.widget.SpinnerAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -302,3 +299,23 @@ fun startIntentLiterature(context: Context, url:String){
     }
 }
 
+fun formatPhoneString(phone: String?): String {
+    val prefix = App.getInstance().getString(R.string.phonePrefix)
+    if (phone.isNullOrBlank()) return prefix
+    else {
+        val numbers = getClearPhoneString(phone)
+        val pattern = Pattern.compile("7[0-9]{10}")
+        val matcher = pattern.matcher(numbers)
+        return if (matcher.matches()) {
+            val builder = StringBuilder(numbers)
+            builder.insert(0, "+")
+            builder.insert(2, "-")
+            builder.insert(6, "-")
+            builder.insert(10, "-")
+            builder.insert(13, "-")
+            builder.toString()
+        } else {
+            prefix
+        }
+    }
+}
