@@ -78,14 +78,14 @@ interface APIService {
     @GET("/rest/Basket/addToCart/")
     fun addToCartAsync(
         @Query("userToken") userToken: String?,
-        @Query("productId") productId: Long,
+        @Query("productId") productId: String,
         @Query("count") count: Int
     ): Deferred<SimpleResponse>
 
     @GET("/rest/Basket/removeFromCart/")
     fun removeFromCartAsync(
         @Query("userToken") userToken: String?,
-        @Query("productId") productId: Long,
+        @Query("productId") productId: String,
         @Query("count") count: Int
     ): Deferred<SimpleResponse>
 
@@ -183,6 +183,12 @@ interface APIService {
         @Query("userToken") userToken: String?,
         @Query("prizeId") id: String?,
     ): Deferred<PrizeToCartResponse>
+
+    @GET("/rest/InviteFriend/deletePrize/")
+    fun removePrizeFromCartAsync(
+        @Query("userToken") userToken: String?,
+        @Query("prizeId") prizeId: String?
+    ): Deferred<SimpleResponse>
 
     @GET("/rest/InviteFriend/getBonusBalance/")
     fun getBonusBalanceAsync(

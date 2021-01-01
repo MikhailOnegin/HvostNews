@@ -255,6 +255,7 @@
                     android:layout_marginStart="@dimen/largeMargin"/>
 
                 <ru.hvost.news.presentation.customviews.DotFillerView
+                    android:id="@+id/discountFiller"
                     style="@style/DotFiller"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -289,6 +290,7 @@
                     android:layout_marginStart="@dimen/largeMargin"/>
 
                 <ru.hvost.news.presentation.customviews.DotFillerView
+                    android:id="@+id/discountSumFiller"
                     style="@style/DotFiller"
                     android:layout_width="0dp"
                     android:layout_height="0dp"

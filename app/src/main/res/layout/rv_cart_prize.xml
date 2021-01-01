@@ -8,20 +8,16 @@
 
     <ru.hvost.news.presentation.customviews.RoundCornersImageView
         android:id="@+id/image"
-        android:scaleType="centerCrop"
-        android:layout_width="@dimen/cartPrizeImageSize"
-        android:layout_height="@dimen/cartPrizeImageSize"
-        app:cornersRadius="@dimen/smallCorners"
-        app:drawOutline="true"
-        app:outlineColor="@android:color/white"
-        app:outlineWidth="2dp"
+        style="@style/OutlinedRoundedImageViewWithShadow"
+        tools:src="@drawable/test_image"
+        android:layout_width="@dimen/shopProductImageSize"
+        android:layout_height="@dimen/shopProductImageSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginTop="@dimen/largeMargin"
-        android:layout_marginBottom="@dimen/largeMargin"
-        tools:src="@drawable/test_image"/>
+        android:layout_marginStart="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/smallMargin"
+        android:layout_marginBottom="@dimen/smallMargin"/>
 
     <ImageButton
         android:id="@+id/remove"
@@ -41,16 +37,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="@string/testCartShortText"
-        android:maxLines="4"
+        android:maxLines="3"
         android:gravity="center_vertical|start"
         android:textColor="@color/TextColorPrimary"
         android:fontFamily="@font/gilroy_semibold"
-        app:layout_constraintTop_toTopOf="@id/image"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintEnd_toStartOf="@id/remove"
-        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/smallMargin"
         android:layout_marginEnd="@dimen/normalMargin"
-        android:layout_marginTop="@dimen/xSmallMargin"
+        android:layout_marginTop="@dimen/xLargeMargin"
         android:lineSpacingExtra="3dp"
         android:textSize="@dimen/cartItemTextSize"/>
 
@@ -63,12 +59,12 @@
         android:textColor="@color/TextColorPrimary"
         android:fontFamily="@font/gilroy_bold"
         android:textSize="@dimen/cartItemTextSize"
-        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintEnd_toStartOf="@id/remove"
-        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/smallMargin"
         android:layout_marginEnd="@dimen/normalMargin"
-        android:layout_marginBottom="@dimen/xSmallMargin"
+        android:layout_marginBottom="@dimen/xLargeMargin"
         android:lineSpacingExtra="3dp"
         tools:text="за 10 баллов"/>
 
@@ -77,6 +73,6 @@
         android:background="@color/gray4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

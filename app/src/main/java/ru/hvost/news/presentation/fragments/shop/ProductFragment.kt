@@ -64,6 +64,7 @@ class ProductFragment : BaseFragment(){
     private fun setObservers() {
         cartVM.apply {
             productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
+            cartCounter.observe(viewLifecycleOwner) { onCartCounterChanged(it) }
         }
     }
 
@@ -124,20 +125,25 @@ class ProductFragment : BaseFragment(){
 
     private fun addProductToCart(product: ShopProduct) {
         try {
-            cartVM.addToCart(product.productId.toLong(), 1)
+            cartVM.addToCart(product.productId, 1)
         } catch (exc: java.lang.Exception) {}
     }
 
     @SuppressLint("SetTextI18n")
     private fun onCartChanged(cartItems: List<CartItem>?) {
         cartItems?.run {
-            binding.cartCount.text = "${if(this.isEmpty()) this.size else this.size - 1}"
             try {
                 val total = (cartItems.last() as CartFooter).totalCost
                 binding.cartSum.text = "${moneyFormat.format(total)} \u20bd"
             } catch (exc: Exception) {
                 binding.cartSum.text = "0 \u20bd"
             }
+        }
+    }
+
+    private fun onCartCounterChanged(cartItems: Int?) {
+        cartItems?.run {
+            binding.cartCount.text = "$cartItems"
         }
     }
 

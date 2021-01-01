@@ -83,7 +83,7 @@
     <dimen name="cartTypeTitleTextSize">18sp</dimen>
     <dimen name="cartTypeCounterTextSize">14sp</dimen>
     <dimen name="cartTypeTitleCounterSize">30dp</dimen>
-    <dimen name="removeButtonSize">16dp</dimen>
+    <dimen name="removeButtonSize">20dp</dimen>
     <dimen name="cartProductImageSize">100dp</dimen>
     <dimen name="cartItemButtonSize">42dp</dimen>
     <dimen name="cartFooterMainTextSize">30sp</dimen>

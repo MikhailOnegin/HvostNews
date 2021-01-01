@@ -10,7 +10,7 @@ sealed class CartItem
 
 data class CartProduct(
     val id: Long,
-    val productId: Long,
+    val productId: String,
     val isForBonuses: Boolean,
     val price: Float,
     val bonusPrice: Float,
@@ -36,7 +36,7 @@ fun CartResponse.toCartItems(): List<CartItem> {
             cartItems.add(
                 CartProduct(
                     id = index.toLong(),
-                    productId = product.productId ?: 0L,
+                    productId = product.productId.orEmpty(),
                     isForBonuses = product.isForBonuses ?: false,
                     price = product.price ?: 0f,
                     bonusPrice = product.bonusPrice ?: 0f,

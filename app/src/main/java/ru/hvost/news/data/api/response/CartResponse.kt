@@ -12,7 +12,7 @@ data class CartResponse(
     val products: List<Product>?
 ){
     data class Product(
-        val productId: Long?,
+        val productId: String?,
         val count: Int?,
         val title: String?,
         val imageUrl: String?,

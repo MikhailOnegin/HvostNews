@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.fragments.vouchers
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -82,7 +81,7 @@ class VouchersFragment : BaseFragment() {
         mainVM.vouchers.observe(viewLifecycleOwner) { onVouchersUpdated(it) }
         mainVM.vouchersFilter.observe(viewLifecycleOwner) { onVouchersFilterChanged(it) }
         mainVM.vouchersFooterClickEvent.observe(viewLifecycleOwner, footerClickObserver)
-        cartVM.productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
+        cartVM.cartCounter.observe(viewLifecycleOwner) { onCartCounterChanged(it) }
     }
 
     private val footerClickObserver = OneTimeEvent.Observer {
@@ -142,10 +141,9 @@ class VouchersFragment : BaseFragment() {
         )
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun onCartChanged(cartItems: List<CartItem>?) {
+    private fun onCartCounterChanged(cartItems: Int?) {
         cartItems?.run {
-            binding.cartCount.text = "${if(this.isEmpty()) this.size else this.size - 1}"
+            binding.cartCount.text = "$cartItems"
         }
     }
 

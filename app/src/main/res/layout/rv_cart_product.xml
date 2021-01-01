@@ -8,18 +8,14 @@
 
     <ru.hvost.news.presentation.customviews.RoundCornersImageView
         android:id="@+id/image"
-        android:scaleType="centerCrop"
-        android:layout_width="@dimen/cartProductImageSize"
-        android:layout_height="@dimen/cartProductImageSize"
-        app:cornersRadius="@dimen/smallCorners"
-        app:drawOutline="true"
-        app:outlineColor="@android:color/white"
-        app:outlineWidth="@dimen/imageOutlineWidth"
+        style="@style/OutlinedRoundedImageViewWithShadow"
+        tools:src="@drawable/test_image"
+        android:layout_width="@dimen/shopProductImageSize"
+        android:layout_height="@dimen/shopProductImageSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginTop="@dimen/largeMargin"
-        tools:src="@drawable/test_image"/>
+        android:layout_marginStart="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/smallMargin"/>
 
     <ImageButton
         android:id="@+id/remove"
@@ -57,11 +53,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/image"
-        app:layout_constraintBottom_toTopOf="@id/divider"
-        app:layout_constraintStart_toStartOf="@id/image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/remove"
         android:layout_marginTop="@dimen/normalMargin"
-        android:layout_marginBottom="@dimen/normalMargin">
+        android:layout_marginBottom="@dimen/largeMargin">
 
         <View
             android:id="@+id/minus"
@@ -70,7 +66,8 @@
             android:background="@drawable/background_cart_minus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/largeMargin"/>
 
         <TextView
             android:id="@+id/count"
@@ -167,7 +164,6 @@
         android:background="@color/gray4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/container"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
