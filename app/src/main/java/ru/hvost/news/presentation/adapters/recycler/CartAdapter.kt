@@ -77,13 +77,13 @@ class CartAdapter(
                 if(position == size - 2) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 minus.setOnClickListener {
-                    if(cartVM.cartChangesPermitted) cartVM.removeFromCart(item.productId, 1)
+                    if(cartVM.cartChangesPermitted) cartVM.removeProductFromCart(item.productId, 1)
                 }
                 plus.setOnClickListener {
                     if(cartVM.cartChangesPermitted) cartVM.addToCart(item.productId, 1)
                 }
                 binding.remove.setOnClickListener {
-                    if(cartVM.cartChangesPermitted) cartVM.removeFromCart(item.productId, item.count)
+                    if(cartVM.cartChangesPermitted) cartVM.removeProductFromCart(item.productId, item.count)
                 }
             }
         }
@@ -123,7 +123,7 @@ class CartAdapter(
                 if(position == size - 2) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 binding.remove.setOnClickListener {
-                    if(cartVM.cartChangesPermitted) cartVM.removeFromCart(item.productId, item.count)
+                    if(cartVM.cartChangesPermitted) cartVM.removePrizeFromCart(item.productId)
                 }
                 binding.root.setOnClickListener {
                     //sergeev: Товары в наборе.

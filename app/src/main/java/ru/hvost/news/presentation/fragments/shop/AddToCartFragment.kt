@@ -124,7 +124,7 @@ class AddToCartFragment : BottomSheetDialogFragment() {
 
     private fun addProductToCart(product: ShopProduct) {
         try {
-            cartVM.addToCart(product.productId.toLong(), productsCount)
+            cartVM.addToCart(product.productId, productsCount)
         } catch (exc: Exception) {}
     }
 

@@ -49,13 +49,21 @@ class CartViewModel : ViewModel() {
             try {
                 val result = APIService.API.getCartAsync(userToken).await()
                 if(result.result == "success") {
-                    if (result.isPrizes == true) {
-                        currentCartType.value = CartType.Prizes
-                        prizesCart.value = result.toCartItems()
-                    }
-                    else {
-                        currentCartType.value = CartType.Products
-                        productsCart.value = result.toCartItems()
+                    when (result.isPrizes) {
+                        true -> {
+                            currentCartType.value = CartType.Prizes
+                            prizesCart.value = result.toCartItems()
+                        }
+                        else -> {
+                            if (result.products.isNullOrEmpty()) {
+                                if (currentCartType.value == CartType.Prizes)
+                                    prizesCart.value = result.toCartItems()
+                                else productsCart.value = result.toCartItems()
+                            } else {
+                                currentCartType.value = CartType.Products
+                                productsCart.value = result.toCartItems()
+                            }
+                        }
                     }
                     _cartUpdateEvent.value = NetworkEvent(State.SUCCESS)
                     viewModelScope.launch(Dispatchers.IO) {
@@ -81,7 +89,7 @@ class CartViewModel : ViewModel() {
     private val _cartChangingEvent = MutableLiveData<NetworkEvent<State>>()
     val cartChangingEvent: LiveData<NetworkEvent<State>> = _cartChangingEvent
 
-    fun addToCart(productId: Long, count: Int){
+    fun addToCart(productId: String, count: Int){
         cartChangesPermitted = false
         val userToken = App.getInstance().userToken
         viewModelScope.launch {
@@ -106,7 +114,7 @@ class CartViewModel : ViewModel() {
         }
     }
 
-    fun removeFromCart(productId: Long, count: Int){
+    fun removeProductFromCart(productId: String, count: Int){
         cartChangesPermitted = false
         val userToken = App.getInstance().userToken
         viewModelScope.launch {
@@ -115,6 +123,27 @@ class CartViewModel : ViewModel() {
                     userToken = userToken,
                     productId = productId,
                     count = count
+                ).await()
+                if(result.result == "success") updateCartAsync(userToken)
+                else {
+                    _cartChangingEvent.value = NetworkEvent(State.ERROR, result.error)
+                    cartChangesPermitted = true
+                }
+            } catch(exc: Exception) {
+                _cartChangingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                cartChangesPermitted = true
+            }
+        }
+    }
+
+    fun removePrizeFromCart(prizeId: String){
+        cartChangesPermitted = false
+        val userToken = App.getInstance().userToken
+        viewModelScope.launch {
+            try {
+                val result = APIService.API.removePrizeFromCartAsync(
+                    userToken = userToken,
+                    prizeId = prizeId
                 ).await()
                 if(result.result == "success") updateCartAsync(userToken)
                 else {
@@ -249,7 +278,7 @@ class CartViewModel : ViewModel() {
             if(shopItem is ShopCategory) shopItem.selectedProducts = 0
             if(shopItem is ShopProduct) {
                 val isInCart = cartItems.firstOrNull {
-                    it.productId.toString() == shopItem.productId
+                    it.productId == shopItem.productId
                 } != null
                 shopItem.isInCart = isInCart
                 if(isInCart){

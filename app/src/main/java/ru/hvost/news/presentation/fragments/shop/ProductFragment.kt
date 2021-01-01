@@ -124,7 +124,7 @@ class ProductFragment : BaseFragment(){
 
     private fun addProductToCart(product: ShopProduct) {
         try {
-            cartVM.addToCart(product.productId.toLong(), 1)
+            cartVM.addToCart(product.productId, 1)
         } catch (exc: java.lang.Exception) {}
     }
 
