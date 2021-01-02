@@ -14,11 +14,11 @@ import ru.hvost.news.models.OrderFooter
 import ru.hvost.news.models.OrderItem
 import ru.hvost.news.models.Product
 import ru.hvost.news.utils.moneyFormat
-import ru.hvost.news.utils.showNotReadyToast
 import java.lang.IllegalArgumentException
 
-class OrderProductsAdapter
-    : ListAdapter<OrderItem, RecyclerView.ViewHolder>(OrderItemDiffUtilCallback()) {
+class OrderProductsAdapter(
+    private val deleteOrder: (Long) -> Unit
+) : ListAdapter<OrderItem, RecyclerView.ViewHolder>(OrderItemDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
@@ -31,7 +31,10 @@ class OrderProductsAdapter
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)) {
             TYPE_PRODUCT -> (holder as OrderProductVH).bind(getItem(position) as Product)
-            TYPE_FOOTER -> (holder as OrderFooterVH).bind(getItem(position) as OrderFooter)
+            TYPE_FOOTER -> (holder as OrderFooterVH).bind(
+                getItem(position) as OrderFooter,
+                deleteOrder
+            )
         }
     }
 
@@ -78,7 +81,10 @@ class OrderProductsAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(footer: OrderFooter) {
+        fun bind(
+            footer: OrderFooter,
+            deleteOrder: (Long) -> Unit
+        ) {
             binding.apply {
                 count.text = footer.count.toString()
                 discount.text = "${moneyFormat.format(footer.discount)} %"
@@ -86,8 +92,7 @@ class OrderProductsAdapter
                 delivery.text = "${moneyFormat.format(footer.deliveryCost)} \u20bd"
                 total.text = "${moneyFormat.format(footer.totalCost)} \u20bd"
                 delete.setOnClickListener {
-                    //sergeev: Настроить удаление заказа после готовности API.
-                    showNotReadyToast()
+                    deleteOrder.invoke(footer.orderId)
                 }
             }
         }

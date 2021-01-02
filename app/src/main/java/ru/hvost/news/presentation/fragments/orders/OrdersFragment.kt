@@ -6,16 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentOrdersBinding
 import ru.hvost.news.models.*
-import ru.hvost.news.presentation.adapters.recycler.OrderProductsAdapter
 import ru.hvost.news.presentation.adapters.recycler.OrdersAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.utils.LinearRvItemDecorations
@@ -34,7 +31,6 @@ class OrdersFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
-        binding.recyclerViewOrders.adapter = OrderProductsAdapter()
         initializeObservers()
         return binding.root
     }
@@ -75,13 +71,9 @@ class OrdersFragment : Fragment(){
 
     @SuppressLint("SetTextI18n")
     private val onOrderSelected = { order: Order ->
-        binding.root.isEnabled = false
-        val adapter = (binding.recyclerViewOrders.adapter as OrderProductsAdapter)
-        adapter.submitList(order.toOrderItems())
-        binding.orderNumber.text = "${getString(R.string.orderNumber)}${order.orderId}"
-        val params = (binding.orderContainer.layoutParams as CoordinatorLayout.LayoutParams)
-        val behavior = params.behavior as BottomSheetBehavior
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        val bundle = Bundle()
+        bundle.putLong(OrderDialogFragment.ORDER_ID, order.id)
+        findNavController().navigate(R.id.action_ordersFragment_to_orderDialogFragment, bundle)
     }
 
     private val onFilterSelectedListener = object: AdapterView.OnItemSelectedListener {

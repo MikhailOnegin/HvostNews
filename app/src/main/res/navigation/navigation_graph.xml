@@ -380,7 +380,11 @@
         android:id="@+id/ordersFragment"
         android:name="ru.hvost.news.presentation.fragments.orders.OrdersFragment"
         android:label="OrdersFragment"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDialogFragment"
+            app:destination="@id/orderDialogFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/vouchersFragment"
@@ -557,5 +561,11 @@
             app:popEnterAnim="@anim/fragment_enter"
             app:popExitAnim="@anim/fragment_exit" />
     </fragment>
+
+    <dialog
+        android:id="@+id/orderDialogFragment"
+        android:name="ru.hvost.news.presentation.fragments.orders.OrderDialogFragment"
+        android:label="OrderDialogFragment"
+        tools:layout="@layout/fragment_order"/>
 
 </navigation>

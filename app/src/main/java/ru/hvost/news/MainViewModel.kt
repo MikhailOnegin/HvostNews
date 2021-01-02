@@ -454,6 +454,28 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    private val _deleteOrderEvent = MutableLiveData<NetworkEvent<State>>()
+    val deleteOrderEvent: LiveData<NetworkEvent<State>> = _deleteOrderEvent
+
+    fun deleteOrder(orderId: Long) {
+        viewModelScope.launch {
+            _deleteOrderEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response = APIService.API.deleteOrderAsync(
+                    userToken = App.getInstance().userToken,
+                    orderId = orderId
+                ).await()
+                if (response.result == "success") {
+                    _deleteOrderEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _deleteOrderEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
+            } catch (exc: Exception) {
+                _deleteOrderEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
     fun setArticleViewed(
         articleId: String?
     ) {
