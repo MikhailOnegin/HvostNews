@@ -70,6 +70,7 @@ val String.orderStatus
     get() = ordersStatuses[this] ?: App.getInstance().getString(R.string.stub)
 
 data class OrderFooter(
+    val orderId: Long,
     val count: Int,
     val discount: Float,
     val discountSum: Float,
@@ -81,6 +82,7 @@ fun Order.toOrderItems(): List<OrderItem>{
     val result = mutableListOf<OrderItem>()
     result.addAll(this.products)
     result.add(OrderFooter(
+        orderId = this.orderId,
         count = this.products.size,
         discount = this.discountPercent,
         discountSum = this.discountCurrency,

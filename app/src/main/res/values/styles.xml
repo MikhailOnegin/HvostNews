@@ -171,6 +171,7 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:popupBackground">@drawable/spinner_popup_background</item>
     </style>
+
     <style name="EmptySpinner">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:popupBackground">@drawable/spinner_popup_background</item>

@@ -107,6 +107,12 @@ interface APIService {
         @Query("userToken") userToken: String?
     ): Deferred<GetOrdersResponse>
 
+    @GET("/rest/Orders/deleteOrder/")
+    fun deleteOrderAsync(
+        @Query("userToken") userToken: String?,
+        @Query("orderId") orderId: Long
+    ): Deferred<SimpleResponse>
+
     @GET("/rest/Vouchers/getVouchers/")
     fun getVouchersAsync(
         @Query("userToken") userToken: String?

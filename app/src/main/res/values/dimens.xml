@@ -118,7 +118,7 @@
     <dimen name="orderStatusMaxWidth">150dp</dimen>
     <dimen name="bottomSheetTopThingHeight">6dp</dimen>
     <dimen name="bottomSheetTopThingSideMargins">150dp</dimen>
-    <dimen name="orderProductImageSize">80dp</dimen>
+    <dimen name="orderProductImageSize">120dp</dimen>
     <dimen name="orderImageShadowRadius">60dp</dimen>
     <dimen name="inviteTextSize">15sp</dimen>
     <dimen name="strokeWidthOutlinedButton">2dp</dimen>

@@ -6,29 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/image"
-        app:layout_constraintEnd_toStartOf="@id/title"
-        app:layout_constraintTop_toTopOf="@id/image"
-        app:layout_constraintBottom_toTopOf="@id/container"
-        android:background="@drawable/background_image_shadow"/>
-
     <ru.hvost.news.presentation.customviews.RoundCornersImageView
         android:id="@+id/image"
-        android:scaleType="centerCrop"
+        style="@style/OutlinedRoundedImageViewWithShadow"
+        tools:src="@drawable/test_image"
         android:layout_width="@dimen/orderProductImageSize"
         android:layout_height="@dimen/orderProductImageSize"
-        app:cornersRadius="@dimen/smallCorners"
-        app:drawOutline="true"
-        app:outlineColor="@android:color/white"
-        app:outlineWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginTop="@dimen/largeMargin"
-        tools:src="@drawable/test_image"/>
+        android:layout_marginStart="@dimen/smallMargin"
+        android:layout_marginTop="@dimen/smallMargin"/>
 
     <TextView
         android:id="@+id/title"
@@ -44,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="@id/image"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/smallMargin"
         android:layout_marginEnd="@dimen/normalMargin"
         android:lineSpacingExtra="3dp"/>
 
@@ -56,7 +43,6 @@
         app:layout_constraintBottom_toTopOf="@id/divider"
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/normalMargin"
         android:layout_marginBottom="@dimen/normalMargin"
         android:layout_marginEnd="@dimen/normalMargin">
 
