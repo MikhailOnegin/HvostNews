@@ -436,6 +436,8 @@
         <item name="android:paddingEnd">@dimen/largeMargin</item>
         <item name="android:paddingTop">@dimen/smallMargin</item>
         <item name="android:paddingBottom">@dimen/smallMargin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
     <style name="MapsPopupAnimation">

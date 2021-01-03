@@ -14,7 +14,9 @@ data class ShopsResponse(
         val address: String?,
         val regime: String?,
         val phone: List<String>?,
-        val website: String?
+        val website: String?,
+        val typeShopId: String?,
+        val typeShopName: String?
     )
 
 }
