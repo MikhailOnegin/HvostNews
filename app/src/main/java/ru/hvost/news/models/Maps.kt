@@ -13,6 +13,8 @@ data class Shop(
     val regime: String,
     val phones: List<String>,
     val website: String,
+    val typeShopId: String,
+    val typeShopName: String,
     var isFavourite: Boolean = false
 ) {
 
@@ -34,7 +36,9 @@ fun List<ShopsResponse.ShopResponse>?.toShops(): List<Shop> {
             address = shop.address.orEmpty(),
             regime = shop.regime.orEmpty(),
             website = shop.website.orEmpty(),
-            phones = shop.phone.orEmpty()
+            phones = shop.phone.orEmpty(),
+            typeShopId = shop.typeShopId.orEmpty(),
+            typeShopName = shop.typeShopName.orEmpty()
         )
     }
 }

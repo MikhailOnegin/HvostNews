@@ -142,7 +142,7 @@ class MapFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        mapVM.shops.observe(viewLifecycleOwner) { onShopsLoaded(it) }
+        mapVM.shops.observe(viewLifecycleOwner) { setShopsOnMap(it) }
         mapVM.optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
     }
 
@@ -157,6 +157,7 @@ class MapFragment : BaseFragment() {
             LayoutInflater.from(requireActivity()), null, false
         )
         val popup = PopupWindow(popupBinding.root)
+        setPopupControls(popupBinding, popup)
         popup.apply {
             setWindowLayoutMode(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -170,9 +171,61 @@ class MapFragment : BaseFragment() {
         popup.showAtLocation(binding.settings, Gravity.NO_GRAVITY, 0, 0)
     }
 
-    private fun onShopsLoaded(shops: List<Shop>?) {
+    private fun setPopupControls(binding: PopupMapSettingsBinding, popup: PopupWindow) {
+        mapVM.showGroomsTemp.value = mapVM.showGrooms
+        mapVM.showVetsTemp.value = mapVM.showVets
+        mapVM.showZoosTemp.value = mapVM.showZoos
+        setPopupListeners(binding, popup)
+        setPopupObservers(binding)
+    }
+
+    private fun setPopupListeners(binding: PopupMapSettingsBinding, popup: PopupWindow) {
+        //sergeev: Настроить фильтрацию по признаку участия в акции.
+        binding.run {
+            grooms.setOnClickListener { mapVM.showGroomsTemp.value = mapVM.showGroomsTemp.value?.not() }
+            zoos.setOnClickListener { mapVM.showZoosTemp.value = mapVM.showZoosTemp.value?.not() }
+            vets.setOnClickListener { mapVM.showVetsTemp.value = mapVM.showVetsTemp.value?.not() }
+            apply.setOnClickListener {
+                mapVM.showGrooms = mapVM.showGroomsTemp.value ?: true
+                mapVM.showVets = mapVM.showVetsTemp.value ?: true
+                mapVM.showZoos = mapVM.showZoosTemp.value ?: true
+                setShopsOnMap(getFilteredShopsList())
+                popup.dismiss()
+            }
+            reset.setOnClickListener {
+                mapVM.showGrooms = true
+                mapVM.showVets = true
+                mapVM.showZoos = true
+                setShopsOnMap(mapVM.originShopsList)
+                popup.dismiss()
+            }
+        }
+    }
+
+    private fun getFilteredShopsList(): List<Shop> {
+        var result = mapVM.originShopsList
+        if (!mapVM.showGrooms) result = result.filter { it.typeShopId != MapViewModel.GROOMS_ID }
+        if (!mapVM.showVets) result = result.filter { it.typeShopId != MapViewModel.VETS_ID }
+        if (!mapVM.showZoos) result = result.filter { it.typeShopId != MapViewModel.ZOOS_ID }
+        return result
+    }
+
+    private fun setPopupObservers(binding: PopupMapSettingsBinding) {
+        mapVM.showGroomsTemp.observe(viewLifecycleOwner) {
+            binding.grooms.isSelected = it
+        }
+        mapVM.showVetsTemp.observe(viewLifecycleOwner) {
+            binding.vets.isSelected = it
+        }
+        mapVM.showZoosTemp.observe(viewLifecycleOwner) {
+            binding.zoos.isSelected = it
+        }
+    }
+
+    private fun setShopsOnMap(shops: List<Shop>?) {
         shops?.run {
-            setShopsOnMap(this)
+            binding.mapView.map.mapObjects.clear()
+            drawShopsOnMap(this)
             setAutoCompleteTextView(this.toMutableList())
         }
     }
@@ -195,7 +248,7 @@ class MapFragment : BaseFragment() {
     }
 
     @SuppressLint("InflateParams")
-    private fun setShopsOnMap(shops: List<Shop>) {
+    private fun drawShopsOnMap(shops: List<Shop>) {
         val mapObjects = binding.mapView.map.mapObjects.addCollection()
         for (shop in shops) {
             val view = LayoutInflater.from(requireActivity())

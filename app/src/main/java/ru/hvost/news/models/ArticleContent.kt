@@ -49,6 +49,17 @@ class HtmlQuote(
 
 }
 
+class HtmlMarker(
+    id: Long,
+    val text: String
+) : ArticleContent(id){
+
+    override fun toString(): String {
+        return text
+    }
+
+}
+
 class HtmlImage(
     id: Long,
     val imageUrl: String
@@ -83,9 +94,11 @@ class HtmlText(
 val TextWithHeaderPattern: Pattern = compile(".*<h4>.*</h4>", DOTALL)
 val TextWithQuotePattern: Pattern = compile(".*<blockquote>.*</blockquote>", DOTALL)
 val TextWithImagePattern: Pattern = compile(".*<img.*>", DOTALL)
+val TextWithMarkerPattern: Pattern = compile(".*<li>.*</li>", DOTALL)
 val HeaderPattern: Pattern = compile("<h4>.*</h4>", DOTALL)
 val QuotePattern: Pattern = compile("<blockquote>.*</blockquote>", DOTALL)
 val ImagePattern: Pattern = compile("<img.*>", DOTALL)
+val MarkerPattern: Pattern = compile("<li>.*</li>", DOTALL)
 
 fun String.toHtmlContent() : List<ArticleContent> {
     val result = mutableListOf<ArticleContent>()
@@ -101,6 +114,9 @@ fun String.toHtmlContent() : List<ArticleContent> {
             }
             TextWithImagePattern.matcher(builder.toString()).matches() -> {
                 processString(ImagePattern, builder, result)
+            }
+            TextWithMarkerPattern.matcher(builder.toString()).matches() -> {
+                processString(MarkerPattern, builder, result)
             }
         }
     }
@@ -128,6 +144,12 @@ fun processString(
                 )
             }
             ImagePattern -> HtmlImage(UniqueIdGenerator.nextId(), matcher.group())
+            MarkerPattern -> {
+                val text = matcher.group()
+                HtmlMarker(
+                    UniqueIdGenerator.nextId(),
+                    text.substring(4, text.length-5))
+            }
             else -> throw IllegalArgumentException("Illegal pattern.")
         }
     )

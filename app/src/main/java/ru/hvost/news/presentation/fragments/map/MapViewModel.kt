@@ -18,6 +18,7 @@ class MapViewModel: ViewModel() {
     val shopsLoadingEvent: LiveData<NetworkEvent<State>> = _shopsLoadingEvent
     private val _shops = MutableLiveData<List<Shop>>()
     val shops: LiveData<List<Shop>> = _shops
+    var originShopsList = listOf<Shop>()
 
     fun loadShops(userToken: String?) {
         viewModelScope.launch {
@@ -26,7 +27,8 @@ class MapViewModel: ViewModel() {
                 val response = APIService.API.getShopsAsync(userToken).await()
                 if (response.result == "success") {
                     _shopsLoadingEvent.value = NetworkEvent(State.SUCCESS)
-                    _shops.value = response.shops.toShops()
+                    originShopsList = response.shops.toShops()
+                    _shops.value = originShopsList
                 } else {
                     _shopsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                     _shops.value = listOf()
@@ -43,6 +45,22 @@ class MapViewModel: ViewModel() {
 
     fun sendOptionsClickedEvent() {
         _optionsClickedEvent.value = OneTimeEvent()
+    }
+
+    var showGrooms = true
+    var showVets = true
+    var showZoos = true
+
+    val showGroomsTemp = MutableLiveData(true)
+    val showVetsTemp = MutableLiveData(true)
+    val showZoosTemp = MutableLiveData(true)
+
+    companion object {
+
+        const val GROOMS_ID = "3"
+        const val VETS_ID = "1"
+        const val ZOOS_ID = "2"
+
     }
 
 }

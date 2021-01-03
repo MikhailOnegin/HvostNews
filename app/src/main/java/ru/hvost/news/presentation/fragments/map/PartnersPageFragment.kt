@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
+import androidx.core.text.parseAsHtml
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yandex.mapkit.Animation
@@ -98,8 +99,8 @@ class PartnersPageFragment : BaseFragment() {
 
     private fun inflateData(shop: Shop) {
         binding.apply {
-            name.text = shop.name
-            description.text = shop.shortDescription
+            name.text = shop.name.parseAsHtml()
+            description.text = shop.shortDescription.parseAsHtml()
             address.text = shop.address
             regime.text = shop.regime
             website.text = shop.website
