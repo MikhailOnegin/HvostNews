@@ -202,4 +202,5 @@
     <dimen name="shopDomainsTitleTextSize">32sp</dimen>
     <dimen name="shopDomainsImageHeight">250dp</dimen>
     <dimen name="shopDomainsCategoryTextSize">24sp</dimen>
+    <dimen name="textMarkerSize">10dp</dimen>
 </resources>

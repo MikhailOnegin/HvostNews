@@ -45,6 +45,7 @@ class ArticleContentAdapter(
             TYPE_QUOTE -> ArticleQuoteVH.getViewHolder(parent)
             TYPE_IMAGE -> ArticleImageVH.getViewHolder(parent)
             TYPE_TEXT -> ArticleTextVH.getViewHolder(parent)
+            TYPE_MARKER -> ArticleMarkerVH.getViewHolder(parent)
             else -> throw IllegalArgumentException("Wrong article view type.")
         }
     }
@@ -57,6 +58,7 @@ class ArticleContentAdapter(
             is HtmlQuote -> (holder as ArticleQuoteVH).bind(item)
             is HtmlImage -> (holder as ArticleImageVH).bind(item)
             is HtmlText -> (holder as ArticleTextVH).bind(item)
+            is HtmlMarker -> (holder as ArticleMarkerVH).bind(item)
         }
     }
 
@@ -68,6 +70,7 @@ class ArticleContentAdapter(
             is HtmlQuote -> TYPE_QUOTE
             is HtmlImage -> TYPE_IMAGE
             is HtmlText -> TYPE_TEXT
+            is HtmlMarker -> TYPE_MARKER
         }
     }
 
@@ -231,7 +234,7 @@ class ArticleContentAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: HtmlQuote) {
-            binding.text.text = quote.text.parseAsHtml()
+            binding.text.text = quote.text.parseAsHtml().trim()
         }
 
         companion object {
@@ -243,6 +246,29 @@ class ArticleContentAdapter(
                     false
                 )
                 return ArticleQuoteVH(binding)
+            }
+
+        }
+
+    }
+
+    class ArticleMarkerVH(
+        private val binding: RvArticleMarkerBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(quote: HtmlMarker) {
+            binding.text.text = quote.text.parseAsHtml().trim()
+        }
+
+        companion object {
+
+            fun getViewHolder(parent: ViewGroup): ArticleMarkerVH {
+                val binding = RvArticleMarkerBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return ArticleMarkerVH(binding)
             }
 
         }
@@ -323,6 +349,7 @@ class ArticleContentAdapter(
         const val TYPE_QUOTE = 4
         const val TYPE_IMAGE = 5
         const val TYPE_TEXT = 6
+        const val TYPE_MARKER = 7
 
     }
 
