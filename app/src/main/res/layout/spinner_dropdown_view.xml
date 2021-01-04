@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/widgetsHeight"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/ripple_spinner_view_dropdown">
+    android:background="@drawable/selector_gray_rect_small_corners">
 
     <TextView
         android:id="@+id/spinnerText"

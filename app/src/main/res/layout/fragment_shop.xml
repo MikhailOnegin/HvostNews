@@ -49,12 +49,13 @@
                 <LinearLayout
                     android:id="@+id/cartContainer"
                     android:gravity="center_vertical"
-                    android:background="@drawable/background_cart_layout"
+                    android:background="@drawable/selector_gray_rect_small_corners"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/normalMargin">
 
                     <ImageView
                         android:src="@drawable/ic_cart"
@@ -92,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/xSmallMargin"
-                        android:layout_marginEnd="@dimen/largeMargin"/>
+                        android:layout_marginEnd="@dimen/smallMargin"/>
 
                 </LinearLayout>
 

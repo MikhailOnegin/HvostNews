@@ -183,7 +183,7 @@ class RegPetFragment : Fragment() {
 
     private fun isEverythingOk(): Boolean {
         binding.run {
-            val fields = arrayOf(petName, promocode)
+            val fields = arrayOf(petName)
             if(hasBlankField(*fields)) {
                 scrollToTheTop(binding.scrollView)
                 return false

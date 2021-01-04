@@ -112,10 +112,13 @@ class ShopFragment : BaseFragment() {
     private fun onShopItemsChanged(shopItems: List<ShopItem>?) {
         shopItems?.run {
             (binding.recyclerView.adapter as ShopAdapter).let {
-                //sergeev: Не сворачивать список при возврате из деталки.
                 it.setFullList(this)
+                val currentList = (binding.recyclerView.adapter as ShopAdapter).currentList
+                val newList = if (currentList.isNullOrEmpty())
+                    collapseListToFirstCategory(this)
+                else this
                 it.submitList(
-                    collapseListToFirstCategory(this),
+                    newList,
                     isAfterChanging = true
                 )
             }

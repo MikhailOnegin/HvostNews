@@ -45,12 +45,14 @@
                     android:id="@+id/cartContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_cart_layout"
+                    android:background="@drawable/selector_gray_rect_small_corners"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginEnd="@dimen/normalMargin"
+                    tools:ignore="UnusedAttribute">
 
                     <ImageView
                         android:layout_width="@dimen/icCartSize"
@@ -66,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/smallMargin"
-                        android:layout_marginEnd="@dimen/largeMargin"
+                        android:layout_marginEnd="@dimen/smallMargin"
                         android:fontFamily="@font/gilroy_bold"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/cartLayoutTextSize"
@@ -76,15 +78,22 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Spinner
-                android:id="@+id/spinner"
-                style="@style/RegSpinner"
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:paddingTop="@dimen/smallMargin"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/widgetsHeight"
-                android:layout_marginTop="@dimen/toolbarHeight"
-                android:layout_marginStart="@dimen/largeMargin"
-                android:layout_marginEnd="@dimen/largeMargin"
-                app:layout_scrollFlags="scroll|snap"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/toolbarHeight">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    style="@style/RegSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/widgetsHeight"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+            </FrameLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

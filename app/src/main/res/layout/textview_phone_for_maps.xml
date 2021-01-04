@@ -7,6 +7,6 @@
     tools:text="8 800 200 00 00"
     android:paddingStart="@dimen/smallMargin"
     android:paddingEnd="@dimen/smallMargin"
-    android:background="@drawable/selector_light_rect"
+    android:background="@drawable/selector_gray_rect_small_corners"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>

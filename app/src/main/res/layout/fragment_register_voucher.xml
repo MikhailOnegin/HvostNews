@@ -96,6 +96,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/smallMargin">
 
+                <include
+                    android:id="@+id/spinnerEmptyView"
+                    layout="@layout/spinner_empty_view"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/widgetsHeight"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/normalMargin"/>
+
                 <Spinner
                     android:id="@+id/spinner"
                     style="@style/RegSpinner"

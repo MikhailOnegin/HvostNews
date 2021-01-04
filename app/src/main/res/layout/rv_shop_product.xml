@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#F0EBFA"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:foreground="@drawable/selector_gray_rect_small_corners"
+    tools:ignore="UnusedAttribute">
 
     <ru.hvost.news.presentation.customviews.RoundCornersImageView
         android:id="@+id/image"
