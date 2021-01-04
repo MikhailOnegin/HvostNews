@@ -54,7 +54,7 @@ interface APIService {
         @Query("petSpecies") petSpecies: String,
         @Query("petSex") petSex: String,
         @Query("petBirthday") petBirthday: String,
-        @Query("voucher") voucher: String? = null,
+        @Query("voucher") voucher: String?,
         @Query("interests") interests: String,
         @Query("password") password: String
     ): Deferred<RegisterUserResponse>

@@ -39,6 +39,7 @@ class RegisterVoucherFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterVoucherBinding.inflate(inflater, container, false)
+        binding.spinner.emptyView = binding.spinnerEmptyView.root
         return binding.root
     }
 

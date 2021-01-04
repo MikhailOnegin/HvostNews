@@ -142,7 +142,7 @@ class RegistrationVM : ViewModel() {
                     phone = userPhone ?: "",
                     city = userCity ?: "",
                     petName = petName ?: "",
-                    //voucher = voucher ?: "", //sergeev: Купоны не работают при регистрации.
+                    voucher = voucher ?: "", //sergeev: Промокод не добавляется к питомцу при регистрации.
                     interests = interestsIds ?: "",
                     petSpecies = petSpeciesId.toString(),
                     petBirthday = simpleDateFormat.format(petBirthday.value ?: Date()),
@@ -167,7 +167,7 @@ class RegistrationVM : ViewModel() {
             interestsIds = if(isEmpty()) null
             else {
                 val builder = StringBuilder()
-                for((index, interest) in this.withIndex()){
+                for(interest in this){
                     if (interest.isSelected) {
                         if (builder.isNotEmpty()) builder.append(",")
                         builder.append(interest.interestId)
@@ -187,7 +187,6 @@ class RegistrationVM : ViewModel() {
             || userPhone.isNullOrBlank()
             || userEmail.isNullOrBlank()
             || userCity.isNullOrBlank()
-            || voucher.isNullOrBlank()
             || petName.isNullOrBlank()
             || interestsIds.isNullOrBlank()
             || password.isNullOrBlank()) return true

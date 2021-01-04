@@ -439,4 +439,5 @@
     <string name="last_semiтars_video">Видео с прошлых семинаров</string>
     <string name="productToolbarTitle">Товар</string>
     <string name="goToMapButtonText">Перейти на карту партнеров</string>
+    <string name="petsSpinnerEmptyViewTitle">Нет питомцев</string>
 </resources>

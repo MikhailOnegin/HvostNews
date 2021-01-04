@@ -22,7 +22,7 @@
         android:id="@+id/text"
         tools:text="Кошки покорили весь мир. И нежное мурлыканье однозначно им в этом помогло! А вы знали, что мурлыканье – это не только приятная музыка для нашего слуха, но и польза для здоровья?"
         android:textSize="@dimen/articleTextSize"
-        android:textColor="@color/TextColorPrimary"
+        android:textColor="@color/gray2"
         android:fontFamily="@font/gilroy_semibold"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
