@@ -64,4 +64,5 @@
     <color name="finishOrderTextSpanColor">#1EC34B</color>
     <color name="gray4_half_opacity">#80B9BEE1</color>
     <color name="articleContentTitleTextColor">#151515</color>
+    <color name="graySelectorColor">#0D000000</color>
 </resources>
