@@ -4,7 +4,7 @@ repositories {
 
 buildscript {
     ext{
-        kotlin_version = '1.4.10'
+        kotlin_version = '1.4.21'
         version_moshi = '1.9.2'
         version_retrofit = '2.7.1'
         okhttp3_version = "4.2.2"
@@ -15,8 +15,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.1'
-
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.4'
     }
 }
 
