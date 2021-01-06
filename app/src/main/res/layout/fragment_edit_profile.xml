@@ -191,6 +191,7 @@
                     android:textColor="@color/gray1"
                     android:textSize="@dimen/dialogSubtitleTextSize" />
 
+                <!-- yunusov: Записывать Boolean в DefaultSharedPreferences по ключу FcmService.PREF_SHOW_NOTIFICATIONS -->
                 <Switch
                     android:id="@+id/switch_push"
                     android:layout_width="wrap_content"

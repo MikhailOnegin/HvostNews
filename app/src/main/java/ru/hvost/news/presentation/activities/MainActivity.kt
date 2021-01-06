@@ -3,6 +3,10 @@ package ru.hvost.news.presentation.activities
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,12 +16,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.yandex.mapkit.MapKitFactory
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ActivityMainBinding
+import ru.hvost.news.services.FcmService
 import java.lang.AssertionError
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.bnv.setupWithNavController(findNavController(R.id.nav_host_fragment))
         initializeMaps()
+        createNotificationsChannels()
+        subscribeToNewArticlesTopic()
     }
 
     private fun initializeMaps() {
@@ -99,6 +107,54 @@ class MainActivity : AppCompatActivity() {
 
     fun setBnvChecked(id: Int) {
         binding.bnv.menu.findItem(id).isChecked = true
+    }
+
+    private fun createNotificationsChannels() {
+        createNewArticlesNotificationChannels()
+        createOrderStatusNotificationChannels()
+    }
+
+    private fun createNewArticlesNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val newArticlesChannelName = getString(R.string.newArticlesChannelName)
+            val newArticlesChannelDescription = getString(R.string.newArticlesChannelDescription)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(
+                NEW_ARTICLES_CHANNEL_ID,
+                newArticlesChannelName,
+                importance
+            )
+            channel.description = newArticlesChannelDescription
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun createOrderStatusNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val orderStatusChannelName = getString(R.string.orderStatusChannelName)
+            val orderStatusChannelDescription = getString(R.string.orderStatusChannelDescription)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(
+                ORDER_STATUS_CHANNEL_ID,
+                orderStatusChannelName,
+                importance
+            )
+            channel.description = orderStatusChannelDescription
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun subscribeToNewArticlesTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic(FcmService.TOPIC_NEW_ARTICLES)
+    }
+
+    companion object {
+
+        const val NEW_ARTICLES_CHANNEL_ID = "new_articles_channel_id"
+        const val ORDER_STATUS_CHANNEL_ID = "order_status_channel_id"
+
     }
 
 }

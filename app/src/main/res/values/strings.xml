@@ -440,4 +440,8 @@
     <string name="productToolbarTitle">Товар</string>
     <string name="goToMapButtonText">Перейти на карту партнеров</string>
     <string name="petsSpinnerEmptyViewTitle">Нет питомцев</string>
+    <string name="newArticlesChannelName">Новые статьи</string>
+    <string name="newArticlesChannelDescription">Уведомления о появлении новых статей.</string>
+    <string name="orderStatusChannelName">Заказы</string>
+    <string name="orderStatusChannelDescription">Уведомления об изменении статусов заказов в интернет-магазине.</string>
 </resources>
