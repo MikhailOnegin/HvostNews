@@ -4,12 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.preference.PreferenceManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LoginResponse
+import ru.hvost.news.services.FcmService
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
@@ -24,7 +26,9 @@ class AuthorizationVM: ViewModel(){
         viewModelScope.launch {
             _loginEvent.value = NetworkEvent(State.LOADING)
             try {
-                val response = APIService.API.loginAsync(login, password).await()
+                val prefs = PreferenceManager.getDefaultSharedPreferences(App.getInstance())
+                val firebaseToken = prefs.getString(FcmService.PREF_FIREBASE_TOKEN, null)
+                val response = APIService.API.loginAsync(login, password, firebaseToken).await()
                 if (response.result == "success" && response.userToken != null) {
                     loginResponse = response
                     if (response.isPhoneRegistered == true)

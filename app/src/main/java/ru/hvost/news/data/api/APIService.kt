@@ -18,7 +18,8 @@ interface APIService {
     @GET("/rest/Authorization/login/")
     fun loginAsync(
         @Query("login") login: String?,
-        @Query("password") password: String?
+        @Query("password") password: String?,
+        @Query("firebaseToken") firebaseToken: String?
     ): Deferred<LoginResponse>
 
     @GET("/rest/Authorization/requestSMS/")
