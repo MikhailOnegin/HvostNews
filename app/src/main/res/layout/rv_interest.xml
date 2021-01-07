@@ -21,8 +21,8 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normalMargin"
-        android:layout_marginBottom="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/rvInterestPadding"
+        android:layout_marginBottom="@dimen/rvInterestPadding"
         android:text="@string/stub"
         android:textAppearance="@style/RegTextTextAppearance"
         android:textColor="@color/sexSelector"
@@ -32,12 +32,12 @@
 
     <View
         android:id="@+id/selection"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="@dimen/rvInterestCircleSize"
+        android:layout_height="@dimen/rvInterestCircleSize"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/normalMargin"
-        android:layout_marginStart="@dimen/normalMargin"
+        android:layout_marginTop="@dimen/rvInterestPadding"
+        android:layout_marginStart="@dimen/rvInterestPadding"
         android:background="@drawable/background_rv_selection"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

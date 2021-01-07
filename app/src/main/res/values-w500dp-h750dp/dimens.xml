@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xSmallMargin">4dp</dimen>
+    <dimen name="smallMargin">8dp</dimen>
+    <dimen name="normalMargin">16dp</dimen>
+    <dimen name="largeMargin">24dp</dimen>
+    <dimen name="xLargeMargin">32dp</dimen>
+    <dimen name="logoScaleX">60%</dimen>
+    <dimen name="logoScaleY">60%</dimen>
+    <dimen name="authorizationTitleTextSize">46sp</dimen>
+    <dimen name="editTextTextSize">22sp</dimen>
+    <dimen name="restorePasswordTextSize">20sp</dimen>
+    <dimen name="buttonHeight">100dp</dimen>
+    <dimen name="ButtonTextSize">24sp</dimen>
+    <dimen name="registerButtonHeight">90dp</dimen>
+    <dimen name="footstepImageSize">70dp</dimen>
+    <dimen name="secondaryTextTextSize">22sp</dimen>
+    <dimen name="regProgressBarHeight">50dp</dimen>
+    <dimen name="regSubtitleTextSize">16sp</dimen>
+    <dimen name="regPetCouponHeight">240dp</dimen>
+    <dimen name="spinnerDropdownItemTextSize">18sp</dimen>
+    <dimen name="widgetsHeight">60dp</dimen>
+    <dimen name="rvInterestHeight">220dp</dimen>
+    <dimen name="rvInterestTextSize">18sp</dimen>
+    <dimen name="regSexHeight">60dp</dimen>
+    <dimen name="sexTextTextSize">16sp</dimen>
+</resources>

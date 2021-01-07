@@ -19,6 +19,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import com.yandex.mapkit.MapKitFactory
 import ru.hvost.news.App
+import ru.hvost.news.BuildConfig
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -41,6 +42,12 @@ class MainActivity : AppCompatActivity() {
         initializeMaps()
         createNotificationsChannels()
         subscribeToNewArticlesTopic()
+        printDeviceInfo()
+    }
+
+    private fun printDeviceInfo() {
+        if(App.LOG_ENABLED && BuildConfig.DEBUG)
+            Log.d(App.DEBUG_TAG, resources.configuration.toString())
     }
 
     private fun initializeMaps() {

@@ -203,4 +203,10 @@
     <dimen name="shopDomainsImageHeight">250dp</dimen>
     <dimen name="shopDomainsCategoryTextSize">24sp</dimen>
     <dimen name="textMarkerSize">10dp</dimen>
+    <dimen name="logoScaleX">50%</dimen>
+    <dimen name="logoScaleY">60%</dimen>
+    <dimen name="editTextTextSize">16sp</dimen>
+    <dimen name="regPetCouponHeight">140dp</dimen>
+    <dimen name="rvInterestPadding">16dp</dimen>
+    <dimen name="rvInterestCircleSize">24dp</dimen>
 </resources>

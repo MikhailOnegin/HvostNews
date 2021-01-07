@@ -177,8 +177,8 @@
                 app:holderHint="@string/petBirthdayHint"/>
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/regPetCouponHeight"
                 android:layout_marginTop="@dimen/xLargeMargin"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"
