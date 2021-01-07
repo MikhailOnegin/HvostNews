@@ -222,7 +222,7 @@ fun showNotReadyToast() {
 
 class LinearRvItemDecorations(
     sideMarginsDimension: Int? = null,
-    marginBetweenElementsDimension: Int? = null,
+    marginBetweenElementsDimension: Int? = null
 ) : RecyclerView.ItemDecoration() {
 
     private val res = App.getInstance().resources
@@ -250,6 +250,39 @@ class LinearRvItemDecorations(
         )
     }
 
+}
+
+class GridRvItemDecorations(
+    sideMarginsDimension: Int? = null,
+    marginBetweenElementsDimension: Int? = null
+) : RecyclerView.ItemDecoration() {
+
+    private val res = App.getInstance().resources
+    private val sideMargin =
+        if(sideMarginsDimension != null)
+            res.getDimension(sideMarginsDimension).toInt()
+        else 0
+    private val elementsMargin =
+        if(marginBetweenElementsDimension != null)
+            res.getDimension(marginBetweenElementsDimension).toInt()
+        else 0
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        val position = parent.getChildAdapterPosition(view)
+        if(position % 2 == 0){
+            outRect.left = sideMargin
+            outRect.right = elementsMargin/2
+        }else{
+            outRect.left = elementsMargin/2
+            outRect.right = sideMargin
+        }
+        outRect.bottom = elementsMargin
+    }
 }
 
 val ordersStatuses = mapOf(

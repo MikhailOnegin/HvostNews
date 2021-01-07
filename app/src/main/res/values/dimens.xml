@@ -209,4 +209,7 @@
     <dimen name="regPetCouponHeight">140dp</dimen>
     <dimen name="rvInterestPadding">16dp</dimen>
     <dimen name="rvInterestCircleSize">24dp</dimen>
+    <dimen name="scrollbarsWidth">4dp</dimen>
+    <dimen name="maxFeedChipsWidth">180dp</dimen>
+    <dimen name="scrollbarsCorners">2dp</dimen>
 </resources>
