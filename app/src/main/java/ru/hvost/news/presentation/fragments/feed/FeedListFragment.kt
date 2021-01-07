@@ -1,14 +1,11 @@
 package ru.hvost.news.presentation.fragments.feed
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentFeedListBinding
@@ -16,9 +13,9 @@ import ru.hvost.news.models.Article
 import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
+import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
-import ru.hvost.news.utils.events.OneTimeEvent
 
 class FeedListFragment : BaseFragment() {
 
@@ -29,8 +26,12 @@ class FeedListFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFeedListBinding.inflate(inflater, container, false)
+        binding.root.addItemDecoration(LinearRvItemDecorations(
+            sideMarginsDimension = R.dimen.largeMargin,
+            marginBetweenElementsDimension = R.dimen.normalMargin
+        ))
         return binding.root
     }
 
@@ -39,7 +40,6 @@ class FeedListFragment : BaseFragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         if (mainVM.articlesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
         initializeObservers()
-        setDecoration()
         setObservers()
     }
 
@@ -76,20 +76,4 @@ class FeedListFragment : BaseFragment() {
         adapter.submitList(mainVM.articles.value)
     }
 
-    private fun setDecoration() {
-        binding.list.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                val elementMargin =
-                    view.context?.resources?.getDimension(R.dimen.largeMargin)?.toInt() ?: 0
-                parent.adapter.run {
-                    outRect.bottom = elementMargin
-                }
-            }
-        })
-    }
 }

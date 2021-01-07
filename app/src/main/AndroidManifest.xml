@@ -18,7 +18,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="AllowBackup,UnusedAttribute">
 
-        <activity android:name="ru.hvost.news.presentation.activities.MainActivity">
+        <activity
+            android:screenOrientation="portrait"
+            android:name="ru.hvost.news.presentation.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

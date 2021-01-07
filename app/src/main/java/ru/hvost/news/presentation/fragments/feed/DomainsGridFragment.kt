@@ -1,19 +1,17 @@
 package ru.hvost.news.presentation.fragments.feed
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentDomainsGridBinding
-import ru.hvost.news.databinding.FragmentFeedListBinding
 import ru.hvost.news.presentation.adapters.DomainAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.GridRvItemDecorations
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
@@ -26,8 +24,12 @@ class DomainsGridFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDomainsGridBinding.inflate(inflater, container, false)
+        binding.root.addItemDecoration(GridRvItemDecorations(
+            R.dimen.largeMargin,
+            R.dimen.normalMargin
+        ))
         return binding.root
     }
 
@@ -36,7 +38,6 @@ class DomainsGridFragment : BaseFragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         if (mainVM.articlesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
         initializeObservers()
-        setDecoration()
         setObservers()
     }
 
@@ -63,24 +64,4 @@ class DomainsGridFragment : BaseFragment() {
         adapter.submitList(mainVM.domains)
     }
 
-    private fun setDecoration() {
-        binding.list.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                val elementMarginHorizontal =
-                    view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
-                val elementMarginBottom =
-                    view.context?.resources?.getDimension(R.dimen.normalMargin)?.toInt() ?: 0
-                parent.adapter.run {
-                    outRect.bottom = elementMarginBottom
-                    outRect.left = elementMarginHorizontal
-                    outRect.right = elementMarginHorizontal
-                }
-            }
-        })
-    }
 }

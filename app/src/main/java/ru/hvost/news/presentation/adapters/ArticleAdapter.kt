@@ -3,8 +3,8 @@ package ru.hvost.news.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.parseAsHtml
-import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -47,23 +47,13 @@ class ArticleAdapter(
             binding.views.text = moneyFormat.format(articleItem.viewsCount)
             binding.likes.text = moneyFormat.format(articleItem.likesCount)
 
-            binding.img.doOnLayout {
-                val width = binding.img.width
-                val height = width / 1.625F
-                val params = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    height.toInt()
-                )
-                binding.img.layoutParams = params
-            }
             if (articleItem.isLiked) {
                 binding.likesIcon.setImageResource(R.drawable.ic_feed_likes_checked)
             } else {
                 binding.likesIcon.setImageResource(R.drawable.ic_likes)
             }
             binding.apply {
-                imgContainer.setOnClickListener { onClick.invoke(articleItem.articleId) }
-                container.setOnClickListener { onClick.invoke(articleItem.articleId) }
+                root.setOnClickListener { onClick.invoke(articleItem.articleId) }
                 likesIcon.setOnClickListener {
                     setLiked.invoke(articleItem.articleId, !articleItem.isLiked)
                     changeLikeIcon(articleItem)
@@ -97,6 +87,14 @@ class ArticleAdapter(
                     parent,
                     false
                 )
+                val width = parent.width
+                val height = width / 1.625F
+                val params = ConstraintLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    height.toInt()
+                )
+                params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+                binding.img.layoutParams = params
                 return ArticleViewHolder(binding, onClick, setLiked)
             }
         }

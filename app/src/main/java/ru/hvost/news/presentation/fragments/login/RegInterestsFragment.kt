@@ -2,7 +2,6 @@ package ru.hvost.news.presentation.fragments.login
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentRegInterestsBinding
 import ru.hvost.news.models.RegInterest
 import ru.hvost.news.presentation.adapters.recycler.RegInterestsAdapter
+import ru.hvost.news.utils.GridRvItemDecorations
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
@@ -32,7 +30,7 @@ class RegInterestsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegInterestsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -116,31 +114,11 @@ class RegInterestsFragment : Fragment() {
         val padding = buttonHeight + margin
         binding.recyclerView.apply {
             updatePadding(top=margin.toInt(), bottom = padding.toInt())
-            addItemDecoration(RvItemDecorations())
+            addItemDecoration(GridRvItemDecorations(
+                R.dimen.largeMargin,
+                R.dimen.normalMargin
+            ))
             adapter = RegInterestsAdapter(registrationVM)
-        }
-    }
-
-    class RvItemDecorations : RecyclerView.ItemDecoration() {
-
-        private val elementsMargin = App.getInstance().resources.getDimension(R.dimen.smallMargin).toInt()
-        private val sideMargin = App.getInstance().resources.getDimension(R.dimen.largeMargin).toInt()
-
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            val position = parent.getChildAdapterPosition(view)
-            if(position % 2 == 0){
-                outRect.left = sideMargin
-                outRect.right = elementsMargin
-            }else{
-                outRect.left = elementsMargin
-                outRect.right = sideMargin
-            }
-            outRect.bottom = elementsMargin * 2
         }
     }
 
