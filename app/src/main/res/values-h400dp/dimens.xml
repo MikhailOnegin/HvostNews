@@ -5,6 +5,9 @@
     <dimen name="normalMargin">8dp</dimen>
     <dimen name="largeMargin">12dp</dimen>
     <dimen name="xLargeMargin">16dp</dimen>
+    <dimen name="smallCorners">4dp</dimen>
+    <dimen name="mediumCorners">8dp</dimen>
+    <dimen name="largeCorners">12dp</dimen>
     <dimen name="logoScaleX">60%</dimen>
     <dimen name="logoScaleY">75%</dimen>
     <dimen name="authorizationTitleTextSize">26sp</dimen>
@@ -24,4 +27,18 @@
     <dimen name="rvInterestTextSize">14sp</dimen>
     <dimen name="regSexHeight">40dp</dimen>
     <dimen name="sexTextTextSize">12sp</dimen>
+    <dimen name="bnvTextSize">12sp</dimen>
+    <dimen name="mapsSwitchTextSize">14sp</dimen>
+    <dimen name="mapsPartnersTitleTextSize">18sp</dimen>
+    <dimen name="mapsSelectsTextSize">14sp</dimen>
+    <dimen name="partnerNameTextSize">26sp</dimen>
+    <dimen name="partnerDescriptionTextSize">14sp</dimen>
+    <dimen name="mapViewHeight">160dp</dimen>
+    <dimen name="articleDetailTitleTextSize">26sp</dimen>
+    <dimen name="articleIconSize">30dp</dimen>
+    <dimen name="articleDateTextSize">14sp</dimen>
+    <dimen name="articleChipsTextSize">12sp</dimen>
+    <dimen name="viewsIconSize">24dp</dimen>
+    <dimen name="chipsStrokeWidth">2dp</dimen>
+    <dimen name="articleTextSize">16sp</dimen>
 </resources>

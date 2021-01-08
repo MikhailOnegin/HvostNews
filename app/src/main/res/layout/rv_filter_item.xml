@@ -1,47 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
-    android:orientation="vertical">
+    android:layout_height="@dimen/ButtonHeight"
+    android:gravity="center"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ButtonHeight"
+    <ImageButton
+        android:id="@+id/mainCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:scaleType="center"
+        android:layout_marginEnd="@dimen/smallMargin"
+        android:background="@drawable/checkbox"
         android:gravity="center"
-        android:orientation="horizontal">
+        tools:ignore="ContentDescription" />
 
-        <ImageButton
-            android:id="@+id/mainCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:scaleType="center"
-            android:layout_marginStart="@dimen/normalMargin"
-            android:layout_marginEnd="@dimen/smallMargin"
-            android:background="@drawable/checkbox"
-            android:gravity="center" />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fontFamily="@font/gilroy_semibold"
+        android:gravity="center_vertical"
+        android:text="@string/stub"
+        android:textColor="@color/gray1"
+        android:textSize="@dimen/smallButtonTextSize" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/gilroy_semibold"
-            android:gravity="center_vertical"
-            android:text="@string/stub"
-            android:textColor="@color/gray1"
-            android:textSize="@dimen/smallButtonTextSize" />
-
-        <ImageButton
-            android:id="@+id/expand"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="@dimen/normalMargin"
-            android:layout_marginEnd="@dimen/normalMargin"
-            android:layout_weight="0.1"
-            android:background="@drawable/ripple_round_button"
-            android:src="@drawable/ic_button_expand" />
-
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/expand"
+        android:layout_width="@dimen/filtersIconSize"
+        android:layout_height="@dimen/filtersIconSize"
+        android:background="@drawable/ripple_round_button"
+        android:src="@drawable/ic_button_expand"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>

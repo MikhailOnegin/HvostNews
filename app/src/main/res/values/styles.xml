@@ -75,6 +75,7 @@
 
     <style name="bnvTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/gilroy_semibold</item>
+        <item name="android:textSize">@dimen/bnvTextSize</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
@@ -434,8 +435,8 @@
         <item name="android:background">@drawable/background_maps_selector</item>
         <item name="android:paddingStart">@dimen/largeMargin</item>
         <item name="android:paddingEnd">@dimen/largeMargin</item>
-        <item name="android:paddingTop">@dimen/smallMargin</item>
-        <item name="android:paddingBottom">@dimen/smallMargin</item>
+        <item name="android:paddingTop">@dimen/mapSelectorPadding</item>
+        <item name="android:paddingBottom">@dimen/mapSelectorPadding</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>
@@ -457,6 +458,12 @@
 
     <style name="PartnersPageTextView.Title">
         <item name="android:textColor">@color/gray4</item>
+    </style>
+
+    <style name="ArticlesRecyclerView">
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollbarThumbVertical">@drawable/rv_scrollbars</item>
+        <item name="android:scrollbarSize">@dimen/scrollbarsWidth</item>
     </style>
 
 </resources>

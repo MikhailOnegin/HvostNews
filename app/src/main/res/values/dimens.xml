@@ -212,4 +212,10 @@
     <dimen name="scrollbarsWidth">4dp</dimen>
     <dimen name="maxFeedChipsWidth">180dp</dimen>
     <dimen name="scrollbarsCorners">2dp</dimen>
+    <dimen name="bnvTextSize">14sp</dimen>
+    <dimen name="toolbarIconPadding">16dp</dimen>
+    <dimen name="mapSelectorPadding">8dp</dimen>
+    <dimen name="chipsPaddingHorizontal">4dp</dimen>
+    <dimen name="chipsPaddingVertical">8dp</dimen>
+    <dimen name="filtersIconSize">48dp</dimen>
 </resources>
