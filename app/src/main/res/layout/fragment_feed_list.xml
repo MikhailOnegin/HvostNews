@@ -7,6 +7,4 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    android:scrollbars="vertical"
-    android:scrollbarThumbVertical="@drawable/rv_scrollbars"
-    android:scrollbarSize="@dimen/scrollbarsWidth"/>
+    style="@style/ArticlesRecyclerView"/>

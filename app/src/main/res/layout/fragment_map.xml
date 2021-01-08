@@ -47,7 +47,7 @@
                 android:background="@drawable/selector_light_oval"
                 android:src="@drawable/ic_map_settings"
                 android:scaleType="fitCenter"
-                android:padding="@dimen/normalMargin"
+                android:padding="@dimen/toolbarIconPadding"
                 android:contentDescription="@string/settingsCD"
                 android:layout_width="@dimen/toolbarHeight"
                 android:layout_height="@dimen/toolbarHeight"

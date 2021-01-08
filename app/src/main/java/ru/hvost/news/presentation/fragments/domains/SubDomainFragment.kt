@@ -19,6 +19,7 @@ import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.adapters.PopupWindowDomainAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
+import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
@@ -36,6 +37,10 @@ class SubDomainFragment : BaseFragment() {
     ): View {
         domain = if (domain == null) arguments?.getLong("DOMAIN_ID") else domain
         binding = FragmentSubdomainBinding.inflate(inflater, container, false)
+        binding.list.addItemDecoration(LinearRvItemDecorations(
+            sideMarginsDimension = R.dimen.largeMargin,
+            marginBetweenElementsDimension = R.dimen.normalMargin
+        ))
         return binding.root
     }
 
@@ -46,7 +51,6 @@ class SubDomainFragment : BaseFragment() {
         checkIsDataLoaded()
         initializeObservers()
         setObservers()
-        setDecoration()
         setListeners()
     }
 
@@ -227,25 +231,6 @@ class SubDomainFragment : BaseFragment() {
         domain = domainId ?: domain
         val filteredList = mainVM.allArticles.value?.filter { it.domainId == domainId.toString() }
         binding.title.text = filteredList?.get(0)?.domainTitle
-    }
-
-    private fun setDecoration() {
-        binding.list.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                val elementMargin =
-                    view.context?.resources?.getDimension(R.dimen.largeMargin)?.toInt() ?: 0
-                parent.adapter.run {
-                    outRect.top = elementMargin
-                    outRect.bottom = elementMargin
-
-                }
-            }
-        })
     }
 
 }
