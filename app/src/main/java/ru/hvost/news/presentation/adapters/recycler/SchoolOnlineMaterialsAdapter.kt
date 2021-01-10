@@ -75,7 +75,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         else {
             if(!onlineLessons[position].isTestPassed){
                 TYPE_LESSON_ACTIVE
-            } else{
+            } else {
                 TYPE_LESSON_FINISHED
             }
         }
@@ -115,7 +115,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                 tVAge.text = age
             }
             firstActiveLessonId?.run {
-                val v = position
                 if (this == lesson.lessonId) {
                     iVGo.visibility = View.VISIBLE
                     constraint.setOnClickListener {
@@ -170,7 +169,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                         container.addView(view)
                     }
                 }
-                else{
+                else {
                    constraintRoot.visibility = View.GONE
                 }
             }

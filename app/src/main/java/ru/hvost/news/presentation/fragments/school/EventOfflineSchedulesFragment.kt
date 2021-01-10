@@ -4,20 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.hvost.news.databinding.FragmentSchoolOfflineEventSchedulesBinding
+import ru.hvost.news.databinding.FragmentEventOfflineSchedulesBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
 
-class FragmentOfflineEventSchedules: BaseFragment() {
+class EventOfflineSchedulesFragment: BaseFragment() {
 
 
-    private lateinit var binding: FragmentSchoolOfflineEventSchedulesBinding
+    private lateinit var binding: FragmentEventOfflineSchedulesBinding
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSchoolOfflineEventSchedulesBinding.inflate(inflater, container, false)
+        binding = FragmentEventOfflineSchedulesBinding.inflate(inflater, container, false)
         return binding.root
     }
 

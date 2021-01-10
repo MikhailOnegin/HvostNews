@@ -193,7 +193,8 @@
             android:id="@+id/action_onlineLessonFragment_toOnlineLessonFragment"
             app:destination="@+id/onlineLessonActiveFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/schoolOnlineActiveFragment" />
     </fragment>
 
     <fragment
@@ -206,8 +207,7 @@
             android:id="@+id/action_onlineLessonFinishedFragment_to_onlineLessonActiveFragment"
             app:destination="@+id/onlineLessonActiveFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            />
+            app:exitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -505,7 +505,7 @@
         android:label="Registration online school"
         tools:layout="@layout/fragment_registration_online_school">
         <action
-            android:id="@+id/action_registrationFragment_to_schoolOnlineActiveFragment"
+            android:id="@+id/action_registrationOnlineFragment_to_schoolOnlineActiveFragment"
             app:destination="@+id/schoolOnlineActiveFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"

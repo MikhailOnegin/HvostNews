@@ -9,18 +9,18 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.R
-import ru.hvost.news.databinding.LayoutSuccessRegistrationSeminarBinding
+import ru.hvost.news.databinding.LayoutRegistrationSuccessSeminarBinding
 
 class SuccessRegistrationSeminarDialog( private val title:String ): BottomSheetDialogFragment() {
 
-    private lateinit var binding: LayoutSuccessRegistrationSeminarBinding
+    private lateinit var binding: LayoutRegistrationSuccessSeminarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = LayoutSuccessRegistrationSeminarBinding.inflate(inflater, container, false)
+        binding = LayoutRegistrationSuccessSeminarBinding.inflate(inflater, container, false)
         return binding.root
     }
 

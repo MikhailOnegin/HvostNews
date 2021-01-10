@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/eventInfoFragment">
+
+    <fragment
+        android:id="@+id/eventInfoFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.EventOfflineInfoFragment"
+        android:label="Event info"
+        tools:layout="@layout/fragment_event_offline_info">
+        <action
+            android:id="@+id/action_eventInfoFragment_to_eventScheduleFragment"
+            app:destination="@+id/eventScheduleFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventScheduleFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.EventOfflineSchedulesFragment"
+        android:label="Event schedule"
+        tools:layout="@layout/fragment_event_offline_schedules">
+        <action
+            android:id="@+id/action_eventScheduleFragment_to_eventInfoFragment"
+            app:destination="@id/eventInfoFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
+    </fragment>
+
+</navigation>
