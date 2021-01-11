@@ -102,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/ButtonHeight"
                     android:layout_marginBottom="@dimen/xSmallMargin"
-                    android:background="@drawable/background_user_profile_item"
+                    android:background="@drawable/ripple_gray_rectangle"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -142,7 +142,7 @@
                     android:id="@+id/vouchers"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/ButtonHeight"
-                    android:background="@drawable/background_user_profile_item"
+                    android:background="@drawable/ripple_gray_rectangle"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -185,7 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/_1"
-                android:padding="@dimen/orderButtonPadding"
+                android:padding="@dimen/profileCoverPadding"
                 app:layout_constraintTop_toBottomOf="@+id/pets">
 
                 <TextView
@@ -260,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
                     android:orientation="horizontal"
-                    android:paddingStart="@dimen/orderButtonPadding"
+                    android:paddingStart="@dimen/profileCoverPadding"
                     android:paddingTop="@dimen/xLargeMargin"
                     android:paddingEnd="@dimen/orderButtonPadding"
                     android:paddingBottom="@dimen/normalMargin"
@@ -303,14 +303,14 @@
                 android:layout_height="wrap_content"
                 android:background="@color/gray5"
                 android:clipToPadding="false"
-                android:paddingVertical="@dimen/orderButtonPadding"
+                android:paddingVertical="@dimen/profileCoverPadding"
                 app:layout_constraintTop_toBottomOf="@+id/inviteFriends">
 
                 <TextView
                     android:id="@+id/titleOrders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/orderButtonPadding"
+                    android:layout_marginHorizontal="@dimen/profileCoverPadding"
                     android:fontFamily="@font/gilroy_bold"
                     android:text="@string/ordersTitle"
                     android:textColor="@color/titleText"
@@ -326,8 +326,8 @@
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
                     android:clipToPadding="false"
-                    android:paddingHorizontal="@dimen/orderButtonPadding"
-                    android:paddingTop="@dimen/orderButtonPadding"
+                    android:paddingHorizontal="@dimen/profileCoverPadding"
+                    android:paddingTop="@dimen/profileCoverPadding"
                     android:paddingBottom="@dimen/smallMargin"
                     app:layout_constraintBottom_toTopOf="@+id/allOrders"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -449,8 +449,8 @@
                     android:id="@+id/allOrders"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginHorizontal="@dimen/orderButtonPadding"
+                    android:layout_height="@dimen/ButtonHeight"
+                    android:layout_marginHorizontal="@dimen/profileCoverPadding"
                     android:layout_marginTop="@dimen/smallMargin"
                     android:fontFamily="@font/gilroy_bold"
                     android:letterSpacing="-0.03"
@@ -484,7 +484,7 @@
                     android:layout_marginBottom="@dimen/ButtonHeight"
                     android:fontFamily="@font/gilroy_bold"
                     android:gravity="center"
-                    android:letterSpacing="-0.07"
+                    android:letterSpacing="-0.03"
                     android:text="@string/logout"
                     android:textAllCaps="false"
                     android:textColor="@color/gray1"

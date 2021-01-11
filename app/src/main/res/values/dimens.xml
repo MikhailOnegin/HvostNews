@@ -218,4 +218,5 @@
     <dimen name="chipsPaddingHorizontal">4dp</dimen>
     <dimen name="chipsPaddingVertical">8dp</dimen>
     <dimen name="filtersIconSize">48dp</dimen>
+    <dimen name="profileBackgroundImageHeight">340dp</dimen>
 </resources>

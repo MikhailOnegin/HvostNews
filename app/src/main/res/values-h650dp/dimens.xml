@@ -41,4 +41,20 @@
     <dimen name="viewsIconSize">32dp</dimen>
     <dimen name="chipsStrokeWidth">3dp</dimen>
     <dimen name="articleTextSize">18sp</dimen>
+    <dimen name="profileCoverPadding">25dp</dimen>
+    <dimen name="subtitleProfileTextSize">18sp</dimen>
+    <dimen name="mainTitleTextSize">32sp</dimen>
+    <dimen name="ButtonHeight">60dp</dimen>
+    <dimen name="iconSize">40dp</dimen>
+    <dimen name="profileSmallTextSize">16sp</dimen>
+    <dimen name="counterTextSize">13sp</dimen>
+    <dimen name="profileTitleTextSize">24sp</dimen>
+    <dimen name="profileBackgroundImageHeight">340dp</dimen>
+    <dimen name="buttonMediumTextSize">18sp</dimen>
+    <dimen name="inviteTextSize">15sp</dimen>
+    <dimen name="profileToPrizesButtonHeight">75dp</dimen>
+    <dimen name="semiNormalMargin">13dp</dimen>
+    <dimen name="profileTitleSize">13sp</dimen>
+    <dimen name="orderCountTextSize">26sp</dimen>
+    <dimen name="userProfileButtonLargeRadius">15dp</dimen>
 </resources>

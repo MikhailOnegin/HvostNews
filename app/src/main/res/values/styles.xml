@@ -45,7 +45,7 @@
 
     <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/buttonShapeAppearanceCornerSize</item>
+        <item name="cornerSize">@dimen/mediumCorners</item>
     </style>
 <style name="DefaultButton" parent="Widget.AppCompat.Button"/>
     <style name="ButtonTextAppearance" parent="TextAppearance.AppCompat">
