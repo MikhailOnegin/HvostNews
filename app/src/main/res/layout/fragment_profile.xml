@@ -232,7 +232,7 @@
 
                 <Button
                     android:id="@+id/invite"
-                    style="@style/ElevatedButton"
+                    style="@style/UnelevatedButton"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/profileToPrizesButtonHeight"
                     android:layout_marginTop="@dimen/normalMargin"
