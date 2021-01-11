@@ -49,16 +49,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/ripple_rectangle_gray">
 
 
             <ImageView
                 android:id="@+id/imageView_lesson"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:background="@drawable/background_beveled_corners"
                 android:contentDescription="@string/not_found"
                 android:scaleType="centerCrop"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

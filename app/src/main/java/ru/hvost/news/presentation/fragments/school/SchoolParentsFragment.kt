@@ -170,9 +170,7 @@ class SchoolParentsFragment : BaseFragment() {
 
                 @Suppress("UNCHECKED_CAST")
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
-                        p2
-                    )
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
                         ?.run {
                             val cityId = this.cityId
                             App.getInstance().userToken?.run {

@@ -185,18 +185,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_title" />
 
             <View
-                android:id="@+id/view6"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:background="@color/gray5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_participate" />
-
-            <View
                 android:id="@+id/view2"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -230,64 +218,50 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:paddingStart="24dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="24dp"
+            android:nestedScrollingEnabled="true"
+            android:paddingTop="16dp"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_seminar_info"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/cartSelectorHeight"
-                android:layout_weight="1"
-                android:background="@drawable/sex_selector_left">
+            <LinearLayout
+                android:id="@+id/linearLayout_tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp">
 
-                <TextView
-                    android:id="@+id/seminarInfo"
-                    style="@style/CartTypeTitleTextView"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_seminar_info"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/seminar_info"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="@dimen/cartSelectorHeight"
+                    android:layout_weight="1"
+                    android:background="@drawable/sex_selector_left">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/seminar_info"
+                        style="@style/CartTypeTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:gravity="center"
+                        android:text="@string/seminar_info"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_seminar_schedule"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/cartSelectorHeight"
-                android:layout_weight="1"
-                android:background="@drawable/sex_selector_right">
-
-                <TextView
-                    android:id="@+id/seminarSchedule"
-                    style="@style/CartTypeTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/schedule"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -297,7 +271,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
+        android:id="@+id/nav_host_fragment_seminar"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
