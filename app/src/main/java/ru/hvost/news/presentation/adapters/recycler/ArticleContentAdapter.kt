@@ -101,7 +101,7 @@ class ArticleContentAdapter(
             binding.image.doOnLayout {
                 binding.image.layoutParams = ConstraintLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    it.width
+                    (it.width / 1.5f).toInt()
                 ).apply {
                     topToBottom = R.id.dateIcon
                     setMargins(
