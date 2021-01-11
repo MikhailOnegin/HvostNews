@@ -39,7 +39,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = LayoutAddPetBinding.inflate(inflater, container, false)
+        binding = LayoutAddPetBinding.inflate(inflater)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         if (mainVM.petsSpeciesLoadingEvent.value?.peekContent() == State.SUCCESS) {
             onSpeciesChanged()
@@ -157,7 +157,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
             },
         )
         onPetSpeciesLoadingEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
+            anchorView = binding.parent,
             doOnSuccess = { onSpeciesChanged() }
         )
     }
