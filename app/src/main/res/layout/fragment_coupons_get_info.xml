@@ -10,9 +10,9 @@
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
+        android:animateLayoutChanges="false"
         android:background="@android:color/white"
-        app:liftOnScroll="true">
+        app:liftOnScroll="false">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar_coupons_how_get"
@@ -47,7 +47,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                app:cardBackgroundColor="#00BABABA"
+                app:cardBackgroundColor="@null"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"

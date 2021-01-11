@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_coordinator"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,8 +10,8 @@
         android:id="@+id/appBarLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="false"
         android:background="@android:color/white"
-        android:stateListAnimator="@null"
         app:liftOnScroll="false">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -21,7 +22,7 @@
             android:background="@android:color/white"
             android:elevation="@dimen/barsElevation"
             android:theme="@style/AppTheme.Toolbar"
-            app:layout_scrollFlags="scroll|snap"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/lesson"/>
 
@@ -46,7 +47,6 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:background="@android:color/transparent"
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,13 +62,14 @@
                         android:id="@+id/imageView_video"
                         android:layout_width="0dp"
                         android:layout_height="220dp"
-                        android:scaleType="centerCrop"
                         android:contentDescription="@string/not_found"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/default_image" />
+
                     <ImageView
                         android:id="@+id/imageViewPlay"
                         android:layout_width="60dp"

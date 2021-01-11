@@ -37,7 +37,6 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
     private lateinit var mainVM: MainViewModel
     private lateinit var loadPetsEvent:DefaultNetworkEventObserver
     private lateinit var setParticipateEvent:DefaultNetworkEventObserver
-    private lateinit var onlineSchoolsEvent:DefaultNetworkEventObserver
     private var onlineSchool:OnlineSchools.OnlineSchool? = null
     private var idSchool:String? = null
     private var pets: List<Pets>? = null
@@ -109,7 +108,7 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
                     bundle.putString("schoolTitle", title)
                     bundle.putString("schoolId", id.toString())
                     findNavController().navigate(
-                        R.id.action_registrationFragment_to_schoolOnlineActiveFragment,
+                        R.id.action_registrationOnlineFragment_to_schoolOnlineActiveFragment,
                         bundle
                     )
                 }
@@ -117,33 +116,28 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
             doOnError = { binding.buttonCompleteRegistration.isEnabled = true },
             doOnFailure = { binding.buttonCompleteRegistration.isEnabled = true }
         )
-        onlineSchoolsEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = {
-                schoolVM.onlineSchools.value?.onlineSchools?.let { onlineSchools ->
-                    idSchool?.run {
-                        for (i in onlineSchools.indices) {
-                            val school = onlineSchools[i]
-                            if (school.id.toString() == this) {
-                                onlineSchool = school
-                                val head = "Регистрация на онлайн семинар \"${school.title}\""
-                                binding.textViewHead.text = head
-                            }
-                        }
-                    }
-                }
-            }
-        )
     }
 
     @Suppress("UNCHECKED_CAST")
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.onlineSchoolsEvent.observe(owner, onlineSchoolsEvent)
         mainVM.userPetsLoadingEvent.observe(owner, loadPetsEvent)
         schoolVM.enabledRegister.observe(owner, {
             binding.buttonCompleteRegistration.isEnabled = it
         })
         schoolVM.setParticipateEvent.observe(owner, setParticipateEvent)
+        schoolVM.onlineSchools.observe(owner, {
+            idSchool?.run {
+                for (i in it.onlineSchools.indices) {
+                    val school = it.onlineSchools[i]
+                    onlineSchool = school
+                    if (school.id.toString() == this) {
+                        onlineSchool = school
+                        val head = "Регистрация на онлайн семинар \"${school.title}\""
+                        binding.textViewHead.text = head
+                    }
+                }
+            }
+        })
     }
 
     @SuppressLint("UseCompatLoadingForColorStateLists")

@@ -68,33 +68,34 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 .into(iVInfo)
 
             if(school.wait.isNotEmpty()) {
+
                 constraintWhatWait.visibility = View.VISIBLE
-                val containerWait = itemView.gridLayout
-                containerWait.removeAllViews()
+                val gridLayoutWait = itemView.gridLayout
+                gridLayoutWait.removeAllViews()
                 for (i in school.wait.indices) {
                     val viewWait = LayoutWhatWaitSchoolOnlineBinding.inflate(
                         LayoutInflater.from(itemView.context),
-                        containerWait,
+                        gridLayoutWait,
                         false
                     ).root
                     val param = GridLayout.LayoutParams()
                     param.columnSpec = spec(
-                        GridLayout.UNDEFINED,
+                        GridLayout.HORIZONTAL,
                         GridLayout.FILL,
                         1f
                     )
                     param.width = 0
-                    val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                    val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt() / 2
 
                     viewWait.layoutParams = param
                     viewWait.textView_description.text = school.wait[i].head
                     (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
-                        margin / 2,
-                        margin / 2,
-                        margin / 2,
-                        margin / 2
+                        margin,
+                        margin,
+                        margin,
+                        margin
                     )
-                    containerWait.addView(viewWait)
+                    gridLayoutWait.addView(viewWait)
                 }
             }
 

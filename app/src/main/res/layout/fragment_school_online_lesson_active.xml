@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_coordinator"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout3"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="false"
         android:background="@android:color/white"
-        android:stateListAnimator="@null"
-        app:elevation="0dp"
         app:liftOnScroll="false">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -23,7 +23,7 @@
             android:background="@android:color/white"
             android:elevation="@dimen/barsElevation"
             android:theme="@style/AppTheme.Toolbar"
-            app:layout_scrollFlags="scroll|snap"
+            app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/lesson"/>
 
@@ -32,7 +32,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="24dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -137,11 +136,11 @@
                 style="@style/UnelevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/btn_answer_online_lesson"
-                android:enabled="false"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/btn_answer_online_lesson"
+                android:enabled="false"
                 android:fontFamily="@font/gilroy_bold"
                 android:paddingLeft="32dp"
                 android:paddingTop="24dp"

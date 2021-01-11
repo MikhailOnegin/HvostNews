@@ -26,7 +26,7 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
-import ru.hvost.news.utils.startIntentLiterature
+import ru.hvost.news.utils.startIntentActionView
 
 
 class LessonOnlineActiveFragment : BaseFragment() {
@@ -41,7 +41,6 @@ class LessonOnlineActiveFragment : BaseFragment() {
     private var lessons: List<OnlineLessons.OnlineLesson>? = null
     private lateinit var lessonTestPassedEvent: DefaultNetworkEventObserver
     private lateinit var onlineLessonsEvent: DefaultNetworkEventObserver
-    private lateinit var onlineSchoolsEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +55,8 @@ class LessonOnlineActiveFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
+
+
         initializedEvents()
         setListeners()
         setObservers(this)
@@ -98,7 +99,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     } else {
                                         Toast.makeText(
                                             requireContext(),
-                                            "you are finished",
+                                            "Все уроки пройдены",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         findNavController().popBackStack()
@@ -133,10 +134,10 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     binding.textViewLessonNumber.text = lessonNumber
                                     binding.textViewQuestion.text = lesson.testQuestion
                                     binding.imageViewPlay.setOnClickListener {
-                                        startIntentLiterature(requireContext(), lesson.videoUrl)
+                                        startIntentActionView(requireContext(), lesson.videoUrl)
                                     }
                                     binding.constraintVideo.setOnClickListener {
-                                        startIntentLiterature(requireContext(), lesson.videoUrl)
+                                        startIntentActionView(requireContext(), lesson.videoUrl)
                                     }
                                     Glide.with(requireContext())
                                         .load(baseUrl + lesson.imageVideoUrl)
@@ -191,108 +192,111 @@ class LessonOnlineActiveFragment : BaseFragment() {
                 }
             }
         )
-
-        onlineSchoolsEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
-            doOnSuccess = {
-                schoolVM.onlineSchools.value?.onlineSchools?.let { onlineSchools ->
-                    schoolId?.run {
-                        var onlineSchool: OnlineSchools.OnlineSchool? = null
-                        for (i in onlineSchools.indices) {
-                            if (onlineSchools[i].id.toString() == this) {
-                                onlineSchool = onlineSchools[i]
-                            }
-                        }
-                        onlineSchool?.run {
-                            val literature = this.literature
-                            val container = binding.includeLiterature.linearLayoutLiterature
-                            container.removeAllViews()
-                            if (literature.isNotEmpty()) {
-                                for (i in literature.indices) {
-                                    val view = LayoutLiteratureItemBinding.inflate(
-                                        LayoutInflater.from(requireContext()),
-                                        container,
-                                        false
-                                    ).root
-                                    view.textView_title.text = literature[i].title
-                                    view.textView_pet.text = literature[i].pet
-                                    view.constraint_literure.setOnClickListener {
-                                        startIntentLiterature(
-                                            requireContext(),
-                                            literature[i].fileUrl
-                                        )
-                                    }
-                                    val margin =
-                                        resources.getDimension(R.dimen.marginLessonNumber).toInt()
-                                    (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                        0,
-                                        margin,
-                                        margin,
-                                        0
-                                    )
-                                    container.addView(view)
-                                }
-                            } else binding.includeLiterature.constraintRoot.visibility = View.GONE
-                        }
-                    }
-                }
-            }
-        )
     }
 
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.lessonTestesPassedEvent.observe(owner, lessonTestPassedEvent)
         schoolVM.onlineLessonsEvent.observe(owner, onlineLessonsEvent)
-        schoolVM.onlineSchoolsEvent.observe(owner, onlineSchoolsEvent)
+        schoolVM.onlineSchools.observe(owner, {
+            schoolId?.run {
+                var onlineSchool: OnlineSchools.OnlineSchool? = null
+                for (i in it.onlineSchools.indices) {
+                    if (it.onlineSchools[i].id.toString() == this) {
+                        onlineSchool = it.onlineSchools[i]
+                    }
+                }
+                onlineSchool?.run {
+                    val literature = this.literature
+                    val container = binding.includeLiterature.linearLayoutLiterature
+                    container.removeAllViews()
+                    if (literature.isNotEmpty()) {
+                        for (i in literature.indices) {
+                            val view = LayoutLiteratureItemBinding.inflate(
+                                LayoutInflater.from(requireContext()),
+                                container,
+                                false
+                            ).root
+                            view.textView_title.text = literature[i].title
+                            view.textView_pet.text = literature[i].pet
+                            view.constraint_literure.setOnClickListener {
+                                startIntentActionView(
+                                    requireContext(),
+                                    literature[i].fileUrl
+                                )
+                            }
+                            val margin =
+                                resources.getDimension(R.dimen.marginLessonNumber).toInt()
+                            (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                0,
+                                margin,
+                                margin,
+                                0
+                            )
+                            container.addView(view)
+                        }
+                    } else
+                        binding.includeLiterature.constraintRoot.visibility = View.GONE
+                }
+            }
+        })
         schoolVM.selectLessonAnswersCount.observe(owner, {
-            binding.buttonToAnswer.isEnabled = it > 0
+            val selected = it > 0
+            if(selected) {
+                binding.buttonToAnswer.isEnabled = selected
+                schoolVM.selectLessonAnswersCount.value = 0
+            }
+
         })
     }
 
     private fun setListeners() {
         binding.buttonToAnswer.setOnClickListener {
-            if (buttons.size > 0) {
-                for (i in buttons.indices) {
-                    val button = buttons[i]
-                    if (button.isSelected) {
-                        for (q in buttons.indices) {
-                            val isTrue = answers[button.text.toString()]
-                            isTrue?.run {
-                                if (this) {
-                                    button.backgroundTintList = ContextCompat.getColorStateList(
-                                        requireContext(),
-                                        R.color.colorPrimary
-                                    )
-                                    button.setTextColor(
-                                        ContextCompat.getColor(
-                                            requireContext(),
-                                            android.R.color.white
-                                        )
-                                    )
-                                } else {
-                                    if (button.isSelected) {
-                                        button.backgroundTintList =
-                                            ContextCompat.getColorStateList(
-                                                requireContext(),
-                                                R.color.red
-                                            )
-                                        button.setTextColor(
-                                            ContextCompat.getColor(
-                                                requireContext(),
-                                                android.R.color.white
-                                            )
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                        App.getInstance().userToken?.let { userToken ->
-                            lessonId?.let { lessonId ->
-                                schoolVM.setLessonTestesPassed(userToken, lessonId.toLong())
-                            }
-                        }
+            var answerSelected = false
+            for (i in buttons.indices) {
+                val button = buttons[i]
+                if(button.isSelected) answerSelected = true
+                val isTrue = answers[button.text.toString()]
+                isTrue?.run {
+                    if (this) {
+                        button.backgroundTintList = ContextCompat.getColorStateList(
+                            requireContext(),
+                            R.color.colorPrimary
+                        )
+                        button.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                android.R.color.white
+                            )
+                        )
+                    }
+                    if (button.isSelected && !this) {
+                        button.backgroundTintList =
+                            ContextCompat.getColorStateList(
+                                requireContext(),
+                                R.color.red
+                            )
+                        button.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                android.R.color.white
+                            )
+                        )
+
+                    }
+
+                }
+
+
+            }
+            if (answerSelected) {
+                App.getInstance().userToken?.let { userToken ->
+                    lessonId?.let { lessonId ->
+                        schoolVM.setLessonTestesPassed(userToken, lessonId.toLong())
                     }
                 }
+            } else {
+                Toast.makeText(requireContext(), "Ни один ответ не выбран", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -300,4 +304,4 @@ class LessonOnlineActiveFragment : BaseFragment() {
             findNavController().popBackStack()
         }
     }
-}
+    }

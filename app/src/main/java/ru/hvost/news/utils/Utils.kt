@@ -314,7 +314,7 @@ fun getClearPhoneString(source: String?): String {
     return builder.toString()
 }
 
-fun startIntentLiterature(context: Context, url:String){
+fun startIntentActionView(context: Context, url:String){
     val fileIntent  = Intent(
         Intent.ACTION_VIEW,
         Uri.parse(url)
