@@ -227,4 +227,5 @@
     <dimen name="addProductPriceTextSize">18sp</dimen>
     <dimen name="addProductSubPriceTextSize">12sp</dimen>
     <dimen name="addProductTotalTextSize">18sp</dimen>
+    <dimen name="profileBackgroundImageHeight">340dp</dimen>
 </resources>

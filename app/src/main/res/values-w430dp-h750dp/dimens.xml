@@ -73,4 +73,20 @@
     <dimen name="makeOrderSummaryTextViewTextSize">16sp</dimen>
     <dimen name="secondaryButtonHeight">80dp</dimen>
     <dimen name="bottomSheetTopThingSideMargins">168dp</dimen>
+    <dimen name="profileCoverPadding">25dp</dimen>
+    <dimen name="subtitleProfileTextSize">18sp</dimen>
+    <dimen name="mainTitleTextSize">36sp</dimen>
+    <dimen name="ButtonHeight">70dp</dimen>
+    <dimen name="iconSize">45dp</dimen>
+    <dimen name="profileSmallTextSize">18sp</dimen>
+    <dimen name="counterTextSize">15sp</dimen>
+    <dimen name="profileTitleTextSize">26sp</dimen>
+    <dimen name="profileBackgroundImageHeight">360dp</dimen>
+    <dimen name="buttonMediumTextSize">20sp</dimen>
+    <dimen name="inviteTextSize">17sp</dimen>
+    <dimen name="profileToPrizesButtonHeight">85dp</dimen>
+    <dimen name="semiNormalMargin">15dp</dimen>
+    <dimen name="profileTitleSize">15sp</dimen>
+    <dimen name="orderCountTextSize">28sp</dimen>
+    <dimen name="userProfileButtonLargeRadius">17dp</dimen>
 </resources>
