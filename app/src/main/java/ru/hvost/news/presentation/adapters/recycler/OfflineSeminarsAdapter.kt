@@ -4,6 +4,7 @@ package ru.hvost.news.presentation.adapters.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
@@ -73,7 +74,7 @@ class OfflineSeminarsAdapter :
                 tVStatus.text = "Активно"
                 iVStatus.isSelected = true
             }
-            tVTitle.text = seminar.title
+            tVTitle.text = seminar.title.parseAsHtml()
             tVDate.text = dateFormat(seminar.date)
             tVCity.text = seminar.city
 

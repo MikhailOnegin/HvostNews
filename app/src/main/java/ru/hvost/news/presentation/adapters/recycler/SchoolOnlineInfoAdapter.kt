@@ -91,8 +91,8 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt() / 2
 
                     viewWait.layoutParams = param
-                    viewWait.textView_head.text = wait.head
-                    viewWait.textView_description.text = wait.description
+                    viewWait.textView_head.text = wait.head.parseAsHtml()
+                    viewWait.textView_description.text = wait.description.parseAsHtml()
                     Glide.with(itemView.context).load(baseUrl + wait.imageUrl)
                         .placeholder(R.drawable.not_found).centerCrop()
                         .into(viewWait.imageView_what_wait)
