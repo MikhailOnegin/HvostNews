@@ -114,9 +114,13 @@ class SchoolParentsFragment : BaseFragment() {
         })
         schoolVM.offlineSeminars.observe(owner, {
             offlineSeminarsAdapter.setSeminars(it.seminars)
+            if(it.seminars.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
+            else binding.scrollViewEmpty.visibility = View.VISIBLE
         })
         schoolVM.onlineSchools.observe(owner, {
             onlineSchoolsAdapter.setSchools(it.onlineSchools)
+            if(it.onlineSchools.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
+            else binding.scrollViewEmpty.visibility = View.VISIBLE
         })
     }
 
@@ -148,6 +152,8 @@ class SchoolParentsFragment : BaseFragment() {
             doOnSuccess = {
                 schoolVM.offlineSeminars.value?.seminars?.run {
                     offlineSeminarsAdapter.setSeminars(this)
+                    if(this.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
+                    else binding.scrollViewEmpty.visibility = View.VISIBLE
                 }
             }
         )
@@ -156,6 +162,8 @@ class SchoolParentsFragment : BaseFragment() {
             doOnSuccess = {
                 schoolVM.onlineSchools.value?.onlineSchools?.run {
                     onlineSchoolsAdapter.setSchools(this)
+                    if(this.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
+                    else binding.scrollViewEmpty.visibility = View.VISIBLE
                 }
             }
         )
