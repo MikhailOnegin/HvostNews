@@ -39,8 +39,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/smallMargin"
                 android:layout_marginEnd="@dimen/normalMargin">
 
                 <ImageView

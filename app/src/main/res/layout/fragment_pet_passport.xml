@@ -147,9 +147,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
+                style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/xLargeMargin"
+                android:entries="@array/testItems"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
             <TextView

@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.Navigator
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online_info.view.textView_what_wait
@@ -81,11 +85,16 @@ class EventOfflineInfoFragment : BaseFragment() {
                     binding.constraintPastVideos.visibility = View.VISIBLE
                     adapterVideo.setVideos(seminar.videos)
                 }
-                if (seminar.videos.isNotEmpty()) {
-                    binding.constraintWhatWait.visibility = View.VISIBLE
+
+                if (seminar.partners.isNotEmpty()) {
+                    binding.constraintPartners.visibility = View.VISIBLE
                     adapterPartners.setPartners(seminar.partners)
                 }
             }
         })
+    }
+
+    fun startNavigation(id:Int){
+        findNavController().navigate(id)
     }
 }

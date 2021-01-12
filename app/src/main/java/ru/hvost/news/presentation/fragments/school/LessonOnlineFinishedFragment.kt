@@ -115,7 +115,7 @@ class LessonOnlineFinishedFragment : BaseFragment() {
                                     for(j in lesson.answerList.indices){
                                         val answer2 = lesson.answerList[j].answer
                                         if(answer2 != "Все вышеперечисленное"){
-                                            rightAnswers.append("$answer\n\n")
+                                            rightAnswers.append("$answer2\n\n")
                                         }
                                     }
                                     binding.textViewRightAnswer.text = rightAnswers.toString()

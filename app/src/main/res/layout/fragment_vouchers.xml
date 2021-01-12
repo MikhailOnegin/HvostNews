@@ -24,14 +24,13 @@
                 android:background="@android:color/white"
                 android:elevation="@dimen/barsElevation"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="@dimen/toolbarHeight"
                 app:layout_scrollFlags="scroll"
                 app:layout_collapseMode="pin">
 
                 <TextView
                     android:text="@string/shopEntranceTitle"
-                    android:fontFamily="@font/gilroy_semibold"
-                    android:textSize="22sp"
+                    android:textAppearance="@style/ToolbarTitleTextAppearance"
                     android:textColor="@color/TextColorPrimary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -56,7 +55,7 @@
 
                     <ImageView
                         android:layout_width="@dimen/icCartSize"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/icCartSize"
                         android:layout_marginStart="@dimen/smallMargin"
                         android:layout_marginTop="@dimen/smallMargin"
                         android:layout_marginBottom="@dimen/smallMargin"

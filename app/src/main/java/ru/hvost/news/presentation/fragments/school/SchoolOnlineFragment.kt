@@ -225,6 +225,18 @@ class SchoolOnlineFragment : BaseFragment() {
     fun setObservers(owner: LifecycleOwner) {
         schoolVM.onlineLessonsEvent.observe(owner, onlineLessonsEvent)
         schoolVM.onlineSchoolsEvent.observe(owner, onlineSchoolsEvent)
+        schoolVM.onlineSchools.observe(owner, {
+            for(i in it.onlineSchools.indices){
+                val school = it.onlineSchools[i]
+                schoolId?.let { schoolId ->
+                    if(school.id.toString() == schoolId){
+                        if(school.participate) binding.constraintRegistration.visibility = View.GONE
+                        else binding.constraintRegistration.visibility = View.VISIBLE
+                    }
+                }
+
+            }
+        })
     }
 
     private fun setListeners() {

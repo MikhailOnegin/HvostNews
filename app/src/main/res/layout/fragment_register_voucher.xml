@@ -29,7 +29,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="@dimen/registerVoucherImageHeight"
                 android:layout_marginTop="@dimen/xLargeMargin"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:text="@string/regCouponHintTitle"
                 android:textColor="@color/TextColorPrimary"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/registerVoucherTitleTextSize"/>
 
             <TextView
                 style="@style/RegTextView"
@@ -121,8 +121,8 @@
                     android:background="@drawable/background_round_green_button"
                     android:contentDescription="@string/addPetButtonCD"
                     android:layout_gravity="center_vertical"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="@dimen/registerVoucherAddButtonSize"
+                    android:layout_height="@dimen/registerVoucherAddButtonSize"
                     android:layout_marginEnd="@dimen/largeMargin"/>
 
             </LinearLayout>

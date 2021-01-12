@@ -8,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.installations.Utils
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.databinding.FragmentEditProfileBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.simpleDateFormat
+import ru.hvost.news.utils.tryStringToDate
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -25,6 +29,9 @@ class EditProfileFragment : BaseFragment() {
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var onUserDataLoadingEvent: DefaultNetworkEventObserver
+    private val birthday = MutableLiveData<String>()
+    private val myFormat = "dd.MM.yyyy"
+    private val sdf = SimpleDateFormat(myFormat)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,14 +59,19 @@ class EditProfileFragment : BaseFragment() {
 
     private fun setObservers() {
         mainVM.userDataLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
+        birthday.observe(viewLifecycleOwner, { onDateChanged() })
+    }
+
+    private fun onDateChanged() {
+        binding.birthday.setSelection(birthday.value.toString())
     }
 
     private fun bindData() {
         val userData = mainVM.userData.value
+        birthday.value = userData?.birthday.toString()
         binding.surname.setText(userData?.surname)
         binding.name.setText(userData?.name)
         binding.patronymic.setText(userData?.patronymic)
-        binding.birthday.setText(userData?.birthday)
         binding.phone.setText(userData?.phone)
         binding.email.setText(userData?.email)
         binding.city.setText(userData?.city)
@@ -77,7 +89,7 @@ class EditProfileFragment : BaseFragment() {
             surname = binding.surname.text.toString(),
             name = binding.name.text.toString(),
             patronymic = binding.patronymic.text.toString(),
-            birthday = binding.birthday.text.toString(),
+            birthday = birthday.value.toString(),
             phone = binding.phone.text.toString(),
             email = binding.email.text.toString(),
             city = binding.city.text.toString()
@@ -92,8 +104,10 @@ class EditProfileFragment : BaseFragment() {
         val myFormat = "dd.MM.yyyy"
         val sdf = SimpleDateFormat(myFormat)
         ru.hvost.news.presentation.dialogs.DatePickerDialog(
+            initialDate = tryStringToDate(birthday.value.toString()),
             onDateSelected = {
-                binding.birthday.setText(sdf.format(it.time))
+                birthday.value = sdf.format(it.time)
+                birthday.value = sdf.format(it.time)
             },
             maxDate = Date()
         ).show(childFragmentManager, "date_picker")

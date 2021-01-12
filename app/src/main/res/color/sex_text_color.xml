@@ -9,4 +9,7 @@
         android:state_selected="false"
         android:color="@color/sexSelector"/>
 
+    <item
+        android:color="@color/sexSelector"/>
+
 </selector>

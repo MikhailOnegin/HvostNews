@@ -18,8 +18,8 @@
         android:layout_width="@dimen/rvShopChevronSize"
         android:layout_height="@dimen/rvShopChevronSize"
         android:layout_marginStart="@dimen/largeMargin"
-        android:layout_marginTop="@dimen/largeMargin"
-        android:layout_marginBottom="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/shopCategoryPadding"
+        android:layout_marginBottom="@dimen/shopCategoryPadding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

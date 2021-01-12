@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
@@ -18,6 +19,7 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.tryStringToDate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +35,9 @@ class PetProfileFragment : BaseFragment() {
     private lateinit var onUpdatePetLoadingEvent: DefaultNetworkEventObserver
     private var petSex: Int? = null
     private var petData: List<Pets>? = listOf()
+    private val birthday = MutableLiveData<String>()
+    private val myFormat = "dd.MM.yyyy"
+    private val sdf = SimpleDateFormat(myFormat)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -128,7 +133,7 @@ class PetProfileFragment : BaseFragment() {
                 petSpecies = (binding.type.selectedItem as Species).speciesId.toString(),
                 petSex = petSex.toString(),
                 petBreed = (binding.breed.selectedItem as Breeds).breedId,
-                petBirthday = binding.birthday.text.toString(),
+                petBirthday = birthday.value.toString(),
                 petDelicies = binding.delicious.text.toString(),
                 petToy = (binding.favToy.selectedItem as Toys).toyId,
                 petBadHabbit = binding.badHabit.text.toString(),
@@ -149,8 +154,10 @@ class PetProfileFragment : BaseFragment() {
         val myFormat = "dd.MM.yyyy"
         val sdf = SimpleDateFormat(myFormat)
         ru.hvost.news.presentation.dialogs.DatePickerDialog(
+            initialDate = tryStringToDate(birthday.value.toString()),
             onDateSelected = {
-                binding.birthday.setText(sdf.format(it.time))
+                birthday.value = sdf.format(it.time)
+                birthday.value = sdf.format(it.time)
             },
             maxDate = Date()
         ).show(childFragmentManager, "date_picker")
@@ -196,6 +203,11 @@ class PetProfileFragment : BaseFragment() {
         mainVM.petToysLoadingEvent.observe(viewLifecycleOwner, onPetToysLoadingEvent)
         mainVM.petEducationLoadingEvent.observe(viewLifecycleOwner, onPetEducationLoadingEvent)
         mainVM.updatePetLoadingEvent.observe(viewLifecycleOwner, onUpdatePetLoadingEvent)
+        birthday.observe(viewLifecycleOwner, { onDateChanged() })
+    }
+
+    private fun onDateChanged() {
+        binding.birthday.setSelection(birthday.value.toString())
     }
 
     private fun onPetSexChanged(sex: String?) {
@@ -301,8 +313,8 @@ class PetProfileFragment : BaseFragment() {
     }
 
     private fun bindData() {
+        birthday.value = petData?.get(0)?.petBirthday
         binding.name.setText(petData?.get(0)?.petName)
-        binding.birthday.setText(petData?.get(0)?.petBirthday)
         binding.delicious.setText(petData?.get(0)?.petDelicies)
         binding.badHabit.setText(petData?.get(0)?.petBadHabbit)
         binding.chip.setText(petData?.get(0)?.petChip)

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,6 +30,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     private lateinit var onPetSpeciesLoadingEvent: DefaultNetworkEventObserver
     private lateinit var mainVM: MainViewModel
     private var petSex: Int? = null
+    private val petBirthday = MutableLiveData<String>()
     private val myFormat = "dd.MM.yyyy"
     private val sdf = SimpleDateFormat(myFormat)
 
@@ -37,7 +39,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = LayoutAddPetBinding.inflate(inflater, container, false)
+        binding = LayoutAddPetBinding.inflate(inflater)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         if (mainVM.petsSpeciesLoadingEvent.value?.peekContent() == State.SUCCESS) {
             onSpeciesChanged()
@@ -59,7 +61,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         mainVM.addPetEvent.observe(viewLifecycleOwner, onPetAdded)
         binding.sexUnknown.isSelected = true
-        binding.birthday.setText(sdf.format(Date().time))
+        petBirthday.value = sdf.format(Date().time)
         setObservers()
         setListeners()
         super.onActivityCreated(savedInstanceState)
@@ -67,6 +69,11 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
 
     private fun setObservers() {
         mainVM.petsSpeciesLoadingEvent.observe(viewLifecycleOwner, onPetSpeciesLoadingEvent)
+        petBirthday.observe(viewLifecycleOwner, { onDateChanged() })
+    }
+
+    private fun onDateChanged() {
+        binding.birthday.setSelection(petBirthday.value.toString())
     }
 
     private fun onSpeciesChanged() {
@@ -91,7 +98,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
             mainVM.addPet(
                 petSpecies = (binding.type.selectedItem as Species).speciesId.toString(),
                 petName = binding.petName.text.toString(),
-                petBirthday = binding.birthday.text.toString(),
+                petBirthday = petBirthday.value.toString(),
                 petSex = petSex.toString()
             )
         }
@@ -101,7 +108,8 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     private fun showDatePicker() {
         DatePickerDialog(
             onDateSelected = {
-                binding.birthday.setText(sdf.format(it.time))
+                binding.birthday.setSelection(sdf.format(it.time))
+                petBirthday.value = sdf.format(it.time)
             },
             maxDate = Date()
         ).show(childFragmentManager, "date_picker")
@@ -149,7 +157,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
             },
         )
         onPetSpeciesLoadingEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
+            anchorView = binding.parent,
             doOnSuccess = { onSpeciesChanged() }
         )
     }

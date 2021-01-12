@@ -153,7 +153,15 @@ class ProfileFragment : BaseFragment() {
             )
         }
         binding.buttonCoupons.setOnClickListener {
-            navC.navigate(R.id.action_profileFragment_to_myCouponsFragment)
+            if (couponsMV.coupons.value?.coupons.isNullOrEmpty()) {
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.couponsIsNull),
+                    getString(R.string.buttonOk)
+                ).show()
+            } else {
+                findNavController().navigate(R.id.action_profileFragment_to_myCouponsFragment)
+            }
         }
         binding.invite.setOnClickListener {
             navC.navigate(R.id.action_profileFragment_to_inviteFragment)

@@ -119,7 +119,7 @@
                 <TextView
                     android:id="@+id/text"
                     android:text="@string/shopAnnouncementStub"
-                    android:textSize="26sp"
+                    android:textSize="@dimen/shopTitleTextSize"
                     android:textColor="@color/TextColorPrimary"
                     android:fontFamily="@font/gilroy_extrabold"
                     android:padding="@dimen/largeMargin"

@@ -218,4 +218,14 @@
     <dimen name="chipsPaddingHorizontal">4dp</dimen>
     <dimen name="chipsPaddingVertical">8dp</dimen>
     <dimen name="filtersIconSize">48dp</dimen>
+    <dimen name="registerVoucherImageHeight">140dp</dimen>
+    <dimen name="registerVoucherTitleTextSize">16sp</dimen>
+    <dimen name="registerVoucherAddButtonSize">48dp</dimen>
+    <dimen name="shopTitleTextSize">26sp</dimen>
+    <dimen name="shopCategoryPadding">24dp</dimen>
+    <dimen name="arithmeticIconSize">16dp</dimen>
+    <dimen name="addProductPriceTextSize">18sp</dimen>
+    <dimen name="addProductSubPriceTextSize">12sp</dimen>
+    <dimen name="addProductTotalTextSize">18sp</dimen>
+    <dimen name="profileBackgroundImageHeight">340dp</dimen>
 </resources>

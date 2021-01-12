@@ -29,8 +29,7 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SchoolsViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_school_online, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_school_online, parent, false)
         return SchoolsViewHolder(view)
     }
 
