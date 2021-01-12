@@ -89,4 +89,6 @@
     <dimen name="profileTitleSize">10sp</dimen>
     <dimen name="orderCountTextSize">18sp</dimen>
     <dimen name="userProfileButtonLargeRadius">10dp</dimen>
+    <dimen name="toolbarTitleTextSizeLarge">18sp</dimen>
+    <dimen name="ic_back">20dp</dimen>
 </resources>
