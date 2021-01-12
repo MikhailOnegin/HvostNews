@@ -45,10 +45,12 @@ class SchoolParentsFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         binding.recyclerView.adapter = onlineSchoolsAdapter
-        App.getInstance().userToken?.run {
-            schoolVM.getOnlineSchools(this)
+        if ( schoolVM.onlineSchools.value == null) {
+            App.getInstance().userToken?.run {
+                schoolVM.getOnlineSchools(this)
+            }
         }
-        schoolVM.getOfflineCities()
+        if (schoolVM.offlineSeminars.value == null) schoolVM.getOfflineCities()
         binding.spinnerOfflineSeminars.adapter =
             SpinnerAdapter(requireContext(), "", arrayListOf(), CityOffline::name)
         binding.spinnerOnlineSchools.adapter =
@@ -85,12 +87,37 @@ class SchoolParentsFragment : BaseFragment() {
         setListeners()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.onlineSchoolsEvent.observe(owner, onlineSchoolsEvent)
 
         schoolVM.offlineCitiesEvent.observe(owner, citiesEvent)
 
         schoolVM.offlineSeminarsEvent.observe(owner, offlineSeminarsEvent)
+        schoolVM.offlineCities.observe(owner, {
+            schoolVM.offlineCities.value?.run {
+                val adapter =
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
+                adapter.clear()
+                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
+                    this.cities
+                )
+                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
+                    0
+                )?.run {
+                    val cityId = this.cityId
+                    App.getInstance().userToken?.run {
+                        schoolVM.getOfflineSeminars(cityId, this)
+                    }
+                }
+            }
+        })
+        schoolVM.offlineSeminars.observe(owner, {
+            offlineSeminarsAdapter.setSeminars(it.seminars)
+        })
+        schoolVM.onlineSchools.observe(owner, {
+            onlineSchoolsAdapter.setSchools(it.onlineSchools)
+        })
     }
 
     @Suppress("UNCHECKED_CAST")
