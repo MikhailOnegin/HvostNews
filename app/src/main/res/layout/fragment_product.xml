@@ -460,10 +460,10 @@
             <TextView
                 android:id="@+id/text"
                 android:lineSpacingExtra="@dimen/textLineSpacingExtra"
-                android:textSize="18sp"
+                android:textSize="@dimen/productDetailsTextSize"
                 android:fontFamily="@font/gilroy_semibold"
                 android:textColor="@color/gray2"
-                android:minHeight="300dp"
+                android:minHeight="@dimen/productDetailsTextMinHeight"
                 tools:text="Полнорационный корм предназначен для щенков и молодых собак всех пород в возрасте от 2 до 12 месяцев, а также в период беременности и лактации. Идеально подходит для собак, нуждающихся в питании с низким содержанием холестерина."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

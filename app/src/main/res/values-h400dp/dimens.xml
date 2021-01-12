@@ -89,4 +89,20 @@
     <dimen name="profileTitleSize">10sp</dimen>
     <dimen name="orderCountTextSize">18sp</dimen>
     <dimen name="userProfileButtonLargeRadius">10dp</dimen>
+    <dimen name="productTitleTextSize">18sp</dimen>
+    <dimen name="productArticleTextSize">14sp</dimen>
+    <dimen name="productImageHeight">310dp</dimen>
+    <dimen name="productPriceTextSize">20sp</dimen>
+    <dimen name="productOldPriceTextSize">14sp</dimen>
+    <dimen name="productTabsTextSize">14sp</dimen>
+    <dimen name="productDetailsTextMinHeight">264dp</dimen>
+    <dimen name="productDetailsTextSize">16sp</dimen>
+    <dimen name="cartSelectorHeight">44dp</dimen>
+    <dimen name="cartTypeTitleTextSize">16sp</dimen>
+    <dimen name="cartTypeCounterTextSize">12sp</dimen>
+    <dimen name="cartTypeTitleCounterSize">26dp</dimen>
+    <dimen name="removeButtonSize">18dp</dimen>
+    <dimen name="cartFooterMainTextSize">26sp</dimen>
+    <dimen name="cartFooterSecondaryTextSize">18dp</dimen>
+    <dimen name="emptyViewTextSize">22sp</dimen>
 </resources>
