@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.adapters.recycler
 
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_what_wait_school_online.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
+import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.databinding.LayoutWhatWaitSchoolOnlineBinding
 import ru.hvost.news.models.OnlineSchools
@@ -63,7 +65,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             tVDescription.movementMethod = LinkMovementMethod()
             tVDescription.text = school.description.parseAsHtml()
 
-            Glide.with(itemView.context).load(APIService.baseUrl + school.image)
+            Glide.with(itemView.context).load(baseUrl + school.image)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(iVInfo)
 
@@ -73,6 +75,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 val gridLayoutWait = itemView.gridLayout
                 gridLayoutWait.removeAllViews()
                 for (i in school.wait.indices) {
+                    val wait = school.wait[i]
                     val viewWait = LayoutWhatWaitSchoolOnlineBinding.inflate(
                         LayoutInflater.from(itemView.context),
                         gridLayoutWait,
@@ -80,7 +83,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     ).root
                     val param = GridLayout.LayoutParams()
                     param.columnSpec = spec(
-                        GridLayout.HORIZONTAL,
+                        GridLayout.UNDEFINED,
                         GridLayout.FILL,
                         1f
                     )
@@ -88,7 +91,11 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt() / 2
 
                     viewWait.layoutParams = param
-                    viewWait.textView_description.text = school.wait[i].head
+                    viewWait.textView_head.text = wait.head
+                    viewWait.textView_description.text = wait.description
+                    Glide.with(itemView.context).load(baseUrl + wait.imageUrl)
+                        .placeholder(R.drawable.not_found).centerCrop()
+                        .into(viewWait.imageView_what_wait)
                     (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
                         margin,
                         margin,

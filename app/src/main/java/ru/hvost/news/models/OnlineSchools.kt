@@ -32,6 +32,7 @@ data class OnlineSchools(
     )
     data class Wait(
         val head: String,
+        val description: String,
         val imageUrl: String,
     )
 }
@@ -89,6 +90,7 @@ fun List<OnlineSchoolsResponse.Wait>?.toWait(): List <OnlineSchools.Wait>{
             result.add(
                 OnlineSchools.Wait(
                     head = wait.head ?: "",
+                    description = wait.description ?: "",
                     imageUrl = wait.imageUrl ?: "",
                 )
             )

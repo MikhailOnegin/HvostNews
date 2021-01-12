@@ -33,6 +33,7 @@ data class OnlineSchoolsResponse(
     )
     data class Wait(
         val head: String?,
+        val description: String?,
         val imageUrl: String?,
     )
 }

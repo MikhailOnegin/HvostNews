@@ -4,13 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
+import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_school_offline_event.*
+import kotlinx.android.synthetic.main.layout_tab_item_seminar.view.*
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
+import ru.hvost.news.databinding.LayoutTabItemSeminarBinding
 import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarScheduleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
@@ -20,10 +28,11 @@ class OfflineEventFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolOfflineEventBinding
     private lateinit var schoolVM: SchoolViewModel
+    private lateinit var fm: FragmentManager
     private var seminarId: String? = null
-    private var infoAdapter = OfflineSeminarInfoAdapter()
     private var scheduleAdapter = OfflineSeminarScheduleAdapter()
     private var active: Boolean? = null
+    private var tabsView = arrayListOf<ConstraintLayout>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +49,9 @@ class OfflineEventFragment : BaseFragment() {
         seminarId = arguments?.getString("seminarId")
         initializedEvents()
         setObservers(this)
-        //binding.recyclerView.adapter = infoAdapter
+        fm = (activity as AppCompatActivity).supportFragmentManager
+        binding.horizontalScrollView.isSmoothScrollingEnabled = false
+        binding.horizontalScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT)
     }
 
     private fun initializedEvents() {
@@ -51,10 +62,9 @@ class OfflineEventFragment : BaseFragment() {
             seminarId?.run {
                 for (i in it.seminars.indices) {
                     val seminar = it.seminars[i]
-                    infoAdapter.setSeminar(seminar)
                     scheduleAdapter.setSeminar(seminar)
                     if (seminar.id.toString() == seminarId) {
-                        binding.textViewTitle.text = seminar.title
+
                         if (seminar.isFinished) {
                             binding.textViewLessonStatus.text = getString(R.string.completed)
                             binding.textViewLessonStatus.setTextColor(
@@ -80,7 +90,8 @@ class OfflineEventFragment : BaseFragment() {
                                     )
                                 )
                             }
-                        } else {
+                        }
+                        else {
                             binding.textViewLessonStatus.text = getString(R.string.active)
                             binding.textViewLessonStatus.setTextColor(
                                 ContextCompat.getColor(
@@ -104,7 +115,8 @@ class OfflineEventFragment : BaseFragment() {
                                     )
                                 )
                                 binding.buttonParticipate.isEnabled = false
-                            } else {
+                            }
+                            else {
                                 binding.buttonParticipate.text = getString(R.string.participate)
                                 binding.buttonParticipate.setTextColor(
                                     ContextCompat.getColor(
@@ -132,6 +144,36 @@ class OfflineEventFragment : BaseFragment() {
                                 }
                             }
                         }
+                        val linearTabs = binding.linearLayoutTabs
+                        linearTabs.removeAllViews()
+                        val viewTab = LayoutTabItemSeminarBinding.inflate(
+                            LayoutInflater.from(requireContext()),
+                            linearTabs,
+                            false
+                        ).root
+                        viewTab.textView_tab.text = getString(R.string.seminar_info)
+                        viewTab.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_left)
+                        viewTab.textView_tab.isSelected = true
+                        viewTab.isSelected = true
+                        tabsView.add(viewTab)
+                        setListenerTab(viewTab, tabsView)
+                        linearTabs.addView(viewTab)
+                        for (q in seminar.petSchedules.indices){
+                            val viewTab2 = LayoutTabItemSeminarBinding.inflate(
+                                LayoutInflater.from(requireContext()),
+                                linearTabs,
+                                false
+                            ).root
+                            val petTypeName = seminar.petSchedules[q].petTypeName
+                            if (q == seminar.petSchedules.size - 1 ) viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_right)
+                            else viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_middle)
+                            val tabText = "${getString(R.string.schedule_for)} $petTypeName"
+                            viewTab2.textView_tab.text = tabText
+                            tabsView.add(viewTab2)
+                            setListenerTab(viewTab2, tabsView)
+                            linearTabs.addView(viewTab2)
+                        }
+                        binding.textViewTitle.text = seminar.title
                         binding.textViewCity.text = seminar.city
                         binding.textViewDate.text = seminar.date
                         binding.textViewSponsor.text = seminar.sponsor
@@ -143,25 +185,6 @@ class OfflineEventFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-        val colorPrimary = ContextCompat.getColor(requireContext(), R.color.TextColorPrimary)
-        val colorWhite = ContextCompat.getColor(requireContext(), android.R.color.white)
-        binding.constraintSeminarInfo.isSelected = true
-        binding.seminarInfo.setTextColor(colorWhite)
-        binding.constraintSeminarInfo.isSelected = true
-        binding.constraintSeminarInfo.setOnClickListener {
-            it.isSelected = true
-            constraint_seminar_schedule.isSelected = false
-        //    binding.recyclerView.adapter = infoAdapter
-            binding.seminarInfo.setTextColor(colorWhite)
-            binding.seminarSchedule.setTextColor(colorPrimary)
-        }
-        binding.constraintSeminarSchedule.setOnClickListener {
-            it.isSelected = true
-            constraint_seminar_info.isSelected = false
-       //     binding.recyclerView.adapter = scheduleAdapter
-            binding.seminarSchedule.setTextColor(colorWhite)
-            binding.seminarInfo.setTextColor(colorPrimary)
-        }
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
@@ -174,6 +197,15 @@ class OfflineEventFragment : BaseFragment() {
                 R.id.action_offlineEventFragment_to_registrationFragment,
                 bundle
             )
+        }
+    }
+
+   private fun setListenerTab(view:View, listView:List<View>){
+        view.setOnClickListener {
+            for( i in listView.indices){
+                listView[i].isSelected = false
+            }
+            it.isSelected = true
         }
     }
 }
