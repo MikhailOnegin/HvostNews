@@ -169,8 +169,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
+                    android:scaleX="@dimen/switch_scale"
+                    android:scaleY="@dimen/switch_scale"
                     android:thumb="@drawable/ic_baseline_brightness_1_24"
                     android:track="@drawable/track_selector" />
 
@@ -198,8 +198,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
+                    android:scaleX="@dimen/switch_scale"
+                    android:scaleY="@dimen/switch_scale"
                     android:thumb="@drawable/ic_baseline_brightness_1_24"
                     android:track="@drawable/track_selector" />
 
@@ -224,7 +224,7 @@
                 android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textSize="@dimen/buttonMediumTextSize"
-                app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
+                app:cornerRadius="@dimen/mediumCorners" />
 
         </LinearLayout>
 

@@ -229,4 +229,6 @@
     <dimen name="addProductTotalTextSize">18sp</dimen>
     <dimen name="profileBackgroundImageHeight">340dp</dimen>
     <dimen name="ic_back">24dp</dimen>
+    <dimen name="switch_scale">0.8</dimen>
+    <dimen name="marginToPromo">4dp</dimen>
 </resources>

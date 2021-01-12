@@ -91,4 +91,8 @@
     <dimen name="userProfileButtonLargeRadius">19dp</dimen>
     <dimen name="toolbarTitleTextSizeLarge">26sp</dimen>
     <dimen name="ic_back">30dp</dimen>
+    <dimen name="dialogSubtitleTextSize">18sp</dimen>
+    <dimen name="switch_scale">1</dimen>
+    <dimen name="marginToPromo">8dp</dimen>
+    <dimen name="smallHeightButton">80dp</dimen>
 </resources>

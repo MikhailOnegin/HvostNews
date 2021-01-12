@@ -87,8 +87,12 @@
     <dimen name="profileToPrizesButtonHeight">65dp</dimen>
     <dimen name="semiNormalMargin">9dp</dimen>
     <dimen name="profileTitleSize">10sp</dimen>
-    <dimen name="orderCountTextSize">18sp</dimen>
+    <dimen name="orderCountTextSize">22sp</dimen>
     <dimen name="userProfileButtonLargeRadius">10dp</dimen>
     <dimen name="toolbarTitleTextSizeLarge">18sp</dimen>
     <dimen name="ic_back">20dp</dimen>
+    <dimen name="dialogSubtitleTextSize">14sp</dimen>
+    <dimen name="switch_scale">0.6</dimen>
+    <dimen name="marginToPromo">4dp</dimen>
+    <dimen name="smallHeightButton">55dp</dimen>
 </resources>
