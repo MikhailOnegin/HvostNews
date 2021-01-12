@@ -33,7 +33,7 @@ fun createSnackbar(
     anchorView: View,
     text: String?,
     buttonText: String? = null,
-    onButtonClicked: (()->Unit)? = null
+    onButtonClicked: (() -> Unit)? = null
 ): Snackbar {
     val snackbar = Snackbar.make(
         anchorView,
@@ -43,9 +43,10 @@ fun createSnackbar(
     snackbar.setBackgroundTint(ContextCompat.getColor(App.getInstance(), R.color.colorAccent))
     snackbar.setTextColor(ContextCompat.getColor(App.getInstance(), android.R.color.white))
     snackbar.setActionTextColor(ContextCompat.getColor(App.getInstance(), android.R.color.white))
-    val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+    val textView =
+        snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
     textView.maxLines = 10
-    if(buttonText != null) {
+    if (buttonText != null) {
         snackbar.setAction(buttonText) {
             onButtonClicked?.invoke() ?: snackbar.dismiss()
         }
@@ -55,7 +56,7 @@ fun createSnackbar(
 }
 
 fun isPhoneFieldIncorrect(field: TextInputEditText): Boolean {
-    if(!PhoneInputFilter.phoneRegex.matcher(field.text.toString()).matches()) {
+    if (!PhoneInputFilter.phoneRegex.matcher(field.text.toString()).matches()) {
         field.error = App.getInstance().getString(R.string.incorrectPhone)
         field.requestFocus()
         return true
@@ -64,7 +65,7 @@ fun isPhoneFieldIncorrect(field: TextInputEditText): Boolean {
 }
 
 fun isEmailFieldIncorrect(field: TextInputEditText): Boolean {
-    if(!Patterns.EMAIL_ADDRESS.matcher(field.text.toString()).matches()) {
+    if (!Patterns.EMAIL_ADDRESS.matcher(field.text.toString()).matches()) {
         field.error = App.getInstance().getString(R.string.incorrectEmail)
         field.requestFocus()
         return true
@@ -73,8 +74,8 @@ fun isEmailFieldIncorrect(field: TextInputEditText): Boolean {
 }
 
 fun hasBlankField(vararg fields: TextInputEditText): Boolean {
-    for(field in fields) {
-        if(field.text.isNullOrBlank()){
+    for (field in fields) {
+        if (field.text.isNullOrBlank()) {
             field.error = App.getInstance().getString(R.string.requiredField)
             field.requestFocus()
             return true
@@ -85,8 +86,8 @@ fun hasBlankField(vararg fields: TextInputEditText): Boolean {
 
 fun hasTooLongField(vararg fields: TextInputEditText): Boolean {
     val res = App.getInstance().resources
-    for(field in fields) {
-        if(field.text?.length ?: 0 > res.getInteger(R.integer.editTextFieldMaxSize)){
+    for (field in fields) {
+        if (field.text?.length ?: 0 > res.getInteger(R.integer.editTextFieldMaxSize)) {
             field.error = App.getInstance().getString(R.string.tooBigField)
             field.requestFocus()
             return true
@@ -113,23 +114,23 @@ class PhoneInputFilter : InputFilter {
         builder.append(dest)
         builder.replace(dStart, dEnd, src.substring(start, end))
         if (builder.length < 3) return dest.substring(dStart, dEnd)
-        return if(!pattern.matcher(builder.toString()).matches()) ""
+        return if (!pattern.matcher(builder.toString()).matches()) ""
         else {
             builder.append("-")
-            if(pattern.matcher(builder.toString()).matches() && src.isNotEmpty()) {
+            if (pattern.matcher(builder.toString()).matches() && src.isNotEmpty()) {
                 src.substring(start, end) + "-"
             } else null
         }
     }
 
     companion object {
-        private const val phonePattern =  "\\+[7]-\\d{3}-\\d{3}-\\d{2}-\\d{2}"
+        private const val phonePattern = "\\+[7]-\\d{3}-\\d{3}-\\d{2}-\\d{2}"
         val phoneRegex: Pattern = Pattern.compile(phonePattern)
     }
 
 }
 
-class PasswordInputFilter : InputFilter{
+class PasswordInputFilter : InputFilter {
 
     private val patternString = "[\\p{ASCII}]*"
     private val pattern: Pattern = Pattern.compile(patternString)
@@ -144,7 +145,7 @@ class PasswordInputFilter : InputFilter{
     ): CharSequence? {
         val builder = StringBuilder(dest)
         builder.replace(dStart, dEnd, src.substring(sStart, sEnd))
-        return if(pattern.matcher(builder.toString()).matches()) null else ""
+        return if (pattern.matcher(builder.toString()).matches()) null else ""
     }
 
 }
@@ -159,18 +160,29 @@ val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 @SuppressLint("SimpleDateFormat")
 val serverDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
 
+fun tryStringToDate(
+    dateString: String
+): Date {
+    return try {
+        val date = simpleDateFormat.parse(dateString)
+        date
+    } catch (exc: ParseException) {
+        Date()
+    }
+}
+
 fun tryFormatDate(
     patternFrom: SimpleDateFormat,
     patternTo: SimpleDateFormat,
     dateString: String?,
     default: String
-): String{
+): String {
     dateString?.run {
         return try {
             val date = patternFrom.parse(this)
-            if(date != null) patternTo.format(date)
+            if (date != null) patternTo.format(date)
             else default
-        }catch (exc: ParseException){
+        } catch (exc: ParseException) {
             default
         }
     } ?: return default
@@ -182,12 +194,12 @@ val jsonDoubleFormat = DecimalFormat("0.######").apply {
     decimalFormatSymbols = symbols
 }
 
-fun tryParseDoubleValue(string: String?): Double{
-    if(string.isNullOrBlank()) return 0.0
+fun tryParseDoubleValue(string: String?): Double {
+    if (string.isNullOrBlank()) return 0.0
     val doubleFormat = jsonDoubleFormat
     return try {
         doubleFormat.parse(string)?.toDouble() ?: 0.0
-    }catch (exc: ParseException){
+    } catch (exc: ParseException) {
         0.0
     }
 }
@@ -195,7 +207,7 @@ fun tryParseDoubleValue(string: String?): Double{
 val emptyImageUri: Uri = Uri.parse("android.resource://ru.hvost.news/drawable/empty_image")
 
 fun getUriForBackendImagePath(imagePath: String?): Uri {
-    if(imagePath == null) return emptyImageUri
+    if (imagePath == null) return emptyImageUri
     return Uri.parse(APIService.baseUrl + imagePath)
 }
 
@@ -203,12 +215,12 @@ val moneyFormat = DecimalFormat("###,###,##0")
 
 enum class WordEnding { TYPE_1, TYPE_2, TYPE_3 }
 
-fun getWordEndingType(count: Int) : WordEnding{
-    return when{
-        count % 100 in 11..19   -> WordEnding.TYPE_3
-        count % 10 == 1         -> WordEnding.TYPE_1
-        count % 10 in 2..4      -> WordEnding.TYPE_2
-        else                    -> WordEnding.TYPE_3
+fun getWordEndingType(count: Int): WordEnding {
+    return when {
+        count % 100 in 11..19 -> WordEnding.TYPE_3
+        count % 10 == 1 -> WordEnding.TYPE_1
+        count % 10 in 2..4 -> WordEnding.TYPE_2
+        else -> WordEnding.TYPE_3
     }
 }
 
@@ -227,11 +239,11 @@ class LinearRvItemDecorations(
 
     private val res = App.getInstance().resources
     private val sideMargins =
-        if(sideMarginsDimension != null)
+        if (sideMarginsDimension != null)
             res.getDimension(sideMarginsDimension).toInt()
         else 0
     private val verticalMargin =
-        if(marginBetweenElementsDimension != null)
+        if (marginBetweenElementsDimension != null)
             res.getDimension(marginBetweenElementsDimension).toInt()
         else 0
 
@@ -244,7 +256,7 @@ class LinearRvItemDecorations(
         val position = parent.getChildAdapterPosition(view)
         outRect.set(
             sideMargins,
-            if(position == 0) verticalMargin else 0,
+            if (position == 0) verticalMargin else 0,
             sideMargins,
             verticalMargin
         )
@@ -259,11 +271,11 @@ class GridRvItemDecorations(
 
     private val res = App.getInstance().resources
     private val sideMargin =
-        if(sideMarginsDimension != null)
+        if (sideMarginsDimension != null)
             res.getDimension(sideMarginsDimension).toInt()
         else 0
     private val elementsMargin =
-        if(marginBetweenElementsDimension != null)
+        if (marginBetweenElementsDimension != null)
             res.getDimension(marginBetweenElementsDimension).toInt()
         else 0
 
@@ -274,11 +286,11 @@ class GridRvItemDecorations(
         state: RecyclerView.State
     ) {
         val position = parent.getChildAdapterPosition(view)
-        if(position % 2 == 0){
+        if (position % 2 == 0) {
             outRect.left = sideMargin
-            outRect.right = elementsMargin/2
-        }else{
-            outRect.left = elementsMargin/2
+            outRect.right = elementsMargin / 2
+        } else {
+            outRect.left = elementsMargin / 2
             outRect.right = sideMargin
         }
         outRect.bottom = elementsMargin
@@ -314,20 +326,23 @@ fun getClearPhoneString(source: String?): String {
     return builder.toString()
 }
 
-fun startIntentActionView(context: Context, url:String){
-    val fileIntent  = Intent(
+fun startIntentActionView(context: Context, url: String) {
+    val fileIntent = Intent(
         Intent.ACTION_VIEW,
         Uri.parse(url)
     )
     try {
         context.startActivity(fileIntent)
-    }
-    catch (e: Exception){
-        if(e is ActivityNotFoundException){
-            Toast.makeText(context,context.getString(R.string.no_required_attachments_fo_intent), Toast.LENGTH_SHORT).show()
-        }
-        else {
-            Toast.makeText(context, context.getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+    } catch (e: Exception) {
+        if (e is ActivityNotFoundException) {
+            Toast.makeText(
+                context,
+                context.getString(R.string.no_required_attachments_fo_intent),
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            Toast.makeText(context, context.getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

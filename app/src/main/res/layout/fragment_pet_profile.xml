@@ -134,26 +134,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ProfileTextInputLayout"
+            <ru.hvost.news.presentation.customviews.ValueHolderView
+                android:id="@+id/birthday"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
-                android:hint="@string/birthday"
-                app:endIconDrawable="@drawable/ic_date"
-                app:endIconMode="custom"
-                app:endIconTint="@color/gray1"
-                app:hintTextColor="@color/gray4">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/birthday"
-                    style="@style/TextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="false" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="@dimen/widgetsHeight"
+                app:iconResource="@drawable/ic_date"
+                app:holderHint="@string/petBirthdayHint"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/ProfileTextInputLayout"
