@@ -15,6 +15,7 @@ data class OnlineSchools(
         val userRank: String,
         val description: String,
         val participate: Boolean,
+        val isNew:Boolean,
         val literature: List<Literature>,
         val lessonsPassed: List<LessonPassed>,
         val wait :List<Wait>
@@ -48,17 +49,18 @@ fun  List<OnlineSchoolsResponse.OnlineSchool>?.toOnlineSchools(): List<OnlineSch
         for ((index, schoolResponse) in this.withIndex()) {
             result.add(
                 OnlineSchools.OnlineSchool(
-                    domainId = index,
-                    id = schoolResponse.id ?: 0,
-                    title = schoolResponse.title ?: "",
-                    image = schoolResponse.image ?: "",
-                    imageDetailUrl = schoolResponse.imageDetailUrl ?: "",
-                    userRank = schoolResponse.userRank ?: "",
-                    description = schoolResponse.description ?: "",
-                    participate = schoolResponse.participate ?: false,
-                    literature = schoolResponse.literature.toLiteratures(),
-                    lessonsPassed = schoolResponse.lessonsPassed.toNotNull(),
-                    wait = schoolResponse.wait.toWait()
+                        domainId = index,
+                        id = schoolResponse.id ?: 0,
+                        title = schoolResponse.title ?: "",
+                        image = schoolResponse.image ?: "",
+                        imageDetailUrl = schoolResponse.imageDetailUrl ?: "",
+                        userRank = schoolResponse.userRank ?: "",
+                        description = schoolResponse.description ?: "",
+                        participate = schoolResponse.participate ?: false,
+                        isNew = schoolResponse.isNew ?: false,
+                        literature = schoolResponse.literature.toLiteratures(),
+                        lessonsPassed = schoolResponse.lessonsPassed.toNotNull(),
+                        wait = schoolResponse.wait.toWait()
 
                 )
             )
