@@ -200,6 +200,8 @@ class SchoolParentsFragment : BaseFragment() {
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
             offlineSeminarsAdapter.filter(b)
+            if(offlineSeminarsAdapter.itemCount > 0) binding.scrollViewEmpty.visibility = View.GONE
+            else binding.scrollViewEmpty.visibility = View.VISIBLE
         }
 
         binding.spinnerOfflineSeminars.onItemSelectedListener =
