@@ -105,4 +105,10 @@
     <dimen name="cartFooterMainTextSize">34sp</dimen>
     <dimen name="cartFooterSecondaryTextSize">22dp</dimen>
     <dimen name="emptyViewTextSize">30sp</dimen>
+    <dimen name="toolbarTitleTextSizeLarge">24sp</dimen>
+    <dimen name="ic_back">28dp</dimen>
+    <dimen name="dialogSubtitleTextSize">18sp</dimen>
+    <dimen name="switch_scale">0.8</dimen>
+    <dimen name="marginToPromo">6dp</dimen>
+    <dimen name="smallHeightButton">70dp</dimen>
 </resources>
