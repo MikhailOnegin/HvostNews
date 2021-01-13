@@ -59,8 +59,7 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
 
 
     inner class SchoolsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val clSchool = itemView.constraint_school
+        private val clSchool = itemView.root_constraint
         private val ivSchool = itemView.imageView_school
         private val tvTitle = itemView.textView_title
         private val tvRank = itemView.textView_rank
@@ -74,9 +73,6 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(ivSchool)
             clSchool.setOnClickListener {
-                clickSchool?.onClick(onlineSchool.id.toString())
-            }
-            ivSchool.setOnClickListener {
                 clickSchool?.onClick(onlineSchool.id.toString())
             }
 

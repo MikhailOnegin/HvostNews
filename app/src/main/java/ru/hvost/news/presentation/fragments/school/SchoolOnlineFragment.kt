@@ -151,7 +151,6 @@ class SchoolOnlineFragment : BaseFragment() {
                     schoolId?.run {
                         for (i in onlineSchools.indices) {
                             val onlineSchool = onlineSchools[i]
-
                             if (onlineSchool.id.toString() == this) {
                                 infoAdapter.setSchool(onlineSchool)
                                 materialsAdapter.setSchool(onlineSchool)
@@ -159,7 +158,6 @@ class SchoolOnlineFragment : BaseFragment() {
                                 if (onlineSchool.participate) binding.constraintRegistration.visibility =
                                     View.GONE
                                 else binding.constraintRegistration.visibility = View.VISIBLE
-
                                 val containerNumbers = linearLayout_lesson_numbers
                                 val padding =
                                     resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
@@ -217,8 +215,6 @@ class SchoolOnlineFragment : BaseFragment() {
             doOnSuccess = {
                 schoolVM.onlineLessons.value?.lessons?.let { lessons ->
                     materialsAdapter.setLessons(lessons)
-                    if(lessons.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
-                    else binding.scrollViewEmpty.visibility = View.VISIBLE
                 }
             }
         )
