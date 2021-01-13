@@ -57,6 +57,9 @@ class MapViewModel: ViewModel() {
     val showZoosTemp = MutableLiveData(showZoos)
     val showPromosTemp = MutableLiveData(showPromos)
 
+    var promotions = listOf<Shop.Promotion>()
+    val selectedPromotion = MutableLiveData<Shop.Promotion>()
+
     companion object {
 
         const val GROOMS_ID = "3"

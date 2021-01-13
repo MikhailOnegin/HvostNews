@@ -111,4 +111,5 @@
     <dimen name="switch_scale">0.6</dimen>
     <dimen name="marginToPromo">4dp</dimen>
     <dimen name="smallHeightButton">55dp</dimen>
+    <dimen name="partnerPromotionsTextSize">22sp</dimen>
 </resources>

@@ -3,16 +3,23 @@ package ru.hvost.news.presentation.fragments.map
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.text.parseAsHtml
+import androidx.core.view.doOnLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
@@ -29,11 +36,16 @@ class PartnersPageFragment : BaseFragment() {
     private lateinit var binding: FragmentMapPartnersPageBinding
     private lateinit var mapVM: MapViewModel
 
+    private val appRes = App.getInstance().resources
+    private val promotionMargin = appRes.getDimension(R.dimen.largeMargin).toInt()
+    private var promotionRightMargin = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMapPartnersPageBinding.inflate(inflater, container, false)
+        setViewPager()
         return binding.root
     }
 
@@ -41,6 +53,7 @@ class PartnersPageFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
         checkDataAndInflate()
+        setObservers()
     }
 
     override fun onStart() {
@@ -51,6 +64,40 @@ class PartnersPageFragment : BaseFragment() {
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.favourite.setOnClickListener { onFavouriteClicked() }
+    }
+
+    private fun setObservers() {
+        mapVM.selectedPromotion.observe(viewLifecycleOwner) {onSelectedPromotionChanged(it)}
+    }
+
+    private fun setViewPager() {
+        binding.run {
+            viewPager.offscreenPageLimit = 1
+            viewPager.doOnLayout {
+                promotionRightMargin = (it.width * 0.25f).toInt()
+                viewPager.addItemDecoration(PromotionsDecoration(promotionRightMargin))
+                val mHeight = ((it.width - promotionMargin - promotionRightMargin) / 1.92f).toInt()
+                it.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    mHeight + promotionMargin * 2
+                )
+                viewPager.setPageTransformer { page, position ->
+                    page.translationX = -position * (promotionRightMargin + (promotionMargin / 2))
+                }
+            }
+        }
+    }
+
+    private fun onSelectedPromotionChanged(promotion: Shop.Promotion?) {
+        if (promotion == null) {
+            binding.promotionsLayout.visibility = View.GONE
+        } else {
+            binding.promotionsLayout.visibility = View.VISIBLE
+        }
+        promotion?.run {
+            binding.promotionTitle.text = title.parseAsHtml()
+            binding.promotionDescription.text = description.parseAsHtml()
+        }
     }
 
     private fun onFavouriteClicked() {
@@ -109,6 +156,14 @@ class PartnersPageFragment : BaseFragment() {
         }
         setPhones(shop.phones)
         setMap(shop)
+        mapVM.promotions = shop.promotions
+        binding.viewPager.adapter = PromotionsAdapter(this, shop.promotions)
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                mapVM.selectedPromotion.value = mapVM.promotions[position]
+            }
+        })
+        mapVM.selectedPromotion.value = shop.promotions.firstOrNull()
     }
 
     private fun setMap(shop: Shop) {
@@ -158,6 +213,43 @@ class PartnersPageFragment : BaseFragment() {
             }
             binding.phones.addView(phoneBinding.root)
         }
+    }
+
+    class PromotionsAdapter(
+        fragment: Fragment,
+        private val promotions: List<Shop.Promotion>
+    ) : FragmentStateAdapter(fragment) {
+
+        override fun getItemCount(): Int {
+            return promotions.size
+        }
+
+        override fun createFragment(position: Int): Fragment {
+            val bundle = Bundle()
+            bundle.putInt(PromotionFragment.PROMOTION_POSITION, position)
+            val fragment = PromotionFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
+
+    }
+
+    class PromotionsDecoration(
+        private val rightMargin: Int
+    ) : RecyclerView.ItemDecoration() {
+
+        private val resources = App.getInstance().resources
+        private val margin = resources.getDimension(R.dimen.largeMargin).toInt()
+
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            outRect.set(margin, margin, rightMargin, margin)
+        }
+
     }
 
     companion object {

@@ -447,4 +447,5 @@
     <string name="orderStatusChannelDescription">Уведомления об изменении статусов заказов в интернет-магазине.</string>
     <string name="schedule_for">Распиание для</string>
     <string name="empty">Пусто</string>
+    <string name="promotionsTitle">Участие в акциях</string>
 </resources>

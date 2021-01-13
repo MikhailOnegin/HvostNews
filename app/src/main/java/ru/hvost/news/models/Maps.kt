@@ -23,7 +23,7 @@ data class Shop(
 
     data class Promotion(
         val title: String,
-        val imageUrl: Uri,
+        val imageUri: Uri,
         val description: String
     )
 
@@ -50,7 +50,7 @@ fun List<ShopsResponse.ShopResponse>?.toShops(): List<Shop> {
             typeShopName = shop.typeShopName.orEmpty(),
             promotions = shop.promotions?.map { Shop.Promotion(
                 title = it.title.orEmpty(),
-                imageUrl = getUriForBackendImagePath(it.imageUrl),
+                imageUri = getUriForBackendImagePath(it.imageUrl),
                 description = it.description.orEmpty()
             ) } ?: listOf()
         )
