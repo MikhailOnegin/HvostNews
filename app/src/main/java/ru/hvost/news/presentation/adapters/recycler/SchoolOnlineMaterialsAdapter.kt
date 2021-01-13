@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.*
 import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.textView_number
@@ -109,7 +110,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
         fun bind(lesson: OnlineLessons.OnlineLesson, position:Int) {
             tVNumber.text = lesson.lessonNumber
-            tVTittle.text = lesson.lessonTitle
+            tVTittle.text = lesson.lessonTitle.parseAsHtml()
             if(lesson.petAge.isNotBlank()){
                 val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
                 tVAge.text = age
@@ -132,7 +133,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
         fun bind(lesson: OnlineLessons.OnlineLesson){
             tVNumber.text = lesson.lessonNumber
-            tVTitle.text = lesson.lessonTitle
+            tVTitle.text = lesson.lessonTitle.parseAsHtml()
             constraint.setOnClickListener {
                 onClickLessonFinished?.onClick(lesson.lessonId)
             }

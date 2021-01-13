@@ -3,6 +3,7 @@ package ru.hvost.news.presentation.adapters.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_video_past_seminar.view.*
@@ -40,7 +41,7 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
         private val iVPlay = itemView.imageView_play
         private val tVTitle = itemView.textView_title
         fun bind(video: OfflineSeminars.Video){
-            tVTitle.text = video.title
+            tVTitle.text = video.title.parseAsHtml()
             Glide.with(itemView.context).load(APIService.baseUrl + video.imageVideoUrl)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(iVVideo)

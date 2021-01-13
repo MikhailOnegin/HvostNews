@@ -41,6 +41,7 @@ class ArticleAdapter(
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
                 .fitCenter()
+                .placeholder(R.drawable.empty_image)
                 .into(binding.img)
             binding.title.text = articleItem.title
             binding.description.text = articleItem.shortDescription.parseAsHtml()

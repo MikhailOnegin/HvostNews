@@ -1,14 +1,18 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.models.OfflineSeminars
+import java.lang.Exception
+import java.text.SimpleDateFormat
 import java.util.*
 
 class OfflineSeminarsAdapter :
@@ -70,13 +74,28 @@ class OfflineSeminarsAdapter :
                 tVStatus.text = "Активно"
                 iVStatus.isSelected = true
             }
-            tVTitle.text = seminar.title
-            tVDate.text = seminar.date
+            tVTitle.text = seminar.title.parseAsHtml()
+            tVDate.text = dateFormat(seminar.date)
             tVCity.text = seminar.city
 
             constraint.setOnClickListener {
                 onClickLesson?.onClick(seminar.id.toString())
             }
+        }
+
+        private fun dateFormat(s:String): String {
+            var result = ""
+            try {
+                val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale("ru", "RU"))
+                val jsonDate = SimpleDateFormat("dd.MM.yyyy", Locale("ru", "RU"))
+                val date  = jsonDate.parse(s)
+                date?.run {
+                    result = dateFormat.format(this)
+                }
+            }
+            catch (e:Exception){
+            }
+            return result
         }
     }
 }

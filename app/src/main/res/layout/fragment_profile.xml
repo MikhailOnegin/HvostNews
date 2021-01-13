@@ -101,7 +101,7 @@
                     android:id="@+id/button_coupons"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/ButtonHeight"
-                    android:layout_marginBottom="@dimen/xSmallMargin"
+                    android:layout_marginBottom="@dimen/marginToPromo"
                     android:background="@drawable/ripple_gray_rectangle"
                     android:orientation="horizontal">
 

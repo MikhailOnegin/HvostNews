@@ -11,10 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.google.firebase.installations.Utils
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.databinding.FragmentEditProfileBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.services.FcmService
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.simpleDateFormat
@@ -68,12 +70,16 @@ class EditProfileFragment : BaseFragment() {
 
     private fun bindData() {
         val userData = mainVM.userData.value
-        birthday.value = userData?.birthday.toString()
+        if (userData?.birthday.isNullOrEmpty()) {
+            birthday.value = BIRTHDAY_EMPTY
+        } else {
+            birthday.value = userData?.birthday.toString()
+        }
         binding.surname.setText(userData?.surname)
         binding.name.setText(userData?.name)
         binding.patronymic.setText(userData?.patronymic)
-        binding.phone.setText(userData?.phone)
-        binding.email.setText(userData?.email)
+        binding.phone.setSelection(userData?.phone)
+        binding.email.setSelection(userData?.email)
         binding.city.setText(userData?.city)
     }
 
@@ -82,19 +88,34 @@ class EditProfileFragment : BaseFragment() {
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.cancel.setOnClickListener { findNavController().popBackStack() }
         binding.save.setOnClickListener { tryToSend() }
+        binding.switchPush.setOnCheckedChangeListener { _, isChecked ->
+            val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            prefs.edit().putBoolean(FcmService.PREF_SHOW_NOTIFICATIONS, isChecked).apply()
+        }
     }
 
     private fun tryToSend() {
-        mainVM.changeUserData(
-            surname = binding.surname.text.toString(),
-            name = binding.name.text.toString(),
-            patronymic = binding.patronymic.text.toString(),
-            birthday = birthday.value.toString(),
-            phone = binding.phone.text.toString(),
-            email = binding.email.text.toString(),
-            city = binding.city.text.toString()
-        )
+        tryToUpdateData()
         Toast.makeText(requireActivity(), "Success", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun tryToUpdateData() {
+        if (birthday.value == BIRTHDAY_EMPTY) {
+            mainVM.changeUserData(
+                surname = binding.surname.text.toString(),
+                name = binding.name.text.toString(),
+                patronymic = binding.patronymic.text.toString(),
+                city = binding.city.text.toString()
+            )
+        } else {
+            mainVM.changeUserData(
+                surname = binding.surname.text.toString(),
+                name = binding.name.text.toString(),
+                patronymic = binding.patronymic.text.toString(),
+                birthday = birthday.value.toString(),
+                city = binding.city.text.toString()
+            )
+        }
     }
 
     private val openDatePickerDialog = View.OnClickListener { showDatePicker() }
@@ -113,4 +134,7 @@ class EditProfileFragment : BaseFragment() {
         ).show(childFragmentManager, "date_picker")
     }
 
+    companion object {
+        private const val BIRTHDAY_EMPTY = "Не указано"
+    }
 }

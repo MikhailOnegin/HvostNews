@@ -89,4 +89,26 @@
     <dimen name="profileTitleSize">13sp</dimen>
     <dimen name="orderCountTextSize">26sp</dimen>
     <dimen name="userProfileButtonLargeRadius">15dp</dimen>
+    <dimen name="productTitleTextSize">20sp</dimen>
+    <dimen name="productArticleTextSize">16sp</dimen>
+    <dimen name="productImageHeight">350dp</dimen>
+    <dimen name="productPriceTextSize">24sp</dimen>
+    <dimen name="productOldPriceTextSize">16sp</dimen>
+    <dimen name="productTabsTextSize">16sp</dimen>
+    <dimen name="productDetailsTextMinHeight">300dp</dimen>
+    <dimen name="productDetailsTextSize">18sp</dimen>
+    <dimen name="cartSelectorHeight">50dp</dimen>
+    <dimen name="cartTypeTitleTextSize">18sp</dimen>
+    <dimen name="cartTypeCounterTextSize">14sp</dimen>
+    <dimen name="cartTypeTitleCounterSize">30dp</dimen>
+    <dimen name="removeButtonSize">20dp</dimen>
+    <dimen name="cartFooterMainTextSize">30sp</dimen>
+    <dimen name="cartFooterSecondaryTextSize">20dp</dimen>
+    <dimen name="emptyViewTextSize">26sp</dimen>
+    <dimen name="toolbarTitleTextSizeLarge">22sp</dimen>
+    <dimen name="ic_back">24dp</dimen>
+    <dimen name="dialogSubtitleTextSize">18sp</dimen>
+    <dimen name="switch_scale">0.8</dimen>
+    <dimen name="marginToPromo">4dp</dimen>
+    <dimen name="smallHeightButton">65dp</dimen>
 </resources>

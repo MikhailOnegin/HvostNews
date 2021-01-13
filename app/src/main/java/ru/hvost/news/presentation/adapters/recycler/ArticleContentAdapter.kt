@@ -90,7 +90,11 @@ class ArticleContentAdapter(
 
         fun bind(header: ArticleHeader) {
             binding.apply {
-                Glide.with(binding.root).load(header.imageUri).into(image)
+                Glide
+                    .with(binding.root)
+                    .load(header.imageUri)
+                    .placeholder(R.drawable.empty_image)
+                    .into(image)
                 title.text = header.title
                 domain.text = header.domainTitle
                 category.text = header.categoryTitle
@@ -282,7 +286,11 @@ class ArticleContentAdapter(
         private val aspectRatio = 0.615f
 
         fun bind(image: HtmlImage) {
-            Glide.with(binding.root).load(image.imageUri).into(binding.image)
+            Glide
+                .with(binding.root)
+                .load(image.imageUri)
+                .placeholder(R.drawable.empty_image)
+                .into(binding.image)
             binding.image.doOnLayout {
                 binding.image.layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,

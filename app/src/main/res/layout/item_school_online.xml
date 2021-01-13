@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_school"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="24dp">
+    android:paddingBottom="24dp"
+    android:foreground="@drawable/selector_gray_rect_small_corners"
+    tools:ignore="UnusedAttribute">
 
 
     <androidx.cardview.widget.CardView
@@ -28,7 +31,9 @@
             android:background="@drawable/background_beveled_corners"
             android:contentDescription="@string/not_found"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/default_image" />
+            android:foreground="@drawable/selector_gray_rect_small_corners"
+            app:srcCompat="@drawable/default_image"
+            />
     </androidx.cardview.widget.CardView>
 
     <TextView
