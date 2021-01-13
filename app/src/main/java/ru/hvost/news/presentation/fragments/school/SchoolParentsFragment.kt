@@ -99,6 +99,9 @@ class SchoolParentsFragment : BaseFragment() {
                 val adapter =
                     (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
                 adapter.clear()
+                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).add(
+                        CityOffline("all", "Любой город")
+                )
                 (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
                     this.cities
                 )
