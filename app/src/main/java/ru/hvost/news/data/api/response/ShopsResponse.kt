@@ -16,7 +16,14 @@ data class ShopsResponse(
         val phone: List<String>?,
         val website: String?,
         val typeShopId: String?,
-        val typeShopName: String?
+        val typeShopName: String?,
+        val promotions: List<Promotion>?
+    )
+
+    data class Promotion(
+        val title: String?,
+        val imageUrl: String?,
+        val description: String?
     )
 
 }
