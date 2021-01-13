@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.adapters.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.hvost.news.R
@@ -39,7 +40,7 @@ class PartnersAdapter: RecyclerView.Adapter<PartnersAdapter.PartnerViewHolder>()
         fun bind(partner: OfflineSeminars.Partner){
             Glide.with(binding.root.context).load(baseUrl + partner.image).placeholder(R.drawable.not_found)
                 .centerCrop().into(binding.imageViewPartner)
-            binding.textViewTitle.text = partner.name
+            binding.textViewTitle.text = partner.name.parseAsHtml()
         }
 
     }

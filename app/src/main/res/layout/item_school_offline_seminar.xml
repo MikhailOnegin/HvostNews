@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="24dp"
-    >
+    android:foreground="@drawable/selector_gray_rect_small_corners"
+    tools:ignore="UnusedAttribute">
 
     <ImageView
         android:id="@+id/imageView8"
@@ -14,6 +16,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/not_found"
+        android:foreground="@drawable/selector_gray_rect_small_corners"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLessonTitle"
         app:srcCompat="@drawable/ic_clock" />
@@ -59,7 +62,6 @@
                 android:layout_height="220dp"
                 android:contentDescription="@string/not_found"
                 android:scaleType="centerCrop"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

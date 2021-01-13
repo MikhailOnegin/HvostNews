@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online.view.*
@@ -66,7 +67,7 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
 
 
         fun bind(onlineSchool: OnlineSchools.OnlineSchool) {
-            if (onlineSchool.title.isNotBlank()) tvTitle.text = onlineSchool.title
+            if (onlineSchool.title.isNotBlank()) tvTitle.text = onlineSchool.title.parseAsHtml()
             if (onlineSchool.userRank.isNotBlank()) tvRank.text = onlineSchool.userRank
 
             Glide.with(itemView.context).load(baseUrl + onlineSchool.image)

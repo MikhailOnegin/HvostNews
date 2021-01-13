@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_coupon.view.*
@@ -63,7 +64,7 @@ class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
         private val tVAddress = itemView.textView_address
 
         fun bind(coupon: Coupons.Coupon) {
-            tVCouponTitle.text = coupon.title
+            tVCouponTitle.text = coupon.title.parseAsHtml()
             tVCouponMaxDate.text = coupon.expirationDate
             if (coupon.isUsed) {
                 tVUsed.text = itemView.context.getString(R.string.used)

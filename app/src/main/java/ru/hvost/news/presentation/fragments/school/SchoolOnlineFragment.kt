@@ -217,6 +217,8 @@ class SchoolOnlineFragment : BaseFragment() {
             doOnSuccess = {
                 schoolVM.onlineLessons.value?.lessons?.let { lessons ->
                     materialsAdapter.setLessons(lessons)
+                    if(lessons.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
+                    else binding.scrollViewEmpty.visibility = View.VISIBLE
                 }
             }
         )
