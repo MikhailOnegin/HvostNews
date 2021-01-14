@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ripple_item_list"
         android:orientation="vertical"
-        android:padding="@dimen/prizeItemPadding">
+        android:paddingHorizontal="@dimen/profileCoverPadding"
+        android:paddingVertical="@dimen/prizeItemPadding">
 
         <TextView
             android:id="@+id/title"

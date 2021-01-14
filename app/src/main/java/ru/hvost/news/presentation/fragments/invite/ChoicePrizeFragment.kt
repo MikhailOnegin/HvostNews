@@ -27,6 +27,7 @@ import ru.hvost.news.presentation.adapters.PrizeAdapter
 import ru.hvost.news.presentation.adapters.PrizeProductsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.shop.CartViewModel
+import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.moneyFormat
@@ -38,12 +39,19 @@ class ChoicePrizeFragment : BaseFragment() {
     private lateinit var cartVM: CartViewModel
     private lateinit var onPrizesLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onCartChangeLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var detailDialog: BottomSheetDialog
+    private lateinit var bottomSheetBinding: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChoicePrizeBinding.inflate(inflater, container, false)
+        detailDialog =
+            BottomSheetDialog(requireActivity(), R.style.popupBottomSheetDialogTheme)
+        detailDialog.dismissWithAnimation = true
+        bottomSheetBinding =
+            layoutInflater.inflate(R.layout.layout_prize_products, binding.root, false)
         return binding.root
     }
 
@@ -67,13 +75,20 @@ class ChoicePrizeFragment : BaseFragment() {
             }
         )
         onCartChangeLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
+            bottomSheetBinding.container,
             doOnSuccess = {
-                Toast.makeText(
-                    requireActivity(),
-                    getString(R.string.addedToCartSuccessfull),
-                    Toast.LENGTH_SHORT
+                detailDialog.dismiss()
+                cartVM.updateCartAsync(App.getInstance().userToken)
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.addedToCartSuccessfull)
                 ).show()
+            },
+            doOnError = {
+                detailDialog.dismiss()
+            },
+            doOnFailure = {
+                detailDialog.dismiss()
             }
         )
     }
@@ -86,15 +101,15 @@ class ChoicePrizeFragment : BaseFragment() {
     private fun setObservers() {
         mainVM.prizesLoadingEvent.observe(viewLifecycleOwner, onPrizesLoadingEvent)
         mainVM.changeCartLoadingEvent.observe(viewLifecycleOwner, onCartChangeLoadingEvent)
-        cartVM.apply {
-            productsCart.observe(viewLifecycleOwner) { onCartCountChanged(it) }
-        }
+        cartVM.cartCounter.observe(viewLifecycleOwner) { onCartCounterChanged(it) }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun onCartCountChanged(cartItems: List<CartItem>?) {
+    private fun onCartCounterChanged(cartItems: Int?) {
         cartItems?.run {
-            binding.cartCount.text = "${if (this.isEmpty()) this.size else this.size - 1}"
+            if (cartItems == 0)
+                binding.cartCount.text = ""
+            else
+                binding.cartCount.text = "$cartItems"
         }
     }
 
@@ -108,15 +123,11 @@ class ChoicePrizeFragment : BaseFragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showPrizeDetailDialog(prize: Prize) {
-        val detailDialog = BottomSheetDialog(requireContext(), R.style.popupBottomSheetDialogTheme)
-        val bottomSheetBinding =
-            layoutInflater.inflate(R.layout.layout_prize_products, binding.root, false)
         val productsAdapter = PrizeProductsAdapter()
         bottomSheetBinding.title.text = "Приз за " + prize.prizeCost + " баллов"
         bottomSheetBinding.products.adapter = productsAdapter
         bottomSheetBinding.toCart.setOnClickListener {
             mainVM.addPrizeToCart(prize.prizeId)
-            detailDialog.dismiss()
         }
         productsAdapter.submitList(prize.products)
         detailDialog.setContentView(bottomSheetBinding)

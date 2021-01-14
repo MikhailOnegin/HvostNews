@@ -20,9 +20,11 @@ import ru.hvost.news.presentation.adapters.PetAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
+import ru.hvost.news.utils.WordEnding
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.getWordEndingType
 
 class ProfileFragment : BaseFragment() {
 
@@ -87,11 +89,25 @@ class ProfileFragment : BaseFragment() {
             mainVM.loadPetEducation()
         }
         if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) {
-            val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
-            binding.balance.text = balance.toString()
+            setBalance()
         } else {
             mainVM.getBonusBalance()
         }
+    }
+
+    private fun setBalance() {
+        val balance = if (mainVM.bonusBalance.value?.bonusBalance != null) {
+            mainVM.bonusBalance.value?.bonusBalance.toString() + " " + when (getWordEndingType(
+                mainVM.bonusBalance.value?.bonusBalance!!
+            )) {
+                WordEnding.TYPE_1 -> getString(R.string.ballEnding1)
+                WordEnding.TYPE_2 -> getString(R.string.ballEnding2)
+                WordEnding.TYPE_3 -> getString(R.string.ballEnding3)
+            }
+        } else {
+            "0 баллов"
+        }
+        binding.balance.text = balance
     }
 
     private fun initializeEventObservers() {
@@ -105,10 +121,7 @@ class ProfileFragment : BaseFragment() {
         )
         onBonusBalanceLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
-            doOnSuccess = {
-                val balance = mainVM.bonusBalance.value?.bonusBalance ?: 0
-                binding.balance.text = balance.toString()
-            }
+            doOnSuccess = { setBalance() }
         )
         onCouponsLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,

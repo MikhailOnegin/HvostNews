@@ -43,7 +43,7 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun onInterestsLoadingSuccess() { //yunusov: обработать пустые интересы пользователя
+    private fun onInterestsLoadingSuccess() {
         val adapter = ArticlesFilterAdapter(mainVM)
         binding.list.adapter = adapter
         val interests = mainVM.interests.value?.toMutableList()

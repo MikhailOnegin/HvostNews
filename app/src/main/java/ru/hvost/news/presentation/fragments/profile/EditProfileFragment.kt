@@ -12,11 +12,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.installations.Utils
 import ru.hvost.news.MainViewModel
+import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentEditProfileBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.services.FcmService
+import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.simpleDateFormat
@@ -31,6 +34,7 @@ class EditProfileFragment : BaseFragment() {
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var mainVM: MainViewModel
     private lateinit var onUserDataLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
     private val birthday = MutableLiveData<String>()
     private val myFormat = "dd.MM.yyyy"
     private val sdf = SimpleDateFormat(myFormat)
@@ -55,12 +59,23 @@ class EditProfileFragment : BaseFragment() {
     private fun initializeObservers() {
         onUserDataLoadingEvent = DefaultNetworkEventObserver(
             binding.root,
-            doOnSuccess = { bindData() }
+            doOnSuccess = { bindData() },
+        )
+        onChangeUserDataLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = {
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.userDataChangedSuccessfully),
+                    getString(R.string.buttonOk)
+                ) { findNavController().popBackStack() }.show()
+            },
         )
     }
 
     private fun setObservers() {
         mainVM.userDataLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
+        mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
         birthday.observe(viewLifecycleOwner, { onDateChanged() })
     }
 
@@ -81,6 +96,13 @@ class EditProfileFragment : BaseFragment() {
         binding.phone.setSelection(userData?.phone)
         binding.email.setSelection(userData?.email)
         binding.city.setText(userData?.city)
+        binding.switchEmail.isChecked = userData?.mailNotifications == true
+        setPushSwitch()
+    }
+
+    private fun setPushSwitch() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        binding.switchPush.isChecked = prefs.getBoolean(FcmService.PREF_SHOW_NOTIFICATIONS, false)
     }
 
     private fun setListeners() {
@@ -96,7 +118,6 @@ class EditProfileFragment : BaseFragment() {
 
     private fun tryToSend() {
         tryToUpdateData()
-        Toast.makeText(requireActivity(), "Success", Toast.LENGTH_SHORT).show()
     }
 
     private fun tryToUpdateData() {
@@ -105,7 +126,8 @@ class EditProfileFragment : BaseFragment() {
                 surname = binding.surname.text.toString(),
                 name = binding.name.text.toString(),
                 patronymic = binding.patronymic.text.toString(),
-                city = binding.city.text.toString()
+                city = binding.city.text.toString(),
+                mailNotifications = binding.switchEmail.isChecked
             )
         } else {
             mainVM.changeUserData(
@@ -113,7 +135,8 @@ class EditProfileFragment : BaseFragment() {
                 name = binding.name.text.toString(),
                 patronymic = binding.patronymic.text.toString(),
                 birthday = birthday.value.toString(),
-                city = binding.city.text.toString()
+                city = binding.city.text.toString(),
+                mailNotifications = binding.switchEmail.isChecked
             )
         }
     }

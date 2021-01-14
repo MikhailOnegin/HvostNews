@@ -14,18 +14,45 @@
         android:background="@android:color/white"
         app:liftOnScroll="true">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:elevation="@dimen/barsElevation"
-            android:theme="@style/AppTheme.Toolbar"
-            app:layout_scrollFlags="scroll|snap"
-            app:navigationIcon="@drawable/ic_back"
-            app:title="@string/choosePrizes"
-            app:titleTextAppearance="@style/ToolbarTitleTextAppearanceLarge"
-            app:titleTextColor="@color/gray1" />
+            app:layout_scrollFlags="scroll|snap">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:theme="@style/AppTheme.Toolbar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="@string/choosePrizes"
+                app:titleTextAppearance="@style/ToolbarTitleTextAppearanceLarge"
+                app:titleTextColor="@color/gray1" />
+
+            <TextView
+                android:id="@+id/cartCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginEnd="@dimen/normalMargin"
+                android:background="@drawable/ripple_round_button"
+                android:drawablePadding="@dimen/xSmallMargin"
+                android:fontFamily="@font/gilroy_bold"
+                android:text="@string/numberStub"
+                android:textColor="@color/_2"
+                android:textSize="@dimen/textViewWithDotTextSize"
+                app:drawableStartCompat="@drawable/ic_cart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
