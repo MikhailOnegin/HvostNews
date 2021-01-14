@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -67,28 +66,38 @@ class LessonOnlineFinishedFragment : BaseFragment() {
                     container.removeAllViews()
                     if (literature.isNotEmpty()) {
                         for (i in literature.indices) {
-                            val view = LayoutLiteratureItemBinding.inflate(
+                            val viewLiterature = LayoutLiteratureItemBinding.inflate(
                                 LayoutInflater.from(requireContext()),
                                 container,
                                 false
                             ).root
-                            view.textView_title.text = literature[i].title
-                            view.textView_pet.text = literature[i].pet
-                            view.constraint_literure.setOnClickListener {
+                            viewLiterature.textView_title.text = literature[i].title
+                            viewLiterature.textView_pet.text = literature[i].pet
+                            viewLiterature.constraint_literure.setOnClickListener {
                                 startIntentActionView(
                                     requireContext(),
                                     literature[i].fileUrl
                                 )
                             }
-                            val margin =
-                                resources.getDimension(R.dimen.marginLessonNumber).toInt()
-                            (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                0,
-                                margin,
-                                margin,
-                                0
-                            )
-                            container.addView(view)
+                            val margin = resources.getDimension(R.dimen.largeMargin).toInt()
+
+                            if(i == this.literature.lastIndex) {
+                                (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                    margin,
+                                    0,
+                                    margin,
+                                    0
+                                )
+                            }
+                            else {
+                                (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                    margin,
+                                    0,
+                                    0,
+                                    0
+                                )
+                            }
+                            container.addView(viewLiterature)
                         }
                     } else binding.includeLiterature.constraintRoot.visibility = View.GONE
                 }

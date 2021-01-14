@@ -27,6 +27,7 @@ import ru.hvost.news.presentation.dialogs.SuccessRegistrationSeminarDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.startIntentActionView
 
 
 class SchoolOnlineFragment : BaseFragment() {
@@ -92,20 +93,12 @@ class SchoolOnlineFragment : BaseFragment() {
         materialsAdapter.onClickLiterature =
             object : SchoolOnlineMaterialsAdapter.OnClickLiterature {
                 override fun onClick(url: String) {
-                    val newIntent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(url)
-                    )
-                    startActivity(newIntent)
+                    startIntentActionView(requireContext(), url)
                 }
             }
         infoAdapter.onClickLiterature = object : SchoolOnlineInfoAdapter.OnClickLiterature {
             override fun onClick(url: String) {
-                val newIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(url)
-                )
-                startActivity(newIntent)
+                startIntentActionView(requireContext(), url)
             }
         }
 
@@ -151,15 +144,18 @@ class SchoolOnlineFragment : BaseFragment() {
                     schoolId?.run {
                         for (i in onlineSchools.indices) {
                             val onlineSchool = onlineSchools[i]
-
                             if (onlineSchool.id.toString() == this) {
                                 infoAdapter.setSchool(onlineSchool)
                                 materialsAdapter.setSchool(onlineSchool)
 
-                                if (onlineSchool.participate) binding.constraintRegistration.visibility =
-                                    View.GONE
-                                else binding.constraintRegistration.visibility = View.VISIBLE
-
+                                if (onlineSchool.participate) {
+                                    binding.constraintRegistration.visibility = View.GONE
+                                    binding.textViewEmpty.visibility = View.GONE
+                                }
+                                else {
+                                    binding.constraintRegistration.visibility = View.VISIBLE
+                                    binding.textViewEmpty.visibility = View.VISIBLE
+                                }
                                 val containerNumbers = linearLayout_lesson_numbers
                                 val padding =
                                     resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
@@ -217,8 +213,6 @@ class SchoolOnlineFragment : BaseFragment() {
             doOnSuccess = {
                 schoolVM.onlineLessons.value?.lessons?.let { lessons ->
                     materialsAdapter.setLessons(lessons)
-                    if(lessons.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
-                    else binding.scrollViewEmpty.visibility = View.VISIBLE
                 }
             }
         )
@@ -232,8 +226,14 @@ class SchoolOnlineFragment : BaseFragment() {
                 val school = it.onlineSchools[i]
                 schoolId?.let { schoolId ->
                     if(school.id.toString() == schoolId){
-                        if(school.participate) binding.constraintRegistration.visibility = View.GONE
-                        else binding.constraintRegistration.visibility = View.VISIBLE
+                        if(school.participate) {
+                            binding.constraintRegistration.visibility = View.GONE
+                            binding.textViewEmpty.visibility = View.GONE }
+                        else {
+                            binding.constraintRegistration.visibility = View.VISIBLE
+                            binding.textViewEmpty.visibility = View.VISIBLE
+                        }
+
                     }
                 }
 
@@ -252,6 +252,7 @@ class SchoolOnlineFragment : BaseFragment() {
             binding.recyclerView.adapter = infoAdapter
             binding.schoolInfoTitle.setTextColor(colorWhite)
             binding.schoolMaterialsTitle.setTextColor(colorPrimary)
+            binding.textViewEmpty.visibility = View.GONE
         }
         binding.constraintMaterials.setOnClickListener {
             it.isSelected = true

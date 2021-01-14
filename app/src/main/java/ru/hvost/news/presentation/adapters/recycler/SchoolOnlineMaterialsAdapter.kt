@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.*
@@ -118,9 +119,14 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             firstActiveLessonId?.run {
                 if (this == lesson.lessonId) {
                     iVGo.visibility = View.VISIBLE
+                    tVTittle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray1))
                     constraint.setOnClickListener {
                         onClickLessonActive?.onClick(lesson.lessonId)
                     }
+                }
+                else {
+                    iVGo.visibility = View.GONE
+                    tVTittle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray3))
                 }
             }
         }
@@ -149,25 +155,36 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                     val container = itemView.linearLayout_literature
                     container.removeAllViews()
                     for (i in school.literature.indices) {
-                        val view = LayoutLiteratureItemBinding.inflate(
+                        val viewLiterature = LayoutLiteratureItemBinding.inflate(
                             LayoutInflater.from(itemView.context),
                             container,
                             false
                         ).root
 
-                        view.textView_title.text = school.literature[i].title
-                        view.textView_pet.text = school.literature[i].pet
-                        view.constraint_literure.setOnClickListener {
+                        viewLiterature.textView_title.text = school.literature[i].title
+                        viewLiterature.textView_pet.text = school.literature[i].pet
+                        viewLiterature.constraint_literure.setOnClickListener {
                             onClickLiterature?.onClick(school.literature[i].fileUrl)
                         }
-                        val margin = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
-                        (view.layoutParams as LinearLayout.LayoutParams).setMargins(
-                            0,
-                            margin,
-                            margin,
-                            0
-                        )
-                        container.addView(view)
+                        val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
+
+                        if(i == school.literature.lastIndex) {
+                            (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                margin,
+                                0,
+                                margin,
+                                0
+                            )
+                        }
+                        else {
+                            (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                margin,
+                                0,
+                                0,
+                                0
+                            )
+                        }
+                        container.addView(viewLiterature)
                     }
                 }
                 else {

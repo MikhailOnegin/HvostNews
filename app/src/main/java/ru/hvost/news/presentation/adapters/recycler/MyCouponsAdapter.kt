@@ -57,9 +57,9 @@ class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val clRoot = itemView.root_constraint
         private val tVCouponTitle = itemView.textView_coupon_title
         private val tVCouponMaxDate = itemView.textView_coupon_date
-        private val tVConst = itemView.coupon_constraint
         private val tVUsed = itemView.textView_coupon_status
         private val tVAddress = itemView.textView_address
 
@@ -73,13 +73,12 @@ class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
                 tVUsed.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_status_true)
                 tVUsed.text = itemView.context.getString(R.string.active)
             }
-            if(coupon.address.isNotBlank()){
+            if (coupon.address.isNotBlank()) {
                 tVAddress.text = coupon.address
-            }
-            else{
+            } else {
                 tVAddress.visibility = View.GONE
             }
-            tVConst.setOnClickListener {
+            clRoot.setOnClickListener {
                 clickCoupon?.click(coupon)
             }
         }

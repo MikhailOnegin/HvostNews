@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_school"
+    android:id="@+id/root_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="24dp"
     android:foreground="@drawable/selector_gray_rect_small_corners"
     tools:ignore="UnusedAttribute">
 
@@ -15,25 +14,64 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="6dp"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView_school"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:background="@drawable/background_beveled_corners"
-            android:contentDescription="@string/not_found"
-            android:scaleType="centerCrop"
-            android:foreground="@drawable/selector_gray_rect_small_corners"
-            app:srcCompat="@drawable/default_image"
-            />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView_school"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="@drawable/background_beveled_corners"
+                android:contentDescription="@string/not_found"
+                android:foreground="@drawable/selector_gray_rect_small_corners"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/default_image" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_active"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingEnd="18dp"
+                android:paddingStart="18dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+                <TextView
+                    android:id="@+id/textView_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:text="@string/new_school"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -94,7 +132,7 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/gilroy_semibold"
         android:text="@string/not_found"
-        android:textColor="@color/gray3"
+        android:textColor="@color/gray2"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"

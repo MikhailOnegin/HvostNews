@@ -187,7 +187,7 @@
     <string name="grooming_salons">Груминг-салоны</string>
     <string name="lessons_in_your_city">Семинары
         \nв вашем городе</string>
-    <string name="online_lesson">Страница семирнара</string>
+    <string name="online_lesson">Страница семинара</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
     <string name="_3">3</string>
@@ -433,7 +433,7 @@
     <string name="shopNotFound">Магазин не найден</string>
     <string name="success">Успешно</string>
     <string name="good">Хорошо</string>
-    <string name="no_required_attachments_fo_intent">Нет нужных приложений для открытия файла</string>
+    <string name="no_required_attachments_fo_intent">Не найдено приложений для открытия файла</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="shopToolbarTitle">Товары</string>
     <string name="shopPreviouslyOrdered">Вы уже заказывали товар из данной категории.</string>
@@ -448,4 +448,6 @@
     <string name="schedule_for">Распиание для</string>
     <string name="empty">Пусто</string>
     <string name="promotionsTitle">Участие в акциях</string>
+    <string name="you_yet_dont_registrated_course">Вы ещё не зарегистрированы на этот курс</string>
+    <string name="new_school">Новый</string>
 </resources>

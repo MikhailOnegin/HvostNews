@@ -99,6 +99,9 @@ class SchoolParentsFragment : BaseFragment() {
                 val adapter =
                     (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
                 adapter.clear()
+                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).add(
+                        CityOffline("all", "Любой город")
+                )
                 (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
                     this.cities
                 )
@@ -200,6 +203,8 @@ class SchoolParentsFragment : BaseFragment() {
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
             offlineSeminarsAdapter.filter(b)
+            if(offlineSeminarsAdapter.itemCount > 0) binding.scrollViewEmpty.visibility = View.GONE
+            else binding.scrollViewEmpty.visibility = View.VISIBLE
         }
 
         binding.spinnerOfflineSeminars.onItemSelectedListener =

@@ -86,7 +86,7 @@ class OfflineSeminarsAdapter :
         private fun dateFormat(s:String): String {
             var result = ""
             try {
-                val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale("ru", "RU"))
+                val dateFormat = SimpleDateFormat("d MMMM, yyyy", Locale("ru", "RU"))
                 val jsonDate = SimpleDateFormat("dd.MM.yyyy", Locale("ru", "RU"))
                 val date  = jsonDate.parse(s)
                 date?.run {
