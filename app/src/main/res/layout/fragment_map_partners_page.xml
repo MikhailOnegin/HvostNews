@@ -191,11 +191,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/websiteTitle"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/promotionsLayout"
                 android:layout_marginTop="@dimen/smallMargin"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:layout_marginBottom="@dimen/largeMargin"/>
+
+            <LinearLayout
+                android:id="@+id/promotionsLayout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/website"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:text="@string/promotionsTitle"
+                    android:textSize="@dimen/partnerPromotionsTextSize"
+                    android:textColor="@color/TextColorPrimary"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+
+                <TextView
+                    android:id="@+id/promotionTitle"
+                    tools:text="Название акции"
+                    android:textSize="@dimen/partnerDescriptionTextSize"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/smallMargin"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"/>
+
+                <TextView
+                    android:id="@+id/promotionDescription"
+                    tools:text="Описание акции"
+                    android:textSize="@dimen/partnerDescriptionTextSize"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="@font/gilroy_semibold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/largeMargin"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"
+                    android:layout_marginBottom="@dimen/largeMargin"/>
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

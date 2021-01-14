@@ -142,7 +142,7 @@ class MapFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        mapVM.shops.observe(viewLifecycleOwner) { setShopsOnMap(it) }
+        mapVM.shops.observe(viewLifecycleOwner) { setShopsOnMap(getFilteredShopsList()) }
         mapVM.optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
     }
 
@@ -175,20 +175,24 @@ class MapFragment : BaseFragment() {
         mapVM.showGroomsTemp.value = mapVM.showGrooms
         mapVM.showVetsTemp.value = mapVM.showVets
         mapVM.showZoosTemp.value = mapVM.showZoos
+        mapVM.showPromosTemp.value = mapVM.showPromos
         setPopupListeners(binding, popup)
         setPopupObservers(binding)
     }
 
     private fun setPopupListeners(binding: PopupMapSettingsBinding, popup: PopupWindow) {
-        //sergeev: Настроить фильтрацию по признаку участия в акции.
         binding.run {
             grooms.setOnClickListener { mapVM.showGroomsTemp.value = mapVM.showGroomsTemp.value?.not() }
             zoos.setOnClickListener { mapVM.showZoosTemp.value = mapVM.showZoosTemp.value?.not() }
             vets.setOnClickListener { mapVM.showVetsTemp.value = mapVM.showVetsTemp.value?.not() }
+            switchActions.setOnCheckedChangeListener { _, isChecked ->
+                mapVM.showPromosTemp.value = isChecked
+            }
             apply.setOnClickListener {
                 mapVM.showGrooms = mapVM.showGroomsTemp.value ?: true
                 mapVM.showVets = mapVM.showVetsTemp.value ?: true
                 mapVM.showZoos = mapVM.showZoosTemp.value ?: true
+                mapVM.showPromos = mapVM.showPromosTemp.value ?: false
                 setShopsOnMap(getFilteredShopsList())
                 popup.dismiss()
             }
@@ -196,6 +200,7 @@ class MapFragment : BaseFragment() {
                 mapVM.showGrooms = true
                 mapVM.showVets = true
                 mapVM.showZoos = true
+                mapVM.showPromos = false
                 setShopsOnMap(mapVM.originShopsList)
                 popup.dismiss()
             }
@@ -207,6 +212,7 @@ class MapFragment : BaseFragment() {
         if (!mapVM.showGrooms) result = result.filter { it.typeShopId != MapViewModel.GROOMS_ID }
         if (!mapVM.showVets) result = result.filter { it.typeShopId != MapViewModel.VETS_ID }
         if (!mapVM.showZoos) result = result.filter { it.typeShopId != MapViewModel.ZOOS_ID }
+        if (mapVM.showPromos) result = result.filter { it.promotions.isNotEmpty() }
         return result
     }
 
@@ -219,6 +225,9 @@ class MapFragment : BaseFragment() {
         }
         mapVM.showZoosTemp.observe(viewLifecycleOwner) {
             binding.zoos.isSelected = it
+        }
+        mapVM.showPromosTemp.observe(viewLifecycleOwner) {
+            binding.switchActions.isChecked = it
         }
     }
 

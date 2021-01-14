@@ -50,10 +50,15 @@ class MapViewModel: ViewModel() {
     var showGrooms = true
     var showVets = true
     var showZoos = true
+    var showPromos = false
 
-    val showGroomsTemp = MutableLiveData(true)
-    val showVetsTemp = MutableLiveData(true)
-    val showZoosTemp = MutableLiveData(true)
+    val showGroomsTemp = MutableLiveData(showGrooms)
+    val showVetsTemp = MutableLiveData(showVets)
+    val showZoosTemp = MutableLiveData(showZoos)
+    val showPromosTemp = MutableLiveData(showPromos)
+
+    var promotions = listOf<Shop.Promotion>()
+    val selectedPromotion = MutableLiveData<Shop.Promotion>()
 
     companion object {
 

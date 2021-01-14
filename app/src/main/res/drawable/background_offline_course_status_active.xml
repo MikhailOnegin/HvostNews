@@ -7,7 +7,7 @@
                 android:color="@color/colorPrimary"
                 />
             <corners
-                android:radius="3dp"
+                android:radius="2dp"
                 />
         </shape>
     </item>
@@ -18,7 +18,7 @@
                 android:color="@color/red"
                 />
             <corners
-                android:radius="3dp"/>
+                android:radius="2dp"/>
         </shape>
     </item>
 
@@ -29,7 +29,7 @@
                 android:color="@color/red"
                 />
             <corners
-                android:radius="3dp"/>
+                android:radius="2dp"/>
         </shape>
     </item>
 

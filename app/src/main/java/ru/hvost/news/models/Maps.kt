@@ -1,6 +1,8 @@
 package ru.hvost.news.models
 
+import android.net.Uri
 import ru.hvost.news.data.api.response.ShopsResponse
+import ru.hvost.news.utils.getUriForBackendImagePath
 import ru.hvost.news.utils.tryParseDoubleValue
 
 data class Shop(
@@ -15,8 +17,15 @@ data class Shop(
     val website: String,
     val typeShopId: String,
     val typeShopName: String,
+    val promotions: List<Promotion>,
     var isFavourite: Boolean = false
 ) {
+
+    data class Promotion(
+        val title: String,
+        val imageUri: Uri,
+        val description: String
+    )
 
     override fun toString(): String {
         return name
@@ -38,7 +47,12 @@ fun List<ShopsResponse.ShopResponse>?.toShops(): List<Shop> {
             website = shop.website.orEmpty(),
             phones = shop.phone.orEmpty(),
             typeShopId = shop.typeShopId.orEmpty(),
-            typeShopName = shop.typeShopName.orEmpty()
+            typeShopName = shop.typeShopName.orEmpty(),
+            promotions = shop.promotions?.map { Shop.Promotion(
+                title = it.title.orEmpty(),
+                imageUri = getUriForBackendImagePath(it.imageUrl),
+                description = it.description.orEmpty()
+            ) } ?: listOf()
         )
     }
 }

@@ -14,6 +14,7 @@ data class OnlineSchoolsResponse(
         val participate:Boolean?,
         val userRank: String?,
         val description: String?,
+        val isNew:Boolean?,
         val images: List<String>?,
         val wait: List<Wait>?,
         val literature: List<Literature>?,

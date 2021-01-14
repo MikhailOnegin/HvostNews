@@ -59,8 +59,8 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
 
 
     inner class SchoolsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val clSchool = itemView.constraint_school
+        private val clSchool = itemView.root_constraint
+        private val clNew = itemView.constraint_new
         private val ivSchool = itemView.imageView_school
         private val tvTitle = itemView.textView_title
         private val tvRank = itemView.textView_rank
@@ -69,14 +69,12 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
         fun bind(onlineSchool: OnlineSchools.OnlineSchool) {
             if (onlineSchool.title.isNotBlank()) tvTitle.text = onlineSchool.title.parseAsHtml()
             if (onlineSchool.userRank.isNotBlank()) tvRank.text = onlineSchool.userRank
-
+            if(onlineSchool.isNew) clNew.visibility = View.VISIBLE
+            else clNew.visibility = View.GONE
             Glide.with(itemView.context).load(baseUrl + onlineSchool.image)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(ivSchool)
             clSchool.setOnClickListener {
-                clickSchool?.onClick(onlineSchool.id.toString())
-            }
-            ivSchool.setOnClickListener {
                 clickSchool?.onClick(onlineSchool.id.toString())
             }
 

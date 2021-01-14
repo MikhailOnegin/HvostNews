@@ -28,7 +28,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll">
+            app:layout_scrollFlags="scroll|snap">
 
             <TextView
                 android:id="@+id/textView7"
@@ -51,7 +51,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="24dp"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <LinearLayout
@@ -119,11 +118,12 @@
                 android:id="@+id/constraint_spinner_online_schools"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:paddingBottom="20dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <Spinner
                     android:id="@+id/spinner_online_schools"
@@ -142,6 +142,7 @@
                 android:id="@+id/constraint_spinner_offline_seminars"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
