@@ -95,4 +95,8 @@
     <dimen name="switch_scale">1</dimen>
     <dimen name="marginToPromo">8dp</dimen>
     <dimen name="smallHeightButton">80dp</dimen>
+    <dimen name="prizesSubtitleTextSize">26sp</dimen>
+    <dimen name="prizeItemTextSize">24sp</dimen>
+    <dimen name="cartPrizeImageSize">100dp</dimen>
+    <dimen name="productCountTextSize">18sp</dimen>
 </resources>
