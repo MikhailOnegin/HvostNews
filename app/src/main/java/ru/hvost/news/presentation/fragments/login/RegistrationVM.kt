@@ -142,7 +142,7 @@ class RegistrationVM : ViewModel() {
                     phone = userPhone ?: "",
                     city = userCity ?: "",
                     petName = petName ?: "",
-                    voucher = voucher ?: "", //sergeev: Промокод не добавляется к питомцу при регистрации.
+                    voucher = voucher ?: "",
                     interests = interestsIds ?: "",
                     petSpecies = petSpeciesId.toString(),
                     petBirthday = simpleDateFormat.format(petBirthday.value ?: Date()),

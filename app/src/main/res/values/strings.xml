@@ -450,4 +450,6 @@
     <string name="promotionsTitle">Участие в акциях</string>
     <string name="you_yet_dont_registrated_course">Вы ещё не зарегистрированы на этот курс</string>
     <string name="new_school">Новый</string>
+    <string name="offlineEventsChannelName">Мероприятия</string>
+    <string name="offlineEventsChannelDescription">Уведомления о новых мероприятиях.</string>
 </resources>

@@ -31,6 +31,7 @@ class FcmService : FirebaseMessagingService() {
         val channelId = when (data[KEY_PUSH_TYPE]) {
             PUSH_TYPE_ORDER_STATUS -> MainActivity.ORDER_STATUS_CHANNEL_ID
             PUSH_TYPE_NEW_ARTICLES -> MainActivity.NEW_ARTICLES_CHANNEL_ID
+            PUSH_TYPE_OFFLINE_EVENT -> MainActivity.OFFLINE_EVENTS_CHANNEL_ID
             else -> null
         }
         channelId?.let {
@@ -65,6 +66,7 @@ class FcmService : FirebaseMessagingService() {
 
         const val PUSH_TYPE_ORDER_STATUS = "PUSH_TYPE_ORDER_STATUS"
         const val PUSH_TYPE_NEW_ARTICLES = "PUSH_TYPE_NEW_ARTICLES"
+        const val PUSH_TYPE_OFFLINE_EVENT = "PUSH_TYPE_OFFLINE_EVENT"
 
         const val KEY_PUSH_TYPE = "pushType"
         const val KEY_PUSH_TITLE = "pushTitle"

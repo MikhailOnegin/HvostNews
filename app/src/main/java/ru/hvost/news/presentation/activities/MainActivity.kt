@@ -117,11 +117,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createNotificationsChannels() {
-        createNewArticlesNotificationChannels()
-        createOrderStatusNotificationChannels()
+        createNewArticlesNotificationChannel()
+        createOrderStatusNotificationChannel()
+        createOfflineEventsNotificationChannel()
     }
 
-    private fun createNewArticlesNotificationChannels() {
+    private fun createNewArticlesNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val newArticlesChannelName = getString(R.string.newArticlesChannelName)
             val newArticlesChannelDescription = getString(R.string.newArticlesChannelDescription)
@@ -137,13 +138,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createOrderStatusNotificationChannels() {
+    private fun createOrderStatusNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val orderStatusChannelName = getString(R.string.orderStatusChannelName)
             val orderStatusChannelDescription = getString(R.string.orderStatusChannelDescription)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(
                 ORDER_STATUS_CHANNEL_ID,
+                orderStatusChannelName,
+                importance
+            )
+            channel.description = orderStatusChannelDescription
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun createOfflineEventsNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val orderStatusChannelName = getString(R.string.offlineEventsChannelName)
+            val orderStatusChannelDescription = getString(R.string.offlineEventsChannelDescription)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(
+                OFFLINE_EVENTS_CHANNEL_ID,
                 orderStatusChannelName,
                 importance
             )
@@ -161,6 +178,7 @@ class MainActivity : AppCompatActivity() {
 
         const val NEW_ARTICLES_CHANNEL_ID = "new_articles_channel_id"
         const val ORDER_STATUS_CHANNEL_ID = "order_status_channel_id"
+        const val OFFLINE_EVENTS_CHANNEL_ID = "offline_events_channel_id"
 
     }
 

@@ -311,11 +311,17 @@ interface APIService {
         @Query("petId") petId: String?
     ): Deferred<SetParticipateResponse>
 
-    // Map
     @GET("/rest/Maps/getShops/")
     fun getShopsAsync(
         @Query("userToken") userToken: String?
     ): Deferred<ShopsResponse>
+
+    @GET("/rest/Maps/setIsShopFavourite/")
+    fun setIsShopFavouriteAsync(
+        @Query("userToken") userToken: String?,
+        @Query("shopId") shopId: String?,
+        @Query("isFavourite") isFavourite: String?
+    ): Deferred<SimpleResponse>
 
     companion object {
 
