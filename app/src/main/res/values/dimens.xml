@@ -235,4 +235,10 @@
     <dimen name="switch_scale">0.8</dimen>
     <dimen name="marginToPromo">4dp</dimen>
     <dimen name="partnerPromotionsTextSize">26sp</dimen>
+    <dimen name="subCheckBoxTextSize">12sp</dimen>
+    <dimen name="subCheckBoxMarginStart">52dp</dimen>
+    <dimen name="finishOrderChevronWidth">30dp</dimen>
+    <dimen name="orderTitleTextSize">30sp</dimen>
+    <dimen name="deleteOrderIconSize">60dp</dimen>
+    <dimen name="orderIconPadding">16dp</dimen>
 </resources>

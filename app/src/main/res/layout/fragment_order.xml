@@ -23,7 +23,7 @@
                 android:id="@+id/orderNumber"
                 android:paddingTop="50dp"
                 tools:text="Заказ №579"
-                android:textSize="30sp"
+                android:textSize="@dimen/orderTitleTextSize"
                 android:textColor="@color/TextColorPrimary"
                 android:fontFamily="@font/gilroy_semibold"
                 android:layout_width="match_parent"

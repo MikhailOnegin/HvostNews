@@ -189,12 +189,12 @@
                 style="@style/RegTextView"
                 android:text="@string/makeOrderDeliveryHint"
                 android:textColor="@color/TextColorLightSecondary"
-                android:textSize="12sp"
+                android:textSize="@dimen/subCheckBoxTextSize"
                 android:lineSpacingExtra="@dimen/smallTextLineSpacingExtra"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/smallMargin"
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="@dimen/subCheckBoxMarginStart"
                 android:layout_marginEnd="@dimen/largeMargin"/>
 
             <View
