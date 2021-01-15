@@ -65,19 +65,39 @@
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_petProfileFragment"
-            app:destination="@id/petProfileFragment" />
+            app:destination="@id/petProfileFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_myCouponsFragment"
-            app:destination="@+id/myCouponsFragment" />
+            app:destination="@+id/myCouponsFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_inviteFragment"
-            app:destination="@id/inviteFragment" />
+            app:destination="@id/inviteFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_prizesFragment"
-            app:destination="@id/prizesFragment" />
+            app:destination="@id/prizesFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_ordersFragment"
             app:destination="@id/ordersFragment"
@@ -107,7 +127,11 @@
         tools:layout="@layout/fragment_pet_profile">
         <action
             android:id="@+id/action_petProfileFragment_to_petPassportFragment"
-            app:destination="@id/petPassportFragment" />
+            app:destination="@id/petPassportFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -230,7 +254,11 @@
         tools:layout="@layout/fragment_choice_prize">
         <action
             android:id="@+id/action_choicePrizeFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -246,7 +274,11 @@
         tools:layout="@layout/fragment_invite">
         <action
             android:id="@+id/action_inviteFragment_to_prizesFragment"
-            app:destination="@id/prizesFragment" />
+            app:destination="@id/prizesFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -256,10 +288,18 @@
         tools:layout="@layout/fragment_prizes">
         <action
             android:id="@+id/action_prizesFragment_to_choicePrizeFragment"
-            app:destination="@id/choicePrizeFragment" />
+            app:destination="@id/choicePrizeFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_prizesFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            app:destination="@id/cartFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
