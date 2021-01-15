@@ -118,7 +118,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
                     viewLiterature.textView_title.text = school.literature[i].title
                     viewLiterature.textView_pet.text = school.literature[i].pet
-                    viewLiterature.constraint_literure.setOnClickListener {
+                    viewLiterature.constraint_literature.setOnClickListener {
                         onClickLiterature?.onClick(school.literature[i].fileUrl)
                     }
                     val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()

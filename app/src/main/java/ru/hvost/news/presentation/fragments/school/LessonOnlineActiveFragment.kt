@@ -218,7 +218,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             ).root
                             viewLiterature.textView_title.text = literature[i].title
                             viewLiterature.textView_pet.text = literature[i].pet
-                            viewLiterature.constraint_literure.setOnClickListener {
+                            viewLiterature.constraint_literature.setOnClickListener {
                                 startIntentActionView(
                                     requireContext(),
                                     literature[i].fileUrl

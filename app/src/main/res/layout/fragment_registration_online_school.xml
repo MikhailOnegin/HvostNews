@@ -8,29 +8,20 @@
 
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_registration"
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:elevation="@dimen/barsElevation"
-        app:navigationIcon="@drawable/ic_back"
         android:theme="@style/AppTheme.Toolbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_scrollFlags="scroll|snap"
-        app:titleTextAppearance="@style/ToolbarTitleTextAppearance">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/gilroy_semibold"
-            android:text="@string/registration2"
-            android:textAppearance="@style/ToolbarTitleTextAppearanceLarge"
-            android:textColor="@color/gray1" />
-    </com.google.android.material.appbar.MaterialToolbar>
-
+        app:layout_scrollFlags="scroll|snap|enterAlways"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/registration2" />
 
     <Spinner
         android:id="@+id/spinner_pets"
@@ -125,5 +116,5 @@
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_registration" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

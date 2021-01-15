@@ -257,7 +257,7 @@
     <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего питомца на портале «Хвост Ньюс</string>
     <string name="networkErrorMessage">Произошла неизвестная ошибка при взаимодействии с сервером.</string>
     <string name="seminar">Семинар</string>
-    <string name="answer_next_lesson">Для того чтобы открыть слудующий видео-урок ответьте на вопрос по пройденной теме</string>
+    <string name="answer_next_lesson">Для того чтобы открыть следующий видео-урок ответьте на вопрос по пройденной теме</string>
     <string name="to_answer">Ответить</string>
     <string name="wahat_wait_seminars">Что вас ждёт на семинарах?</string>
     <string name="video_last_seminars">Видео с прошлых семинаров</string>

@@ -25,6 +25,7 @@ import ru.hvost.news.databinding.FragmentRegistrationOnlineSchoolBinding
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
+import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
 import ru.hvost.news.presentation.dialogs.AddPetRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
@@ -139,13 +140,13 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
     @SuppressLint("UseCompatLoadingForColorStateLists")
     @Suppress("UNCHECKED_CAST")
     private fun setListeners() {
-        binding.toolbarRegistration.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         binding.imageButtonAddPet.setOnClickListener {
-            AddPetRegistrationDialog().show(
-                childFragmentManager,
-                "info_dialog"
+            AddPetCustomDialog().show(
+                    childFragmentManager,
+                    "info_dialog"
             )
         }
         binding.buttonCompleteRegistration.setOnClickListener {

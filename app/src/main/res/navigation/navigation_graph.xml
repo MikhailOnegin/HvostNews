@@ -507,6 +507,7 @@
         <action
             android:id="@+id/action_registrationOnlineFragment_to_schoolOnlineActiveFragment"
             app:destination="@+id/schoolOnlineActiveFragment"
+            app:popUpTo="@id/parentsSchoolFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             />

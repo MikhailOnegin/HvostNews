@@ -7,9 +7,6 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.*
-import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.textView_number
-import kotlinx.android.synthetic.main.item_school_lesson_online_finished.view.*
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
@@ -100,11 +97,11 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         when (holder) {
             is LessonActiveViewHolder -> {
                 val lesson = onlineLessons[position]
-                holder.bind(lesson)
+                holder.bind(lesson, position + 1)
             }
             is LessonFinishedViewHolder -> {
                 val lesson = onlineLessons[position]
-                holder.bind(lesson)
+                holder.bind(lesson, position + 1)
             }
             is UsefulLiteratureViewHolder -> holder.bind(school)
         }
@@ -112,8 +109,8 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     inner class LessonActiveViewHolder(private val binding:ItemSchoolLessonOnlineActiveBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(lesson: OnlineLessons.OnlineLesson) {
-            binding.textViewNumber.text = lesson.lessonNumber
+        fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int) {
+            binding.textViewNumber.text = lessonNumber.toString()
             binding.textViewTitle.text = lesson.lessonTitle.parseAsHtml()
             if(lesson.petAge.isNotBlank()){
                 val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
@@ -135,9 +132,9 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    inner class LessonFinishedViewHolder(private val binding: ItemSchoolLessonOnlineFinishedBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(lesson: OnlineLessons.OnlineLesson){
-            binding.textViewNumberFinished.text = lesson.lessonNumber
+    inner class LessonFinishedViewHolder(private val binding: ItemSchoolLessonOnlineFinishedBinding ): RecyclerView.ViewHolder(binding.root){
+        fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int){
+            binding.textViewNumberFinished.text = lessonNumber.toString()
             binding.textViewTitleFinished.text = lesson.lessonTitle.parseAsHtml()
             binding.constraintLessonFinished.setOnClickListener {
                 onClickLessonFinished?.onClick(lesson.lessonId)
@@ -160,7 +157,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
                         viewLiterature.textView_title.text = school.literature[i].title
                         viewLiterature.textView_pet.text = school.literature[i].pet
-                        viewLiterature.constraint_literure.setOnClickListener {
+                        viewLiterature.constraint_literature.setOnClickListener {
                             onClickLiterature?.onClick(school.literature[i].fileUrl)
                         }
                         val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
