@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="24dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="24dp"
+    android:foreground="@drawable/selector_gray_rect_small_corners"
+    tools:ignore="UnusedAttribute">
 
     <androidx.cardview.widget.CardView
         android:layout_width="170dp"
