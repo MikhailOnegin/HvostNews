@@ -7,6 +7,7 @@ import ru.hvost.news.utils.tryParseDoubleValue
 
 data class Shop(
     val id: Long,
+    val shopId: String,
     val latitude: Double,
     val longitude: Double,
     val name: String,
@@ -18,7 +19,7 @@ data class Shop(
     val typeShopId: String,
     val typeShopName: String,
     val promotions: List<Promotion>,
-    var isFavourite: Boolean = false
+    var isFavourite: Boolean
 ) {
 
     data class Promotion(
@@ -38,6 +39,7 @@ fun List<ShopsResponse.ShopResponse>?.toShops(): List<Shop> {
     return mapIndexed { index, shop ->
         Shop(
             id = index.toLong(),
+            shopId = shop.shopId.orEmpty(),
             latitude = tryParseDoubleValue(shop.latitude),
             longitude = tryParseDoubleValue(shop.longitude),
             name = shop.name.orEmpty(),
@@ -52,7 +54,8 @@ fun List<ShopsResponse.ShopResponse>?.toShops(): List<Shop> {
                 title = it.title.orEmpty(),
                 imageUri = getUriForBackendImagePath(it.imageUrl),
                 description = it.description.orEmpty()
-            ) } ?: listOf()
+            ) } ?: listOf(),
+            isFavourite = shop.isFavourite ?: false
         )
     }
 }

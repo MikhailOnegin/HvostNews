@@ -2,6 +2,7 @@ package ru.hvost.news
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import retrofit2.http.Query
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
@@ -35,6 +36,26 @@ class MainViewModel : ViewModel() {
     val prizesLoadingEvent: LiveData<NetworkEvent<State>> = _prizesLoadingEvent
     private val _prizes = MutableLiveData<List<Prize>>()
     val prizes: LiveData<List<Prize>> = _prizes
+
+    private val _vaccinesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val vaccinesLoadingEvent: LiveData<NetworkEvent<State>> = _vaccinesLoadingEvent
+    private val _vaccines = MutableLiveData<List<Preps>>()
+    val vaccines: LiveData<List<Preps>> = _vaccines
+
+    private val _dewormingLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val dewormingLoadingEvent: LiveData<NetworkEvent<State>> = _dewormingLoadingEvent
+    private val _deworming = MutableLiveData<List<Preps>>()
+    val deworming: LiveData<List<Preps>> = _deworming
+
+    private val _exoparazitesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val exoparazitesLoadingEvent: LiveData<NetworkEvent<State>> = _exoparazitesLoadingEvent
+    private val _exoparazites = MutableLiveData<List<Preps>>()
+    val exoparazites: LiveData<List<Preps>> = _exoparazites
+
+    private val _petFoodLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petFoodLoadingEvent: LiveData<NetworkEvent<State>> = _petFoodLoadingEvent
+    private val _petFood = MutableLiveData<List<PetFood>>()
+    val petFood: LiveData<List<PetFood>> = _petFood
 
     private val _changeCartLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val changeCartLoadingEvent: LiveData<NetworkEvent<State>> = _changeCartLoadingEvent
@@ -74,6 +95,10 @@ class MainViewModel : ViewModel() {
     val petEducationLoadingEvent: LiveData<NetworkEvent<State>> = _petEducationLoadingEvent
     private val _petEducation = MutableLiveData<List<PetEducation>>()
     val petEducation: LiveData<List<PetEducation>> = _petEducation
+
+    private val _updatePetPassportLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val updatePetPassportLoadingEvent: LiveData<NetworkEvent<State>> =
+        _updatePetPassportLoadingEvent
 
     private val _userPetsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val userPetsLoadingEvent: LiveData<NetworkEvent<State>> = _userPetsLoadingEvent
@@ -147,6 +172,130 @@ class MainViewModel : ViewModel() {
                 }
             } catch (exc: Exception) {
                 _bonusBalanceLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    fun updatePetPassport(
+        petId: String,
+        isSterilised: Boolean,
+        vacineId: String,
+        vacinationDate: String,
+        dewormingId: String,
+        dewormingDate: String,
+        exoparasiteId: String,
+        exoparasitesDate: String,
+        feedingTypeId: String,
+        diseases: String,
+        favouriteVetName: String,
+        favouriteVetAdress: String
+    ) {
+        viewModelScope.launch {
+            _updatePetPassportLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.updatePetPassportAsync(
+                        App.getInstance().userToken,
+                        petId,
+                        isSterilised,
+                        vacineId,
+                        vacinationDate,
+                        dewormingId,
+                        dewormingDate,
+                        exoparasiteId,
+                        exoparasitesDate,
+                        feedingTypeId,
+                        diseases,
+                        favouriteVetName,
+                        favouriteVetAdress
+                    ).await()
+                if (response.result == "success") {
+                    _updatePetPassportLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _updatePetPassportLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
+            } catch (exc: Exception) {
+                _updatePetPassportLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    fun getPetFood() {
+        viewModelScope.launch {
+            _petFoodLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPetFoodAsync().await()
+                if (response.result == "success") {
+                    _petFood.value = response.petFood.toFood()
+                    _petFoodLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petFoodLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _petFood.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petFoodLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petFood.value = listOf()
+            }
+        }
+    }
+
+    fun getVaccines() {
+        viewModelScope.launch {
+            _vaccinesLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPreparationsAsync(VACCINE_ID).await()
+                if (response.result == "success") {
+                    _vaccines.value = response.preparations.toPreps()
+                    _vaccinesLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _vaccinesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _vaccines.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _vaccinesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _vaccines.value = listOf()
+            }
+        }
+    }
+
+    fun getDeworming() {
+        viewModelScope.launch {
+            _dewormingLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPreparationsAsync(DEWORMING_ID).await()
+                if (response.result == "success") {
+                    _deworming.value = response.preparations.toPreps()
+                    _dewormingLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _dewormingLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _deworming.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _dewormingLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _deworming.value = listOf()
+            }
+        }
+    }
+
+    fun getExoparazites() {
+        viewModelScope.launch {
+            _exoparazitesLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPreparationsAsync(EXOPARAZITES_ID).await()
+                if (response.result == "success") {
+                    _exoparazites.value = response.preparations.toPreps()
+                    _exoparazitesLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _exoparazitesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _exoparazites.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _exoparazitesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _exoparazites.value = listOf()
             }
         }
     }
@@ -394,7 +543,8 @@ class MainViewModel : ViewModel() {
         email: String? = null,
         birthday: String? = null,
         city: String? = null,
-        interests: String? = null
+        interests: String? = null,
+        mailNotifications: Boolean? = null
     ) {
         viewModelScope.launch {
             _changeUserDataLoadingEvent.value = NetworkEvent(State.LOADING)
@@ -408,7 +558,8 @@ class MainViewModel : ViewModel() {
                     email = email,
                     birthday = birthday,
                     city = city,
-                    interests = interests
+                    interests = interests,
+                    mailNotifications = mailNotifications
                 ).await()
                 if (response.result == "success") {
                     _changeUserDataLoadingEvent.value = NetworkEvent(State.SUCCESS)
@@ -724,5 +875,9 @@ class MainViewModel : ViewModel() {
 
     companion object {
         enum class ButtonSelected { FEED, DOMAINS, NEWS }
+
+        private const val VACCINE_ID = "1"
+        private const val DEWORMING_ID = "2"
+        private const val EXOPARAZITES_ID = "3"
     }
 }

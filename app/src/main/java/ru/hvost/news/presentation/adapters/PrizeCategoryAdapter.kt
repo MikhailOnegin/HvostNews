@@ -26,7 +26,7 @@ class PrizeCategoryAdapter(private val onClick: (String) -> Unit) :
         private val onClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: PrizeCategory) {
-            binding.title.text = category.prizeCategoryName.replace("Приз для", "")
+            binding.title.text = category.prizeCategoryName.replace("Приз для ", "")
             binding.root.setOnClickListener { onClick.invoke(category.prizeCategoryId) }
 
             binding.container.doOnLayout {

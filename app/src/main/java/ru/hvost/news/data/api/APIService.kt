@@ -40,6 +40,14 @@ interface APIService {
         @Query("email") email: String?
     ): Deferred<PassRestoreResponse>
 
+    @GET("/rest/PetVeterinaryProfile/getAllPreparationsByTypeId/")
+    fun getPreparationsAsync(
+        @Query("typeId") typeId: String?
+    ): Deferred<PreparationsResponse>
+
+    @GET("/rest/PetVeterinaryProfile/getFood/")
+    fun getPetFoodAsync(): Deferred<PetFoodResponse>
+
     @GET("/rest/Registration/getInterests/")
     fun getInterestsAsync(): Deferred<InterestsResponse>
 
@@ -212,7 +220,8 @@ interface APIService {
         @Query("email") email: String?,
         @Query("city") city: String?,
         @Query("birthday") birthday: String?,
-        @Query("interests") interests: String?
+        @Query("interests") interests: String?,
+        @Query("mailNotifications") mailNotifications: Boolean?
     ): Deferred<UserDataResponse>
 
     @GET("/rest/PetProfile/updatePet/")
@@ -294,6 +303,23 @@ interface APIService {
         @Query("petId") petId: String?
     ): Deferred<PetPassportResponse>
 
+    @GET("/rest/PetVeterinaryProfile/updatePassport/")
+    fun updatePetPassportAsync(
+        @Query("userToken") userToken: String?,
+        @Query("petId") petId: String?,
+        @Query("isSterilised") isSterilised: Boolean?,
+        @Query("vacineId") vacineTitle: String?,
+        @Query("vacinationDate") vacinationDate: String?,
+        @Query("dewormingId") dewormingTitle: String?,
+        @Query("dewormingDate") dewormingDate: String?,
+        @Query("exoparasiteId") exoparasiteTitle: String?,
+        @Query("exoparasitesDate") exoparasitesDate: String?,
+        @Query("feedingTypeId") feeding: String?,
+        @Query("diseases") diseases: String?,
+        @Query("favouriteVetName") favouriteVetName: String?,
+        @Query("favouriteVetAdress") favouriteVetAdress: String?
+    ): Deferred<UpdatePetPassportResponse>
+
     @GET("/rest/Articles/setLiked/")
     fun setArticleLikedByUserAsync(
         @Query("userToken") userToken: String?,
@@ -311,11 +337,17 @@ interface APIService {
         @Query("petId") petId: String?
     ): Deferred<SetParticipateResponse>
 
-    // Map
     @GET("/rest/Maps/getShops/")
     fun getShopsAsync(
         @Query("userToken") userToken: String?
     ): Deferred<ShopsResponse>
+
+    @GET("/rest/Maps/setIsShopFavourite/")
+    fun setIsShopFavouriteAsync(
+        @Query("userToken") userToken: String?,
+        @Query("shopId") shopId: String?,
+        @Query("isFavourite") isFavourite: String?
+    ): Deferred<SimpleResponse>
 
     companion object {
 

@@ -104,9 +104,12 @@ class PartnersPageFragment : BaseFragment() {
         val shopId = arguments?.getLong(SHOP_ID, -1)
         val shop = mapVM.shops.value?.firstOrNull { it.id == shopId }
         shop?.run {
-            //sergeev: Добавить вызов метода API для добавления в избранное.
+            mapVM.setShopIsFavourite(shop.shopId, !shop.isFavourite)
             if (shop.isFavourite) animateFavourite(false)
             else animateFavourite(true)
+            for (tempShop in mapVM.shops.value ?: listOf()){
+                if (tempShop.shopId != shop.shopId) tempShop.isFavourite = false
+            }
             shop.isFavourite = !shop.isFavourite
         }
     }

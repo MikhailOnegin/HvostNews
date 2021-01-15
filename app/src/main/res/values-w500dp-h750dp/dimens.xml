@@ -112,4 +112,21 @@
     <dimen name="marginToPromo">8dp</dimen>
     <dimen name="smallHeightButton">80dp</dimen>
     <dimen name="partnerPromotionsTextSize">32sp</dimen>
+    <dimen name="makeOrderTextTitleTextSize">24sp</dimen>
+    <dimen name="subCheckBoxTextSize">16sp</dimen>
+    <dimen name="subCheckBoxMarginStart">52dp</dimen>
+    <dimen name="textViewWithDotTextSize">20sp</dimen>
+    <dimen name="finishOrderChevronWidth">38dp</dimen>
+    <dimen name="orderNumberTextSize">22sp</dimen>
+    <dimen name="orderTotalSumTextSize">34sp</dimen>
+    <dimen name="orderStatusTextSize">16sp</dimen>
+    <dimen name="orderStatusMaxWidth">186dp</dimen>
+    <dimen name="orderTitleTextSize">38sp</dimen>
+    <dimen name="orderProductImageSize">148dp</dimen>
+    <dimen name="deleteOrderIconSize">74dp</dimen>
+    <dimen name="orderIconPadding">20dp</dimen>
+    <dimen name="prizesSubtitleTextSize">26sp</dimen>
+    <dimen name="prizeItemTextSize">24sp</dimen>
+    <dimen name="cartPrizeImageSize">100dp</dimen>
+    <dimen name="productCountTextSize">18sp</dimen>
 </resources>

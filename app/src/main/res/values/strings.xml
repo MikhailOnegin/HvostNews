@@ -44,6 +44,7 @@
     <string name="ekzoDate">Дата последней обработки</string>
     <string name="diet">Питание</string>
     <string name="diseases">Хронические заболевания</string>
+    <string name="diseaseName">Название заболевания</string>
     <string name="add">Добавить</string>
     <string name="clinic">Любимая ветклиника</string>
     <string name="clinicName">Название</string>
@@ -349,6 +350,8 @@
     <string name="addPetToProfile">Добавить</string>
     <string name="addPetTitle">Добавить питомца</string>
     <string name="petAddedSuccessfull">Новый питомец успешно добавлен</string>
+    <string name="diseaseAddedSuccessfull">Данные успешно добавлены</string>
+    <string name="diseaseAlreadyContains">Такое заболевание уже имеется в списке</string>
     <string name="news">Новости</string>
     <string name="notifications">Уведомления</string>
     <string name="closeCD">Закрыть</string>
@@ -419,6 +422,9 @@
     <string name="timerSeconds1">секунду</string>
     <string name="timerSeconds2">секунды</string>
     <string name="timerSeconds3">секунд</string>
+    <string name="ballEnding1"> балл</string>
+    <string name="ballEnding2"> балла</string>
+    <string name="ballEnding3"> баллов</string>
     <string name="promocodeOverrideWarning">На этого питомца уже зарегистрирован промокод. Если активировать новый промокод, доступ к товарам в интернет-магазине по старому промокоду будет утрачен.</string>
     <string name="promocodeOverrideWarningTitle">Активировать новый промокод?</string>
     <string name="buttonYes">Да</string>
@@ -432,6 +438,7 @@
     <string name="mapsPartnerWebsiteTitle">Сайт</string>
     <string name="shopNotFound">Магазин не найден</string>
     <string name="success">Успешно</string>
+    <string name="userDataChangedSuccessfully">Ваши данные успешно сохранены</string>
     <string name="good">Хорошо</string>
     <string name="no_required_attachments_fo_intent">Не найдено приложений для открытия файла</string>
     <string name="unknown_error">Неизвестная ошибка</string>
@@ -450,4 +457,8 @@
     <string name="promotionsTitle">Участие в акциях</string>
     <string name="you_yet_dont_registrated_course">Вы ещё не зарегистрированы на этот курс</string>
     <string name="new_school">Новый</string>
+    <string name="offlineEventsChannelName">Мероприятия</string>
+    <string name="offlineEventsChannelDescription">Уведомления о новых мероприятиях.</string>
+    <string name="not_selected">Не выбрано</string>
+    <string name="is_empty">Не заполнено поле</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.models.Shop
 import ru.hvost.news.models.toShops
@@ -59,6 +60,18 @@ class MapViewModel: ViewModel() {
 
     var promotions = listOf<Shop.Promotion>()
     val selectedPromotion = MutableLiveData<Shop.Promotion>()
+
+    fun setShopIsFavourite(shopId: String, isFavourite: Boolean) {
+        viewModelScope.launch {
+            try {
+                APIService.API.setIsShopFavouriteAsync(
+                    userToken = App.getInstance().userToken,
+                    shopId = shopId,
+                    isFavourite = isFavourite.toString()
+                ).await()
+            } catch (exc: Exception) {}
+        }
+    }
 
     companion object {
 

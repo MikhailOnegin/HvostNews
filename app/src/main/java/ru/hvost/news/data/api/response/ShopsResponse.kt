@@ -7,6 +7,8 @@ data class ShopsResponse(
 ) {
 
     data class ShopResponse(
+        val shopId: String?,
+        val isFavourite: Boolean?,
         val latitude: String?,
         val longitude: String?,
         val name: String?,
