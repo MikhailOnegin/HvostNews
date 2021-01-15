@@ -185,7 +185,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                     } else {
                         createSnackbar(
                             anchorView = binding.root,
-                            text = "Произошла ошибка (ответы не загружены)",
+                            text = "Ошибка (ответы не загружены)",
                             resources.getString(R.string.buttonOk),
                         ).show()
                     }

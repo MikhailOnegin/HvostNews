@@ -197,27 +197,20 @@ class OfflineEventFragment : BaseFragment() {
 
     private fun setListenerTab(view: View, list: List<View>, petTypeName: String? = null) {
         view.setOnClickListener {
+            petTypeName?.let {
+                schoolVM.petTypeName.value = petTypeName
+            }
             if (list.size > 1) {
                 val navC = requireActivity().findNavController(R.id.fragmentViewSeminar)
-                if (view != list[0] && list[0].isSelected) {
-                    petTypeName?.let {
-                        schoolVM.petTypeName.value = petTypeName
-                    }
-                    navC.navigate(R.id.action_eventScheduleFragment_to_eventInfoFragment)
-                }
-                if (view != list[0] && !list[0].isSelected)
-                if (view != list[0] && list[0].isSelected) {
-
-                    navC.navigate(R.id.action_eventInfoFragment_to_eventScheduleFragment)
-                }
-                if (view != list[0] && !list[0].isSelected) {
-                    petTypeName?.let {
-                        schoolVM.petTypeName.value = petTypeName
-                    }
-                    navC.navigate(R.id.action_eventInfoFragment_to_eventScheduleFragment)
+                if (list[0].isSelected){
+                    if (view != list[0]) navC.navigate(R.id.action_eventInfoFragment_to_eventScheduleFragment)
 
                 }
+                else {
+                    if(view == list[0] ) navC.navigate(R.id.action_eventScheduleFragment_to_eventInfoFragment)
+                    else navC.navigate(R.id.action_eventScheduleFragment_to_eventScheduleFragment)
 
+                }
                 for (i in list.indices) {
                     list[i].isSelected = false
                 }

@@ -45,10 +45,8 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
             Glide.with(itemView.context).load(APIService.baseUrl + video.imageVideoUrl)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(binding.imageViewVideo)
-            binding.imageViewVideo.setOnClickListener {
-                startIntentActionView(itemView.context, video.videoUrl)
-            }
-            binding.imageViewPlay.setOnClickListener {
+            binding.root
+            binding.rootConstraint.setOnClickListener {
                 startIntentActionView(itemView.context, video.videoUrl)
             }
         }
