@@ -46,8 +46,12 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(binding.imageViewVideo)
             binding.root
-            binding.rootConstraint.setOnClickListener {
+            binding.constraintVideo.setOnClickListener {
                 startIntentActionView(itemView.context, video.videoUrl)
+            }
+            if (adapterPosition== videos.lastIndex){
+                val padding = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
+                binding.rootConstraint.setPadding(0,0,padding,0)
             }
         }
     }

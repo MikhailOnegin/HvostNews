@@ -1,8 +1,6 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -25,7 +23,6 @@ import ru.hvost.news.databinding.FragmentRegistrationOfflineEventBinding
 import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
-import ru.hvost.news.presentation.dialogs.AddPetRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -138,7 +135,7 @@ class RegistrationOfflineEventFragment : BaseFragment() {
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineSeminarsEvent.observe(owner, offlineSeminarsEvent)
         mainVM.userPetsLoadingEvent.observe(owner, loadPetsEvent)
-        schoolVM.enabledRegister.observe(owner, {
+        schoolVM.enabledSchoolRegister.observe(owner, {
             binding.buttonCompleteRegistration.isEnabled = it
         })
         schoolVM.setParticipateEvent.observe(owner, setParticipateEvent)
@@ -151,10 +148,6 @@ class RegistrationOfflineEventFragment : BaseFragment() {
             findNavController().popBackStack()
         }
         binding.imageButtonAddPet.setOnClickListener {
-            AddPetRegistrationDialog().show(
-                childFragmentManager,
-                "info_dialog"
-            )
         }
         binding.buttonCompleteRegistration.setOnClickListener {
             var petId: String? = null
@@ -178,7 +171,7 @@ class RegistrationOfflineEventFragment : BaseFragment() {
             }
         }
         binding.checkBox2.setOnCheckedChangeListener { _, b ->
-            schoolVM.enabledRegister.value =
+            schoolVM.enabledSchoolRegister.value =
                 b && binding.spinnerPets.adapter is SpinnerAdapter<*> && binding.spinnerPets.size > 0
         }
         binding.spinnerPets.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -187,7 +180,7 @@ class RegistrationOfflineEventFragment : BaseFragment() {
 
             @Suppress("UNCHECKED_CAST")
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                schoolVM.enabledRegister.value =
+                schoolVM.enabledSchoolRegister.value =
                     binding.checkBox2.isChecked && binding.spinnerPets.adapter is SpinnerAdapter<*> && binding.spinnerPets.size > 0
             }
         }

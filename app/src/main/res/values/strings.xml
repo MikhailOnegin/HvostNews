@@ -450,4 +450,9 @@
     <string name="promotionsTitle">Участие в акциях</string>
     <string name="you_yet_dont_registrated_course">Вы ещё не зарегистрированы на этот курс</string>
     <string name="new_school">Новый</string>
+    <string name="age_not_specified">Возраст: не указан</string>
+    <string name="subscribe">Подписаться</string>
+    <string name="registrated_online_school">Регистрация на онлайн семинар</string>
+    <string name="registrated_offline_semianar">Регистрация на оффлайн семинар</string>
+    <string name="you_are_subscribe_for_event">Вы подписаны на уведомления</string>
 </resources>

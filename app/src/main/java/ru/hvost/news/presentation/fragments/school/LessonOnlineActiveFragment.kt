@@ -55,8 +55,9 @@ class LessonOnlineActiveFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
-
-
+        arguments?.getInt("lessonNumber")?.let {
+            binding
+        }
         initializedEvents()
         setListeners()
         setObservers(this)
@@ -221,7 +222,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             viewLiterature.constraint_literature.setOnClickListener {
                                 startIntentActionView(
                                     requireContext(),
-                                    literature[i].fileUrl
+                                    baseUrl + literature[i].fileUrl
                                 )
                             }
                             val margin = resources.getDimension(R.dimen.largeMargin).toInt()

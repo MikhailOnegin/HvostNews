@@ -17,6 +17,7 @@ data class OfflineSeminarsResponse(
         val city: String?,
         val participate:Boolean?,
         val sponsor: String?,
+        val subscriptionEvent: Boolean?,
         val partners: List<Partner>?,
         val videos: List<Video>?,
         val wait: List<Wait>?,

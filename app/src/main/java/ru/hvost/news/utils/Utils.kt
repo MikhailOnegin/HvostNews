@@ -367,3 +367,18 @@ fun formatPhoneString(phone: String?): String {
         }
     }
 }
+
+fun dateFormat(s:String): String {
+    var result = ""
+    try {
+        val dateFormat = SimpleDateFormat("d MMMM, yyyy", Locale("ru", "RU"))
+        val jsonDate = SimpleDateFormat("dd.MM.yyyy", Locale("ru", "RU"))
+        val date  = jsonDate.parse(s)
+        date?.run {
+            result = dateFormat.format(this)
+        }
+    }
+    catch (e:Exception){
+    }
+    return result
+}

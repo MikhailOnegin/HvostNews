@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LessonTestesPassedResponse
 import ru.hvost.news.data.api.response.SetParticipateResponse
+import ru.hvost.news.data.api.response.SetSubscribeResponse
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
@@ -17,6 +18,7 @@ class SchoolViewModel: ViewModel() {
 
     val seminarId:MutableLiveData<Int> = MutableLiveData(0)
     val petTypeName:MutableLiveData<String> = MutableLiveData()
+    val changeFragment:MutableLiveData<Boolean> = MutableLiveData()
     private val _offlineSeminarsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineSeminarsEvent:LiveData<NetworkEvent<State>> = _offlineSeminarsEvent
     private val _offlineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
@@ -56,14 +58,15 @@ class SchoolViewModel: ViewModel() {
         }
     }
 
-    val enabledRegister:MutableLiveData<Boolean> = MutableLiveData(false)
+    val enabledSchoolRegister:MutableLiveData<Boolean> = MutableLiveData(false)
+    val enabledSeminarRegister:MutableLiveData<Boolean> = MutableLiveData(false)
     val successRegistration:MutableLiveData<Boolean> = MutableLiveData(false)
     private val _setParticipateEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val setParticipateEvent:LiveData<NetworkEvent<State>> = _setParticipateEvent
     private val _setParticipate:MutableLiveData<SetParticipateResponse> = MutableLiveData()
     val setParticipate:LiveData<SetParticipateResponse> = _setParticipate
 
-    fun setParticipate(userToken:String, schoolId:String, petId:String){
+    fun setParticipate(userToken:String, schoolId:String, petId:String?){
         viewModelScope.launch {
             _setParticipateEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -136,6 +139,22 @@ class SchoolViewModel: ViewModel() {
                 else _offlineCitiesEvent.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
                 _offlineCitiesEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+            }
+        }
+    }
+
+    private val _setSubscribeEvent: MutableLiveData<NetworkEvent<State>> = MutableLiveData()
+    val setSubscribeEvent:LiveData<NetworkEvent<State>> = _setSubscribeEvent
+
+    fun setSubscribe(userToken: String, schoolId: String){
+        viewModelScope.launch {
+            _setSubscribeEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response = APIService.API.setSubscribeAsync(userToken, schoolId).await()
+                if (response.result == "success") _setSubscribeEvent.value = NetworkEvent(State.SUCCESS)
+                else _setSubscribeEvent.value = NetworkEvent(State.ERROR, response.error)
+            } catch (exc: Exception) {
+                _setSubscribeEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }

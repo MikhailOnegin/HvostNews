@@ -11,12 +11,14 @@ import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ItemSchoolLessonOnlineActiveBinding
 import ru.hvost.news.databinding.ItemSchoolLessonOnlineFinishedBinding
 import ru.hvost.news.databinding.ItemUsefulLiteratureBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.utils.startIntentActionView
 
 class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -24,7 +26,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     private var onlineLessons = arrayListOf<OnlineLessons.OnlineLesson>()
     var onClickLessonActive: OnClickLessonActive? = null
     var onClickLessonFinished: OnClickLessonFinished? = null
-    var onClickLiterature: OnClickLiterature? = null
     private var firstActiveLessonId:String? = null
 
     interface OnClickLessonActive {
@@ -34,9 +35,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         fun onClick(lessonId:String)
     }
 
-    interface OnClickLiterature{
-        fun onClick(url:String)
-    }
 
     fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
         for(i in lessons.indices){
@@ -56,9 +54,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewLiterature = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_useful_literature, parent, false)
-
         return when (viewType) {
             TYPE_LESSON_ACTIVE -> LessonActiveViewHolder(ItemSchoolLessonOnlineActiveBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -146,9 +141,11 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
                 if (school.literature.isNotEmpty()) {
+
                     val container = itemView.linearLayout_literature
                     container.removeAllViews()
                     for (i in school.literature.indices) {
+                        val literature = school.literature[i]
                         val viewLiterature = LayoutLiteratureItemBinding.inflate(
                             LayoutInflater.from(itemView.context),
                             container,
@@ -158,7 +155,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                         viewLiterature.textView_title.text = school.literature[i].title
                         viewLiterature.textView_pet.text = school.literature[i].pet
                         viewLiterature.constraint_literature.setOnClickListener {
-                            onClickLiterature?.onClick(school.literature[i].fileUrl)
+                            startIntentActionView(itemView.context, APIService.baseUrl + literature.fileUrl)
                         }
                         val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
 

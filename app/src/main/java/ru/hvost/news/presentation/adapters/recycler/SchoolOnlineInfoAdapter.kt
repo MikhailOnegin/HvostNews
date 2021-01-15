@@ -22,15 +22,12 @@ import ru.hvost.news.databinding.ItemSchoolOnlineInfoBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.databinding.LayoutWhatWaitSchoolOnlineBinding
 import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.utils.startIntentActionView
 
 class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onlineSchool:OnlineSchools.OnlineSchool? = null
-    var onClickLiterature:OnClickLiterature? = null
 
-    interface OnClickLiterature{
-        fun onClick(url:String)
-    }
 
     fun setSchool(school:OnlineSchools.OnlineSchool){
         this.onlineSchool = school
@@ -110,6 +107,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 val containerLiterature = itemView.linearLayout_literature
                 containerLiterature.removeAllViews()
                 for (i in school.literature.indices) {
+                    val literature = school.literature[i]
                     val viewLiterature = LayoutLiteratureItemBinding.inflate(
                         LayoutInflater.from(itemView.context),
                         containerLiterature,
@@ -119,7 +117,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     viewLiterature.textView_title.text = school.literature[i].title
                     viewLiterature.textView_pet.text = school.literature[i].pet
                     viewLiterature.constraint_literature.setOnClickListener {
-                        onClickLiterature?.onClick(school.literature[i].fileUrl)
+                        startIntentActionView(itemView.context, baseUrl + literature.fileUrl)
                     }
                     val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
 

@@ -7,10 +7,12 @@
     android:layout_height="wrap_content"
     tools:context=".presentation.fragments.school.EventOfflineInfoFragment">
 
-    <ListView
-        android:id="@+id/listViewSchedules"
+    <LinearLayout
+        android:id="@+id/linearLayoutSchedules"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +25,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listViewSchedules"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutSchedules"
         tools:visibility="invisible">
 
         <TextView
