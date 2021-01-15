@@ -41,51 +41,41 @@ class EventOfflineSchedulesFragment: BaseFragment() {
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.offlineSeminars.observe(owner, { offlineSeminars ->
-            schoolVM.seminarId.value?.let { seminarId ->
-                for (i in offlineSeminars.seminars.indices) {
-                    val seminar = offlineSeminars.seminars[i]
-                    if (seminar.id == seminarId) {
-                        this.seminar = seminar
-                        schoolVM.petTypeName.value?.let { petId ->
-                            for (q in seminar.petSchedules.indices) {
-                                val petSchedule = seminar.petSchedules[q]
-                                if (petSchedule.petTypeId == petId) {
-                                    binding.listViewSchedules.adapter = OfflineSeminarScheduleAdapter(
-                                            requireContext(),
-                                            R.layout.layout_offline_semianr_schedule,
-                                            petSchedule.schedules
-                                    )
-                                }
-                            }
+        schoolVM.petTypeName.observe(owner, {
+            schoolVM.offlineSeminars.value?.let { offlineSeminars ->
+                schoolVM.seminarId.value.let { seminarId ->
+                    for (i in offlineSeminars.seminars.indices) {
+                        val seminar = offlineSeminars.seminars[i]
+                        if (seminar.id == seminarId) {
+                            this.seminar = seminar
                             if (seminar.videos.isNotEmpty()) {
                                 binding.constraintPastVideos.visibility = View.VISIBLE
                                 adapterVideo.setVideos(seminar.videos)
                             }
-
                             if (seminar.partners.isNotEmpty()) {
                                 binding.constraintPartners.visibility = View.VISIBLE
                                 adapterPartners.setPartners(seminar.partners)
+                            }
+                            schoolVM.petTypeName.value?.let { petTypeName ->
+                                for (q in seminar.petSchedules.indices) {
+                                    val petSchedule = seminar.petSchedules[q]
+                                    if (petSchedule.petTypeName == petTypeName) {
+                                        binding.listViewSchedules.adapter =
+                                            OfflineSeminarScheduleAdapter(
+                                                requireContext(),
+                                                R.layout.layout_offline_semianr_schedule,
+                                                petSchedule.schedules
+                                            )
+                                    }
+                                }
+
                             }
                         }
                     }
                 }
             }
+        })
 
-        })
-        schoolVM.petTypeName.observe(owner, { petTypeId ->
-            seminar?.let{ seminar ->
-                for(i in seminar.petSchedules.indices){
-                    val petSchedule = seminar.petSchedules[i]
-                    if(petSchedule.petTypeId == petTypeId){
-                        binding.listViewSchedules.adapter = OfflineSeminarScheduleAdapter(
-                                requireContext(),
-                                R.layout.layout_offline_semianr_schedule,
-                                petSchedule.schedules
-                        )
-                    }
-                }
-            }
-        })
     }
+
 }

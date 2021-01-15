@@ -265,6 +265,10 @@ class SchoolOnlineFragment : BaseFragment() {
             binding.recyclerView.adapter = materialsAdapter
             binding.schoolMaterialsTitle.setTextColor(colorWhite)
             binding.schoolInfoTitle.setTextColor(colorPrimary)
+            schoolVM.onlineLessons.value.run {
+                if (this == null || this.lessons.isEmpty()) binding.textViewEmpty.visibility = View.VISIBLE
+                else binding.textViewEmpty.visibility = View.GONE
+            }
         }
         binding.buttonRegistration.setOnClickListener {
             val bundle = Bundle()

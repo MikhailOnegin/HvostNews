@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.layout_tab_item_seminar.view.*
 import ru.hvost.news.R
@@ -53,86 +53,85 @@ class OfflineEventFragment : BaseFragment() {
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.offlineSeminars.observe(owner, {
-            seminarId?.run {
-                val d = 2
+        schoolVM.seminarId.observe(owner,{seminarId ->
+            schoolVM.offlineSeminars.value?.let {
                 for (i in it.seminars.indices) {
                     val seminar = it.seminars[i]
-                    if (seminar.id.toString() == seminarId) {
+                    if (seminar.id == seminarId) {
 
                         if (seminar.isFinished) {
                             binding.textViewLessonStatus.text = getString(R.string.completed)
                             binding.textViewLessonStatus.setTextColor(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.red
-                                )
+                                    ContextCompat.getColor(
+                                            requireContext(),
+                                            R.color.red
+                                    )
                             )
                             binding.buttonParticipate.text = "Подписаться"
                             binding.buttonParticipate.setOnClickListener {
                                 binding.buttonParticipate.text =
-                                    "Вы подписаны на уведомления (апи не готово)"
+                                        "Вы подписаны на уведомления (апи не готово)"
                                 binding.buttonParticipate.setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.gray1
-                                    )
+                                        ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.gray1
+                                        )
                                 )
                                 binding.buttonParticipate.background.setTint(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.gray4
-                                    )
+                                        ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.gray4
+                                        )
                                 )
                             }
                         }
                         else {
                             binding.textViewLessonStatus.text = getString(R.string.active)
                             binding.textViewLessonStatus.setTextColor(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.colorPrimary
-                                )
+                                    ContextCompat.getColor(
+                                            requireContext(),
+                                            R.color.colorPrimary
+                                    )
                             )
                             binding.buttonParticipate.visibility = View.VISIBLE
                             if (seminar.participate) {
                                 binding.buttonParticipate.text = getString(R.string.you_participate)
                                 binding.buttonParticipate.setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.gray1
-                                    )
+                                        ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.gray1
+                                        )
                                 )
                                 binding.buttonParticipate.background.setTint(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.gray4
-                                    )
+                                        ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.gray4
+                                        )
                                 )
                                 binding.buttonParticipate.isEnabled = false
                             }
                             else {
                                 binding.buttonParticipate.text = getString(R.string.participate)
                                 binding.buttonParticipate.setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        android.R.color.white
-                                    )
+                                        ContextCompat.getColor(
+                                                requireContext(),
+                                                android.R.color.white
+                                        )
                                 )
                                 binding.buttonParticipate.background.setTint(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.colorPrimary
-                                    )
+                                        ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.colorPrimary
+                                        )
                                 )
                                 binding.buttonParticipate.isEnabled = true
                                 binding.buttonParticipate.setOnClickListener {
-                                    seminarId?.run {
+                                    seminarId.run {
                                         val bundle = Bundle()
-                                        bundle.putString("seminarId", this)
+                                        bundle.putString("seminarId", this.toString())
                                         findNavController().navigate(
-                                            R.id.action_offlineEventFragment_to_registrationFragment,
-                                            bundle
+                                                R.id.action_offlineEventFragment_to_registrationFragment,
+                                                bundle
                                         )
                                     }
 
@@ -142,9 +141,9 @@ class OfflineEventFragment : BaseFragment() {
                         val linearTabs = binding.linearLayoutTabs
                         linearTabs.removeAllViews()
                         val viewTab = LayoutTabItemSeminarBinding.inflate(
-                            LayoutInflater.from(requireContext()),
-                            linearTabs,
-                            false
+                                LayoutInflater.from(requireContext()),
+                                linearTabs,
+                                false
                         ).root
                         viewTab.textView_tab.text = getString(R.string.seminar_info)
                         viewTab.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_left)
@@ -155,9 +154,9 @@ class OfflineEventFragment : BaseFragment() {
                         linearTabs.addView(viewTab)
                         for (q in seminar.petSchedules.indices){
                             val viewTab2 = LayoutTabItemSeminarBinding.inflate(
-                                LayoutInflater.from(requireContext()),
-                                linearTabs,
-                                false
+                                    LayoutInflater.from(requireContext()),
+                                    linearTabs,
+                                    false
                             ).root
                             val petTypeName = seminar.petSchedules[q].petTypeName
                             if (q == seminar.petSchedules.size - 1 ) viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_right)
@@ -165,7 +164,7 @@ class OfflineEventFragment : BaseFragment() {
                             val tabText = "${getString(R.string.schedule_for)} $petTypeName"
                             viewTab2.textView_tab.text = tabText
                             tabsView.add(viewTab2)
-                            setListenerTab(viewTab2, tabsView)
+                            setListenerTab(viewTab2, tabsView, petTypeName)
                             linearTabs.addView(viewTab2)
                         }
                         binding.textViewTitle.text = seminar.title
@@ -176,6 +175,7 @@ class OfflineEventFragment : BaseFragment() {
                     }
                 }
             }
+
         })
     }
 
@@ -195,12 +195,34 @@ class OfflineEventFragment : BaseFragment() {
         }
     }
 
-   private fun setListenerTab(view:View, list:List<View>){
+    private fun setListenerTab(view: View, list: List<View>, petTypeName: String? = null) {
         view.setOnClickListener {
-            for( i in list.indices){
-                list[i].isSelected = false
+            if (list.size > 1) {
+                val navC = requireActivity().findNavController(R.id.fragmentViewSeminar)
+                if (view != list[0] && list[0].isSelected) {
+                    petTypeName?.let {
+                        schoolVM.petTypeName.value = petTypeName
+                    }
+                    navC.navigate(R.id.action_eventScheduleFragment_to_eventInfoFragment)
+                }
+                if (view != list[0] && !list[0].isSelected)
+                if (view != list[0] && list[0].isSelected) {
+
+                    navC.navigate(R.id.action_eventInfoFragment_to_eventScheduleFragment)
+                }
+                if (view != list[0] && !list[0].isSelected) {
+                    petTypeName?.let {
+                        schoolVM.petTypeName.value = petTypeName
+                    }
+                    navC.navigate(R.id.action_eventInfoFragment_to_eventScheduleFragment)
+
+                }
+
+                for (i in list.indices) {
+                    list[i].isSelected = false
+                }
+                it.isSelected = true
             }
-            it.isSelected = true
         }
     }
 }

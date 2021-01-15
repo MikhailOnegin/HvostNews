@@ -15,14 +15,10 @@ import ru.hvost.news.utils.events.NetworkEvent
 
 class SchoolViewModel: ViewModel() {
 
-    val enabledRegister:MutableLiveData<Boolean> = MutableLiveData(false)
-    val successRegistration:MutableLiveData<Boolean> = MutableLiveData(false)
-
-    val selectLessonAnswersCount:MutableLiveData<Int> = MutableLiveData(0)
-
+    val seminarId:MutableLiveData<Int> = MutableLiveData(0)
+    val petTypeName:MutableLiveData<String> = MutableLiveData()
     private val _offlineSeminarsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineSeminarsEvent:LiveData<NetworkEvent<State>> = _offlineSeminarsEvent
-
     private val _offlineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
     val offlineSeminars:LiveData<OfflineSeminars> = _offlineSeminars
 
@@ -40,11 +36,9 @@ class SchoolViewModel: ViewModel() {
         }
     }
 
-
-
+    val selectLessonAnswersCount:MutableLiveData<Int> = MutableLiveData(0)
     private val _onlineLessonsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineLessonsEvent:LiveData<NetworkEvent<State>> = _onlineLessonsEvent
-
     private val _onlineLessons:MutableLiveData<OnlineLessons> = MutableLiveData()
     val onlineLessons:LiveData<OnlineLessons> = _onlineLessons
 
@@ -62,9 +56,10 @@ class SchoolViewModel: ViewModel() {
         }
     }
 
+    val enabledRegister:MutableLiveData<Boolean> = MutableLiveData(false)
+    val successRegistration:MutableLiveData<Boolean> = MutableLiveData(false)
     private val _setParticipateEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val setParticipateEvent:LiveData<NetworkEvent<State>> = _setParticipateEvent
-
     private val _setParticipate:MutableLiveData<SetParticipateResponse> = MutableLiveData()
     val setParticipate:LiveData<SetParticipateResponse> = _setParticipate
 
@@ -82,8 +77,7 @@ class SchoolViewModel: ViewModel() {
         }
 
     }
-    val seminarId:MutableLiveData<Int> = MutableLiveData()
-    val petTypeName:MutableLiveData<String> = MutableLiveData()
+
 
     private val _onlineSchoolsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineSchoolsEvent:LiveData<NetworkEvent<State>> = _onlineSchoolsEvent
