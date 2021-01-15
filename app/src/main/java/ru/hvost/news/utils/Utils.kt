@@ -113,7 +113,7 @@ class PhoneInputFilter : InputFilter {
         builder.clear()
         builder.append(dest)
         builder.replace(dStart, dEnd, src.substring(start, end))
-        if (builder.length < 3) return dest.substring(dStart, dEnd)
+        if (builder.length < 3 && dest.isNotEmpty()) return dest.substring(dStart, dEnd)
         return if (!pattern.matcher(builder.toString()).matches()) ""
         else {
             builder.append("-")

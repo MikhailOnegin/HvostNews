@@ -35,7 +35,7 @@ class RegPetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
-        setTestData() //sergeev: Выпилить из релиза
+        //setTestData() //sergeev: Выпилить из релиза
         return binding.root
     }
 

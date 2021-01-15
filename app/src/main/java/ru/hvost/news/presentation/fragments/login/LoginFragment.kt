@@ -38,8 +38,8 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        binding.login.setText("test@sergeev.ru")
-        binding.password.setText("passw0rd")
+        //binding.login.setText("test@sergeev.ru")
+        //binding.password.setText("passw0rd")
         return binding.root
     }
 
