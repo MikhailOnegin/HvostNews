@@ -14,15 +14,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.layout_add_disease.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentInviteBinding
+import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
+import ru.hvost.news.utils.isEmailFieldIncorrect
 
 class InviteFragment : Fragment() {
 
@@ -77,10 +81,9 @@ class InviteFragment : Fragment() {
         onSendInviteLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
             doOnSuccess = {
-                Toast.makeText(
-                    requireActivity(),
+                createSnackbar(
+                    binding.root,
                     getString(R.string.sendedSuccessfull),
-                    Toast.LENGTH_SHORT
                 ).show()
             }
         )
@@ -201,7 +204,10 @@ class InviteFragment : Fragment() {
     }
 
     private fun sendToEmail() {
-        mainVM.SendInviteToMail(binding.sendToEmail.text.toString())
+        if (isEmailFieldIncorrect(binding.mail))
+            binding.mail.error = getString(R.string.incorrectEmail)
+        else
+            mainVM.SendInviteToMail(binding.mail.text.toString())
     }
 
     private fun copyRefLink() {
