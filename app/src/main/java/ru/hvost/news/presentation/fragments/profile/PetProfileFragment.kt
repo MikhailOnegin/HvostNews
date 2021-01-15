@@ -7,16 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.layout_add_disease.view.*
+import kotlinx.android.synthetic.main.layout_confirm_pet_deleting.*
+import kotlinx.android.synthetic.main.layout_confirm_pet_deleting.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
+import ru.hvost.news.data.api.response.Diseases
 import ru.hvost.news.databinding.FragmentPetProfileBinding
 import ru.hvost.news.models.*
+import ru.hvost.news.presentation.activities.MainActivity
+import ru.hvost.news.presentation.adapters.PetDiseasesAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
+import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.tryStringToDate
@@ -93,12 +104,11 @@ class PetProfileFragment : BaseFragment() {
         onUpdatePetLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
             doOnSuccess = {
-                Toast.makeText(
-                    requireActivity(),
-                    getString(R.string.sendedSuccessfull),
-                    Toast.LENGTH_SHORT
-                ).show()
                 mainVM.loadPetsData()
+                createSnackbar(
+                    (requireActivity() as MainActivity).getMainView() ,
+                    getString(R.string.petDataChangedSuccessfully),
+                ).show()
                 findNavController().popBackStack()
             }
         )
@@ -112,7 +122,19 @@ class PetProfileFragment : BaseFragment() {
         binding.passport.setOnClickListener { findNavController().navigate(R.id.action_petProfileFragment_to_petPassportFragment) }
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.cancel.setOnClickListener { findNavController().popBackStack() }
-        binding.delete.setOnClickListener {
+        binding.delete.setOnClickListener { deletePetConfirmDialog() }
+        binding.save.setOnClickListener { sendPetDataToServer() }
+        setSpinnerListener()
+    }
+
+    private fun deletePetConfirmDialog() {
+        val confirmDialog =
+            BottomSheetDialog(requireContext(), R.style.popupBottomSheetDialogTheme)
+        confirmDialog.dismissWithAnimation = true
+        val confirmDialogBinding =
+            layoutInflater.inflate(R.layout.layout_confirm_pet_deleting, binding.root, false)
+        confirmDialogBinding.buttonCancel.setOnClickListener { confirmDialog.dismiss() }
+        confirmDialogBinding.buttonConfirm.setOnClickListener {
             val petData =
                 mainVM.userPets.value?.filter { it.petId == arguments?.getString("PET_ID") }
             if (!petData.isNullOrEmpty()) {
@@ -120,9 +142,14 @@ class PetProfileFragment : BaseFragment() {
                 mainVM.loadPetsData()
                 findNavController().popBackStack()
             }
+            confirmDialog.dismiss()
         }
-        binding.save.setOnClickListener { sendPetDataToServer() }
-        setSpinnerListener()
+        confirmDialog.setContentView(confirmDialogBinding)
+        confirmDialog.setOnShowListener {
+            confirmDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            confirmDialog.behavior.skipCollapsed = true
+        }
+        confirmDialog.show()
     }
 
     private fun sendPetDataToServer() {

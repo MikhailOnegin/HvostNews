@@ -313,7 +313,6 @@
 
             </LinearLayout>
 
-            <!--TODO: образование       -->
             <Spinner
                 android:id="@+id/education"
                 style="@style/RegSpinner"
@@ -321,18 +320,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/largeMargin" />
 
-            <!--TODO: кнопка сохранить       -->
             <Button
                 android:id="@+id/save"
-                style="@style/ElevatedButton"
+                style="@style/UnelevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/saveChanges"
                 android:textSize="@dimen/buttonMediumTextSize" />
-
-            <!--TODO: кнопка отмены        -->
 
             <Button
                 android:id="@+id/cancel"
@@ -344,20 +340,20 @@
                 android:text="@string/cancelChanges"
                 android:textAllCaps="false"
                 android:textSize="@dimen/buttonMediumTextSize"
-                app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
+                app:cornerRadius="@dimen/mediumCorners"
+                android:layout_marginBottom="@dimen/smallMargin" />
 
             <Button
                 android:id="@+id/delete"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
-                android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/delete"
                 android:textAllCaps="false"
                 android:textColor="@color/titleText"
                 android:textSize="@dimen/buttonMediumTextSize"
-                app:cornerRadius="@dimen/userProfileButtonLargeRadius"
+                app:cornerRadius="@dimen/mediumCorners"
                 app:layout_constraintTop_toBottomOf="@+id/work"
                 app:strokeColor="@color/btnStroke"
                 app:strokeWidth="@dimen/strokeWidthOutlinedButton" />

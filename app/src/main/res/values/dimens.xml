@@ -122,7 +122,7 @@
     <dimen name="orderImageShadowRadius">60dp</dimen>
     <dimen name="inviteTextSize">15sp</dimen>
     <dimen name="strokeWidthOutlinedButton">2dp</dimen>
-    <dimen name="smallHeightButton">55dp</dimen>
+    <dimen name="smallHeightButton">60dp</dimen>
     <dimen name="bottomSheetCornerRadius">30dp</dimen>
     <dimen name="rvVoucherCodeTextSize">18sp</dimen>
     <dimen name="rvVoucherTextSize">16sp</dimen>
