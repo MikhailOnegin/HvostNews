@@ -125,4 +125,8 @@
     <dimen name="orderProductImageSize">106dp</dimen>
     <dimen name="deleteOrderIconSize">52dp</dimen>
     <dimen name="orderIconPadding">14dp</dimen>
+    <dimen name="prizesSubtitleTextSize">18sp</dimen>
+    <dimen name="prizeItemTextSize">14sp</dimen>
+    <dimen name="cartPrizeImageSize">70dp</dimen>
+    <dimen name="productCountTextSize">12sp</dimen>
 </resources>

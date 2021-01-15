@@ -2,18 +2,20 @@ package ru.hvost.news.data.api.response
 
 data class PetPassportResponse(
     val result: String?,
-    val error: String?,
+    val petId: String?,
+    val petName: String?,
     val isSterilised: Boolean?,
-    val vacineTitle: String?,
+    val vacineId: String?,
     val vacinationDate: String?,
-    val dewormingTitle: String?,
+    val dewormingId: String?,
     val dewormingDate: String?,
-    val exoparasiteTitle: String?,
+    val exoparasiteId: String?,
     val exoparasitesDate: String?,
-    val feeding: String?,
+    val feedingTypeId: String?,
     val diseases: List<Diseases>,
     val favouriteVetName: String?,
-    val favouriteVetAdress: String?
+    val favouriteVetAdress: String?,
+    val error: String?
 )
 
 data class Diseases(

@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:text="@string/stub"
         android:textColor="@color/gray3"
+        android:textSize="@dimen/productCountTextSize"
         android:layout_marginTop="@dimen/xSmallMargin"
         android:layout_marginBottom="@dimen/normalMargin"
         app:layout_constraintBottom_toBottomOf="parent"

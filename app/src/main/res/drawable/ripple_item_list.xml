@@ -4,7 +4,7 @@
 
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
-            <solid android:color="@color/color_2_opacity" />
+            <solid android:color="@color/graySelectorColor" />
             <corners android:radius="@dimen/prizeItemCornerRadius" />
         </shape>
     </item>

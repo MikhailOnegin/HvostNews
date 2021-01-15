@@ -11,7 +11,8 @@ data class UserDataResponse(
     val city: String?,
     val birthday: String?,
     val interests: List<String>?,
-    val deliveryAddresses: List<DeliveryAddress>?
+    val deliveryAddresses: List<DeliveryAddress>?,
+    val mailNotifications: Boolean?
 ) {
 
     data class DeliveryAddress(

@@ -1,68 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/xSmallCorners"
-    android:background="@drawable/background_bottom_sheet_prize_products"
-    android:fitsSystemWindows="true"
-    android:padding="@dimen/screenContentPadding">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:stateListAnimator="@null"
-        app:elevation="0dp"
-        app:liftOnScroll="false">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/xLargeMargin"
-            android:layout_marginBottom="@dimen/normalMargin"
-            android:fontFamily="@font/gilroy_semibold"
-            android:text="@string/stub"
-            android:textColor="@color/gray1"
-            android:textSize="@dimen/mainTitleTextSize"
-            app:layout_scrollFlags="scroll|snap|enterAlways" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_margin="@dimen/xSmallCorners"
+        android:background="@drawable/background_bottom_sheet_prize_products"
+        android:fitsSystemWindows="true"
+        android:padding="@dimen/screenContentPadding">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@android:color/transparent"
+            android:stateListAnimator="@null"
+            app:elevation="0dp"
+            app:liftOnScroll="false">
 
-            <View
+            <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray5" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xLargeMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/stub"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/mainTitleTextSize"
+                app:layout_scrollFlags="scroll|snap|enterAlways" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/products"
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:scrollbars="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/toCart"
-                style="@style/UnelevatedButton"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:text="@string/toCart" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray5" />
 
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/products"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:scrollbars="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    </androidx.core.widget.NestedScrollView>
+                <Button
+                    android:id="@+id/toCart"
+                    style="@style/UnelevatedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/buttonHeight"
+                    android:layout_marginBottom="@dimen/smallMargin"
+                    android:text="@string/toCart" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</FrameLayout>
