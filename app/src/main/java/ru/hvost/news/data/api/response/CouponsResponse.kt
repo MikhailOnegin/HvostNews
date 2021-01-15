@@ -17,6 +17,8 @@ data class CouponsResponse (
         val description: String?,
         val expirationDate: String?,
         val address: String?,
+        val website: String?,
+        val isOnlineStore: Boolean?,
         val imageQRCodeUrl: String?,
         val qrCode: String?
     ): Serializable

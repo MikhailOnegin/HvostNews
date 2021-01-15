@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
+import ru.hvost.news.databinding.ItemSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.databinding.LayoutLessonNumbersBinding
 import ru.hvost.news.models.OnlineLessons
@@ -30,8 +31,11 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SchoolsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_school_online, parent, false)
-        return SchoolsViewHolder(view)
+        return SchoolsViewHolder(ItemSchoolOnlineBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+        ))
     }
 
 
@@ -58,23 +62,16 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
     }
 
 
-    inner class SchoolsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val clSchool = itemView.root_constraint
-        private val clNew = itemView.constraint_new
-        private val ivSchool = itemView.imageView_school
-        private val tvTitle = itemView.textView_title
-        private val tvRank = itemView.textView_rank
-
-
+    inner class SchoolsViewHolder(private val binding:ItemSchoolOnlineBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(onlineSchool: OnlineSchools.OnlineSchool) {
-            if (onlineSchool.title.isNotBlank()) tvTitle.text = onlineSchool.title.parseAsHtml()
-            if (onlineSchool.userRank.isNotBlank()) tvRank.text = onlineSchool.userRank
-            if(onlineSchool.isNew) clNew.visibility = View.VISIBLE
-            else clNew.visibility = View.GONE
+            if (onlineSchool.title.isNotBlank()) binding.textViewTitle.text = onlineSchool.title.parseAsHtml()
+            if (onlineSchool.userRank.isNotBlank()) binding.textViewRank.text = onlineSchool.userRank
+            if(onlineSchool.isNew) binding.constraintNew.visibility = View.VISIBLE
+            else binding.constraintNew.visibility = View.GONE
             Glide.with(itemView.context).load(baseUrl + onlineSchool.image)
                 .placeholder(R.drawable.not_found).centerCrop()
-                .into(ivSchool)
-            clSchool.setOnClickListener {
+                .into(binding.imageViewSchool)
+            binding.rootConstraint.setOnClickListener {
                 clickSchool?.onClick(onlineSchool.id.toString())
             }
 
