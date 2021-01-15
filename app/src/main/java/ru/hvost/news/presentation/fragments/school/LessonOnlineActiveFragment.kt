@@ -245,7 +245,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             container.addView(viewLiterature)
                         }
                     } else
-                        binding.includeLiterature.constraintRoot.visibility = View.GONE
+                        binding.includeLiterature.rootConstraint.visibility = View.GONE
                 }
             }
         })

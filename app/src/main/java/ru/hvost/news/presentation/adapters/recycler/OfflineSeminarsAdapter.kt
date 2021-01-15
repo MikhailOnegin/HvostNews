@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
+import ru.hvost.news.databinding.ItemSchoolOfflineSeminarBinding
 import ru.hvost.news.models.OfflineSeminars
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -24,7 +25,7 @@ class OfflineSeminarsAdapter :
     var onClickLesson:OnClickOfflineLesson? = null
 
     interface OnClickOfflineLesson{
-        fun onClick(lessonId:String)
+        fun onClick(lessonId:Int)
     }
 
     fun setSeminars(seminars: List<OfflineSeminars.OfflineSeminar>) {
@@ -39,9 +40,11 @@ class OfflineSeminarsAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfflineLessonsViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_school_offline_seminar, parent, false)
-        return OfflineLessonsViewHolder(view)
+        return OfflineLessonsViewHolder(ItemSchoolOfflineSeminarBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+        ))
     }
 
 
@@ -54,32 +57,25 @@ class OfflineSeminarsAdapter :
         return holder.bind(lesson)
     }
 
-    inner class OfflineLessonsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val constraint = itemView.constraint
-        private val iVLesson = itemView.imageView_lesson
-        private val iVStatus = itemView.imageViewStatus
-        private val tVStatus = itemView.textView_lesson_status
-        private val tVTitle = itemView.textViewLessonTitle
-        private val tVDate = itemView.textView_lesson_date
-        private val tVCity = itemView.textView_lesson_city
+    inner class OfflineLessonsViewHolder(private val binding:ItemSchoolOfflineSeminarBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(seminar: OfflineSeminars.OfflineSeminar) {
             Glide.with(itemView.context).load(baseUrl + seminar.imageUrl)
-                .placeholder(R.drawable.not_found).centerCrop().into(iVLesson)
+                .placeholder(R.drawable.not_found).centerCrop().into(binding.imageViewLesson)
             if (seminar.isFinished) {
-                tVStatus.text = "Завершено"
-                iVStatus.isSelected = false
+                binding.textViewLessonStatus.text = "Завершено"
+                binding.imageViewStatus.isSelected = false
             }
             if (!seminar.isFinished) {
-                tVStatus.text = "Активно"
-                iVStatus.isSelected = true
+                binding.textViewLessonStatus.text = "Активно"
+                binding.imageViewStatus.isSelected = true
             }
-            tVTitle.text = seminar.title.parseAsHtml()
-            tVDate.text = dateFormat(seminar.date)
-            tVCity.text = seminar.city
+            binding.textViewLessonTitle.text = seminar.title.parseAsHtml()
+            binding.textViewLessonDate.text = dateFormat(seminar.date)
+            binding.textViewLessonCity.text = seminar.city
 
-            constraint.setOnClickListener {
-                onClickLesson?.onClick(seminar.id.toString())
+            binding.rootConstraint.setOnClickListener {
+                onClickLesson?.onClick(seminar.id)
             }
         }
 

@@ -2,6 +2,11 @@ package ru.hvost.news.presentation.fragments.coupons
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +25,7 @@ import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.startIntentActionView
 
 class CouponFragment : BaseFragment() {
 
@@ -85,6 +91,24 @@ class CouponFragment : BaseFragment() {
                                     requireContext(),
                                     R.drawable.background_coupon_status_true
                                 )
+                            }
+                            if(coupon.isOnlineStore){
+                                val websiteWithoutProtocol = coupon.website.substringAfterLast('/')
+                                val spannable = SpannableString(websiteWithoutProtocol)
+                                val colorSpan =
+                                        ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                                val clickableSpan1 = object : ClickableSpan() {
+                                    override fun onClick(p0: View) {
+                                        startIntentActionView(requireContext(), coupon.website)
+                                    }
+                                }
+                                spannable.setSpan(clickableSpan1, 0, websiteWithoutProtocol.lastIndex + 1 , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                spannable.setSpan(colorSpan, 0, websiteWithoutProtocol.lastIndex + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                binding.textViewAddress.text = spannable
+                                binding.textViewAddress.movementMethod = LinkMovementMethod.getInstance()
+                            }
+                            else {
+
                             }
                             binding.textViewCouponDescription.text = coupon.description.parseAsHtml()
                         }

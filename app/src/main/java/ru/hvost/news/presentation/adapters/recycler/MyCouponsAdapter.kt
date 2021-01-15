@@ -1,8 +1,14 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +16,9 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_coupon.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
+import ru.hvost.news.databinding.ItemCouponBinding
 import ru.hvost.news.models.Coupons
+import ru.hvost.news.utils.startIntentActionView
 
 class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
     private var couponsFull = arrayListOf<Coupons.Coupon>()
@@ -42,9 +50,11 @@ class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_coupon, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(ItemCouponBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+        ))
     }
 
     override fun getItemCount(): Int {
@@ -56,29 +66,36 @@ class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
         holder.bind(item)
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val clRoot = itemView.root_constraint
-        private val tVCouponTitle = itemView.textView_coupon_title
-        private val tVCouponMaxDate = itemView.textView_coupon_date
-        private val tVUsed = itemView.textView_coupon_status
-        private val tVAddress = itemView.textView_address
-
+    inner class ViewHolder(private val binding:ItemCouponBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coupon: Coupons.Coupon) {
-            tVCouponTitle.text = coupon.title.parseAsHtml()
-            tVCouponMaxDate.text = coupon.expirationDate
+            binding.textViewCouponTitle.text = coupon.title.parseAsHtml()
+            binding.textViewCouponDate.text = coupon.expirationDate
             if (coupon.isUsed) {
-                tVUsed.text = itemView.context.getString(R.string.used)
-                tVUsed.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_staus_false)
+                binding.textViewCouponStatus.text = itemView.context.getString(R.string.used)
+                binding.textViewCouponStatus.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_staus_false)
             } else {
-                tVUsed.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_status_true)
-                tVUsed.text = itemView.context.getString(R.string.active)
+                binding.textViewCouponStatus.background = ContextCompat.getDrawable(itemView.context, R.drawable.background_coupon_status_true)
+                binding.textViewCouponStatus.text = itemView.context.getString(R.string.active)
             }
-            if (coupon.address.isNotBlank()) {
-                tVAddress.text = coupon.address
-            } else {
-                tVAddress.visibility = View.GONE
+            if (coupon.isOnlineStore) {
+                val websiteWithoutProtocol = coupon.website.substringAfterLast('/')
+                val spannable = SpannableString(websiteWithoutProtocol)
+                val colorSpan =
+                        ForegroundColorSpan(ContextCompat.getColor(itemView.context, R.color.colorPrimary))
+                val clickableSpan1 = object : ClickableSpan() {
+                    override fun onClick(p0: View) {
+                        startIntentActionView(itemView.context, coupon.website)
+                    }
+                }
+                spannable.setSpan(clickableSpan1, 0, websiteWithoutProtocol.lastIndex + 1 , Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannable.setSpan(colorSpan, 0, websiteWithoutProtocol.lastIndex + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                binding.textViewAddress.text = spannable
+                binding.textViewAddress.movementMethod = LinkMovementMethod.getInstance()
             }
-            clRoot.setOnClickListener {
+            else{
+                binding.textViewAddress.text = coupon.address
+            }
+            binding.rootConstraint.setOnClickListener {
                 clickCoupon?.click(coupon)
             }
         }

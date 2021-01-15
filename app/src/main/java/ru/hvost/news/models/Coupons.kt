@@ -16,7 +16,9 @@ data class Coupons(
         val shortDescription: String,
         val description: String,
         val expirationDate: String,
-        val address:String,
+        val address: String,
+        val website: String,
+        val isOnlineStore: Boolean,
         val imageQRCodeUrl:String,
         val qrCode: String
     ) : Serializable
@@ -35,19 +37,19 @@ fun List<CouponsResponse.Coupon>?.toOfflineLessons(): List<Coupons.Coupon> {
         for ((index, couponResponse) in this.withIndex()) {
             result.add(
                 Coupons.Coupon(
-                    domainId = index,
-                    couponId = couponResponse.couponId ?: "",
-                    imageUrl = couponResponse.imageUrl ?: "",
-                    isUsed = couponResponse.isUsed ?: true,
-                    title = couponResponse.title ?: "",
-                    shortDescription = couponResponse.shortDescription ?: "",
-                    description = couponResponse.description ?: "",
-                    expirationDate = couponResponse.expirationDate ?: "",
-                    address = couponResponse.address ?: "",
-                    imageQRCodeUrl = couponResponse.imageQRCodeUrl ?: "",
-                    qrCode = couponResponse.qrCode ?: "",
-
-
+                        domainId = index,
+                        couponId = couponResponse.couponId ?: "",
+                        imageUrl = couponResponse.imageUrl ?: "",
+                        isUsed = couponResponse.isUsed ?: true,
+                        title = couponResponse.title ?: "",
+                        shortDescription = couponResponse.shortDescription ?: "",
+                        description = couponResponse.description ?: "",
+                        expirationDate = couponResponse.expirationDate ?: "",
+                        address = couponResponse.address ?: "",
+                        website = couponResponse.website ?: "",
+                        isOnlineStore = couponResponse.isOnlineStore ?: false,
+                        imageQRCodeUrl = couponResponse.imageQRCodeUrl ?: "",
+                        qrCode = couponResponse.qrCode ?: "",
                 )
             )
         }
