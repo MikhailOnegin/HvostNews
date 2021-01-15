@@ -280,20 +280,15 @@ class PetPassportFragment : BaseFragment() {
         }
         bottomSheetBinding.addDisease.setOnClickListener {
             val current = (binding.list.adapter as PetDiseasesAdapter).currentList
-            var newList = mutableListOf<Diseases>()
+            var newList = mutableListOf<String>()
             if (!current.isNullOrEmpty()) {
                 newList = current.toMutableList()
             }
             val newDisease = bottomSheetBinding.diseaseTitle.text.toString()
             val isNotOriginal =
-                current.any { it.diseaseName.equals(newDisease, ignoreCase = true) }
+                current.any { it.equals(newDisease, ignoreCase = true) }
             if (!isNotOriginal) {
-                newList.add(
-                    Diseases(
-                        id = newList.size.inc().toString(),
-                        diseaseName = newDisease
-                    )
-                )
+                newList.add(newDisease)
                 (binding.list.adapter as PetDiseasesAdapter).submitList(newList)
                 addDiseaseDialog.dismiss()
                 createSnackbar(
@@ -333,10 +328,10 @@ class PetPassportFragment : BaseFragment() {
     }
 
     private fun updatePetPassport() {
-        var diseases = mutableListOf<Diseases>()
+        var diseases = String()
         binding.list.adapter?.let {
             it as PetDiseasesAdapter
-            diseases = it.currentList.toMutableList()
+            diseases = it.currentList.joinToString(",")
         }
         val data = mainVM.petPassportResponse.value
         if (data?.petId != null) {
@@ -350,7 +345,7 @@ class PetPassportFragment : BaseFragment() {
                 (binding.parazites.selectedItem as Preps).id,
                 exoparazitesDate.value.toString(),
                 (binding.petFood.selectedItem as PetFood).id,
-                diseases.joinToString(separator = ","),
+                diseases,
                 binding.clinicName.text.toString(),
                 binding.address.text.toString()
             )

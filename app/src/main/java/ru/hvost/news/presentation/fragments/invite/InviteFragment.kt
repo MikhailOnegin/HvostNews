@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.doOnTextChanged
@@ -49,6 +50,20 @@ class InviteFragment : Fragment() {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.white)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback =
+            requireActivity().onBackPressedDispatcher.addCallback {
+                val isVisible = binding.instructionsContainer.visibility == View.VISIBLE
+                if (isVisible) {
+                    animateFadeDialog(false)
+                } else {
+                    findNavController().popBackStack()
+                }
+            }
+        callback.isEnabled = true
     }
 
     override fun onCreateView(

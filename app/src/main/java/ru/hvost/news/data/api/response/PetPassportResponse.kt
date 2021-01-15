@@ -12,13 +12,8 @@ data class PetPassportResponse(
     val exoparasiteId: String?,
     val exoparasitesDate: String?,
     val feedingTypeId: String?,
-    val diseases: List<Diseases>,
+    val diseases: List<String>,
     val favouriteVetName: String?,
     val favouriteVetAdress: String?,
     val error: String?
-)
-
-data class Diseases(
-    val id: String?,
-    val diseaseName: String?
 )

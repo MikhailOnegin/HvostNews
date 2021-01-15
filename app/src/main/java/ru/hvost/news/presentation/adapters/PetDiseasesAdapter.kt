@@ -3,18 +3,14 @@ package ru.hvost.news.presentation.adapters
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.R
-import ru.hvost.news.data.api.response.Diseases
 import ru.hvost.news.databinding.RvDiseasesBinding
 
 class PetDiseasesAdapter() :
-    ListAdapter<Diseases, PetDiseasesAdapter.DiseasesViewHolder>(DiseasesDiffUtilCallback()) {
+    ListAdapter<String, PetDiseasesAdapter.DiseasesViewHolder>(DiseasesDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiseasesViewHolder {
         return DiseasesViewHolder.getPetVH(parent, this)
@@ -28,14 +24,14 @@ class PetDiseasesAdapter() :
         private val binding: RvDiseasesBinding,
         private val adapter: PetDiseasesAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(disease: Diseases) {
-            binding.diseasTitle.text = disease.diseaseName
+        fun bind(disease: String) {
+            binding.diseasTitle.text = disease
             binding.delete.setOnClickListener {
                 animateFadeDialog(disease)
             }
         }
 
-        private fun animateFadeDialog(disease: Diseases) {
+        private fun animateFadeDialog(disease: String) {
             val animator = ValueAnimator.ofFloat(binding.root.alpha, 0f)
             animator.duration = 200L
             animator.addUpdateListener {
@@ -46,7 +42,7 @@ class PetDiseasesAdapter() :
         }
 
         inner class OnDialogDismissAnimationListener(
-            private val disease: Diseases
+            private val disease: String
         ) : Animator.AnimatorListener {
 
             override fun onAnimationStart(animation: Animator?) {}
@@ -75,12 +71,12 @@ class PetDiseasesAdapter() :
         }
     }
 
-    class DiseasesDiffUtilCallback : DiffUtil.ItemCallback<Diseases>() {
-        override fun areItemsTheSame(oldItem: Diseases, newItem: Diseases): Boolean {
-            return oldItem.id == newItem.id
+    class DiseasesDiffUtilCallback : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem.equals(newItem, ignoreCase = true)
         }
 
-        override fun areContentsTheSame(oldItem: Diseases, newItem: Diseases): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
