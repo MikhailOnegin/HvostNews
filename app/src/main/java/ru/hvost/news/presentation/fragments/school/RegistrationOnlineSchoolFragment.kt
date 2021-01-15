@@ -126,7 +126,6 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
             idSchool?.run {
                 for (i in it.onlineSchools.indices) {
                     val school = it.onlineSchools[i]
-                    onlineSchool = school
                     if (school.id.toString() == this) {
                         onlineSchool = school
                         val head = "Регистрация на онлайн семинар \"${school.title}\""
