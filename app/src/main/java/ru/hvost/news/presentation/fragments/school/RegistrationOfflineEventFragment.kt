@@ -29,6 +29,7 @@ import ru.hvost.news.presentation.dialogs.AddPetRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.startIntentActionView
 
 class RegistrationOfflineEventFragment : BaseFragment() {
 
@@ -68,11 +69,7 @@ class RegistrationOfflineEventFragment : BaseFragment() {
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         val clickableSpan1 = object : ClickableSpan() {
             override fun onClick(p0: View) {
-                val newIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://yandex.ru/legal/rules")
-                )
-                startActivity(newIntent)
+                startIntentActionView(requireContext(), "https://hvost.news/upload/iblock/78f/Politika-konfidentsialnosti-hvost.news.pdf")
             }
         }
         spannable.setSpan(clickableSpan1, 19, 46, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

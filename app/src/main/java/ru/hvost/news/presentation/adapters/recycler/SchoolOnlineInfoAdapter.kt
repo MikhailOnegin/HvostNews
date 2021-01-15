@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.layout_what_wait_school_online.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
+import ru.hvost.news.databinding.ItemSchoolOnlineInfoBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.databinding.LayoutWhatWaitSchoolOnlineBinding
 import ru.hvost.news.models.OnlineSchools
@@ -37,9 +38,11 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_school_online_info, parent, false)
-        return MainViewHolder(view)
+        return MainViewHolder(ItemSchoolOnlineInfoBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+        ))
     }
 
     override fun getItemCount(): Int {
@@ -55,23 +58,18 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         }
     }
 
-    inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tVDescription = itemView.textView_description_wait
-        private val iVInfo = itemView.imageView_info
-        private val includeLiterature = itemView.include_literature
-        private val constraintWhatWait = itemView.constraint_what_wait
-
+    inner class MainViewHolder(private val binding:ItemSchoolOnlineInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(school: OnlineSchools.OnlineSchool){
-            tVDescription.movementMethod = LinkMovementMethod()
-            tVDescription.text = school.description.parseAsHtml()
+            binding.textViewDescriptionWait.movementMethod = LinkMovementMethod()
+            binding.textViewDescriptionWait.text = school.description.parseAsHtml()
 
             Glide.with(itemView.context).load(baseUrl + school.image)
                 .placeholder(R.drawable.not_found).centerCrop()
-                .into(iVInfo)
+                .into(binding.imageViewInfo)
 
             if(school.wait.isNotEmpty()) {
 
-                constraintWhatWait.visibility = View.VISIBLE
+                binding.constraintWhatWait.visibility = View.VISIBLE
                 val gridLayoutWait = itemView.gridLayout
                 gridLayoutWait.removeAllViews()
                 for (i in school.wait.indices) {
@@ -108,7 +106,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
 
             if(school.literature.isNotEmpty()) {
-                includeLiterature.visibility = View.VISIBLE
+                binding.includeLiterature.root.visibility = View.VISIBLE
                 val containerLiterature = itemView.linearLayout_literature
                 containerLiterature.removeAllViews()
                 for (i in school.literature.indices) {

@@ -73,12 +73,10 @@ class SchoolParentsFragment : BaseFragment() {
         }
         offlineSeminarsAdapter.onClickLesson =
             object : OfflineSeminarsAdapter.OnClickOfflineLesson {
-                override fun onClick(lessonId: String) {
-                    val bundle = Bundle()
-                    bundle.putString("seminarId", lessonId)
+                override fun onClick(lessonId: Int) {
+                    schoolVM.seminarId.value = lessonId
                     findNavController().navigate(
                         R.id.action_parentSchoolFragment_to_offline_event_fragment,
-                        bundle
                     )
                 }
             }

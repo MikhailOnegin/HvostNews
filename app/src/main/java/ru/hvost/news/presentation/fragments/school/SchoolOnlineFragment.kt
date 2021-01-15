@@ -134,6 +134,11 @@ class SchoolOnlineFragment : BaseFragment() {
         App.getInstance().userToken?.run {
             schoolVM.getOnlineSchools(this)
         }
+        schoolVM.onlineLessons.value?.lessons?.let{
+            if (it.isEmpty()) binding.textViewEmpty.visibility = View.VISIBLE
+            else binding.textViewEmpty.visibility = View.GONE
+        }
+
     }
 
     private fun initializedEvents() {

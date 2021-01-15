@@ -14,6 +14,9 @@ import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
 import ru.hvost.news.R
+import ru.hvost.news.databinding.ItemSchoolLessonOnlineActiveBinding
+import ru.hvost.news.databinding.ItemSchoolLessonOnlineFinishedBinding
+import ru.hvost.news.databinding.ItemUsefulLiteratureBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
@@ -56,19 +59,25 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewLessonActive = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_school_lesson_online_active, parent, false)
-
-        val viewLessonFinished = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_school_lesson_online_finished, parent, false)
-
         val viewLiterature = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_useful_literature, parent, false)
 
         return when (viewType) {
-            TYPE_LESSON_ACTIVE -> LessonActiveViewHolder(viewLessonActive)
-            TYPE_LESSON_FINISHED -> LessonFinishedViewHolder(viewLessonFinished)
-            else -> UsefulLiteratureViewHolder(viewLiterature)
+            TYPE_LESSON_ACTIVE -> LessonActiveViewHolder(ItemSchoolLessonOnlineActiveBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+            ))
+            TYPE_LESSON_FINISHED -> LessonFinishedViewHolder(ItemSchoolLessonOnlineFinishedBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+            ))
+            else -> UsefulLiteratureViewHolder(ItemUsefulLiteratureBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+            ))
         }
     }
 
@@ -91,7 +100,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         when (holder) {
             is LessonActiveViewHolder -> {
                 val lesson = onlineLessons[position]
-                holder.bind(lesson, position)
+                holder.bind(lesson)
             }
             is LessonFinishedViewHolder -> {
                 val lesson = onlineLessons[position]
@@ -102,53 +111,41 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    inner class LessonActiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val constraint = itemView.constraint_lesson
-        private val tVNumber = itemView.textView_number
-        private val tVTittle = itemView.textView_title
-        private val tVAge = itemView.textView_age
-        private val iVGo = itemView.imageView_play
-
-        fun bind(lesson: OnlineLessons.OnlineLesson, position:Int) {
-            tVNumber.text = lesson.lessonNumber
-            tVTittle.text = lesson.lessonTitle.parseAsHtml()
+    inner class LessonActiveViewHolder(private val binding:ItemSchoolLessonOnlineActiveBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(lesson: OnlineLessons.OnlineLesson) {
+            binding.textViewNumber.text = lesson.lessonNumber
+            binding.textViewTitle.text = lesson.lessonTitle.parseAsHtml()
             if(lesson.petAge.isNotBlank()){
                 val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
-                tVAge.text = age
+                binding.textViewAge.text = age
             }
             firstActiveLessonId?.run {
                 if (this == lesson.lessonId) {
-                    iVGo.visibility = View.VISIBLE
-                    tVTittle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray1))
-                    constraint.setOnClickListener {
+                    binding.imageViewPlay.visibility = View.VISIBLE
+                    binding.textViewTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray1))
+                    binding.constraintLesson.setOnClickListener {
                         onClickLessonActive?.onClick(lesson.lessonId)
                     }
                 }
                 else {
-                    iVGo.visibility = View.GONE
-                    tVTittle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray3))
+                    binding.imageViewPlay.visibility = View.GONE
+                    binding.textViewTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray3))
                 }
             }
         }
     }
 
-    inner class LessonFinishedViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
-        private val tVNumber = itemView.textView_number_finished
-        private val tVTitle = itemView.textView_title_finished
-        private val constraint = itemView.constraint_lesson_Finished
-
+    inner class LessonFinishedViewHolder(private val binding: ItemSchoolLessonOnlineFinishedBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(lesson: OnlineLessons.OnlineLesson){
-            tVNumber.text = lesson.lessonNumber
-            tVTitle.text = lesson.lessonTitle.parseAsHtml()
-            constraint.setOnClickListener {
+            binding.textViewNumberFinished.text = lesson.lessonNumber
+            binding.textViewTitleFinished.text = lesson.lessonTitle.parseAsHtml()
+            binding.constraintLessonFinished.setOnClickListener {
                 onClickLessonFinished?.onClick(lesson.lessonId)
             }
         }
     }
 
-    inner class UsefulLiteratureViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val constraintRoot = itemView.constraint_root
-
+    inner class UsefulLiteratureViewHolder(private val binding:ItemUsefulLiteratureBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
                 if (school.literature.isNotEmpty()) {
@@ -188,7 +185,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
                 else {
-                   constraintRoot.visibility = View.GONE
+                   binding.rootConstraint.visibility = View.GONE
                 }
             }
         }

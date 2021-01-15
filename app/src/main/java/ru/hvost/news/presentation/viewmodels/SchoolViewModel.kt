@@ -82,6 +82,8 @@ class SchoolViewModel: ViewModel() {
         }
 
     }
+    val seminarId:MutableLiveData<Int> = MutableLiveData()
+    val petTypeName:MutableLiveData<String> = MutableLiveData()
 
     private val _onlineSchoolsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineSchoolsEvent:LiveData<NetworkEvent<State>> = _onlineSchoolsEvent

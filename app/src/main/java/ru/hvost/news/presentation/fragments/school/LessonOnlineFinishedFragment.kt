@@ -99,7 +99,7 @@ class LessonOnlineFinishedFragment : BaseFragment() {
                             }
                             container.addView(viewLiterature)
                         }
-                    } else binding.includeLiterature.constraintRoot.visibility = View.GONE
+                    } else binding.includeLiterature.rootConstraint.visibility = View.GONE
                 }
             }
         })

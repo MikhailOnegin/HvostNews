@@ -5,22 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_school_offline_event.*
 import kotlinx.android.synthetic.main.layout_tab_item_seminar.view.*
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
 import ru.hvost.news.databinding.LayoutTabItemSeminarBinding
-import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarInfoAdapter
-import ru.hvost.news.presentation.adapters.recycler.OfflineSeminarScheduleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
@@ -30,7 +26,6 @@ class OfflineEventFragment : BaseFragment() {
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var fm: FragmentManager
     private var seminarId: String? = null
-    private var scheduleAdapter = OfflineSeminarScheduleAdapter()
     private var active: Boolean? = null
     private var tabsView = arrayListOf<ConstraintLayout>()
 
@@ -60,9 +55,9 @@ class OfflineEventFragment : BaseFragment() {
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineSeminars.observe(owner, {
             seminarId?.run {
+                val d = 2
                 for (i in it.seminars.indices) {
                     val seminar = it.seminars[i]
-                    scheduleAdapter.setSeminar(seminar)
                     if (seminar.id.toString() == seminarId) {
 
                         if (seminar.isFinished) {
@@ -200,10 +195,10 @@ class OfflineEventFragment : BaseFragment() {
         }
     }
 
-   private fun setListenerTab(view:View, listView:List<View>){
+   private fun setListenerTab(view:View, list:List<View>){
         view.setOnClickListener {
-            for( i in listView.indices){
-                listView[i].isSelected = false
+            for( i in list.indices){
+                list[i].isSelected = false
             }
             it.isSelected = true
         }
