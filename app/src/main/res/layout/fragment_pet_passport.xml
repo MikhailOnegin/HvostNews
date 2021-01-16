@@ -299,7 +299,7 @@
                 android:id="@+id/cancel"
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
+                android:layout_height="@dimen/smallHeightButton"
                 android:layout_marginHorizontal="@dimen/profileCoverPadding"
                 android:backgroundTint="@color/gray4_half_opacity"
                 android:fontFamily="@font/gilroy_bold"
