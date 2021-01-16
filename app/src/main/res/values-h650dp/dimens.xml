@@ -75,7 +75,7 @@
     <dimen name="bottomSheetTopThingSideMargins">150dp</dimen>
     <dimen name="profileCoverPadding">25dp</dimen>
     <dimen name="subtitleProfileTextSize">18sp</dimen>
-    <dimen name="mainTitleTextSize">32sp</dimen>
+    <dimen name="mainTitleTextSize">36sp</dimen>
     <dimen name="ButtonHeight">60dp</dimen>
     <dimen name="iconSize">40dp</dimen>
     <dimen name="profileSmallTextSize">16sp</dimen>
@@ -129,4 +129,16 @@
     <dimen name="prizeItemTextSize">18sp</dimen>
     <dimen name="cartPrizeImageSize">80dp</dimen>
     <dimen name="productCountTextSize">14sp</dimen>
+    <dimen name="tabTitleTextSize">24sp</dimen>
+    <dimen name="smallButtonTextSize">14sp</dimen>
+    <dimen name="articleTitleTextSize">20sp</dimen>
+    <dimen name="articleDescriptionTextSize">18sp</dimen>
+    <dimen name="maxFeedChipsWidth">180dp</dimen>
+    <dimen name="checkboxSize">20dp</dimen>
+    <dimen name="filtersIconSize">48dp</dimen>
+    <dimen name="textTitleSize">14sp</dimen>
+    <dimen name="domainsStrokeWidth">5dp</dimen>
+    <dimen name="tabLayoutHeight">50dp</dimen>
+    <dimen name="subdomainTabTextSize">14sp</dimen>
+    <dimen name="editTextSize">16sp</dimen>
 </resources>

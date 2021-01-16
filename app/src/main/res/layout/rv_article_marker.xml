@@ -20,6 +20,7 @@
 
     <TextView
         android:id="@+id/text"
+        android:lineSpacingExtra="@dimen/textLineSpacingExtra"
         tools:text="Кошки покорили весь мир. И нежное мурлыканье однозначно им в этом помогло! А вы знали, что мурлыканье – это не только приятная музыка для нашего слуха, но и польза для здоровья?"
         android:textSize="@dimen/articleTextSize"
         android:textColor="@color/gray2"

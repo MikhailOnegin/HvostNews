@@ -17,6 +17,7 @@ import com.google.firebase.installations.Utils
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentEditProfileBinding
+import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.services.FcmService
 import ru.hvost.news.utils.createSnackbar
@@ -64,11 +65,12 @@ class EditProfileFragment : BaseFragment() {
         onChangeUserDataLoadingEvent = DefaultNetworkEventObserver(
             binding.root,
             doOnSuccess = {
+                mainVM.loadUserData()
                 createSnackbar(
-                    binding.root,
+                    (requireActivity() as MainActivity).getMainView(),
                     getString(R.string.userDataChangedSuccessfully),
-                    getString(R.string.buttonOk)
-                ) { findNavController().popBackStack() }.show()
+                ).show()
+                findNavController().popBackStack()
             },
         )
     }

@@ -10,6 +10,6 @@
 
     <stroke
         android:color="@color/gray5"
-        android:width="5dp"/>
+        android:width="@dimen/domainsStrokeWidth"/>
 
 </shape>

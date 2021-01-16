@@ -30,7 +30,7 @@
                     android:background="@color/gray5"
                     android:fontFamily="@font/gilroy_bold"
                     android:paddingHorizontal="@dimen/xLargeMargin"
-                    android:paddingTop="@dimen/xLargeMargin"
+                    android:paddingTop="@dimen/ButtonHeight"
                     android:paddingBottom="@dimen/largeMargin"
                     android:text="@string/inviteFriends"
                     android:textAlignment="center"
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/smallMargin"
                     android:orientation="vertical"
-                    android:padding="@dimen/screenContentPadding">
+                    android:padding="@dimen/profileCoverPadding">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -233,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/smallMargin"
                     android:orientation="vertical"
-                    android:padding="@dimen/screenContentPadding">
+                    android:padding="@dimen/profileCoverPadding">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -274,7 +274,7 @@
 
                     <Button
                         android:id="@+id/sendToEmail"
-                        style="@style/ElevatedButton"
+                        style="@style/UnelevatedButton"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/buttonHeight"
                         android:text="@string/buttonSend" />
@@ -291,7 +291,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/largeMargin"
                     android:orientation="vertical"
-                    android:padding="@dimen/screenContentPadding">
+                    android:padding="@dimen/profileCoverPadding">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -334,6 +334,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/link"
+                                android:enabled="false"
                                 style="@style/TextInputEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -360,10 +361,10 @@
 
                 <Button
                     android:id="@+id/toPrizes"
-                    style="@style/ElevatedButton"
+                    style="@style/UnelevatedButton.Orange"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/buttonHeight"
-                    android:layout_marginHorizontal="@dimen/screenContentPadding"
+                    android:layout_marginHorizontal="@dimen/profileCoverPadding"
                     android:layout_marginBottom="@dimen/smallMargin"
                     android:backgroundTint="@color/_1"
                     android:gravity="center"

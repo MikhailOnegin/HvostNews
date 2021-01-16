@@ -11,6 +11,7 @@
         android:elevation="@dimen/listItemElevation"
         android:orientation="horizontal"
         android:paddingStart="@dimen/normalMargin"
+        android:background="@drawable/ripple_domain_item_rectangle_gray"
         android:paddingEnd="0dp">
 
         <TextView

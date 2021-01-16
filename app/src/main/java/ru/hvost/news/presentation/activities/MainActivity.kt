@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun printDeviceInfo() {
-        if(App.LOG_ENABLED && BuildConfig.DEBUG)
+        if (App.LOG_ENABLED && BuildConfig.DEBUG)
             Log.d(App.DEBUG_TAG, resources.configuration.toString())
     }
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             MapKitFactory.setApiKey(APIService.YANDEX_MAPKIT_KEY)
             MapKitFactory.initialize(this)
         } catch (exc: AssertionError) {
-            if(App.LOG_ENABLED) {
+            if (App.LOG_ENABLED) {
                 Log.e(App.DEBUG_TAG, "Can\'t initialize yandex maps: $exc")
             }
         }
@@ -82,8 +82,8 @@ class MainActivity : AppCompatActivity() {
         App.getInstance().logOut()
     }
 
-    fun showBnv(){
-        if(isBnvShown) return
+    fun showBnv() {
+        if (isBnvShown) return
         val animator = ObjectAnimator.ofFloat(
             binding.bnv,
             "alpha",
@@ -172,6 +172,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun subscribeToNewArticlesTopic() {
         FirebaseMessaging.getInstance().subscribeToTopic(FcmService.TOPIC_NEW_ARTICLES)
+    }
+
+    fun getMainView(): View {
+        return binding.root
     }
 
     companion object {

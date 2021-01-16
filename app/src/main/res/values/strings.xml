@@ -23,6 +23,7 @@
     <string name="sport">Занятие спортом</string>
     <string name="saloons">Посещение грумминг-салонов</string>
     <string name="delete">Удалить питомца</string>
+    <string name="deleteButton">Удалить</string>
     <string name="type">Вид питомца</string>
     <string name="breed">Порода</string>
     <string name="toy">Любимая игрушка</string>
@@ -439,6 +440,7 @@
     <string name="shopNotFound">Магазин не найден</string>
     <string name="success">Успешно</string>
     <string name="userDataChangedSuccessfully">Ваши данные успешно сохранены</string>
+    <string name="petDataChangedSuccessfully">Данные успешно изменены</string>
     <string name="good">Хорошо</string>
     <string name="no_required_attachments_fo_intent">Не найдено приложений для открытия файла</string>
     <string name="unknown_error">Неизвестная ошибка</string>
@@ -466,4 +468,5 @@
     <string name="registrated_online_school">Регистрация на онлайн семинар</string>
     <string name="registrated_offline_semianar">Регистрация на оффлайн семинар</string>
     <string name="you_are_subscribe_for_event">Вы подписаны на уведомления</string>
+    <string name="confirmDelete">Вы действительно хотите удалить данного питомца?</string>
 </resources>

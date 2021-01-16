@@ -80,7 +80,7 @@
                     android:letterSpacing="-0.03"
                     android:text="@string/petPassportButton"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/profileSwitchTextSize"
+                    android:textSize="@dimen/dialogSubtitleTextSize"
                     app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
 
             </LinearLayout>
@@ -132,15 +132,16 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:visibility="gone" />
 
             <ru.hvost.news.presentation.customviews.ValueHolderView
                 android:id="@+id/birthday"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/smallMargin"
                 android:layout_height="@dimen/widgetsHeight"
-                app:iconResource="@drawable/ic_date"
-                app:holderHint="@string/petBirthdayHint"/>
+                android:layout_marginBottom="@dimen/smallMargin"
+                app:holderHint="@string/petBirthdayHint"
+                app:iconResource="@drawable/ic_date" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/ProfileTextInputLayout"
@@ -158,7 +159,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--TODO: Игрушка       -->
             <Spinner
                 android:id="@+id/favToy"
                 style="@style/RegSpinner"
@@ -198,8 +198,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--TODO: все свитчи     -->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -215,15 +213,15 @@
                     android:gravity="center_vertical"
                     android:text="@string/presentations"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSwitchTextSize" />
+                    android:textSize="@dimen/dialogSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_shows"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
+                    android:scaleX="@dimen/switch_scale"
+                    android:scaleY="@dimen/switch_scale"
                     android:thumb="@drawable/ic_baseline_brightness_1_24"
                     android:track="@drawable/track_selector" />
 
@@ -243,15 +241,15 @@
                     android:gravity="center_vertical"
                     android:text="@string/titules"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSwitchTextSize" />
+                    android:textSize="@dimen/dialogSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_titules"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
+                    android:scaleX="@dimen/switch_scale"
+                    android:scaleY="@dimen/switch_scale"
                     android:thumb="@drawable/ic_baseline_brightness_1_24"
                     android:track="@drawable/track_selector" />
 
@@ -271,15 +269,15 @@
                     android:gravity="center_vertical"
                     android:text="@string/sport"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSwitchTextSize" />
+                    android:textSize="@dimen/dialogSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_sport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
+                    android:scaleX="@dimen/switch_scale"
+                    android:scaleY="@dimen/switch_scale"
                     android:thumb="@drawable/ic_baseline_brightness_1_24"
                     android:track="@drawable/track_selector" />
 
@@ -299,21 +297,20 @@
                     android:gravity="center_vertical"
                     android:text="@string/saloons"
                     android:textColor="@color/gray1"
-                    android:textSize="@dimen/profileSwitchTextSize" />
+                    android:textSize="@dimen/dialogSubtitleTextSize" />
 
                 <Switch
                     android:id="@+id/switch_saloons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
+                    android:scaleX="@dimen/switch_scale"
+                    android:scaleY="@dimen/switch_scale"
                     android:thumb="@drawable/ic_baseline_brightness_1_24"
                     android:track="@drawable/track_selector" />
 
             </LinearLayout>
 
-            <!--TODO: образование       -->
             <Spinner
                 android:id="@+id/education"
                 style="@style/RegSpinner"
@@ -321,43 +318,42 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/largeMargin" />
 
-            <!--TODO: кнопка сохранить       -->
             <Button
                 android:id="@+id/save"
-                style="@style/ElevatedButton"
+                style="@style/UnelevatedButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ButtonHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/saveChanges"
-                android:textSize="@dimen/buttonMediumTextSize" />
-
-            <!--TODO: кнопка отмены        -->
+                android:textSize="@dimen/ButtonTextSize" />
 
             <Button
                 android:id="@+id/cancel"
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
+                android:layout_marginBottom="@dimen/smallMargin"
                 android:backgroundTint="@color/gray4_half_opacity"
                 android:fontFamily="@font/gilroy_bold"
+                android:letterSpacing="-0.02"
                 android:text="@string/cancelChanges"
                 android:textAllCaps="false"
-                android:textSize="@dimen/buttonMediumTextSize"
-                app:cornerRadius="@dimen/buttonShapeAppearanceCornerSize" />
+                android:textSize="@dimen/ButtonTextSize"
+                app:cornerRadius="@dimen/mediumCorners" />
 
             <Button
                 android:id="@+id/delete"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
-                android:backgroundTint="@android:color/white"
                 android:fontFamily="@font/gilroy_bold"
+                android:letterSpacing="-0.02"
                 android:text="@string/delete"
                 android:textAllCaps="false"
                 android:textColor="@color/titleText"
-                android:textSize="@dimen/buttonMediumTextSize"
-                app:cornerRadius="@dimen/userProfileButtonLargeRadius"
+                android:textSize="@dimen/ButtonTextSize"
+                app:cornerRadius="@dimen/mediumCorners"
                 app:layout_constraintTop_toBottomOf="@+id/work"
                 app:strokeColor="@color/btnStroke"
                 app:strokeWidth="@dimen/strokeWidthOutlinedButton" />
