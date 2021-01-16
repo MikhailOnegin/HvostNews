@@ -26,7 +26,7 @@
     <dimen name="widgetsHeight">50dp</dimen>
     <dimen name="rvInterestHeight">130dp</dimen>
     <dimen name="rvInterestTextSize">14sp</dimen>
-    <dimen name="regSexHeight">40dp</dimen>
+    <dimen name="regSexHeight">35dp</dimen>
     <dimen name="sexTextTextSize">12sp</dimen>
     <dimen name="bnvTextSize">12sp</dimen>
     <dimen name="mapsSwitchTextSize">14sp</dimen>
@@ -107,7 +107,7 @@
     <dimen name="emptyViewTextSize">22sp</dimen>
     <dimen name="toolbarTitleTextSizeLarge">18sp</dimen>
     <dimen name="ic_back">20dp</dimen>
-    <dimen name="dialogSubtitleTextSize">14sp</dimen>
+    <dimen name="dialogSubtitleTextSize">16sp</dimen>
     <dimen name="switch_scale">0.6</dimen>
     <dimen name="marginToPromo">4dp</dimen>
     <dimen name="smallHeightButton">55dp</dimen>
@@ -140,4 +140,5 @@
     <dimen name="domainsStrokeWidth">4dp</dimen>
     <dimen name="tabLayoutHeight">44dp</dimen>
     <dimen name="subdomainTabTextSize">12sp</dimen>
+    <dimen name="editTextSize">14sp</dimen>
 </resources>

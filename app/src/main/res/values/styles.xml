@@ -73,6 +73,10 @@
         <item name="backgroundTint">@color/unelevated_gray_button_background_tint</item>
     </style>
 
+    <style name="UnelevatedButton.Orange">
+        <item name="backgroundTint">@color/_1</item>
+    </style>
+
     <style name="bnvTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/gilroy_semibold</item>
         <item name="android:textSize">@dimen/bnvTextSize</item>

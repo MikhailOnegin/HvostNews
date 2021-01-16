@@ -790,11 +790,9 @@ class MainViewModel : ViewModel() {
                     _petPassportLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _petPassportLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
-                    _petPassportResponse.value = null
                 }
             } catch (exc: Exception) {
                 _petPassportLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
-                _petPassportResponse.value = null
             }
         }
     }
@@ -809,7 +807,7 @@ class MainViewModel : ViewModel() {
         petName: String,
         petSpecies: String,
         petSex: String,
-        petBreed: String,
+        petBreed: String? = null,
         petBirthday: String,
         petDelicies: String,
         petToy: String,
@@ -830,7 +828,7 @@ class MainViewModel : ViewModel() {
                     petName = petName,
                     petSpecies = petSpecies,
                     petSex = petSex,
-                    petBreed = petBreed,
+                    petBreed = petBreed ?: "",
                     petBirthday = petBirthday,
                     petDelicies = petDelicies,
                     petToy = petToy,

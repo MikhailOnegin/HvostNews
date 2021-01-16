@@ -140,4 +140,5 @@
     <dimen name="domainsStrokeWidth">5dp</dimen>
     <dimen name="tabLayoutHeight">50dp</dimen>
     <dimen name="subdomainTabTextSize">14sp</dimen>
+    <dimen name="editTextSize">16sp</dimen>
 </resources>

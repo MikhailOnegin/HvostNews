@@ -74,20 +74,20 @@
     <dimen name="secondaryButtonHeight">86dp</dimen>
     <dimen name="bottomSheetTopThingSideMargins">186dp</dimen>
     <dimen name="profileCoverPadding">25dp</dimen>
-    <dimen name="subtitleProfileTextSize">18sp</dimen>
+    <dimen name="subtitleProfileTextSize">20sp</dimen>
     <dimen name="mainTitleTextSize">40sp</dimen>
-    <dimen name="ButtonHeight">60dp</dimen>
+    <dimen name="ButtonHeight">80dp</dimen>
     <dimen name="iconSize">40dp</dimen>
-    <dimen name="profileSmallTextSize">16sp</dimen>
-    <dimen name="counterTextSize">13sp</dimen>
-    <dimen name="profileTitleTextSize">24sp</dimen>
+    <dimen name="profileSmallTextSize">20sp</dimen>
+    <dimen name="counterTextSize">17sp</dimen>
+    <dimen name="profileTitleTextSize">30sp</dimen>
     <dimen name="profileBackgroundImageHeight">340dp</dimen>
-    <dimen name="buttonMediumTextSize">18sp</dimen>
-    <dimen name="inviteTextSize">15sp</dimen>
+    <dimen name="buttonMediumTextSize">22sp</dimen>
+    <dimen name="inviteTextSize">19sp</dimen>
     <dimen name="profileToPrizesButtonHeight">75dp</dimen>
     <dimen name="semiNormalMargin">13dp</dimen>
-    <dimen name="profileTitleSize">13sp</dimen>
-    <dimen name="orderCountTextSize">26sp</dimen>
+    <dimen name="profileTitleSize">18sp</dimen>
+    <dimen name="orderCountTextSize">32sp</dimen>
     <dimen name="userProfileButtonLargeRadius">15dp</dimen>
     <dimen name="productTitleTextSize">24sp</dimen>
     <dimen name="productArticleTextSize">20sp</dimen>
@@ -107,7 +107,7 @@
     <dimen name="emptyViewTextSize">32sp</dimen>
     <dimen name="toolbarTitleTextSizeLarge">26sp</dimen>
     <dimen name="ic_back">30dp</dimen>
-    <dimen name="dialogSubtitleTextSize">18sp</dimen>
+    <dimen name="dialogSubtitleTextSize">22sp</dimen>
     <dimen name="switch_scale">1</dimen>
     <dimen name="marginToPromo">8dp</dimen>
     <dimen name="smallHeightButton">80dp</dimen>
@@ -140,4 +140,5 @@
     <dimen name="domainsStrokeWidth">6dp</dimen>
     <dimen name="tabLayoutHeight">62dp</dimen>
     <dimen name="subdomainTabTextSize">18sp</dimen>
+    <dimen name="editTextSize">22sp</dimen>
 </resources>
