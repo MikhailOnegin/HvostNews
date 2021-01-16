@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_bottom_sheet_prize_products"
+            android:paddingBottom="22dp">
+
+
+            <CheckBox
+                android:id="@+id/checkBox2"
+                style="@style/CheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/accept_terms_of_agreement"
+                android:textColor="@color/gray2"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_head" />
+
+            <Button
+                android:id="@+id/button_complete_registration"
+                style="@style/UnelevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:enabled="false"
+                android:fontFamily="@font/gilroy_bold"
+                android:paddingLeft="32dp"
+                android:paddingTop="24dp"
+                android:paddingRight="32dp"
+                android:paddingBottom="24dp"
+                android:text="@string/complete_registration"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+
+            <TextView
+                android:id="@+id/textView_head"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:text="@string/not_found"
+                android:textColor="@color/gray1"
+                android:textSize="26sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</FrameLayout>

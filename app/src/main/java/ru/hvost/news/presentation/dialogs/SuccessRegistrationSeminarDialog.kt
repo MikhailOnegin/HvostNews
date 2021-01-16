@@ -9,18 +9,18 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.R
-import ru.hvost.news.databinding.LayoutRegistrationSuccessSeminarBinding
+import ru.hvost.news.databinding.DialogRegistrationSuccessSeminarBinding
 
 class SuccessRegistrationSeminarDialog( private val title:String ): BottomSheetDialogFragment() {
 
-    private lateinit var binding: LayoutRegistrationSuccessSeminarBinding
+    private lateinit var binding: DialogRegistrationSuccessSeminarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = LayoutRegistrationSuccessSeminarBinding.inflate(inflater, container, false)
+        binding = DialogRegistrationSuccessSeminarBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,7 +41,7 @@ class SuccessRegistrationSeminarDialog( private val title:String ): BottomSheetD
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val description = "Регистрация прошла успешно, вы зарегисстрированы на этот семинар " +
+        val description = "Регистрация прошла успешно, вы зарегистрированы на этот семинар " +
                 "\"$title \""
         binding.textViewDescription.text = description
         setListeners()

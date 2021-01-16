@@ -12,6 +12,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.ItemSchoolOfflineSeminarBinding
 import ru.hvost.news.models.OfflineSeminars
+import ru.hvost.news.utils.dateFormat
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -79,19 +80,6 @@ class OfflineSeminarsAdapter :
             }
         }
 
-        private fun dateFormat(s:String): String {
-            var result = ""
-            try {
-                val dateFormat = SimpleDateFormat("d MMMM, yyyy", Locale("ru", "RU"))
-                val jsonDate = SimpleDateFormat("dd.MM.yyyy", Locale("ru", "RU"))
-                val date  = jsonDate.parse(s)
-                date?.run {
-                    result = dateFormat.format(this)
-                }
-            }
-            catch (e:Exception){
-            }
-            return result
-        }
+
     }
 }

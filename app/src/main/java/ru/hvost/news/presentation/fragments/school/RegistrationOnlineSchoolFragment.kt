@@ -1,8 +1,6 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -25,10 +23,11 @@ import ru.hvost.news.databinding.FragmentRegistrationOnlineSchoolBinding
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
-import ru.hvost.news.presentation.dialogs.AddPetRegistrationDialog
+import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.getValue
 import ru.hvost.news.utils.startIntentActionView
 
 class RegistrationOnlineSchoolFragment: BaseFragment() {
@@ -74,6 +73,7 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
         spannable.setSpan(colorSpan, 19, 46, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.checkBox2.text = spannable
         binding.checkBox2.movementMethod = LinkMovementMethod.getInstance()
+        binding.spinnerPets.adapter = SpinnerAdapter(requireContext(), "", arrayListOf("Нет питомцев"), String::getValue)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -118,7 +118,7 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
     @Suppress("UNCHECKED_CAST")
     private fun setObservers(owner: LifecycleOwner) {
         mainVM.userPetsLoadingEvent.observe(owner, loadPetsEvent)
-        schoolVM.enabledRegister.observe(owner, {
+        schoolVM.enabledSchoolRegister.observe(owner, {
             binding.buttonCompleteRegistration.isEnabled = it
         })
         schoolVM.setParticipateEvent.observe(owner, setParticipateEvent)
@@ -128,7 +128,7 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
                     val school = it.onlineSchools[i]
                     if (school.id.toString() == this) {
                         onlineSchool = school
-                        val head = "Регистрация на онлайн семинар \"${school.title}\""
+                        val head = "${getString(R.string.registrated_online_school)} \"${school.title}\""
                         binding.textViewHead.text = head
                     }
                 }
@@ -139,13 +139,13 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
     @SuppressLint("UseCompatLoadingForColorStateLists")
     @Suppress("UNCHECKED_CAST")
     private fun setListeners() {
-        binding.toolbarRegistration.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         binding.imageButtonAddPet.setOnClickListener {
-            AddPetRegistrationDialog().show(
-                childFragmentManager,
-                "info_dialog"
+            AddPetCustomDialog().show(
+                    childFragmentManager,
+                    "info_dialog"
             )
         }
         binding.buttonCompleteRegistration.setOnClickListener {
@@ -169,7 +169,7 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
             }
         }
         binding.checkBox2.setOnCheckedChangeListener { _, b ->
-            schoolVM.enabledRegister.value =
+            schoolVM.enabledSchoolRegister.value =
                 b && binding.spinnerPets.adapter is SpinnerAdapter<*> && binding.spinnerPets.size > 0
         }
         binding.spinnerPets.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -178,7 +178,7 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
 
             @Suppress("UNCHECKED_CAST")
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                schoolVM.enabledRegister.value =
+                schoolVM.enabledSchoolRegister.value =
                     binding.checkBox2.isChecked && binding.spinnerPets.adapter is SpinnerAdapter<*> && binding.spinnerPets.size > 0
             }
         }

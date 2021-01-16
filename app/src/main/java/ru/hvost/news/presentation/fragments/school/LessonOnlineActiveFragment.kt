@@ -55,8 +55,9 @@ class LessonOnlineActiveFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
-
-
+        arguments?.getInt("lessonNumber")?.let {
+            binding
+        }
         initializedEvents()
         setListeners()
         setObservers(this)
@@ -185,7 +186,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                     } else {
                         createSnackbar(
                             anchorView = binding.root,
-                            text = "Произошла ошибка (ответы не загружены)",
+                            text = "Ошибка (ответы не загружены)",
                             resources.getString(R.string.buttonOk),
                         ).show()
                     }
@@ -218,10 +219,10 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             ).root
                             viewLiterature.textView_title.text = literature[i].title
                             viewLiterature.textView_pet.text = literature[i].pet
-                            viewLiterature.constraint_literure.setOnClickListener {
+                            viewLiterature.constraint_literature.setOnClickListener {
                                 startIntentActionView(
                                     requireContext(),
-                                    literature[i].fileUrl
+                                    baseUrl + literature[i].fileUrl
                                 )
                             }
                             val margin = resources.getDimension(R.dimen.largeMargin).toInt()

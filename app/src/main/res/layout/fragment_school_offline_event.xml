@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.fragments.school.OfflineEventFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,7 +25,7 @@
             android:theme="@style/AppTheme.Toolbar"
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="@drawable/ic_back"
-            app:title="@string/lesson" />
+            app:title="@string/event" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -78,8 +79,10 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/btn_offline_seminar"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/participate"
+                android:textColor="@color/btn_offline_seminar_txt"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
@@ -234,11 +237,12 @@
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp">
+                android:paddingEnd="24dp"
+                android:baselineAligned="false">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_seminar_info"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="@dimen/cartSelectorHeight"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_left">
@@ -266,17 +270,18 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentViewSeminar"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_event_offline" />
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentViewSeminar"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation_event_offline" />
 
     </androidx.core.widget.NestedScrollView>
 
