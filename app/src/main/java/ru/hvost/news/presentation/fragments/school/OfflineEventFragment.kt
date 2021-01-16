@@ -20,6 +20,7 @@ import ru.hvost.news.databinding.LayoutTabItemSeminarBinding
 import ru.hvost.news.presentation.dialogs.OfflineRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.dateFormat
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 class OfflineEventFragment : BaseFragment() {
@@ -72,7 +73,6 @@ class OfflineEventFragment : BaseFragment() {
                 for (i in it.seminars.indices) {
                     val seminar = it.seminars[i]
                     if (seminar.id == seminarId) {
-                        val f = 2
                         if (seminar.isFinished) {
                             if(!seminar.subscriptionEvent){
                                 binding.buttonParticipate.text = getString(R.string.subscribe)
@@ -153,7 +153,7 @@ class OfflineEventFragment : BaseFragment() {
                         }
                         binding.textViewTitle.text = seminar.title.parseAsHtml()
                         binding.textViewCity.text = seminar.city
-                        binding.textViewDate.text = seminar.date
+                        binding.textViewDate.text = dateFormat(seminar.date)
                         binding.textViewSponsor.text = seminar.sponsor
                     }
                 }
