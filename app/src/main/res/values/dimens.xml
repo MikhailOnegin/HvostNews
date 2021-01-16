@@ -243,4 +243,6 @@
     <dimen name="orderIconPadding">16dp</dimen>
     <dimen name="itemListMargin">5dp</dimen>
     <dimen name="productCountTextSize">14sp</dimen>
+    <dimen name="domainsStrokeWidth">5dp</dimen>
+    <dimen name="domainTitleMargin">8dp</dimen>
 </resources>
