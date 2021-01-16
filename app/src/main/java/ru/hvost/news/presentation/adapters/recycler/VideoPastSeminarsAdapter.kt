@@ -45,11 +45,13 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
             Glide.with(itemView.context).load(APIService.baseUrl + video.imageVideoUrl)
                 .placeholder(R.drawable.not_found).centerCrop()
                 .into(binding.imageViewVideo)
-            binding.imageViewVideo.setOnClickListener {
+            binding.root
+            binding.constraintVideo.setOnClickListener {
                 startIntentActionView(itemView.context, video.videoUrl)
             }
-            binding.imageViewPlay.setOnClickListener {
-                startIntentActionView(itemView.context, video.videoUrl)
+            if (adapterPosition== videos.lastIndex){
+                val padding = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
+                binding.rootConstraint.setPadding(0,0,padding,0)
             }
         }
     }

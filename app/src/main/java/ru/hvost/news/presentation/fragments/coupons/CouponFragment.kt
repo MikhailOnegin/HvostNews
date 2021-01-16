@@ -108,7 +108,7 @@ class CouponFragment : BaseFragment() {
                                 binding.textViewAddress.movementMethod = LinkMovementMethod.getInstance()
                             }
                             else {
-
+                                binding.textViewAddress.text = coupon.address
                             }
                             binding.textViewCouponDescription.text = coupon.description.parseAsHtml()
                         }

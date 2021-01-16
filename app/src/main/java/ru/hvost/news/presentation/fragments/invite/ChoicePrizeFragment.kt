@@ -83,12 +83,6 @@ class ChoicePrizeFragment : BaseFragment() {
                     binding.root,
                     getString(R.string.addedToCartSuccessfull)
                 ).show()
-            },
-            doOnError = {
-                detailDialog.dismiss()
-            },
-            doOnFailure = {
-                detailDialog.dismiss()
             }
         )
     }

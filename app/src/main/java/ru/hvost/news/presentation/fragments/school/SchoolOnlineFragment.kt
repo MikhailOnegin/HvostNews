@@ -90,17 +90,6 @@ class SchoolOnlineFragment : BaseFragment() {
                     )
                 }
             }
-        materialsAdapter.onClickLiterature =
-            object : SchoolOnlineMaterialsAdapter.OnClickLiterature {
-                override fun onClick(url: String) {
-                    startIntentActionView(requireContext(), url)
-                }
-            }
-        infoAdapter.onClickLiterature = object : SchoolOnlineInfoAdapter.OnClickLiterature {
-            override fun onClick(url: String) {
-                startIntentActionView(requireContext(), url)
-            }
-        }
 
         schoolId?.let { id ->
             this.schoolId = id

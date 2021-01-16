@@ -258,7 +258,7 @@
     <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего питомца на портале «Хвост Ньюс</string>
     <string name="networkErrorMessage">Произошла неизвестная ошибка при взаимодействии с сервером.</string>
     <string name="seminar">Семинар</string>
-    <string name="answer_next_lesson">Для того чтобы открыть слудующий видео-урок ответьте на вопрос по пройденной теме</string>
+    <string name="answer_next_lesson">Для того чтобы открыть следующий видео-урок ответьте на вопрос по пройденной теме</string>
     <string name="to_answer">Ответить</string>
     <string name="wahat_wait_seminars">Что вас ждёт на семинарах?</string>
     <string name="video_last_seminars">Видео с прошлых семинаров</string>
@@ -452,7 +452,7 @@
     <string name="newArticlesChannelDescription">Уведомления о появлении новых статей.</string>
     <string name="orderStatusChannelName">Заказы</string>
     <string name="orderStatusChannelDescription">Уведомления об изменении статусов заказов в интернет-магазине.</string>
-    <string name="schedule_for">Распиание для</string>
+    <string name="schedule_for">Распиание для: </string>
     <string name="empty">Пусто</string>
     <string name="promotionsTitle">Участие в акциях</string>
     <string name="you_yet_dont_registrated_course">Вы ещё не зарегистрированы на этот курс</string>
@@ -461,4 +461,9 @@
     <string name="offlineEventsChannelDescription">Уведомления о новых мероприятиях.</string>
     <string name="not_selected">Не выбрано</string>
     <string name="is_empty">Не заполнено поле</string>
+    <string name="age_not_specified">Возраст: не указан</string>
+    <string name="subscribe">Подписаться</string>
+    <string name="registrated_online_school">Регистрация на онлайн семинар</string>
+    <string name="registrated_offline_semianar">Регистрация на оффлайн семинар</string>
+    <string name="you_are_subscribe_for_event">Вы подписаны на уведомления</string>
 </resources>

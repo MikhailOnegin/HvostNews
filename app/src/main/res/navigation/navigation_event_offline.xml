@@ -14,9 +14,7 @@
             android:id="@+id/action_eventInfoFragment_to_eventScheduleFragment"
             app:destination="@+id/eventScheduleFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -28,16 +26,12 @@
             android:id="@+id/action_eventScheduleFragment_to_eventInfoFragment"
             app:destination="@id/eventInfoFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit"/>
         <action
             android:id="@+id/action_eventScheduleFragment_to_eventScheduleFragment"
             app:destination="@id/eventScheduleFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
-            app:popExitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit"/>
     </fragment>
 
 </navigation>

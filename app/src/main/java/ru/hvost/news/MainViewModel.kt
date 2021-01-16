@@ -328,10 +328,10 @@ class MainViewModel : ViewModel() {
                     _cartChange.value = response
                     _changeCartLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _changeCartLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _changeCartLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                 }
             } catch (exc: Exception) {
-                _changeCartLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _changeCartLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }

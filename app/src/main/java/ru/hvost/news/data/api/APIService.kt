@@ -337,6 +337,12 @@ interface APIService {
         @Query("petId") petId: String?
     ): Deferred<SetParticipateResponse>
 
+    @GET("/rest/School/setSubscribe/")
+    fun setSubscribeAsync(
+        @Query("userToken") userToken: String?,
+        @Query("schoolId") schoolId: String?,
+    ): Deferred<SetSubscribeResponse>
+
     @GET("/rest/Maps/getShops/")
     fun getShopsAsync(
         @Query("userToken") userToken: String?

@@ -113,7 +113,7 @@ class PhoneInputFilter : InputFilter {
         builder.clear()
         builder.append(dest)
         builder.replace(dStart, dEnd, src.substring(start, end))
-        if (builder.length < 3) return dest.substring(dStart, dEnd)
+        if (builder.length < 3 && dest.isNotEmpty()) return dest.substring(dStart, dEnd)
         return if (!pattern.matcher(builder.toString()).matches()) ""
         else {
             builder.append("-")
@@ -366,4 +366,19 @@ fun formatPhoneString(phone: String?): String {
             prefix
         }
     }
+}
+
+fun dateFormat(s:String): String {
+    var result = ""
+    try {
+        val dateFormat = SimpleDateFormat("d MMMM, yyyy", Locale("ru", "RU"))
+        val jsonDate = SimpleDateFormat("dd.MM.yyyy", Locale("ru", "RU"))
+        val date  = jsonDate.parse(s)
+        date?.run {
+            result = dateFormat.format(this)
+        }
+    }
+    catch (e:Exception){
+    }
+    return result
 }
