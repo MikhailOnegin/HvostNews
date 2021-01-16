@@ -202,7 +202,7 @@ class ProfileFragment : BaseFragment() {
     private fun setRecyclerView() {
         val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putString("PET_ID", id)
+            bundle.putString(PET_ID, id)
             findNavController().navigate(R.id.action_profileFragment_to_petProfileFragment, bundle)
         }
         val adapter = PetAdapter(onActionClicked)
@@ -232,6 +232,10 @@ class ProfileFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    companion object {
+        const val PET_ID = "PET_ID"
     }
 
 }

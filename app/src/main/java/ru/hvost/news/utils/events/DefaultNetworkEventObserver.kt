@@ -9,26 +9,31 @@ import ru.hvost.news.utils.enums.State
 
 class DefaultNetworkEventObserver(
     private val anchorView: View,
-    private val doOnLoading: (()->Unit)? = null,
-    private val doOnSuccess: (()->Unit)? = null,
-    private val doOnError: (()->Unit)? = null,
-    private val doOnFailure: (()->Unit)? = null
+    private val doOnLoading: (() -> Unit)? = null,
+    private val doOnSuccess: (() -> Unit)? = null,
+    private val doOnError: (() -> Unit)? = null,
+    private val doOnFailure: (() -> Unit)? = null,
+    private val invokeErrorSnackbar: Boolean = true
 ) : Observer<NetworkEvent<State>> {
 
     override fun onChanged(event: NetworkEvent<State>?) {
         event?.run {
             event.getContentIfNotHandled()?.run {
                 val context = App.getInstance()
-                when(this) {
+                when (this) {
                     State.LOADING -> doOnLoading?.invoke()
                     State.SUCCESS -> doOnSuccess?.invoke()
                     State.ERROR -> {
-                        createSnackbar(
-                            anchorView = anchorView,
-                            text = error ?: context.getString(R.string.networkErrorMessage),
-                            context.getString(R.string.buttonOk),
-                            doOnError
-                        ).show()
+                        if (invokeErrorSnackbar) {
+                            createSnackbar(
+                                anchorView = anchorView,
+                                text = error ?: context.getString(R.string.networkErrorMessage),
+                                context.getString(R.string.buttonOk),
+                                doOnError
+                            ).show()
+                        } else {
+                            doOnError?.invoke()
+                        }
                     }
                     State.FAILURE -> {
                         createSnackbar(

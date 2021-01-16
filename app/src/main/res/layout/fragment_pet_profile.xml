@@ -132,15 +132,16 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:visibility="gone" />
 
             <ru.hvost.news.presentation.customviews.ValueHolderView
                 android:id="@+id/birthday"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/smallMargin"
                 android:layout_height="@dimen/widgetsHeight"
-                app:iconResource="@drawable/ic_date"
-                app:holderHint="@string/petBirthdayHint"/>
+                android:layout_marginBottom="@dimen/smallMargin"
+                app:holderHint="@string/petBirthdayHint"
+                app:iconResource="@drawable/ic_date" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/ProfileTextInputLayout"
@@ -335,13 +336,13 @@
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/smallHeightButton"
+                android:layout_marginBottom="@dimen/smallMargin"
                 android:backgroundTint="@color/gray4_half_opacity"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/cancelChanges"
                 android:textAllCaps="false"
                 android:textSize="@dimen/buttonMediumTextSize"
-                app:cornerRadius="@dimen/mediumCorners"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                app:cornerRadius="@dimen/mediumCorners" />
 
             <Button
                 android:id="@+id/delete"
