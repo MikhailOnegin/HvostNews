@@ -131,4 +131,13 @@
     <dimen name="productCountTextSize">16sp</dimen>
     <dimen name="articleTitleTextSize">24sp</dimen>
     <dimen name="editTextSize">20sp</dimen>
+    <dimen name="profileTitleMidTextSize">28sp</dimen>
+    <dimen name="inviteSubtitleTextSize">20sp</dimen>
+    <dimen name="ic_socials">48dp</dimen>
+    <dimen name="mainBalanceTextSize">120sp</dimen>
+    <dimen name="balanceTextSize">100sp</dimen>
+    <dimen name="profileHintTextSize">13sp</dimen>
+    <dimen name="balanceStrokeWidth">10dp</dimen>
+    <dimen name="popupWidth">375dp</dimen>
+    <dimen name="dialogTitleTextSize">26sp</dimen>
 </resources>

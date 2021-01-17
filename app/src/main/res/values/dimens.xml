@@ -243,4 +243,6 @@
     <dimen name="orderIconPadding">16dp</dimen>
     <dimen name="itemListMargin">5dp</dimen>
     <dimen name="productCountTextSize">14sp</dimen>
+    <dimen name="ic_socials">48dp</dimen>
+    <dimen name="coverUpperLayoutMargin">24dp</dimen>
 </resources>

@@ -81,7 +81,7 @@
     <dimen name="profileSmallTextSize">20sp</dimen>
     <dimen name="counterTextSize">17sp</dimen>
     <dimen name="profileTitleTextSize">30sp</dimen>
-    <dimen name="profileBackgroundImageHeight">340dp</dimen>
+    <dimen name="profileBackgroundImageHeight">420dp</dimen>
     <dimen name="buttonMediumTextSize">22sp</dimen>
     <dimen name="inviteTextSize">19sp</dimen>
     <dimen name="profileToPrizesButtonHeight">75dp</dimen>
@@ -131,4 +131,13 @@
     <dimen name="productCountTextSize">18sp</dimen>
     <dimen name="articleTitleTextSize">26sp</dimen>
     <dimen name="editTextSize">22sp</dimen>
+    <dimen name="profileTitleMidTextSize">32sp</dimen>
+    <dimen name="inviteSubtitleTextSize">22sp</dimen>
+    <dimen name="ic_socials">56dp</dimen>
+    <dimen name="mainBalanceTextSize">140sp</dimen>
+    <dimen name="balanceTextSize">120sp</dimen>
+    <dimen name="profileHintTextSize">15sp</dimen>
+    <dimen name="balanceStrokeWidth">10dp</dimen>
+    <dimen name="popupWidth">425dp</dimen>
+    <dimen name="dialogTitleTextSize">26sp</dimen>
 </resources>
