@@ -41,7 +41,7 @@
     <dimen name="articleChipsTextSize">18sp</dimen>
     <dimen name="viewsIconSize">32dp</dimen>
     <dimen name="chipsStrokeWidth">3dp</dimen>
-    <dimen name="articleTextSize">22sp</dimen>
+    <dimen name="articleTextSize">20sp</dimen>
     <dimen name="rvVoucherTitleTextSize">30sp</dimen>
     <dimen name="rvVoucherCodeTextSize">20sp</dimen>
     <dimen name="rvVoucherTextSize">18sp</dimen>
@@ -129,7 +129,17 @@
     <dimen name="prizeItemTextSize">20sp</dimen>
     <dimen name="cartPrizeImageSize">90dp</dimen>
     <dimen name="productCountTextSize">16sp</dimen>
-    <dimen name="articleTitleTextSize">24sp</dimen>
+    <dimen name="tabTitleTextSize">26sp</dimen>
+    <dimen name="smallButtonTextSize">16sp</dimen>
+    <dimen name="articleTitleTextSize">22sp</dimen>
+    <dimen name="articleDescriptionTextSize">20sp</dimen>
+    <dimen name="maxFeedChipsWidth">200dp</dimen>
+    <dimen name="checkboxSize">22dp</dimen>
+    <dimen name="filtersIconSize">54dp</dimen>
+    <dimen name="textTitleSize">16sp</dimen>
+    <dimen name="domainsStrokeWidth">6dp</dimen>
+    <dimen name="tabLayoutHeight">56dp</dimen>
+    <dimen name="subdomainTabTextSize">16sp</dimen>
     <dimen name="editTextSize">20sp</dimen>
     <dimen name="profileTitleMidTextSize">28sp</dimen>
     <dimen name="inviteSubtitleTextSize">20sp</dimen>

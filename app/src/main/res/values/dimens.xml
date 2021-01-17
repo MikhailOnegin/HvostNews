@@ -245,4 +245,6 @@
     <dimen name="productCountTextSize">14sp</dimen>
     <dimen name="ic_socials">48dp</dimen>
     <dimen name="coverUpperLayoutMargin">24dp</dimen>
+    <dimen name="domainsStrokeWidth">5dp</dimen>
+    <dimen name="domainTitleMargin">8dp</dimen>
 </resources>

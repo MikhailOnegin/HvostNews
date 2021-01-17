@@ -22,35 +22,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView_number"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/shape_circle"
+            android:elevation="6dp"
+            android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
+            android:textColor="@color/gray1"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:foregroundGravity="center_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView_number"
             app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView_number"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/shape_circle"
-                android:elevation="6dp"
-                android:fontFamily="@font/gilroy_bold"
-                android:gravity="center"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_age"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView_title" />
 
             <TextView
                 android:id="@+id/textView_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:maxLines="2"
@@ -58,23 +61,21 @@
                 android:textColor="@color/gray1"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toStartOf="@+id/imageView_play"
-                app:layout_constraintStart_toEndOf="@+id/textView_number"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView_age"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/gilroy_semibold"
-                android:text="@string/not_found"
+                android:text="@string/age_not_specified"
                 android:textColor="@color/gray3"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView_play"
-                app:layout_constraintStart_toEndOf="@+id/textView_number"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_title" />
 
             <ImageView

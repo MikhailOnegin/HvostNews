@@ -175,7 +175,9 @@
             app:exitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_parentSchoolFragment_to_offline_event_fragment"
-            app:destination="@+id/offlineEventFragment" />
+            app:destination="@+id/offlineEventFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit" />
     </fragment>
 
 
@@ -216,8 +218,8 @@
         <action
             android:id="@+id/action_onlineLessonFragment_toOnlineLessonFragment"
             app:destination="@+id/onlineLessonActiveFragment"
-            app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
+            app:enterAnim="@anim/side_in_left"
+            app:exitAnim="@anim/side_out_left"
             app:popUpTo="@id/schoolOnlineActiveFragment" />
     </fragment>
 
@@ -550,6 +552,7 @@
         <action
             android:id="@+id/action_registrationOnlineFragment_to_schoolOnlineActiveFragment"
             app:destination="@+id/schoolOnlineActiveFragment"
+            app:popUpTo="@id/parentsSchoolFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             />

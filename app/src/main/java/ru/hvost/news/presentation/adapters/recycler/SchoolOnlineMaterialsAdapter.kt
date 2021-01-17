@@ -7,19 +7,18 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.*
-import kotlinx.android.synthetic.main.item_school_lesson_online_active.view.textView_number
-import kotlinx.android.synthetic.main.item_school_lesson_online_finished.view.*
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ItemSchoolLessonOnlineActiveBinding
 import ru.hvost.news.databinding.ItemSchoolLessonOnlineFinishedBinding
 import ru.hvost.news.databinding.ItemUsefulLiteratureBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.utils.startIntentActionView
 
 class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -27,7 +26,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     private var onlineLessons = arrayListOf<OnlineLessons.OnlineLesson>()
     var onClickLessonActive: OnClickLessonActive? = null
     var onClickLessonFinished: OnClickLessonFinished? = null
-    var onClickLiterature: OnClickLiterature? = null
     private var firstActiveLessonId:String? = null
 
     interface OnClickLessonActive {
@@ -37,9 +35,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         fun onClick(lessonId:String)
     }
 
-    interface OnClickLiterature{
-        fun onClick(url:String)
-    }
 
     fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
         for(i in lessons.indices){
@@ -59,9 +54,6 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewLiterature = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_useful_literature, parent, false)
-
         return when (viewType) {
             TYPE_LESSON_ACTIVE -> LessonActiveViewHolder(ItemSchoolLessonOnlineActiveBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -100,11 +92,11 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         when (holder) {
             is LessonActiveViewHolder -> {
                 val lesson = onlineLessons[position]
-                holder.bind(lesson)
+                holder.bind(lesson, position + 1)
             }
             is LessonFinishedViewHolder -> {
                 val lesson = onlineLessons[position]
-                holder.bind(lesson)
+                holder.bind(lesson, position + 1)
             }
             is UsefulLiteratureViewHolder -> holder.bind(school)
         }
@@ -112,8 +104,8 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     inner class LessonActiveViewHolder(private val binding:ItemSchoolLessonOnlineActiveBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(lesson: OnlineLessons.OnlineLesson) {
-            binding.textViewNumber.text = lesson.lessonNumber
+        fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int) {
+            binding.textViewNumber.text = lessonNumber.toString()
             binding.textViewTitle.text = lesson.lessonTitle.parseAsHtml()
             if(lesson.petAge.isNotBlank()){
                 val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
@@ -135,9 +127,9 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    inner class LessonFinishedViewHolder(private val binding: ItemSchoolLessonOnlineFinishedBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(lesson: OnlineLessons.OnlineLesson){
-            binding.textViewNumberFinished.text = lesson.lessonNumber
+    inner class LessonFinishedViewHolder(private val binding: ItemSchoolLessonOnlineFinishedBinding ): RecyclerView.ViewHolder(binding.root){
+        fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int){
+            binding.textViewNumberFinished.text = lessonNumber.toString()
             binding.textViewTitleFinished.text = lesson.lessonTitle.parseAsHtml()
             binding.constraintLessonFinished.setOnClickListener {
                 onClickLessonFinished?.onClick(lesson.lessonId)
@@ -149,9 +141,11 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         fun bind(school: OnlineSchools.OnlineSchool?) {
             school?.run {
                 if (school.literature.isNotEmpty()) {
+
                     val container = itemView.linearLayout_literature
                     container.removeAllViews()
                     for (i in school.literature.indices) {
+                        val literature = school.literature[i]
                         val viewLiterature = LayoutLiteratureItemBinding.inflate(
                             LayoutInflater.from(itemView.context),
                             container,
@@ -160,8 +154,8 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
                         viewLiterature.textView_title.text = school.literature[i].title
                         viewLiterature.textView_pet.text = school.literature[i].pet
-                        viewLiterature.constraint_literure.setOnClickListener {
-                            onClickLiterature?.onClick(school.literature[i].fileUrl)
+                        viewLiterature.constraint_literature.setOnClickListener {
+                            startIntentActionView(itemView.context, APIService.baseUrl + literature.fileUrl)
                         }
                         val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
 
