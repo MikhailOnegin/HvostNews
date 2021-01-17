@@ -126,10 +126,10 @@ class ArticleAdapter(
     }
 
     companion object {
-        private const val NEWS_ID = "91544"
-        private const val ARTICLE_ID = "91545"
-        private const val VIDEO_ID = "91546"
-        private const val ASK_ID = "91547"
+        const val NEWS_ID = "91544"
+        const val ARTICLE_ID = "91545"
+        const val VIDEO_ID = "91546"
+        const val ASK_ID = "91547"
     }
 
 }
