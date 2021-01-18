@@ -236,7 +236,6 @@
     <dimen name="_31sp">27sp</dimen>
     <dimen name="_32sp">28sp</dimen>
 
-
     <dimen name="margin_12dp">6dp</dimen>
     <dimen name="margin_22dp">11dp</dimen>
     <dimen name="margin_40dp">20dp</dimen>
@@ -256,7 +255,4 @@
     <dimen name="lessonNumbersMargin">12dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">49dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">97dp</dimen>
-
-
-
 </resources>

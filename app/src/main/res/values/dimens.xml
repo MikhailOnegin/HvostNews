@@ -333,8 +333,6 @@
     <dimen name="_31sp">31sp</dimen>
     <dimen name="_32sp">32sp</dimen>
 
-
-
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="margin_22dp">22dp</dimen>
     <dimen name="margin_40dp">40dp</dimen>
@@ -347,16 +345,11 @@
 
     <dimen name="mainTittleLarge">30sp</dimen>
     <dimen name="defaultCorners">6dp</dimen>
-
     <dimen name="seminarsSwitchTextSize">16sp</dimen>
     <dimen name="emptyTextSize">16sp</dimen>
     <dimen name="schoolNewPadding">16dp</dimen>
     <dimen name="cardTitleTextSize">22sp</dimen>
     <dimen name="lessonNumbersMargin">14dp</dimen>
-
     <dimen name="schoolDetailTitleMarginTop">56dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">120dp</dimen>
-
-
-
 </resources>
