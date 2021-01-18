@@ -6,11 +6,11 @@
         android:color="@color/_1"
         />
     <corners
-        android:radius="5dp"/>
+        android:radius="@dimen/_5dp"/>
     <padding
-        android:right="10dp"
-        android:left="10dp"
-        android:bottom="4dp"
-        android:top="4dp"
+        android:right="@dimen/_10dp"
+        android:left="@dimen/_10dp"
+        android:bottom="@dimen/_4dp"
+        android:top="@dimen/_4dp"
         />
 </shape>

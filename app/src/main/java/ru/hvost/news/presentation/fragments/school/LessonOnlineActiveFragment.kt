@@ -150,14 +150,14 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     for (q in lesson.answerList.indices) {
                                         val answer = lesson.answerList[q]
                                         answers[answer.answer] = answer.isTrue
-                                        val view = LayoutOnlineLessonOptionBinding.inflate(
+                                        val viewOption = LayoutOnlineLessonOptionBinding.inflate(
                                             LayoutInflater.from(requireContext()),
                                             containerOptions,
                                             false
                                         ).root
-                                        buttons.add(view.button_option)
-                                        view.button_option.text = answer.answer
-                                        view.button_option.setOnClickListener {
+                                        buttons.add(viewOption.button_option)
+                                        viewOption.button_option.text = answer.answer
+                                        viewOption.button_option.setOnClickListener {
                                             for (c in buttons.indices) {
                                                 buttons[c].isSelected = false
                                             }
@@ -171,13 +171,13 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                         }
                                         val margin =
                                             resources.getDimension(R.dimen.smallMargin).toInt()
-                                        (view.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                        (viewOption.layoutParams as LinearLayout.LayoutParams).setMargins(
                                             0,
                                             margin,
                                             0,
                                             0
                                         )
-                                        containerOptions.addView(view)
+                                        containerOptions.addView(viewOption)
                                     }
                                     return@run
                                 }

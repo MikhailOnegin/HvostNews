@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             style="@style/Toolbar"
             android:background="@android:color/white"
-            android:elevation="@dimen/barsElevation"
+            android:elevation="@dimen/_4dp"
             android:theme="@style/AppTheme.Toolbar"
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="@drawable/ic_back"
@@ -31,24 +32,24 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="24dp"
+        android:paddingBottom="@dimen/_24dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="64dp">
+            android:paddingBottom="@dimen/_60dp">
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
                 app:cardBackgroundColor="@null"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/_8dp"
                 app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,12 +63,11 @@
                     <ImageView
                         android:id="@+id/imageView_info_get_coupons"
                         android:layout_width="0dp"
-                        android:layout_height="220dp"
+                        android:layout_height="@dimen/_220dp"
                         android:scaleType="centerCrop"
                         android:contentDescription="@string/not_found"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/not_found" />
@@ -80,16 +80,15 @@
                 android:id="@+id/textView_get_coupons_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/stub"
                 android:textColor="@color/gray2"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 

@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -28,13 +29,13 @@
 
             <ImageButton
                 android:id="@+id/imageButton_coupons_info"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="@dimen/_26dp"
+                android:layout_height="@dimen/_26dp"
                 android:layout_gravity="end"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="@dimen/largeMargin"
                 android:background="@null"
                 android:contentDescription="@string/not_found"
-                android:elevation="2dp"
+                android:elevation="@dimen/_2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_question" />
         </com.google.android.material.appbar.MaterialToolbar>
@@ -42,7 +43,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="24dp"
+            android:paddingBottom="@dimen/_24dp"
             app:layout_scrollFlags="scroll|snap|enterAlways">
 
 
@@ -51,9 +52,9 @@
                 style="@style/RegSpinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginEnd="@dimen/largeMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

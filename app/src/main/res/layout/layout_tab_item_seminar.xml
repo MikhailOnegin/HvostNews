@@ -5,10 +5,10 @@
     android:layout_width="wrap_content"
     android:layout_height="@dimen/cartSelectorHeight"
     android:layout_weight="1"
-    android:paddingStart="12dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="12dp"
-    android:paddingBottom="8dp">
+    android:paddingStart="@dimen/_12dp"
+    android:paddingTop="@dimen/_8dp"
+    android:paddingEnd="@dimen/_12dp"
+    android:paddingBottom="@dimen/_8dp">
 
     <TextView
         android:id="@+id/textView_tab"
@@ -19,7 +19,7 @@
         android:gravity="center"
         android:maxLines="2"
         android:text="@string/seminar_info"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
