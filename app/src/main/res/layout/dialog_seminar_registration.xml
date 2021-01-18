@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/scrollView_registration"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_bottom_sheet_prize_products"
-            android:paddingBottom="22dp">
+            android:paddingBottom="@dimen/margin_22dp">
 
 
             <CheckBox
@@ -21,13 +22,13 @@
                 style="@style/CheckBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="48dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/margin_48dp"
+                android:layout_marginEnd="@dimen/largeMargin"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/accept_terms_of_agreement"
                 android:textColor="@color/gray2"
-                android:textSize="15sp"
+                android:textSize="@dimen/_15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_head" />
@@ -37,21 +38,20 @@
                 style="@style/UnelevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/xLargeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
                 android:enabled="false"
                 android:fontFamily="@font/gilroy_bold"
-                android:paddingLeft="32dp"
-                android:paddingTop="24dp"
-                android:paddingRight="32dp"
-                android:paddingBottom="24dp"
+                android:paddingStart="@dimen/_32dp"
+                android:paddingTop="@dimen/_24dp"
+                android:paddingEnd="@dimen/_32dp"
+                android:paddingBottom="@dimen/_24dp"
                 android:text="@string/complete_registration"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="17sp"
+                android:textSize="@dimen/_17sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
 
@@ -59,13 +59,13 @@
                 android:id="@+id/textView_head"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/_80dp"
+                android:layout_marginEnd="@dimen/largeMargin"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="26sp"
+                android:textSize="@dimen/_26sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

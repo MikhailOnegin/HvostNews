@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="24dp">
+    android:paddingBottom="@dimen/_24dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/_24dp"
+        android:layout_marginEnd="@dimen/largeMargin"
         app:cardBackgroundColor="@null"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="@dimen/_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,7 +22,7 @@
         <ImageView
             android:id="@+id/imageView_promotion"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/_200dp"
             android:scaleType="centerCrop"
             android:contentDescription="@string/not_found"
             app:srcCompat="@drawable/default_image" />
@@ -31,13 +32,13 @@
         android:id="@+id/textView_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/_24dp"
+        android:layout_marginEnd="@dimen/largeMargin"
         android:fontFamily="@font/gilroy_semibold"
         android:text="@string/not_found"
         android:textColor="@color/gray2"
-        android:textSize="16sp"
+        android:textSize="@dimen/_16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView8" />
