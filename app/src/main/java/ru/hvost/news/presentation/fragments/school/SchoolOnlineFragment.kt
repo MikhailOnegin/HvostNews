@@ -106,7 +106,7 @@ class SchoolOnlineFragment : BaseFragment() {
                                 school.userRank
                             Glide.with(requireContext())
                                 .load(APIService.baseUrl + school.imageDetailUrl)
-                                .placeholder(R.drawable.not_found).centerCrop()
+                                .placeholder(R.drawable.empty_image).centerCrop()
                                 .into(binding.imageViewLogo)
                             return@run
                         }

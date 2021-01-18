@@ -131,7 +131,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     this@LessonOnlineActiveFragment.lesson = lesson
                                     binding.textViewTitle.text = lesson.lessonTitle
                                     val lessonNumber =
-                                        "${getString(R.string.lesson_number)} ${lesson.lessonNumber}"
+                                        "${getString(R.string.lesson_number)} ${i + 1}"
                                     binding.textViewLessonNumber.text = lessonNumber
                                     binding.textViewQuestion.text = lesson.testQuestion
                                     binding.imageViewPlay.setOnClickListener {
@@ -142,7 +142,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     }
                                     Glide.with(requireContext())
                                         .load(baseUrl + lesson.imageVideoUrl)
-                                        .placeholder(R.drawable.not_found).centerCrop()
+                                        .placeholder(R.drawable.empty_image).centerCrop()
                                         .into(binding.imageViewVideo)
 
                                     val containerOptions = binding.linearLayoutAnswerOptions

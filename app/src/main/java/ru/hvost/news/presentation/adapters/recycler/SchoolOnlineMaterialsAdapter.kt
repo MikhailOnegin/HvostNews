@@ -19,6 +19,7 @@ import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.utils.startIntentActionView
+import java.lang.StringBuilder
 
 class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -107,10 +108,14 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int) {
             binding.textViewNumber.text = lessonNumber.toString()
             binding.textViewTitle.text = lesson.lessonTitle.parseAsHtml()
-            if(lesson.petAge.isNotBlank()){
-                val age = "${itemView.resources.getString(R.string.age2)} ${lesson.petAge}"
-                binding.textViewAge.text = age
+            val strBuilder = StringBuilder()
+            strBuilder.append(itemView.resources.getString(R.string.age2))
+            for(i in lesson.petAge.indices){
+                val age = lesson.petAge[i]
+                if(i==0) strBuilder.append(age)
+                if(i==1) strBuilder.append("-$age")
             }
+                binding.textViewAge.text = strBuilder.toString()
             firstActiveLessonId?.run {
                 if (this == lesson.lessonId) {
                     binding.imageViewPlay.visibility = View.VISIBLE
@@ -127,7 +132,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    inner class LessonFinishedViewHolder(private val binding: ItemSchoolLessonOnlineFinishedBinding ): RecyclerView.ViewHolder(binding.root){
+    inner class LessonFinishedViewHolder(private val binding: ItemSchoolLessonOnlineFinishedBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int){
             binding.textViewNumberFinished.text = lessonNumber.toString()
             binding.textViewTitleFinished.text = lesson.lessonTitle.parseAsHtml()

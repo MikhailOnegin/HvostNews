@@ -64,7 +64,7 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
             if(onlineSchool.isNew) binding.constraintNew.visibility = View.VISIBLE
             else binding.constraintNew.visibility = View.GONE
             Glide.with(itemView.context).load(baseUrl + onlineSchool.image)
-                .placeholder(R.drawable.not_found).centerCrop()
+                .placeholder(R.drawable.empty_image).centerCrop()
                 .into(binding.imageViewSchool)
             binding.rootConstraint.setOnClickListener {
                 clickSchool?.onClick(onlineSchool.id.toString())
