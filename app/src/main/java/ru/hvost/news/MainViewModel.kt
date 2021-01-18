@@ -142,6 +142,8 @@ class MainViewModel : ViewModel() {
 
     var feedTabState: Enum<ButtonSelected> = ButtonSelected.FEED
 
+    var prizeDomainId: String? = null
+
     init {
         initializeData()
     }
@@ -717,6 +719,7 @@ class MainViewModel : ViewModel() {
     val loadingVouchersEvent: LiveData<NetworkEvent<State>> = _loadingVouchersEvent
     private val _vouchers = MutableLiveData<List<VoucherItem>>()
     val vouchers: LiveData<List<VoucherItem>> = _vouchers
+    var vouchersCount: Int? = null
     val vouchersFooterClickEvent = MutableLiveData<OneTimeEvent>()
     val vouchersFilter = MutableLiveData<String>()
 
@@ -727,6 +730,7 @@ class MainViewModel : ViewModel() {
                 val result = APIService.API.getVouchersAsync(userToken).await()
                 if (result.result == "success") {
                     _vouchers.value = result.toVouchers()
+                    vouchersCount = result.vouchers?.size
                     _loadingVouchersEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _loadingVouchersEvent.value = NetworkEvent(State.ERROR, result.error)

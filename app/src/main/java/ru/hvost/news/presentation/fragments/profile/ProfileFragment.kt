@@ -14,7 +14,6 @@ import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentProfileBinding
-import ru.hvost.news.models.Order
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.PetAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
@@ -35,6 +34,7 @@ class ProfileFragment : BaseFragment() {
     private lateinit var onUserPetsLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onUserDataLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onBonusBalanceLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onVouchersLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onCouponsLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
 
@@ -66,10 +66,10 @@ class ProfileFragment : BaseFragment() {
         } else {
             mainVM.loadUserData()
         }
-        if (couponsMV.couponsEvent.value?.peekContent() == State.SUCCESS) {
-            binding.couponsCount.text = couponsMV.couponsCount.toString()
+        if (mainVM.loadingVouchersEvent.value?.peekContent() == State.SUCCESS) {
+            setVouchersCount()
         } else {
-            couponsMV.getCoupons(App.getInstance().userToken!!)
+            mainVM.updateVouchers(App.getInstance().userToken)
         }
         if (mainVM.userPetsLoadingEvent.value?.peekContent() == State.SUCCESS) {
             setRecyclerView()
@@ -93,6 +93,15 @@ class ProfileFragment : BaseFragment() {
         } else {
             mainVM.getBonusBalance()
         }
+        if (couponsMV.couponsEvent.value?.peekContent() == State.SUCCESS) {
+            setCouponsCount()
+        } else {
+            mainVM.getBonusBalance()
+        }
+    }
+
+    private fun setCouponsCount() {
+        binding.couponsCount.text = couponsMV.couponsCount.toString()
     }
 
     private fun setBalance() {
@@ -123,22 +132,31 @@ class ProfileFragment : BaseFragment() {
             anchorView = binding.root,
             doOnSuccess = { setBalance() }
         )
-        onCouponsLoadingEvent = DefaultNetworkEventObserver(
+        onVouchersLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
-            doOnSuccess = { binding.couponsCount.text = couponsMV.couponsCount.toString() }
+            doOnSuccess = { setVouchersCount() }
         )
         onChangeUserDataLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
             doOnSuccess = { mainVM.loadUserData() }
         )
+        onCouponsLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { setCouponsCount() }
+        )
+    }
+
+    private fun setVouchersCount() {
+        binding.vouchersCount.text = mainVM.vouchersCount.toString()
     }
 
     private fun setObservers() {
+        couponsMV.couponsEvent.observe(viewLifecycleOwner, onCouponsLoadingEvent)
         mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
         mainVM.userDataLoadingEvent.observe(viewLifecycleOwner, onUserDataLoadingEvent)
         mainVM.userPetsLoadingEvent.observe(viewLifecycleOwner, onUserPetsLoadingEvent)
         mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
-        couponsMV.couponsEvent.observe(viewLifecycleOwner, onCouponsLoadingEvent)
+        mainVM.loadingVouchersEvent.observe(viewLifecycleOwner, onVouchersLoadingEvent)
         mainVM.ordersInWork.observe(
             viewLifecycleOwner,
             { binding.inWorkStatus.text = it.toString() })
@@ -194,16 +212,28 @@ class ProfileFragment : BaseFragment() {
             }
         }
         binding.vouchers.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_vouchersFragment)
+            if (mainVM.vouchers.value.isNullOrEmpty()) {
+                createSnackbar(
+                    binding.root,
+                    getString(R.string.vouchersIsNull),
+                    getString(R.string.buttonOk)
+                ).show()
+            } else {
+                findNavController().navigate(R.id.action_profileFragment_to_vouchersFragment)
+            }
+
+            binding.logout.setOnClickListener { (requireActivity() as MainActivity).userLogOut() }
         }
-        binding.logout.setOnClickListener { (requireActivity() as MainActivity).userLogOut() }
     }
 
     private fun setRecyclerView() {
         val onActionClicked = { id: String ->
             val bundle = Bundle()
             bundle.putString(PET_ID, id)
-            findNavController().navigate(R.id.action_profileFragment_to_petProfileFragment, bundle)
+            findNavController().navigate(
+                R.id.action_profileFragment_to_petProfileFragment,
+                bundle
+            )
         }
         val adapter = PetAdapter(onActionClicked)
         binding.petList.adapter = adapter

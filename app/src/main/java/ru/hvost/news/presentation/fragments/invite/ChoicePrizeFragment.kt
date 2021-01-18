@@ -59,6 +59,7 @@ class ChoicePrizeFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
+        if (mainVM.prizesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
         initializeObservers()
         setListeners()
         setObservers()
@@ -68,9 +69,6 @@ class ChoicePrizeFragment : BaseFragment() {
         onPrizesLoadingEvent = DefaultNetworkEventObserver(
             binding.root,
             doOnSuccess = {
-                binding.title.text = mainVM.prizeCategoriesResponse.value?.filter {
-                    it.prizeCategoryId == arguments?.getString("PRIZE_ID")
-                }?.get(0)?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")
                 setRecyclerView()
             }
         )
@@ -108,6 +106,9 @@ class ChoicePrizeFragment : BaseFragment() {
     }
 
     private fun setRecyclerView() {
+        binding.title.text = mainVM.prizeCategoriesResponse.value?.firstOrNull {
+            it.prizeCategoryId == arguments?.getString("PRIZE_ID") ?: mainVM.prizeDomainId
+        }?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")
         val onActionClicked = { product: Prize -> showPrizeDetailDialog(product) }
         val adapter = PrizeAdapter(onActionClicked)
         binding.priceList.adapter = adapter
