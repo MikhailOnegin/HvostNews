@@ -52,9 +52,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/largeMargin"
             android:layout_marginTop="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
             android:minHeight="0dp"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
@@ -64,6 +62,8 @@
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -125,6 +125,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
