@@ -8,7 +8,7 @@
     android:layout_gravity="fill"
     android:layout_weight="1"
     app:cardBackgroundColor="@color/gray5"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="@dimen/_16dp"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true"
     app:layout_column="1"
@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="145dp"
         android:layout_gravity="fill"
-        android:paddingTop="24dp"
-        android:paddingBottom="16dp">
+        android:paddingTop="@dimen/_24dp"
+        android:paddingBottom="@dimen/_16dp">
 
         <TextView
             android:id="@+id/textView_head"
@@ -28,21 +28,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView_what_wait"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginStart="@dimen/_12dp"
+            android:layout_marginTop="@dimen/_12dp"
+            android:layout_marginEnd="@dimen/_12dp"
             android:fontFamily="@font/gilroy_semibold"
             android:gravity="center_horizontal"
             android:maxLines="1"
             android:text="@string/not_found"
             android:textColor="@color/gray1"
-            android:textSize="14sp"
+            android:textSize="@dimen/_14sp"
             app:layout_constraintTop_toBottomOf="@+id/imageView_what_wait" />
 
         <ImageView
             android:id="@+id/imageView_what_wait"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="@dimen/_44dp"
+            android:layout_height="@dimen/_44dp"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/not_found"
             android:scaleType="centerCrop"
@@ -54,13 +54,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView_head"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginStart="@dimen/_12dp"
+            android:layout_marginEnd="@dimen/_12dp"
             android:fontFamily="@font/gilroy_semibold"
             android:gravity="center_horizontal"
             android:maxLines="2"
             android:text="@string/not_found"
             android:textColor="@color/gray2"
-            android:textSize="12sp" />
+            android:textSize="@dimen/_12sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -5,10 +5,10 @@
     android:id="@+id/root_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="24dp"
-    android:paddingTop="12dp"
-    android:paddingEnd="24dp"
-    android:paddingBottom="12dp"
+    android:paddingStart="@dimen/largeMargin"
+    android:paddingTop="@dimen/_12dp"
+    android:paddingEnd="@dimen/largeMargin"
+    android:paddingBottom="@dimen/_12dp"
     android:foreground="@drawable/selector_gray_rect_small_corners"
     tools:ignore="UnusedAttribute">
 
@@ -17,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/gray5"
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="@dimen/_16dp"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,20 +29,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gray5"
-            android:padding="20dp">
+            android:padding="@dimen/_20dp">
 
 
             <TextView
                 android:id="@+id/textView_coupon_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_24dp"
                 android:background="@drawable/background_coupon_status_true"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/stub"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/_12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_address" />
 
@@ -53,7 +53,7 @@
                 android:fontFamily="@font/gilroy_extrabold"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="20sp"
+                android:textSize="@dimen/_20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -67,7 +67,7 @@
                 android:text="@string/stub"
                 android:textAllCaps="true"
                 android:textColor="@color/gray3"
-                android:textSize="15sp"
+                android:textSize="@dimen/_15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_coupon_status"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView_coupon_status" />
@@ -76,11 +76,11 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="@dimen/_6dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/before"
                 android:textColor="@color/gray3"
-                android:textSize="15sp"
+                android:textSize="@dimen/_15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_coupon_status"
                 app:layout_constraintEnd_toStartOf="@+id/textView_coupon_date"
                 app:layout_constraintTop_toTopOf="@+id/textView_coupon_status" />
@@ -90,10 +90,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_semibold"
-                android:paddingTop="16dp"
+                android:paddingTop="@dimen/_16dp"
                 android:text="@string/not_found"
                 android:textColor="@color/gray2"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_coupon_title" />

@@ -18,7 +18,9 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
+import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.fragments.articles.ArticleViewModel
+import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
@@ -86,7 +88,7 @@ class ArticleContentAdapter(
         private val binding: RvArticleHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private val stub = App.getInstance().getString(R.string.stub)
+        private val article = App.getInstance().getString(R.string.defaultArticleTitle)
 
         fun bind(header: ArticleHeader) {
             binding.apply {
@@ -99,8 +101,16 @@ class ArticleContentAdapter(
                 domain.text = header.domainTitle
                 category.text = header.categoryTitle
                 views.text = moneyFormat.format(header.viewsCount)
-                date.text = stub
-                type.text = stub
+                date.text = header.publicationDate
+                type.text = if (header.postTypeName.isEmpty()) article else header.postTypeName
+                typeIcon.apply {
+                    when (header.postTypeId) {
+                        ArticleAdapter.NEWS_ID -> setImageResource(R.drawable.ic_news_wob)
+                        ArticleAdapter.ASK_ID -> setImageResource(R.drawable.ic_ask_wob)
+                        ArticleAdapter.VIDEO_ID -> setImageResource(R.drawable.ic_video_wob)
+                        else -> setImageResource(R.drawable.ic_article)
+                    }
+                }
             }
             binding.image.doOnLayout {
                 binding.image.layoutParams = ConstraintLayout.LayoutParams(

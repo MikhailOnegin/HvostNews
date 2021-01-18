@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:background="@android:color/white"
+        android:paddingBottom="@dimen/largeMargin"
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -28,19 +29,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|snap">
+            app:layout_scrollFlags="scroll|snap"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/largeMargin"
+            android:layout_marginEnd="@dimen/largeMargin">
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/school_parents"
                 android:textColor="@color/gray1"
-                android:textSize="30sp"
+                android:textSize="@dimen/_30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,6 +52,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/largeMargin"
+            android:layout_marginEnd="@dimen/largeMargin"
+            android:minHeight="0dp"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <LinearLayout
@@ -59,9 +64,6 @@
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:paddingStart="24dp"
-                android:paddingTop="24dp"
-                android:paddingEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -71,6 +73,8 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/cartSelectorHeight"
                     android:layout_weight="1"
+                    android:paddingStart="@dimen/smallMargin"
+                    android:paddingEnd="@dimen/smallMargin"
                     android:background="@drawable/sex_selector_left">
 
                     <TextView
@@ -80,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/online_school"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/_12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
@@ -94,6 +98,8 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/cartSelectorHeight"
                     android:layout_weight="1"
+                    android:paddingStart="@dimen/smallMargin"
+                    android:paddingEnd="@dimen/smallMargin"
                     android:background="@drawable/sex_selector_right">
 
                     <TextView
@@ -103,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/seminars_in_your_cities"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/_12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
@@ -118,21 +124,18 @@
                 android:id="@+id/constraint_spinner_online_schools"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                tools:visibility="visible">
+                tools:visibility="invisible">
 
                 <Spinner
                     android:id="@+id/spinner_online_schools"
                     style="@style/RegSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="@dimen/smallMargin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -142,7 +145,6 @@
                 android:id="@+id/constraint_spinner_offline_seminars"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -152,8 +154,8 @@
                     android:id="@+id/switch_filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="@dimen/largeMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"
                     android:checked="true"
                     android:scaleX="0.8"
                     android:scaleY="0.8"
@@ -167,11 +169,11 @@
                     android:id="@+id/textView29"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="@dimen/largeMargin"
                     android:fontFamily="@font/gilroy_semibold"
                     android:text="@string/show_completed"
                     android:textColor="@color/gray1"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/_16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/switch_filter"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/switch_filter" />
@@ -181,9 +183,9 @@
                     style="@style/RegSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="@dimen/largeMargin"
+                    android:layout_marginTop="@dimen/smallMargin"
+                    android:layout_marginEnd="@dimen/largeMargin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -201,17 +203,19 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_empty"
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/textViewEmpty"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/_200dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:gravity="center"
                 android:text="@string/empty"
                 android:textColor="@color/gray4"
-                android:textSize="24sp"
+                android:textSize="@dimen/_16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

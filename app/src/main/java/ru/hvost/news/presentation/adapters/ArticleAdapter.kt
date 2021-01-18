@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.hvost.news.App
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
@@ -59,6 +60,14 @@ class ArticleAdapter(
                 likesIcon.setOnClickListener {
                     setLiked.invoke(articleItem.articleId, !articleItem.isLiked)
                     changeLikeIcon(articleItem)
+                }
+                articleType.apply {
+                    when (articleItem.postTypeId){
+                        ARTICLE_ID -> setImageResource(R.drawable.ic_arcticle)
+                        ASK_ID -> setImageResource(R.drawable.ic_ask)
+                        VIDEO_ID -> setImageResource(R.drawable.ic_video)
+                        NEWS_ID -> setImageResource(R.drawable.ic_news)
+                    }
                 }
             }
         }
@@ -114,6 +123,13 @@ class ArticleAdapter(
         override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem == newItem
         }
+    }
+
+    companion object {
+        const val NEWS_ID = "91544"
+        const val ARTICLE_ID = "91545"
+        const val VIDEO_ID = "91546"
+        const val ASK_ID = "91547"
     }
 
 }

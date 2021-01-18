@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,16 +10,16 @@
 
     <ru.hvost.news.presentation.customviews.RoundCornersImageView
         android:id="@+id/img"
-        android:layout_marginBottom="@dimen/normalMargin"
-        android:scaleType="centerCrop"
-        app:cornersRadius="@dimen/xSmallCorners"
-        app:outlineColor="@android:color/white"
-        app:outlineWidth="@dimen/imageOutlineWidth"
-        tools:src="@drawable/test_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginBottom="@dimen/normalMargin"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:scaleType="centerCrop"
+        app:cornersRadius="@dimen/xSmallCorners"
+        app:layout_constraintTop_toTopOf="parent"
+        app:outlineColor="@android:color/white"
+        app:outlineWidth="@dimen/imageOutlineWidth"
+        tools:src="@drawable/test_image" />
 
     <TextView
         android:id="@+id/title"
@@ -117,6 +116,17 @@
         app:layout_constraintBottom_toBottomOf="@id/likes"
         app:layout_constraintEnd_toStartOf="@id/likes"
         app:layout_constraintTop_toTopOf="@id/likes"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/articleType"
+        android:layout_width="@dimen/viewsIconSize"
+        android:layout_height="@dimen/viewsIconSize"
+        android:layout_marginStart="@dimen/iconMargin"
+        android:layout_marginTop="@dimen/iconMargin"
+        android:layout_marginEnd="@dimen/smallMargin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

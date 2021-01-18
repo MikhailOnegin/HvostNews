@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -36,6 +37,7 @@ class InviteFragment : Fragment() {
     private lateinit var onBonusBalanceLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onSendInviteLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onInviteLinkLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onStart() {
         setSystemUiVisibility()
@@ -54,7 +56,7 @@ class InviteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val callback =
+        callback =
             requireActivity().onBackPressedDispatcher.addCallback {
                 val isVisible = binding.instructionsContainer.visibility == View.VISIBLE
                 if (isVisible) {
@@ -64,6 +66,11 @@ class InviteFragment : Fragment() {
                 }
             }
         callback.isEnabled = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        callback.isEnabled = false
     }
 
     override fun onCreateView(

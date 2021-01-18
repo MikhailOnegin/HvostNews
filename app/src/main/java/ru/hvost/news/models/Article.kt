@@ -10,6 +10,7 @@ data class Article(
     val categoryId: String,
     val categoryTitle: String,
     val title: String,
+    val publicationDate: String,
     val imageUrl: String,
     val shortDescription: String,
     val content: String,
@@ -18,6 +19,8 @@ data class Article(
     var likesCount: Int,
     val articleId: String,
     val articleUrl: String,
+    val postTypeId: String,
+    val postTypeName: String,
     var isLiked: Boolean
 )
 
@@ -33,6 +36,7 @@ fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
                 categoryId = article.categoryId ?: "",
                 categoryTitle = article.categoryTitle ?: "",
                 title = article.title ?: "",
+                publicationDate = article.publicationDate ?: "",
                 imageUrl = article.imageUrl ?: "",
                 shortDescription = article.shortDescription ?: "",
                 content = article.content ?: "",
@@ -41,6 +45,8 @@ fun List<ArticlesResponse.Article>.toArticles(): List<Article> {
                 likesCount = article.likesCount ?: 0,
                 articleId = article.articleId ?: "",
                 articleUrl = article.articleUrl ?: "",
+                postTypeId = article.postTypeId ?: "",
+                postTypeName = article.postTypeName ?: "",
                 isLiked = article.isLiked ?: false
             )
         )

@@ -14,6 +14,7 @@ data class ArticlesResponse(
         val categoryId: String?,
         val categoryTitle: String?,
         val title: String?,
+        val publicationDate: String?,
         val imageUrl: String?,
         val shortDescription: String?,
         val description: String?,
@@ -21,6 +22,8 @@ data class ArticlesResponse(
         val articleUrl: String?,
         val likesCount: Int?,
         val content: String?,
+        val postTypeId: String?,
+        val postTypeName: String?,
         val isLiked: Boolean?
     )
 }

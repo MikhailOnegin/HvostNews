@@ -4,16 +4,16 @@
     android:id="@+id/constraint_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
+    android:paddingBottom="@dimen/_16dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="155dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/_155dp"
+        android:layout_height="@dimen/_100dp"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginTop="@dimen/_16dp"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="@dimen/_8dp"
         app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,7 +31,7 @@
         android:id="@+id/textView_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/_4dp"
         android:fontFamily="@font/gilroy_semibold"
         android:maxLines="1"
         android:text="@string/not_found"

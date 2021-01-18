@@ -11,7 +11,7 @@
                 android:color="@color/colorPrimary"/>
 
             <corners
-                android:radius="11dp"/>
+                android:radius="@dimen/_10dp"/>
 
         </shape>
 
@@ -24,7 +24,7 @@
             <solid
                 android:color="@color/gray5"/>
             <corners
-                android:radius="11dp"/>
+                android:radius="@dimen/_10dp"/>
 
         </shape>
     </item>
