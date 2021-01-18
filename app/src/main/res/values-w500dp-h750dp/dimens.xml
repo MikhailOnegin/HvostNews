@@ -244,7 +244,7 @@
 
     <dimen name="corner_6dp">6dp</dimen>
     <dimen name="corner_11dp">11dp</dimen>
-
+    <dimen name="corner_16dp">16dp</dimen>
 
     <dimen name="mainTittleLarge">37sp</dimen>
     <dimen name="defaultCorners">7dp</dimen>
@@ -255,6 +255,4 @@
     <dimen name="lessonNumbersMargin">17dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">69dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">149dp</dimen>
-
-
 </resources>
