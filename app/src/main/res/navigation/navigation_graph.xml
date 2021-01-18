@@ -243,7 +243,7 @@
         tools:layout="@layout/fragment_school_offline_event">
         <action
             android:id="@+id/action_offlineEventFragment_to_registrationFragment"
-            app:destination="@+id/registrationOnlineSchoolFragment"
+            app:destination="@+id/registrationOfflineSchoolFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             />

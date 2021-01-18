@@ -32,18 +32,37 @@
             android:textColor="@color/gray1" />
     </com.google.android.material.appbar.MaterialToolbar>
 
-
-    <Spinner
-        android:id="@+id/spinner_pets"
-        style="@style/RegSpinner"
+    <LinearLayout
+        android:id="@+id/linear_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginTop="@dimen/_48dp"
         android:layout_marginEnd="@dimen/largeMargin"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/imageButton_add_pet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_head" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_head">
+        <include
+            android:id="@+id/spinnerEmptyView"
+            layout="@layout/spinner_empty_view"
+            android:layout_weight="1"
+            android:layout_height="@dimen/widgetsHeight"
+            android:layout_width="0dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_pets"
+            style="@style/RegSpinner"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton_add_pet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_head" />
+
+    </LinearLayout>
+
 
     <ImageButton
         android:id="@+id/imageButton_add_pet"
@@ -54,9 +73,9 @@
         android:contentDescription="@string/not_found"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_add_green"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_pets"
+        app:layout_constraintBottom_toBottomOf="@+id/linear_spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner_pets" />
+        app:layout_constraintTop_toTopOf="@+id/linear_spinner" />
 
     <CheckBox
         android:id="@+id/checkBox2"
@@ -72,7 +91,7 @@
         android:textSize="@dimen/_15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_pets"
+        app:layout_constraintTop_toBottomOf="@+id/linear_spinner"
         tools:ignore="RtlSymmetry" />
 
     <TextView

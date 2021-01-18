@@ -18,6 +18,8 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
 import ru.hvost.news.databinding.LayoutTabItemSeminarBinding
 import ru.hvost.news.presentation.dialogs.OfflineRegistrationDialog
+import ru.hvost.news.presentation.dialogs.SuccessRegistrationEventDialog
+import ru.hvost.news.presentation.dialogs.SuccessRegistrationSchoolDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
@@ -42,6 +44,21 @@ class OfflineEventFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        arguments?.getString("seminarTitle")?.let { seminarTitle ->
+            schoolVM.successRegistration.value?.let { successRegistration ->
+                if (successRegistration) {
+                    App.getInstance().userToken?.run {
+                        schoolVM.getOfflineSeminars("all", this)
+                    }
+                    schoolVM.successRegistration.value = false
+                    SuccessRegistrationEventDialog(seminarTitle).show(
+                        childFragmentManager,
+                        "success_registration_dialog"
+                    )
+                }
+            }
+
+        }
         setListeners()
         seminarId = arguments?.getString("seminarId")
         initializedEvents()
@@ -113,10 +130,9 @@ class OfflineEventFragment : BaseFragment() {
                                 binding.buttonParticipate.isEnabled = true
                                 binding.buttonParticipate.setOnClickListener {
                                     seminarId.run {
-                                        OfflineRegistrationDialog(this).show(
-                                            childFragmentManager,
-                                            "success_registration_dialog"
-                                        )
+                                        val bundle = Bundle()
+                                        bundle.putString("seminarId", this.toString())
+                                        findNavController().navigate(R.id.action_offlineEventFragment_to_registrationFragment, bundle)
                                     }
 
                                 }
@@ -164,6 +180,32 @@ class OfflineEventFragment : BaseFragment() {
             binding.nestedScrollView.scrollTo(0, 0);
         })
         schoolVM.setSubscribeEvent.observe(owner, setSubscribeEvent)
+        schoolVM.offlineSeminars.observe(owner, {
+            for(i in it.seminars.indices){
+                val seminar = it.seminars[i]
+                seminarId?.let {seminarId ->
+                    if(seminar.id.toString() == seminarId){
+                        if (seminar.participate) {
+                            binding.buttonParticipate.text = getString(R.string.you_participate)
+                            binding.buttonParticipate.isEnabled = false
+                        }
+                        else {
+                            binding.buttonParticipate.text = getString(R.string.participate)
+                            binding.buttonParticipate.isEnabled = true
+                            binding.buttonParticipate.isEnabled = true
+                            binding.buttonParticipate.setOnClickListener {
+                                seminarId.run {
+                                    val bundle = Bundle()
+                                    bundle.putString("seminarId", seminarId)
+                                    findNavController().navigate(R.id.action_offlineEventFragment_to_registrationFragment, bundle)
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
     private fun setListeners() {

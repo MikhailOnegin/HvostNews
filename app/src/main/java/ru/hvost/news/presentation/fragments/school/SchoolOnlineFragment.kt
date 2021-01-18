@@ -1,7 +1,5 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,11 +21,10 @@ import ru.hvost.news.databinding.FragmentSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineInfoAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolOnlineMaterialsAdapter
-import ru.hvost.news.presentation.dialogs.SuccessRegistrationSeminarDialog
+import ru.hvost.news.presentation.dialogs.SuccessRegistrationSchoolDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
-import ru.hvost.news.utils.startIntentActionView
 
 
 class SchoolOnlineFragment : BaseFragment() {
@@ -56,7 +53,7 @@ class SchoolOnlineFragment : BaseFragment() {
         val title = arguments?.getString("schoolTitle")
         schoolVM.successRegistration.value?.run {
             if (this && title != null) {
-                SuccessRegistrationSeminarDialog(title).show(
+                SuccessRegistrationSchoolDialog(title).show(
                     childFragmentManager,
                     "success_registration_dialog"
                 )
@@ -185,14 +182,19 @@ class SchoolOnlineFragment : BaseFragment() {
                                             R.color.gray3
                                         )
                                     )
-                                    val margin =
-                                        resources.getDimension(R.dimen.marginLessonNumber).toInt()
-                                    (viewWait.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                        0,
-                                        0,
-                                        margin,
-                                        0
-                                    )
+                                    val paddingNormal = resources.getDimension(R.dimen._14dp).toInt()
+                                    val paddingEdge =  resources.getDimension(R.dimen.largeMargin).toInt()
+                                    if(q == 0 || q == onlineSchool.lessonsPassed.lastIndex){
+                                        if(q == 0) {
+                                            viewWait.setPadding(paddingEdge, 0,paddingNormal,0)
+                                        }
+                                        if (q == onlineSchool.lessonsPassed.lastIndex) {
+                                            viewWait.setPadding(0, 0,paddingEdge,0)
+                                        }
+                                    }
+                                    else {
+                                        viewWait.setPadding(0, 0, paddingNormal,0)
+                                    }
                                     containerNumbers.addView(viewWait)
                                 }
                             }

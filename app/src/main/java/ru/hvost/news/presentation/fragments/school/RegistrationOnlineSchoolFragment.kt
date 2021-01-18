@@ -83,6 +83,14 @@ class RegistrationOnlineSchoolFragment: BaseFragment() {
             doOnSuccess = {
                 mainVM.userPets.value?.run {
                     if (this.isNotEmpty()) {
+                        binding.spinnerEmptyView.root.visibility = View.GONE
+                        binding.spinnerPets.visibility = View.VISIBLE
+                    }
+                    else {
+                        binding.spinnerEmptyView.root.visibility = View.VISIBLE
+                        binding.spinnerPets.visibility = View.GONE
+                    }
+                    if (this.isNotEmpty()) {
                         binding.spinnerPets.isEnabled = true
                         pets = this
                         binding.spinnerPets.adapter =
