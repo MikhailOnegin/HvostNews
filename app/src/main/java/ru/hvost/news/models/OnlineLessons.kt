@@ -9,7 +9,7 @@ data class OnlineLessons(
         val domainId: Int,
         val lessonId:String,
         val lessonTitle: String,
-        val petAge: String,
+        val petAge: List<String>,
         val lessonNumber: String,
         val isTestPassed: Boolean,
         val videoUrl: String,
@@ -40,7 +40,7 @@ fun List<OnlineLessonsResponse.OnlineLesson>?.toOnlineLessons(): List<OnlineLess
                     domainId = index,
                     lessonId = onlineLessonResponse.lessonId?: "",
                     lessonTitle = onlineLessonResponse.lessonTitle ?: "",
-                    petAge = onlineLessonResponse.petAge ?: "",
+                    petAge = onlineLessonResponse.petAge.toStrings(),
                     lessonNumber = onlineLessonResponse.lessonNumber ?: "",
                     isTestPassed = onlineLessonResponse.isTestPassed ?: false,
                     videoUrl = onlineLessonResponse.videoUrl ?: "",
@@ -65,6 +65,19 @@ fun List<OnlineLessonsResponse.Answer>?.toAnswers(): List<OnlineLessons.Answer> 
                 )
             )
         }
+    }
+    return result
+}
+
+fun List<String>?.toStrings():List<String>{
+    val result = mutableListOf<String>()
+    this?.run {
+        for((_,str) in this.withIndex()){
+            result.add(
+                    str
+            )
+        }
+
     }
     return result
 }

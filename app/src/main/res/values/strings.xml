@@ -84,7 +84,7 @@
         Желаем удачи в прохождении курса!
     </string>
     <string name="age">Возраст\n(мес.)</string>
-    <string name="age2">Возраст:</string>
+    <string name="age2">Возраст: </string>
     <string name="theme">Тема</string>
     <string name="go_registration">Для прохождения курса пройдите регистрацию!</string>
     <string name="lessons_completed">Пройдено уроков</string>

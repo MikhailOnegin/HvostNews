@@ -61,7 +61,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             binding.textViewDescriptionWait.text = school.description.parseAsHtml()
 
             Glide.with(itemView.context).load(baseUrl + school.image)
-                .placeholder(R.drawable.not_found).centerCrop()
+                .placeholder(R.drawable.empty_image).centerCrop()
                 .into(binding.imageViewInfo)
 
             if(school.wait.isNotEmpty()) {
@@ -89,7 +89,7 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     viewWait.textView_head.text = wait.head.parseAsHtml()
                     viewWait.textView_description.text = wait.description.parseAsHtml()
                     Glide.with(itemView.context).load(baseUrl + wait.imageUrl)
-                        .placeholder(R.drawable.not_found).centerCrop()
+                        .placeholder(R.drawable.empty_image).centerCrop()
                         .into(viewWait.imageView_what_wait)
                     (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
                         margin,

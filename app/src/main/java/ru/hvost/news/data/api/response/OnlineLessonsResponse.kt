@@ -10,7 +10,7 @@ data class OnlineLessonsResponse(
         val lessonTitle: String?,
         val lessonNumber: String?,
         val isTestPassed: Boolean?,
-        val petAge: String?,
+        val petAge: List<String>?,
         val videoUrl: String?,
         val imageVideoUrl: String?,
         val testQuestion: String?,
