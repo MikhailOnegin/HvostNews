@@ -19,6 +19,7 @@ import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.utils.startIntentActionView
+import java.lang.Exception
 import java.lang.StringBuilder
 
 class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -109,11 +110,15 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.textViewNumber.text = lessonNumber.toString()
             binding.textViewTitle.text = lesson.lessonTitle.parseAsHtml()
             val strBuilder = StringBuilder()
-            strBuilder.append(itemView.resources.getString(R.string.age2))
+            strBuilder.append("${itemView.resources.getString(R.string.age2)} ")
             for(i in lesson.petAge.indices){
                 val age = lesson.petAge[i]
                 if(i==0) strBuilder.append(age)
-                if(i==1) strBuilder.append("-$age")
+                if(i==1) {
+                    strBuilder.append("-$age")
+                    val month = monthЕndings(lesson.petAge[i])
+                    strBuilder.append(" $month")
+                }
             }
                 binding.textViewAge.text = strBuilder.toString()
             firstActiveLessonId?.run {
@@ -194,5 +199,18 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         const val TYPE_LESSON_ACTIVE = 0
         const val TYPE_LESSON_FINISHED = 1
         const val TYPE_USEFUL_LITERATURE = 2
+    }
+
+    fun monthЕndings(i: String): String{
+        var result = ""
+        try {
+            result = when (i.toInt()) {
+               0 -> "месяцев"
+               1 -> "месяц"
+               in 3..4 -> "месяца"
+               else -> "месяцев"
+           }}
+        catch (e:Exception){}
+        return  result
     }
 }

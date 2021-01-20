@@ -190,17 +190,17 @@
     <dimen name="_56dp">56dp</dimen>
     <dimen name="_60dp">60dp</dimen>
     <dimen name="_70dp">70dp</dimen>
-    <dimen name="_76dp">70dp</dimen>
+    <dimen name="_76dp">76dp</dimen>
     <dimen name="_80dp">80dp</dimen>
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_110dp">110dp</dimen>
     <dimen name="_124dp">124dp</dimen>
     <dimen name="_140dp">140dp</dimen>
     <dimen name="_155dp">155dp</dimen>
-    <dimen name="_170dp">175dp</dimen>
+    <dimen name="_170dp">170dp</dimen>
     <dimen name="_175dp">175dp</dimen>
-    <dimen name="_220dp">220dp</dimen>
     <dimen name="_200dp">200dp</dimen>
+    <dimen name="_220dp">220dp</dimen>
     <dimen name="_300dp">300dp</dimen>
 
     <dimen name="_1sp">1sp</dimen>

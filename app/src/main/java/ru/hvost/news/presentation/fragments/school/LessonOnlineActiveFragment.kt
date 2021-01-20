@@ -76,6 +76,13 @@ class LessonOnlineActiveFragment : BaseFragment() {
                 binding.buttonToAnswer.isEnabled = false
             },
             doOnSuccess = {
+                lessons?.let { lessons ->
+                    lesson?.let {lesson ->
+                        if(lessons.last() == lesson){
+                            findNavController().popBackStack()
+                        }
+                    }
+                }
                 binding.buttonToAnswer.isEnabled = true
                 for (i in buttons.indices) {
                     buttons[i].isEnabled = false
@@ -130,8 +137,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                 if (lesson.lessonId == this) {
                                     this@LessonOnlineActiveFragment.lesson = lesson
                                     binding.textViewTitle.text = lesson.lessonTitle
-                                    val lessonNumber =
-                                        "${getString(R.string.lesson_number)} ${i + 1}"
+                                    val lessonNumber = "${getString(R.string.lesson_number)} ${i + 1}"
                                     binding.textViewLessonNumber.text = lessonNumber
                                     binding.textViewQuestion.text = lesson.testQuestion
                                     binding.imageViewPlay.setOnClickListener {
