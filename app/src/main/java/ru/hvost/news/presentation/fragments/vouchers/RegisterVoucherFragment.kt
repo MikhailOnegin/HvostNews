@@ -109,6 +109,7 @@ class RegisterVoucherFragment : BaseFragment() {
                 this,
                 Pets::petName
             )
+            binding.buttonActivate.isEnabled = !isEmpty()
         }
     }
 
