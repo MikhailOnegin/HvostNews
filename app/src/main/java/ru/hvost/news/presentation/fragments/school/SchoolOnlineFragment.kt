@@ -201,7 +201,17 @@ class SchoolOnlineFragment : BaseFragment() {
                         }
                     }
                 }
-            }
+            },
+                doOnError = {
+                            App.getInstance().userToken?.let {
+                                schoolVM.getOnlineSchools(it)
+                            }
+                },
+                doOnFailure = {
+                    App.getInstance().userToken?.let {
+                        schoolVM.getOnlineSchools(it)
+                    }
+                }
         )
 
         onlineLessonsEvent = DefaultNetworkEventObserver(

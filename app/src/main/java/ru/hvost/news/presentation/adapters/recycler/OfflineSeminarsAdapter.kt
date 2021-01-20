@@ -21,7 +21,7 @@ class OfflineSeminarsAdapter :
     RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
 
     private var lessonsFull = arrayListOf<OfflineSeminars.OfflineSeminar>()
-    private var lessons = arrayListOf<OfflineSeminars.OfflineSeminar>()
+    var lessons = arrayListOf<OfflineSeminars.OfflineSeminar>()
     private var showFinished = true
     var onClickLesson:OnClickOfflineLesson? = null
 
