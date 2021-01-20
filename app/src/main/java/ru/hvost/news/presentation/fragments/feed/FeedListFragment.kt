@@ -30,7 +30,7 @@ class FeedListFragment : BaseFragment() {
         binding = FragmentFeedListBinding.inflate(inflater, container, false)
         binding.root.addItemDecoration(LinearRvItemDecorations(
             sideMarginsDimension = R.dimen.largeMargin,
-            marginBetweenElementsDimension = R.dimen.normalMargin
+            marginBetweenElementsDimension = R.dimen.extraLargeMargin
         ))
         return binding.root
     }

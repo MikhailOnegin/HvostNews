@@ -5,6 +5,7 @@
     <dimen name="normalMargin">16dp</dimen>
     <dimen name="largeMargin">24dp</dimen>
     <dimen name="xLargeMargin">32dp</dimen>
+    <dimen name="extraLargeMargin">40dp</dimen>
     <dimen name="smallCorners">8dp</dimen>
     <dimen name="mediumCorners">16dp</dimen>
     <dimen name="largeCorners">24dp</dimen>
@@ -255,4 +256,5 @@
     <dimen name="lessonNumbersMargin">16dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">63dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">134dp</dimen>
+    <dimen name="maxChipsWidth">250dp</dimen>
 </resources>

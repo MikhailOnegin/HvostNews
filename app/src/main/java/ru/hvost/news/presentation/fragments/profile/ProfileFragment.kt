@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_feed_list.*
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
@@ -96,7 +97,7 @@ class ProfileFragment : BaseFragment() {
         if (couponsMV.couponsEvent.value?.peekContent() == State.SUCCESS) {
             setCouponsCount()
         } else {
-            mainVM.getBonusBalance()
+            App.getInstance().userToken?.let { couponsMV.getCoupons(it) }
         }
     }
 
@@ -122,7 +123,8 @@ class ProfileFragment : BaseFragment() {
     private fun initializeEventObservers() {
         onUserPetsLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
-            doOnSuccess = { setRecyclerView() }
+            doOnSuccess = { setRecyclerView() },
+            invokeErrorSnackbar = false
         )
         onUserDataLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
@@ -212,18 +214,9 @@ class ProfileFragment : BaseFragment() {
             }
         }
         binding.vouchers.setOnClickListener {
-            if (mainVM.vouchers.value.isNullOrEmpty()) {
-                createSnackbar(
-                    binding.root,
-                    getString(R.string.vouchersIsNull),
-                    getString(R.string.buttonOk)
-                ).show()
-            } else {
-                findNavController().navigate(R.id.action_profileFragment_to_vouchersFragment)
-            }
-
-            binding.logout.setOnClickListener { (requireActivity() as MainActivity).userLogOut() }
+            findNavController().navigate(R.id.action_profileFragment_to_vouchersFragment)
         }
+        binding.logout.setOnClickListener { (requireActivity() as MainActivity).userLogOut() }
     }
 
     private fun setRecyclerView() {

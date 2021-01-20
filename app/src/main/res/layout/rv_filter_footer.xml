@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/ButtonHeight"
         android:layout_marginEnd="@dimen/smallMargin"
-        android:layout_weight="0.55"
+        android:layout_weight="0.6"
         android:backgroundTint="@color/gray4"
         android:fontFamily="@font/gilroy_medium"
         android:text="@string/reset"
