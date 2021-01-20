@@ -93,6 +93,7 @@ class MakeOrderFragment : BaseFragment() {
 
     private fun onFinishEvent(orderNumber: Int) {
         cartVM.updateCartAsync(App.getInstance().userToken)
+        if (binding.saveDataForFuture.isChecked) mainVM.loadUserData()
         val bundle = Bundle()
         bundle.putInt(FinishOrderFragment.ORDER_NUMBER, orderNumber)
         findNavController().navigate(R.id.action_makeOrderFragment_to_finishOrderFragment, bundle)
