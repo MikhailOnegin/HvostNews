@@ -125,6 +125,7 @@
         android:layout_marginStart="@dimen/iconMargin"
         android:layout_marginTop="@dimen/iconMargin"
         android:layout_marginEnd="@dimen/smallMargin"
+        android:src="@drawable/ic_arcticle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
