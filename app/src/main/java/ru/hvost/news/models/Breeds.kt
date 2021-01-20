@@ -23,7 +23,7 @@ fun List<BreedsResponse.Breed>.toBreeds(): List<Breeds> {
         result.add(
             0, Breeds(
                 id = 0L,
-                breedId = null,
+                breedId = "",
                 breedName = "Не выбрано"
             )
         )

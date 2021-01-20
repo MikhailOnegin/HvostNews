@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -40,6 +41,7 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = LayoutAddPetBinding.inflate(inflater)
+        binding.actionAdd.isEnabled = false
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         if (mainVM.petsSpeciesLoadingEvent.value?.peekContent() == State.SUCCESS) {
             onSpeciesChanged()
@@ -90,6 +92,9 @@ class AddPetCustomDialog : BottomSheetDialogFragment() {
     }
 
     private fun setListeners() {
+        binding.petName.doOnTextChanged { text, _, _, _ ->
+            binding.actionAdd.isEnabled = !text.isNullOrEmpty() && text.length > 2
+        }
         binding.sexMale.setOnClickListener(onSexClicked)
         binding.sexFemale.setOnClickListener(onSexClicked)
         binding.sexUnknown.setOnClickListener(onSexClicked)

@@ -117,9 +117,7 @@
                 layout="@layout/layout_lesson_numbers"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginTop="@dimen/_12dp"
-                android:layout_marginEnd="@dimen/largeMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -140,7 +138,7 @@
                     android:id="@+id/button_registration"
                     style="@style/UnelevatedButton"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/secondaryButtonHeight"
+                    android:layout_height="@dimen/_76dp"
                     android:layout_marginStart="@dimen/largeMargin"
                     android:layout_marginEnd="@dimen/largeMargin"
                     android:text="@string/registration"

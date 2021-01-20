@@ -172,9 +172,10 @@
         <item name="android:textSize">@dimen/secondaryTextTextSize</item>
     </style>
 
-    <style name="RegSpinner">
+    <style name="RegSpinner" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:popupBackground">@drawable/spinner_popup_background</item>
+        <item name="overlapAnchor">false</item>
     </style>
 
     <style name="EmptySpinner">

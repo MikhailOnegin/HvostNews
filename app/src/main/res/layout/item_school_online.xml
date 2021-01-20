@@ -94,9 +94,7 @@
         layout="@layout/layout_lesson_numbers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginTop="@dimen/normalMargin"
-        android:layout_marginEnd="@dimen/largeMargin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_title" />

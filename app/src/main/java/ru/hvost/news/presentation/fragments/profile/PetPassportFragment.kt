@@ -294,11 +294,8 @@ class PetPassportFragment : BaseFragment() {
         val bottomSheetBinding =
             layoutInflater.inflate(R.layout.layout_add_disease, binding.root, false)
         bottomSheetBinding.addDisease.isEnabled = false
-        bottomSheetBinding.diseaseTitle.doOnTextChanged { _, _, _, count ->
-            bottomSheetBinding.addDisease.isEnabled = when (count) {
-                0, 1, 2 -> false
-                else -> true
-            }
+        bottomSheetBinding.diseaseTitle.doOnTextChanged { text, _, _, _ ->
+            bottomSheetBinding.addDisease.isEnabled = !text.isNullOrEmpty() && text.length > 2
         }
         bottomSheetBinding.addDisease.setOnClickListener {
             val current = (binding.list.adapter as PetDiseasesAdapter).currentList

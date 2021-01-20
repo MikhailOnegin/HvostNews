@@ -90,7 +90,7 @@ class RegUserFragment : Fragment() {
     private fun isEverythingOk(): Boolean {
         binding.run {
             val fields =
-                arrayOf(surname, name, patronymic, phone, email, city, password, passwordConfirm)
+                arrayOf(name, phone, email, password, passwordConfirm)
             if(hasBlankField(*fields)) {
                 scrollToTheTop(binding.scrollView)
                 return false
@@ -153,11 +153,8 @@ class RegUserFragment : Fragment() {
     private fun checkIfFirstStageFinished() {
         registrationVM.firstStageFinished.value = !(
                 binding.name.text.isNullOrBlank() ||
-                binding.surname.text.isNullOrBlank() ||
-                binding.patronymic.text.isNullOrBlank() ||
                 binding.phone.text.isNullOrBlank() ||
                 binding.email.text.isNullOrBlank() ||
-                binding.city.text.isNullOrBlank() ||
                 binding.password.text.isNullOrBlank() ||
                 binding.passwordConfirm.text.isNullOrBlank() ||
                 !binding.agreement.isChecked)

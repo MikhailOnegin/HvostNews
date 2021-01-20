@@ -115,13 +115,13 @@ class SchoolParentsFragment : BaseFragment() {
         })
         schoolVM.offlineSeminars.observe(owner, {
             offlineSeminarsAdapter.setSeminars(it.seminars)
-            if(it.seminars.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
-            else binding.scrollViewEmpty.visibility = View.VISIBLE
+            if(it.seminars.isNotEmpty()) binding.textViewEmpty.visibility = View.GONE
+            else binding.textViewEmpty.visibility = View.VISIBLE
         })
         schoolVM.onlineSchools.observe(owner, {
             onlineSchoolsAdapter.setSchools(it.onlineSchools)
-            if(it.onlineSchools.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
-            else binding.scrollViewEmpty.visibility = View.VISIBLE
+            if(it.onlineSchools.isNotEmpty()) binding.textViewEmpty.visibility = View.GONE
+            else binding.textViewEmpty.visibility = View.VISIBLE
         })
     }
 
@@ -157,8 +157,9 @@ class SchoolParentsFragment : BaseFragment() {
             doOnSuccess = {
                 schoolVM.offlineSeminars.value?.seminars?.run {
                     offlineSeminarsAdapter.setSeminars(this)
-                    if(this.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
-                    else binding.scrollViewEmpty.visibility = View.VISIBLE
+                    offlineSeminarsAdapter.filter(binding.switchFilter.isChecked)
+                    if(offlineSeminarsAdapter.lessons.isNotEmpty()) textViewEmpty.visibility = View.GONE
+                    else textViewEmpty.visibility = View.VISIBLE
                 }
             }
         )
@@ -167,8 +168,8 @@ class SchoolParentsFragment : BaseFragment() {
             doOnSuccess = {
                 schoolVM.onlineSchools.value?.onlineSchools?.run {
                     onlineSchoolsAdapter.setSchools(this)
-                    if(this.isNotEmpty()) binding.scrollViewEmpty.visibility = View.GONE
-                    else binding.scrollViewEmpty.visibility = View.VISIBLE
+                    if(this.isNotEmpty()) binding.textViewEmpty.visibility = View.GONE
+                    else binding.textViewEmpty.visibility = View.VISIBLE
                 }
             }
         )
@@ -201,8 +202,8 @@ class SchoolParentsFragment : BaseFragment() {
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
             offlineSeminarsAdapter.filter(b)
-            if(offlineSeminarsAdapter.itemCount > 0) binding.scrollViewEmpty.visibility = View.GONE
-            else binding.scrollViewEmpty.visibility = View.VISIBLE
+            if(offlineSeminarsAdapter.itemCount > 0) binding.textViewEmpty.visibility = View.GONE
+            else binding.textViewEmpty.visibility = View.VISIBLE
         }
 
         binding.spinnerOfflineSeminars.onItemSelectedListener =

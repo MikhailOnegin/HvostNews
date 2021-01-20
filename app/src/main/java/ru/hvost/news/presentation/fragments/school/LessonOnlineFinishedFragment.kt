@@ -110,11 +110,11 @@ class LessonOnlineFinishedFragment : BaseFragment() {
                     if (lesson.lessonId == lessonId) {
                         binding.textViewTitle.text = lesson.lessonTitle
                         val lessonNumber =
-                            "${getString(R.string.lesson_number)} ${lesson.lessonNumber}"
+                            "${getString(R.string.lesson_number)} ${i + 1}"
                         binding.textViewLessonNumber.text = lessonNumber
                         binding.textViewQuestion.text = lesson.testQuestion
                         Glide.with(requireContext()).load(baseUrl + lesson.imageVideoUrl)
-                            .placeholder(R.drawable.not_found).centerCrop()
+                            .placeholder(R.drawable.empty_image).centerCrop()
                             .into(binding.imageViewVideo)
                         for (q in lesson.answerList.indices) {
                             val answer = lesson.answerList[q]

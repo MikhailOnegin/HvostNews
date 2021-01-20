@@ -107,7 +107,7 @@ class OfflineRegistrationDialog(private val seminarId:Int) : BottomSheetDialogFr
             },
             doOnSuccess = {
                 seminar?.let {
-                    SuccessRegistrationSeminarDialog(it.title).show(
+                    SuccessRegistrationSchoolDialog(it.title).show(
                         childFragmentManager,
                         "success_registration_dialog"
                     )

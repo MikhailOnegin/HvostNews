@@ -24,7 +24,7 @@ fun List<Preparations>.toPreps(): List<Preps> {
     result.add(
         0, Preps(
             index = 0L,
-            id = "0",
+            id = "",
             name = "Не выбрано",
             typeId = "0"
         )

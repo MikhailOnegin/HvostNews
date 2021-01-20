@@ -56,7 +56,7 @@ class EventOfflineInfoFragment : BaseFragment() {
             seminar = it.seminars[0]
             seminar?.let { seminar ->
                 Glide.with(requireContext()).load(APIService.baseUrl + seminar.imageUrl)
-                    .placeholder(R.drawable.not_found).centerCrop()
+                    .placeholder(R.drawable.empty_image).centerCrop()
                     .into(binding.imageViewSeminar)
                 binding.textViewDescription.text = seminar.description.parseAsHtml()
                 if (seminar.wait.isNotEmpty()) {
@@ -92,9 +92,5 @@ class EventOfflineInfoFragment : BaseFragment() {
                 }
             }
         })
-    }
-
-    fun startNavigation(id:Int){
-        findNavController().navigate(id)
     }
 }
