@@ -150,6 +150,7 @@
     <dimen name="balanceStrokeWidth">10dp</dimen>
     <dimen name="popupWidth">325dp</dimen>
     <dimen name="dialogTitleTextSize">26sp</dimen>
+    <dimen name="editTextHeight">64dp</dimen>
 
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_2dp">2dp</dimen>
