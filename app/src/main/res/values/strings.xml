@@ -152,7 +152,7 @@
     <string name="hintPhone">Ваш номер телефона</string>
     <string name="hintEmail">E-mail</string>
     <string name="hintCity">Город</string>
-    <string name="regPhoneHint">После завершения регистрации на указанный вами номер будет отправлено SMS-сообщение с паролем.</string>
+    <string name="regPhoneHint">После завершения регистрации на указанный вами номер будет отправлено SMS-сообщение с кодом подтверждения.</string>
     <string name="regPersDataHint">Я принимаю условия «Соглашения об использовании материалов и сервисов» и даю своё согласие «Хвост Ньюс» на обработку моих персональных данных, определенных в Политике конфиденциальности.</string>
     <string name="requiredField">Обязательно для заполнения</string>
     <string name="tooBigField">Слишком много символов</string>

@@ -64,12 +64,11 @@ class RegInterestsFragment : Fragment() {
     private val onRegistrationStateChanged = { event: NetworkEvent<State> ->
         when(event.getContentIfNotHandled()) {
             State.SUCCESS -> {
-                createSnackbar(
-                    binding.root,
-                    getString(R.string.registrationSuccessfull),
-                    getString(R.string.buttonOk)
-                ).show()
-                requireActivity().findNavController(R.id.nav_host_fragment).popBackStack()
+                val bundle = Bundle()
+                bundle.putString(LoginFragment.EXTRA_LOGIN, registrationVM.userEmail)
+                bundle.putString(LoginFragment.EXTRA_PASSWORD, registrationVM.password)
+                requireActivity().findNavController(R.id.nav_host_fragment)
+                    .navigate(R.id.action_regParentFragment_to_loginFragment, bundle)
             }
             State.ERROR -> {
                 createSnackbar(
