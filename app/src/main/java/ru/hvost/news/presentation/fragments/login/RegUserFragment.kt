@@ -81,6 +81,22 @@ class RegUserFragment : Fragment() {
         binding.passwordConfirm.doOnTextChanged { _, _, _, _ -> checkIfFirstStageFinished() }
     }
 
+    private fun setProgressParts() {
+        var progressParts = 0
+        binding.run {
+            if (agreement.isChecked) progressParts++
+            if (!name.text.isNullOrBlank()) progressParts++
+            if (!surname.text.isNullOrBlank()) progressParts++
+            if (!patronymic.text.isNullOrBlank()) progressParts++
+            if (!phone.text.isNullOrBlank()) progressParts++
+            if (!email.text.isNullOrBlank()) progressParts++
+            if (!city.text.isNullOrBlank()) progressParts++
+            if (!password.text.isNullOrBlank()) progressParts++
+            if (!passwordConfirm.text.isNullOrBlank()) progressParts++
+        }
+        registrationVM.setProgressMap(RegistrationVM.RegStep.USER, progressParts)
+    }
+
     private val onButtonNextClicked = { _: View ->
         if(isEverythingOk()) {
             findNavController().navigate(R.id.action_regUserFragment_to_regPetFragment)
@@ -139,7 +155,7 @@ class RegUserFragment : Fragment() {
     }
 
     private fun setObservers() {
-        registrationVM.stage.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
+        registrationVM.progress.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
         registrationVM.step.observe(viewLifecycleOwner) { onStepChanged(it) }
         registrationVM.firstStageFinished.observe(viewLifecycleOwner) { onFirstStageFinished(it) }
     }
@@ -158,6 +174,7 @@ class RegUserFragment : Fragment() {
                 binding.password.text.isNullOrBlank() ||
                 binding.passwordConfirm.text.isNullOrBlank() ||
                 !binding.agreement.isChecked)
+        setProgressParts()
     }
 
     private fun onStepChanged(step: RegistrationVM.RegStep) {

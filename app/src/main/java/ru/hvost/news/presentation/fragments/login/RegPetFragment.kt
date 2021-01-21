@@ -70,6 +70,7 @@ class RegPetFragment : Fragment() {
 
     private fun checkIfSecondStageFinished() {
         registrationVM.secondStageFinished.value = !binding.petName.text.isNullOrBlank()
+        setProgressParts()
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -87,7 +88,7 @@ class RegPetFragment : Fragment() {
         registrationVM.species.observe(viewLifecycleOwner) { onSpeciesChanged(it) }
         registrationVM.petSex.observe(viewLifecycleOwner) { onPetSexChanged(it) }
         registrationVM.petBirthday.observe(viewLifecycleOwner) { onPetBirthdayChanged(it) }
-        registrationVM.stage.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
+        registrationVM.progress.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
         registrationVM.step.observe(viewLifecycleOwner) { onStepChanged(it) }
         registrationVM.secondStageFinished.observe(viewLifecycleOwner) { onSecondStageFinished(it) }
     }
@@ -142,6 +143,16 @@ class RegPetFragment : Fragment() {
         binding.spinner.onItemSelectedListener = OnSpeciesSelectedListener(registrationVM)
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.petName.doOnTextChanged { _, _, _, _ -> checkIfSecondStageFinished() }
+        binding.promocode.doOnTextChanged { _, _, _, _ -> setProgressParts() }
+    }
+
+    private fun setProgressParts() {
+        var progressParts = 0
+        binding.run {
+            if (!petName.text.isNullOrBlank()) progressParts++
+            if (!promocode.text.isNullOrBlank()) progressParts++
+        }
+        registrationVM.setProgressMap(RegistrationVM.RegStep.PET, progressParts)
     }
 
     private class OnSpeciesSelectedListener(

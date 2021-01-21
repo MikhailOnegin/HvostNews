@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.internal.matchers.Null
 import ru.hvost.news.getOrAwaitValue
 import ru.hvost.news.models.RegInterest
 import ru.hvost.news.utils.rules.MainCoroutineRule
@@ -34,30 +33,6 @@ class RegistrationVMTest {
     @Before
     fun setup(){
         registrationVM = RegistrationVM()
-    }
-
-    @Test
-    fun setStage_RegStepUser_setsStageTo33Percents() {
-        registrationVM.setStage(RegistrationVM.RegStep.USER)
-        assertThat(
-            registrationVM.stage.getOrAwaitValue(), `is`(Pair(0,33))
-        )
-    }
-
-    @Test
-    fun setStage_RegStepPet_setsStageTo66Percents() {
-        registrationVM.setStage(RegistrationVM.RegStep.PET)
-        assertThat(
-            registrationVM.stage.getOrAwaitValue(), `is`(Pair(0,66))
-        )
-    }
-
-    @Test
-    fun setStage_RegStepInterests_setsStageTo100Percents() {
-        registrationVM.setStage(RegistrationVM.RegStep.INTERESTS)
-        assertThat(
-            registrationVM.stage.getOrAwaitValue(), `is`(Pair(0,100))
-        )
     }
 
     @Test
