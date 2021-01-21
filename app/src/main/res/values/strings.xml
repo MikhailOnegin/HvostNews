@@ -21,7 +21,7 @@
     <string name="presentations">Участие в выставках</string>
     <string name="titules">Наличие титулов</string>
     <string name="sport">Занятие спортом</string>
-    <string name="saloons">Посещение грумминг-салонов</string>
+    <string name="saloons">Посещение груминг-салонов</string>
     <string name="delete">Удалить питомца</string>
     <string name="deleteButton">Удалить</string>
     <string name="type">Вид питомца</string>
@@ -152,7 +152,7 @@
     <string name="hintPhone">Ваш номер телефона</string>
     <string name="hintEmail">E-mail</string>
     <string name="hintCity">Город</string>
-    <string name="regPhoneHint">После завершения регистрации на указанный вами номер будет отправлено SMS-сообщение с паролем.</string>
+    <string name="regPhoneHint">После завершения регистрации на указанный вами номер будет отправлено SMS-сообщение с кодом подтверждения.</string>
     <string name="regPersDataHint">Я принимаю условия «Соглашения об использовании материалов и сервисов» и даю своё согласие «Хвост Ньюс» на обработку моих персональных данных, определенных в Политике конфиденциальности.</string>
     <string name="requiredField">Обязательно для заполнения</string>
     <string name="tooBigField">Слишком много символов</string>
@@ -257,7 +257,7 @@
     <string name="dialogInviteFriendTitle">Приглашай друзей</string>
     <string name="dialogInviteFriendSubtitle">Пригласите друзей зарегистрироваться на нашем портале c помощью соцсетей или прямой ссылкой.</string>
     <string name="dialogRegPetTitle">Регистрируй питомца</string>
-    <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего питомца на портале «Хвост Ньюс</string>
+    <string name="dialogRegPetSubtitle">Зарегистрируйте своего домашнего питомца на портале «Хвост Ньюс»</string>
     <string name="networkErrorMessage">Произошла неизвестная ошибка при взаимодействии с сервером.</string>
     <string name="seminar">Семинар</string>
     <string name="answer_next_lesson">Для того чтобы открыть следующий видео-урок ответьте на вопрос по пройденной теме</string>
@@ -274,7 +274,6 @@
     <string name="emailInputHint">Email для приглашения</string>
     <string name="toPrizes">Перейти к призам</string>
     <string name="rules">Правила участия в конкурсе \n «Пригласи друга»</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="editProfileTitle">Редактирование профиля</string>
     <string name="petPassportTitle">Паспорт питомца</string>

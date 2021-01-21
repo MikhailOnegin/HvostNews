@@ -5,6 +5,7 @@
     <dimen name="normalMargin">16dp</dimen>
     <dimen name="largeMargin">24dp</dimen>
     <dimen name="xLargeMargin">32dp</dimen>
+    <dimen name="extraLargeMargin">40dp</dimen>
     <dimen name="smallCorners">8dp</dimen>
     <dimen name="mediumCorners">16dp</dimen>
     <dimen name="largeCorners">24dp</dimen>
@@ -150,6 +151,7 @@
     <dimen name="balanceStrokeWidth">10dp</dimen>
     <dimen name="popupWidth">425dp</dimen>
     <dimen name="dialogTitleTextSize">26sp</dimen>
+    <dimen name="editTextHeight">80dp</dimen>
 
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_2dp">2dp</dimen>
@@ -255,4 +257,5 @@
     <dimen name="lessonNumbersMargin">17dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">69dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">149dp</dimen>
+    <dimen name="maxChipsWidth">300dp</dimen>
 </resources>

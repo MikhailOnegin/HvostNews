@@ -182,11 +182,8 @@ class RegistrationVM : ViewModel() {
 
     private fun hasFieldsProblems(): Boolean {
         if(userName.isNullOrBlank()
-            || userSurname.isNullOrBlank()
-            || userPatronymic.isNullOrBlank()
             || userPhone.isNullOrBlank()
             || userEmail.isNullOrBlank()
-            || userCity.isNullOrBlank()
             || petName.isNullOrBlank()
             || interestsIds.isNullOrBlank()
             || password.isNullOrBlank()) return true

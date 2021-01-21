@@ -366,7 +366,17 @@
         android:id="@+id/regParentFragment"
         android:name="ru.hvost.news.presentation.fragments.login.RegParentFragment"
         android:label="RegParentFragment"
-        tools:layout="@layout/fragment_reg_parent" />
+        tools:layout="@layout/fragment_reg_parent" >
+        <action
+            android:id="@+id/action_regParentFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/cartFragment"

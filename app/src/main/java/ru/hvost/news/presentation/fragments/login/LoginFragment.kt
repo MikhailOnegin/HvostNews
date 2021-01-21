@@ -47,6 +47,7 @@ class LoginFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         authorizationVM = ViewModelProvider(requireActivity())[AuthorizationVM::class.java]
         setObservers()
+        trySetExtraData()
     }
 
     override fun onStart() {
@@ -54,6 +55,18 @@ class LoginFragment : BaseFragment() {
         setListeners()
         setSystemUiVisibility()
         setLoginButton()
+    }
+
+    private fun trySetExtraData() {
+        arguments?.run {
+            val login = getString(EXTRA_LOGIN)
+            val password = getString(EXTRA_PASSWORD)
+            if (!login.isNullOrBlank() && !password.isNullOrBlank()) {
+                binding.login.setText(login)
+                binding.password.setText(password)
+                onLoginButtonClicked.invoke(binding.buttonLogin)
+            }
+        }
     }
 
     @Suppress("DEPRECATION")
@@ -91,6 +104,7 @@ class LoginFragment : BaseFragment() {
                 } else {
                     navigateToSubmitPhoneScreen()
                 }
+                binding.buttonLogin.isEnabled = true
             }
             State.ERROR -> {
                 binding.progress.visibility = View.GONE
@@ -99,6 +113,7 @@ class LoginFragment : BaseFragment() {
                     event.error,
                     getString(R.string.buttonOk)
                 ).show()
+                binding.buttonLogin.isEnabled = true
             }
             State.FAILURE -> {
                 binding.progress.visibility = View.GONE
@@ -107,8 +122,10 @@ class LoginFragment : BaseFragment() {
                     getString(R.string.networkFailureMessage),
                     getString(R.string.buttonOk)
                 ).show()
+                binding.buttonLogin.isEnabled = true
             }
             State.LOADING -> {
+                binding.buttonLogin.isEnabled = false
                 binding.progress.visibility = View.VISIBLE
             }
         }
@@ -146,6 +163,13 @@ class LoginFragment : BaseFragment() {
 
     private fun navigateToSubmitPhoneScreen() {
         findNavController().navigate(R.id.action_loginFragment_to_submitPhoneFragment)
+    }
+
+    companion object {
+
+        const val EXTRA_LOGIN = "extra_login"
+        const val EXTRA_PASSWORD = "extra_password"
+
     }
 
 }

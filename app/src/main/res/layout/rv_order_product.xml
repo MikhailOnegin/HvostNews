@@ -55,8 +55,8 @@
             android:textColor="@color/TextColorPrimary"
             android:fontFamily="@font/gilroy_bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/price"
+            app:layout_constraintBottom_toBottomOf="@id/price"
             tools:text="4"/>
 
         <ImageView
@@ -67,8 +67,8 @@
             android:layout_height="@dimen/arithmeticIconSize"
             android:contentDescription="@string/multiplyIconCD"
             app:layout_constraintStart_toEndOf="@id/count"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/price"
+            app:layout_constraintBottom_toBottomOf="@id/price"
             android:layout_marginStart="@dimen/smallMargin"/>
 
         <TextView
@@ -105,8 +105,8 @@
             android:layout_height="@dimen/arithmeticIconSize"
             android:contentDescription="@string/equalsIconCD"
             app:layout_constraintStart_toEndOf="@id/price"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/price"
+            app:layout_constraintBottom_toBottomOf="@id/price"
             android:layout_marginStart="@dimen/smallMargin"/>
 
         <TextView
@@ -118,8 +118,8 @@
             android:textColor="#FA5F19"
             android:fontFamily="@font/gilroy_bold"
             app:layout_constraintStart_toEndOf="@id/equals"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/price"
+            app:layout_constraintBottom_toBottomOf="@id/price"
             tools:text="12 650 \u20bd"
             android:layout_marginStart="@dimen/smallMargin"/>
 
