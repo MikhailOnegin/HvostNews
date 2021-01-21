@@ -98,7 +98,6 @@ class ArticleContentAdapter(
                     .placeholder(R.drawable.empty_image)
                     .into(image)
                 title.text = header.title
-                domain.text = header.domainTitle
                 category.text = header.categoryTitle
                 views.text = moneyFormat.format(header.viewsCount)
                 date.text = header.publicationDate

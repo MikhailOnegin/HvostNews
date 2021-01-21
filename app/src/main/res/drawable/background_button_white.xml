@@ -6,6 +6,6 @@
         android:color="@android:color/white"/>
 
     <corners
-        android:radius="@dimen/smallCorners"/>
+        android:radius="@dimen/userProfileButtonLargeRadius"/>
 
 </shape>

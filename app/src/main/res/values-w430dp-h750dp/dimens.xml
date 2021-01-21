@@ -134,7 +134,7 @@
     <dimen name="smallButtonTextSize">16sp</dimen>
     <dimen name="articleTitleTextSize">22sp</dimen>
     <dimen name="articleDescriptionTextSize">20sp</dimen>
-    <dimen name="maxFeedChipsWidth">200dp</dimen>
+    <dimen name="maxFeedChipsWidth">190dp</dimen>
     <dimen name="checkboxSize">22dp</dimen>
     <dimen name="filtersIconSize">54dp</dimen>
     <dimen name="textTitleSize">16sp</dimen>
@@ -257,5 +257,6 @@
     <dimen name="lessonNumbersMargin">16dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">63dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">134dp</dimen>
-    <dimen name="maxChipsWidth">250dp</dimen>
+    <dimen name="maxChipsWidth">300dp</dimen>
+    <dimen name="mainTitleMaxWidth">360dp</dimen>
 </resources>

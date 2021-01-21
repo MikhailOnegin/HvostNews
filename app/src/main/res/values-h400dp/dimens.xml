@@ -108,7 +108,7 @@
     <dimen name="emptyViewTextSize">22sp</dimen>
     <dimen name="toolbarTitleTextSizeLarge">18sp</dimen>
     <dimen name="ic_back">20dp</dimen>
-    <dimen name="dialogSubtitleTextSize">16sp</dimen>
+    <dimen name="dialogSubtitleTextSize">14sp</dimen>
     <dimen name="switch_scale">0.6</dimen>
     <dimen name="marginToPromo">4dp</dimen>
     <dimen name="smallHeightButton">55dp</dimen>
@@ -134,7 +134,7 @@
     <dimen name="smallButtonTextSize">12sp</dimen>
     <dimen name="articleTitleTextSize">18sp</dimen>
     <dimen name="articleDescriptionTextSize">16sp</dimen>
-    <dimen name="maxFeedChipsWidth">160dp</dimen>
+    <dimen name="maxFeedChipsWidth">170dp</dimen>
     <dimen name="checkboxSize">18dp</dimen>
     <dimen name="filtersIconSize">42dp</dimen>
     <dimen name="textTitleSize">12sp</dimen>
@@ -257,5 +257,6 @@
     <dimen name="lessonNumbersMargin">12dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">49dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">97dp</dimen>
-    <dimen name="maxChipsWidth">100dp</dimen>
+    <dimen name="maxChipsWidth">200dp</dimen>
+    <dimen name="mainTitleMaxWidth">170dp</dimen>
 </resources>

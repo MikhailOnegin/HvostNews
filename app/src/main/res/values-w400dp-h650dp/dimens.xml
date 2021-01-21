@@ -257,5 +257,6 @@
     <dimen name="lessonNumbersMargin">14dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">56dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">120dp</dimen>
-    <dimen name="maxChipsWidth">200dp</dimen>
+    <dimen name="maxChipsWidth">250dp</dimen>
+    <dimen name="mainTitleMaxWidth">350dp</dimen>
 </resources>

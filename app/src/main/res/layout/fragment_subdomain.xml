@@ -26,7 +26,7 @@
             android:theme="@style/AppTheme.Toolbar"
             app:layout_scrollFlags="scroll|snap"
             app:navigationIcon="@drawable/ic_back"
-            app:title="@string/articlesTitle"/>
+            app:title="@string/articlesTitle" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,10 +37,11 @@
                 android:id="@+id/titleContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginStart="@dimen/normalMargin"
                 android:layout_marginTop="@dimen/xLargeMargin"
                 android:layout_marginBottom="@dimen/largeMargin"
-                android:background="@drawable/ripple_rectangle_button"
+                android:background="@drawable/selector_gray_rect_small_corners"
+                android:paddingHorizontal="@dimen/smallMargin"
                 app:layout_constraintBottom_toTopOf="@+id/category_tabs"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -50,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gilroy_bold"
+                    android:maxWidth="@dimen/mainTitleMaxWidth"
                     android:paddingStart="0dp"
                     android:paddingEnd="@dimen/smallMargin"
                     android:text="@string/stub"
@@ -62,12 +64,12 @@
                 <ImageView
                     android:layout_width="@dimen/rvShopChevronSize"
                     android:layout_height="@dimen/rvShopChevronSize"
-                    android:src="@drawable/ic_button_expand"
+                    android:layout_marginStart="@dimen/smallMargin"
                     android:scaleType="fitCenter"
+                    android:src="@drawable/ic_button_expand"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/title"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="@dimen/smallMargin"
                     tools:ignore="ContentDescription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
