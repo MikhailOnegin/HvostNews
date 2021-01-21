@@ -249,6 +249,9 @@
     <dimen name="domainsStrokeWidth">5dp</dimen>
     <dimen name="domainTitleMargin">8dp</dimen>
 
+    <dimen name="minus_1dp">-1dp</dimen>
+    <dimen name="minus_2dp">-2dp</dimen>
+
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_2dp">2dp</dimen>
     <dimen name="_3dp">3dp</dimen>

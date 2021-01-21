@@ -153,6 +153,9 @@
     <dimen name="dialogTitleTextSize">26sp</dimen>
     <dimen name="editTextHeight">80dp</dimen>
 
+    <dimen name="minus_1dp">-1dp</dimen>
+    <dimen name="minus_2dp">-2dp</dimen>
+
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_2dp">2dp</dimen>
     <dimen name="_3dp">4dp</dimen>
