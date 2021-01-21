@@ -1,10 +1,13 @@
 package ru.hvost.news.presentation.fragments.school
 
+import android.app.ActionBar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
@@ -161,6 +164,10 @@ class OfflineEventFragment : BaseFragment() {
                             val petTypeName = seminar.petSchedules[q].petTypeName
                             if (q == seminar.petSchedules.size - 1 ) viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_right)
                             else viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_middle)
+                            val margin = resources.getDimension(R.dimen.minus_1dp).toInt()
+                            (viewTab2.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                    margin,0,margin,0
+                            )
                             val tabText = "${getString(R.string.schedule_for)} $petTypeName"
                             viewTab2.textView_tab.text = tabText
                             tabsView.add(viewTab2)
