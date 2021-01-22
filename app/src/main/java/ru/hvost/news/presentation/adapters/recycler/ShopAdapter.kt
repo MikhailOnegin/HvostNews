@@ -174,7 +174,7 @@ class ShopAdapter(
             binding.apply {
                 Glide.with(binding.root).load(product.imageUri).into(image)
                 title.text = product.title.parseAsHtml()
-                price.text = "${moneyFormat.format(product.price.toInt())} \u20bd"
+                price.text = "${moneyFormat.format(product.price)} \u20bd"
                 oldPrice.text = "${moneyFormat.format(product.oldPrice.toInt())} \u20bd"
                 oldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 root.setOnClickListener { onClick.invoke(product.id) }
