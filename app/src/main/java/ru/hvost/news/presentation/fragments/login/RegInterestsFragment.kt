@@ -57,7 +57,7 @@ class RegInterestsFragment : Fragment() {
         registrationVM.interests.observe(viewLifecycleOwner) { onInterestsChanged(it) }
         registrationVM.thirdStageFinished.observe(viewLifecycleOwner) { onThirdStageFinished(it) }
         registrationVM.registrationState.observe(viewLifecycleOwner) { onRegistrationStateChanged(it) }
-        registrationVM.stage.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
+        registrationVM.progress.observe(viewLifecycleOwner) { onStageChanged.invoke(it) }
         registrationVM.step.observe(viewLifecycleOwner) { onStepChanged(it) }
     }
 

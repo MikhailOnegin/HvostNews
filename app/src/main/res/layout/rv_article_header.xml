@@ -80,7 +80,7 @@
         android:layout_marginTop="@dimen/normalMargin"/>
 
     <TextView
-        android:id="@+id/domain"
+        android:id="@+id/category"
         tools:text="Котята"
         android:textSize="@dimen/articleChipsTextSize"
         android:background="@drawable/background_chips"
@@ -90,30 +90,13 @@
         android:paddingVertical="@dimen/chipsPaddingHorizontal"
         android:text="@string/stub"
         android:textColor="@color/gray2"
+        android:maxLines="1"
         android:maxWidth="@dimen/maxChipsWidth"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/image"
         app:layout_constraintStart_toStartOf="@id/image"
         android:layout_marginTop="@dimen/normalMargin"/>
-
-    <TextView
-        android:id="@+id/category"
-        tools:text="Уход"
-        android:textSize="@dimen/articleChipsTextSize"
-        android:background="@drawable/background_chips"
-        android:fontFamily="@font/gilroy_semibold"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/chipsPaddingVertical"
-        android:paddingVertical="@dimen/chipsPaddingHorizontal"
-        android:text="@string/stub"
-        android:textColor="@color/gray2"
-        android:maxWidth="@dimen/maxChipsWidth"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="@id/domain"
-        app:layout_constraintStart_toEndOf="@id/domain"
-        android:layout_marginStart="@dimen/smallMargin"/>
 
     <TextView
         android:id="@+id/views"
@@ -124,8 +107,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/domain"
-        app:layout_constraintBottom_toBottomOf="@id/domain"/>
+        app:layout_constraintTop_toTopOf="@id/category"
+        app:layout_constraintBottom_toBottomOf="@id/category"/>
 
     <ImageView
         android:id="@+id/viewsIcon"
@@ -144,7 +127,7 @@
         android:background="@color/gray4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/domain"
+        app:layout_constraintTop_toBottomOf="@id/category"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/normalMargin"
         android:layout_marginBottom="@dimen/xLargeMargin"/>

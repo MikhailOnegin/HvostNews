@@ -2,7 +2,7 @@
 <resources>
     <integer name="fragment_transition_duration">500</integer>
     <integer name="editTextFieldMaxSize">50</integer>
-    <integer name="regProgressAnimationTime">1500</integer>
+    <integer name="regProgressAnimationTime">100</integer>
     <integer name="minPassLength">8</integer>
     <integer name="popup_animation_duration">300</integer>
     <integer name="filtersContainerAnimationTime">300</integer>

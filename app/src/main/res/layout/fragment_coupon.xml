@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -46,11 +47,12 @@
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1dp"
-                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginTop="32dp"
                 android:background="@color/gray5"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_coupon_activity" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_address" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -177,9 +179,8 @@
 
             <TextView
                 android:id="@+id/textView_coupon_status"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_24dp"
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:fontFamily="@font/gilroy_semibold"
                 android:gravity="end"
@@ -188,7 +189,6 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_logo_coupon_status"
                 app:layout_constraintTop_toTopOf="@+id/textView_logo_coupon_status" />
 
             <TextView
@@ -228,16 +228,17 @@
                 android:id="@+id/view4"
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginTop="32dp"
                 android:background="@color/gray5"
-                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_coupon_activity"
+                tools:layout_editor_absoluteX="-23dp" />
 
             <TextView
                 android:id="@+id/textView_coupon_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/largeMargin"
-                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
@@ -245,7 +246,7 @@
                 android:textSize="@dimen/_24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view5" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
             <TextView
                 android:id="@+id/textView_address"
@@ -262,22 +263,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
-            <View
-                android:id="@+id/view5"
-                android:layout_width="match_parent"
-                android:layout_height="2px"
-                android:layout_marginTop="@dimen/_24dp"
-                android:background="@color/gray5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_address" />
-
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/largeMargin"
-                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/address1"

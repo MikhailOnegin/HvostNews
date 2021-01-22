@@ -39,7 +39,7 @@
     <dimen name="articleDetailTitleTextSize">30sp</dimen>
     <dimen name="articleIconSize">40dp</dimen>
     <dimen name="articleDateTextSize">16sp</dimen>
-    <dimen name="articleChipsTextSize">16sp</dimen>
+    <dimen name="articleChipsTextSize">14sp</dimen>
     <dimen name="viewsIconSize">32dp</dimen>
     <dimen name="chipsStrokeWidth">3dp</dimen>
     <dimen name="articleTextSize">18sp</dimen>
@@ -82,7 +82,7 @@
     <dimen name="profileSmallTextSize">16sp</dimen>
     <dimen name="counterTextSize">13sp</dimen>
     <dimen name="profileTitleTextSize">24sp</dimen>
-    <dimen name="profileBackgroundImageHeight">340dp</dimen>
+    <dimen name="profileBackgroundImageHeight">350dp</dimen>
     <dimen name="buttonMediumTextSize">16sp</dimen>
     <dimen name="inviteTextSize">15sp</dimen>
     <dimen name="profileToPrizesButtonHeight">75dp</dimen>
@@ -134,7 +134,7 @@
     <dimen name="smallButtonTextSize">14sp</dimen>
     <dimen name="articleTitleTextSize">20sp</dimen>
     <dimen name="articleDescriptionTextSize">18sp</dimen>
-    <dimen name="maxFeedChipsWidth">180dp</dimen>
+    <dimen name="maxFeedChipsWidth">130dp</dimen>
     <dimen name="checkboxSize">20dp</dimen>
     <dimen name="filtersIconSize">48dp</dimen>
     <dimen name="textTitleSize">14sp</dimen>
@@ -257,5 +257,6 @@
     <dimen name="lessonNumbersMargin">14dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">56dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">120dp</dimen>
-    <dimen name="maxChipsWidth">150dp</dimen>
+    <dimen name="maxChipsWidth">220dp</dimen>
+    <dimen name="mainTitleMaxWidth">170dp</dimen>
 </resources>

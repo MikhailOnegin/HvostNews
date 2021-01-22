@@ -33,7 +33,7 @@ class RegistrationVM : ViewModel() {
     var password: String? = null
     var userCity: String? = null
     //pet registration data
-    val petSex = MutableLiveData<Int>()
+    val petSex = MutableLiveData<Int?>()
     val petBirthday = MutableLiveData<Date>()
     var petSpeciesId: Int = -1
     var voucher: String? = null
@@ -48,6 +48,15 @@ class RegistrationVM : ViewModel() {
     val secondStageFinished = MutableLiveData<Boolean>()
     private val _thirdStageFinished = MutableLiveData<Boolean>()
     val thirdStageFinished: LiveData<Boolean> = _thirdStageFinished
+
+    private val progressMap = mutableMapOf(
+        Pair(RegStep.USER, 0),
+        Pair(RegStep.PET, 0),
+        Pair(RegStep.INTERESTS, 0)
+    )
+
+    private val _progress = MutableLiveData<Pair<Int,Int>>()
+    val progress: LiveData<Pair<Int,Int>> = _progress
 
     init {
         petSex.value = SEX_MALE
@@ -76,19 +85,24 @@ class RegistrationVM : ViewModel() {
         setThirdStageFinished()
     }
 
-    private val _stage = MutableLiveData<Pair<Int,Int>>()
-    val stage: LiveData<Pair<Int,Int>> = _stage
-
     private val _step = MutableLiveData<RegStep>()
     val step: LiveData<RegStep> = _step
 
+    fun setProgressMap(step: RegStep, readyParts: Int) {
+        progressMap[step] = readyParts
+        updateProgress()
+    }
+
+    private fun updateProgress() {
+        val userProgress = (progressMap[RegStep.USER] ?: 0) * 33 / 9f
+        val petProgress = (progressMap[RegStep.PET] ?: 0) * 33 / 2f
+        val interestsProgress = (progressMap[RegStep.INTERESTS] ?: 0) * 34
+        val total = (userProgress + petProgress + interestsProgress).toInt()
+        _progress.value = Pair(_progress.value?.second ?: 0, total)
+    }
+
     fun setStage(step: RegStep) {
         _step.value = step
-        when(step) {
-            RegStep.USER -> _stage.value = Pair(_stage.value?.second ?: 0, 33)
-            RegStep.PET -> _stage.value = Pair(_stage.value?.second ?: 0, 66)
-            RegStep.INTERESTS -> _stage.value = Pair(_stage.value?.second ?: 0, 100)
-        }
     }
 
     fun loadSpecies() {
@@ -116,7 +130,10 @@ class RegistrationVM : ViewModel() {
     }
 
     fun setThirdStageFinished() {
-        _thirdStageFinished.value = interests.value?.firstOrNull { it.isSelected } != null
+        val firstSelected = interests.value?.firstOrNull { it.isSelected }
+        _thirdStageFinished.value = firstSelected != null
+        progressMap[RegStep.INTERESTS] = if (firstSelected != null) 1 else 0
+        updateProgress()
     }
 
     private val _registrationState = MutableLiveData<NetworkEvent<State>>()

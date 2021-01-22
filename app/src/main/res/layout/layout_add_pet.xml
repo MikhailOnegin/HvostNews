@@ -67,7 +67,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_left"
-                    android:text="@string/sexMale" />
+                    android:text="@string/sexMale"
+                    android:layout_marginEnd="-2dp" />
 
                 <TextView
                     android:id="@+id/sexFemale"
@@ -85,7 +86,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_right"
-                    android:text="@string/sexUnknown" />
+                    android:text="@string/sexUnknown"
+                    android:layout_marginStart="-2dp" />
 
             </LinearLayout>
 
