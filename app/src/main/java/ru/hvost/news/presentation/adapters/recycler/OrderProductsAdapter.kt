@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.adapters.recycler
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
@@ -57,6 +58,8 @@ class OrderProductsAdapter(
                 count.text = "${product.count}"
                 price.text = "${moneyFormat.format(product.price)} \u20bd"
                 cost.text = "${moneyFormat.format(product.price * product.count)} \u20bd"
+                if (product.prizeCost != 0) container.visibility = View.GONE
+                else container.visibility = View.VISIBLE
             }
 
         }
