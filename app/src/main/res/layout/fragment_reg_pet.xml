@@ -113,8 +113,7 @@
                     android:id="@+id/petName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/TextInputEditText"
-                    android:inputType="textEmailAddress"/>
+                    style="@style/TextInputEditText"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -220,7 +219,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/TextInputEditText"
-                    android:inputType="textEmailAddress"
                     android:imeOptions="actionDone"/>
 
             </com.google.android.material.textfield.TextInputLayout>

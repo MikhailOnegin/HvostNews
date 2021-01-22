@@ -12,6 +12,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentLoginBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
@@ -23,6 +24,7 @@ import ru.hvost.news.utils.hasTooLongField
 class LoginFragment : BaseFragment() {
 
     private lateinit var authorizationVM: AuthorizationVM
+    private lateinit var mainVM: MainViewModel
     private lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +48,7 @@ class LoginFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         authorizationVM = ViewModelProvider(requireActivity())[AuthorizationVM::class.java]
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
         trySetExtraData()
     }
@@ -105,6 +108,7 @@ class LoginFragment : BaseFragment() {
                     navigateToSubmitPhoneScreen()
                 }
                 binding.buttonLogin.isEnabled = true
+                mainVM.initializeData()
             }
             State.ERROR -> {
                 binding.progress.visibility = View.GONE

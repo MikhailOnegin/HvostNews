@@ -116,7 +116,7 @@
     <style name="TextInputEditText">
         <item name="android:textColor">@color/TextColorPrimary</item>
         <item name="android:imeOptions">actionNext</item>
-        <item name="android:inputType">text</item>
+        <item name="android:inputType">text|textCapSentences</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textAppearance">@style/EditTextTextAppearance</item>
         <item name="android:paddingStart">0dp</item>
