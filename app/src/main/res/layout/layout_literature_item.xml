@@ -31,7 +31,7 @@
                 android:id="@+id/imageView_forrmat"
                 android:layout_width="@dimen/_24dp"
                 android:layout_height="@dimen/_15dp"
-                android:layout_marginStart="@dimen/_24dp"
+                android:layout_marginStart="@dimen/_12dp"
                 android:layout_marginBottom="@dimen/_8dp"
                 android:contentDescription="@string/not_found"
                 app:layout_constraintBottom_toBottomOf="parent"

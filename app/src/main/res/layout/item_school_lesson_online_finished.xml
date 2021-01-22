@@ -14,12 +14,14 @@
         android:layout_height="@dimen/_76dp"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
-        android:background="@drawable/ripple_rectangle_green"
-        android:backgroundTint="?attr/colorPrimary"
+        android:background="@drawable/background_school_lesson"
+        android:backgroundTint="@color/colorPrimary"
         android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:foreground="@drawable/selector_gray_rect_normal_corners"
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:id="@+id/textView_number_finished"
