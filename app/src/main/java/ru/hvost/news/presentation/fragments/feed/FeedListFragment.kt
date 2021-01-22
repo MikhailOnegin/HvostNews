@@ -10,7 +10,7 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentFeedListBinding
 import ru.hvost.news.models.Article
-import ru.hvost.news.presentation.adapters.ArticleAdapter
+import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.utils.LinearRvItemDecorations

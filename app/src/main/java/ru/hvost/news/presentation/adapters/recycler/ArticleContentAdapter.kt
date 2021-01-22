@@ -18,9 +18,7 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
-import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.fragments.articles.ArticleViewModel
-import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 

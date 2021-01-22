@@ -1,17 +1,19 @@
-package ru.hvost.news.presentation.adapters
+package ru.hvost.news.presentation.adapters.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.databinding.LayoutDomainItemBinding
+import ru.hvost.news.databinding.LayoutPopupDomainItemBinding
 import ru.hvost.news.models.Domain
 
-class DomainAdapter(private val onClick: (Long) -> Unit) :
-    ListAdapter<Domain, DomainAdapter.DomainViewHolder>(DomainDiffUtilCallback()) {
+class PopupWindowDomainAdapter(private val onClick: (Long) -> Unit) :
+    ListAdapter<Domain, PopupWindowDomainAdapter.DomainViewHolder>(DomainDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DomainViewHolder {
         return DomainViewHolder.getDomainVH(parent, onClick)
@@ -22,22 +24,32 @@ class DomainAdapter(private val onClick: (Long) -> Unit) :
     }
 
     class DomainViewHolder(
-        private val binding: LayoutDomainItemBinding,
+        private val binding: LayoutPopupDomainItemBinding,
         private val onClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(domainItem: Domain) {
+            binding.container.doOnLayout {
+                val width = it.width
+                val height = width / 3.1F
+                binding.container.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    height.toInt()
+                )
+            }
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + domainItem.img)
+                .fitCenter()
                 .into(binding.img)
             binding.title.text = domainItem.title
+
             binding.root.setOnClickListener { onClick.invoke(domainItem.id) }
         }
 
         companion object {
             fun getDomainVH(parent: ViewGroup, onClick: (Long) -> Unit): DomainViewHolder {
-                val binding = LayoutDomainItemBinding.inflate(
+                val binding = LayoutPopupDomainItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false

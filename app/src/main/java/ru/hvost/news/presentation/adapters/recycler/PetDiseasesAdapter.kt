@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.adapters
+package ru.hvost.news.presentation.adapters.recycler
 
 import android.animation.Animator
 import android.animation.ValueAnimator

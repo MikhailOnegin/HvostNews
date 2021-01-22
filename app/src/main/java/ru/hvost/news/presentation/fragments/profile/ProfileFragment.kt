@@ -10,13 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_feed_list.*
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentProfileBinding
 import ru.hvost.news.presentation.activities.MainActivity
-import ru.hvost.news.presentation.adapters.PetAdapter
+import ru.hvost.news.presentation.adapters.recycler.PetAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
