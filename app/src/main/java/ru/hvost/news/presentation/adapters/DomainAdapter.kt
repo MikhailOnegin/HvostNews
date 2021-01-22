@@ -30,7 +30,6 @@ class DomainAdapter(private val onClick: (Long) -> Unit) :
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + domainItem.img)
-                .fitCenter()
                 .into(binding.img)
             binding.title.text = domainItem.title
             binding.root.setOnClickListener { onClick.invoke(domainItem.id) }

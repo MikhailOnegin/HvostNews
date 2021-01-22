@@ -167,9 +167,9 @@
     <dimen name="articleIconPadding">10dp</dimen>
     <dimen name="articleIconSize">40dp</dimen>
     <dimen name="articleDateTextSize">16sp</dimen>
-    <dimen name="articleChipsTextSize">16sp</dimen>
+    <dimen name="articleChipsTextSize">15sp</dimen>
     <dimen name="chipsStrokeWidth">3dp</dimen>
-    <dimen name="maxChipsWidth">100dp</dimen>
+    <dimen name="maxChipsWidth">250dp</dimen>
     <dimen name="viewsIconSize">32dp</dimen>
     <dimen name="articleTextSize">18sp</dimen>
     <dimen name="articleContentTitleTextSize">26sp</dimen>
@@ -356,4 +356,6 @@
     <dimen name="lessonNumbersMargin">14dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">56dp</dimen>
     <dimen name="schoolDetailTitleMarginEnd">120dp</dimen>
+    <dimen name="toolbarButtonMargin">8dp</dimen>
+    <dimen name="mainTitleMaxWidth">170dp</dimen>
 </resources>

@@ -584,7 +584,7 @@ class MainViewModel : ViewModel() {
 
     val ordersInWork = Transformations.map(orders) { list -> list.count { it.orderStatus == "N" } }
     val ordersConstructed =
-        Transformations.map(orders) { list -> list.count { it.orderStatus == "DT" } }
+        Transformations.map(orders) { list -> list.count { it.orderStatus == "DT" || it.orderStatus == "P" } }
     val ordersFinished =
         Transformations.map(orders) { list -> list.count { it.orderStatus == "F" } }
 

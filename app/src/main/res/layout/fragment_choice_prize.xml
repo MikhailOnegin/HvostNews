@@ -40,17 +40,18 @@
                 android:id="@+id/cartCount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/normalMargin"
-                android:layout_marginEnd="@dimen/normalMargin"
-                android:drawablePadding="@dimen/xSmallMargin"
-                android:background="@drawable/ripple_round_button"
+                android:layout_marginEnd="@dimen/toolbarButtonMargin"
+                android:background="@drawable/selector_gray_rect_small_corners"
+                android:drawablePadding="@dimen/smallMargin"
                 android:fontFamily="@font/gilroy_bold"
+                android:padding="@dimen/toolbarButtonMargin"
                 android:text="@string/numberStub"
                 android:textColor="@color/_2"
                 android:textSize="@dimen/textViewWithDotTextSize"
                 app:drawableStartCompat="@drawable/ic_cart"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

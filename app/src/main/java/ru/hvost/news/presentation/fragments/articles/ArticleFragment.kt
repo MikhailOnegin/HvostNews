@@ -124,7 +124,10 @@ class ArticleFragment : BaseFragment() {
     private fun initializeObservers() {
         loadingArticleEventObserver = DefaultNetworkEventObserver(
             binding.root,
-            doOnSuccess = { mainVM.setArticleViewed(arguments?.getString(ArticlesFragment.ARTICLE_ID)) },
+            doOnSuccess = {
+                mainVM.setArticleViewed(arguments?.getString(ArticlesFragment.ARTICLE_ID))
+                binding.toolbar.title = articleVM.article.value?.domainTitle
+            },
             doOnError = { findNavController().popBackStack() },
             doOnFailure = { findNavController().popBackStack() }
         )
