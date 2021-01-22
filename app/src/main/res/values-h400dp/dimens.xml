@@ -262,4 +262,5 @@
     <dimen name="schoolDetailTitleMarginEnd">97dp</dimen>
     <dimen name="maxChipsWidth">200dp</dimen>
     <dimen name="mainTitleMaxWidth">170dp</dimen>
+    <dimen name="prizeItemPadding">15dp</dimen>
 </resources>

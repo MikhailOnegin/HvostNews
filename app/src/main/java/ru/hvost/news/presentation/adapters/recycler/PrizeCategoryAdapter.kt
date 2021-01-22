@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.adapters
+package ru.hvost.news.presentation.adapters.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

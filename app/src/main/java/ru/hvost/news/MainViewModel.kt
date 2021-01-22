@@ -134,6 +134,7 @@ class MainViewModel : ViewModel() {
 
     //событие, сообщающее о закрытии ArticlesFilterCustomDialog
     val closeArticlesFilterCustomDialog = MutableLiveData<OneTimeEvent>()
+    val dismissArticlesFilterCustomDialog = MutableLiveData<OneTimeEvent>()
 
     //событие, сообщающее об изменении интересов пользователя
     val updateArticlesWithNewInterests = MutableLiveData<OneTimeEvent>()

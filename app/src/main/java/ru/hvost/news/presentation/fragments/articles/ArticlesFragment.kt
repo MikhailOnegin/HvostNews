@@ -16,7 +16,7 @@ package ru.hvost.news.presentation.fragments.articles
 //import ru.hvost.news.models.CheckboxStates
 //import ru.hvost.news.models.InterestsCategory
 //import ru.hvost.news.presentation.activities.MainActivity
-//import ru.hvost.news.presentation.adapters.ArticleAdapter
+//import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 //import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 //import ru.hvost.news.utils.enums.State

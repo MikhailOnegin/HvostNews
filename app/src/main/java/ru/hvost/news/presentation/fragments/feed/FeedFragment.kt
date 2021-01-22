@@ -20,7 +20,6 @@ import ru.hvost.news.models.CheckboxStates
 import ru.hvost.news.models.Interests
 import ru.hvost.news.models.InterestsCategory
 import ru.hvost.news.presentation.activities.MainActivity
-import ru.hvost.news.presentation.adapters.ArticlesFilterAdapter
 import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -33,19 +32,39 @@ class FeedFragment : BaseFragment() {
     private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
     private val filterDialog = ArticlesFilterCustomDialog()
     private val navOptions = NavOptions.Builder()
+    private var areFiltersExpanded = true
+    private var isAnimationRunning = false
 
 
     override fun onStart() {
         super.onStart()
         (requireActivity() as MainActivity).showBnv()
-        if (mainVM.feedTabState == MainViewModel.Companion.ButtonSelected.FEED)
-            binding.articlesFilter.visibility = View.VISIBLE
-        else {
-            binding.articlesFilter.visibility = View.INVISIBLE
-            binding.articlesFilter.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                0
-            )
+        when (mainVM.feedTabState) {
+            MainViewModel.Companion.ButtonSelected.FEED -> {
+                setTabSelected(0)
+                binding.articlesFilter.visibility = View.VISIBLE
+                goToDestination(R.id.feedListFragment)
+            }
+            MainViewModel.Companion.ButtonSelected.DOMAINS -> {
+                areFiltersExpanded = false
+                setTabSelected(1)
+                goToDestination(R.id.domainsGridFragment)
+                binding.articlesFilter.visibility = View.INVISIBLE
+                binding.articlesFilter.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    0
+                )
+            }
+            MainViewModel.Companion.ButtonSelected.NEWS -> {
+                areFiltersExpanded = false
+                setTabSelected(2)
+                goToDestination(R.id.newsListFragment)
+                binding.articlesFilter.visibility = View.INVISIBLE
+                binding.articlesFilter.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    0
+                )
+            }
         }
     }
 
@@ -54,17 +73,12 @@ class FeedFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         initializeNavOptions()
-        checkTabsState()
         initializeObservers()
         setObservers()
         setListeners()
+        return binding.root
     }
 
     private fun initializeNavOptions() {
@@ -73,20 +87,6 @@ class FeedFragment : BaseFragment() {
             .setExitAnim(R.anim.fragment_exit)
             .setPopEnterAnim(R.anim.fragment_enter)
             .setPopExitAnim(R.anim.fragment_exit)
-    }
-
-    private fun checkTabsState() {
-        when (mainVM.feedTabState) {
-            MainViewModel.Companion.ButtonSelected.FEED -> {
-                setTabSelected(0)
-            }
-            MainViewModel.Companion.ButtonSelected.DOMAINS -> {
-                setTabSelected(1)
-            }
-            MainViewModel.Companion.ButtonSelected.NEWS -> {
-                setTabSelected(2)
-            }
-        }
     }
 
     private fun initializeObservers() {
@@ -111,6 +111,9 @@ class FeedFragment : BaseFragment() {
         mainVM.closeArticlesFilterCustomDialog.observe(
             viewLifecycleOwner,
             OneTimeEvent.Observer { closeDialog() })
+        mainVM.dismissArticlesFilterCustomDialog.observe(
+            viewLifecycleOwner,
+            OneTimeEvent.Observer { clearAllInterests() })
         mainVM.updateArticlesWithNewInterests.observe(viewLifecycleOwner,
             OneTimeEvent.Observer { updateArticles() })
     }
@@ -126,6 +129,7 @@ class FeedFragment : BaseFragment() {
                 is InterestsCategory -> {
                     it.state = CheckboxStates.UNSELECTED
                     it.sendParent = false
+                    it.isExpanded = false
                 }
                 is Interests -> it.state = CheckboxStates.UNSELECTED
                 else -> {
@@ -143,9 +147,9 @@ class FeedFragment : BaseFragment() {
                         sendList.add(it.categoryId.toString())
                 }
                 is Interests -> {
-                    val parentId = mainVM.interests.value?.filter { category ->
+                    val parentId = mainVM.interests.value?.first { category ->
                         category is InterestsCategory && category.categoryId == it.parentCategoryId
-                    }?.first()
+                    }
                     if (it.state == CheckboxStates.SELECTED && !(parentId as InterestsCategory).sendParent)
                         sendList.add(it.interestId.toString())
                 }
@@ -180,8 +184,6 @@ class FeedFragment : BaseFragment() {
         }
     }
 
-    private var areFiltersExpanded = true
-
     private fun animateFiltersAndGoToDestination(
         shouldExpandFilters: Boolean,
         destination: Int
@@ -211,8 +213,6 @@ class FeedFragment : BaseFragment() {
         animator.addListener(FiltersAnimationListener(shouldExpandFilters, destination))
         animator.start()
     }
-
-    private var isAnimationRunning = false
 
     inner class FiltersAnimationListener(
         private val shouldExpandFilters: Boolean,

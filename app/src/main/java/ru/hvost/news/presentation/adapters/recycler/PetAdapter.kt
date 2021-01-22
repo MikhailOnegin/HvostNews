@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.adapters
+package ru.hvost.news.presentation.adapters.recycler
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.App
-import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.LayoutPetItemBinding
 import ru.hvost.news.models.Pets

@@ -1,9 +1,7 @@
 package ru.hvost.news.presentation.fragments.invite
 
-import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +12,7 @@ import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPrizesBinding
-import ru.hvost.news.models.CartItem
-import ru.hvost.news.presentation.adapters.PrizeCategoryAdapter
+import ru.hvost.news.presentation.adapters.recycler.PrizeCategoryAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.enums.State

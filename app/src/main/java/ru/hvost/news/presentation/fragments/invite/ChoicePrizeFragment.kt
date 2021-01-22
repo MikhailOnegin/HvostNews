@@ -3,13 +3,9 @@ package ru.hvost.news.presentation.fragments.invite
 import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -20,17 +16,14 @@ import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentChoicePrizeBinding
-import ru.hvost.news.models.CartFooter
-import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.Prize
-import ru.hvost.news.presentation.adapters.PrizeAdapter
-import ru.hvost.news.presentation.adapters.PrizeProductsAdapter
+import ru.hvost.news.presentation.adapters.recycler.PrizeAdapter
+import ru.hvost.news.presentation.adapters.recycler.PrizeProductsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
-import ru.hvost.news.utils.moneyFormat
 
 class ChoicePrizeFragment : BaseFragment() {
 

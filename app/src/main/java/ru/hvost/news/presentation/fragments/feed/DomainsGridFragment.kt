@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentDomainsGridBinding
-import ru.hvost.news.presentation.adapters.DomainAdapter
+import ru.hvost.news.presentation.adapters.recycler.DomainAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.GridRvItemDecorations
 import ru.hvost.news.utils.enums.State

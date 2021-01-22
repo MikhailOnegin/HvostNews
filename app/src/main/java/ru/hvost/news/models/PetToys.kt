@@ -2,7 +2,6 @@ package ru.hvost.news.models
 
 import ru.hvost.news.data.api.response.PetToysResponse
 
-
 data class Toys(
     val id: Long,
     val toyId: String,
@@ -14,11 +13,18 @@ fun List<PetToysResponse.Toy>.toToys(): List<Toys> {
     for ((index, toy) in this.withIndex()) {
         result.add(
             Toys(
-                id = index.toLong(),
+                id = index.inc().toLong(),
                 toyId = toy.toyId ?: "",
                 name = toy.name ?: ""
             )
         )
     }
+    result.add(
+        0, Toys(
+            id = 0L,
+            toyId = "",
+            name = "Не выбрано"
+        )
+    )
     return result
 }

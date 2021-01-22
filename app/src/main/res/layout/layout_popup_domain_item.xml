@@ -8,27 +8,29 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:foreground="@drawable/ripple_domain_item_rectangle_gray"
         android:elevation="@dimen/listItemElevation"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/normalMargin"
-        android:background="@drawable/ripple_domain_item_rectangle_gray"
-        android:paddingEnd="0dp">
+        android:padding="@dimen/_2dp">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
             android:fontFamily="@font/gilroy_semibold"
-            android:textSize="@dimen/dialogSubtitleTextSize"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/normalMargin"
+            android:text="@string/stub"
             android:textColor="@color/gray1"
-            android:text="@string/stub" />
+            android:textSize="@dimen/dialogSubtitleTextSize" />
 
         <ImageView
             android:id="@+id/img"
+            android:scaleType="fitEnd"
             android:layout_width="@dimen/smallImageHeight"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
