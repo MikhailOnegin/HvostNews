@@ -143,6 +143,7 @@
     <string name="buttonSend">Отправить</string>
     <string name="emailHint">E-mail</string>
     <string name="passRestoringInstructionsSent">Инструкции по восстановлению пароля отправлены на указанную электронную почту.</string>
+    <string name="passRestoringInstructionsSentToPhone">Инструкции по восстановлению пароля отправлены на указанный номер телефона.</string>
     <string name="buttonNext">Далее</string>
     <string name="buttonDoneReg">Завершить регистрацию</string>
     <string name="share">Поделиться</string>

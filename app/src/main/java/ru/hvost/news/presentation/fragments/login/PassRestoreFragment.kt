@@ -67,10 +67,14 @@ class PassRestoreFragment : Fragment() {
     private val onPassRestoreEvent = { event: NetworkEvent<State> ->
         when(event.getContentIfNotHandled()){
             State.SUCCESS -> {
+                val sentToMailText = getString(R.string.passRestoringInstructionsSent)
+                val sentToPhoneText = getString(R.string.passRestoringInstructionsSentToPhone)
+                val sentToPhone = authorizationVM.passRestoreResponse?.sentToPhone == true
+                val message = if (sentToPhone) sentToPhoneText else sentToMailText
                 binding.progress.visibility = View.GONE
                 createSnackbar(
                     binding.root,
-                    getString(R.string.passRestoringInstructionsSent),
+                    message,
                     getString(R.string.buttonOk)
                 ) { findNavController().popBackStack() }.show()
             }
