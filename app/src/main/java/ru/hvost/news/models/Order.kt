@@ -25,7 +25,8 @@ data class Product(
     val nameProduct: String,
     val count: Int,
     val price: Float,
-    val imageUri: Uri
+    val imageUri: Uri,
+    val prizeCost: Int
 ): OrderItem()
 
 sealed class OrderItem
@@ -44,7 +45,8 @@ fun GetOrdersResponse.toOrders() : List<Order> {
                         nameProduct = responseProduct.nameProduct ?: "",
                         count = responseProduct.count ?: 0,
                         price = responseProduct.price ?: 0f,
-                        imageUri = getUriForBackendImagePath(responseProduct.imageUrl)
+                        imageUri = getUriForBackendImagePath(responseProduct.imageUrl),
+                        prizeCost = responseProduct.prizeCost ?: 0
                     )
                 )
             }

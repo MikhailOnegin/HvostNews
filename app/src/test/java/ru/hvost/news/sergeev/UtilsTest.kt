@@ -5,10 +5,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.hvost.news.utils.UniqueIdGenerator
-import ru.hvost.news.utils.WordEnding
-import ru.hvost.news.utils.getClearPhoneString
-import ru.hvost.news.utils.getWordEndingType
+import ru.hvost.news.utils.*
 
 @RunWith(AndroidJUnit4::class)
 class UtilsTest {
@@ -55,6 +52,28 @@ class UtilsTest {
         assertThat(getClearPhoneString("79630956722"), `is`("79630956722"))
         assertThat(getClearPhoneString("7-963-095-67-22"), `is`("79630956722"))
         assertThat(getClearPhoneString("7A9=630+956-72CO2"), `is`("79630956722"))
+    }
+
+    @Test
+    fun hasOneDigitPatternWorksCorrect() {
+        assert(hasOneDigitPattern.matcher("123").matches())
+        assert(hasOneDigitPattern.matcher("2da").matches())
+        assert(hasOneDigitPattern.matcher("aa2").matches())
+        assert(hasOneDigitPattern.matcher("a2f").matches())
+        assert(hasOneDigitPattern.matcher("1").matches())
+        assert(!hasOneDigitPattern.matcher("a").matches())
+        assert(hasOneDigitPattern.matcher("asdfas2dgsagasdg").matches())
+    }
+
+    @Test
+    fun hasOneLatinCharPatternWorksCorrect() {
+        assert(!hasOneLatinCharPattern.matcher("123").matches())
+        assert(hasOneLatinCharPattern.matcher("1g3").matches())
+        assert(hasOneLatinCharPattern.matcher("dfg").matches())
+        assert(!hasOneLatinCharPattern.matcher("вап").matches())
+        assert(!hasOneLatinCharPattern.matcher("вап123").matches())
+        assert(hasOneLatinCharPattern.matcher("G").matches())
+        assert(hasOneLatinCharPattern.matcher("123D54").matches())
     }
 
 }

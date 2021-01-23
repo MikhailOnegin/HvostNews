@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.adapters.recycler
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -18,9 +19,7 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
-import ru.hvost.news.presentation.adapters.ArticleAdapter
 import ru.hvost.news.presentation.fragments.articles.ArticleViewModel
-import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
@@ -247,6 +246,7 @@ class ArticleContentAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: HtmlQuote) {
+            binding.text.movementMethod = LinkMovementMethod()
             binding.text.text = quote.text.parseAsHtml().trim()
         }
 
@@ -270,6 +270,7 @@ class ArticleContentAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: HtmlMarker) {
+            binding.text.movementMethod = LinkMovementMethod()
             binding.text.text = quote.text.parseAsHtml().trim()
         }
 
@@ -328,6 +329,7 @@ class ArticleContentAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(text: HtmlText) {
+            binding.text.movementMethod = LinkMovementMethod()
             binding.text.text = text.text.parseAsHtml()
         }
 

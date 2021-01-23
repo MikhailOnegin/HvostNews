@@ -128,7 +128,15 @@ class RegUserFragment : Fragment() {
                 return false
             }
             if(password.text.toString().length < resources.getInteger(R.integer.minPassLength)) {
-                password.error = getString(R.string.errorPasswordsTooSmall)
+                password.error = getString(R.string.errorPasswordsRequirements)
+                return false
+            }
+            if(!hasOneLatinCharPattern.matcher(password.text.toString()).matches()) {
+                password.error = getString(R.string.errorPasswordsRequirements)
+                return false
+            }
+            if(!hasOneDigitPattern.matcher(password.text.toString()).matches()) {
+                password.error = getString(R.string.errorPasswordsRequirements)
                 return false
             }
             if(!agreement.isChecked) {

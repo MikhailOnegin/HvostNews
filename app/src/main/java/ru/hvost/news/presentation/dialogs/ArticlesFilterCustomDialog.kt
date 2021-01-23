@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.dialogs
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,10 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.LayoutArticlesFilterBinding
 import ru.hvost.news.models.*
-import ru.hvost.news.presentation.adapters.ArticlesFilterAdapter
-import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
+import ru.hvost.news.presentation.adapters.recycler.ArticlesFilterAdapter
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
 
@@ -54,6 +55,11 @@ class ArticlesFilterCustomDialog() : BottomSheetDialogFragment() {
             adapter.setFullList(this)
             adapter.submitList(this.filter { it is InterestsCategory || it is FilterFooter })
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        mainVM.dismissArticlesFilterCustomDialog.value = OneTimeEvent()
     }
 
     private fun checkInterestsStates(

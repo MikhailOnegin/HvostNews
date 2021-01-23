@@ -22,7 +22,8 @@ data class GetOrdersResponse(
         val nameProduct: String?,
         val count: Int?,
         val price: Float?,
-        val imageUrl: String?
+        val imageUrl: String?,
+        val prizeCost: Int?
     )
 
 }

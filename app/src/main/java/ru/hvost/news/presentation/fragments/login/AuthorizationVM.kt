@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.LoginResponse
+import ru.hvost.news.data.api.response.PassRestoreResponse
 import ru.hvost.news.services.FcmService
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.Event
@@ -44,6 +45,7 @@ class AuthorizationVM: ViewModel(){
 
     private val _passRestoreEvent = MutableLiveData<NetworkEvent<State>>()
     val passRestoreEvent: LiveData<NetworkEvent<State>> = _passRestoreEvent
+    var passRestoreResponse: PassRestoreResponse? = null
 
     fun restorePassAsync(email: String){
         viewModelScope.launch {
@@ -51,6 +53,7 @@ class AuthorizationVM: ViewModel(){
             try {
                 val response = APIService.API.restorePassAsync(email).await()
                 if (response.result == "success") {
+                    passRestoreResponse = response
                     _passRestoreEvent.value = NetworkEvent(State.SUCCESS)
                 }
                 else _passRestoreEvent.value = NetworkEvent(State.ERROR, response.error)

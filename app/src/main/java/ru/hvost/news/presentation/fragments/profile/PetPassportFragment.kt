@@ -16,12 +16,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.layout_add_disease.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.data.api.response.*
 import ru.hvost.news.databinding.FragmentPetPassportBinding
 import ru.hvost.news.models.PetFood
 import ru.hvost.news.models.Preps
 import ru.hvost.news.presentation.activities.MainActivity
-import ru.hvost.news.presentation.adapters.PetDiseasesAdapter
+import ru.hvost.news.presentation.adapters.recycler.PetDiseasesAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.createSnackbar

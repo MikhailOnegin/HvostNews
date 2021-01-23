@@ -1,4 +1,4 @@
-package ru.hvost.news.presentation.adapters
+package ru.hvost.news.presentation.adapters.recycler
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.databinding.LayoutDomainItemBinding
 import ru.hvost.news.databinding.RvPrizeProductItemBinding
-import ru.hvost.news.models.Domain
 import ru.hvost.news.models.Prize
 
 class PrizeProductsAdapter() :
