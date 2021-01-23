@@ -2,6 +2,7 @@ package ru.hvost.news.presentation.adapters.recycler
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -245,6 +246,7 @@ class ArticleContentAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: HtmlQuote) {
+            binding.text.movementMethod = LinkMovementMethod()
             binding.text.text = quote.text.parseAsHtml().trim()
         }
 
@@ -268,6 +270,7 @@ class ArticleContentAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: HtmlMarker) {
+            binding.text.movementMethod = LinkMovementMethod()
             binding.text.text = quote.text.parseAsHtml().trim()
         }
 
@@ -326,6 +329,7 @@ class ArticleContentAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(text: HtmlText) {
+            binding.text.movementMethod = LinkMovementMethod()
             binding.text.text = text.text.parseAsHtml()
         }
 

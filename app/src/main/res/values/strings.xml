@@ -318,7 +318,7 @@
     <string name="hintPassword">Пароль</string>
     <string name="hintPasswordConfirm">Подтверждение пароля</string>
     <string name="errorPasswordsAreDifferent">Пароль и подтверждение не совпадают</string>
-    <string name="errorPasswordsTooSmall">Минимум 8 символов</string>
+    <string name="errorPasswordsRequirements">Пароль должен быть не менее 8 символов длиной и содержать хотя бы один латинский символ и хотя бы одну цифру</string>
     <string name="all">Все</string>
     <string name="ageForYearsType1">год</string>
     <string name="ageForYearsType2">года</string>

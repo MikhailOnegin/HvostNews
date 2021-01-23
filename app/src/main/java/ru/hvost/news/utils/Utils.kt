@@ -382,3 +382,6 @@ fun dateFormat(s:String): String {
     }
     return result
 }
+
+val hasOneLatinCharPattern: Pattern = Pattern.compile(".*\\p{Alpha}+.*")
+val hasOneDigitPattern: Pattern = Pattern.compile(".*\\d+.*")
