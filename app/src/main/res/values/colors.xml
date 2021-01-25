@@ -66,4 +66,5 @@
     <color name="articleContentTitleTextColor">#151515</color>
     <color name="graySelectorColor">#0D000000</color>
     <color name="scrollbarsColor">#32000000</color>
+    <color name="statusBarColorApi21">#141428</color>
 </resources>

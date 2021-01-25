@@ -28,6 +28,7 @@ class PassRestoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPassRestoreBinding.inflate(inflater, container, false)
+        binding.toolbar.background.level = 1
         return binding.root
     }
 

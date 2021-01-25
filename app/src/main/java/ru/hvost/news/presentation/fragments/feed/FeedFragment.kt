@@ -77,6 +77,7 @@ class FeedFragment : BaseFragment() {
         initializeObservers()
         setObservers()
         setListeners()
+        binding.toolbar.background.level = 1
         return binding.root
     }
 
