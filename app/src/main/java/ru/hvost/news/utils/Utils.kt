@@ -232,7 +232,7 @@ fun showNotReadyToast() {
     ).show()
 }
 
-class LinearRvItemDecorations(
+open class LinearRvItemDecorations(
     sideMarginsDimension: Int? = null,
     marginBetweenElementsDimension: Int? = null
 ) : RecyclerView.ItemDecoration() {

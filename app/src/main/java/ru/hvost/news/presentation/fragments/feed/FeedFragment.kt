@@ -43,7 +43,6 @@ class FeedFragment : BaseFragment() {
             MainViewModel.Companion.ButtonSelected.FEED -> {
                 setTabSelected(0)
                 binding.articlesFilter.visibility = View.VISIBLE
-                goToDestination(R.id.feedListFragment)
             }
             MainViewModel.Companion.ButtonSelected.DOMAINS -> {
                 areFiltersExpanded = false

@@ -64,7 +64,8 @@
                         android:id="@+id/name"
                         style="@style/TextInputEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,10 +104,10 @@
                     style="@style/SexTextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="-2dp"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_left"
-                    android:text="@string/sexMale"
-                    android:layout_marginEnd="-2dp" />
+                    android:text="@string/sexMale" />
 
                 <TextView
                     android:id="@+id/sexFemale"
@@ -122,10 +123,10 @@
                     style="@style/SexTextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="-2dp"
                     android:layout_weight="1"
                     android:background="@drawable/sex_selector_right"
-                    android:text="@string/sexUnknown"
-                    android:layout_marginStart="-2dp" />
+                    android:text="@string/sexUnknown" />
 
             </LinearLayout>
 
@@ -157,7 +158,8 @@
                     android:id="@+id/delicious"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -180,7 +182,8 @@
                     android:id="@+id/badHabit"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,7 +199,8 @@
                     android:id="@+id/chip"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
