@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -122,7 +123,7 @@ class SchoolOnlineFragment : BaseFragment() {
         }
         schoolVM.onlineLessons.value?.lessons?.let{
             if (it.isEmpty()) binding.textViewEmpty.visibility = View.VISIBLE
-            else binding.textViewEmpty.visibility = View.GONE
+            else showEmpty()
         }
 
     }
@@ -141,11 +142,11 @@ class SchoolOnlineFragment : BaseFragment() {
 
                                 if (onlineSchool.participate) {
                                     binding.constraintRegistration.visibility = View.GONE
-                                    binding.textViewEmpty.visibility = View.GONE
+                                    unShowEmpty()
                                 }
                                 else {
                                     binding.constraintRegistration.visibility = View.VISIBLE
-                                    binding.textViewEmpty.visibility = View.VISIBLE
+                                    showEmpty()
                                 }
                                 val containerNumbers = linearLayout_lesson_numbers
                                 val padding =
@@ -237,7 +238,7 @@ class SchoolOnlineFragment : BaseFragment() {
                             binding.textViewEmpty.visibility = View.GONE }
                         else {
                             binding.constraintRegistration.visibility = View.VISIBLE
-                            binding.textViewEmpty.visibility = View.VISIBLE
+                            showEmpty()
                         }
 
                     }
@@ -258,7 +259,7 @@ class SchoolOnlineFragment : BaseFragment() {
             binding.recyclerView.adapter = infoAdapter
             binding.schoolInfoTitle.setTextColor(colorWhite)
             binding.schoolMaterialsTitle.setTextColor(colorPrimary)
-            binding.textViewEmpty.visibility = View.GONE
+            unShowEmpty()
         }
         binding.constraintMaterials.setOnClickListener {
             it.isSelected = true
@@ -267,8 +268,8 @@ class SchoolOnlineFragment : BaseFragment() {
             binding.schoolMaterialsTitle.setTextColor(colorWhite)
             binding.schoolInfoTitle.setTextColor(colorPrimary)
             schoolVM.onlineLessons.value.run {
-                if (this == null || this.lessons.isEmpty()) binding.textViewEmpty.visibility = View.VISIBLE
-                else binding.textViewEmpty.visibility = View.GONE
+                if (this == null || this.lessons.isEmpty()) showEmpty()
+                else unShowEmpty()
             }
         }
         binding.buttonRegistration.setOnClickListener {
@@ -284,5 +285,20 @@ class SchoolOnlineFragment : BaseFragment() {
         binding.toolbarOnlineSchool.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+    }
+    fun showEmpty(){
+        binding.appBarLayout.layoutParams = CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT,
+                CoordinatorLayout.LayoutParams.MATCH_PARENT
+        )
+        binding.textViewEmpty.width = ViewGroup.LayoutParams.MATCH_PARENT
+        binding.textViewEmpty.visibility = View.VISIBLE
+    }
+    fun unShowEmpty(){
+        binding.appBarLayout.layoutParams = CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT,
+                CoordinatorLayout.LayoutParams.WRAP_CONTENT
+        )
+        ViewGroup.LayoutParams.MATCH_PARENT
+        binding.textViewEmpty.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.textViewEmpty.visibility = View.GONE
     }
 }

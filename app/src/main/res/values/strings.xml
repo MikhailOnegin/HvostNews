@@ -455,7 +455,7 @@
     <string name="newArticlesChannelDescription">Уведомления о появлении новых статей.</string>
     <string name="orderStatusChannelName">Заказы</string>
     <string name="orderStatusChannelDescription">Уведомления об изменении статусов заказов в интернет-магазине.</string>
-    <string name="schedule_for">Распиcание для владельцев
+    <string name="schedule_for">Расписание для владельцев\n
         питомцев: </string>
     <string name="empty">Пусто</string>
     <string name="promotionsTitle">Участие в акциях</string>
