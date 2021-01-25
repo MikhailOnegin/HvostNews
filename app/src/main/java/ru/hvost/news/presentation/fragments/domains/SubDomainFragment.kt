@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -29,6 +31,9 @@ class SubDomainFragment : BaseFragment() {
     private lateinit var mainVM: MainViewModel
     private lateinit var nav: NavController
     private lateinit var onAllArticlesLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var popupView: View
+    private lateinit var popupWindow: PopupWindow
+    private lateinit var callback: OnBackPressedCallback
     private var domain: Long? = null
 
     override fun onCreateView(
@@ -37,21 +42,43 @@ class SubDomainFragment : BaseFragment() {
     ): View {
         domain = if (domain == null) arguments?.getLong("DOMAIN_ID") else domain
         binding = FragmentSubdomainBinding.inflate(inflater, container, false)
-        binding.list.addItemDecoration(LinearRvItemDecorations(
-            sideMarginsDimension = R.dimen.largeMargin,
-            marginBetweenElementsDimension = R.dimen.normalMargin
-        ))
+        binding.list.addItemDecoration(
+            LinearRvItemDecorations(
+                sideMarginsDimension = R.dimen.largeMargin,
+                marginBetweenElementsDimension = R.dimen.normalMargin
+            )
+        )
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        callback =
+            requireActivity().onBackPressedDispatcher.addCallback {
+                if (popupWindow.isShowing) {
+                    popupWindow.dismiss()
+                } else {
+                    findNavController().popBackStack()
+                }
+            }
+        callback.isEnabled = true
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         nav = findNavController()
+        initializePopup()
         checkIsDataLoaded()
         initializeObservers()
         setObservers()
         setListeners()
+    }
+
+    private fun initializePopup() {
+        popupView = layoutInflater.inflate(R.layout.layout_popup_domains, binding.root, false)
+        popupWindow = PopupWindow(requireActivity())
+        setPopupElementsDecoration(popupView)
     }
 
     private fun initializeObservers() {
@@ -75,21 +102,22 @@ class SubDomainFragment : BaseFragment() {
         binding.toolbar.setNavigationOnClickListener { nav.popBackStack() }
     }
 
-    private fun callPopup() {
-        val view = layoutInflater.inflate(R.layout.layout_popup_domains, binding.root, false)
-        val popupWindow = PopupWindow(requireActivity())
+    override fun onPause() {
+        super.onPause()
+        popupWindow.dismiss()
+    }
 
+    private fun callPopup() {
         val onActionClicked = { domain: Long ->
             setTabs(domain)
             setRecyclerView(domain)
             popupWindow.dismiss()
         }
         val adapter = PopupWindowDomainAdapter(onActionClicked)
-        view.domainList.adapter = adapter
+        popupView.domainList.adapter = adapter
         adapter.submitList(mainVM.domains)
-        setPopupElementsDecoration(view)
 
-        popupWindow.contentView = view
+        popupWindow.contentView = popupView
         popupWindow.width = binding.categoryTabs.measuredWidth
         popupWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
         popupWindow.setBackgroundDrawable(null)
@@ -122,6 +150,7 @@ class SubDomainFragment : BaseFragment() {
 
     override fun onStop() {
         super.onStop()
+        callback.isEnabled = false
         selectedPosition = binding.categoryTabs.selectedTabPosition
     }
 

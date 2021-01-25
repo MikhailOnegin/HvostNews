@@ -28,10 +28,12 @@ class NewsListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNewsListBinding.inflate(inflater, container, false)
-        binding.root.addItemDecoration(LinearRvItemDecorations(
-            sideMarginsDimension = R.dimen.largeMargin,
-            marginBetweenElementsDimension = R.dimen.normalMargin
-        ))
+        binding.root.addItemDecoration(
+            FeedListFragment.LinearRvItemDecorationCustom(
+                sideMarginsDimension = R.dimen.largeMargin,
+                marginBetweenElementsDimension = R.dimen.extraLargeMargin
+            )
+        )
         return binding.root
     }
 

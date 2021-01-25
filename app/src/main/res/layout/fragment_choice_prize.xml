@@ -49,9 +49,9 @@
                 android:textColor="@color/_2"
                 android:textSize="@dimen/textViewWithDotTextSize"
                 app:drawableStartCompat="@drawable/ic_cart"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -93,6 +93,7 @@
         android:layout_marginBottom="@dimen/normalMargin"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/normalMargin"
+        android:splitMotionEvents="false"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:spanCount="2" />
