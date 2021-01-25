@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun userLogOut() {
+        App.getInstance().logOut()
         hideBnv()
         viewModelStore.clear()
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
@@ -79,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         val inflater = navHostFragment.navController.navInflater
         val navGraph = inflater.inflate(R.navigation.navigation_graph)
         navController.graph = navGraph
-        App.getInstance().logOut()
     }
 
     fun showBnv() {
