@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -20,7 +19,6 @@ import ru.hvost.news.models.*
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
-import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State

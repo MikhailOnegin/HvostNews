@@ -129,7 +129,8 @@ class EditProfileFragment : BaseFragment() {
                 name = binding.name.text.toString(),
                 patronymic = binding.patronymic.text.toString(),
                 city = binding.city.text.toString(),
-                mailNotifications = binding.switchEmail.isChecked
+                mailNotifications = binding.switchEmail.isChecked,
+                sendPushes = binding.switchPush.isChecked
             )
         } else {
             mainVM.changeUserData(
@@ -138,7 +139,8 @@ class EditProfileFragment : BaseFragment() {
                 patronymic = binding.patronymic.text.toString(),
                 birthday = birthday.value.toString(),
                 city = binding.city.text.toString(),
-                mailNotifications = binding.switchEmail.isChecked
+                mailNotifications = binding.switchEmail.isChecked,
+                sendPushes = binding.switchPush.isChecked
             )
         }
     }

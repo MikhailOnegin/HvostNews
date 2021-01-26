@@ -304,4 +304,13 @@ class FeedFragment : BaseFragment() {
         }
     }
 
+    companion object {
+
+        const val ARTICLE_ID = "article_id"
+        const val ARTICLE_TYPE = "TYPE"
+        const val ARTICLE_INDIVIDUAL = "INDIVIDUAL"
+        const val ARTICLE_ALL = "ALL"
+
+    }
+
 }
