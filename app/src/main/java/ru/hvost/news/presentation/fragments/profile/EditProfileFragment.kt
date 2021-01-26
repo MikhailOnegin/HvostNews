@@ -65,6 +65,7 @@ class EditProfileFragment : BaseFragment() {
         onChangeUserDataLoadingEvent = DefaultNetworkEventObserver(
             binding.root,
             doOnSuccess = {
+                setPushConf()
                 mainVM.loadUserData()
                 createSnackbar(
                     (requireActivity() as MainActivity).getMainView(),
@@ -73,6 +74,12 @@ class EditProfileFragment : BaseFragment() {
                 findNavController().popBackStack()
             },
         )
+    }
+
+    private fun setPushConf() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        prefs.edit().putBoolean(FcmService.PREF_SHOW_NOTIFICATIONS, binding.switchPush.isChecked)
+            .apply()
     }
 
     private fun setObservers() {
@@ -99,12 +106,7 @@ class EditProfileFragment : BaseFragment() {
         binding.email.setSelection(userData?.email)
         binding.city.setText(userData?.city)
         binding.switchEmail.isChecked = userData?.mailNotifications == true
-        setPushSwitch()
-    }
-
-    private fun setPushSwitch() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        binding.switchPush.isChecked = prefs.getBoolean(FcmService.PREF_SHOW_NOTIFICATIONS, false)
+        binding.switchPush.isChecked = userData?.sendPushes == true
     }
 
     private fun setListeners() {
@@ -112,10 +114,6 @@ class EditProfileFragment : BaseFragment() {
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.cancel.setOnClickListener { findNavController().popBackStack() }
         binding.save.setOnClickListener { tryToSend() }
-        binding.switchPush.setOnCheckedChangeListener { _, isChecked ->
-            val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            prefs.edit().putBoolean(FcmService.PREF_SHOW_NOTIFICATIONS, isChecked).apply()
-        }
     }
 
     private fun tryToSend() {
