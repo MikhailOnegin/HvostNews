@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,7 +41,7 @@ class InviteFragment : Fragment() {
     private lateinit var callback: OnBackPressedCallback
 
     override fun onStart() {
-        setSystemUiVisibility()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) setSystemUiVisibility()
         super.onStart()
     }
 

@@ -37,6 +37,7 @@ class SchoolParentsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSchoolParentsBinding.inflate(inflater, container, false)
+        binding.toolbar2.background.level = 1
         return binding.root
     }
 

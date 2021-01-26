@@ -42,7 +42,7 @@ class FcmService : FirebaseMessagingService() {
             }
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
             builder.apply {
-                setSmallIcon(R.drawable.ic_launch)
+                setSmallIcon(R.drawable.ic_status_bar_notification)
                 setContentTitle(data[KEY_PUSH_TITLE])
                 setContentText(data[KEY_PUSH_MESSAGE])
                 priority = NotificationCompat.PRIORITY_DEFAULT

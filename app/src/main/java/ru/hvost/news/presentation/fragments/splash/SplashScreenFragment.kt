@@ -12,6 +12,7 @@ import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSplashScreenBinding
+import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 class SplashScreenFragment : Fragment() {
@@ -96,7 +97,9 @@ class SplashScreenFragment : Fragment() {
                 isDataLoaded = true
                 tryMoveFurther()
             },
-            doOnError = { mainVM.initializeData() },
+            doOnError = {
+                (requireActivity() as MainActivity).userLogOut()
+            },
             doOnFailure = { mainVM.initializeData() }
         )
     }

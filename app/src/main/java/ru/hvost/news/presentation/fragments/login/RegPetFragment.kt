@@ -36,6 +36,7 @@ class RegPetFragment : Fragment() {
     ): View {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
         //setTestData() //sergeev: Выпилить из релиза
+        binding.toolbar.background.level = 1
         return binding.root
     }
 

@@ -42,6 +42,7 @@ class LoginFragment : BaseFragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         //binding.login.setText("test@sergeev.ru")
         //binding.password.setText("passw0rd")
+        binding.toolbar.background.level = 1
         return binding.root
     }
 
@@ -56,7 +57,6 @@ class LoginFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         setListeners()
-        setSystemUiVisibility()
         setLoginButton()
     }
 
@@ -69,15 +69,6 @@ class LoginFragment : BaseFragment() {
                 binding.password.setText(password)
                 onLoginButtonClicked.invoke(binding.buttonLogin)
             }
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    @SuppressLint("InlinedApi")
-    private fun setSystemUiVisibility() {
-        requireActivity().window.run {
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = ContextCompat.getColor(requireContext(), android.R.color.white)
         }
     }
 

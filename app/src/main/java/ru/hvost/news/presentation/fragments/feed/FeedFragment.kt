@@ -43,12 +43,10 @@ class FeedFragment : BaseFragment() {
             MainViewModel.Companion.ButtonSelected.FEED -> {
                 setTabSelected(0)
                 binding.articlesFilter.visibility = View.VISIBLE
-                goToDestination(R.id.feedListFragment)
             }
             MainViewModel.Companion.ButtonSelected.DOMAINS -> {
                 areFiltersExpanded = false
                 setTabSelected(1)
-                goToDestination(R.id.domainsGridFragment)
                 binding.articlesFilter.visibility = View.INVISIBLE
                 binding.articlesFilter.layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -58,7 +56,6 @@ class FeedFragment : BaseFragment() {
             MainViewModel.Companion.ButtonSelected.NEWS -> {
                 areFiltersExpanded = false
                 setTabSelected(2)
-                goToDestination(R.id.newsListFragment)
                 binding.articlesFilter.visibility = View.INVISIBLE
                 binding.articlesFilter.layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -73,12 +70,18 @@ class FeedFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
-        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         initializeNavOptions()
         initializeObservers()
         setObservers()
         setListeners()
+        binding.toolbar.background.level = 1
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        mainVM.feedTabState = MainViewModel.Companion.ButtonSelected.FEED
     }
 
     private fun initializeNavOptions() {
@@ -221,7 +224,14 @@ class FeedFragment : BaseFragment() {
 
         override fun onAnimationStart(animation: Animator?) {
             isAnimationRunning = true
+            disableButtons()
             if (!shouldExpandFilters) binding.articlesFilter.visibility = View.INVISIBLE
+        }
+
+        private fun disableButtons() {
+            binding.articles.isEnabled = false
+            binding.domains.isEnabled = false
+            binding.news.isEnabled = false
         }
 
         override fun onAnimationEnd(animation: Animator?) {
@@ -240,27 +250,58 @@ class FeedFragment : BaseFragment() {
     private fun goToDestination(destination: Int) {
         requireActivity().findNavController(R.id.fragmentContainerView)
             .navigate(destination, null, navOptions.build())
+        enableButtons(destination)
+    }
+
+    private fun enableButtons(destination: Int) {
+        when (destination) {
+            R.id.feedListFragment -> {
+                binding.apply {
+                    domains.isEnabled = true
+                    news.isEnabled = true
+                }
+            }
+            R.id.domainsGridFragment -> {
+                binding.apply {
+                    articles.isEnabled = true
+                    news.isEnabled = true
+                }
+            }
+            R.id.newsListFragment -> {
+                binding.apply {
+                    domains.isEnabled = true
+                    articles.isEnabled = true
+                }
+            }
+        }
     }
 
     private fun setTabSelected(position: Int) {
-        binding.articles.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                if (position == 0) R.color.gray1 else R.color.gray4
+        binding.apply {
+            when (position) {
+                0 -> binding.articles.isEnabled = false
+                1 -> binding.domains.isEnabled = false
+                2 -> binding.news.isEnabled = false
+            }
+            articles.setTextColor(
+                ContextCompat.getColor(
+                    App.getInstance(),
+                    if (position == 0) R.color.gray1 else R.color.gray4
+                )
             )
-        )
-        binding.domains.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                if (position == 1) R.color.gray1 else R.color.gray4
+            domains.setTextColor(
+                ContextCompat.getColor(
+                    App.getInstance(),
+                    if (position == 1) R.color.gray1 else R.color.gray4
+                )
             )
-        )
-        binding.news.setTextColor(
-            ContextCompat.getColor(
-                App.getInstance(),
-                if (position == 2) R.color.gray1 else R.color.gray4
+            news.setTextColor(
+                ContextCompat.getColor(
+                    App.getInstance(),
+                    if (position == 2) R.color.gray1 else R.color.gray4
+                )
             )
-        )
+        }
     }
 
 }

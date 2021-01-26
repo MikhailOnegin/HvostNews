@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.R
 import ru.hvost.news.databinding.RvShopDomainBinding
 import ru.hvost.news.models.ShopDomain
 
@@ -37,7 +38,11 @@ class ShopDomainsAdapter(
             binding.category.text = domain.domainTitle
             if (position == 0) binding.title.visibility = View.VISIBLE
             else binding.title.visibility = View.GONE
-            Glide.with(binding.root).load(domain.imageUri).into(binding.image)
+            Glide
+                .with(binding.root)
+                .load(domain.imageUri)
+                .placeholder(R.drawable.empty_image)
+                .into(binding.image)
             binding.constraintLayout.setOnClickListener {
                 onDomainClicked.invoke(domain.domainId)
             }

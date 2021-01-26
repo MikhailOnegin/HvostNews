@@ -34,6 +34,7 @@ class RegUserFragment : Fragment() {
         binding.phone.setText(getString(R.string.phonePrefix))
         binding.phone.setSelection(binding.phone.length())
         //setTestData() //sergeev: Выпилить из релиза
+        binding.toolbar.background.level = 1
         return binding.root
     }
 

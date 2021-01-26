@@ -42,6 +42,7 @@ class SubmitPhoneFragment : BaseFragment() {
         authorizationVM.loginResponse?.userPhone?.run {
             setPhoneField(this)
         }
+        binding.toolbar.background.level = 1
         return binding.root
     }
 

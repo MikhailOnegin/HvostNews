@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -9,7 +10,7 @@ open class BaseFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        setSystemUiVisibility()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) setSystemUiVisibility()
     }
 
     @Suppress("DEPRECATION")

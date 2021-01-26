@@ -32,6 +32,7 @@ class RegInterestsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegInterestsBinding.inflate(inflater, container, false)
+        binding.toolbar.background.level = 1
         return binding.root
     }
 
