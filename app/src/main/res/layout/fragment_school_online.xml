@@ -70,7 +70,7 @@
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="@dimen/_30sp"
+                android:textSize="@dimen/textSchoolDetailTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +95,7 @@
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/your_rank"
                 android:textColor="@color/gray3"
-                android:textSize="@dimen/_17sp"
+                android:textSize="@dimen/_12sp"
                 app:layout_constraintStart_toStartOf="@+id/textView_rank"
                 app:layout_constraintTop_toBottomOf="@+id/textView_rank" />
 
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/largeMargin"
-                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginTop="@dimen/_24dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/lessons_completed"
                 android:textColor="@color/gray1"

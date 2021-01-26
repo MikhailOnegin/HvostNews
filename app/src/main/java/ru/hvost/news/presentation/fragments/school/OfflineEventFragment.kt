@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.app.ActionBar
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -251,5 +252,12 @@ class OfflineEventFragment : BaseFragment() {
                 schoolVM.changeFragment.value = true
             }
         }
+    }
+    private fun shareRefLink(url: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, url)
+        startActivity(Intent.createChooser(intent, "Link to share: "))
     }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
@@ -63,7 +62,7 @@ class SchoolOnlineFragment : BaseFragment() {
         }
         navC = findNavController()
         val schoolId = arguments?.getString("schoolId")
-        binding.recyclerView.adapter = materialsAdapter
+        binding.recyclerView.adapter = infoAdapter
         materialsAdapter.onClickLessonActive =
             object : SchoolOnlineMaterialsAdapter.OnClickLessonActive {
                 override fun onClick(lessonId: String) {
@@ -142,7 +141,7 @@ class SchoolOnlineFragment : BaseFragment() {
 
                                 if (onlineSchool.participate) {
                                     binding.constraintRegistration.visibility = View.GONE
-                                    unShowEmpty()
+                                    unshowEmpty()
                                 }
                                 else {
                                     binding.constraintRegistration.visibility = View.VISIBLE
@@ -251,15 +250,15 @@ class SchoolOnlineFragment : BaseFragment() {
     private fun setListeners() {
         val colorPrimary = ContextCompat.getColor(requireContext(), R.color.TextColorPrimary)
         val colorWhite = ContextCompat.getColor(requireContext(), android.R.color.white)
-        binding.constraintMaterials.isSelected = true
-        binding.schoolMaterialsTitle.setTextColor(colorWhite)
+        binding.constraintInfo.isSelected = true
+        binding.schoolInfoTitle.setTextColor(colorWhite)
         binding.constraintInfo.setOnClickListener {
             it.isSelected = true
             constraint_materials.isSelected = false
             binding.recyclerView.adapter = infoAdapter
             binding.schoolInfoTitle.setTextColor(colorWhite)
             binding.schoolMaterialsTitle.setTextColor(colorPrimary)
-            unShowEmpty()
+            unshowEmpty()
         }
         binding.constraintMaterials.setOnClickListener {
             it.isSelected = true
@@ -269,7 +268,7 @@ class SchoolOnlineFragment : BaseFragment() {
             binding.schoolInfoTitle.setTextColor(colorPrimary)
             schoolVM.onlineLessons.value.run {
                 if (this == null || this.lessons.isEmpty()) showEmpty()
-                else unShowEmpty()
+                else unshowEmpty()
             }
         }
         binding.buttonRegistration.setOnClickListener {
@@ -286,14 +285,14 @@ class SchoolOnlineFragment : BaseFragment() {
             findNavController().popBackStack()
         }
     }
-    fun showEmpty(){
+    private fun showEmpty(){
         binding.appBarLayout.layoutParams = CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT,
                 CoordinatorLayout.LayoutParams.MATCH_PARENT
         )
         binding.textViewEmpty.width = ViewGroup.LayoutParams.MATCH_PARENT
         binding.textViewEmpty.visibility = View.VISIBLE
     }
-    fun unShowEmpty(){
+    private fun unshowEmpty(){
         binding.appBarLayout.layoutParams = CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.MATCH_PARENT,
                 CoordinatorLayout.LayoutParams.WRAP_CONTENT
         )

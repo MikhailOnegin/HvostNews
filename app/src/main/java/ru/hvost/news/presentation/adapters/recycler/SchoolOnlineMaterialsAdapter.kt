@@ -116,7 +116,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                 if(i==0) strBuilder.append(age)
                 if(i==1) {
                     strBuilder.append("-$age")
-                    val month = monthЕndings(lesson.petAge[i])
+                    val month = monthEndings(lesson.petAge[i])
                     strBuilder.append(" $month")
                 }
             }
@@ -167,23 +167,19 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
                         viewLiterature.constraint_literature.setOnClickListener {
                             startIntentActionView(itemView.context, APIService.baseUrl + literature.fileUrl)
                         }
-                        val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
+                        val paddingNormal = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                        val paddingEdge = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
 
-                        if(i == school.literature.lastIndex) {
-                            (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                margin,
-                                0,
-                                margin,
-                                0
-                            )
+                        if(i == 0 || i == school.literature.lastIndex){
+                            if(i == 0) {
+                                viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
+                            }
+                            if (i == school.literature.lastIndex) {
+                                viewLiterature.setPadding(0, 0,paddingEdge,0)
+                            }
                         }
                         else {
-                            (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                margin,
-                                0,
-                                0,
-                                0
-                            )
+                            viewLiterature.setPadding(0, 0, paddingNormal,0)
                         }
                         container.addView(viewLiterature)
                     }
@@ -201,7 +197,7 @@ class SchoolOnlineMaterialsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         const val TYPE_USEFUL_LITERATURE = 2
     }
 
-    fun monthЕndings(i: String): String{
+    fun monthEndings(i: String): String{
         var result = ""
         try {
             result = when (i.toInt()) {

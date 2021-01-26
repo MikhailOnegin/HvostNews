@@ -37,11 +37,11 @@
                 android:id="@+id/view6"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_24dp"
+                android:layout_marginTop="24dp"
                 android:background="@color/gray5"
                 app:layout_constraintEnd_toEndOf="@+id/button_participate"
                 app:layout_constraintStart_toStartOf="@+id/button_participate"
-                app:layout_constraintTop_toBottomOf="@+id/button_participate" />
+                app:layout_constraintTop_toBottomOf="@+id/button3" />
 
             <View
                 android:id="@+id/view5"
@@ -230,6 +230,18 @@
                 app:layout_constraintEnd_toStartOf="@+id/textView_city"
                 app:layout_constraintStart_toEndOf="@+id/textView_place_logo"
                 app:layout_constraintTop_toBottomOf="@+id/textView_place_logo" />
+
+            <Button
+                android:id="@+id/button3"
+                style="@style/UnelevatedButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/buttonHeight"
+                android:layout_marginStart="@dimen/largeMargin"
+                android:layout_marginEnd="@dimen/largeMargin"
+                android:text="@string/share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_participate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

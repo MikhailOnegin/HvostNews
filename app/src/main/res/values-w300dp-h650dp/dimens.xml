@@ -256,8 +256,9 @@
     <dimen name="cardTitleTextSize">22sp</dimen>
     <dimen name="lessonNumbersMargin">14dp</dimen>
     <dimen name="schoolDetailTitleMarginTop">56dp</dimen>
-    <dimen name="schoolDetailTitleMarginEnd">120dp</dimen>
+    <dimen name="schoolDetailTitleMarginEnd">97dp</dimen>
     <dimen name="maxChipsWidth">220dp</dimen>
     <dimen name="mainTitleMaxWidth">170dp</dimen>
     <dimen name="prizeItemPadding">15dp</dimen>
+    <dimen name="textSchoolDetailTitle">27sp</dimen>
 </resources>

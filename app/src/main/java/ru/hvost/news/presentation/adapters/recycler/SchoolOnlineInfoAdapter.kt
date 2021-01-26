@@ -119,23 +119,19 @@ class SchoolOnlineInfoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     viewLiterature.constraint_literature.setOnClickListener {
                         startIntentActionView(itemView.context, baseUrl + literature.fileUrl)
                     }
-                    val margin = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
+                    val paddingNormal = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                    val paddingEdge = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
 
-                    if(i == school.literature.lastIndex) {
-                        (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
-                            margin,
-                            0,
-                            margin,
-                            0
-                        )
+                    if(i == 0 || i == school.literature.lastIndex){
+                        if(i == 0) {
+                            viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
+                        }
+                        if (i == school.literature.lastIndex) {
+                            viewLiterature.setPadding(0, 0,paddingEdge,0)
+                        }
                     }
                     else {
-                        (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
-                            margin,
-                            0,
-                            0,
-                            0
-                        )
+                        viewLiterature.setPadding(0, 0, paddingNormal,0)
                     }
                     containerLiterature.addView(viewLiterature)
                 }

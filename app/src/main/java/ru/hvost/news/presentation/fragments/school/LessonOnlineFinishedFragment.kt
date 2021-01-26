@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -79,23 +78,19 @@ class LessonOnlineFinishedFragment : BaseFragment() {
                                     literature[i].fileUrl
                                 )
                             }
-                            val margin = resources.getDimension(R.dimen.largeMargin).toInt()
+                            val paddingNormal = resources.getDimension(R.dimen.normalMargin).toInt()
+                            val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
 
-                            if(i == this.literature.lastIndex) {
-                                (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                    margin,
-                                    0,
-                                    margin,
-                                    0
-                                )
+                            if(i == 0 || i == onlineSchool.literature.lastIndex){
+                                if(i == 0) {
+                                    viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
+                                }
+                                if (i == onlineSchool.literature.lastIndex) {
+                                    viewLiterature.setPadding(0, 0,paddingEdge,0)
+                                }
                             }
                             else {
-                                (viewLiterature.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                    margin,
-                                    0,
-                                    0,
-                                    0
-                                )
+                                viewLiterature.setPadding(0, 0, paddingNormal,0)
                             }
                             container.addView(viewLiterature)
                         }
