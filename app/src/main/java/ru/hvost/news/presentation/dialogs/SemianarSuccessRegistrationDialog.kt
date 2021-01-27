@@ -9,18 +9,18 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.R
-import ru.hvost.news.databinding.DialogSchoolRegistrationSuccessBinding
+import ru.hvost.news.databinding.DialogSeminarRegistrationSuccessBinding
 
-class SuccessRegistrationSchoolDialog(private val title:String ): BottomSheetDialogFragment() {
+class SemianarSuccessRegistrationDialog (private val title:String ): BottomSheetDialogFragment(){
 
-    private lateinit var binding: DialogSchoolRegistrationSuccessBinding
+    private lateinit var binding: DialogSeminarRegistrationSuccessBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
-        binding = DialogSchoolRegistrationSuccessBinding.inflate(inflater, container, false)
+        binding = DialogSeminarRegistrationSuccessBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -42,7 +42,7 @@ class SuccessRegistrationSchoolDialog(private val title:String ): BottomSheetDia
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val description = "Регистрация прошла успешно, вы зарегистрированы на этот семинар " +
-                "\"$title\""
+                "\"$title \""
         binding.textViewDescription.text = description
         setListeners()
     }

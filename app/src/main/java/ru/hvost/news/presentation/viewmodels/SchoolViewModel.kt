@@ -16,7 +16,7 @@ import ru.hvost.news.utils.events.NetworkEvent
 
 class SchoolViewModel: ViewModel() {
 
-    val seminarId:MutableLiveData<Int> = MutableLiveData(0)
+    val seminarId:MutableLiveData<Long> = MutableLiveData(0)
     val petTypeName:MutableLiveData<String> = MutableLiveData()
     val changeFragment:MutableLiveData<Boolean> = MutableLiveData()
     private val _offlineSeminarsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
@@ -24,7 +24,7 @@ class SchoolViewModel: ViewModel() {
     private val _offlineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
     val offlineSeminars:LiveData<OfflineSeminars> = _offlineSeminars
 
-    fun getOfflineSeminars(cityId:String, userToken: String){
+    fun getSeminars(cityId:String, userToken: String){
         viewModelScope.launch {
             _offlineSeminarsEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -37,20 +37,21 @@ class SchoolViewModel: ViewModel() {
             }
         }
     }
-
+    val schoolOnlineId:MutableLiveData<Long> = MutableLiveData()
     val selectLessonAnswersCount:MutableLiveData<Int> = MutableLiveData(0)
     private val _onlineLessonsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineLessonsEvent:LiveData<NetworkEvent<State>> = _onlineLessonsEvent
     private val _onlineLessons:MutableLiveData<OnlineLessons> = MutableLiveData()
     val onlineLessons:LiveData<OnlineLessons> = _onlineLessons
 
-    fun getOnlineLessons(userToken:String, schoolId:String){
+    fun getSchoolLessons(userToken:String, schoolId:String){
         viewModelScope.launch {
             _onlineLessonsEvent.value = NetworkEvent(State.LOADING)
             try {
                 val response = APIService.API.getOnlineLessonsAsync(userToken,schoolId).await()
                 _onlineLessons.value = response.toOfflineLessons()
-                if (response.result == "success") _onlineLessonsEvent.value = NetworkEvent(State.SUCCESS)
+                if (response.result == "success") {
+                    _onlineLessonsEvent.value = NetworkEvent(State.SUCCESS)}
                 else _onlineLessonsEvent.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
                 _onlineLessonsEvent.value = NetworkEvent(State.FAILURE, exc.toString())
@@ -81,6 +82,7 @@ class SchoolViewModel: ViewModel() {
 
     }
 
+    val filterSchools:MutableLiveData<String> = MutableLiveData()
 
     private val _onlineSchoolsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineSchoolsEvent:LiveData<NetworkEvent<State>> = _onlineSchoolsEvent
@@ -88,7 +90,7 @@ class SchoolViewModel: ViewModel() {
     private val _onlineSchools:MutableLiveData<OnlineSchools> = MutableLiveData()
     val onlineSchools:LiveData<OnlineSchools> = _onlineSchools
 
-    fun getOnlineSchools(userToken: String){
+    fun getSchools(userToken: String){
         viewModelScope.launch {
             _onlineSchoolsEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -123,13 +125,15 @@ class SchoolViewModel: ViewModel() {
         }
     }
 
+    val currentCity:MutableLiveData<String> = MutableLiveData()
+    val filterShowFinished:MutableLiveData<Boolean> = MutableLiveData()
     private val _offlineCitiesEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineCitiesEvent:LiveData<NetworkEvent<State>> = _offlineCitiesEvent
 
     private val mutableOfflineCities:MutableLiveData<CitiesOffline> = MutableLiveData()
     val offlineCities:LiveData<CitiesOffline> = mutableOfflineCities
 
-    fun getOfflineCities(){
+    fun getSeminarsCities(){
         viewModelScope.launch {
             _offlineCitiesEvent.value = NetworkEvent(State.LOADING)
             try {

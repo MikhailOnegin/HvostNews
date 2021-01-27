@@ -19,33 +19,33 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentRegistrationOfflineEventBinding
-import ru.hvost.news.models.OfflineSeminars
+import ru.hvost.news.databinding.FragmentSchoolRegistrationBinding
+import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.models.Pets
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.getValue
 import ru.hvost.news.utils.startIntentActionView
 
-class RegistrationOfflineEventFragment : BaseFragment() {
+class SchoolRegistrationFragment: BaseFragment() {
 
-
-    private lateinit var binding: FragmentRegistrationOfflineEventBinding
+    private lateinit var binding: FragmentSchoolRegistrationBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var mainVM: MainViewModel
-    private lateinit var loadPetsEvent: DefaultNetworkEventObserver
-    private lateinit var setParticipateEvent: DefaultNetworkEventObserver
-    private var offlineSeminar: OfflineSeminars.OfflineSeminar? = null
-    private var idSeminar: String? = null
+    private lateinit var loadPetsEvent:DefaultNetworkEventObserver
+    private lateinit var setParticipateEvent:DefaultNetworkEventObserver
+    private var onlineSchool:OnlineSchools.OnlineSchool? = null
+    private var idSchool:String? = null
     private var pets: List<Pets>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegistrationOfflineEventBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolRegistrationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,7 +59,7 @@ class RegistrationOfflineEventFragment : BaseFragment() {
         setObservers(this)
 
         binding.spinnerPets.setSelection(0, false)
-        idSeminar = arguments?.getString("seminarId")
+        idSchool = arguments?.getString("schoolId")
         val text = resources.getString(R.string.accept_terms_of_agreement)
         val spannable = SpannableString(text)
         val colorSpan =
@@ -73,6 +73,7 @@ class RegistrationOfflineEventFragment : BaseFragment() {
         spannable.setSpan(colorSpan, 19, 46, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.checkBox2.text = spannable
         binding.checkBox2.movementMethod = LinkMovementMethod.getInstance()
+        binding.spinnerPets.adapter = SpinnerAdapter(requireContext(), "", arrayListOf("Нет питомцев"), String::getValue)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -106,15 +107,13 @@ class RegistrationOfflineEventFragment : BaseFragment() {
             doOnLoading = { binding.buttonCompleteRegistration.isEnabled = false },
             doOnSuccess = {
                 binding.buttonCompleteRegistration.isEnabled = false
-                offlineSeminar?.run {
+                onlineSchool?.run {
                     schoolVM.successRegistration.value = true
                     val bundle = Bundle()
-                    idSeminar?.run {
-                        bundle.putString("seminarId", this)
-                    }
-                    bundle.putString("seminarTitle", this.title)
+                    bundle.putString("schoolTitle", title)
+                    bundle.putString("schoolId", id.toString())
                     findNavController().navigate(
-                        R.id.action_registrationFragment_to_offlineEventFragment,
+                        R.id.action_registrationSchoolFragment_to_schoolFragment,
                         bundle
                     )
                 }
@@ -126,37 +125,35 @@ class RegistrationOfflineEventFragment : BaseFragment() {
 
     @Suppress("UNCHECKED_CAST")
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.offlineSeminars.observe(owner, {
-             schoolVM.offlineSeminars.value?.seminars?.let { seminars ->
-                    for (i in seminars.indices) {
-                        val seminar = seminars[i]
-                        idSeminar?.let { seminarId ->
-                            if (seminar.id.toString() == seminarId) {
-                                offlineSeminar = seminar
-                                val head = "Регистрация на онлайн семинар \"${seminar.title}\""
-                                binding.textViewHead.text = head
-                            }
-                        }
-                }
-            }
-        })
         mainVM.userPetsLoadingEvent.observe(owner, loadPetsEvent)
         schoolVM.enabledSchoolRegister.observe(owner, {
             binding.buttonCompleteRegistration.isEnabled = it
         })
         schoolVM.setParticipateEvent.observe(owner, setParticipateEvent)
+        schoolVM.onlineSchools.observe(owner, {
+            idSchool?.run {
+                for (i in it.onlineSchools.indices) {
+                    val school = it.onlineSchools[i]
+                    if (school.id.toString() == this) {
+                        onlineSchool = school
+                        val head = "${getString(R.string.registrated_online_school)} \"${school.title}\""
+                        binding.textViewHead.text = head
+                    }
+                }
+            }
+        })
     }
 
     @SuppressLint("UseCompatLoadingForColorStateLists")
     @Suppress("UNCHECKED_CAST")
     private fun setListeners() {
-        binding.toolbarRegistration.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         binding.imageButtonAddPet.setOnClickListener {
             AddPetCustomDialog().show(
-                childFragmentManager,
-                "info_dialog"
+                    childFragmentManager,
+                    "info_dialog"
             )
         }
         binding.buttonCompleteRegistration.setOnClickListener {
@@ -172,11 +169,10 @@ class RegistrationOfflineEventFragment : BaseFragment() {
                 }
             }
             App.getInstance().userToken?.let { userToken ->
-                idSeminar?.let { idSeminar ->
+                idSchool?.let { idSchool ->
                     petId?.let { idPet ->
-                        schoolVM.setParticipate(userToken, idSeminar, idPet)
+                        schoolVM.setParticipate(userToken, idSchool, idPet)
                     }
-
                 }
             }
         }
