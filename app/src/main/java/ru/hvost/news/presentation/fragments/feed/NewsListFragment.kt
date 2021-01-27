@@ -12,10 +12,9 @@ import ru.hvost.news.databinding.FragmentNewsListBinding
 import ru.hvost.news.models.Article
 import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
-import ru.hvost.news.presentation.fragments.articles.ArticlesFragment
-import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class NewsListFragment : BaseFragment() {
 
@@ -48,6 +47,12 @@ class NewsListFragment : BaseFragment() {
     private fun setObservers() {
         mainVM.allArticlesLoadingEvent.observe(viewLifecycleOwner, onAllArticlesLoadingEvent)
         mainVM.likedAllArticles.observe(viewLifecycleOwner, { onAllArticlesChanged(it) })
+        mainVM.updateArticlesViewsCount.observe(viewLifecycleOwner,
+            OneTimeEvent.Observer { updateAllArticles() })
+    }
+
+    private fun updateAllArticles() {
+        mainVM.allArticles.value?.let { onAllArticlesChanged(it) }
     }
 
     private fun onAllArticlesChanged(list: List<Article>?) {
@@ -65,8 +70,7 @@ class NewsListFragment : BaseFragment() {
     private fun setRecyclerView() {
         val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putString(ArticlesFragment.ARTICLE_ID, id)
-            bundle.putString("TYPE", "INDIVIDUAL")
+            bundle.putString(FeedFragment.ARTICLE_ID, id)
             requireActivity().findNavController(R.id.nav_host_fragment)
                 .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
         }

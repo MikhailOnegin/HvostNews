@@ -12,7 +12,8 @@ data class UserDataResponse(
     val birthday: String?,
     val interests: List<String>?,
     val deliveryAddresses: List<DeliveryAddress>?,
-    val mailNotifications: Boolean?
+    val mailNotifications: Boolean?,
+    val sendPushes: Boolean?
 ) {
 
     data class DeliveryAddress(
