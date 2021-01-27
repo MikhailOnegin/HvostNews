@@ -383,7 +383,7 @@ fun dateFormat(s:String): String {
     return result
 }
 
-private fun shareRefLink(context: Context, url: String) {
+fun shareRefLink(context: Context, url: String) {
     val intent = Intent()
     intent.action = Intent.ACTION_SEND
     intent.type = "text/plain"
@@ -395,6 +395,10 @@ private fun shareRefLink(context: Context, url: String) {
 
     }
 
+}
+
+fun pxToDp(context: Context, px:Int): Int {
+    return (px / context.resources.displayMetrics.density).toInt()
 }
 
 val hasOneLatinCharPattern: Pattern = Pattern.compile(".*\\p{Alpha}+.*")

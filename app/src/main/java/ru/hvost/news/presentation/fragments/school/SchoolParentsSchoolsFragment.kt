@@ -39,6 +39,7 @@ class SchoolParentsSchoolsFragment: BaseFragment() {
     }
 
     private fun initializedAdapters(){
+
         schoolsAdapter = SchoolsAdapter(
             clickSchool = {
                 schoolVM.schoolOnlineId.value = it

@@ -32,10 +32,11 @@ class SchoolFragment : BaseFragment() {
     private lateinit var navCMain: NavController
     private lateinit var navCSchool: NavController
     private var schoolId: String? = null
+    private var fromDestination: String? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentSchoolBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,12 +50,16 @@ class SchoolFragment : BaseFragment() {
         schoolVM.successRegistration.value?.run {
             if (this && title != null) {
                 SchoolSuccessRegistrationDialog(title).show(
-                        childFragmentManager,
-                        "success_registration_dialog"
+                    childFragmentManager,
+                    "success_registration_dialog"
                 )
                 schoolVM.successRegistration.value = false
             }
         }
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("fromDestination")
+            ?.observe(viewLifecycleOwner) {
+                fromDestination = it
+            }
         navCMain = findNavController()
         navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "school")
         navCSchool = requireActivity().findNavController(R.id.fragmentContainerSchool)
@@ -71,11 +76,11 @@ class SchoolFragment : BaseFragment() {
                             val school = schools[i]
                             if (school.title.isNotBlank()) binding.textViewTitle.text = school.title
                             if (school.userRank.isNotBlank()) binding.textViewRank.text =
-                                    school.userRank
+                                school.userRank
                             Glide.with(requireContext())
-                                    .load(APIService.baseUrl + school.imageDetailUrl)
-                                    .placeholder(R.drawable.empty_image).centerCrop()
-                                    .into(binding.imageViewLogo)
+                                .load(APIService.baseUrl + school.imageDetailUrl)
+                                .placeholder(R.drawable.empty_image).centerCrop()
+                                .into(binding.imageViewLogo)
                             return@run
                         }
                     }
@@ -92,80 +97,83 @@ class SchoolFragment : BaseFragment() {
 
     private fun initializedEvents() {
         onlineSchoolsEvent = DefaultNetworkEventObserver(
-                anchorView = binding.root,
-                doOnSuccess = {
-                    schoolVM.onlineSchools.value?.onlineSchools?.let { onlineSchools ->
-                        schoolId?.run {
-                            for (i in onlineSchools.indices) {
-                                val onlineSchool = onlineSchools[i]
-                                if (onlineSchool.id.toString() == this) {
-                                    if (onlineSchool.participate) binding.constraintRegistration.visibility = View.GONE
-                                    else binding.constraintRegistration.visibility = View.VISIBLE
+            anchorView = binding.root,
+            doOnSuccess = {
+                schoolVM.onlineSchools.value?.onlineSchools?.let { onlineSchools ->
+                    schoolId?.run {
+                        for (i in onlineSchools.indices) {
+                            val onlineSchool = onlineSchools[i]
+                            if (onlineSchool.id.toString() == this) {
+                                if (onlineSchool.participate) binding.constraintRegistration.visibility =
+                                    View.GONE
+                                else binding.constraintRegistration.visibility = View.VISIBLE
 
-                                    val containerNumbers = linearLayout_lesson_numbers
-                                    val padding =
-                                            resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
-                                    containerNumbers.setPadding(0, 0, 0, padding)
-                                    containerNumbers.removeAllViews()
-                                    for (q in onlineSchool.lessonsPassed.indices) {
-                                        val number = (q + 1).toString()
-                                        val isPassed = onlineSchool.lessonsPassed[q].isPassed
-                                        val viewWait = LayoutLessonNumberBinding.inflate(
-                                                LayoutInflater.from(requireContext()),
-                                                containerNumbers,
-                                                false
-                                        ).root
-                                        viewWait.textView_lesson_number.background =
-                                                ContextCompat.getDrawable(
-                                                        requireContext(),
-                                                        R.drawable.selector_lesson_number
-                                                )
-                                        viewWait.textView_lesson_number.isSelected =
-                                                onlineSchool.lessonsPassed[q].isPassed
-                                        viewWait.textView_lesson_number.text = number
-                                        viewWait.textView_lesson_number.isSelected = isPassed
+                                val containerNumbers = linearLayout_lesson_numbers
+                                val padding =
+                                    resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
+                                containerNumbers.setPadding(0, 0, 0, padding)
+                                containerNumbers.removeAllViews()
+                                for (q in onlineSchool.lessonsPassed.indices) {
+                                    val number = (q + 1).toString()
+                                    val isPassed = onlineSchool.lessonsPassed[q].isPassed
+                                    val viewWait = LayoutLessonNumberBinding.inflate(
+                                        LayoutInflater.from(requireContext()),
+                                        containerNumbers,
+                                        false
+                                    ).root
+                                    viewWait.textView_lesson_number.background =
+                                        ContextCompat.getDrawable(
+                                            requireContext(),
+                                            R.drawable.selector_lesson_number
+                                        )
+                                    viewWait.textView_lesson_number.isSelected =
+                                        onlineSchool.lessonsPassed[q].isPassed
+                                    viewWait.textView_lesson_number.text = number
+                                    viewWait.textView_lesson_number.isSelected = isPassed
 
-                                        if (isPassed) viewWait.textView_lesson_number.setTextColor(
-                                                ContextCompat.getColor(
-                                                        requireContext(),
-                                                        android.R.color.white
-                                                )
+                                    if (isPassed) viewWait.textView_lesson_number.setTextColor(
+                                        ContextCompat.getColor(
+                                            requireContext(),
+                                            android.R.color.white
                                         )
-                                        else viewWait.textView_lesson_number.setTextColor(
-                                                ContextCompat.getColor(
-                                                        requireContext(),
-                                                        R.color.gray3
-                                                )
+                                    )
+                                    else viewWait.textView_lesson_number.setTextColor(
+                                        ContextCompat.getColor(
+                                            requireContext(),
+                                            R.color.gray3
                                         )
-                                        val paddingNormal = resources.getDimension(R.dimen._14dp).toInt()
-                                        val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
-                                        if (q == 0 || q == onlineSchool.lessonsPassed.lastIndex) {
-                                            if (q == 0) {
-                                                viewWait.setPadding(paddingEdge, 0, paddingNormal, 0)
-                                            }
-                                            if (q == onlineSchool.lessonsPassed.lastIndex) {
-                                                viewWait.setPadding(0, 0, paddingEdge, 0)
-                                            }
-                                        } else {
-                                            viewWait.setPadding(0, 0, paddingNormal, 0)
+                                    )
+                                    val paddingNormal =
+                                        resources.getDimension(R.dimen._14dp).toInt()
+                                    val paddingEdge =
+                                        resources.getDimension(R.dimen.largeMargin).toInt()
+                                    if (q == 0 || q == onlineSchool.lessonsPassed.lastIndex) {
+                                        if (q == 0) {
+                                            viewWait.setPadding(paddingEdge, 0, paddingNormal, 0)
                                         }
-                                        containerNumbers.addView(viewWait)
+                                        if (q == onlineSchool.lessonsPassed.lastIndex) {
+                                            viewWait.setPadding(0, 0, paddingEdge, 0)
+                                        }
+                                    } else {
+                                        viewWait.setPadding(0, 0, paddingNormal, 0)
                                     }
+                                    containerNumbers.addView(viewWait)
                                 }
                             }
                         }
                     }
-                },
-                doOnError = {
-                    App.getInstance().userToken?.let {
-                        schoolVM.getSchools(it)
-                    }
-                },
-                doOnFailure = {
-                    App.getInstance().userToken?.let {
-                        schoolVM.getSchools(it)
-                    }
                 }
+            },
+            doOnError = {
+                App.getInstance().userToken?.let {
+                    schoolVM.getSchools(it)
+                }
+            },
+            doOnFailure = {
+                App.getInstance().userToken?.let {
+                    schoolVM.getSchools(it)
+                }
+            }
         )
     }
 
@@ -176,7 +184,8 @@ class SchoolFragment : BaseFragment() {
                 val school = it.onlineSchools[i]
                 schoolId?.let { schoolId ->
                     if (school.id.toString() == schoolId) {
-                        if (school.participate) binding.constraintRegistration.visibility = View.GONE
+                        if (school.participate) binding.constraintRegistration.visibility =
+                            View.GONE
                         else binding.constraintRegistration.visibility = View.VISIBLE
                     }
                 }
@@ -186,7 +195,11 @@ class SchoolFragment : BaseFragment() {
 
 
     private fun setListeners() {
-        binding.tabInfo.isSelected = true
+        if (fromDestination != null) {
+            if (fromDestination == "lesson") binding.tabMaterials.isSelected = true
+        } else {
+            binding.tabInfo.isSelected = true
+        }
         binding.tabInfo.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
@@ -212,8 +225,8 @@ class SchoolFragment : BaseFragment() {
                 bundle.putString("schoolId", this)
             }
             findNavController().navigate(
-                    R.id.action_schoolFragment_to_registrationSchoolFragment,
-                    bundle
+                R.id.action_schoolFragment_to_registrationSchoolFragment,
+                bundle
             )
         }
         binding.toolbarOnlineSchool.setNavigationOnClickListener {

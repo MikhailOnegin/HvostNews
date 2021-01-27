@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -24,6 +25,7 @@ class SchoolMaterialsFragment: BaseFragment() {
     private lateinit var navCMain: NavController
     private lateinit var materialsAdapter: SchoolMaterialsAdapter
     private var schoolId: Long? = null
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -31,6 +33,8 @@ class SchoolMaterialsFragment: BaseFragment() {
         binding = FragmentSchoolMaterialsBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -40,6 +44,8 @@ class SchoolMaterialsFragment: BaseFragment() {
         binding.recyclerMaterials.adapter = materialsAdapter
         initializedEvents()
         setObservers(this)
+
+
     }
 
     private fun initializedEvents() {
@@ -91,26 +97,14 @@ class SchoolMaterialsFragment: BaseFragment() {
                 for(i in it.onlineSchools.indices){
                     val school = it.onlineSchools[i]
                     if(school.id == schoolId) {
+                        App.getInstance().userToken?.run {
+                            schoolVM.getSchoolLessons(this, school.id.toString())
+                        }
                         this.schoolId = school.id
                         App.getInstance().userToken?.let { userToken ->
                             schoolVM.getSchoolLessons(userToken, school.id.toString())
                         }
                         return@observe
-                    }
-                }
-            }
-        })
-        schoolVM.onlineLessons.observe(owner, {valueLessons ->
-            schoolVM.onlineSchools.value?.onlineSchools?.let { schools ->
-                schoolVM.schoolOnlineId.value?.let {schoolId ->
-                    for(i in schools.indices){
-                        val school = schools[i]
-                        if(school.id == schoolId){
-                            if(school.participate) binding.textViewEmpty.visibility = View.GONE
-                            else binding.textViewEmpty.visibility = View.VISIBLE
-                            materialsAdapter.setValue(valueLessons.lessons, school)
-                            return@observe
-                        }
                     }
                 }
             }
