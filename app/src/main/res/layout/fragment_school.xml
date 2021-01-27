@@ -6,13 +6,14 @@
     android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.school.SchoolOnlineFragment">
+    style="@style/ArticlesRecyclerView"
+    tools:context=".presentation.fragments.school.SchoolFragment">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:background="@android:color/white"
         app:liftOnScroll="true">
@@ -65,12 +66,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/largeMargin"
-                android:layout_marginTop="@dimen/schoolDetailTitleMarginTop"
+                android:layout_marginTop="@dimen/_40dp"
                 android:layout_marginEnd="@dimen/schoolDetailTitleMarginEnd"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/not_found"
                 android:textColor="@color/gray1"
-                android:textSize="@dimen/_30sp"
+                android:textSize="@dimen/textSchoolDetailTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +96,7 @@
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/your_rank"
                 android:textColor="@color/gray3"
-                android:textSize="@dimen/_17sp"
+                android:textSize="@dimen/_12sp"
                 app:layout_constraintStart_toStartOf="@+id/textView_rank"
                 app:layout_constraintTop_toBottomOf="@+id/textView_rank" />
 
@@ -104,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/largeMargin"
-                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginTop="@dimen/_24dp"
                 android:fontFamily="@font/gilroy_semibold"
                 android:text="@string/lessons_completed"
                 android:textColor="@color/gray1"
@@ -158,15 +159,15 @@
             android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/largeMargin"
-            android:paddingBottom="@dimen/largeMargin"
-            android:paddingEnd="@dimen/largeMargin"
             android:paddingStart="@dimen/largeMargin"
+            android:paddingTop="@dimen/largeMargin"
+            android:paddingEnd="@dimen/largeMargin"
+            android:paddingBottom="@dimen/largeMargin"
 
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_info"
+                android:id="@+id/tab_info"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/cartSelectorHeight"
                 android:layout_weight="1"
@@ -179,6 +180,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/about_course"
                     android:textSize="@dimen/_13sp"
+                    android:textColor="@color/sex_text_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="packed"
@@ -188,7 +190,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_materials"
+                android:id="@+id/tab_materials"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/cartSelectorHeight"
                 android:layout_weight="1"
@@ -201,6 +203,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/course_materials"
                     android:textSize="@dimen/_13sp"
+                    android:textColor="@color/sex_text_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="packed"
@@ -210,37 +213,18 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView_empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginEnd="@dimen/largeMargin"
-            android:fontFamily="@font/gilroy_semibold"
-            android:gravity="center"
-            android:text="@string/you_yet_dont_registrated_course"
-            android:textColor="@color/gray4"
-            android:textSize="@dimen/_24sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerSchool"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation_school" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -16,14 +16,11 @@ import ru.hvost.news.databinding.ItemSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.models.OnlineSchools
 
-class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsViewHolder>() {
+class SchoolsAdapter(
+        private val clickSchool: ((Long) -> Unit)? = null,
+) : RecyclerView.Adapter<SchoolsAdapter.SchoolsViewHolder>() {
     private var schoolsFull = arrayListOf<OnlineSchools.OnlineSchool>()
     private var schools = arrayListOf<OnlineSchools.OnlineSchool>()
-    var clickSchool: ClickSchool? = null
-
-    interface ClickSchool {
-        fun onClick(schoolId: String)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SchoolsViewHolder {
         return SchoolsViewHolder(ItemSchoolOnlineBinding.inflate(
@@ -67,7 +64,7 @@ class SchoolsOnlineAdapter : RecyclerView.Adapter<SchoolsOnlineAdapter.SchoolsVi
                 .placeholder(R.drawable.empty_image).centerCrop()
                 .into(binding.imageViewSchool)
             binding.rootConstraint.setOnClickListener {
-                clickSchool?.onClick(onlineSchool.id.toString())
+                clickSchool?.invoke(onlineSchool.id)
             }
 
             val containerNumbers = itemView.linearLayout_lesson_numbers

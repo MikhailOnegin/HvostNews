@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
@@ -15,6 +16,7 @@ import ru.hvost.news.models.Article
 import ru.hvost.news.models.toArticleContent
 import ru.hvost.news.presentation.adapters.recycler.ArticleContentAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.presentation.fragments.feed.FeedFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -42,7 +44,7 @@ class ArticleFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         articleVM = ViewModelProvider(this)[ArticleViewModel::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        articleVM.loadArticle(arguments?.getString(ArticlesFragment.ARTICLE_ID))
+        articleVM.loadArticle(arguments?.getString(FeedFragment.ARTICLE_ID))
         setObservers()
     }
 
@@ -93,7 +95,7 @@ class ArticleFragment : BaseFragment() {
                     articleVM = articleVM,
                     isLiked = article.isLiked,
                     mainVM = mainVM,
-                    itemId = arguments?.getString(ArticlesFragment.ARTICLE_ID),
+                    itemId = arguments?.getString(FeedFragment.ARTICLE_ID),
                     setLiked = onActionLiked
                 )
                 adapter = contentAdapter
@@ -125,12 +127,29 @@ class ArticleFragment : BaseFragment() {
         loadingArticleEventObserver = DefaultNetworkEventObserver(
             binding.root,
             doOnSuccess = {
-                mainVM.setArticleViewed(arguments?.getString(ArticlesFragment.ARTICLE_ID))
+                val id = arguments?.getString(FeedFragment.ARTICLE_ID)
+                mainVM.setArticleViewed(id)
+                setAllArticles(id)
+                setIndividualArticles(id)
                 binding.toolbar.title = articleVM.article.value?.domainTitle
             },
             doOnError = { findNavController().popBackStack() },
             doOnFailure = { findNavController().popBackStack() }
         )
+    }
+
+    private fun setAllArticles(id: String?) {
+        mainVM.allArticles.value?.let {
+            mainVM.allArticles.value?.firstOrNull { it.articleId == id }?.viewsCount = articleVM.article.value?.viewsCount ?: return
+            mainVM.updateAllArticlesViewsCount.value = OneTimeEvent()
+        }
+    }
+
+    private fun setIndividualArticles(id: String?) {
+        mainVM.articles.value?.let {
+            mainVM.articles.value?.firstOrNull { it.articleId == id }?.viewsCount = articleVM.article.value?.viewsCount ?: return
+            mainVM.updateArticlesViewsCount.value = OneTimeEvent()
+        }
     }
 
 }

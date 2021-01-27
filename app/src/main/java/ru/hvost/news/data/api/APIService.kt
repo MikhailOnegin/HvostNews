@@ -221,7 +221,8 @@ interface APIService {
         @Query("city") city: String?,
         @Query("birthday") birthday: String?,
         @Query("interests") interests: String?,
-        @Query("mailNotifications") mailNotifications: Boolean?
+        @Query("mailNotifications") mailNotifications: Boolean?,
+        @Query("sendPushes") sendPushes: Boolean?
     ): Deferred<UserDataResponse>
 
     @GET("/rest/PetProfile/updatePet/")

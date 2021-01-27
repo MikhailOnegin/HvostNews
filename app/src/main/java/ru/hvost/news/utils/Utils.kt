@@ -383,5 +383,19 @@ fun dateFormat(s:String): String {
     return result
 }
 
+private fun shareRefLink(context: Context, url: String) {
+    val intent = Intent()
+    intent.action = Intent.ACTION_SEND
+    intent.type = "text/plain"
+    intent.putExtra(Intent.EXTRA_TEXT, url)
+    try {
+        context.startActivity(Intent.createChooser(intent, "Link to share: "))
+    }
+    catch (e:Exception){
+
+    }
+
+}
+
 val hasOneLatinCharPattern: Pattern = Pattern.compile(".*\\p{Alpha}+.*")
 val hasOneDigitPattern: Pattern = Pattern.compile(".*\\d+.*")

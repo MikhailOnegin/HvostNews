@@ -263,4 +263,5 @@
     <dimen name="maxChipsWidth">200dp</dimen>
     <dimen name="mainTitleMaxWidth">170dp</dimen>
     <dimen name="prizeItemPadding">15dp</dimen>
+    <dimen name="textSchoolDetailTitle">27sp</dimen>
 </resources>

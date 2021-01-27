@@ -77,6 +77,8 @@ class MainViewModel : ViewModel() {
     private val _allArticles = MutableLiveData<List<Article>>()
     val allArticles: LiveData<List<Article>> = _allArticles
     val likedAllArticles = MutableLiveData<List<Article>>()
+    val updateAllArticlesViewsCount = MutableLiveData<OneTimeEvent>()
+    val updateArticlesViewsCount = MutableLiveData<OneTimeEvent>()
 
     private val _articleViewedLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val articleViewedLoadingEvent: LiveData<NetworkEvent<State>> = _articleViewedLoadingEvent
@@ -547,7 +549,8 @@ class MainViewModel : ViewModel() {
         birthday: String? = null,
         city: String? = null,
         interests: String? = null,
-        mailNotifications: Boolean? = null
+        mailNotifications: Boolean? = null,
+        sendPushes: Boolean? = null
     ) {
         viewModelScope.launch {
             _changeUserDataLoadingEvent.value = NetworkEvent(State.LOADING)
@@ -562,7 +565,8 @@ class MainViewModel : ViewModel() {
                     birthday = birthday,
                     city = city,
                     interests = interests,
-                    mailNotifications = mailNotifications
+                    mailNotifications = mailNotifications,
+                    sendPushes = sendPushes
                 ).await()
                 if (response.result == "success") {
                     _changeUserDataLoadingEvent.value = NetworkEvent(State.SUCCESS)

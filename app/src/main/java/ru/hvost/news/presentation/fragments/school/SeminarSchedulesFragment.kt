@@ -4,46 +4,61 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentEventOfflineSchedulesBinding
-import ru.hvost.news.databinding.LayoutOfflineSemianrScheduleBinding
+import ru.hvost.news.databinding.FragmentSeminarSchedulesBinding
+import ru.hvost.news.databinding.LayoutSeminarScheduleBinding
 import ru.hvost.news.models.OfflineSeminars
-import ru.hvost.news.presentation.adapters.listView.OfflineSeminarScheduleAdapter
 import ru.hvost.news.presentation.adapters.recycler.PartnersAdapter
 import ru.hvost.news.presentation.adapters.recycler.VideoPastSeminarsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
 
-class EventOfflineSchedulesFragment: BaseFragment() {
+class SeminarSchedulesFragment: BaseFragment() {
 
-    private lateinit var binding: FragmentEventOfflineSchedulesBinding
+    private lateinit var binding: FragmentSeminarSchedulesBinding
     private lateinit var schoolVM: SchoolViewModel
+    private lateinit var navCMain: NavController
     private val adapterVideo = VideoPastSeminarsAdapter()
     private val adapterPartners = PartnersAdapter()
     private var seminar: OfflineSeminars.OfflineSeminar? = null
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEventOfflineSchedulesBinding.inflate(inflater, container, false)
+        binding = FragmentSeminarSchedulesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         binding.recyclerViewVideo.adapter = adapterVideo
         binding.recyclerViewSponsors.adapter = adapterPartners
         binding.recyclerViewSponsors.layoutManager = GridLayoutManager(requireContext(), 2)
         setObservers(this)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navCMain.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this, onBackPressedCallback
+        )
+    }
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.petTypeName.observe(owner, {
             schoolVM.offlineSeminars.value?.let { offlineSeminars ->
@@ -68,7 +83,7 @@ class EventOfflineSchedulesFragment: BaseFragment() {
                                         linearSchedules.removeAllViews()
                                         for(j in petSchedule.schedules.indices){
                                             val schedule = petSchedule.schedules[j]
-                                            val viewSchedule = LayoutOfflineSemianrScheduleBinding.inflate(
+                                            val viewSchedule = LayoutSeminarScheduleBinding.inflate(
                                                 LayoutInflater.from(requireContext()),
                                                 linearSchedules,
                                                 false

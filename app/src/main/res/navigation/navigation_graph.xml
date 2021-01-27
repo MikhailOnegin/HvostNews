@@ -169,81 +169,68 @@
         android:label="Parents school"
         tools:layout="@layout/fragment_school_parents">
         <action
-            android:id="@+id/action_parentSchoolFragment_to_onlineCourseActiveFragment"
-            app:destination="@+id/schoolOnlineActiveFragment"
+            android:id="@+id/action_parentSchoolFragment_to_schoolFragment"
+            app:destination="@+id/schoolFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit" />
         <action
-            android:id="@+id/action_parentSchoolFragment_to_offline_event_fragment"
-            app:destination="@+id/offlineEventFragment"
+            android:id="@+id/action_parentSchoolFragment_to_seminar_fragment"
+            app:destination="@+id/seminarFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit" />
     </fragment>
 
 
     <fragment
-        android:id="@+id/offlineCourseActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OfflineEventFragment"
-        android:label="Offline course active"
-        tools:layout="@layout/fragment_school_offline_event" />
-
-
-    <fragment
-        android:id="@+id/schoolOnlineActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.SchoolOnlineFragment"
-        android:label="Online course active"
-        tools:layout="@layout/fragment_school_online">
+        android:id="@+id/schoolFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SchoolFragment"
+        android:label="School"
+        tools:layout="@layout/fragment_school">
         <action
-            android:id="@+id/action_onlineCourseActiveFragment_to_onlineLessonActiveFragment"
-            app:destination="@+id/onlineLessonActiveFragment"
+            android:id="@+id/action_schoolFragment_to_lessonActiveFragment"
+            app:destination="@+id/lessonActiveFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit"/>
         <action
-            android:id="@+id/action_onlineCourseActiveFragment_to_onlineLessonFinishedFragment"
-            app:destination="@+id/onlineLessonFinishedFragment"
+            android:id="@+id/action_schoolFragment_to_lessonFinishedFragment"
+            app:destination="@+id/lessonFinishedFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit"/>
         <action
-            android:id="@+id/action_schoolOnlineActiveFragment_to_registrationFragment"
-            app:destination="@+id/registrationOnlineSchoolFragment"
+            android:id="@+id/action_schoolFragment_to_registrationSchoolFragment"
+            app:destination="@+id/registrationSchoolFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
-        android:id="@+id/onlineLessonActiveFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.LessonOnlineActiveFragment"
-        android:label="Active lesson"
-        tools:layout="@layout/fragment_school_online_lesson_active" >
+        android:id="@+id/lessonActiveFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.LessonActiveFragment"
+        android:label="Lesson"
+        tools:layout="@layout/fragment_school_lesson_active" >
         <action
             android:id="@+id/action_onlineLessonFragment_toOnlineLessonFragment"
-            app:destination="@+id/onlineLessonActiveFragment"
-            app:enterAnim="@anim/side_in_left"
-            app:exitAnim="@anim/side_out_left"
-            app:popUpTo="@id/schoolOnlineActiveFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/onlineLessonFinishedFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.LessonOnlineFinishedFragment"
-        android:label="Finished Lesson"
-        tools:layout="@layout/fragment_school_online_lesson_finished"
-        >
-        <action
-            android:id="@+id/action_onlineLessonFinishedFragment_to_onlineLessonActiveFragment"
-            app:destination="@+id/onlineLessonActiveFragment"
+            app:destination="@+id/lessonActiveFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/schoolFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/offlineEventFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.OfflineEventFragment"
-        android:label="Offline event"
-        tools:layout="@layout/fragment_school_offline_event">
+        android:id="@+id/lessonFinishedFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.LessonFinishedFragment"
+        android:label="Lesson"
+        tools:layout="@layout/fragment_school_lesson_finished"
+        />
+
+    <fragment
+        android:id="@+id/seminarFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SeminarFragment"
+        android:label="Seminar"
+        tools:layout="@layout/fragment_seminar">
         <action
-            android:id="@+id/action_offlineEventFragment_to_registrationFragment"
-            app:destination="@+id/registrationOfflineSchoolFragment"
+            android:id="@+id/action_seminarFragment_to_registrationSeminarFragment"
+            app:destination="@+id/registrationSeminarFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             />
@@ -555,13 +542,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/registrationOnlineSchoolFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.RegistrationOnlineSchoolFragment"
-        android:label="Registration online school"
-        tools:layout="@layout/fragment_registration_online_school">
+        android:id="@+id/registrationSchoolFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SchoolRegistrationFragment"
+        android:label="Registration"
+        tools:layout="@layout/fragment_school_registration">
         <action
-            android:id="@+id/action_registrationOnlineFragment_to_schoolOnlineActiveFragment"
-            app:destination="@+id/schoolOnlineActiveFragment"
+            android:id="@+id/action_registrationSchoolFragment_to_schoolFragment"
+            app:destination="@+id/schoolFragment"
             app:popUpTo="@id/parentsSchoolFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
@@ -569,13 +556,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/registrationOfflineSchoolFragment"
-        android:name="ru.hvost.news.presentation.fragments.school.RegistrationOfflineEventFragment"
-        android:label="Registration offline seminar"
-        tools:layout="@layout/fragment_registration_offline_event">
+        android:id="@+id/registrationSeminarFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SeminarRegistrationFragment"
+        android:label="Registration"
+        tools:layout="@layout/fragment_seminar_registration">
         <action
-            android:id="@+id/action_registrationFragment_to_offlineEventFragment"
-            app:destination="@+id/offlineEventFragment"
+            android:id="@+id/action_registrationSeminarFragment_to_seminarFragment"
+            app:destination="@+id/seminarFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             />

@@ -7,7 +7,7 @@ data class OfflineSeminars(
 {
     data class OfflineSeminar(
         val domainId:Int,
-        val id: Int,
+        val id: Long,
         val title: String,
         val description: String,
         val imageUrl: String,
@@ -17,6 +17,7 @@ data class OfflineSeminars(
         var participate:Boolean,
         val sponsor: String,
         val subscriptionEvent: Boolean,
+        val seminarUrl:String,
         val partners: List<Partner>,
         val videos: List<Video>,
         val wait: List<Wait>,
@@ -60,23 +61,24 @@ fun List<OfflineSeminarsResponse.OfflineLesson>?.toOfflineLessons(): List<Offlin
     this?.run {
         for ((index, offlineLessonResponse) in this.withIndex()) {
             result.add(
-                OfflineSeminars.OfflineSeminar(
-                    domainId = index,
-                    id = offlineLessonResponse.id ?: 0,
-                    title = offlineLessonResponse.title ?: "",
-                    imageUrl = offlineLessonResponse.imageUrl ?: "",
-                    isFinished = offlineLessonResponse.isFinished ?: false,
-                    date = offlineLessonResponse.date ?: "",
-                    city = offlineLessonResponse.city ?: "",
-                    sponsor = offlineLessonResponse.sponsor ?: "",
-                    description = offlineLessonResponse.description ?: "",
-                    participate = offlineLessonResponse.participate ?: false,
-                    subscriptionEvent = offlineLessonResponse.subscriptionEvent ?: false,
-                    videos = offlineLessonResponse.videos.toVideos(),
-                    partners = offlineLessonResponse.partners.toPartners(),
-                    wait = offlineLessonResponse.wait.toWait(),
-                    petSchedules = offlineLessonResponse.petSchedules.toPetSchedules(),
-                )
+                    OfflineSeminars.OfflineSeminar(
+                            domainId = index,
+                            id = offlineLessonResponse.id ?: 0,
+                            title = offlineLessonResponse.title ?: "",
+                            imageUrl = offlineLessonResponse.imageUrl ?: "",
+                            isFinished = offlineLessonResponse.isFinished ?: false,
+                            date = offlineLessonResponse.date ?: "",
+                            city = offlineLessonResponse.city ?: "",
+                            sponsor = offlineLessonResponse.sponsor ?: "",
+                            description = offlineLessonResponse.description ?: "",
+                            participate = offlineLessonResponse.participate ?: false,
+                            subscriptionEvent = offlineLessonResponse.subscriptionEvent ?: false,
+                            seminarUrl = offlineLessonResponse.seminarUrl ?: "",
+                            videos = offlineLessonResponse.videos.toVideos(),
+                            partners = offlineLessonResponse.partners.toPartners(),
+                            wait = offlineLessonResponse.wait.toWait(),
+                            petSchedules = offlineLessonResponse.petSchedules.toPetSchedules(),
+                    )
             )
         }
     }

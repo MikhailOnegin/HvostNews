@@ -358,4 +358,5 @@
     <dimen name="schoolDetailTitleMarginEnd">120dp</dimen>
     <dimen name="toolbarButtonMargin">8dp</dimen>
     <dimen name="mainTitleMaxWidth">170dp</dimen>
+    <dimen name="textSchoolDetailTitle">30sp</dimen>
 </resources>
