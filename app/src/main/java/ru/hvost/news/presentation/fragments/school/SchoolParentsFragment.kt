@@ -124,18 +124,17 @@ class SchoolParentsFragment : BaseFragment() {
     }
 
     private fun setListeners() {
+
+
         if(fromDestination != null) {
             if (fromDestination == "school"){
                 binding.constraintOnlineSchools.isSelected = true
-                binding.constraintOfflineSeminars.isSelected = false
             }
             else if(fromDestination == "seminar"){
-                binding.constraintOnlineSchools.isSelected = false
                 binding.constraintOfflineSeminars.isSelected = true
             }
         }
         else binding.constraintOnlineSchools.isSelected = true
-
         binding.constraintOnlineSchools.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
@@ -152,6 +151,14 @@ class SchoolParentsFragment : BaseFragment() {
                 navCSchoolParents.navigate(R.id.action_schoolsFragment_to_seminarsFragment)
                 binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
                 binding.constraintSpinnerOnlineSchools.visibility = View.GONE
+            }
+        }
+        if(fromDestination != null) {
+            if (fromDestination == "school"){
+                binding.constraintOnlineSchools.performClick()
+            }
+            else if(fromDestination == "seminar"){
+                binding.constraintOfflineSeminars.performClick()
             }
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
