@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/seminarInfoFragment">
+
+    <fragment
+        android:id="@+id/seminarInfoFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SeminarInfoFragment"
+        android:label="Seminar info"
+        tools:layout="@layout/fragment_seminar_info">
+        <action
+            android:id="@+id/action_seminarInfoFragment_to_semianarScheduleFragment"
+            app:destination="@+id/seminarScheduleFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/seminarScheduleFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SeminarSchedulesFragment"
+        android:label="Seminar schedule"
+        tools:layout="@layout/fragment_seminar_schedules">
+        <action
+            android:id="@+id/action_seminarScheduleFragment_to_seminarInfoFragment"
+            app:destination="@id/seminarInfoFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"/>
+        <action
+            android:id="@+id/action_seminarScheduleFragment_to_seminarScheduleFragment"
+            app:destination="@id/seminarScheduleFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"/>
+    </fragment>
+
+</navigation>

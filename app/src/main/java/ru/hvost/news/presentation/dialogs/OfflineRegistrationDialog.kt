@@ -24,7 +24,7 @@ import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.startIntentActionView
 
-class OfflineRegistrationDialog(private val seminarId:Int) : BottomSheetDialogFragment() {
+class OfflineRegistrationDialog(private val seminarId:Long) : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogSeminarRegistrationBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -107,7 +107,7 @@ class OfflineRegistrationDialog(private val seminarId:Int) : BottomSheetDialogFr
             },
             doOnSuccess = {
                 seminar?.let {
-                    SuccessRegistrationSchoolDialog(it.title).show(
+                    SchoolSuccessRegistrationDialog(it.title).show(
                         childFragmentManager,
                         "success_registration_dialog"
                     )

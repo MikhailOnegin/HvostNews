@@ -10,10 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
-import kotlinx.android.synthetic.main.layout_online_lesson_option.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
-import ru.hvost.news.databinding.FragmentSchoolOnlineLessonFinishedBinding
+import ru.hvost.news.databinding.FragmentSchoolLessonFinishedBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
@@ -21,9 +20,9 @@ import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.startIntentActionView
 import java.lang.StringBuilder
 
-class LessonOnlineFinishedFragment : BaseFragment() {
+class LessonFinishedFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentSchoolOnlineLessonFinishedBinding
+    private lateinit var binding: FragmentSchoolLessonFinishedBinding
     private lateinit var schoolVM: SchoolViewModel
     private var lessonId: Any? = null
     private var schoolId: Any? = null
@@ -31,7 +30,7 @@ class LessonOnlineFinishedFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSchoolOnlineLessonFinishedBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolLessonFinishedBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -82,16 +81,10 @@ class LessonOnlineFinishedFragment : BaseFragment() {
                             val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
 
                             if(i == 0 || i == onlineSchool.literature.lastIndex){
-                                if(i == 0) {
-                                    viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
-                                }
-                                if (i == onlineSchool.literature.lastIndex) {
-                                    viewLiterature.setPadding(0, 0,paddingEdge,0)
-                                }
+                                if (i == 0) viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
+                                else if (i == onlineSchool.literature.lastIndex) viewLiterature.setPadding(0, 0,paddingEdge,0)
                             }
-                            else {
-                                viewLiterature.setPadding(0, 0, paddingNormal,0)
-                            }
+                            else viewLiterature.setPadding(0, 0, paddingNormal,0)
                             container.addView(viewLiterature)
                         }
                     } else binding.includeLiterature.rootConstraint.visibility = View.GONE

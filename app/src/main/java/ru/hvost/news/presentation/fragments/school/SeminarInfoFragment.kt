@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.Navigator
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -18,18 +21,19 @@ import kotlinx.android.synthetic.main.item_school_online_info.view.textView_what
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
-import ru.hvost.news.databinding.FragmentEventOfflineInfoBinding
-import ru.hvost.news.databinding.LayoutWhatWaitOfflineCourseBinding
+import ru.hvost.news.databinding.FragmentSeminarInfoBinding
+import ru.hvost.news.databinding.LayoutSeminarWhatWaitBinding
 import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.presentation.adapters.recycler.PartnersAdapter
 import ru.hvost.news.presentation.adapters.recycler.VideoPastSeminarsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
-class EventOfflineInfoFragment : BaseFragment() {
+class SeminarInfoFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentEventOfflineInfoBinding
+    private lateinit var binding: FragmentSeminarInfoBinding
     private lateinit var schoolVM: SchoolViewModel
+    private lateinit var navCMain:NavController
     private val adapterVideo = VideoPastSeminarsAdapter()
     private val adapterPartners = PartnersAdapter()
     private var seminar: OfflineSeminars.OfflineSeminar? = null
@@ -38,17 +42,31 @@ class EventOfflineInfoFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEventOfflineInfoBinding.inflate(inflater, container, false)
+        binding = FragmentSeminarInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         binding.recyclerViewVideo.adapter = adapterVideo
         binding.recyclerViewSponsors.adapter = adapterPartners
         binding.recyclerViewSponsors.layoutManager = GridLayoutManager(requireContext(), 2)
         setObservers(this)
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+               navCMain.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this, onBackPressedCallback
+        )
     }
 
     private fun setObservers(owner: LifecycleOwner) {
@@ -65,7 +83,7 @@ class EventOfflineInfoFragment : BaseFragment() {
                     linearWait.removeAllViews()
                     for (i in seminar.wait.indices) {
                         val wait = seminar.wait[i]
-                        val viewWait = LayoutWhatWaitOfflineCourseBinding.inflate(
+                        val viewWait = LayoutSeminarWhatWaitBinding.inflate(
                             LayoutInflater.from(requireContext()),
                             linearWait,
                             false

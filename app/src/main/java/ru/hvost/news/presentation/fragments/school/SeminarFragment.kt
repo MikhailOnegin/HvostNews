@@ -1,6 +1,5 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,32 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.layout_tab_item_seminar.view.*
 import ru.hvost.news.App
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentSchoolOfflineEventBinding
+import ru.hvost.news.databinding.FragmentSeminarBinding
 import ru.hvost.news.databinding.LayoutTabItemSeminarBinding
-import ru.hvost.news.presentation.dialogs.OfflineRegistrationDialog
-import ru.hvost.news.presentation.dialogs.SuccessRegistrationEventDialog
-import ru.hvost.news.presentation.dialogs.SuccessRegistrationSchoolDialog
+import ru.hvost.news.presentation.dialogs.SemianarSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
-class OfflineEventFragment : BaseFragment() {
+class SeminarFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentSchoolOfflineEventBinding
+    private lateinit var binding: FragmentSeminarBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var setSubscribeEvent: DefaultNetworkEventObserver
+    private lateinit var navCMain:NavController
     private var seminarId: String? = null
     private var tabsView = arrayListOf<ConstraintLayout>()
 
@@ -41,21 +39,23 @@ class OfflineEventFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSchoolOfflineEventBinding.inflate(inflater, container, false)
+        binding = FragmentSeminarBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        navCMain = findNavController()
+        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "seminar")
         arguments?.getString("seminarTitle")?.let { seminarTitle ->
             schoolVM.successRegistration.value?.let { successRegistration ->
                 if (successRegistration) {
                     App.getInstance().userToken?.run {
-                        schoolVM.getOfflineSeminars("all", this)
+                        schoolVM.getSeminars("all", this)
                     }
                     schoolVM.successRegistration.value = false
-                    SuccessRegistrationEventDialog(seminarTitle).show(
+                    SemianarSuccessRegistrationDialog(seminarTitle).show(
                         childFragmentManager,
                         "success_registration_dialog"
                     )
@@ -127,6 +127,10 @@ class OfflineEventFragment : BaseFragment() {
                             if (seminar.participate) {
                                 binding.buttonParticipate.text = getString(R.string.you_participate)
                                 binding.buttonParticipate.isEnabled = false
+                                binding.buttonShare.visibility = View.VISIBLE
+                                binding.buttonShare.setOnClickListener{
+                                    shareRefLink(seminar.seminarUrl)
+                                }
                             }
                             else {
                                 binding.buttonParticipate.text = getString(R.string.participate)
@@ -136,10 +140,11 @@ class OfflineEventFragment : BaseFragment() {
                                     seminarId.run {
                                         val bundle = Bundle()
                                         bundle.putString("seminarId", this.toString())
-                                        findNavController().navigate(R.id.action_offlineEventFragment_to_registrationFragment, bundle)
+                                        findNavController().navigate(R.id.action_seminarFragment_to_registrationSeminarFragment, bundle)
                                     }
 
                                 }
+                                binding.buttonShare.visibility = View.GONE
                             }
                         }
                         val linearTabs = binding.linearLayoutTabs
@@ -184,9 +189,7 @@ class OfflineEventFragment : BaseFragment() {
             }
 
         })
-        schoolVM.changeFragment.observe(owner,{
-            binding.nestedScrollView.scrollTo(0, 0);
-        })
+
         schoolVM.setSubscribeEvent.observe(owner, setSubscribeEvent)
         schoolVM.offlineSeminars.observe(owner, {
             for(i in it.seminars.indices){
@@ -196,6 +199,10 @@ class OfflineEventFragment : BaseFragment() {
                         if (seminar.participate) {
                             binding.buttonParticipate.text = getString(R.string.you_participate)
                             binding.buttonParticipate.isEnabled = false
+                            binding.buttonShare.visibility = View.VISIBLE
+                            binding.buttonShare.setOnClickListener {
+                                shareRefLink(seminar.seminarUrl)
+                            }
                         }
                         else {
                             binding.buttonParticipate.text = getString(R.string.participate)
@@ -205,10 +212,11 @@ class OfflineEventFragment : BaseFragment() {
                                 seminarId.run {
                                     val bundle = Bundle()
                                     bundle.putString("seminarId", seminarId)
-                                    findNavController().navigate(R.id.action_offlineEventFragment_to_registrationFragment, bundle)
+                                    findNavController().navigate(R.id.action_seminarFragment_to_registrationSeminarFragment, bundle)
                                 }
 
                             }
+                            binding.buttonShare.visibility = View.GONE
                         }
                     }
                 }
@@ -226,25 +234,25 @@ class OfflineEventFragment : BaseFragment() {
                 bundle.putString("schoolId", this)
             }
             findNavController().navigate(
-                R.id.action_offlineEventFragment_to_registrationFragment,
+                R.id.action_seminarFragment_to_registrationSeminarFragment,
                 bundle
             )
         }
     }
 
-    private fun setListenerTab(view: View, list: List<View>, petTypeName: String? = null) {
+    private fun setListenerTab (view: View, list: List<View>, petTypeName: String? = null) {
         view.setOnClickListener {
             if (!it.isSelected) {
                 petTypeName?.let {
                     schoolVM.petTypeName.value = petTypeName
                 }
                 if (list.size > 1) {
-                    val navC = requireActivity().findNavController(R.id.fragmentViewSeminar)
+                    val navC = requireActivity().findNavController(R.id.fragmentContainerSeminar)
                     if (list[0].isSelected) {
-                        if (view != list[0]) navC.navigate(R.id.action_eventInfoFragment_to_eventScheduleFragment)
+                        if (view != list[0]) navC.navigate(R.id.action_seminarInfoFragment_to_semianarScheduleFragment)
                     } else {
-                        if (view == list[0]) navC.navigate(R.id.action_eventScheduleFragment_to_eventInfoFragment)
-                        else navC.navigate(R.id.action_eventScheduleFragment_to_eventScheduleFragment)
+                        if (view == list[0]) navC.navigate(R.id.action_seminarScheduleFragment_to_seminarInfoFragment)
+                        else navC.navigate(R.id.action_seminarScheduleFragment_to_seminarScheduleFragment)
                     }
                     for (i in list.indices) list[i].isSelected = false
                     it.isSelected = true

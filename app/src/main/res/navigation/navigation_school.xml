@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/schoolInfoFragment">
+
+    <fragment
+        android:id="@+id/schoolInfoFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SchoolInfoFragment"
+        android:label="School info"
+        tools:layout="@layout/fragment_school_info">
+        <action
+            android:id="@+id/action_schoolInfoFragment_to_schoolMaterialsFragment"
+            app:destination="@+id/schoolMaterialsFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/schoolMaterialsFragment"
+        android:name="ru.hvost.news.presentation.fragments.school.SchoolMaterialsFragment"
+        android:label="School materials"
+        tools:layout="@layout/fragment_school_materials">
+        <action
+            android:id="@+id/action_schoolMaterialsFragment_to_schoolInfoFragment"
+            app:destination="@id/schoolInfoFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_exit"/>
+    </fragment>
+
+</navigation>

@@ -5,7 +5,7 @@
     android:id="@+id/root_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragments.school.OfflineEventFragment">
+    tools:context=".presentation.fragments.school.SeminarFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -41,7 +41,7 @@
                 android:background="@color/gray5"
                 app:layout_constraintEnd_toEndOf="@+id/button_participate"
                 app:layout_constraintStart_toStartOf="@+id/button_participate"
-                app:layout_constraintTop_toBottomOf="@+id/button3" />
+                app:layout_constraintTop_toBottomOf="@+id/button_share" />
 
             <View
                 android:id="@+id/view5"
@@ -232,16 +232,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_place_logo" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button_share"
                 style="@style/UnelevatedButton"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/buttonHeight"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:text="@string/share"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_participate" />
+                app:layout_constraintTop_toBottomOf="@+id/button_participate"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -293,20 +295,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentViewSeminar"
+            android:id="@+id/fragmentContainerSeminar"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/navigation_event_offline" />
-
-    </androidx.core.widget.NestedScrollView>
+            app:navGraph="@navigation/navigation_seminar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

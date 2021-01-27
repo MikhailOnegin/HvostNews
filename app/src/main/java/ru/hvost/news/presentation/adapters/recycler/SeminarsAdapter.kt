@@ -2,32 +2,25 @@ package ru.hvost.news.presentation.adapters.recycler
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_school_offline_seminar.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
-import ru.hvost.news.databinding.ItemSchoolOfflineSeminarBinding
+import ru.hvost.news.databinding.ItemSeminarBinding
 import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.utils.dateFormat
-import java.lang.Exception
-import java.text.SimpleDateFormat
 import java.util.*
 
-class OfflineSeminarsAdapter :
-    RecyclerView.Adapter<OfflineSeminarsAdapter.OfflineLessonsViewHolder>() {
+class SeminarsAdapter(
+        private val clickSeminar: ((Long) -> Unit)? = null,
+) :
+    RecyclerView.Adapter<SeminarsAdapter.OfflineLessonsViewHolder>() {
 
     private var lessonsFull = arrayListOf<OfflineSeminars.OfflineSeminar>()
     var lessons = arrayListOf<OfflineSeminars.OfflineSeminar>()
     private var showFinished = true
-    var onClickLesson:OnClickOfflineLesson? = null
-
-    interface OnClickOfflineLesson{
-        fun onClick(lessonId:Int)
-    }
 
     fun setSeminars(seminars: List<OfflineSeminars.OfflineSeminar>) {
         this.lessonsFull = seminars.toCollection(ArrayList())
@@ -41,7 +34,8 @@ class OfflineSeminarsAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfflineLessonsViewHolder {
-        return OfflineLessonsViewHolder(ItemSchoolOfflineSeminarBinding.inflate(
+        return OfflineLessonsViewHolder(
+            ItemSeminarBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -58,7 +52,7 @@ class OfflineSeminarsAdapter :
         return holder.bind(lesson)
     }
 
-    inner class OfflineLessonsViewHolder(private val binding:ItemSchoolOfflineSeminarBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class OfflineLessonsViewHolder(private val binding:ItemSeminarBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(seminar: OfflineSeminars.OfflineSeminar) {
             Glide.with(itemView.context).load(baseUrl + seminar.imageUrl)
@@ -76,7 +70,7 @@ class OfflineSeminarsAdapter :
             binding.textViewLessonCity.text = seminar.city
 
             binding.rootConstraint.setOnClickListener {
-                onClickLesson?.onClick(seminar.id)
+                clickSeminar?.invoke(seminar.id)
             }
         }
 

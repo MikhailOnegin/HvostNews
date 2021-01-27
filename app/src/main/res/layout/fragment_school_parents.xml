@@ -85,6 +85,7 @@
                         android:gravity="center"
                         android:text="@string/online_school"
                         android:textSize="@dimen/_12sp"
+                        android:textColor="@color/sex_text_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
@@ -110,6 +111,7 @@
                         android:gravity="center"
                         android:text="@string/seminars_in_your_cities"
                         android:textSize="@dimen/_12sp"
+                        android:textColor="@color/sex_text_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
@@ -197,39 +199,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView_empty"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerSchoolParents"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_empty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textViewEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_220dp"
-                android:fontFamily="@font/gilroy_semibold"
-                android:gravity="center"
-                android:text="@string/empty"
-                android:textColor="@color/gray4"
-                android:textSize="@dimen/_24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_school_parents" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -12,14 +12,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.layout_lesson_option.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
-import kotlinx.android.synthetic.main.layout_online_lesson_option.view.*
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
-import ru.hvost.news.databinding.FragmentSchoolOnlineLessonActiveBinding
+import ru.hvost.news.databinding.FragmentSchoolLessonActiveBinding
+import ru.hvost.news.databinding.LayoutLessonOptionBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
-import ru.hvost.news.databinding.LayoutOnlineLessonOptionBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
@@ -29,9 +29,9 @@ import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.startIntentActionView
 
 
-class LessonOnlineActiveFragment : BaseFragment() {
+class LessonActiveFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentSchoolOnlineLessonActiveBinding
+    private lateinit var binding: FragmentSchoolLessonActiveBinding
     private lateinit var schoolVM: SchoolViewModel
     private var lessonId: String? = null
     private var schoolId: String? = null
@@ -46,7 +46,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSchoolOnlineLessonActiveBinding.inflate(inflater, container, false)
+        binding = FragmentSchoolLessonActiveBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,14 +56,14 @@ class LessonOnlineActiveFragment : BaseFragment() {
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
         arguments?.getInt("lessonNumber")?.let {
-            binding
         }
+        val f = 4
         initializedEvents()
         setListeners()
         setObservers(this)
         App.getInstance().userToken?.let { userToken ->
             schoolId?.let { schoolId ->
-                schoolVM.getOnlineLessons(userToken, schoolId)
+                schoolVM.getSchoolLessons(userToken, schoolId)
             }
 
         }
@@ -77,8 +77,8 @@ class LessonOnlineActiveFragment : BaseFragment() {
             },
             doOnSuccess = {
                 lessons?.let { lessons ->
-                    lesson?.let {lesson ->
-                        if(lessons.last() == lesson){
+                    lesson?.let { lesson ->
+                        if (lessons.last() == lesson) {
                             findNavController().popBackStack()
                         }
                     }
@@ -135,9 +135,10 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             for (i in onlineLessons.indices) {
                                 val lesson = onlineLessons[i]
                                 if (lesson.lessonId == this) {
-                                    this@LessonOnlineActiveFragment.lesson = lesson
+                                    this@LessonActiveFragment.lesson = lesson
                                     binding.textViewTitle.text = lesson.lessonTitle
-                                    val lessonNumber = "${getString(R.string.lesson_number)} ${i + 1}"
+                                    val lessonNumber =
+                                        "${getString(R.string.lesson_number)} ${i + 1}"
                                     binding.textViewLessonNumber.text = lessonNumber
                                     binding.textViewQuestion.text = lesson.testQuestion
                                     binding.imageViewPlay.setOnClickListener {
@@ -156,7 +157,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
                                     for (q in lesson.answerList.indices) {
                                         val answer = lesson.answerList[q]
                                         answers[answer.answer] = answer.isTrue
-                                        val viewOption = LayoutOnlineLessonOptionBinding.inflate(
+                                        val viewOption = LayoutLessonOptionBinding.inflate(
                                             LayoutInflater.from(requireContext()),
                                             containerOptions,
                                             false
@@ -234,18 +235,20 @@ class LessonOnlineActiveFragment : BaseFragment() {
                             val paddingNormal = resources.getDimension(R.dimen.normalMargin).toInt()
                             val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
 
-                            if(i == 0 || i == onlineSchool.literature.lastIndex){
-                                if(i == 0) {
-                                    viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
-                                }
-                                if (i == onlineSchool.literature.lastIndex) {
-                                    viewLiterature.setPadding(0, 0,paddingEdge,0)
-                                }
-                            }
-                            else {
-                                viewLiterature.setPadding(0, 0, paddingNormal,0)
-                            }
-
+                            if (i == 0 || i == onlineSchool.literature.lastIndex) {
+                                if (i == 0) viewLiterature.setPadding(
+                                    paddingEdge,
+                                    0,
+                                    paddingNormal,
+                                    0
+                                )
+                                else if (i == onlineSchool.literature.lastIndex) viewLiterature.setPadding(
+                                    0,
+                                    0,
+                                    paddingEdge,
+                                    0
+                                )
+                            } else viewLiterature.setPadding(0, 0, paddingNormal, 0)
                             container.addView(viewLiterature)
                         }
                     } else
@@ -255,7 +258,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
         })
         schoolVM.selectLessonAnswersCount.observe(owner, {
             val selected = it > 0
-            if(selected) {
+            if (selected) {
                 binding.buttonToAnswer.isEnabled = selected
                 schoolVM.selectLessonAnswersCount.value = 0
             }
@@ -268,7 +271,7 @@ class LessonOnlineActiveFragment : BaseFragment() {
             var answerSelected = false
             for (i in buttons.indices) {
                 val button = buttons[i]
-                if(button.isSelected) answerSelected = true
+                if (button.isSelected) answerSelected = true
                 val isTrue = answers[button.text.toString()]
                 isTrue?.run {
                     if (this) {
@@ -318,4 +321,4 @@ class LessonOnlineActiveFragment : BaseFragment() {
             findNavController().popBackStack()
         }
     }
-    }
+}
