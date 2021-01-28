@@ -153,14 +153,6 @@ class SchoolParentsFragment : BaseFragment() {
                 binding.constraintSpinnerOnlineSchools.visibility = View.GONE
             }
         }
-        if(fromDestination != null) {
-            if (fromDestination == "school"){
-                binding.constraintOnlineSchools.performClick()
-            }
-            else if(fromDestination == "seminar"){
-                binding.constraintOfflineSeminars.performClick()
-            }
-        }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
             schoolVM.filterShowFinished.value = b
         }

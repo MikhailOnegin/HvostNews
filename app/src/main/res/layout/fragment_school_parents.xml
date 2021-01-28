@@ -148,10 +148,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_spinner_offline_seminars"
+                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:animateLayoutChanges="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraint_spinner_online_schools">
