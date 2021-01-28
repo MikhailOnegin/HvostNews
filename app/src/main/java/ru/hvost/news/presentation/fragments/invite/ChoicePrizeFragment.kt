@@ -38,7 +38,7 @@ class ChoicePrizeFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentChoicePrizeBinding.inflate(inflater, container, false)
         detailDialog =
             BottomSheetDialog(requireActivity(), R.style.popupBottomSheetDialogTheme)
@@ -134,7 +134,6 @@ class ChoicePrizeFragment : BaseFragment() {
                 parent: RecyclerView,
                 state: RecyclerView.State
             ) {
-                val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
                     view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
                 parent.adapter.run {

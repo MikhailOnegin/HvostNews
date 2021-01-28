@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.FragmentInviteBinding
 import ru.hvost.news.databinding.FragmentRegPopupBinding
 
 class RegPopup : Fragment() {
@@ -21,7 +18,7 @@ class RegPopup : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegPopupBinding.inflate(inflater, container, false)
         binding.root.setOnClickListener { }
         initializeNavOptions()
