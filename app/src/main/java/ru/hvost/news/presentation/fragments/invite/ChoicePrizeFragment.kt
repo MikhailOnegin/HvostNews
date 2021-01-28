@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -52,7 +53,11 @@ class ChoicePrizeFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
-        if (mainVM.prizesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
+        if (mainVM.prizesLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            setRecyclerView()
+        } else arguments?.getString("PRIZE_ID")?.let {
+            mainVM.loadPrizes(it)
+        }
         initializeObservers()
         setListeners()
         setObservers()
@@ -63,6 +68,9 @@ class ChoicePrizeFragment : BaseFragment() {
             binding.root,
             doOnSuccess = {
                 setRecyclerView()
+            },
+            doOnError = {
+                findNavController().popBackStack()
             }
         )
         onCartChangeLoadingEvent = DefaultNetworkEventObserver(

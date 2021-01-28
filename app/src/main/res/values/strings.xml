@@ -472,4 +472,5 @@
     <string name="you_are_subscribe_for_event">Вы подписаны на уведомления</string>
     <string name="confirmDelete">Вы действительно хотите удалить данного питомца?</string>
     <string name="defaultArticleTitle">Статья</string>
+    <string name="prizesNull">Призы отсутстствуют</string>
 </resources>

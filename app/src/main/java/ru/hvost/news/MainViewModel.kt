@@ -313,11 +313,11 @@ class MainViewModel : ViewModel() {
                     _prizeCategoriesResponse.value = response.categories?.toPrizeCategories()
                     _prizeCategoriesState.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _prizeCategoriesState.value = NetworkEvent(State.ERROR)
+                    _prizeCategoriesState.value = NetworkEvent(State.ERROR, response.error)
                     _prizeCategoriesResponse.value = listOf()
                 }
             } catch (exc: Exception) {
-                _prizeCategoriesState.value = NetworkEvent(State.FAILURE)
+                _prizeCategoriesState.value = NetworkEvent(State.FAILURE, exc.toString())
                 _prizeCategoriesResponse.value = listOf()
             }
         }
@@ -411,11 +411,11 @@ class MainViewModel : ViewModel() {
                     _prizesLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _prizes.value = listOf()
-                    _prizesLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _prizesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                 }
             } catch (exc: Exception) {
                 _prizes.value = listOf()
-                _prizesLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _prizesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
