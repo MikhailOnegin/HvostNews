@@ -51,19 +51,6 @@ class SubDomainFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        callback =
-            requireActivity().onBackPressedDispatcher.addCallback {
-                if (popupWindow.isShowing) {
-                    popupWindow.dismiss()
-                } else {
-                    findNavController().popBackStack()
-                }
-            }
-        callback.isEnabled = true
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
@@ -122,7 +109,7 @@ class SubDomainFragment : BaseFragment() {
         popupWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
         popupWindow.setBackgroundDrawable(null)
         popupWindow.elevation = resources.getDimension(R.dimen.listItemElevation)
-        popupWindow.isOutsideTouchable = true
+        popupWindow.isFocusable = true
         popupWindow.showAsDropDown(binding.title)
     }
 
@@ -150,7 +137,6 @@ class SubDomainFragment : BaseFragment() {
 
     override fun onStop() {
         super.onStop()
-        callback.isEnabled = false
         selectedPosition = binding.categoryTabs.selectedTabPosition
     }
 

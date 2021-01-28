@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
@@ -24,8 +26,10 @@ class LessonFinishedFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolLessonFinishedBinding
     private lateinit var schoolVM: SchoolViewModel
+    private lateinit var navCMain: NavController
     private var lessonId: Any? = null
     private var schoolId: Any? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +41,8 @@ class LessonFinishedFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
+        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lesson")
         lessonId = arguments?.get("lessonId")
         schoolId = arguments?.get("schoolId")
         setListeners()

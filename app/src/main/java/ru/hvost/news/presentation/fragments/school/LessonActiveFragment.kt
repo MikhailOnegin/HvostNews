@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_lesson_option.view.*
@@ -41,6 +43,7 @@ class LessonActiveFragment : BaseFragment() {
     private var lessons: List<OnlineLessons.OnlineLesson>? = null
     private lateinit var lessonTestPassedEvent: DefaultNetworkEventObserver
     private lateinit var onlineLessonsEvent: DefaultNetworkEventObserver
+    private lateinit var navCMain:NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,11 +56,13 @@ class LessonActiveFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
         arguments?.getInt("lessonNumber")?.let {
+
         }
-        val f = 4
+        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lesson")
         initializedEvents()
         setListeners()
         setObservers(this)

@@ -74,12 +74,9 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginStart="@dimen/normalMargin"
-                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/normalMargin"
                 android:layout_marginEnd="@dimen/normalMargin"
                 android:columnCount="2"
-                android:columnOrderPreserved="true"
-                android:horizontalSpacing="@dimen/normalMargin"
-                android:verticalSpacing="@dimen/normalMargin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_what_wait" />

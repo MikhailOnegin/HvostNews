@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.layout_what_wait_school.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.*
+import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.startIntentActionView
@@ -48,41 +49,7 @@ class SchoolInfoFragment : BaseFragment() {
                         Glide.with(requireActivity()).load(baseUrl + school.image).placeholder(R.drawable.empty_image).centerCrop().into(binding.imageViewInfo)
                         binding.textViewDescriptionWait.movementMethod = LinkMovementMethod()
                         binding.textViewDescriptionWait.text = school.description.parseAsHtml()
-                        if (school.wait.isNotEmpty()) {
-                            binding.constraintWhatWait.visibility = View.VISIBLE
-                            val gridLayoutWait = binding.gridLayout
-                            gridLayoutWait.removeAllViews()
-                            for (q in school.wait.indices) {
-                                val wait = school.wait[q]
-                                val viewWait = LayoutWhatWaitSchoolBinding.inflate(
-                                        LayoutInflater.from(requireContext()),
-                                        gridLayoutWait,
-                                        false
-                                ).root
-                                val param = GridLayout.LayoutParams()
-                                param.columnSpec = GridLayout.spec(
-                                        GridLayout.UNDEFINED,
-                                        GridLayout.FILL,
-                                        1f
-                                )
-                                param.width = 0
-                                val margin = resources.getDimension(R.dimen.normalMargin).toInt() / 2
-
-                                viewWait.layoutParams = param
-                                viewWait.textView_head.text = wait.head.parseAsHtml()
-                                viewWait.textView_description.text = wait.description.parseAsHtml()
-                                Glide.with(requireContext()).load(baseUrl + wait.imageUrl)
-                                        .placeholder(R.drawable.empty_image).centerCrop()
-                                        .into(viewWait.imageView_what_wait)
-                                (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
-                                        margin,
-                                        margin,
-                                        margin,
-                                        margin
-                                )
-                                gridLayoutWait.addView(viewWait)
-                            }
-                        }
+                        addViewToGridLayout(school)
                         if (school.literature.isNotEmpty()) {
                             binding.includeLiterature.root.visibility = View.VISIBLE
                             val containerLiterature = binding.includeLiterature.root.linearLayout_literature
@@ -115,5 +82,65 @@ class SchoolInfoFragment : BaseFragment() {
                 }
             }
         })
+    }
+    private fun addViewToGridLayout(school:OnlineSchools.OnlineSchool){
+        if (school.wait.isNotEmpty()) {
+            binding.constraintWhatWait.visibility = View.VISIBLE
+            val gridLayoutWait = binding.gridLayout
+            gridLayoutWait.removeAllViews()
+            for (q in school.wait.indices) {
+                val wait = school.wait[q]
+                val viewWait = LayoutWhatWaitSchoolBinding.inflate(
+                    LayoutInflater.from(requireContext()),
+                    gridLayoutWait,
+                    false
+                ).root
+                val param = GridLayout.LayoutParams()
+                param.columnSpec = GridLayout.spec(
+                    GridLayout.UNDEFINED,
+                    GridLayout.FILL,
+                    1f
+                )
+                param.width = 0
+                val margin = resources.getDimension(R.dimen.normalMargin).toInt() / 2
+                viewWait.layoutParams = param
+                viewWait.textView_head.text = wait.head.parseAsHtml()
+                viewWait.textView_description.text = wait.description.parseAsHtml()
+                Glide.with(requireContext()).load(baseUrl + wait.imageUrl)
+                    .placeholder(R.drawable.empty_image).centerCrop()
+                    .into(viewWait.imageView_what_wait)
+                (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
+                    margin,
+                    margin,
+                    margin,
+                    margin
+                )
+                gridLayoutWait.addView(viewWait)
+                // Костыль для исправления бага с view на всю ширину gridLayout при единственном елементе
+                if(school.wait.size == 1){
+                    val viewWait2 = LayoutWhatWaitSchoolBinding.inflate(
+                        LayoutInflater.from(requireContext()),
+                        gridLayoutWait,
+                        false
+                    ).root
+                    val param2 = GridLayout.LayoutParams()
+                    param2.columnSpec = GridLayout.spec(
+                        GridLayout.UNDEFINED,
+                        GridLayout.FILL,
+                        1f
+                    )
+                    param2.width = 0
+                    viewWait2.layoutParams = param2
+                    (viewWait2.layoutParams as GridLayout.LayoutParams).setMargins(
+                        margin,
+                        margin,
+                        margin,
+                        margin
+                    )
+                    viewWait2.visibility = View.INVISIBLE
+                    gridLayoutWait.addView(viewWait2)
+                }
+            }
+        }
     }
 }
