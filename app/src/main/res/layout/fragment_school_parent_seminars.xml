@@ -6,14 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:animateLayoutChanges="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+        <TextView
+            android:id="@+id/textView_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/gilroy_semibold"
+            android:paddingTop="@dimen/_56dp"
+            android:paddingBottom="@dimen/_56dp"
+            android:gravity="center"
+            android:text="@string/empty"
+            android:textColor="@color/gray4"
+            android:textSize="@dimen/_24sp" />
+    </androidx.core.widget.NestedScrollView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSeminars"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:splitMotionEvents="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/scrollViewEmpty"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

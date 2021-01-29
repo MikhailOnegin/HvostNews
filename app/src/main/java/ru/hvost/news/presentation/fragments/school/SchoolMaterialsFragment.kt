@@ -1,10 +1,10 @@
 package ru.hvost.news.presentation.fragments.school
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -16,6 +16,7 @@ import ru.hvost.news.presentation.adapters.recycler.SchoolMaterialsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class SchoolMaterialsFragment: BaseFragment() {
 
@@ -109,5 +110,8 @@ class SchoolMaterialsFragment: BaseFragment() {
                 }
             }
         })
+
     }
+
+
 }

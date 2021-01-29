@@ -18,12 +18,12 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.getValue
 
-class SchoolParentSeminarsFragment: BaseFragment() {
+class SchoolParentSeminarsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolParentSeminarsBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var seminarsAdapter: SeminarsAdapter
-    private lateinit var navMain:NavController
+    private lateinit var navMain: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +55,9 @@ class SchoolParentSeminarsFragment: BaseFragment() {
 
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineSeminars.observe(owner, { seminarsResponse ->
+            if (seminarsResponse.seminars.isEmpty()) binding.scrollViewEmpty.visibility =
+                View.VISIBLE
+            else binding.scrollViewEmpty.visibility = View.GONE
             seminarsAdapter.setSeminars(seminarsResponse.seminars)
             schoolVM.filterShowFinished.value?.let {
                 seminarsAdapter.filter(it)

@@ -13,6 +13,7 @@ import ru.hvost.news.data.api.response.SetSubscribeResponse
 import ru.hvost.news.models.*
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class SchoolViewModel: ViewModel() {
 
@@ -90,6 +91,13 @@ class SchoolViewModel: ViewModel() {
     private val _onlineSchools:MutableLiveData<OnlineSchools> = MutableLiveData()
     val onlineSchools:LiveData<OnlineSchools> = _onlineSchools
 
+    private val _recyclerSchoolsReadyEvent = MutableLiveData<OneTimeEvent>()
+    val recyclerSchoolsReadyEvent: LiveData<OneTimeEvent> = _recyclerSchoolsReadyEvent
+
+    fun sendRecyclerSchoolsReadyEvent() {
+        _recyclerSchoolsReadyEvent.value = OneTimeEvent()
+    }
+
     fun getSchools(userToken: String){
         viewModelScope.launch {
             _onlineSchoolsEvent.value = NetworkEvent(State.LOADING)
@@ -104,6 +112,8 @@ class SchoolViewModel: ViewModel() {
             }
         }
     }
+
+
 
     private val _lessonTestesPassedEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val lessonTestesPassedEvent:LiveData<NetworkEvent<State>> = _lessonTestesPassedEvent

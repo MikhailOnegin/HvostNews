@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.fragments.school
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +12,16 @@ import androidx.navigation.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentsSchoolsBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolsAdapter
+import ru.hvost.news.presentation.adapters.recycler.SchoolsListAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.events.OneTimeEvent
 
 class SchoolParentsSchoolsFragment: BaseFragment() {
 
     private lateinit var binding: FragmentSchoolParentsSchoolsBinding
     private lateinit var schoolVM: SchoolViewModel
-    private lateinit var schoolsAdapter:SchoolsAdapter
+    private lateinit var schoolsAdapter:SchoolsListAdapter
     private lateinit var navCMain:NavController
 
     override fun onCreateView(
@@ -40,7 +43,7 @@ class SchoolParentsSchoolsFragment: BaseFragment() {
 
     private fun initializedAdapters(){
 
-        schoolsAdapter = SchoolsAdapter(
+        schoolsAdapter = SchoolsListAdapter(
             clickSchool = {
                 schoolVM.schoolOnlineId.value = it
                 val bundle = Bundle()
@@ -49,13 +52,14 @@ class SchoolParentsSchoolsFragment: BaseFragment() {
                     R.id.action_parentSchoolFragment_to_schoolFragment,
                     bundle
                 )
-            }
+            },
+            schoolVM = schoolVM
         )
     }
 
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.onlineSchools.observe(owner, { schoolsResponse ->
-            schoolsAdapter.setSchools(schoolsResponse.onlineSchools)
+            schoolsAdapter.submitList(schoolsResponse.onlineSchools)
             schoolVM.filterSchools.value?.let {
                 schoolsAdapter.filterYourSchools(it)
             }
@@ -63,5 +67,19 @@ class SchoolParentsSchoolsFragment: BaseFragment() {
         schoolVM.filterSchools.observe(owner, {
             schoolsAdapter.filterYourSchools(it)
         })
+        schoolVM.recyclerSchoolsReadyEvent.observe(owner) { onRecyclerSchoolsReadyEvent(it) }
+    }
+
+    private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {
+        event?.getEventIfNotHandled()?.run {
+            binding.progress.visibility = View.GONE
+            ObjectAnimator.ofFloat(
+                binding.recyclerSchools,
+                "alpha",
+                0f, 1f
+            ).apply {
+                duration = 300L
+            }.start()
+        }
     }
 }
