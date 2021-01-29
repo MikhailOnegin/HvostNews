@@ -38,7 +38,7 @@ class ChoicePrizeFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentChoicePrizeBinding.inflate(inflater, container, false)
         detailDialog =
             BottomSheetDialog(requireActivity(), R.style.popupBottomSheetDialogTheme)
@@ -52,7 +52,11 @@ class ChoicePrizeFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
-        if (mainVM.prizesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
+        if (mainVM.prizesLoadingEvent.value?.peekContent() == State.SUCCESS) {
+            setRecyclerView()
+        } else arguments?.getString("PRIZE_ID")?.let {
+            mainVM.loadPrizes(it)
+        }
         initializeObservers()
         setListeners()
         setObservers()
@@ -63,6 +67,9 @@ class ChoicePrizeFragment : BaseFragment() {
             binding.root,
             doOnSuccess = {
                 setRecyclerView()
+            },
+            doOnError = {
+                findNavController().popBackStack()
             }
         )
         onCartChangeLoadingEvent = DefaultNetworkEventObserver(
@@ -134,7 +141,6 @@ class ChoicePrizeFragment : BaseFragment() {
                 parent: RecyclerView,
                 state: RecyclerView.State
             ) {
-                val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
                     view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
                 parent.adapter.run {

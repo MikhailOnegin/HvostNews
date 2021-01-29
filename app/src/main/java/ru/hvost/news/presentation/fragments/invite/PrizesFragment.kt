@@ -24,12 +24,13 @@ class PrizesFragment : BaseFragment() {
     private lateinit var mainVM: MainViewModel
     private lateinit var cartVM: CartViewModel
     private lateinit var onBonusBalanceLoadingEvent: DefaultNetworkEventObserver
+    private lateinit var onPrizeCategoriesLoadingEvent: DefaultNetworkEventObserver
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPrizesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,9 +38,12 @@ class PrizesFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS)
+        if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) {
             setBalance()
-        else mainVM.getBonusBalance()
+        } else mainVM.getBonusBalance()
+        if (mainVM.prizeCategoriesState.value?.peekContent() == State.SUCCESS) {
+            setRecyclerView()
+        } else mainVM.getPrizeCategories()
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
         cartVM.updateCartAsync(App.getInstance().userToken)
         initializeObservers()
@@ -58,12 +62,17 @@ class PrizesFragment : BaseFragment() {
                 setBalance()
             }
         )
+        onPrizeCategoriesLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = {
+                setRecyclerView()
+            }
+        )
     }
 
     private fun setListeners() {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.cartCount.setOnClickListener { findNavController().navigate(R.id.action_prizesFragment_to_cartFragment) }
-        cartVM.cartCounter.observe(viewLifecycleOwner) { onCartCounterChanged(it) }
     }
 
     private fun onCartCounterChanged(cartItems: Int?) {
@@ -77,17 +86,8 @@ class PrizesFragment : BaseFragment() {
 
     private fun setObservers() {
         mainVM.bonusBalanceLoadingEvent.observe(viewLifecycleOwner, onBonusBalanceLoadingEvent)
-        mainVM.prizeCategoriesState.observe(viewLifecycleOwner, { onPrizeCategoriesChanged(it) })
-    }
-
-    private fun onPrizeCategoriesChanged(state: State?) {
-        when (state) {
-            State.SUCCESS -> {
-                setRecyclerView()
-            }
-            State.FAILURE, State.ERROR -> {
-            }
-        }
+        mainVM.prizeCategoriesState.observe(viewLifecycleOwner, onPrizeCategoriesLoadingEvent)
+        cartVM.cartCounter.observe(viewLifecycleOwner) { onCartCounterChanged(it) }
     }
 
     private fun setRecyclerView() {

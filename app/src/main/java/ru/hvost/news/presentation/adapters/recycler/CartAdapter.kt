@@ -125,10 +125,6 @@ class CartAdapter(
                 binding.remove.setOnClickListener {
                     if(cartVM.cartChangesPermitted) cartVM.removePrizeFromCart(item.productId)
                 }
-                binding.root.setOnClickListener {
-                    //sergeev: Товары в наборе.
-                    showNotReadyToast()
-                }
             }
         }
 
