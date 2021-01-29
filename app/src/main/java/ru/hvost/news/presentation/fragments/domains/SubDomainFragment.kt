@@ -6,7 +6,6 @@ import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -33,7 +32,6 @@ class SubDomainFragment : BaseFragment() {
     private lateinit var onAllArticlesLoadingEvent: DefaultNetworkEventObserver
     private lateinit var popupView: View
     private lateinit var popupWindow: PopupWindow
-    private lateinit var callback: OnBackPressedCallback
     private var domain: Long? = null
 
     override fun onCreateView(

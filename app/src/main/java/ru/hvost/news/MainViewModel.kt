@@ -2,7 +2,6 @@ package ru.hvost.news
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
-import retrofit2.http.Query
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
@@ -16,8 +15,10 @@ class MainViewModel : ViewModel() {
     val petDeleteState = MutableLiveData<State>()
     val petDeleteResponse = MutableLiveData<DeletePetResponse>()
 
-    val prizeCategoriesState = MutableLiveData<State>()
-    val prizeCategoriesResponse = MutableLiveData<List<PrizeCategory>>()
+    private val _prizeCategoriesState = MutableLiveData<NetworkEvent<State>>()
+    val prizeCategoriesState: LiveData<NetworkEvent<State>> = _prizeCategoriesState
+    private val _prizeCategoriesResponse = MutableLiveData<List<PrizeCategory>>()
+    val prizeCategoriesResponse: LiveData<List<PrizeCategory>> = _prizeCategoriesResponse
 
     var categories: List<Categories>? = null
     var domains: List<Domain>? = null
@@ -81,12 +82,9 @@ class MainViewModel : ViewModel() {
     val updateArticlesViewsCount = MutableLiveData<OneTimeEvent>()
 
     private val _articleViewedLoadingEvent = MutableLiveData<NetworkEvent<State>>()
-    val articleViewedLoadingEvent: LiveData<NetworkEvent<State>> = _articleViewedLoadingEvent
 
     private val _articleLikedLoadingEvent = MutableLiveData<NetworkEvent<State>>()
-    val articleLikedLoadingEvent: LiveData<NetworkEvent<State>> = _articleLikedLoadingEvent
     private val _articleIsLiked = MutableLiveData<AddLikedByUserResponse>()
-    val articleIsLiked: LiveData<AddLikedByUserResponse> = _articleIsLiked
 
     private val _petToysLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val petToysLoadingEvent: LiveData<NetworkEvent<State>> = _petToysLoadingEvent
@@ -307,16 +305,20 @@ class MainViewModel : ViewModel() {
 
     fun getPrizeCategories() {
         viewModelScope.launch {
-            prizeCategoriesState.value = State.LOADING
+            _prizeCategoriesState.value = NetworkEvent(State.LOADING)
             try {
                 val response =
                     APIService.API.getPrizeCategoriesAsync(App.getInstance().userToken).await()
                 if (response.result == "success") {
-                    prizeCategoriesResponse.value = response.categories?.toPrizeCategories()
-                    prizeCategoriesState.value = State.SUCCESS
-                } else prizeCategoriesState.value = State.ERROR
+                    _prizeCategoriesResponse.value = response.categories?.toPrizeCategories()
+                    _prizeCategoriesState.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _prizeCategoriesState.value = NetworkEvent(State.ERROR, response.error)
+                    _prizeCategoriesResponse.value = listOf()
+                }
             } catch (exc: Exception) {
-                prizeCategoriesState.value = State.FAILURE
+                _prizeCategoriesState.value = NetworkEvent(State.FAILURE, exc.toString())
+                _prizeCategoriesResponse.value = listOf()
             }
         }
     }
@@ -341,7 +343,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getInviteLink() {
+    private fun getInviteLink() {
         viewModelScope.launch {
             _inviteLinkLoadingEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -357,7 +359,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun SendInviteToMail(
+    fun sendInviteToMail(
         email: String?
     ) {
         viewModelScope.launch {
@@ -409,11 +411,11 @@ class MainViewModel : ViewModel() {
                     _prizesLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
                     _prizes.value = listOf()
-                    _prizesLoadingEvent.value = NetworkEvent(State.ERROR)
+                    _prizesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
                 }
             } catch (exc: Exception) {
                 _prizes.value = listOf()
-                _prizesLoadingEvent.value = NetworkEvent(State.FAILURE)
+                _prizesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
@@ -751,7 +753,6 @@ class MainViewModel : ViewModel() {
     private val _addPetEvent = MutableLiveData<NetworkEvent<State>>()
     val addPetEvent: LiveData<NetworkEvent<State>> = _addPetEvent
     private val _addPetResponse = MutableLiveData<AddPetResponse>()
-    val addPetResponse: LiveData<AddPetResponse> = _addPetResponse
 
     fun addPet(
         petName: String,
@@ -809,7 +810,6 @@ class MainViewModel : ViewModel() {
     private val _updatePetLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val updatePetLoadingEvent: LiveData<NetworkEvent<State>> = _updatePetLoadingEvent
     private val _updatePetResponse = MutableLiveData<UpdatePetResponse>()
-    val updatePetResponse: LiveData<UpdatePetResponse> = _updatePetResponse
 
     fun updatePet(
         petId: String,

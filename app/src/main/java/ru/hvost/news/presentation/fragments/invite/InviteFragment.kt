@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.*
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,12 +15,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.layout_add_disease.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentInviteBinding
@@ -30,6 +26,7 @@ import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 import ru.hvost.news.utils.isEmailFieldIncorrect
+import java.util.*
 
 class InviteFragment : Fragment() {
 
@@ -77,7 +74,7 @@ class InviteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentInviteBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -187,11 +184,11 @@ class InviteFragment : Fragment() {
         if (intentList.isNullOrEmpty()) return
 
         for (item in intentList) {
-            if (item.activityInfo.packageName.toLowerCase().contains(to)
-                || item.activityInfo.name.toLowerCase().contains(to)
+            if (item.activityInfo.packageName.toLowerCase(Locale.ROOT).contains(to)
+                || item.activityInfo.name.toLowerCase(Locale.ROOT).contains(to)
             ) {
-                if (to == "ok" && (item.activityInfo.packageName.toLowerCase()
-                        .contains("facebook") || item.activityInfo.name.toLowerCase()
+                if (to == "ok" && (item.activityInfo.packageName.toLowerCase(Locale.ROOT)
+                        .contains("facebook") || item.activityInfo.name.toLowerCase(Locale.ROOT)
                         .contains("facebook"))
                 ) continue
                 intent.component = ComponentName(
@@ -230,7 +227,7 @@ class InviteFragment : Fragment() {
         if (isEmailFieldIncorrect(binding.mail))
             binding.mail.error = getString(R.string.incorrectEmail)
         else
-            mainVM.SendInviteToMail(binding.mail.text.toString())
+            mainVM.sendInviteToMail(binding.mail.text.toString())
     }
 
     private fun copyRefLink() {
@@ -264,7 +261,7 @@ class InviteFragment : Fragment() {
         animateFadeDialog(false)
     }
 
-    inner class OnDialogDismissAnimationListener() : Animator.AnimatorListener {
+    inner class OnDialogDismissAnimationListener : Animator.AnimatorListener {
 
         override fun onAnimationStart(animation: Animator?) {}
 
