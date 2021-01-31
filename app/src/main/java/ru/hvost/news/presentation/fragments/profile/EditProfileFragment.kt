@@ -2,18 +2,13 @@ package ru.hvost.news.presentation.fragments.profile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.installations.Utils
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentEditProfileBinding
@@ -23,11 +18,8 @@ import ru.hvost.news.services.FcmService
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
-import ru.hvost.news.utils.simpleDateFormat
 import ru.hvost.news.utils.tryStringToDate
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class EditProfileFragment : BaseFragment() {
@@ -37,8 +29,6 @@ class EditProfileFragment : BaseFragment() {
     private lateinit var onUserDataLoadingEvent: DefaultNetworkEventObserver
     private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
     private val birthday = MutableLiveData<String>()
-    private val myFormat = "dd.MM.yyyy"
-    private val sdf = SimpleDateFormat(myFormat)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

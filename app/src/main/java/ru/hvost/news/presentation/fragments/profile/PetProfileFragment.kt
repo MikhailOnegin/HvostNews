@@ -40,8 +40,6 @@ class PetProfileFragment : BaseFragment() {
     private var petSex: Int? = null
     private var petData: Pets? = null
     private val birthday = MutableLiveData<String>()
-    private val myFormat = "dd.MM.yyyy"
-    private val sdf = SimpleDateFormat(myFormat)
     private var sendBreed = true
 
     override fun onCreateView(

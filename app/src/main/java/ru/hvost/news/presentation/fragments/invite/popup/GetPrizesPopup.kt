@@ -18,7 +18,7 @@ class GetPrizesPopup : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGetPrizesPopupBinding.inflate(inflater, container, false)
         binding.root.setOnClickListener { }
         binding.done.setOnClickListener {

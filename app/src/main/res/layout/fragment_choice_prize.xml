@@ -74,6 +74,7 @@
                 android:textSize="@dimen/mainTitleTextSize" />
 
             <TextView
+                android:id="@+id/prizeFor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/normalMargin"
