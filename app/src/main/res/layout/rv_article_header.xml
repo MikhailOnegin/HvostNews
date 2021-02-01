@@ -90,7 +90,6 @@
         android:paddingVertical="@dimen/chipsPaddingHorizontal"
         android:text="@string/stub"
         android:textColor="@color/gray2"
-        android:maxLines="1"
         android:maxWidth="@dimen/maxChipsWidth"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

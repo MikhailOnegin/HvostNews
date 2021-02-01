@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -44,141 +45,136 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/background"
+            <FrameLayout
+                android:id="@+id/userInfoContainer"
+                android:background="@drawable/background_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/profileBackground"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_profile_back"
-                app:layout_constraintBottom_toTopOf="@+id/pets"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/userInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/profileCoverPadding"
-                android:background="@drawable/profile_background"
-                android:orientation="vertical"
-                android:padding="@dimen/profileCoverPadding"
-                app:layout_constraintBottom_toBottomOf="@+id/background"
-                app:layout_constraintEnd_toEndOf="@+id/background"
-                app:layout_constraintStart_toStartOf="@+id/background"
-                app:layout_constraintTop_toTopOf="@+id/background">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/xSmallMargin"
-                    android:fontFamily="@font/gilroy_semibold"
-                    android:text="@string/hello"
-                    android:textColor="@color/gray3_opacity"
-                    android:textSize="@dimen/subtitleProfileTextSize" />
-
-                <TextView
-                    android:id="@+id/second"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gilroy_semibold"
-                    android:text="@string/stub"
-                    android:textColor="@color/gray1"
-                    android:textSize="@dimen/mainTitleTextSize" />
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/normalMargin"
-                    android:fontFamily="@font/gilroy_semibold"
-                    android:text="@string/stub"
-                    android:textColor="@color/gray1"
-                    android:textSize="@dimen/mainTitleTextSize" />
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/button_coupons"
+                    android:id="@+id/userInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/ButtonHeight"
-                    android:layout_marginBottom="@dimen/marginToPromo"
-                    android:background="@drawable/ripple_gray_rectangle"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="@dimen/iconSize"
-                        android:layout_height="@dimen/iconSize"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/iconMargin"
-                        android:background="@drawable/icon_background"
-                        android:padding="@dimen/iconPadding"
-                        android:src="@drawable/ic_coupons" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/profileCoverPadding"
+                    android:background="@drawable/profile_background"
+                    android:orientation="vertical"
+                    android:padding="@dimen/profileCoverPadding">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/xSmallMargin"
                         android:fontFamily="@font/gilroy_semibold"
-                        android:gravity="center_vertical"
-                        android:text="@string/myCoupons"
-                        android:textColor="@color/gray1"
-                        android:textSize="@dimen/profileSmallTextSize" />
+                        android:text="@string/hello"
+                        android:textColor="@color/gray3_opacity"
+                        android:textSize="@dimen/subtitleProfileTextSize" />
 
                     <TextView
-                        android:id="@+id/couponsCount"
-                        android:layout_width="@dimen/notification_count"
-                        android:layout_height="@dimen/notification_count"
-                        android:layout_marginEnd="@dimen/notificationButtonMargin"
-                        android:background="@drawable/icon_background_count"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:gravity="center"
-                        android:text="@string/numberStub"
+                        android:id="@+id/second"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/gilroy_semibold"
+                        android:text="@string/stub"
                         android:textColor="@color/gray1"
-                        android:textSize="@dimen/counterTextSize" />
+                        android:textSize="@dimen/mainTitleTextSize" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/normalMargin"
+                        android:fontFamily="@font/gilroy_semibold"
+                        android:text="@string/stub"
+                        android:textColor="@color/gray1"
+                        android:textSize="@dimen/mainTitleTextSize" />
+
+                    <LinearLayout
+                        android:id="@+id/button_coupons"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ButtonHeight"
+                        android:layout_marginBottom="@dimen/marginToPromo"
+                        android:background="@drawable/ripple_gray_rectangle"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/iconSize"
+                            android:layout_height="@dimen/iconSize"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/iconMargin"
+                            android:background="@drawable/icon_background"
+                            android:padding="@dimen/iconPadding"
+                            android:src="@drawable/ic_coupons"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2.5"
+                            android:fontFamily="@font/gilroy_semibold"
+                            android:gravity="center_vertical"
+                            android:text="@string/myCoupons"
+                            android:textColor="@color/gray1"
+                            android:textSize="@dimen/profileSmallTextSize" />
+
+                        <TextView
+                            android:id="@+id/couponsCount"
+                            android:layout_width="@dimen/notification_count"
+                            android:layout_height="@dimen/notification_count"
+                            android:layout_marginEnd="@dimen/notificationButtonMargin"
+                            android:background="@drawable/icon_background_count"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/numberStub"
+                            android:textColor="@color/gray1"
+                            android:textSize="@dimen/counterTextSize" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/vouchers"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ButtonHeight"
+                        android:background="@drawable/ripple_gray_rectangle"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/iconSize"
+                            android:layout_height="@dimen/iconSize"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/iconMargin"
+                            android:background="@drawable/icon_background"
+                            android:padding="@dimen/iconPadding"
+                            android:src="@drawable/ic_vauchers"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2.5"
+                            android:fontFamily="@font/gilroy_semibold"
+                            android:gravity="center_vertical"
+                            android:text="@string/myVauchers"
+                            android:textColor="@color/gray1"
+                            android:textSize="@dimen/profileSmallTextSize" />
+
+                        <TextView
+                            android:id="@+id/vouchersCount"
+                            android:layout_width="@dimen/notification_count"
+                            android:layout_height="@dimen/notification_count"
+                            android:layout_marginEnd="@dimen/notificationButtonMargin"
+                            android:background="@drawable/icon_background_count"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:text="@string/numberStub"
+                            android:textColor="@color/gray1"
+                            android:textSize="@dimen/counterTextSize" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/vouchers"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/ButtonHeight"
-                    android:background="@drawable/ripple_gray_rectangle"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="@dimen/iconSize"
-                        android:layout_height="@dimen/iconSize"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/iconMargin"
-                        android:background="@drawable/icon_background"
-                        android:padding="@dimen/iconPadding"
-                        android:src="@drawable/ic_vauchers" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.5"
-                        android:fontFamily="@font/gilroy_semibold"
-                        android:gravity="center_vertical"
-                        android:text="@string/myVauchers"
-                        android:textColor="@color/gray1"
-                        android:textSize="@dimen/profileSmallTextSize" />
-
-                    <TextView
-                        android:id="@+id/vouchersCount"
-                        android:layout_width="@dimen/notification_count"
-                        android:layout_height="@dimen/notification_count"
-                        android:layout_marginEnd="@dimen/notificationButtonMargin"
-                        android:background="@drawable/icon_background_count"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:gravity="center"
-                        android:text="@string/numberStub"
-                        android:textColor="@color/gray1"
-                        android:textSize="@dimen/counterTextSize" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            </FrameLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/inviteFriends"
@@ -186,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/_1"
                 android:padding="@dimen/profileCoverPadding"
-                app:layout_constraintTop_toBottomOf="@+id/pets">
+                app:layout_constraintTop_toBottomOf="@id/pets">
 
                 <TextView
                     android:id="@+id/inviteTitle"
@@ -252,7 +248,7 @@
                 android:id="@+id/pets"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/background">
+                app:layout_constraintTop_toBottomOf="@id/userInfoContainer">
 
                 <LinearLayout
                     android:id="@+id/titlePets"
@@ -283,7 +279,8 @@
                         android:layout_weight="0.1"
                         android:background="@drawable/ripple_round_button"
                         android:padding="@dimen/xSmallMargin"
-                        android:src="@drawable/ic_plus" />
+                        android:src="@drawable/ic_plus"
+                        tools:ignore="ContentDescription" />
 
                 </LinearLayout>
 
