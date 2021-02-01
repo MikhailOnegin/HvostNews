@@ -265,31 +265,6 @@
                 android:paddingStart="@dimen/largeMargin"
                 android:paddingEnd="@dimen/largeMargin"
                 android:baselineAligned="false">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_seminar_info"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/cartSelectorHeight"
-                    android:layout_weight="1"
-                    android:background="@drawable/sex_selector_left">
-
-                    <TextView
-                        android:id="@+id/seminar_info"
-                        style="@style/CartTypeTitleTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_12dp"
-                        android:layout_marginEnd="@dimen/_12dp"
-                        android:gravity="center"
-                        android:text="@string/seminar_info"
-                        android:textSize="@dimen/_12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </HorizontalScrollView>
 

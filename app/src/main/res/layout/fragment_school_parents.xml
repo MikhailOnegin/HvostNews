@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|snap"
             android:layout_marginStart="@dimen/largeMargin"
-            android:layout_marginTop="@dimen/largeMargin"
+            android:layout_marginTop="@dimen/_48dp"
             android:layout_marginEnd="@dimen/largeMargin">
 
             <TextView

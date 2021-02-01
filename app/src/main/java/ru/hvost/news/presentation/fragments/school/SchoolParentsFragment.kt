@@ -139,18 +139,18 @@ class SchoolParentsFragment : BaseFragment() {
             if (!it.isSelected) {
                 it.isSelected = true
                 binding.constraintOfflineSeminars.isSelected = false
-                navCSchoolParents.navigate(R.id.action_seminarsFragment_to_schoolsFragment)
                 binding.constraintSpinnerOfflineSeminars.visibility = View.GONE
                 binding.constraintSpinnerOnlineSchools.visibility = View.VISIBLE
+                navCSchoolParents.navigate(R.id.action_seminarsFragment_to_schoolsFragment)
             }
         }
         binding.constraintOfflineSeminars.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
                 binding.constraintOnlineSchools.isSelected = false
-                navCSchoolParents.navigate(R.id.action_schoolsFragment_to_seminarsFragment)
                 binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
                 binding.constraintSpinnerOnlineSchools.visibility = View.GONE
+                navCSchoolParents.navigate(R.id.action_schoolsFragment_to_seminarsFragment)
             }
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->

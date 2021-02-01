@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_lesson_option.view.*
 import kotlinx.android.synthetic.main.layout_literature_item.view.*
+import kotlinx.coroutines.delay
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
@@ -56,12 +58,10 @@ class LessonActiveFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
-        navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
+        navCMain = findNavController()
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
-        arguments?.getInt("lessonNumber")?.let {
 
-        }
         navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lesson")
         initializedEvents()
         setListeners()
@@ -76,59 +76,55 @@ class LessonActiveFragment : BaseFragment() {
 
     private fun initializedEvents() {
         lessonTestPassedEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
-            doOnLoading = {
-                binding.buttonToAnswer.isEnabled = false
-            },
-            doOnSuccess = {
-                lessons?.let { lessons ->
-                    lesson?.let { lesson ->
+                anchorView = binding.root,
+                doOnLoading = {
+                    binding.buttonToAnswer.isEnabled = false
+                },
+                doOnSuccess = {
+                    App.getInstance().userToken?.let {
+                        schoolVM.getSchools(it)
+                    }
+                    lessons?.let { lessons ->
                         if (lessons.last() == lesson) {
-                            findNavController().popBackStack()
+                            navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lastLesson")
+                            navCMain.popBackStack()
                         }
                     }
-                }
-                binding.buttonToAnswer.isEnabled = true
-                for (i in buttons.indices) {
-                    buttons[i].isEnabled = false
-                }
-                binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
-                binding.buttonToAnswer.setOnClickListener {
-                    lessons?.let { lessons ->
-                        lessonId?.let { lessonId ->
-                            for (i in lessons.indices) {
-                                if (lessons[i].lessonId == lessonId) {
-                                    if (i < lessons.size - 1) {
-                                        val nextLesson = lessons[i + 1]
-                                        schoolId?.let { schoolId ->
-                                            val bundle = Bundle()
-                                            bundle.putString("lessonId", nextLesson.lessonId)
-                                            bundle.putString("schoolId", schoolId)
-                                            findNavController().navigate(
-                                                R.id.action_onlineLessonFragment_toOnlineLessonFragment,
-                                                bundle
-                                            )
+                    binding.buttonToAnswer.isEnabled = true
+                    for (i in buttons.indices) {
+                        buttons[i].isEnabled = false
+                    }
+                    binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
+                    binding.buttonToAnswer.setOnClickListener {
+                        lessons?.let { lessons ->
+                            lessonId?.let { lessonId ->
+                                for (i in lessons.indices) {
+                                    if (lessons[i].lessonId == lessonId) {
+                                        if (i < lessons.size - 1) {
+                                            val nextLesson = lessons[i + 1]
+                                            schoolId?.let { schoolId ->
+                                                val bundle = Bundle()
+                                                bundle.putString("lessonId", nextLesson.lessonId)
+                                                bundle.putString("schoolId", schoolId)
+                                                findNavController().navigate(
+                                                        R.id.action_onlineLessonFragment_toOnlineLessonFragment,
+                                                        bundle
+                                                )
+                                            }
                                         }
-                                    } else {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "Все уроки пройдены",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        findNavController().popBackStack()
                                     }
                                 }
                             }
                         }
                     }
+
+                },
+                doOnError = {
+                    binding.buttonToAnswer.isEnabled = true
+                },
+                doOnFailure = {
+                    binding.buttonToAnswer.isEnabled = true
                 }
-            },
-            doOnError = {
-                binding.buttonToAnswer.isEnabled = true
-            },
-            doOnFailure = {
-                binding.buttonToAnswer.isEnabled = true
-            }
         )
         onlineLessonsEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
