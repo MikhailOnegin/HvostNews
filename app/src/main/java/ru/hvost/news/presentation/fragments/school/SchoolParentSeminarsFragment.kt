@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -55,9 +56,13 @@ class SchoolParentSeminarsFragment : BaseFragment() {
 
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineSeminars.observe(owner, { seminarsResponse ->
-            if (seminarsResponse.seminars.isEmpty()) binding.scrollViewEmpty.visibility =
-                View.VISIBLE
-            else binding.scrollViewEmpty.visibility = View.GONE
+            if (seminarsResponse.seminars.isEmpty()) {
+                binding.rootConstraint.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+                binding.scrollViewEmpty.visibility = View.VISIBLE}
+            else {
+                binding.rootConstraint.layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT
+                binding.scrollViewEmpty.visibility = View.GONE
+            }
             seminarsAdapter.setSeminars(seminarsResponse.seminars)
             schoolVM.filterShowFinished.value?.let {
                 seminarsAdapter.filter(it)

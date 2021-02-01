@@ -20,17 +20,16 @@ import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import kotlin.math.sign
 
 class SchoolsListAdapter(
-    private val schoolVM:SchoolViewModel,
+    private val schoolVM: SchoolViewModel,
     private val clickSchool: ((Long) -> Unit)? = null,
-):ListAdapter<OnlineSchools.OnlineSchool, RecyclerView.ViewHolder>(SchoolsContentDiffUtilCallback()) {
+): ListAdapter<OnlineSchools.OnlineSchool, RecyclerView.ViewHolder>(SchoolsContentDiffUtilCallback()) {
 
-    private var schoolsFull = arrayListOf<OnlineSchools.OnlineSchool>()
     private var schools = arrayListOf<OnlineSchools.OnlineSchool>()
 
     fun filterYourSchools(s:String){
         when(s){
-            "Ваши семинары" -> schools = schoolsFull.filter { it.participate }.toCollection(ArrayList())
-            "Все семинары" -> schools = schoolsFull
+            "Ваши семинары" -> schools = currentList.filter { it.participate }.toCollection(ArrayList())
+            "Все семинары" -> schools = currentList.toCollection(ArrayList())
         }
         notifyDataSetChanged()
     }
@@ -53,8 +52,12 @@ class SchoolsListAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
-        (holder as SchoolsViewHolder).bind(item)
+        val school = schools[position]
+        (holder as SchoolsViewHolder).bind(school)
+    }
+
+    override fun getItemCount(): Int {
+        return schools.size
     }
 
     class SchoolsContentDiffUtilCallback : DiffUtil.ItemCallback<OnlineSchools.OnlineSchool>() {

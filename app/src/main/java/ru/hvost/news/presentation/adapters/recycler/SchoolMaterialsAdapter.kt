@@ -157,9 +157,11 @@ class SchoolMaterialsAdapter(
 
     inner class UsefulLiteratureViewHolder(private val binding:ItemUsefulLiteratureBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(school: OnlineSchools.OnlineSchool?) {
+            val f = 1
             school?.run {
+                val ff = 2
                 if (school.literature.isNotEmpty()) {
-
+                    binding.rootConstraint.visibility = View.VISIBLE
                     val container = itemView.linearLayout_literature
                     container.removeAllViews()
                     for (i in school.literature.indices) {

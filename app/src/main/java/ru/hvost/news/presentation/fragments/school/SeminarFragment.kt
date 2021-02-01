@@ -114,7 +114,6 @@ class SeminarFragment : BaseFragment() {
                                             R.color.red
                                     )
                             )
-
                         }
                         else {
                             binding.textViewLessonStatus.text = getString(R.string.active)
@@ -147,6 +146,7 @@ class SeminarFragment : BaseFragment() {
                                 binding.buttonShare.visibility = View.GONE
                             }
                         }
+                        val margin = resources.getDimension(R.dimen.minus_1dp).toInt()
                         val linearTabs = binding.linearLayoutTabs
                         linearTabs.removeAllViews()
                         val viewTab = LayoutTabItemSeminarBinding.inflate(
@@ -158,6 +158,9 @@ class SeminarFragment : BaseFragment() {
                         viewTab.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_left)
                         viewTab.textView_tab.isSelected = true
                         viewTab.isSelected = true
+                        (viewTab.layoutParams as LinearLayout.LayoutParams).setMargins(
+                            0,0, margin,0
+                        )
                         tabsView.add(viewTab)
                         setListenerTab(viewTab, tabsView)
                         linearTabs.addView(viewTab)
@@ -170,7 +173,6 @@ class SeminarFragment : BaseFragment() {
                             val petTypeName = seminar.petSchedules[q].petTypeName
                             if (q == seminar.petSchedules.size - 1 ) viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_right)
                             else viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_middle)
-                            val margin = resources.getDimension(R.dimen.minus_1dp).toInt()
                             (viewTab2.layoutParams as LinearLayout.LayoutParams).setMargins(
                                     margin,0,margin,0
                             )
