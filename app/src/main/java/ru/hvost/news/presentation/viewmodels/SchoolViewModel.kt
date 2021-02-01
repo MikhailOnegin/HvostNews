@@ -19,7 +19,6 @@ class SchoolViewModel: ViewModel() {
 
     val seminarId:MutableLiveData<Long> = MutableLiveData(0)
     val petTypeName:MutableLiveData<String> = MutableLiveData()
-    val changeFragment:MutableLiveData<Boolean> = MutableLiveData()
     private val _offlineSeminarsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineSeminarsEvent:LiveData<NetworkEvent<State>> = _offlineSeminarsEvent
     private val _offlineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
@@ -38,13 +37,19 @@ class SchoolViewModel: ViewModel() {
             }
         }
     }
+
     val schoolOnlineId:MutableLiveData<Long> = MutableLiveData()
     val selectLessonAnswersCount:MutableLiveData<Int> = MutableLiveData(0)
     private val _onlineLessonsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineLessonsEvent:LiveData<NetworkEvent<State>> = _onlineLessonsEvent
     private val _onlineLessons:MutableLiveData<OnlineLessons> = MutableLiveData()
     val onlineLessons:LiveData<OnlineLessons> = _onlineLessons
+    private val _lessonReadyEvent = MutableLiveData<OneTimeEvent>()
+    val lessonReadyEvent: LiveData<OneTimeEvent> = _lessonReadyEvent
 
+    fun sendLessonReadyEvent() {
+        _lessonReadyEvent.value = OneTimeEvent()
+    }
     fun getSchoolLessons(userToken:String, schoolId:String){
         viewModelScope.launch {
             _onlineLessonsEvent.value = NetworkEvent(State.LOADING)

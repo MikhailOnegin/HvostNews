@@ -189,7 +189,7 @@ class SchoolMaterialsAdapter(
                     }
                 }
                 else {
-                   binding.rootConstraint.visibility = View.GONE
+                    binding.rootConstraint.visibility = View.GONE
                 }
             }
         }

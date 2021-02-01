@@ -17,7 +17,6 @@ import ru.hvost.news.databinding.ItemSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
-import kotlin.math.sign
 
 class SchoolsListAdapter(
     private val schoolVM: SchoolViewModel,
@@ -73,24 +72,29 @@ class SchoolsListAdapter(
 
 
 
-    inner class SchoolsViewHolder(private val binding:ItemSchoolOnlineBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(onlineSchool: OnlineSchools.OnlineSchool) {
-            if (onlineSchool.title.isNotBlank()) binding.textViewTitle.text = onlineSchool.title.parseAsHtml()
-            if (onlineSchool.userRank.isNotBlank()) binding.textViewRank.text = onlineSchool.userRank
-            if(onlineSchool.isNew) binding.constraintNew.visibility = View.VISIBLE
+    inner class SchoolsViewHolder(private val binding: ItemSchoolOnlineBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(school: OnlineSchools.OnlineSchool) {
+            if (school.title.isNotBlank()) binding.textViewTitle.text = school.title.parseAsHtml()
+            if (school.participate) {
+                binding.constraintRank.visibility = View.VISIBLE
+                binding.textViewRank.text = school.userRank
+            } else {
+                binding.constraintRank.visibility = View.INVISIBLE
+            }
+            if (school.isNew) binding.constraintNew.visibility = View.VISIBLE
             else binding.constraintNew.visibility = View.GONE
-            Glide.with(itemView.context).load(APIService.baseUrl + onlineSchool.image)
+            Glide.with(itemView.context).load(APIService.baseUrl + school.image)
                 .placeholder(R.drawable.empty_image).centerCrop()
                 .into(binding.imageViewSchool)
             binding.rootConstraint.setOnClickListener {
-                clickSchool?.invoke(onlineSchool.id)
+                clickSchool?.invoke(school.id)
             }
 
             val containerNumbers = itemView.linearLayout_lesson_numbers
             containerNumbers.removeAllViews()
-            for(i in onlineSchool.lessonsPassed.indices){
+            for(i in school.lessonsPassed.indices){
                 val number = (i + 1).toString()
-                val isPassed = onlineSchool.lessonsPassed[i].isPassed
+                val isPassed = school.lessonsPassed[i].isPassed
                 val viewWait = LayoutLessonNumberBinding.inflate(
                     LayoutInflater.from(itemView.context),
                     containerNumbers,
@@ -106,19 +110,19 @@ class SchoolsListAdapter(
                     )
                 )
                 else viewWait.textView_lesson_number.setTextColor(
-                    ContextCompat.getColor(
-                        itemView.context,
-                        R.color.gray3
-                    )
+                        ContextCompat.getColor(
+                                itemView.context,
+                                R.color.gray3
+                        )
                 )
 
                 val paddingNormal = itemView.resources.getDimension(R.dimen._14dp).toInt()
                 val paddingEdge = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
-                if (i == 0 || i == onlineSchool.lessonsPassed.lastIndex) {
+                if (i == 0 || i == school.lessonsPassed.lastIndex) {
                     if (i == 0) {
                         viewWait.setPadding(paddingEdge, 0, paddingNormal, 0)
                     }
-                    if (i == onlineSchool.lessonsPassed.lastIndex) {
+                    if (i == school.lessonsPassed.lastIndex) {
                         viewWait.setPadding(0, 0, paddingEdge, 0)
                     }
                 } else {

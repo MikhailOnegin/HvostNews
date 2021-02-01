@@ -194,5 +194,4 @@ class SeminarRegistrationFragment : BaseFragment() {
             }
         }
     }
-
 }
