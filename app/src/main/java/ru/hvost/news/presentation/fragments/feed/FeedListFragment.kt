@@ -1,14 +1,11 @@
 package ru.hvost.news.presentation.fragments.feed
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentFeedListBinding
@@ -32,42 +29,13 @@ class FeedListFragment : BaseFragment() {
     ): View {
         binding = FragmentFeedListBinding.inflate(inflater, container, false)
         binding.root.addItemDecoration(
-            LinearRvItemDecorationCustom(
+            LinearRvItemDecorations(
                 sideMarginsDimension = R.dimen.largeMargin,
-                marginBetweenElementsDimension = R.dimen.extraLargeMargin
+                marginBetweenElementsDimension = R.dimen.extraLargeMargin,
+                drawTopMarginForFirstElement = false
             )
         )
         return binding.root
-    }
-
-    class LinearRvItemDecorationCustom(
-        sideMarginsDimension: Int? = null,
-        marginBetweenElementsDimension: Int? = null
-    ) : LinearRvItemDecorations() {
-        private val res = App.getInstance().resources
-        private val sideMargins =
-            if (sideMarginsDimension != null)
-                res.getDimension(sideMarginsDimension).toInt()
-            else 0
-        private val verticalMargin =
-            if (marginBetweenElementsDimension != null)
-                res.getDimension(marginBetweenElementsDimension).toInt()
-            else 0
-
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            super.getItemOffsets(outRect, view, parent, state)
-            outRect.set(
-                sideMargins,
-                0,
-                sideMargins,
-                verticalMargin
-            )
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

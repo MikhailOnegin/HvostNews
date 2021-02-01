@@ -234,7 +234,8 @@ fun showNotReadyToast() {
 
 open class LinearRvItemDecorations(
     sideMarginsDimension: Int? = null,
-    marginBetweenElementsDimension: Int? = null
+    marginBetweenElementsDimension: Int? = null,
+    private val drawTopMarginForFirstElement: Boolean = true
 ) : RecyclerView.ItemDecoration() {
 
     private val res = App.getInstance().resources
@@ -256,7 +257,7 @@ open class LinearRvItemDecorations(
         val position = parent.getChildAdapterPosition(view)
         outRect.set(
             sideMargins,
-            if (position == 0) verticalMargin else 0,
+            if (drawTopMarginForFirstElement && position == 0) verticalMargin else 0,
             sideMargins,
             verticalMargin
         )

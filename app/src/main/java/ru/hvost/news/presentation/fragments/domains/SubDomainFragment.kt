@@ -43,7 +43,8 @@ class SubDomainFragment : BaseFragment() {
         binding.list.addItemDecoration(
             LinearRvItemDecorations(
                 sideMarginsDimension = R.dimen.largeMargin,
-                marginBetweenElementsDimension = R.dimen.normalMargin
+                marginBetweenElementsDimension = R.dimen.extraLargeMargin,
+                drawTopMarginForFirstElement = false
             )
         )
         return binding.root

@@ -12,6 +12,7 @@ import ru.hvost.news.databinding.FragmentNewsListBinding
 import ru.hvost.news.models.Article
 import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
@@ -28,9 +29,10 @@ class NewsListFragment : BaseFragment() {
     ): View {
         binding = FragmentNewsListBinding.inflate(inflater, container, false)
         binding.root.addItemDecoration(
-            FeedListFragment.LinearRvItemDecorationCustom(
+            LinearRvItemDecorations(
                 sideMarginsDimension = R.dimen.largeMargin,
-                marginBetweenElementsDimension = R.dimen.extraLargeMargin
+                marginBetweenElementsDimension = R.dimen.extraLargeMargin,
+                drawTopMarginForFirstElement = false
             )
         )
         return binding.root
