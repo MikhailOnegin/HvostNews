@@ -15,6 +15,12 @@ import java.util.concurrent.TimeUnit
 
 interface APIService {
 
+    @GET("/rest/Authorization/updateFirebaseToken/")
+    fun updateFirebaseTokenAsync(
+        @Query("userToken") userToken: String?,
+        @Query("firebaseToken") firebaseToken: String?
+    ): Deferred<SimpleResponse>
+
     @GET("/rest/Authorization/login/")
     fun loginAsync(
         @Query("login") login: String?,
