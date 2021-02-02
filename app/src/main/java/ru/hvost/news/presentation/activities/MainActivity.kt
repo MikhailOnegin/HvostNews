@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
         binding.bnv.setupWithNavController(findNavController(R.id.nav_host_fragment))
+        binding.bnv.setOnNavigationItemReselectedListener { }
         initializeMaps()
         createNotificationsChannels()
         subscribeToNewArticlesTopic()
