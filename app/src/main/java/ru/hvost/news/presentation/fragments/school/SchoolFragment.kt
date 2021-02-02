@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.*
 import ru.hvost.news.App
@@ -58,14 +57,7 @@ class SchoolFragment : BaseFragment() {
                 schoolVM.successRegistration.value = false
             }
         }
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("fromDestination")
-                ?.observe(viewLifecycleOwner) {
-                    fromDestination = it
-                    if (fromDestination == "lastLesson") {
-                        binding.rootCoordinator.scrollTo(0, 0)
-                    }
-                }
-        navCMain = findNavController()
+        navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "school")
         navCSchool = requireActivity().findNavController(R.id.fragmentContainerSchool)
         schoolId = arguments?.getString("schoolId")
@@ -92,12 +84,14 @@ class SchoolFragment : BaseFragment() {
                 }
             }
         }
-        initializedEvents()
-        setObservers(this)
         setListeners()
-    }
-
-    private fun initializedEvents() {
+        setObservers(this)
+        App.getInstance().userToken?.let { userToken ->
+            schoolId?.let { schoolId ->
+                schoolVM.getSchoolLessons(userToken, schoolId )
+            }
+        }
+        if (fromDestination == null) binding.tabInfo.isSelected  = true
     }
 
     fun setObservers(owner: LifecycleOwner) {
@@ -107,8 +101,14 @@ class SchoolFragment : BaseFragment() {
                 for (i in schoolsResponse.onlineSchools.indices) {
                     val onlineSchool = schoolsResponse.onlineSchools[i]
                     if (onlineSchool.id.toString() == schoolId) {
-                        if (onlineSchool.participate) binding.constraintRegistration.visibility = View.GONE
-                        else binding.constraintRegistration.visibility = View.VISIBLE
+                        if (onlineSchool.participate) {
+                            binding.constraintRegistration.visibility = View.GONE
+                            binding.constraintRank.visibility = View.VISIBLE
+                        }
+                        else {
+                            binding.constraintRegistration.visibility = View.VISIBLE
+                            binding.constraintRank.visibility = View.INVISIBLE
+                        }
 
                         val containerNumbers = linearLayout_lesson_numbers
                         val padding =
@@ -166,15 +166,23 @@ class SchoolFragment : BaseFragment() {
                 }
             }
         })
+        navCMain.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("fromDestination")
+            ?.observe(viewLifecycleOwner) {
+                fromDestination = it
+                when(it){
+                    "lastLesson" -> {
+                        binding.fragmentContainerSchool.scrollTo(0, 0)
+                        binding.tabMaterials.isSelected = true
+                    }
+                    "lesson" ->  {
+                        binding.tabMaterials.isSelected  =true
+                    }
+                }
+            }
     }
 
 
     private fun setListeners() {
-        if (fromDestination != null) {
-            if (fromDestination == "lesson") binding.tabMaterials.isSelected = true
-        } else {
-            binding.tabInfo.isSelected = true
-        }
         binding.tabInfo.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
@@ -187,11 +195,6 @@ class SchoolFragment : BaseFragment() {
                 it.isSelected = true
                 binding.tabInfo.isSelected = false
                 navCSchool.navigate(R.id.action_schoolInfoFragment_to_schoolMaterialsFragment)
-                schoolVM.onlineLessons.value.run {
-                    schoolId?.let {
-                    }
-                }
-
             }
         }
         binding.buttonRegistration.setOnClickListener {
@@ -208,5 +211,4 @@ class SchoolFragment : BaseFragment() {
             findNavController().popBackStack()
         }
     }
-
 }

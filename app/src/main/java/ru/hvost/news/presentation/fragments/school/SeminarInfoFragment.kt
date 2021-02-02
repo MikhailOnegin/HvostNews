@@ -54,7 +54,6 @@ class SeminarInfoFragment : BaseFragment() {
         binding.recyclerViewSponsors.adapter = adapterPartners
         binding.recyclerViewSponsors.layoutManager = GridLayoutManager(requireContext(), 2)
         setObservers(this)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

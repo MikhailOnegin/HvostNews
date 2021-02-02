@@ -54,20 +54,7 @@ class SchoolMaterialsFragment: BaseFragment() {
                 anchorView = binding.root,
                 doOnSuccess = {
                     schoolVM.onlineLessons.value?.lessons?.let { lessons ->
-                        if(lessons.isNotEmpty()){
-                            binding.rootConstraint.layoutParams.height = ConstraintLayout.LayoutParams.MATCH_PARENT
-                        schoolVM.onlineSchools.value?.onlineSchools?.let { schools ->
-                            schoolVM.schoolOnlineId.value?.let { schoolId ->
-                                for (i in schools.indices) {
-                                    val school = schools[i]
-                                    if (school.id == schoolId) {
-                                        materialsAdapter.setValue(lessons, school)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                        else binding.rootConstraint.layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+
                 }
                 }
         )
@@ -112,6 +99,18 @@ class SchoolMaterialsFragment: BaseFragment() {
                             schoolVM.getSchoolLessons(userToken, school.id.toString())
                         }
                         return@observe
+                    }
+                }
+            }
+        })
+        schoolVM.onlineLessons.observe(owner, {
+            schoolVM.onlineSchools.value?.onlineSchools?.let { schools ->
+                schoolVM.schoolOnlineId.value?.let { schoolId ->
+                    for (i in schools.indices) {
+                        val school = schools[i]
+                        if (school.id == schoolId) {
+                            materialsAdapter.setValue(it.lessons, school)
+                        }
                     }
                 }
             }

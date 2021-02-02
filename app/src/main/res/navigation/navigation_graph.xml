@@ -190,17 +190,23 @@
             android:id="@+id/action_schoolFragment_to_lessonActiveFragment"
             app:destination="@+id/lessonActiveFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"/>
+            app:exitAnim="@anim/fragment_exit"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"/>
         <action
             android:id="@+id/action_schoolFragment_to_lessonFinishedFragment"
             app:destination="@+id/lessonFinishedFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"/>
+            app:exitAnim="@anim/fragment_exit"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"/>
         <action
             android:id="@+id/action_schoolFragment_to_registrationSchoolFragment"
             app:destination="@+id/registrationSchoolFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit" />
+            app:exitAnim="@anim/fragment_exit"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"/>
     </fragment>
 
     <fragment
@@ -213,6 +219,8 @@
             app:destination="@+id/lessonActiveFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popEnterAnim="@anim/fragment_enter"
             app:popUpTo="@id/schoolFragment" />
     </fragment>
 
