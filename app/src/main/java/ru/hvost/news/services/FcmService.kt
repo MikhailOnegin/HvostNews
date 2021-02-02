@@ -46,7 +46,6 @@ class FcmService : FirebaseMessagingService() {
         channelId?.let {
             val builder = NotificationCompat.Builder(this, it)
             val intent = Intent(this, MainActivity::class.java).apply {
-                //sergeev: Разобраться с флагами.
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)

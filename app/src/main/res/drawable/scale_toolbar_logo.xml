@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scale xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:drawable="@drawable/logo"
     android:scaleWidth="@dimen/logoScaleX"
     android:scaleHeight="@dimen/logoScaleY"
     android:level="1"
-    android:scaleGravity="center"/>
-
-<!-- sergeev: Проверить на API level < 24 -->
+    android:scaleGravity="center"
+    tools:ignore="UnusedAttribute"/>

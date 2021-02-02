@@ -35,17 +35,8 @@ class RegPetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
-        //setTestData() //sergeev: Выпилить из релиза
         binding.toolbar.background.level = 1
         return binding.root
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setTestData() {
-        binding.apply {
-            petName.setText("Мушу")
-            promocode.setText("CVXBCV55565527")
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
