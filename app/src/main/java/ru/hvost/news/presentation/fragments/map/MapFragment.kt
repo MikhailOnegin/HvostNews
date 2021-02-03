@@ -274,7 +274,9 @@ class MapFragment : BaseFragment() {
     private val mapObjectTapListener = MapObjectTapListener { mapObject, _ ->
         val bundle = Bundle()
         bundle.putLong(PartnersPageFragment.SHOP_ID, mapObject.userData as Long)
-        findNavController().navigate(R.id.action_mapFragment_to_partnersPageFragment, bundle)
+        try {
+            findNavController().navigate(R.id.action_mapFragment_to_partnersPageFragment, bundle)
+        } catch (exc: Exception) { }
         true
     }
 
