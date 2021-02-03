@@ -47,6 +47,7 @@ class SeminarFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = findNavController()
+
         navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "seminar")
         arguments?.getString("seminarTitle")?.let { seminarTitle ->
             schoolVM.successRegistration.value?.let { successRegistration ->
@@ -259,7 +260,6 @@ class SeminarFragment : BaseFragment() {
                     for (i in list.indices) list[i].isSelected = false
                     it.isSelected = true
                 }
-                schoolVM.changeFragment.value = true
             }
         }
     }

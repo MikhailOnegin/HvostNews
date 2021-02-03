@@ -94,7 +94,8 @@
                 app:tabPaddingStart="@dimen/normalMargin"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextAppearance="@style/subdomainTabsCustomStyle"
-                app:tabTextColor="@color/gray1" />
+                app:tabTextColor="@color/gray1"
+                android:layout_marginBottom="@dimen/normalMargin"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

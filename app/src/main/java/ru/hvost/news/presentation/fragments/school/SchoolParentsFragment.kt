@@ -125,7 +125,6 @@ class SchoolParentsFragment : BaseFragment() {
 
     private fun setListeners() {
 
-
         if(fromDestination != null) {
             if (fromDestination == "school"){
                 binding.constraintOnlineSchools.isSelected = true

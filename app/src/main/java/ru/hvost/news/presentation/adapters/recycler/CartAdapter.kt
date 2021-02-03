@@ -73,7 +73,7 @@ class CartAdapter(
                 title.text = item.title.parseAsHtml()
                 count.text = item.count.toString()
                 price.text = "${moneyFormat.format(item.price)} \u20bd"
-                cost.text = "${moneyFormat.format(item.price.toInt() * item.count)} \u20bd"
+                cost.text = "${moneyFormat.format(item.price * item.count)} \u20bd"
                 if(position == 0) divider.visibility = View.GONE
                 else divider.visibility = View.VISIBLE
                 minus.setOnClickListener {

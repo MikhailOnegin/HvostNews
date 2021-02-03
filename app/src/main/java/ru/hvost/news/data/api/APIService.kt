@@ -15,6 +15,12 @@ import java.util.concurrent.TimeUnit
 
 interface APIService {
 
+    @GET("/rest/Authorization/updateFirebaseToken/")
+    fun updateFirebaseTokenAsync(
+        @Query("userToken") userToken: String?,
+        @Query("firebaseToken") firebaseToken: String?
+    ): Deferred<SimpleResponse>
+
     @GET("/rest/Authorization/login/")
     fun loginAsync(
         @Query("login") login: String?,
@@ -358,10 +364,10 @@ interface APIService {
 
     companion object {
 
-        //sergeev: Заменить на ключ заказчика.
+        //TODO: Заменить на ключ заказчика.
         const val YANDEX_MAPKIT_KEY = "96bc77a4-1010-4770-85ad-9d324f7eee03"
 
-        //sergeev: Заменить на боевой сервер.
+        //TODO: Заменить на боевой сервер.
         const val baseUrl = "http://hvost-news.testfact3.ru"
 
         private val moshi: Moshi = Moshi.Builder()

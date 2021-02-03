@@ -261,12 +261,16 @@ class CartViewModel : ViewModel() {
                         ))
                         shopCategory.isEmpty = true
                     } else {
-                        result.add(ShopHeader(
-                            id = UniqueIdGenerator.nextId(),
-                            categoryId = categoryId,
-                            imageUri = getUriForBackendImagePath(null),
-                            text = category.categoryDescription.orEmpty()
-                        ))
+                        if (!category.categoryDescription.isNullOrEmpty()) {
+                            result.add(
+                                ShopHeader(
+                                    id = UniqueIdGenerator.nextId(),
+                                    categoryId = categoryId,
+                                    imageUri = getUriForBackendImagePath(null),
+                                    text = category.categoryDescription.orEmpty()
+                                )
+                            )
+                        }
                         result.addAll(category.products.toShopProducts(categoryId))
                     }
                 }

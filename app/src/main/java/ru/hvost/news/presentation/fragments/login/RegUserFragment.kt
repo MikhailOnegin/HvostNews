@@ -33,24 +33,8 @@ class RegUserFragment : Fragment() {
         binding.passwordConfirm.filters = arrayOf(PasswordInputFilter())
         binding.phone.setText(getString(R.string.phonePrefix))
         binding.phone.setSelection(binding.phone.length())
-        //setTestData() //sergeev: Выпилить из релиза
         binding.toolbar.background.level = 1
         return binding.root
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setTestData() {
-        binding.apply {
-            surname.setText("Сергеев")
-            name.setText("Денис")
-            patronymic.setText("Витальевич")
-            phone.setText("+7-963-095-67-22")
-            email.setText("test@sergeev.ru")
-            password.setText("passw0rd")
-            passwordConfirm.setText("passw0rd")
-            city.setText("Магнитогорск")
-            agreement.isChecked = true
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

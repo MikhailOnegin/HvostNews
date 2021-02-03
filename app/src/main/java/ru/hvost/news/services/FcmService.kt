@@ -7,7 +7,10 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.runBlocking
+import ru.hvost.news.App
 import ru.hvost.news.R
+import ru.hvost.news.data.api.APIService
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.utils.UniqueIdGenerator
 
@@ -17,6 +20,12 @@ class FcmService : FirebaseMessagingService() {
         super.onNewToken(newToken)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         prefs.edit().putString(PREF_FIREBASE_TOKEN, newToken).apply()
+        runBlocking {
+            APIService.API.updateFirebaseTokenAsync(
+                userToken = App.getInstance().userToken,
+                firebaseToken = newToken
+            ).await()
+        }
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
@@ -37,7 +46,6 @@ class FcmService : FirebaseMessagingService() {
         channelId?.let {
             val builder = NotificationCompat.Builder(this, it)
             val intent = Intent(this, MainActivity::class.java).apply {
-                //sergeev: Разобраться с флагами.
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)

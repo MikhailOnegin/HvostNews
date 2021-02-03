@@ -39,10 +39,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
         binding.bnv.setupWithNavController(findNavController(R.id.nav_host_fragment))
+        binding.bnv.setOnNavigationItemReselectedListener { }
         initializeMaps()
         createNotificationsChannels()
-        subscribeToNewArticlesTopic()
         printDeviceInfo()
+        mainVM = ViewModelProvider(this)[MainViewModel::class.java]
+        mainVM.userData.observe(this) {
+            setArticlesTopicSubscriptions(it.sendPushes ?: true)
+        }
     }
 
     private fun printDeviceInfo() {
@@ -170,8 +174,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun subscribeToNewArticlesTopic() {
-        FirebaseMessaging.getInstance().subscribeToTopic(FcmService.TOPIC_NEW_ARTICLES)
+    private fun setArticlesTopicSubscriptions(subscribe: Boolean) {
+        if (subscribe) {
+            FirebaseMessaging.getInstance().subscribeToTopic(FcmService.TOPIC_NEW_ARTICLES)
+        } else {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(FcmService.TOPIC_NEW_ARTICLES)
+        }
     }
 
     fun getMainView(): View {
