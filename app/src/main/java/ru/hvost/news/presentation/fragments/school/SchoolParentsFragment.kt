@@ -37,8 +37,8 @@ class SchoolParentsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
         initializedAdapters()
@@ -52,9 +52,9 @@ class SchoolParentsFragment : BaseFragment() {
         setObservers(this)
         setListeners()
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("fromDestination")
-            ?.observe(viewLifecycleOwner) {
-                fromDestination = it
-            }
+                ?.observe(viewLifecycleOwner) {
+                    fromDestination = it
+                }
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -131,6 +131,8 @@ class SchoolParentsFragment : BaseFragment() {
             }
             else if(fromDestination == "seminar"){
                 binding.constraintOfflineSeminars.isSelected = true
+                binding.constraintSpinnerOnlineSchools.visibility = View.GONE
+                binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
             }
         }
         else binding.constraintOnlineSchools.isSelected = true

@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -41,8 +45,8 @@ class SchoolFragment : BaseFragment() {
     }
 
     @Suppress("LABEL_NAME_CLASH")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         val title = arguments?.getString("schoolTitle")
         schoolVM.successRegistration.value?.run {
@@ -169,18 +173,19 @@ class SchoolFragment : BaseFragment() {
         navCMain.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("fromDestination")
             ?.observe(viewLifecycleOwner) {
                 fromDestination = it
-                when(it){
+                when (it) {
                     "lastLesson" -> {
-                        binding.fragmentContainerSchool.scrollTo(0, 0)
+                        binding.rootCoordinator.scrollTo(0,0)
+                        binding.tabInfo.isSelected = false
                         binding.tabMaterials.isSelected = true
                     }
                     "lesson" ->  {
+                        binding.tabInfo.isSelected = false
                         binding.tabMaterials.isSelected  =true
                     }
                 }
             }
     }
-
 
     private fun setListeners() {
         binding.tabInfo.setOnClickListener {

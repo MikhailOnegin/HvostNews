@@ -30,11 +30,6 @@ class OfflineRegistrationDialog(private val seminarId:Long) : BottomSheetDialogF
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var setParticipateEvent: DefaultNetworkEventObserver
     private var seminar: OfflineSeminars.OfflineSeminar? = null
-    override fun onStart() {
-        super.onStart()
-        val decorView = dialog?.window?.decorView
-        decorView?.animate()?.translationY(-100f)?.setStartDelay(300)?.setDuration(300)?.start()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,8 +55,10 @@ class OfflineRegistrationDialog(private val seminarId:Long) : BottomSheetDialogF
         return dialog
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
+        val decorView = dialog?.window?.decorView
+        decorView?.animate()?.translationY(-100f)?.setStartDelay(300)?.setDuration(300)?.start()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         initializedEvents()
         setObservers(this)
@@ -83,7 +80,6 @@ class OfflineRegistrationDialog(private val seminarId:Long) : BottomSheetDialogF
 
     private fun setObservers(owner:LifecycleOwner) {
         schoolVM.offlineSeminars.observe(owner, {
-            val f = 2
             for(i in it.seminars.indices){
                 val seminar = it.seminars[i]
                 if(seminar.id == seminarId){

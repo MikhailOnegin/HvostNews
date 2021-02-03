@@ -4,13 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_useful_literature.view.*
-import kotlinx.android.synthetic.main.layout_literature_item.view.*
-import kotlinx.android.synthetic.main.layout_literature_item.view.textView_title
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ItemLessonActiveBinding
@@ -24,18 +20,18 @@ import java.lang.Exception
 import java.lang.StringBuilder
 
 class SchoolMaterialsAdapter(
-        private val onClickLessonActive: ((String) -> (Unit))? = null,
-        private val onClickLessonFinished: ((String) -> (Unit))? = null
+    private val onClickLessonActive: ((String) -> (Unit))? = null,
+    private val onClickLessonFinished: ((String) -> (Unit))? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var school:OnlineSchools.OnlineSchool? = null
+    private var school: OnlineSchools.OnlineSchool? = null
     private var onlineLessons = arrayListOf<OnlineLessons.OnlineLesson>()
-    private var firstActiveLessonId:String? = null
+    private var firstActiveLessonId: String? = null
 
     fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
-        for(i in lessons.indices){
+        for (i in lessons.indices) {
             val firstActiveLesson = lessons[i]
-            if(!firstActiveLesson.isTestPassed){
+            if (!firstActiveLesson.isTestPassed) {
                 this.firstActiveLessonId = firstActiveLesson.lessonId
                 break
             }
@@ -44,14 +40,15 @@ class SchoolMaterialsAdapter(
         notifyDataSetChanged()
     }
 
-    fun setSchool(school: OnlineSchools.OnlineSchool){
+    fun setSchool(school: OnlineSchools.OnlineSchool) {
         this.school = school
         notifyDataSetChanged()
     }
-    fun setValue(lessons: List<OnlineLessons.OnlineLesson>, school: OnlineSchools.OnlineSchool){
-        for(i in lessons.indices){
+
+    fun setValue(lessons: List<OnlineLessons.OnlineLesson>, school: OnlineSchools.OnlineSchool) {
+        for (i in lessons.indices) {
             val firstActiveLesson = lessons[i]
-            if(!firstActiveLesson.isTestPassed){
+            if (!firstActiveLesson.isTestPassed) {
                 this.firstActiveLessonId = firstActiveLesson.lessonId
                 break
             }
@@ -68,25 +65,29 @@ class SchoolMaterialsAdapter(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-            ))
+                )
+            )
             TYPE_LESSON_FINISHED -> LessonFinishedViewHolder(
                 ItemLessonFinishedBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-            ))
-            else -> UsefulLiteratureViewHolder(ItemUsefulLiteratureBinding.inflate(
+                )
+            )
+            else -> UsefulLiteratureViewHolder(
+                ItemUsefulLiteratureBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
-            ))
+                )
+            )
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return if (position >= onlineLessons.size) TYPE_USEFUL_LITERATURE
         else {
-            if(!onlineLessons[position].isTestPassed){
+            if (!onlineLessons[position].isTestPassed) {
                 TYPE_LESSON_ACTIVE
             } else {
                 TYPE_LESSON_FINISHED
@@ -113,40 +114,51 @@ class SchoolMaterialsAdapter(
     }
 
 
-    inner class LessonActiveViewHolder(private val binding:ItemLessonActiveBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class LessonActiveViewHolder(private val binding: ItemLessonActiveBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int) {
             binding.textViewNumber.text = lessonNumber.toString()
             binding.textViewTitle.text = lesson.lessonTitle.parseAsHtml()
             val strBuilder = StringBuilder()
             strBuilder.append("${itemView.resources.getString(R.string.age2)} ")
-            for(i in lesson.petAge.indices){
+            for (i in lesson.petAge.indices) {
                 val age = lesson.petAge[i]
-                if(i==0) strBuilder.append(age)
-                if(i==1) {
+                if (i == 0) strBuilder.append(age)
+                if (i == 1) {
                     strBuilder.append("-$age")
-                    val month = monthEndings(lesson.petAge[i])
-                    strBuilder.append(" $month")
                 }
             }
-                binding.textViewAge.text = strBuilder.toString()
+            val ending = " ${monthEndings(strBuilder.toString().last().toString())}"
+            strBuilder.append(ending)
+            binding.textViewAge.text = strBuilder.toString()
             firstActiveLessonId?.run {
                 if (this == lesson.lessonId) {
                     binding.imageViewPlay.visibility = View.VISIBLE
-                    binding.textViewTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray1))
+                    binding.textViewTitle.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.gray1
+                        )
+                    )
                     binding.constraintLesson.setOnClickListener {
                         onClickLessonActive?.invoke(lesson.lessonId)
                     }
-                }
-                else {
+                } else {
                     binding.imageViewPlay.visibility = View.GONE
-                    binding.textViewTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.gray3))
+                    binding.textViewTitle.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.gray3
+                        )
+                    )
                 }
             }
         }
     }
 
-    inner class LessonFinishedViewHolder(private val binding: ItemLessonFinishedBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int){
+    inner class LessonFinishedViewHolder(private val binding: ItemLessonFinishedBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(lesson: OnlineLessons.OnlineLesson, lessonNumber: Int) {
             binding.textViewNumberFinished.text = lessonNumber.toString()
             binding.textViewTitleFinished.text = lesson.lessonTitle.parseAsHtml()
             binding.constraintLessonFinished.setOnClickListener {
@@ -155,14 +167,13 @@ class SchoolMaterialsAdapter(
         }
     }
 
-    inner class UsefulLiteratureViewHolder(private val binding:ItemUsefulLiteratureBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class UsefulLiteratureViewHolder(private val binding: ItemUsefulLiteratureBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(school: OnlineSchools.OnlineSchool?) {
-            val f = 1
             school?.run {
-                val ff = 2
                 if (school.literature.isNotEmpty()) {
                     binding.rootConstraint.visibility = View.VISIBLE
-                    val container = itemView.linearLayout_literature
+                    val container = binding.linearLayoutLiterature
                     container.removeAllViews()
                     for (i in school.literature.indices) {
                         val literature = school.literature[i]
@@ -170,25 +181,33 @@ class SchoolMaterialsAdapter(
                             LayoutInflater.from(itemView.context),
                             container,
                             false
-                        ).root
+                        )
 
-                        viewLiterature.textView_title.text = school.literature[i].title
-                        viewLiterature.textView_pet.text = school.literature[i].pet
-                        viewLiterature.constraint_literature.setOnClickListener {
-                            startIntentActionView(itemView.context, APIService.baseUrl + literature.fileUrl)
+                        viewLiterature.textViewTitle.text = school.literature[i].title
+                        viewLiterature.textViewPet.text = school.literature[i].pet
+                        viewLiterature.constraintLiterature.setOnClickListener {
+                            startIntentActionView(
+                                itemView.context,
+                                APIService.baseUrl + literature.fileUrl
+                            )
                         }
-                        val paddingNormal = itemView.resources.getDimension(R.dimen.normalMargin).toInt()
-                        val paddingEdge = itemView.resources.getDimension(R.dimen.largeMargin).toInt()
+                        val paddingNormal =
+                            itemView.resources.getDimension(R.dimen.normalMargin).toInt()
+                        val paddingEdge =
+                            itemView.resources.getDimension(R.dimen.largeMargin).toInt()
 
-                        if(i == 0 || i == school.literature.lastIndex){
-                            if (i == 0) viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
-                            else if (i == school.literature.lastIndex) viewLiterature.setPadding(0, 0,paddingEdge,0)
-                        }
-                        else viewLiterature.setPadding(0, 0, paddingNormal,0)
-                        container.addView(viewLiterature)
+                        if (i == 0 || i == school.literature.lastIndex) {
+                            if (i == 0) viewLiterature.root.setPadding(paddingEdge, 0, paddingNormal, 0)
+                            else if (i == school.literature.lastIndex) viewLiterature.rootConstraint.setPadding(
+                                0,
+                                0,
+                                paddingEdge,
+                                0
+                            )
+                        } else viewLiterature.root.setPadding(0, 0, paddingNormal, 0)
+                        container.addView(viewLiterature.root)
                     }
-                }
-                else {
+                } else {
                     binding.rootConstraint.visibility = View.GONE
                 }
             }
@@ -201,16 +220,18 @@ class SchoolMaterialsAdapter(
         const val TYPE_USEFUL_LITERATURE = 2
     }
 
-    fun monthEndings(i: String): String{
+    fun monthEndings(i: String): String {
         var result = ""
         try {
             result = when (i.toInt()) {
-               0 -> "месяцев"
-               1 -> "месяц"
-               in 3..4 -> "месяца"
-               else -> "месяцев"
-           }}
-        catch (e:Exception){}
-        return  result
+                0 -> "месяцев"
+                1 -> "месяц"
+                3 -> "месяца"
+                4 -> "месяца"
+                else -> "месяцев"
+            }
+        } catch (e: Exception) {
+        }
+        return result
     }
 }

@@ -28,8 +28,8 @@ class CouponsGetInfoFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         couponVM.getCouponsInfo()
         navC = findNavController()

@@ -43,8 +43,8 @@ class CouponFragment : BaseFragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         navC = findNavController()
         couponId = arguments?.get("couponId") as String?

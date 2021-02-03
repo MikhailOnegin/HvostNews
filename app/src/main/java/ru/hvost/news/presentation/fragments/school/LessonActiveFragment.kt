@@ -54,8 +54,8 @@ class LessonActiveFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = findNavController()
         lessonId = arguments?.getString("lessonId")
@@ -65,11 +65,6 @@ class LessonActiveFragment : BaseFragment() {
         initializedEvents()
         setListeners()
         setObservers(this)
-        App.getInstance().userToken?.let { userToken ->
-            schoolId?.let { schoolId ->
-                schoolVM.getSchoolLessons(userToken, schoolId)
-            }
-        }
     }
 
     private fun initializedEvents() {
@@ -196,7 +191,6 @@ class LessonActiveFragment : BaseFragment() {
                                 )
                                 containerOptions.addView(viewOption)
                             }
-                            schoolVM.sendLessonReadyEvent()
                             return@run
                         }
                     }
@@ -208,6 +202,7 @@ class LessonActiveFragment : BaseFragment() {
                     resources.getString(R.string.buttonOk),
                 ).show()
             }
+            schoolVM.sendLessonReadyEvent()
         })
         schoolVM.onlineSchools.observe(owner, {
             schoolId?.run {

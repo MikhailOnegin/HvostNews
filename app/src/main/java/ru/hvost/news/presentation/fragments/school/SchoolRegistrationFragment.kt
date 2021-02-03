@@ -49,8 +49,8 @@ class SchoolRegistrationFragment: BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         mainVM.loadPetsData()

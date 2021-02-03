@@ -39,8 +39,8 @@ class SemianarSuccessRegistrationDialog (private val title:String ): BottomSheet
         return dialog
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         val description = "Регистрация прошла успешно, вы зарегистрированы на этот семинар " +
                 "\"$title \""
         binding.textViewDescription.text = description

@@ -43,8 +43,8 @@ class SeminarFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = findNavController()
 
@@ -90,7 +90,7 @@ class SeminarFragment : BaseFragment() {
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.seminarId.observe(owner,{seminarId ->
+        schoolVM.seminarId.observe( owner,{ seminarId ->
             schoolVM.offlineSeminars.value?.let {
                 for (i in it.seminars.indices) {
                     val seminar = it.seminars[i]

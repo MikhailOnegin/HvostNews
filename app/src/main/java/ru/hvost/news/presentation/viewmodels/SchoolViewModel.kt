@@ -19,6 +19,7 @@ class SchoolViewModel: ViewModel() {
 
     val seminarId:MutableLiveData<Long> = MutableLiveData(0)
     val petTypeName:MutableLiveData<String> = MutableLiveData()
+    val seminarsSize:MutableLiveData<Int> = MutableLiveData(0)
     private val _offlineSeminarsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineSeminarsEvent:LiveData<NetworkEvent<State>> = _offlineSeminarsEvent
     private val _offlineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
@@ -85,7 +86,6 @@ class SchoolViewModel: ViewModel() {
                 _setParticipateEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
-
     }
 
     val filterSchools:MutableLiveData<String> = MutableLiveData()

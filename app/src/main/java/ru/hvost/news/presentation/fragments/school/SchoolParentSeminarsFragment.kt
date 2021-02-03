@@ -34,8 +34,8 @@ class SchoolParentSeminarsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         initializedAdapters()
         binding.recyclerSeminars.adapter = seminarsAdapter
@@ -45,7 +45,8 @@ class SchoolParentSeminarsFragment : BaseFragment() {
 
     private fun initializedAdapters() {
         seminarsAdapter = SeminarsAdapter(
-            clickSeminar = {
+                schoolVM,
+                clickSeminar = {
                 schoolVM.seminarId.value = it
                 navMain.navigate(
                     R.id.action_parentSchoolFragment_to_seminar_fragment,
@@ -56,13 +57,6 @@ class SchoolParentSeminarsFragment : BaseFragment() {
 
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineSeminars.observe(owner, { seminarsResponse ->
-            if (seminarsResponse.seminars.isEmpty()) {
-                binding.rootConstraint.layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
-                binding.scrollViewEmpty.visibility = View.VISIBLE}
-            else {
-                binding.rootConstraint.layoutParams.height = LinearLayout.LayoutParams.MATCH_PARENT
-                binding.scrollViewEmpty.visibility = View.GONE
-            }
             seminarsAdapter.setSeminars(seminarsResponse.seminars)
             schoolVM.filterShowFinished.value?.let {
                 seminarsAdapter.filter(it)
@@ -72,5 +66,15 @@ class SchoolParentSeminarsFragment : BaseFragment() {
             {
                 seminarsAdapter.filter(it)
             })
+        schoolVM.seminarsSize.observe(owner, {
+            if (it > 0) {
+                binding.scrollViewEmpty.visibility = View.GONE
+                binding.recyclerSeminars.visibility = View.VISIBLE
+            }
+            else {
+                binding.scrollViewEmpty.visibility = View.VISIBLE
+                binding.recyclerSeminars.visibility = View.GONE
+            }
+        })
     }
 }

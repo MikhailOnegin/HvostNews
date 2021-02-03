@@ -32,8 +32,8 @@ class SchoolParentsSchoolsFragment: BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         initializedAdapters()
