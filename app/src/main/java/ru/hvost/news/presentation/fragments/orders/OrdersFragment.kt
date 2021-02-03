@@ -35,8 +35,8 @@ class OrdersFragment : Fragment(){
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
         setRecyclerView()
@@ -56,9 +56,21 @@ class OrdersFragment : Fragment(){
         }
     }
 
+    private fun showProgress() {
+        binding.recyclerView.visibility = View.GONE
+        binding.progress.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.progress.visibility = View.GONE
+    }
+
     private fun initializeObservers() {
         loadingObserver = DefaultNetworkEventObserver(
             binding.root,
+            doOnLoading = { showProgress() },
+            doOnSuccess = { hideProgress() },
             doOnError = { findNavController().popBackStack() },
             doOnFailure = { findNavController().popBackStack() }
         )
