@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online_info.view.*
 import kotlinx.android.synthetic.main.item_useful_literature.view.*
@@ -25,6 +28,7 @@ import ru.hvost.news.utils.startIntentActionView
 class SchoolInfoFragment : BaseFragment() {
     private lateinit var binding: FragmentSchoolInfoBinding
     private lateinit var schoolVM: SchoolViewModel
+    private lateinit var navCMain: NavController
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +41,20 @@ class SchoolInfoFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
+        navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         setObservers(this)
     }
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navCMain.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this, onBackPressedCallback
+        )
+    }
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.schoolOnlineId.observe(owner, { schoolId ->
             schoolVM.onlineSchools.value?.let {

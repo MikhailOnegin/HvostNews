@@ -60,7 +60,6 @@ class LessonActiveFragment : BaseFragment() {
         navCMain = findNavController()
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
-        navCMain.previousBackStackEntry?.savedStateHandle?.clearSavedStateProvider("fromDestination")
         navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lesson")
         initializedEvents()
         setListeners()
@@ -84,16 +83,10 @@ class LessonActiveFragment : BaseFragment() {
                         binding.buttonToAnswer.isEnabled = true
                         binding.buttonToAnswer.text = "Финиш"
                         binding.buttonToAnswer.setOnClickListener {
-                            navCMain.previousBackStackEntry?.savedStateHandle?.clearSavedStateProvider("fromDestination")
-                            navCMain.previousBackStackEntry?.savedStateHandle?.set(
-                                "fromDestination",
-                                "lastLesson"
-                            )
+                            navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lastLesson")
                             navCMain.popBackStack()
                         }
                     } else {
-                        navCMain.previousBackStackEntry?.savedStateHandle?.clearSavedStateProvider("fromDestination")
-                        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lesson")
                         binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
                         binding.buttonToAnswer.setOnClickListener {
                             lessonId?.let { lessonId ->

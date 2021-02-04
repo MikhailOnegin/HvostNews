@@ -25,7 +25,7 @@ class SchoolParentsFragment : BaseFragment() {
     private lateinit var binding: FragmentSchoolParentsBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var citiesEvent: DefaultNetworkEventObserver
-    private lateinit var navCSchoolParents:NavController
+    private lateinit var navCSchoolParents: NavController
     private var fromDestination: String? = null
 
     override fun onCreateView(
@@ -42,7 +42,7 @@ class SchoolParentsFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
         initializedAdapters()
-        if ( schoolVM.onlineSchools.value == null) {
+        if (schoolVM.onlineSchools.value == null) {
             App.getInstance().userToken?.run {
                 schoolVM.getSchools(this)
             }
@@ -50,11 +50,10 @@ class SchoolParentsFragment : BaseFragment() {
         if (schoolVM.offlineSeminars.value == null) schoolVM.getSeminarsCities()
         initializeEvents()
         setObservers(this)
+        fromDestination =
+            findNavController().currentBackStackEntry?.savedStateHandle?.get("fromDestination")
         setListeners()
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("fromDestination")
-                ?.observe(viewLifecycleOwner) {
-                    fromDestination = it
-                }
+        val f = 5
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -66,7 +65,7 @@ class SchoolParentsFragment : BaseFragment() {
                     (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
                 adapter.clear()
                 (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).add(
-                        CityOffline("all", "Любой город")
+                    CityOffline("all", "Любой город")
                 )
                 (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
                     this.cities
@@ -111,31 +110,30 @@ class SchoolParentsFragment : BaseFragment() {
             }
         )
     }
-    private fun initializedAdapters(){
+
+    private fun initializedAdapters() {
         binding.spinnerOfflineSeminars.adapter =
-                SpinnerAdapter(requireContext(), "", arrayListOf(), CityOffline::name)
+            SpinnerAdapter(requireContext(), "", arrayListOf(), CityOffline::name)
         binding.spinnerOnlineSchools.adapter =
-                SpinnerAdapter(
-                        requireContext(),
-                        "",
-                        arrayListOf("Все семинары", "Ваши семинары"),
-                        String::getValue
-                )
+            SpinnerAdapter(
+                requireContext(),
+                "",
+                arrayListOf("Все семинары", "Ваши семинары"),
+                String::getValue
+            )
     }
 
     private fun setListeners() {
 
-        if(fromDestination != null) {
-            if (fromDestination == "school"){
+        if (fromDestination != null) {
+            if (fromDestination == "school") {
                 binding.constraintOnlineSchools.isSelected = true
-            }
-            else if(fromDestination == "seminar"){
+            } else if (fromDestination == "seminar") {
                 binding.constraintOfflineSeminars.isSelected = true
                 binding.constraintSpinnerOnlineSchools.visibility = View.GONE
                 binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
             }
-        }
-        else binding.constraintOnlineSchools.isSelected = true
+        } else binding.constraintOnlineSchools.isSelected = true
         binding.constraintOnlineSchools.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
@@ -165,7 +163,9 @@ class SchoolParentsFragment : BaseFragment() {
 
                 @Suppress("UNCHECKED_CAST")
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
+                        p2
+                    )
                         ?.run {
                             val cityId = this.cityId
                             App.getInstance().userToken?.run {

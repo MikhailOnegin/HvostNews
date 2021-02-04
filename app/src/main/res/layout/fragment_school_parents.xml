@@ -126,14 +126,14 @@
                 android:id="@+id/constraint_spinner_online_schools"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"
                 android:animateLayoutChanges="true"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                tools:visibility="invisible">
+                tools:visibility="visible">
 
                 <Spinner
                     android:id="@+id/spinner_online_schools"
@@ -148,13 +148,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_spinner_offline_seminars"
-                android:animateLayoutChanges="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraint_spinner_online_schools">
+                app:layout_constraintTop_toBottomOf="@+id/constraint_spinner_online_schools"
+                tools:visibility="visible">
 
                 <Switch
                     android:id="@+id/switch_filter"
@@ -196,18 +197,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/textView_empty"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_220dp"
+            android:fontFamily="@font/gilroy_semibold"
+            android:gravity="center"
+            android:paddingTop="@dimen/_60dp"
+            android:paddingBottom="@dimen/_60dp"
+            android:text="@string/empty"
+            android:textColor="@color/gray4"
+            android:textSize="@dimen/_26sp"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_spinner_offline_seminars"/>
+    </ScrollView>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerSchoolParents"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:defaultNavHost="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:navGraph="@navigation/navigation_school_parents" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

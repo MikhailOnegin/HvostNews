@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -31,7 +32,17 @@ class SchoolMaterialsFragment: BaseFragment() {
         binding = FragmentSchoolMaterialsBinding.inflate(inflater, container, false)
         return binding.root
     }
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navCMain.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            this, onBackPressedCallback
+        )
+    }
     override fun onStart() {
         super.onStart()
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]

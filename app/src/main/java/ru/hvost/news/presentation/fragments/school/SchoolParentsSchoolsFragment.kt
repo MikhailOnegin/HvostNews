@@ -17,12 +17,12 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.OneTimeEvent
 
-class SchoolParentsSchoolsFragment: BaseFragment() {
+class SchoolParentsSchoolsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolParentsSchoolsBinding
     private lateinit var schoolVM: SchoolViewModel
-    private lateinit var schoolsAdapter:SchoolsListAdapter
-    private lateinit var navCMain:NavController
+    private lateinit var schoolsAdapter: SchoolsListAdapter
+    private lateinit var navCMain: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +41,7 @@ class SchoolParentsSchoolsFragment: BaseFragment() {
         setObservers(this)
     }
 
-    private fun initializedAdapters(){
+    private fun initializedAdapters() {
 
         schoolsAdapter = SchoolsListAdapter(
             clickSchool = {
@@ -68,6 +68,11 @@ class SchoolParentsSchoolsFragment: BaseFragment() {
             schoolsAdapter.filterYourSchools(it)
         })
         schoolVM.recyclerSchoolsReadyEvent.observe(owner) { onRecyclerSchoolsReadyEvent(it) }
+        schoolVM.adapterSchoolsSize.observe(owner, {
+            if (it > 0) binding.recyclerSchools.visibility = View.VISIBLE
+            else binding.recyclerSchools.visibility = View.GONE
+        }
+        )
     }
 
     private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {

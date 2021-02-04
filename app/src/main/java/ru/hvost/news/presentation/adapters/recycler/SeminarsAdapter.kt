@@ -27,13 +27,13 @@ class SeminarsAdapter(
     fun setSeminars(seminars: List<OfflineSeminars.OfflineSeminar>) {
         this.lessonsFull = seminars.toCollection(ArrayList())
         this.lessons = seminars.toCollection(ArrayList())
-        schoolVM.seminarsSize.value = lessons.size
+        schoolVM.adapterSeminarsSize.value = lessons.size
         notifyDataSetChanged()
     }
 
     fun filter(showFinished: Boolean = this.showFinished) {
         lessons = lessonsFull.filter { it.isFinished == showFinished }.toCollection(ArrayList())
-        schoolVM.seminarsSize.value = lessons.size
+        schoolVM.adapterSeminarsSize.value = lessons.size
         notifyDataSetChanged()
     }
 

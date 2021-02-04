@@ -33,7 +33,7 @@ class SeminarInfoFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSeminarInfoBinding
     private lateinit var schoolVM: SchoolViewModel
-    private lateinit var navCMain:NavController
+    private lateinit var navCMain: NavController
     private val adapterVideo = VideoPastSeminarsAdapter()
     private val adapterPartners = PartnersAdapter()
     private var seminar: OfflineSeminars.OfflineSeminar? = null
@@ -54,13 +54,14 @@ class SeminarInfoFragment : BaseFragment() {
         binding.recyclerViewSponsors.adapter = adapterPartners
         binding.recyclerViewSponsors.layoutManager = GridLayoutManager(requireContext(), 2)
         setObservers(this)
+        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "seminar")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-               navCMain.popBackStack()
+                navCMain.popBackStack()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

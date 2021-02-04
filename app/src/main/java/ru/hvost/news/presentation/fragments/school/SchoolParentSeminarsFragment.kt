@@ -4,20 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentSeminarsBinding
-import ru.hvost.news.models.CitiesOffline
 import ru.hvost.news.presentation.adapters.recycler.SeminarsAdapter
-import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
-import ru.hvost.news.utils.getValue
 
 class SchoolParentSeminarsFragment : BaseFragment() {
 
@@ -45,11 +40,11 @@ class SchoolParentSeminarsFragment : BaseFragment() {
 
     private fun initializedAdapters() {
         seminarsAdapter = SeminarsAdapter(
-                schoolVM,
-                clickSeminar = {
+            schoolVM,
+            clickSeminar = {
                 schoolVM.seminarId.value = it
                 navMain.navigate(
-                    R.id.action_parentSchoolFragment_to_seminar_fragment,
+                    R.id.action_parentSchoolFragment_to_seminar_fragment
                 )
             }
         )
@@ -66,15 +61,5 @@ class SchoolParentSeminarsFragment : BaseFragment() {
             {
                 seminarsAdapter.filter(it)
             })
-        schoolVM.seminarsSize.observe(owner, {
-            if (it > 0) {
-                binding.scrollViewEmpty.visibility = View.GONE
-                binding.recyclerSeminars.visibility = View.VISIBLE
-            }
-            else {
-                binding.scrollViewEmpty.visibility = View.VISIBLE
-                binding.recyclerSeminars.visibility = View.GONE
-            }
-        })
     }
 }

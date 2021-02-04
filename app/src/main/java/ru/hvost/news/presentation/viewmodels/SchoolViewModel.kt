@@ -19,7 +19,7 @@ class SchoolViewModel: ViewModel() {
 
     val seminarId:MutableLiveData<Long> = MutableLiveData(0)
     val petTypeName:MutableLiveData<String> = MutableLiveData()
-    val seminarsSize:MutableLiveData<Int> = MutableLiveData(0)
+    val adapterSeminarsSize:MutableLiveData<Int> = MutableLiveData(0)
     private val _offlineSeminarsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineSeminarsEvent:LiveData<NetworkEvent<State>> = _offlineSeminarsEvent
     private val _offlineSeminars:MutableLiveData<OfflineSeminars> = MutableLiveData()
@@ -89,7 +89,7 @@ class SchoolViewModel: ViewModel() {
     }
 
     val filterSchools:MutableLiveData<String> = MutableLiveData()
-
+    val adapterSchoolsSize: MutableLiveData<Int> = MutableLiveData(0)
     private val _onlineSchoolsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineSchoolsEvent:LiveData<NetworkEvent<State>> = _onlineSchoolsEvent
 
