@@ -23,10 +23,13 @@ import com.yandex.mapkit.map.*
 import com.yandex.runtime.ui_view.ViewProvider
 import ru.hvost.news.App
 import ru.hvost.news.R
+import ru.hvost.news.databinding.DialogMapDetailBinding
 import ru.hvost.news.databinding.FragmentMapBinding
 import ru.hvost.news.databinding.PopupMapSettingsBinding
 import ru.hvost.news.models.Shop
 import ru.hvost.news.presentation.adapters.autocomplete.AutoCompleteShopsAdapter
+import ru.hvost.news.presentation.dialogs.PartnerDetailDialog
+import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.OneTimeEvent.Observer
 import ru.hvost.news.utils.showNotReadyToast
@@ -272,9 +275,10 @@ class MapFragment : BaseFragment() {
     }
 
     private val mapObjectTapListener = MapObjectTapListener { mapObject, _ ->
-        val bundle = Bundle()
-        bundle.putLong(PartnersPageFragment.SHOP_ID, mapObject.userData as Long)
-        findNavController().navigate(R.id.action_mapFragment_to_partnersPageFragment, bundle)
+        PartnerDetailDialog(mapObject.userData as Long).show(
+            childFragmentManager,
+            "success_registration_dialog"
+        )
         true
     }
 

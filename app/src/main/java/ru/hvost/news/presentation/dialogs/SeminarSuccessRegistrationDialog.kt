@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.hvost.news.R
 import ru.hvost.news.databinding.DialogSeminarRegistrationSuccessBinding
 
-class SemianarSuccessRegistrationDialog (private val title:String ): BottomSheetDialogFragment(){
+class SeminarSuccessRegistrationDialog (private val title:String ): BottomSheetDialogFragment(){
 
     private lateinit var binding: DialogSeminarRegistrationSuccessBinding
 

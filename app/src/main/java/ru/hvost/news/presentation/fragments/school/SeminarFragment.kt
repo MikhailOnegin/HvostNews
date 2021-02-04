@@ -20,7 +20,7 @@ import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSeminarBinding
 import ru.hvost.news.databinding.LayoutTabItemSeminarBinding
-import ru.hvost.news.presentation.dialogs.SemianarSuccessRegistrationDialog
+import ru.hvost.news.presentation.dialogs.SeminarSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
@@ -56,7 +56,7 @@ class SeminarFragment : BaseFragment() {
                         schoolVM.getSeminars("all", this)
                     }
                     schoolVM.successRegistration.value = false
-                    SemianarSuccessRegistrationDialog(seminarTitle).show(
+                    SeminarSuccessRegistrationDialog(seminarTitle).show(
                         childFragmentManager,
                         "success_registration_dialog"
                     )
