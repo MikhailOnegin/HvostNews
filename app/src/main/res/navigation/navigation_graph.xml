@@ -526,6 +526,11 @@
             app:popExitAnim="@anim/fragment_exit"
             app:popUpTo="@id/splashScreen"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreen_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -618,5 +623,21 @@
         android:name="ru.hvost.news.presentation.fragments.orders.OrderDialogFragment"
         android:label="OrderDialogFragment"
         tools:layout="@layout/fragment_order"/>
+
+    <action
+        android:id="@+id/action_global_articleDetailFragment"
+        app:destination="@id/articleDetailFragment"
+        app:enterAnim="@anim/fragment_enter"
+        app:exitAnim="@anim/fragment_exit"
+        app:popEnterAnim="@anim/fragment_enter"
+        app:popExitAnim="@anim/fragment_exit"/>
+
+    <action
+        android:id="@+id/action_global_ordersFragment"
+        app:destination="@id/ordersFragment"
+        app:enterAnim="@anim/fragment_enter"
+        app:exitAnim="@anim/fragment_exit"
+        app:popEnterAnim="@anim/fragment_enter"
+        app:popExitAnim="@anim/fragment_exit"/>
 
 </navigation>

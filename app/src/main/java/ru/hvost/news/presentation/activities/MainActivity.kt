@@ -24,6 +24,8 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ActivityMainBinding
+import ru.hvost.news.presentation.fragments.feed.FeedFragment
+import ru.hvost.news.presentation.fragments.orders.OrderDialogFragment
 import ru.hvost.news.services.FcmService
 import java.lang.AssertionError
 
@@ -46,6 +48,42 @@ class MainActivity : AppCompatActivity() {
         mainVM = ViewModelProvider(this)[MainViewModel::class.java]
         mainVM.userData.observe(this) {
             setArticlesTopicSubscriptions(it.sendPushes ?: true)
+        }
+        handlePushExtras()
+    }
+
+    private fun handlePushExtras() {
+        if (App.getInstance().userToken == null) return
+        when (intent?.extras?.getString(FcmService.KEY_PUSH_TYPE)) {
+            FcmService.PUSH_TYPE_NEW_ARTICLES -> {
+                goToArticleFragment(intent?.extras?.getString(FcmService.KEY_ARTICLE_ID))
+            }
+            FcmService.PUSH_TYPE_ORDER_STATUS -> {
+                goToOrdersFragment(intent?.extras?.getString(FcmService.KEY_ORDER_ID))
+            }
+        }
+    }
+
+    private fun goToArticleFragment(articleId: String?) {
+        articleId?.let {
+            findNavController(R.id.nav_host_fragment).run {
+                showBnv()
+                navigate(R.id.action_splashScreen_to_feedFragment)
+                val bundle = Bundle().apply { putString(FeedFragment.ARTICLE_ID, it) }
+                navigate(R.id.action_global_articleDetailFragment, bundle)
+            }
+        }
+    }
+
+    private fun goToOrdersFragment(orderId: String?) {
+        orderId?.let {
+            findNavController(R.id.nav_host_fragment).run {
+                showBnv()
+                mainVM.updateOrders(App.getInstance().userToken)
+                navigate(R.id.action_splashScreen_to_profileFragment)
+                val bundle = Bundle().apply { putString(OrderDialogFragment.ORDER_ID, it) }
+                navigate(R.id.action_global_ordersFragment, bundle)
+            }
         }
     }
 

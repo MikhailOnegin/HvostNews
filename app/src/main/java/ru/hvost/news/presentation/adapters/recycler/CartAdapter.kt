@@ -21,7 +21,6 @@ import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.WordEnding
 import ru.hvost.news.utils.getWordEndingType
 import ru.hvost.news.utils.moneyFormat
-import ru.hvost.news.utils.showNotReadyToast
 import java.lang.IllegalArgumentException
 
 class CartAdapter(
@@ -161,11 +160,11 @@ class CartAdapter(
                     oldPrice.visibility = View.GONE
                     oldPriceTitle.visibility = View.GONE
                 }else{
-                    total.text = "${moneyFormat.format(item.totalCost.toInt())} \u20bd"
+                    total.text = "${moneyFormat.format(item.totalCost)} \u20bd"
                     oldPrice.visibility = View.VISIBLE
                     oldPriceTitle.visibility = View.VISIBLE
                 }
-                oldPrice.text = "${moneyFormat.format(item.oldCost.toInt())} \u20bd"
+                oldPrice.text = "${moneyFormat.format(item.oldCost)} \u20bd"
                 binding.makeOrder.setOnClickListener {
                     cartVM.sendGoToMakeOrderEvent()
                 }
