@@ -53,7 +53,6 @@ class SchoolParentsFragment : BaseFragment() {
         fromDestination =
             findNavController().currentBackStackEntry?.savedStateHandle?.get("fromDestination")
         setListeners()
-        val f = 5
     }
 
     @Suppress("UNCHECKED_CAST")

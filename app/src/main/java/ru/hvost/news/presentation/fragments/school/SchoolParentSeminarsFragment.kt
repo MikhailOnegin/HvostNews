@@ -61,5 +61,6 @@ class SchoolParentSeminarsFragment : BaseFragment() {
             {
                 seminarsAdapter.filter(it)
             })
+
     }
 }

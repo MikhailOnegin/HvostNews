@@ -5,8 +5,9 @@
     android:id="@+id/root_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/_24dp"
+    android:background="@android:color/white"
     android:foreground="@drawable/selector_gray_rect_small_corners"
+    android:paddingBottom="@dimen/_24dp"
     tools:ignore="UnusedAttribute">
 
     <ImageView
@@ -71,10 +72,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_active"
-                android:paddingTop="@dimen/_8dp"
-                android:paddingBottom="@dimen/_8dp"
-                android:paddingEnd="@dimen/_16dp"
                 android:paddingStart="@dimen/_16dp"
+                android:paddingTop="@dimen/_8dp"
+                android:paddingEnd="@dimen/_16dp"
+                android:paddingBottom="@dimen/_8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 

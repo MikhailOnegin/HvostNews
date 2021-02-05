@@ -209,6 +209,7 @@ class SchoolFragment : BaseFragment() {
             )
         }
         binding.toolbarOnlineSchool.setNavigationOnClickListener {
+            navCMain.popBackStack()
         }
     }
 }
