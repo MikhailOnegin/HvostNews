@@ -53,6 +53,7 @@ class SchoolParentsFragment : BaseFragment() {
         fromDestination =
             findNavController().currentBackStackEntry?.savedStateHandle?.get("fromDestination")
         setListeners()
+        setTabsSelected(fromDestination)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -123,16 +124,6 @@ class SchoolParentsFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-
-        if (fromDestination != null) {
-            if (fromDestination == "school") {
-                binding.constraintOnlineSchools.isSelected = true
-            } else if (fromDestination == "seminar") {
-                binding.constraintOfflineSeminars.isSelected = true
-                binding.constraintSpinnerOnlineSchools.visibility = View.GONE
-                binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
-            }
-        } else binding.constraintOnlineSchools.isSelected = true
         binding.constraintOnlineSchools.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
@@ -186,5 +177,26 @@ class SchoolParentsFragment : BaseFragment() {
                         }
                 }
             }
+    }
+
+    fun setTabsSelected(destination: String?) {
+        if (destination != null) {
+            if (fromDestination == "school") {
+                binding.constraintOnlineSchools.isSelected = true
+                binding.constraintOfflineSeminars.isSelected = false
+                binding.constraintSpinnerOnlineSchools.visibility = View.VISIBLE
+                binding.constraintSpinnerOfflineSeminars.visibility = View.GONE
+            } else if (fromDestination == "seminar") {
+                binding.constraintOfflineSeminars.isSelected = true
+                binding.constraintOnlineSchools.isSelected = false
+                binding.constraintSpinnerOnlineSchools.visibility = View.GONE
+                binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
+            }
+        } else {
+            binding.constraintOnlineSchools.isSelected = true
+            binding.constraintOfflineSeminars.isSelected = false
+            binding.constraintSpinnerOnlineSchools.visibility = View.VISIBLE
+            binding.constraintSpinnerOfflineSeminars.visibility = View.GONE
+        }
     }
 }
