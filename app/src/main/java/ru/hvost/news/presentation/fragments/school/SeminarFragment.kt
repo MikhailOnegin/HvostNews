@@ -43,8 +43,8 @@ class SeminarFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = findNavController()
 

@@ -43,8 +43,9 @@ class SchoolMaterialsFragment: BaseFragment() {
             this, onBackPressedCallback
         )
     }
-    override fun onStart() {
-        super.onStart()
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         initializedAdapters()
@@ -58,11 +59,6 @@ class SchoolMaterialsFragment: BaseFragment() {
                     val bundle = Bundle()
                     bundle.putString("schoolId", this.schoolId.toString())
                     bundle.putString("lessonId", it)
-                    App.getInstance().userToken?.let { userToken ->
-                        schoolId?.let { schoolId ->
-                            schoolVM.getSchoolLessons(userToken, schoolId.toString())
-                        }
-                    }
                     navCMain.navigate(
                             R.id.action_schoolFragment_to_lessonActiveFragment,
                             bundle
@@ -94,13 +90,7 @@ class SchoolMaterialsFragment: BaseFragment() {
                             binding.scrollViewEmpty.visibility = View.VISIBLE
                             binding.recyclerMaterials.visibility = View.GONE
                         }
-                        App.getInstance().userToken?.run {
-                            schoolVM.getSchoolLessons(this, school.id.toString())
-                        }
                         this.schoolId = school.id
-                        App.getInstance().userToken?.let { userToken ->
-                            schoolVM.getSchoolLessons(userToken, school.id.toString())
-                        }
                         return@observe
                     }
                 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -29,8 +30,8 @@ class SchoolParentSeminarsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         initializedAdapters()
         binding.recyclerSeminars.adapter = seminarsAdapter
@@ -61,6 +62,16 @@ class SchoolParentSeminarsFragment : BaseFragment() {
             {
                 seminarsAdapter.filter(it)
             })
+        schoolVM.adapterSeminarsSize.observe(owner, {
+            if (it > 0) {
+                binding.scrollViewEmpty.visibility = View.GONE
+                binding.recyclerSeminars.visibility = View.VISIBLE
+            }
+            else {
+                binding.scrollViewEmpty.visibility = View.VISIBLE
+                binding.recyclerSeminars.visibility = View.GONE
+            }
+        })
 
     }
 }

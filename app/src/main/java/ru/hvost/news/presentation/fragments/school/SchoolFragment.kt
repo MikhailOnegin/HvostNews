@@ -25,6 +25,7 @@ import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import java.lang.Exception
 
 
 class SchoolFragment : BaseFragment() {
@@ -45,8 +46,8 @@ class SchoolFragment : BaseFragment() {
     }
 
     @Suppress("LABEL_NAME_CLASH")
-    override fun onStart() {
-        super.onStart()
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         val title = arguments?.getString("schoolTitle")
         schoolVM.successRegistration.value?.run {
@@ -93,9 +94,10 @@ class SchoolFragment : BaseFragment() {
                 schoolVM.getSchoolLessons(userToken, schoolId )
             }
         }
-        if (fromDestination == null) binding.tabInfo.isSelected  = true
         findNavController().previousBackStackEntry?.savedStateHandle?.set("fromDestination","school")
+        setTabsSelected(fromDestination)
     }
+
 
     fun setObservers(owner: LifecycleOwner) {
 
@@ -169,33 +171,29 @@ class SchoolFragment : BaseFragment() {
             }
         })
         fromDestination = navCMain.currentBackStackEntry?.savedStateHandle?.get<String>("fromDestination")
-        when (fromDestination) {
-            "lastLesson" -> {
-                binding.rootCoordinator.scrollTo(0, 0)
-                binding.tabInfo.isSelected = false
-                binding.tabMaterials.isSelected = true
-            }
-            "lesson" -> {
-                binding.tabInfo.isSelected = false
-                binding.tabMaterials.isSelected = true
-            }
-        }
-
     }
 
     private fun setListeners() {
         binding.tabInfo.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
-                navCSchool.navigate(R.id.action_schoolMaterialsFragment_to_schoolInfoFragment)
                 binding.tabMaterials.isSelected = false
+                try {
+                    navCSchool.navigate(R.id.action_schoolMaterialsFragment_to_schoolInfoFragment)
+                }
+                catch (e:Exception){
+                }
             }
         }
         binding.tabMaterials.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
                 binding.tabInfo.isSelected = false
-                navCSchool.navigate(R.id.action_schoolInfoFragment_to_schoolMaterialsFragment)
+                try {
+                    navCSchool.navigate(R.id.action_schoolInfoFragment_to_schoolMaterialsFragment)
+                }
+                catch (e:Exception){
+                }
             }
         }
         binding.buttonRegistration.setOnClickListener {
@@ -210,6 +208,24 @@ class SchoolFragment : BaseFragment() {
         }
         binding.toolbarOnlineSchool.setNavigationOnClickListener {
             navCMain.popBackStack()
+        }
+    }
+
+    private fun setTabsSelected(fromDestination: String?) {
+        when (fromDestination) {
+            "lastLesson" -> {
+                binding.rootCoordinator.scrollTo(0, 0)
+                binding.tabInfo.isSelected = false
+                binding.tabMaterials.isSelected = true
+            }
+            "lesson" -> {
+                binding.tabInfo.isSelected = false
+                binding.tabMaterials.isSelected = true
+            }
+            else -> {
+                binding.tabInfo.isSelected = true
+                binding.tabMaterials.isSelected = false
+            }
         }
     }
 }

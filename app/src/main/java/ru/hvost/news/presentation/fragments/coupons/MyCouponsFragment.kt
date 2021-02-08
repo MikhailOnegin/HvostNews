@@ -33,8 +33,8 @@ class MyCouponsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         navC = findNavController()
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         adapter.clickCoupon = object : MyCouponsAdapter.ClickCoupon {

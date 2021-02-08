@@ -19,6 +19,7 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.getValue
+import java.lang.Exception
 
 class SchoolParentsFragment : BaseFragment() {
 
@@ -37,8 +38,8 @@ class SchoolParentsFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
         initializedAdapters()
@@ -50,8 +51,7 @@ class SchoolParentsFragment : BaseFragment() {
         if (schoolVM.offlineSeminars.value == null) schoolVM.getSeminarsCities()
         initializeEvents()
         setObservers(this)
-        fromDestination =
-            findNavController().currentBackStackEntry?.savedStateHandle?.get("fromDestination")
+        fromDestination = findNavController().currentBackStackEntry?.savedStateHandle?.get("fromDestination")
         setListeners()
         setTabsSelected(fromDestination)
     }
@@ -130,7 +130,11 @@ class SchoolParentsFragment : BaseFragment() {
                 binding.constraintOfflineSeminars.isSelected = false
                 binding.constraintSpinnerOfflineSeminars.visibility = View.GONE
                 binding.constraintSpinnerOnlineSchools.visibility = View.VISIBLE
-                navCSchoolParents.navigate(R.id.action_seminarsFragment_to_schoolsFragment)
+                try {
+                    navCSchoolParents.navigate(R.id.action_seminarsFragment_to_schoolsFragment)
+                }
+                catch (e:Exception){
+                }
             }
         }
         binding.constraintOfflineSeminars.setOnClickListener {
@@ -139,7 +143,11 @@ class SchoolParentsFragment : BaseFragment() {
                 binding.constraintOnlineSchools.isSelected = false
                 binding.constraintSpinnerOfflineSeminars.visibility = View.VISIBLE
                 binding.constraintSpinnerOnlineSchools.visibility = View.GONE
-                navCSchoolParents.navigate(R.id.action_schoolsFragment_to_seminarsFragment)
+                try {
+                    navCSchoolParents.navigate(R.id.action_schoolsFragment_to_seminarsFragment)
+                }
+                catch (e:Exception){
+                }
             }
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->

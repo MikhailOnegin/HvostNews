@@ -46,8 +46,8 @@ class SeminarInfoFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         binding.recyclerViewVideo.adapter = adapterVideo

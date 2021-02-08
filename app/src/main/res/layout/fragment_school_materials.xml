@@ -10,6 +10,7 @@
         android:id="@+id/scrollViewEmpty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +19,7 @@
         <TextView
             android:id="@+id/textView_reg"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_220dp"
+            android:layout_height="@dimen/_300dp"
             android:layout_marginStart="@dimen/largeMargin"
             android:layout_marginEnd="@dimen/largeMargin"
             android:animateLayoutChanges="true"

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -69,8 +70,16 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         })
         schoolVM.recyclerSchoolsReadyEvent.observe(owner) { onRecyclerSchoolsReadyEvent(it) }
         schoolVM.adapterSchoolsSize.observe(owner, {
-            if (it > 0) binding.recyclerSchools.visibility = View.VISIBLE
-            else binding.recyclerSchools.visibility = View.GONE
+            if (it > 0) {
+                binding.root.layoutParams.height = ConstraintLayout.LayoutParams.MATCH_PARENT
+                binding.scrollViewEmpty.visibility = View.GONE
+                binding.recyclerSchools.visibility = View.VISIBLE
+            }
+            else {
+                binding.root.layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                binding.scrollViewEmpty.visibility = View.VISIBLE
+                binding.recyclerSchools.visibility = View.GONE
+            }
         }
         )
     }

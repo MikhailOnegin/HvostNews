@@ -200,25 +200,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:id="@+id/textView_empty"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_220dp"
-            android:fontFamily="@font/gilroy_semibold"
-            android:gravity="center"
-            android:paddingTop="@dimen/_60dp"
-            android:paddingBottom="@dimen/_60dp"
-            android:text="@string/empty"
-            android:textColor="@color/gray4"
-            android:textSize="@dimen/_26sp"
-            app:layout_constraintTop_toBottomOf="@+id/constraint_spinner_offline_seminars"/>
-    </ScrollView>
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerSchoolParents"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -227,5 +208,6 @@
         app:defaultNavHost="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:navGraph="@navigation/navigation_school_parents" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
