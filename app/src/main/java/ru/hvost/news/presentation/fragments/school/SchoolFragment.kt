@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -21,6 +25,7 @@ import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import java.lang.Exception
 
 
 class SchoolFragment : BaseFragment() {
@@ -41,8 +46,8 @@ class SchoolFragment : BaseFragment() {
     }
 
     @Suppress("LABEL_NAME_CLASH")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         val title = arguments?.getString("schoolTitle")
         schoolVM.successRegistration.value?.run {
@@ -54,11 +59,9 @@ class SchoolFragment : BaseFragment() {
                         childFragmentManager,
                         "success_registration_dialog"
                 )
-                schoolVM.successRegistration.value = false
             }
         }
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
-        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "school")
         navCSchool = requireActivity().findNavController(R.id.fragmentContainerSchool)
         schoolId = arguments?.getString("schoolId")
         schoolId?.let {
@@ -91,8 +94,10 @@ class SchoolFragment : BaseFragment() {
                 schoolVM.getSchoolLessons(userToken, schoolId )
             }
         }
-        if (fromDestination == null) binding.tabInfo.isSelected  = true
+        findNavController().previousBackStackEntry?.savedStateHandle?.set("fromDestination","school")
+        setTabsSelected(fromDestination)
     }
+
 
     fun setObservers(owner: LifecycleOwner) {
 
@@ -104,51 +109,50 @@ class SchoolFragment : BaseFragment() {
                         if (onlineSchool.participate) {
                             binding.constraintRegistration.visibility = View.GONE
                             binding.constraintRank.visibility = View.VISIBLE
-                        }
-                        else {
+                        } else {
                             binding.constraintRegistration.visibility = View.VISIBLE
                             binding.constraintRank.visibility = View.INVISIBLE
                         }
 
                         val containerNumbers = linearLayout_lesson_numbers
                         val padding =
-                                resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
+                            resources.getDimension(R.dimen.logoOnlineSchoolPadding).toInt()
                         containerNumbers.setPadding(0, 0, 0, padding)
                         containerNumbers.removeAllViews()
                         for (q in onlineSchool.lessonsPassed.indices) {
                             val number = (q + 1).toString()
                             val isPassed = onlineSchool.lessonsPassed[q].isPassed
                             val viewWait = LayoutLessonNumberBinding.inflate(
-                                    LayoutInflater.from(requireContext()),
-                                    containerNumbers,
-                                    false
+                                LayoutInflater.from(requireContext()),
+                                containerNumbers,
+                                false
                             ).root
                             viewWait.textView_lesson_number.background =
-                                    ContextCompat.getDrawable(
-                                            requireContext(),
-                                            R.drawable.selector_lesson_number
-                                    )
+                                ContextCompat.getDrawable(
+                                    requireContext(),
+                                    R.drawable.selector_lesson_number
+                                )
                             viewWait.textView_lesson_number.isSelected =
-                                    onlineSchool.lessonsPassed[q].isPassed
+                                onlineSchool.lessonsPassed[q].isPassed
                             viewWait.textView_lesson_number.text = number
                             viewWait.textView_lesson_number.isSelected = isPassed
 
                             if (isPassed) viewWait.textView_lesson_number.setTextColor(
-                                    ContextCompat.getColor(
-                                            requireContext(),
-                                            android.R.color.white
-                                    )
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    android.R.color.white
+                                )
                             )
                             else viewWait.textView_lesson_number.setTextColor(
-                                    ContextCompat.getColor(
-                                            requireContext(),
-                                            R.color.gray3
-                                    )
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.gray3
+                                )
                             )
                             val paddingNormal =
-                                    resources.getDimension(R.dimen._14dp).toInt()
+                                resources.getDimension(R.dimen._14dp).toInt()
                             val paddingEdge =
-                                    resources.getDimension(R.dimen.largeMargin).toInt()
+                                resources.getDimension(R.dimen.largeMargin).toInt()
                             if (q == 0 || q == onlineSchool.lessonsPassed.lastIndex) {
                                 if (q == 0) {
                                     viewWait.setPadding(paddingEdge, 0, paddingNormal, 0)
@@ -166,35 +170,30 @@ class SchoolFragment : BaseFragment() {
                 }
             }
         })
-        navCMain.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("fromDestination")
-            ?.observe(viewLifecycleOwner) {
-                fromDestination = it
-                when(it){
-                    "lastLesson" -> {
-                        binding.fragmentContainerSchool.scrollTo(0, 0)
-                        binding.tabMaterials.isSelected = true
-                    }
-                    "lesson" ->  {
-                        binding.tabMaterials.isSelected  =true
-                    }
-                }
-            }
+        fromDestination = navCMain.currentBackStackEntry?.savedStateHandle?.get<String>("fromDestination")
     }
-
 
     private fun setListeners() {
         binding.tabInfo.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
-                navCSchool.navigate(R.id.action_schoolMaterialsFragment_to_schoolInfoFragment)
                 binding.tabMaterials.isSelected = false
+                try {
+                    navCSchool.navigate(R.id.action_schoolMaterialsFragment_to_schoolInfoFragment)
+                }
+                catch (e:Exception){
+                }
             }
         }
         binding.tabMaterials.setOnClickListener {
             if (!it.isSelected) {
                 it.isSelected = true
                 binding.tabInfo.isSelected = false
-                navCSchool.navigate(R.id.action_schoolInfoFragment_to_schoolMaterialsFragment)
+                try {
+                    navCSchool.navigate(R.id.action_schoolInfoFragment_to_schoolMaterialsFragment)
+                }
+                catch (e:Exception){
+                }
             }
         }
         binding.buttonRegistration.setOnClickListener {
@@ -208,7 +207,25 @@ class SchoolFragment : BaseFragment() {
             )
         }
         binding.toolbarOnlineSchool.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            navCMain.popBackStack()
+        }
+    }
+
+    private fun setTabsSelected(fromDestination: String?) {
+        when (fromDestination) {
+            "lastLesson" -> {
+                binding.rootCoordinator.scrollTo(0, 0)
+                binding.tabInfo.isSelected = false
+                binding.tabMaterials.isSelected = true
+            }
+            "lesson" -> {
+                binding.tabInfo.isSelected = false
+                binding.tabMaterials.isSelected = true
+            }
+            else -> {
+                binding.tabInfo.isSelected = true
+                binding.tabMaterials.isSelected = false
+            }
         }
     }
 }

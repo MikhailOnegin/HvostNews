@@ -30,7 +30,16 @@ class SchoolsListAdapter(
             "Ваши семинары" -> schools = currentList.filter { it.participate }.toCollection(ArrayList())
             "Все семинары" -> schools = currentList.toCollection(ArrayList())
         }
+        schoolVM.adapterSchoolsSize.value = schools.size
         notifyDataSetChanged()
+    }
+
+    override fun submitList(list: List<OnlineSchools.OnlineSchool>?) {
+        list?.let {
+            schools = list.toCollection(ArrayList())
+            schoolVM.adapterSchoolsSize.value = schools.size
+        }
+        super.submitList(list)
     }
 
     override fun onCurrentListChanged(

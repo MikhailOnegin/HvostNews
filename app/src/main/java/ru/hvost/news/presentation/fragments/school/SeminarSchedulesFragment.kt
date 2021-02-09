@@ -21,7 +21,7 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
 
-class SeminarSchedulesFragment: BaseFragment() {
+class SeminarSchedulesFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSeminarSchedulesBinding
     private lateinit var schoolVM: SchoolViewModel
@@ -31,20 +31,21 @@ class SeminarSchedulesFragment: BaseFragment() {
     private var seminar: OfflineSeminars.OfflineSeminar? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentSeminarSchedulesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         binding.recyclerViewVideo.adapter = adapterVideo
         binding.recyclerViewSponsors.adapter = adapterPartners
         binding.recyclerViewSponsors.layoutManager = GridLayoutManager(requireContext(), 2)
+        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "seminar")
         setObservers(this)
     }
 
@@ -59,6 +60,7 @@ class SeminarSchedulesFragment: BaseFragment() {
             this, onBackPressedCallback
         )
     }
+
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.petTypeName.observe(owner, {
             schoolVM.offlineSeminars.value?.let { offlineSeminars ->
@@ -81,7 +83,7 @@ class SeminarSchedulesFragment: BaseFragment() {
                                     if (petSchedule.petTypeName == petTypeName) {
                                         val linearSchedules = binding.linearLayoutSchedules
                                         linearSchedules.removeAllViews()
-                                        for(j in petSchedule.schedules.indices){
+                                        for (j in petSchedule.schedules.indices) {
                                             val schedule = petSchedule.schedules[j]
                                             val viewSchedule = LayoutSeminarScheduleBinding.inflate(
                                                 LayoutInflater.from(requireContext()),
@@ -90,9 +92,12 @@ class SeminarSchedulesFragment: BaseFragment() {
                                             )
                                             viewSchedule.textViewTitle.text = schedule.title
                                             viewSchedule.textViewTime.text = schedule.title
-                                            viewSchedule.textViewDescription.text = schedule.description.parseAsHtml()
-                                            viewSchedule.textViewDate.text = dateFormat(schedule.date)
-                                            val time = "${schedule.timeStart} - ${schedule.timeFinish}"
+                                            viewSchedule.textViewDescription.text =
+                                                schedule.description.parseAsHtml()
+                                            viewSchedule.textViewDate.text =
+                                                dateFormat(schedule.date)
+                                            val time =
+                                                "${schedule.timeStart} - ${schedule.timeFinish}"
                                             viewSchedule.textViewTime.text = time
                                             linearSchedules.addView(viewSchedule.root)
                                         }

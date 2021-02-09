@@ -43,8 +43,8 @@ class CouponFragment : BaseFragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
         navC = findNavController()
         couponId = arguments?.get("couponId") as String?
@@ -57,7 +57,6 @@ class CouponFragment : BaseFragment() {
         couponVM.couponsEvent.observe(owner, {
             couponsEvent(it)
         })
-//
     }
 
     private val couponsEvent = { event: NetworkEvent<State> ->

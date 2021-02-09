@@ -10,11 +10,13 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.ItemSeminarBinding
 import ru.hvost.news.models.OfflineSeminars
+import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
 import java.util.*
 
 class SeminarsAdapter(
-        private val clickSeminar: ((Long) -> Unit)? = null,
+    private val schoolVM: SchoolViewModel,
+    private val clickSeminar: ((Long) -> Unit)? = null,
 ) :
     RecyclerView.Adapter<SeminarsAdapter.OfflineLessonsViewHolder>() {
 
@@ -25,11 +27,13 @@ class SeminarsAdapter(
     fun setSeminars(seminars: List<OfflineSeminars.OfflineSeminar>) {
         this.lessonsFull = seminars.toCollection(ArrayList())
         this.lessons = seminars.toCollection(ArrayList())
+        schoolVM.adapterSeminarsSize.value = lessons.size
         notifyDataSetChanged()
     }
 
     fun filter(showFinished: Boolean = this.showFinished) {
         lessons = lessonsFull.filter { it.isFinished == showFinished }.toCollection(ArrayList())
+        schoolVM.adapterSeminarsSize.value = lessons.size
         notifyDataSetChanged()
     }
 

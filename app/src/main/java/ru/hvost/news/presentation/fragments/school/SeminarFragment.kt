@@ -20,7 +20,7 @@ import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSeminarBinding
 import ru.hvost.news.databinding.LayoutTabItemSeminarBinding
-import ru.hvost.news.presentation.dialogs.SemianarSuccessRegistrationDialog
+import ru.hvost.news.presentation.dialogs.SeminarSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
@@ -31,7 +31,7 @@ class SeminarFragment : BaseFragment() {
     private lateinit var binding: FragmentSeminarBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var setSubscribeEvent: DefaultNetworkEventObserver
-    private lateinit var navCMain:NavController
+    private lateinit var navCMain: NavController
     private var seminarId: String? = null
     private var tabsView = arrayListOf<ConstraintLayout>()
 
@@ -43,8 +43,8 @@ class SeminarFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = findNavController()
 
@@ -56,7 +56,7 @@ class SeminarFragment : BaseFragment() {
                         schoolVM.getSeminars("all", this)
                     }
                     schoolVM.successRegistration.value = false
-                    SemianarSuccessRegistrationDialog(seminarTitle).show(
+                    SeminarSuccessRegistrationDialog(seminarTitle).show(
                         childFragmentManager,
                         "success_registration_dialog"
                     )
@@ -75,7 +75,7 @@ class SeminarFragment : BaseFragment() {
     private fun initializedEvents() {
         setSubscribeEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
-            doOnLoading = {binding.buttonParticipate.isEnabled = false },
+            doOnLoading = { binding.buttonParticipate.isEnabled = false },
             doOnSuccess = {
                 binding.buttonParticipate.text = getString(R.string.you_are_subscribe_for_event)
                 binding.buttonParticipate.isEnabled = false
@@ -90,49 +90,47 @@ class SeminarFragment : BaseFragment() {
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.seminarId.observe(owner,{seminarId ->
+        schoolVM.seminarId.observe(owner, { seminarId ->
             schoolVM.offlineSeminars.value?.let {
                 for (i in it.seminars.indices) {
                     val seminar = it.seminars[i]
                     if (seminar.id == seminarId) {
                         if (seminar.isFinished) {
-                            if(!seminar.subscriptionEvent){
+                            if (!seminar.subscriptionEvent) {
                                 binding.buttonParticipate.text = getString(R.string.subscribe)
                                 binding.buttonParticipate.setOnClickListener {
-                                    App.getInstance().userToken?.let {userToken ->
+                                    App.getInstance().userToken?.let { userToken ->
                                         schoolVM.setSubscribe(userToken, seminarId.toString())
                                     }
                                 }
-                            }
-                            else {
-                                binding.buttonParticipate.text = getString(R.string.you_are_subscribe_for_event)
+                            } else {
+                                binding.buttonParticipate.text =
+                                    getString(R.string.you_are_subscribe_for_event)
                                 binding.buttonParticipate.isEnabled = false
                             }
                             binding.textViewLessonStatus.text = getString(R.string.completed)
                             binding.textViewLessonStatus.setTextColor(
-                                    ContextCompat.getColor(
-                                            requireContext(),
-                                            R.color.red
-                                    )
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.red
+                                )
                             )
-                        }
-                        else {
+                        } else {
                             binding.textViewLessonStatus.text = getString(R.string.active)
                             binding.textViewLessonStatus.setTextColor(
-                                    ContextCompat.getColor(
-                                            requireContext(),
-                                            R.color.colorPrimary
-                                    )
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorPrimary
+                                )
                             )
                             if (seminar.participate) {
                                 binding.buttonParticipate.text = getString(R.string.you_participate)
                                 binding.buttonParticipate.isEnabled = false
                                 binding.buttonShare.visibility = View.VISIBLE
-                                binding.buttonShare.setOnClickListener{
+                                binding.buttonShare.setOnClickListener {
                                     shareRefLink(seminar.seminarUrl)
                                 }
-                            }
-                            else {
+                            } else {
                                 binding.buttonParticipate.text = getString(R.string.participate)
                                 binding.buttonParticipate.isEnabled = true
                                 binding.buttonParticipate.isEnabled = true
@@ -140,7 +138,10 @@ class SeminarFragment : BaseFragment() {
                                     seminarId.run {
                                         val bundle = Bundle()
                                         bundle.putString("seminarId", this.toString())
-                                        findNavController().navigate(R.id.action_seminarFragment_to_registrationSeminarFragment, bundle)
+                                        findNavController().navigate(
+                                            R.id.action_seminarFragment_to_registrationSeminarFragment,
+                                            bundle
+                                        )
                                     }
 
                                 }
@@ -151,31 +152,41 @@ class SeminarFragment : BaseFragment() {
                         val linearTabs = binding.linearLayoutTabs
                         linearTabs.removeAllViews()
                         val viewTab = LayoutTabItemSeminarBinding.inflate(
-                                LayoutInflater.from(requireContext()),
-                                linearTabs,
-                                false
+                            LayoutInflater.from(requireContext()),
+                            linearTabs,
+                            false
                         ).root
                         viewTab.textView_tab.text = getString(R.string.seminar_info)
-                        viewTab.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_left)
+                        viewTab.background = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.sex_selector_left
+                        )
                         viewTab.textView_tab.isSelected = true
                         viewTab.isSelected = true
                         (viewTab.layoutParams as LinearLayout.LayoutParams).setMargins(
-                            0,0, margin,0
+                            0, 0, margin, 0
                         )
                         tabsView.add(viewTab)
                         setListenerTab(viewTab, tabsView)
                         linearTabs.addView(viewTab)
-                        for (q in seminar.petSchedules.indices){
+                        for (q in seminar.petSchedules.indices) {
                             val viewTab2 = LayoutTabItemSeminarBinding.inflate(
-                                    LayoutInflater.from(requireContext()),
-                                    linearTabs,
-                                    false
+                                LayoutInflater.from(requireContext()),
+                                linearTabs,
+                                false
                             ).root
                             val petTypeName = seminar.petSchedules[q].petTypeName
-                            if (q == seminar.petSchedules.size - 1 ) viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_right)
-                            else viewTab2.background = ContextCompat.getDrawable(requireContext(), R.drawable.sex_selector_middle)
+                            if (q == seminar.petSchedules.size - 1) viewTab2.background =
+                                ContextCompat.getDrawable(
+                                    requireContext(),
+                                    R.drawable.sex_selector_right
+                                )
+                            else viewTab2.background = ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.sex_selector_middle
+                            )
                             (viewTab2.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                    margin,0,margin,0
+                                margin, 0, margin, 0
                             )
                             val tabText = "${getString(R.string.schedule_for)} $petTypeName"
                             viewTab2.textView_tab.text = tabText
@@ -195,10 +206,10 @@ class SeminarFragment : BaseFragment() {
 
         schoolVM.setSubscribeEvent.observe(owner, setSubscribeEvent)
         schoolVM.offlineSeminars.observe(owner, {
-            for(i in it.seminars.indices){
+            for (i in it.seminars.indices) {
                 val seminar = it.seminars[i]
-                seminarId?.let {seminarId ->
-                    if(seminar.id.toString() == seminarId){
+                seminarId?.let { seminarId ->
+                    if (seminar.id.toString() == seminarId) {
                         if (seminar.participate) {
                             binding.buttonParticipate.text = getString(R.string.you_participate)
                             binding.buttonParticipate.isEnabled = false
@@ -206,8 +217,7 @@ class SeminarFragment : BaseFragment() {
                             binding.buttonShare.setOnClickListener {
                                 shareRefLink(seminar.seminarUrl)
                             }
-                        }
-                        else {
+                        } else {
                             binding.buttonParticipate.text = getString(R.string.participate)
                             binding.buttonParticipate.isEnabled = true
                             binding.buttonParticipate.isEnabled = true
@@ -215,7 +225,10 @@ class SeminarFragment : BaseFragment() {
                                 seminarId.run {
                                     val bundle = Bundle()
                                     bundle.putString("seminarId", seminarId)
-                                    findNavController().navigate(R.id.action_seminarFragment_to_registrationSeminarFragment, bundle)
+                                    findNavController().navigate(
+                                        R.id.action_seminarFragment_to_registrationSeminarFragment,
+                                        bundle
+                                    )
                                 }
 
                             }
@@ -243,7 +256,8 @@ class SeminarFragment : BaseFragment() {
         }
     }
 
-    private fun setListenerTab (view: View, list: List<View>, petTypeName: String? = null) {
+
+    private fun setListenerTab(view: View, list: List<View>, petTypeName: String? = null) {
         view.setOnClickListener {
             if (!it.isSelected) {
                 petTypeName?.let {
@@ -263,6 +277,7 @@ class SeminarFragment : BaseFragment() {
             }
         }
     }
+
     private fun shareRefLink(url: String) {
         val intent = Intent()
         intent.action = Intent.ACTION_SEND

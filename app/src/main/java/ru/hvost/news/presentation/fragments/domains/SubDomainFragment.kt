@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -50,8 +49,8 @@ class SubDomainFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         nav = findNavController()
         initializePopup()
@@ -151,6 +150,14 @@ class SubDomainFragment : BaseFragment() {
                         ResourcesCompat.getDrawable(
                             resources,
                             R.drawable.background_category_first_tab_item,
+                            null
+                        )
+                }
+                index == 1 && categories.size > 2 -> {
+                    tab.view.background =
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.background_category_second_tab_item,
                             null
                         )
                 }

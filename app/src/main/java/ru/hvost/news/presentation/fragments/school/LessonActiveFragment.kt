@@ -54,22 +54,16 @@ class LessonActiveFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = findNavController()
         lessonId = arguments?.getString("lessonId")
         schoolId = arguments?.getString("schoolId")
-        navCMain.previousBackStackEntry?.savedStateHandle?.clearSavedStateProvider("fromDestination")
         navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lesson")
         initializedEvents()
         setListeners()
         setObservers(this)
-        App.getInstance().userToken?.let { userToken ->
-            schoolId?.let { schoolId ->
-                schoolVM.getSchoolLessons(userToken, schoolId)
-            }
-        }
     }
 
     private fun initializedEvents() {
@@ -89,16 +83,10 @@ class LessonActiveFragment : BaseFragment() {
                         binding.buttonToAnswer.isEnabled = true
                         binding.buttonToAnswer.text = "Финиш"
                         binding.buttonToAnswer.setOnClickListener {
-                            navCMain.previousBackStackEntry?.savedStateHandle?.clearSavedStateProvider("fromDestination")
-                            navCMain.previousBackStackEntry?.savedStateHandle?.set(
-                                "fromDestination",
-                                "lastLesson"
-                            )
+                            navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lastLesson")
                             navCMain.popBackStack()
                         }
                     } else {
-                        navCMain.previousBackStackEntry?.savedStateHandle?.clearSavedStateProvider("fromDestination")
-                        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lesson")
                         binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
                         binding.buttonToAnswer.setOnClickListener {
                             lessonId?.let { lessonId ->
@@ -196,7 +184,6 @@ class LessonActiveFragment : BaseFragment() {
                                 )
                                 containerOptions.addView(viewOption)
                             }
-                            schoolVM.sendLessonReadyEvent()
                             return@run
                         }
                     }
@@ -208,6 +195,7 @@ class LessonActiveFragment : BaseFragment() {
                     resources.getString(R.string.buttonOk),
                 ).show()
             }
+            schoolVM.sendLessonReadyEvent()
         })
         schoolVM.onlineSchools.observe(owner, {
             schoolId?.run {

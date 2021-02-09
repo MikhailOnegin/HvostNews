@@ -33,7 +33,7 @@ class SeminarInfoFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSeminarInfoBinding
     private lateinit var schoolVM: SchoolViewModel
-    private lateinit var navCMain:NavController
+    private lateinit var navCMain: NavController
     private val adapterVideo = VideoPastSeminarsAdapter()
     private val adapterPartners = PartnersAdapter()
     private var seminar: OfflineSeminars.OfflineSeminar? = null
@@ -46,21 +46,22 @@ class SeminarInfoFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         binding.recyclerViewVideo.adapter = adapterVideo
         binding.recyclerViewSponsors.adapter = adapterPartners
         binding.recyclerViewSponsors.layoutManager = GridLayoutManager(requireContext(), 2)
         setObservers(this)
+        navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "seminar")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-               navCMain.popBackStack()
+                navCMain.popBackStack()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

@@ -189,7 +189,7 @@
                 style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_32dp"
+                android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginTop="@dimen/_16dp"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="@string/status"
@@ -272,7 +272,9 @@
         </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerSeminar"
             android:name="androidx.navigation.fragment.NavHostFragment"

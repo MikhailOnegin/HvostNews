@@ -374,7 +374,7 @@
     <string name="seminar_info">О семинаре</string>
     <string name="schedule">Расписание</string>
     <string name="completed">Завершено</string>
-    <string name="you_participate">Вы записаны на мероприятине</string>
+    <string name="you_participate">Вы записаны на мероприятие</string>
     <string name="productWeightTitle">Вес</string>
     <string name="productBarcodeTitle">Штрих-код</string>
     <string name="productRegimeTitle">Особый температурный режим</string>
@@ -473,4 +473,7 @@
     <string name="confirmDelete">Вы действительно хотите удалить данного питомца?</string>
     <string name="defaultArticleTitle">Статья</string>
     <string name="prizesNull">Призы отсутстствуют</string>
+    <string name="go_to_partner_page">Перейти на страницу партнера</string>
+    <string name="regime">Время работы</string>
+    <string name="no_data">-</string>
 </resources>
