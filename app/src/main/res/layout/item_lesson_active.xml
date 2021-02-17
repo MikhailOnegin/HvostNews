@@ -27,7 +27,7 @@
             android:id="@+id/textView_number"
             android:layout_width="@dimen/_31dp"
             android:layout_height="@dimen/_31dp"
-            android:layout_marginStart="@dimen/largeMargin"
+            android:layout_marginStart="@dimen/_16dp"
             android:background="@drawable/shape_circle"
             android:elevation="@dimen/_6dp"
             android:fontFamily="@font/gilroy_bold"

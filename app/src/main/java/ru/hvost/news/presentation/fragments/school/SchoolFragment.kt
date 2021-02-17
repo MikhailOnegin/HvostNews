@@ -60,6 +60,7 @@ class SchoolFragment : BaseFragment() {
                         "success_registration_dialog"
                 )
             }
+            schoolVM.successRegistration.value = null
         }
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         navCSchool = requireActivity().findNavController(R.id.fragmentContainerSchool)
