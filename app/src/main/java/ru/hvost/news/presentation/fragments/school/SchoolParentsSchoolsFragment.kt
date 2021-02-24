@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentsSchoolsBinding
-import ru.hvost.news.presentation.adapters.recycler.SchoolsAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolsListAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
@@ -40,6 +41,17 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         initializedAdapters()
         binding.recyclerSchools.adapter = schoolsAdapter
         setObservers(this)
+        setListeners()
+        binding.swipeRefreshSchools.setColorSchemeColors(Color.BLUE, Color.YELLOW, Color.BLUE)
+        binding.swipeRefreshSchools.isRefreshing = true
+    }
+
+    private fun setListeners() {
+        binding.swipeRefreshSchools.setOnRefreshListener{
+            App.getInstance().userToken?.let {
+                schoolVM.getSchools(it)
+            }
+        }
     }
 
     private fun initializedAdapters() {
@@ -86,7 +98,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
 
     private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {
         event?.getEventIfNotHandled()?.run {
-            binding.progress.visibility = View.GONE
+            binding.swipeRefreshSchools.isRefreshing = false
             ObjectAnimator.ofFloat(
                 binding.recyclerSchools,
                 "alpha",

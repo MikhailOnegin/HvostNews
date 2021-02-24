@@ -77,11 +77,13 @@ class SchoolFragment : BaseFragment() {
                             val school = schools[i]
                             if (school.title.isNotBlank()) binding.textViewTitle.text = school.title
                             if (school.userRank.isNotBlank()) binding.textViewRank.text =
-                                    school.userRank
+                                school.userRank
                             Glide.with(requireContext())
-                                    .load(APIService.baseUrl + school.imageDetailUrl)
-                                    .placeholder(R.drawable.empty_image).centerCrop()
-                                    .into(binding.imageViewLogo)
+                                .load(APIService.baseUrl + school.imageDetailUrl)
+                                .placeholder(R.drawable.ic_loader_spinner)
+                                .error(R.drawable.load_error_padding)
+                                .centerCrop()
+                                .into(binding.imageViewLogo)
                             return@run
                         }
                     }

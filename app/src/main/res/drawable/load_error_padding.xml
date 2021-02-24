@@ -1,0 +1,4 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="@dimen/_32dp" android:left="@dimen/_32dp" android:right="@dimen/_32dp" android:bottom="@dimen/_32dp"
+        android:drawable="@drawable/ic_error_load"/>
+</layer-list>

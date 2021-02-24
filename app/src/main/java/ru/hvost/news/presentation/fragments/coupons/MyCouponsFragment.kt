@@ -12,7 +12,7 @@ import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCouponsMyBinding
 import ru.hvost.news.models.Coupons
-import ru.hvost.news.presentation.adapters.recycler.MyCouponsAdapter
+import ru.hvost.news.presentation.adapters.recycler.CouponsAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
@@ -22,7 +22,7 @@ class MyCouponsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCouponsMyBinding
     private lateinit var couponVM: CouponViewModel
-    private val adapter = MyCouponsAdapter()
+    private val adapter = CouponsAdapter()
     private lateinit var navC: NavController
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class MyCouponsFragment : BaseFragment() {
         super.onViewStateRestored(savedInstanceState)
         navC = findNavController()
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
-        adapter.clickCoupon = object : MyCouponsAdapter.ClickCoupon {
+        adapter.clickCoupon = object : CouponsAdapter.ClickCoupon {
             override fun click(item: Coupons.Coupon) {
                 val bundle = Bundle()
                 bundle.putString("couponId", item.couponId)

@@ -43,7 +43,8 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
         fun bind(video: OfflineSeminars.Video){
             binding.textViewTitle.text = video.title.parseAsHtml()
             Glide.with(itemView.context).load(APIService.baseUrl + video.imageVideoUrl)
-                .placeholder(R.drawable.empty_image).centerCrop()
+                .placeholder(R.drawable.ic_loader_spinner)
+                .error(R.drawable.load_error_padding)
                 .into(binding.imageViewVideo)
             binding.root
             binding.constraintVideo.setOnClickListener {

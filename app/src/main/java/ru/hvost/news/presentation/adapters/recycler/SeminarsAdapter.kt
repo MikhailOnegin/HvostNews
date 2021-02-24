@@ -60,7 +60,10 @@ class SeminarsAdapter(
 
         fun bind(seminar: OfflineSeminars.OfflineSeminar) {
             Glide.with(itemView.context).load(baseUrl + seminar.imageUrl)
-                .placeholder(R.drawable.empty_image).centerCrop().into(binding.imageViewLesson)
+                .placeholder(R.drawable.ic_loader_spinner)
+                .error(R.drawable.load_error_padding)
+                .centerCrop()
+                .into(binding.imageViewLesson)
             if (seminar.isFinished) {
                 binding.textViewLessonStatus.text = "Завершено"
                 binding.imageViewStatus.isSelected = false

@@ -147,7 +147,9 @@ class LessonActiveFragment : BaseFragment() {
                             }
                             Glide.with(requireContext())
                                 .load(baseUrl + lesson.imageVideoUrl)
-                                .placeholder(R.drawable.empty_image).centerCrop()
+                                .placeholder(R.drawable.ic_loader_spinner)
+                                .error(R.drawable.load_error_padding)
+                                .centerCrop()
                                 .into(binding.imageViewVideo)
 
                             val containerOptions = binding.linearLayoutAnswerOptions

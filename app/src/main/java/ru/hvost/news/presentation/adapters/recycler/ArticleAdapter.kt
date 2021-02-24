@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -16,9 +17,10 @@ import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
 import ru.hvost.news.utils.moneyFormat
 
+
 class ArticleAdapter(
-    private val onClick: (String) -> Unit,
-    private val setLiked: (String, Boolean) -> Unit
+        private val onClick: (String) -> Unit,
+        private val setLiked: (String, Boolean) -> Unit
 ) :
     ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffUtilCallback()) {
 
@@ -31,17 +33,18 @@ class ArticleAdapter(
     }
 
     class ArticleViewHolder(
-        private val binding: LayoutArticleItemBinding,
-        private val onClick: (String) -> Unit,
-        private val setLiked: (String, Boolean) -> Unit
+            private val binding: LayoutArticleItemBinding,
+            private val onClick: (String) -> Unit,
+            private val setLiked: (String, Boolean) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(articleItem: Article) {
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
-                .fitCenter()
-                .placeholder(R.drawable.empty_image)
+                .placeholder(R.drawable.ic_loader_spinner)
+                .error(R.drawable.load_error_padding)
+                .centerCrop()
                 .into(binding.img)
             binding.title.text = articleItem.title
             binding.description.text = articleItem.shortDescription.parseAsHtml()
@@ -91,20 +94,20 @@ class ArticleAdapter(
             private val margin = App.getInstance().resources.getDimension(R.dimen.largeMargin).toInt()
 
             fun getArticleVH(
-                parent: ViewGroup,
-                onClick: (String) -> Unit,
-                setLiked: (String, Boolean) -> Unit
+                    parent: ViewGroup,
+                    onClick: (String) -> Unit,
+                    setLiked: (String, Boolean) -> Unit
             ): ArticleViewHolder {
                 val binding = LayoutArticleItemBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
                 )
                 val width = parent.width - (margin * 2)
                 val height = width / 1.5F
                 val params = ConstraintLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    height.toInt()
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        height.toInt()
                 )
                 params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
                 binding.img.layoutParams = params

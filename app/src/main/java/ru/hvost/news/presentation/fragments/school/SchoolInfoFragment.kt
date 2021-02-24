@@ -61,7 +61,12 @@ class SchoolInfoFragment : BaseFragment() {
                 for (i in it.onlineSchools.indices) {
                     val school = it.onlineSchools[i]
                     if (school.id == schoolId) {
-                        Glide.with(requireActivity()).load(baseUrl + school.image).placeholder(R.drawable.empty_image).centerCrop().into(binding.imageViewInfo)
+                        Glide.with(requireActivity())
+                            .load(baseUrl + school.image)
+                            .placeholder(R.drawable.ic_loader_spinner)
+                            .error(R.drawable.load_error_padding)
+                            .centerCrop()
+                            .into(binding.imageViewInfo)
                         binding.textViewDescriptionWait.movementMethod = LinkMovementMethod()
                         binding.textViewDescriptionWait.text = school.description.parseAsHtml()
                         addViewToGridLayout(school)

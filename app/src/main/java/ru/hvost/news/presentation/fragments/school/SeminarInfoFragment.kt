@@ -73,8 +73,11 @@ class SeminarInfoFragment : BaseFragment() {
         schoolVM.offlineSeminars.observe(owner, {
             seminar = it.seminars[0]
             seminar?.let { seminar ->
-                Glide.with(requireContext()).load(APIService.baseUrl + seminar.imageUrl)
-                    .placeholder(R.drawable.empty_image).centerCrop()
+                Glide.with(requireContext())
+                    .load(APIService.baseUrl + seminar.imageUrl)
+                    .placeholder(R.drawable.ic_loader_spinner)
+                    .error(R.drawable.load_error_padding)
+                    .centerCrop()
                     .into(binding.imageViewSeminar)
                 binding.textViewDescription.text = seminar.description.parseAsHtml()
                 if (seminar.wait.isNotEmpty()) {

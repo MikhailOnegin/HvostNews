@@ -8,19 +8,15 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_coupon.view.*
 import ru.hvost.news.R
-import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.ItemCouponBinding
 import ru.hvost.news.models.Coupons
 import ru.hvost.news.utils.startIntentActionView
 
-class MyCouponsAdapter : RecyclerView.Adapter<MyCouponsAdapter.ViewHolder>() {
+class CouponsAdapter : RecyclerView.Adapter<CouponsAdapter.ViewHolder>() {
     private var couponsFull = arrayListOf<Coupons.Coupon>()
     private var coupons = arrayListOf<Coupons.Coupon>()
     var clickCoupon: ClickCoupon? = null

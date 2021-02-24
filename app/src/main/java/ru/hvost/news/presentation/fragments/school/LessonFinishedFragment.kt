@@ -108,7 +108,9 @@ class LessonFinishedFragment : BaseFragment() {
                         binding.textViewLessonNumber.text = lessonNumber
                         binding.textViewQuestion.text = lesson.testQuestion
                         Glide.with(requireContext()).load(baseUrl + lesson.imageVideoUrl)
-                            .placeholder(R.drawable.empty_image).centerCrop()
+                            .placeholder(R.drawable.ic_loader_spinner)
+                            .error(R.drawable.load_error_padding)
+                            .centerCrop()
                             .into(binding.imageViewVideo)
                         for (q in lesson.answerList.indices) {
                             val answer = lesson.answerList[q]
