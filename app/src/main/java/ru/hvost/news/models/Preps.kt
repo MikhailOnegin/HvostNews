@@ -1,5 +1,6 @@
 package ru.hvost.news.models
 
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.data.api.response.Preparations
 
 data class Preps(
@@ -23,9 +24,17 @@ fun List<Preparations>.toPreps(): List<Preps> {
     }
     result.add(
         0, Preps(
-            index = 0L,
+            index = MainViewModel.UNSELECTED_ID,
             id = "",
-            name = "Не выбрано",
+            name = MainViewModel.UNSELECTED,
+            typeId = "0"
+        )
+    )
+    result.add(
+        Preps(
+            index = MainViewModel.OTHER_ID,
+            id = "",
+            name = MainViewModel.OTHER,
             typeId = "0"
         )
     )

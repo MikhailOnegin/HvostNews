@@ -1,5 +1,6 @@
 package ru.hvost.news.models
 
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.data.api.response.PetEducationResponse
 
 data class PetEducation(
@@ -21,9 +22,16 @@ fun List<PetEducationResponse.PetsEducation>.toEducation(): List<PetEducation> {
     }
     result.add(
         0, PetEducation(
-            id = 0L,
+            id = MainViewModel.UNSELECTED_ID,
             educationId = "",
-            name = "Не выбрано"
+            name = MainViewModel.UNSELECTED
+        )
+    )
+    result.add(
+        PetEducation(
+            id = MainViewModel.OTHER_ID,
+            educationId = "",
+            name = MainViewModel.OTHER
         )
     )
     return result

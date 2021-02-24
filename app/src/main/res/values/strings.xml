@@ -41,11 +41,13 @@
     <string name="deworming">Дегельминтизация</string>
     <string name="drug">Название препарата</string>
     <string name="dewormingDate">Дата последней дегельминтизации</string>
-    <string name="ekzo">Обработка от экзопаразитов</string>
+    <string name="notifyPeriod">Напоминание через</string>
+    <string name="ekzo">Обработка от эктопаразитов</string>
     <string name="ekzoDate">Дата последней обработки</string>
     <string name="diet">Питание</string>
     <string name="diseases">Хронические заболевания</string>
     <string name="diseaseName">Название заболевания</string>
+    <string name="otherName">Введите название</string>
     <string name="add">Добавить</string>
     <string name="clinic">Любимая ветклиника</string>
     <string name="clinicName">Название</string>
@@ -173,6 +175,9 @@
     <string name="regPetHint">Уважаемый пользователь, если у вас несколько питомцев, которых вы хотели бы зарегистрировать, не волнуйтесь. Вы сможете добавить их всех в соответствующем разделе приложения после завершения регистрации.</string>
     <string name="hintPetName">Кличка</string>
     <string name="speciesSpinnerHint">Вид питомца</string>
+    <string name="deliciesSpinnerHint">Любимое лакомство</string>
+    <string name="badHabitSpinnerHint">Вредная привычка</string>
+    <string name="feedSpinnerHint">Любимый корм</string>
     <string name="breedsSpinnerHint">Порода</string>
     <string name="sexMale">Мужской</string>
     <string name="sexFemale">Женский</string>
@@ -383,7 +388,7 @@
     <string name="productTabIngridients">Ингредиенты</string>
     <string name="productTabContraindication">Противопоказания</string>
     <string name="productArticleTitle">Артикул:</string>
-    <string name="petPassportButton">Паспорт</string>
+    <string name="petPassportButton">Вет. паспорт</string>
     <string name="cancelChanges">Отменить изменения</string>
     <string name="push">Получать push-уведомления</string>
     <string name="email_notification">Получать уведомления на email</string>

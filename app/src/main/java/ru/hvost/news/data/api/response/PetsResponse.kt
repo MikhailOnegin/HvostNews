@@ -14,16 +14,37 @@ data class PetsResponse(
         val petBreed: String?,
         val breedName: String?,
         val petBirthday: String?,
-        val petDelicies: String?,
+        val petFeed: List<PetFeed>?,
+        val petDelicies: List<Delicies>?,
         val petToy: List<Toy>?,
-        val petBadHabbit: String?,
+        val petBadHabbit: List<BadHabbit>?,
         val petChip: String?,
         val isPetForShows: Boolean?,
-        val isSportsPet: Boolean?,
+        val petSports: List<PetSports>?,
         val hasTitles: Boolean?,
         val visitsSaloons: Boolean?,
         val petEducation: List<Education>?
-    ){
+    ) {
+        data class Delicies(
+            val delliciousId: String?,
+            val name: String?
+        )
+
+        data class PetFeed(
+            val feedId: String?,
+            val name: String?
+        )
+
+        data class BadHabbit(
+            val habbitId: String?,
+            val name: String?
+        )
+
+        data class PetSports(
+            val sportId: String?,
+            val name: String?
+        )
+
         data class Toy(
             val toyId: String?,
             val name: String?

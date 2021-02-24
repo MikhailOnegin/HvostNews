@@ -19,24 +19,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/disease"
-                style="@style/RegSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/normalMargin"
-                android:paddingHorizontal="@dimen/profileCoverPadding" />
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/normalMargin"
-                android:hint="@string/diseaseName"
+                android:hint="@string/otherName"
                 app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/diseaseTitle"
+                    android:id="@+id/otherTitle"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,7 +37,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/addDisease"
+                android:id="@+id/addOther"
                 style="@style/UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"

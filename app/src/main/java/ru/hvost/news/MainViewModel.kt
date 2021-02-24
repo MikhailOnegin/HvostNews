@@ -1,7 +1,9 @@
 package ru.hvost.news
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
+import retrofit2.http.GET
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.data.api.response.*
 import ru.hvost.news.models.*
@@ -88,8 +90,8 @@ class MainViewModel : ViewModel() {
 
     private val _petToysLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val petToysLoadingEvent: LiveData<NetworkEvent<State>> = _petToysLoadingEvent
-    private val _petToys = MutableLiveData<List<Toys>>()
-    val petToys: LiveData<List<Toys>> = _petToys
+    private val _petToys = MutableLiveData<List<PetToys>>()
+    val petToys: LiveData<List<PetToys>> = _petToys
 
     private val _petEducationLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val petEducationLoadingEvent: LiveData<NetworkEvent<State>> = _petEducationLoadingEvent
@@ -121,6 +123,36 @@ class MainViewModel : ViewModel() {
     val petsBreedsLoadingEvent: LiveData<NetworkEvent<State>> = _petsBreedsLoadingEvent
     private val _petsBreeds = MutableLiveData<List<Breeds>>()
     val petsBreeds: LiveData<List<Breeds>> = _petsBreeds
+
+    private val _petSportsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petSportsLoadingEvent: LiveData<NetworkEvent<State>> = _petSportsLoadingEvent
+    private val _petSports = MutableLiveData<List<PetSports>>()
+    val petSports: LiveData<List<PetSports>> = _petSports
+
+    private val _petBadHabitsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petBadHabitsLoadingEvent: LiveData<NetworkEvent<State>> = _petBadHabitsLoadingEvent
+    private val _petBadHabits = MutableLiveData<List<PetBadHabbits>>()
+    val petBadHabits: LiveData<List<PetBadHabbits>> = _petBadHabits
+
+    private val _petFeedLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petFeedLoadingEvent: LiveData<NetworkEvent<State>> = _petFeedLoadingEvent
+    private val _petFeed = MutableLiveData<List<PetFeed>>()
+    val petFeed: LiveData<List<PetFeed>> = _petFeed
+
+    private val _petDeliciesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petDeliciesLoadingEvent: LiveData<NetworkEvent<State>> = _petDeliciesLoadingEvent
+    private val _petDelicies = MutableLiveData<List<PetDelicies>>()
+    val petDelicies: LiveData<List<PetDelicies>> = _petDelicies
+
+    private val _notificationsPeriodLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val notificationsPeriodLoadingEvent: LiveData<NetworkEvent<State>> = _notificationsPeriodLoadingEvent
+    private val _notificationsPeriod = MutableLiveData<List<NotificationPeriod>>()
+    val notificationsPeriod: LiveData<List<NotificationPeriod>> = _notificationsPeriod
+
+    private val _petDiseasesLoadingEvent = MutableLiveData<NetworkEvent<State>>()
+    val petDiseasesLoadingEvent: LiveData<NetworkEvent<State>> = _petDiseasesLoadingEvent
+    private val _petDiseases = MutableLiveData<List<PetDiseases>>()
+    val petDiseases: LiveData<List<PetDiseases>> = _petDiseases
 
     private val _bonusBalanceLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val bonusBalanceLoadingEvent: LiveData<NetworkEvent<State>> = _bonusBalanceLoadingEvent
@@ -161,6 +193,127 @@ class MainViewModel : ViewModel() {
         loadSpecies()
     }
 
+    fun getPetSports(){
+        viewModelScope.launch {
+            _petSportsLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPetSports().await()
+                if (response.result == "success") {
+                    _petSports.value = response.sports?.toPetSports()
+                    _petSportsLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petSportsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _petSports.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petSportsLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petSports.value = listOf()
+            }
+        }
+    }
+
+    fun getPetBadHabits(){
+        viewModelScope.launch {
+            _petBadHabitsLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPetBadHabbits().await()
+                if (response.result == "success") {
+                    _petBadHabits.value = response.badHabbits?.toBadHabbits()
+                    _petBadHabitsLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petBadHabitsLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _petBadHabits.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petBadHabitsLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petBadHabits.value = listOf()
+            }
+        }
+    }
+
+    fun getPetFeed(){
+        viewModelScope.launch {
+            _petFeedLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPetFeed().await()
+                if (response.result == "success") {
+                    _petFeed.value = response.feeds?.toFeed()
+                    _petFeedLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petFeedLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _petFeed.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petFeedLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petFeed.value = listOf()
+            }
+        }
+    }
+
+    fun getPetDelicies(){
+        viewModelScope.launch {
+            _petDeliciesLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPetDelicies().await()
+                if (response.result == "success") {
+                    _petDelicies.value = response.delicies?.toPetDelicies()
+                    _petDeliciesLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petDeliciesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _petDelicies.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petDeliciesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petDelicies.value = listOf()
+            }
+        }
+    }
+
+    fun getNotificationPeriod(){
+        viewModelScope.launch {
+            _notificationsPeriodLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getNotificationPeriod().await()
+                if (response.result == "success") {
+                    _notificationsPeriod.value = response.periods?.toNotificationPeriod()
+                    _notificationsPeriodLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _notificationsPeriodLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _notificationsPeriod.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _notificationsPeriodLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _notificationsPeriod.value = listOf()
+            }
+        }
+    }
+
+    fun getPetDiseases(){
+        viewModelScope.launch {
+            _petDiseasesLoadingEvent.value = NetworkEvent(State.LOADING)
+            try {
+                val response =
+                    APIService.API.getPetDiseases().await()
+                if (response.result == "success") {
+                    _petDiseases.value = response.diseases?.toPetDiseases()
+                    _petDiseasesLoadingEvent.value = NetworkEvent(State.SUCCESS)
+                } else {
+                    _petDiseasesLoadingEvent.value = NetworkEvent(State.ERROR, response.error)
+                    _petDiseases.value = listOf()
+                }
+            } catch (exc: Exception) {
+                _petDiseasesLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
+                _petDiseases.value = listOf()
+            }
+        }
+    }
+
+
     fun getBonusBalance() {
         viewModelScope.launch {
             _bonusBalanceLoadingEvent.value = NetworkEvent(State.LOADING)
@@ -184,10 +337,13 @@ class MainViewModel : ViewModel() {
         isSterilised: Boolean,
         vacineId: String,
         vacinationDate: String,
+        vacinationPeriodId: String,
         dewormingId: String,
         dewormingDate: String,
+        dewormingPeriodId: String,
         exoparasiteId: String,
         exoparasitesDate: String,
+        exoparasitePeriodId: String,
         feedingTypeId: String,
         diseases: String,
         favouriteVetName: String,
@@ -203,10 +359,13 @@ class MainViewModel : ViewModel() {
                         isSterilised,
                         vacineId,
                         vacinationDate,
+                        vacinationPeriodId,
                         dewormingId,
                         dewormingDate,
+                        dewormingPeriodId,
                         exoparasiteId,
                         exoparasitesDate,
+                        exoparasitePeriodId,
                         feedingTypeId,
                         diseases,
                         favouriteVetName,
@@ -820,11 +979,12 @@ class MainViewModel : ViewModel() {
         petBirthday: String,
         petDelicies: String,
         petToy: String,
+        petFeed: String,
         petBadHabbit: String,
         petChip: String,
         isPetForShows: Boolean,
         hasTitles: Boolean,
-        isSportsPet: Boolean,
+        petSports: String,
         visitsSaloons: Boolean,
         petEducation: String
     ) {
@@ -841,11 +1001,12 @@ class MainViewModel : ViewModel() {
                     petBirthday = petBirthday,
                     petDelicies = petDelicies,
                     petToy = petToy,
+                    petFeed = petFeed,
                     petBadHabbit = petBadHabbit,
                     petChip = petChip,
                     isPetForShows = isPetForShows,
                     hasTitles = hasTitles,
-                    isSportsPet = isSportsPet,
+                    sportsPet = petSports,
                     visitsSaloons = visitsSaloons,
                     petEducation = petEducation
                 ).await()
@@ -886,5 +1047,12 @@ class MainViewModel : ViewModel() {
         private const val VACCINE_ID = "1"
         private const val DEWORMING_ID = "2"
         private const val EXOPARAZITES_ID = "3"
+
+        public const val UNSELECTED_ID = -1L
+        public const val UNSELECTED = "Не выбрано"
+        public const val OTHER_ID = -2L
+        public const val OTHER_NEW_ID = -3L
+        public const val OTHER = "Другое"
+        public const val SELECTED_ID = -3L
     }
 }

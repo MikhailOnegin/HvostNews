@@ -64,7 +64,7 @@
                         android:id="@+id/name"
                         style="@style/TextInputEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:imeOptions="actionDone" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -74,8 +74,7 @@
                     style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/ButtonHeight"
-                    android:layout_marginTop="@dimen/xSmallMargin"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.7"
                     android:backgroundTint="@color/gray4_half_opacity"
                     android:fontFamily="@font/gilroy_bold"
                     android:letterSpacing="-0.03"
@@ -146,22 +145,36 @@
                 app:holderHint="@string/petBirthdayHint"
                 app:iconResource="@drawable/ic_date" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ProfileTextInputLayout"
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                style="@style/ProfileTextInputLayout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginBottom="@dimen/smallMargin"-->
+            <!--                android:hint="@string/food"-->
+            <!--                app:hintTextColor="@color/gray4">-->
+
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/delicious"-->
+            <!--                    style="@style/TextInputEditText"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:imeOptions="actionDone" />-->
+
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+            <Spinner
+                android:id="@+id/delicious"
+                style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:hint="@string/food"
-                app:hintTextColor="@color/gray4">
+                android:layout_marginBottom="@dimen/smallMargin" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/delicious"
-                    style="@style/TextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionDone" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+            <Spinner
+                android:id="@+id/feed"
+                style="@style/RegSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin" />
 
             <Spinner
                 android:id="@+id/favToy"
@@ -170,22 +183,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/ProfileTextInputLayout"
+            <Spinner
+                android:id="@+id/badHabit"
+                style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin"
-                android:hint="@string/habbit"
-                app:hintTextColor="@color/gray4">
+                android:layout_marginBottom="@dimen/smallMargin" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/badHabit"
-                    style="@style/TextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionDone" />
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                style="@style/ProfileTextInputLayout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginBottom="@dimen/smallMargin"-->
+            <!--                android:hint="@string/habbit"-->
+            <!--                app:hintTextColor="@color/gray4">-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/badHabit"-->
+            <!--                    style="@style/TextInputEditText"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:imeOptions="actionDone" />-->
+
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/ProfileTextInputLayout"
@@ -273,34 +293,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/gilroy_semibold"
                     android:gravity="center_vertical"
-                    android:text="@string/sport"
-                    android:textColor="@color/gray1"
-                    android:textSize="@dimen/dialogSubtitleTextSize" />
-
-                <Switch
-                    android:id="@+id/switch_sport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:scaleX="@dimen/switch_scale"
-                    android:scaleY="@dimen/switch_scale"
-                    android:thumb="@drawable/ic_baseline_brightness_1_24"
-                    android:track="@drawable/track_selector" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/largeMargin"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/gilroy_semibold"
-                    android:gravity="center_vertical"
                     android:text="@string/saloons"
                     android:textColor="@color/gray1"
                     android:textSize="@dimen/dialogSubtitleTextSize" />
@@ -316,6 +308,13 @@
                     android:track="@drawable/track_selector" />
 
             </LinearLayout>
+
+            <Spinner
+                android:id="@+id/petSports"
+                style="@style/RegSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/smallMargin" />
 
             <Spinner
                 android:id="@+id/education"

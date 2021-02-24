@@ -10,15 +10,16 @@ data class Pets(
     val petBreed: String,
     val breedName: String,
     val petBirthday: String,
-    val petDelicies: String,
+    val petFeed: List<Feed>,
+    val petDelicies: List<Delice>,
     val petToy: List<Toy>,
-    val petBadHabbit: String,
+    val petBadHabbit: List<Habbit>,
     val petChip: String,
     val isPetForShows: Boolean,
-    val isSportsPet: Boolean,
+    val petSports: List<PetSport>,
     val hasTitles: Boolean,
     val visitsSaloons: Boolean,
-    val petEducation: List<Education>
+    val petEducation: List<PetsEducation>
 )
 
 data class Toy(
@@ -26,9 +27,29 @@ data class Toy(
     val name: String
 )
 
-data class Education(
+data class PetsEducation(
     val educationId: String?,
-    val name: String?
+    val name: String
+)
+
+data class Delice(
+    val delliciousId: String?,
+    val name: String
+)
+
+data class Feed(
+    val feedId: String?,
+    val name: String
+)
+
+data class Habbit(
+    val habbitId: String?,
+    val name: String
+)
+
+data class PetSport(
+    val sportId: String?,
+    val name: String
 )
 
 fun List<PetsResponse.Pet>.toPets(): List<Pets> {
@@ -43,23 +64,44 @@ fun List<PetsResponse.Pet>.toPets(): List<Pets> {
                 petBreed = pet.petBreed ?: "",
                 breedName = pet.breedName ?: "",
                 petBirthday = pet.petBirthday ?: "",
-                petDelicies = pet.petDelicies ?: "",
+                petDelicies = pet.petDelicies?.map {
+                    Delice(
+                        delliciousId = it.delliciousId ?: "",
+                        name = it.name ?: ""
+                    )
+                } ?: listOf(),
                 petToy = pet.petToy?.map {
                     Toy(
                         toyId = it.toyId ?: "",
                         name = it.name ?: ""
                     )
                 } ?: listOf(),
-                petBadHabbit = pet.petBadHabbit ?: "",
+                petBadHabbit = pet.petBadHabbit?.map {
+                    Habbit(
+                        habbitId = it.habbitId ?: "",
+                        name = it.name ?: ""
+                    )
+                } ?: listOf(),
                 petChip = pet.petChip ?: "",
                 isPetForShows = pet.isPetForShows ?: false,
-                isSportsPet = pet.isSportsPet ?: false,
+                petSports = pet.petSports?.map {
+                    PetSport(
+                        sportId = it.sportId ?: "",
+                        name = it.name ?: ""
+                    )
+                } ?: listOf(),
                 hasTitles = pet.hasTitles ?: false,
                 visitsSaloons = pet.visitsSaloons ?: false,
                 petEducation = pet.petEducation?.map {
-                    Education(
+                    PetsEducation(
                         educationId = it.educationId,
-                        name = it.name
+                        name = it.name ?: ""
+                    )
+                } ?: listOf(),
+                petFeed = pet.petFeed?.map {
+                    Feed(
+                        feedId = it.feedId ?: "",
+                        name = it.name ?: ""
                     )
                 } ?: listOf()
             )

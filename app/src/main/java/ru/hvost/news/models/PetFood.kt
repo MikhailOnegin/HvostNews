@@ -1,5 +1,6 @@
 package ru.hvost.news.models
 
+import ru.hvost.news.MainViewModel
 import ru.hvost.news.data.api.response.Food
 
 data class PetFood(
@@ -21,9 +22,16 @@ fun List<Food>.toFood(): List<PetFood> {
     }
     result.add(
         0, PetFood(
-            index = 0L,
-            id = "0",
-            foodName = "Не выбрано"
+            index = MainViewModel.UNSELECTED_ID,
+            id = "",
+            foodName = MainViewModel.UNSELECTED
+        )
+    )
+    result.add(
+        PetFood(
+            index = MainViewModel.OTHER_ID,
+            id = "",
+            foodName = MainViewModel.OTHER
         )
     )
     return result

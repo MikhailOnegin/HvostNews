@@ -118,26 +118,45 @@
                 android:layout_marginBottom="@dimen/normalMargin"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
-            <ru.hvost.news.presentation.customviews.ValueHolderView
-                android:id="@+id/vaccineDate"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/widgetsHeight"
                 android:layout_marginHorizontal="@dimen/profileCoverPadding"
-                android:layout_marginBottom="@dimen/normalMargin"
-                app:holderHint="@string/vaccineDate"
-                app:iconResource="@drawable/ic_date" />
+                android:layout_marginBottom="@dimen/normalMargin">
+
+                <ru.hvost.news.presentation.customviews.ValueHolderView
+                    android:id="@+id/vaccineDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:holderHint="@string/vaccineDate"
+                    app:iconResource="@drawable/ic_notification"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/showVaccinePeriod"
+                    android:layout_width="@dimen/widgetsHeight"
+                    android:layout_height="@dimen/widgetsHeight"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Spinner
+                android:id="@+id/vaccinePeriod"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/xLargeMargin"
-                android:paddingHorizontal="@dimen/profileCoverPadding" />
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/largeMargin"
+                android:layout_marginTop="@dimen/_44dp"
                 android:layout_marginBottom="@dimen/normalMargin"
                 android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/deworming"
@@ -153,19 +172,46 @@
                 android:layout_marginBottom="@dimen/normalMargin"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
-            <ru.hvost.news.presentation.customviews.ValueHolderView
-                android:id="@+id/dewormingDate"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/widgetsHeight"
                 android:layout_marginHorizontal="@dimen/profileCoverPadding"
-                android:layout_marginBottom="@dimen/xLargeMargin"
-                app:holderHint="@string/dewormingDate"
-                app:iconResource="@drawable/ic_date" />
+                android:layout_marginBottom="@dimen/normalMargin">
+
+                <ru.hvost.news.presentation.customviews.ValueHolderView
+                    android:id="@+id/dewormingDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:holderHint="@string/dewormingDate"
+                    app:iconResource="@drawable/ic_notification"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/showDewormingPeriod"
+                    android:layout_width="@dimen/widgetsHeight"
+                    android:layout_height="@dimen/widgetsHeight"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/dewormingPeriod"
+                style="@style/RegSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/normalMargin"
+                android:layout_marginTop="@dimen/_44dp"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/ekzo"
                 android:textColor="@color/gray1"
@@ -180,19 +226,46 @@
                 android:layout_marginBottom="@dimen/normalMargin"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
-            <ru.hvost.news.presentation.customviews.ValueHolderView
-                android:id="@+id/parazitesDate"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/widgetsHeight"
                 android:layout_marginHorizontal="@dimen/profileCoverPadding"
-                android:layout_marginBottom="@dimen/xLargeMargin"
-                app:holderHint="@string/ekzoDate"
-                app:iconResource="@drawable/ic_date" />
+                android:layout_marginBottom="@dimen/normalMargin">
+
+                <ru.hvost.news.presentation.customviews.ValueHolderView
+                    android:id="@+id/parazitesDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/widgetsHeight"
+                    app:holderHint="@string/ekzoDate"
+                    app:iconResource="@drawable/ic_notification"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/showParazitesPeriod"
+                    android:layout_width="@dimen/widgetsHeight"
+                    android:layout_height="@dimen/widgetsHeight"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Spinner
+                android:id="@+id/parazitesPeriod"
+                style="@style/RegSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/profileCoverPadding"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/normalMargin"
+                android:layout_marginTop="@dimen/_44dp"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:text="@string/diet"
                 android:textColor="@color/gray1"

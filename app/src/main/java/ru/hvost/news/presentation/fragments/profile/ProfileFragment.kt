@@ -98,6 +98,18 @@ class ProfileFragment : BaseFragment() {
         } else {
             App.getInstance().userToken?.let { couponsMV.getCoupons(it) }
         }
+        if (mainVM.petSportsLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.getPetSports()
+        }
+        if (mainVM.petFeedLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.getPetFeed()
+        }
+        if (mainVM.petBadHabitsLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.getPetBadHabits()
+        }
+        if (mainVM.petDeliciesLoadingEvent.value?.peekContent() != State.SUCCESS) {
+            mainVM.getPetDelicies()
+        }
     }
 
     private fun setCouponsCount() {

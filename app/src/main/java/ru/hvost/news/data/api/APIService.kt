@@ -171,6 +171,24 @@ interface APIService {
     @GET("/rest/Registration/getSpecies/")
     fun getSpeciesAsync(): Deferred<SpeciesResponse>
 
+    @GET("/rest/PetProfile/getPetSports/")
+    fun getPetSports(): Deferred<PetSportsResponse>
+
+    @GET("/rest/PetProfile/getPetBadHabbits/")
+    fun getPetBadHabbits(): Deferred<PetBadHabbitsResponse>
+
+    @GET("/rest/PetProfile/getPetFeed/")
+    fun getPetFeed(): Deferred<PetFeedResponse>
+
+    @GET("/rest/PetProfile/getPetDelicies/")
+    fun getPetDelicies(): Deferred<PetDeliciesResponse>
+
+    @GET("/rest/PetVeterinaryProfile/getNotificationPeriod/")
+    fun getNotificationPeriod(): Deferred<NotificationPeriodResponse>
+
+    @GET("/rest/PetVeterinaryProfile/getPetDiseases/")
+    fun getPetDiseases(): Deferred<PetDiseasesResponse>
+
     @GET("/rest/InviteFriend/getPrizes/")
     fun getPrizesAsync(
         @Query("userToken") userToken: String?,
@@ -242,11 +260,12 @@ interface APIService {
         @Query("petBirthday") petBirthday: String?,
         @Query("petDelicies") petDelicies: String?,
         @Query("petToy") petToy: String?,
+        @Query("petFeed") petFeed: String?,
         @Query("petBadHabbit") petBadHabbit: String?,
         @Query("petChip") petChip: String?,
         @Query("isPetForShows") isPetForShows: Boolean?,
         @Query("hasTitles") hasTitles: Boolean?,
-        @Query("isSportsPet") isSportsPet: Boolean?,
+        @Query("petSports") sportsPet: String?,
         @Query("visitsSaloons") visitsSaloons: Boolean?,
         @Query("petEducation") petEducation: String?
     ): Deferred<UpdatePetResponse>
@@ -317,10 +336,13 @@ interface APIService {
         @Query("isSterilised") isSterilised: Boolean?,
         @Query("vacineId") vacineTitle: String?,
         @Query("vacinationDate") vacinationDate: String?,
+        @Query("vacinationPeriodId") vacinationPeriodId: String?,
         @Query("dewormingId") dewormingTitle: String?,
         @Query("dewormingDate") dewormingDate: String?,
+        @Query("dewormingPeriodId") dewormingPeriodId: String?,
         @Query("exoparasiteId") exoparasiteTitle: String?,
         @Query("exoparasitesDate") exoparasitesDate: String?,
+        @Query("exoparasitePeriodId") exoparasitePeriodId: String?,
         @Query("feedingTypeId") feeding: String?,
         @Query("diseases") diseases: String?,
         @Query("favouriteVetName") favouriteVetName: String?,
