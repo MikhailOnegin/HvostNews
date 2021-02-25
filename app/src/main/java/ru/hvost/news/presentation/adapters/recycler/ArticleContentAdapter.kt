@@ -94,7 +94,8 @@ class ArticleContentAdapter(
                 Glide
                     .with(binding.root)
                     .load(header.imageUri)
-                    .placeholder(R.drawable.empty_image)
+                    .placeholder(R.drawable.loader_anim)
+                    .error(R.drawable.ic_load_error)
                     .into(image)
                 title.text = header.title
                 category.text = header.categoryTitle
@@ -299,7 +300,8 @@ class ArticleContentAdapter(
             Glide
                 .with(binding.root)
                 .load(image.imageUri)
-                .placeholder(R.drawable.empty_image)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .into(binding.image)
             binding.image.doOnLayout {
                 binding.image.layoutParams = LinearLayout.LayoutParams(

@@ -7,16 +7,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -60,6 +56,7 @@ class SchoolFragment : BaseFragment() {
                         "success_registration_dialog"
                 )
             }
+            schoolVM.successRegistration.value = null
         }
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         navCSchool = requireActivity().findNavController(R.id.fragmentContainerSchool)
@@ -76,11 +73,13 @@ class SchoolFragment : BaseFragment() {
                             val school = schools[i]
                             if (school.title.isNotBlank()) binding.textViewTitle.text = school.title
                             if (school.userRank.isNotBlank()) binding.textViewRank.text =
-                                    school.userRank
+                                school.userRank
                             Glide.with(requireContext())
-                                    .load(APIService.baseUrl + school.imageDetailUrl)
-                                    .placeholder(R.drawable.empty_image).centerCrop()
-                                    .into(binding.imageViewLogo)
+                                .load(APIService.baseUrl + school.imageDetailUrl)
+                                .placeholder(R.drawable.loader_anim)
+                                .error(R.drawable.ic_load_error)
+                                .centerCrop()
+                                .into(binding.imageViewLogo)
                             return@run
                         }
                     }

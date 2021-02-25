@@ -5,20 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.text.parseAsHtml
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.Navigator
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_school_online_info.view.textView_what_wait
-import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.FragmentSeminarInfoBinding
@@ -73,8 +68,11 @@ class SeminarInfoFragment : BaseFragment() {
         schoolVM.offlineSeminars.observe(owner, {
             seminar = it.seminars[0]
             seminar?.let { seminar ->
-                Glide.with(requireContext()).load(APIService.baseUrl + seminar.imageUrl)
-                    .placeholder(R.drawable.empty_image).centerCrop()
+                Glide.with(requireContext())
+                    .load(APIService.baseUrl + seminar.imageUrl)
+                    .placeholder(R.drawable.loader_anim)
+                    .error(R.drawable.ic_load_error)
+                    .centerCrop()
                     .into(binding.imageViewSeminar)
                 binding.textViewDescription.text = seminar.description.parseAsHtml()
                 if (seminar.wait.isNotEmpty()) {

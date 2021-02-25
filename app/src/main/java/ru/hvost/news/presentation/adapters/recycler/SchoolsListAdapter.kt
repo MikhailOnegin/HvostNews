@@ -93,7 +93,8 @@ class SchoolsListAdapter(
             if (school.isNew) binding.constraintNew.visibility = View.VISIBLE
             else binding.constraintNew.visibility = View.GONE
             Glide.with(itemView.context).load(APIService.baseUrl + school.image)
-                .placeholder(R.drawable.empty_image).centerCrop()
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .into(binding.imageViewSchool)
             binding.rootConstraint.setOnClickListener {
                 clickSchool?.invoke(school.id)

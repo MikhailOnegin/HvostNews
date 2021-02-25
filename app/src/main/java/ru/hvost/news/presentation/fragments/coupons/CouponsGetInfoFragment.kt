@@ -48,7 +48,9 @@ class CouponsGetInfoFragment : BaseFragment() {
         couponVM.couponsInfo.observe(viewLifecycleOwner, {
             binding.textViewGetCouponsInfo.text = it.description.parseAsHtml()
             Glide.with(requireContext()).load(it.imageUrl)
-                .placeholder(R.drawable.empty_image).centerCrop()
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
+                .centerCrop()
                 .into(binding.imageViewInfoGetCoupons)
         })
     }
