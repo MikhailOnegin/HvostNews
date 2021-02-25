@@ -7,6 +7,6 @@ data class PetDiseasesResponse(
 ) {
     data class Disease(
         val diseaseId: String?,
-        val name: String?
+        val value: String?
     )
 }

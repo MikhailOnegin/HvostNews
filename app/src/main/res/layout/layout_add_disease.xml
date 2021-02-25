@@ -24,14 +24,14 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/normalMargin"
-                android:paddingHorizontal="@dimen/profileCoverPadding" />
+                android:layout_marginVertical="@dimen/normalMargin" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/otherContainer"
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/normalMargin"
+                android:visibility="gone"
                 android:hint="@string/diseaseName"
                 app:hintTextColor="@color/gray4">
 
@@ -49,6 +49,7 @@
                 style="@style/UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ButtonHeight"
+                android:layout_marginTop="@dimen/normalMargin"
                 android:layout_marginBottom="@dimen/smallMargin"
                 android:text="@string/add" />
 

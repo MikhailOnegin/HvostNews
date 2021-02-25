@@ -46,6 +46,7 @@
     <string name="ekzoDate">Дата последней обработки</string>
     <string name="diet">Питание</string>
     <string name="diseases">Хронические заболевания</string>
+    <string name="choiceDiseases">Выберите заболевание</string>
     <string name="diseaseName">Название заболевания</string>
     <string name="otherName">Введите название</string>
     <string name="add">Добавить</string>

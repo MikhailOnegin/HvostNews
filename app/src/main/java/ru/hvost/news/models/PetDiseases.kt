@@ -7,7 +7,7 @@ import ru.hvost.news.data.api.response.PetDiseasesResponse
 data class PetDiseases(
     val index: Long,
     val diseaseId: String,
-    val name: String
+    val value: String
 )
 
 fun List<PetDiseasesResponse.Disease>.toPetDiseases(): List<PetDiseases> {
@@ -17,7 +17,7 @@ fun List<PetDiseasesResponse.Disease>.toPetDiseases(): List<PetDiseases> {
             PetDiseases(
                 index = index.inc().toLong(),
                 diseaseId = disease.diseaseId ?: "",
-                name = disease.name ?: "",
+                value = disease.value ?: "",
             )
         )
     }
@@ -25,14 +25,14 @@ fun List<PetDiseasesResponse.Disease>.toPetDiseases(): List<PetDiseases> {
         0, PetDiseases(
             index = MainViewModel.UNSELECTED_ID,
             diseaseId = "",
-            name = MainViewModel.UNSELECTED
+            value = MainViewModel.UNSELECTED
         )
     )
     result.add(
         PetDiseases(
             index = MainViewModel.OTHER_ID,
             diseaseId = "",
-            name = MainViewModel.OTHER
+            value = MainViewModel.OTHER
         )
     )
     return result
