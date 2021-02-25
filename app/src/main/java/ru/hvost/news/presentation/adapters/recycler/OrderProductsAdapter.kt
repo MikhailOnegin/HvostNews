@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.R
 import ru.hvost.news.databinding.RvOrderFooterBinding
 import ru.hvost.news.databinding.RvOrderProductBinding
 import ru.hvost.news.models.OrderFooter
@@ -52,7 +53,11 @@ class OrderProductsAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(product: Product) {
-            Glide.with(binding.root).load(product.imageUri).into(binding.image)
+            Glide.with(binding.root)
+                .load(product.imageUri)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
+                .into(binding.image)
             binding.apply {
                 title.text = product.nameProduct.parseAsHtml()
                 count.text = "${product.count}"

@@ -26,6 +26,7 @@ import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.startIntentActionView
 
 class SchoolInfoFragment : BaseFragment() {
+
     private lateinit var binding: FragmentSchoolInfoBinding
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var navCMain: NavController
@@ -63,8 +64,8 @@ class SchoolInfoFragment : BaseFragment() {
                     if (school.id == schoolId) {
                         Glide.with(requireActivity())
                             .load(baseUrl + school.image)
-                            .placeholder(R.drawable.ic_loader_spinner)
-                            .error(R.drawable.load_error_padding)
+                            .placeholder(R.drawable.loader_anim)
+                            .error(R.drawable.ic_load_error)
                             .centerCrop()
                             .into(binding.imageViewInfo)
                         binding.textViewDescriptionWait.movementMethod = LinkMovementMethod()
@@ -127,7 +128,9 @@ class SchoolInfoFragment : BaseFragment() {
                 viewWait.textView_head.text = wait.head.parseAsHtml()
                 viewWait.textView_description.text = wait.description.parseAsHtml()
                 Glide.with(requireContext()).load(baseUrl + wait.imageUrl)
-                    .placeholder(R.drawable.empty_image).centerCrop()
+                    .placeholder(R.drawable.loader_anim)
+                    .error(R.drawable.ic_load_error)
+                    .centerCrop()
                     .into(viewWait.imageView_what_wait)
                 (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
                     margin,

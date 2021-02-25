@@ -17,6 +17,7 @@ import ru.hvost.news.databinding.FragmentSchoolParentsSchoolsBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolsListAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
 class SchoolParentsSchoolsFragment : BaseFragment() {
@@ -25,6 +26,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var schoolsAdapter: SchoolsListAdapter
     private lateinit var navCMain: NavController
+    private lateinit var schoolsEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +41,28 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         initializedAdapters()
+        initializedEvents()
         binding.recyclerSchools.adapter = schoolsAdapter
         setObservers(this)
         setListeners()
         binding.swipeRefreshSchools.setColorSchemeColors(Color.BLUE, Color.YELLOW, Color.BLUE)
         binding.swipeRefreshSchools.isRefreshing = true
+    }
+
+    private fun initializedEvents() {
+        schoolsEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnLoading = {
+                binding.swipeRefreshSchools.isRefreshing = true
+            },
+            doOnError = {
+                binding.swipeRefreshSchools.isRefreshing = false
+            }
+        ,
+            doOnFailure = {
+                binding.swipeRefreshSchools.isRefreshing = false
+            }
+        )
     }
 
     private fun setListeners() {
@@ -94,6 +113,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
             }
         }
         )
+        schoolVM.onlineSchoolsEvent.observe(owner, schoolsEvent)
     }
 
     private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {

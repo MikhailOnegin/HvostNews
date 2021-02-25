@@ -41,7 +41,8 @@ class ShopDomainsAdapter(
             Glide
                 .with(binding.root)
                 .load(domain.imageUri)
-                .placeholder(R.drawable.empty_image)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .into(binding.image)
             binding.constraintLayout.setOnClickListener {
                 onDomainClicked.invoke(domain.domainId)

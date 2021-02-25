@@ -108,8 +108,8 @@ class LessonFinishedFragment : BaseFragment() {
                         binding.textViewLessonNumber.text = lessonNumber
                         binding.textViewQuestion.text = lesson.testQuestion
                         Glide.with(requireContext()).load(baseUrl + lesson.imageVideoUrl)
-                            .placeholder(R.drawable.ic_loader_spinner)
-                            .error(R.drawable.load_error_padding)
+                            .placeholder(R.drawable.loader_anim)
+                            .error(R.drawable.ic_load_error)
                             .centerCrop()
                             .into(binding.imageViewVideo)
                         for (q in lesson.answerList.indices) {

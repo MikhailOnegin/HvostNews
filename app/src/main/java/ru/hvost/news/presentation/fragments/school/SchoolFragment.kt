@@ -7,16 +7,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.layout_lesson_number.view.*
 import kotlinx.android.synthetic.main.layout_lesson_numbers.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -80,8 +76,8 @@ class SchoolFragment : BaseFragment() {
                                 school.userRank
                             Glide.with(requireContext())
                                 .load(APIService.baseUrl + school.imageDetailUrl)
-                                .placeholder(R.drawable.ic_loader_spinner)
-                                .error(R.drawable.load_error_padding)
+                                .placeholder(R.drawable.loader_anim)
+                                .error(R.drawable.ic_load_error)
                                 .centerCrop()
                                 .into(binding.imageViewLogo)
                             return@run

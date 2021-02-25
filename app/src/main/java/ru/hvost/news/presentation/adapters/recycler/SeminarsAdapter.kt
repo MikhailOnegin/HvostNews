@@ -60,8 +60,8 @@ class SeminarsAdapter(
 
         fun bind(seminar: OfflineSeminars.OfflineSeminar) {
             Glide.with(itemView.context).load(baseUrl + seminar.imageUrl)
-                .placeholder(R.drawable.ic_loader_spinner)
-                .error(R.drawable.load_error_padding)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .centerCrop()
                 .into(binding.imageViewLesson)
             if (seminar.isFinished) {

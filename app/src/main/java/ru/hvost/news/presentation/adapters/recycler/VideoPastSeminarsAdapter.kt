@@ -1,12 +1,10 @@
 package ru.hvost.news.presentation.adapters.recycler
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_video_past_seminar.view.*
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ItemVideoPastSeminarBinding
@@ -43,8 +41,8 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
         fun bind(video: OfflineSeminars.Video){
             binding.textViewTitle.text = video.title.parseAsHtml()
             Glide.with(itemView.context).load(APIService.baseUrl + video.imageVideoUrl)
-                .placeholder(R.drawable.ic_loader_spinner)
-                .error(R.drawable.load_error_padding)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .into(binding.imageViewVideo)
             binding.root
             binding.constraintVideo.setOnClickListener {

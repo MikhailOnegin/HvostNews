@@ -40,8 +40,8 @@ class PartnersAdapter: RecyclerView.Adapter<PartnersAdapter.PartnerViewHolder>()
         fun bind(partner: OfflineSeminars.Partner){
             Glide.with(binding.root.context)
                 .load(baseUrl + partner.image)
-                .placeholder(R.drawable.ic_loader_spinner)
-                .error(R.drawable.load_error_padding)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .centerCrop().into(binding.imageViewPartner)
             binding.textViewTitle.text = partner.name.parseAsHtml()
         }

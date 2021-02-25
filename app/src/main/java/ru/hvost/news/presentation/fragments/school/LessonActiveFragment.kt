@@ -24,6 +24,8 @@ import ru.hvost.news.databinding.LayoutLessonOptionBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
+import ru.hvost.news.presentation.dialogs.SchoolFinishDialog
+import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.createSnackbar
@@ -36,6 +38,7 @@ class LessonActiveFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSchoolLessonActiveBinding
     private lateinit var schoolVM: SchoolViewModel
+    private var school:OnlineSchools.OnlineSchool? = null
     private var lessonId: String? = null
     private var schoolId: String? = null
     private val answers = mutableMapOf<String, Boolean>()
@@ -86,6 +89,13 @@ class LessonActiveFragment : BaseFragment() {
                             navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lastLesson")
                             navCMain.popBackStack()
                         }
+                        school?.let {
+                            SchoolFinishDialog(it.title).show(
+                                    childFragmentManager,
+                                    "success_registration_dialog"
+                            )
+                        }
+
                     } else {
                         binding.buttonToAnswer.text = resources.getString(R.string.next_lesson)
                         binding.buttonToAnswer.setOnClickListener {
@@ -147,8 +157,8 @@ class LessonActiveFragment : BaseFragment() {
                             }
                             Glide.with(requireContext())
                                 .load(baseUrl + lesson.imageVideoUrl)
-                                .placeholder(R.drawable.ic_loader_spinner)
-                                .error(R.drawable.load_error_padding)
+                                .placeholder(R.drawable.loader_anim)
+                                .error(R.drawable.ic_load_error)
                                 .centerCrop()
                                 .into(binding.imageViewVideo)
 
@@ -205,6 +215,7 @@ class LessonActiveFragment : BaseFragment() {
                 for (i in it.onlineSchools.indices) {
                     if (it.onlineSchools[i].id.toString() == this) {
                         onlineSchool = it.onlineSchools[i]
+                        school = onlineSchool
                     }
                 }
                 onlineSchool?.run {

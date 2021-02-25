@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -42,8 +41,8 @@ class ArticleAdapter(
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
-                .placeholder(R.drawable.ic_loader_spinner)
-                .error(R.drawable.load_error_padding)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .centerCrop()
                 .into(binding.img)
             binding.title.text = articleItem.title
