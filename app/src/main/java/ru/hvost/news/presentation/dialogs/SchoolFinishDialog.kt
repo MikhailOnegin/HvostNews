@@ -42,7 +42,7 @@ class SchoolFinishDialog(private val title:String): BottomSheetDialogFragment() 
 
     override fun onStart() {
         super.onStart()
-        val description = "Похдравляем! вы прошли семинар" +
+        val description = "Поздравляем! Вы прошли семинар " +
                 "\"$title\""
         binding.textViewDescription.text = description
         setListeners()
