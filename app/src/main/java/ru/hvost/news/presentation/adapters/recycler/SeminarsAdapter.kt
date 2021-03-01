@@ -80,7 +80,5 @@ class SeminarsAdapter(
                 clickSeminar?.invoke(seminar.id)
             }
         }
-
-
     }
 }

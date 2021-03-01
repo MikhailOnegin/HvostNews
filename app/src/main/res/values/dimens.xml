@@ -302,6 +302,7 @@
     <dimen name="_175dp">175dp</dimen>
     <dimen name="_200dp">200dp</dimen>
     <dimen name="_220dp">220dp</dimen>
+    <dimen name="_260dp">260dp</dimen>
     <dimen name="_300dp">300dp</dimen>
 
     <dimen name="_1sp">1sp</dimen>
