@@ -1,6 +1,7 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.animation.ObjectAnimator
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

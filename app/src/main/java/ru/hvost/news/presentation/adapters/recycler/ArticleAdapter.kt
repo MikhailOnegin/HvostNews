@@ -1,19 +1,24 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+import android.graphics.drawable.AnimationDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutArticleItemBinding
 import ru.hvost.news.models.Article
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 
 
@@ -38,10 +43,11 @@ class ArticleAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(articleItem: Article) {
+
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
-                .placeholder(R.drawable.loader_anim)
+                .placeholder(getDefaultShimmer(this.itemView.context))
                 .error(R.drawable.ic_load_error)
                 .centerCrop()
                 .into(binding.img)

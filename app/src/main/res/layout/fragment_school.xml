@@ -207,7 +207,7 @@
                     style="@style/CartTypeTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/course_materials"
+                    android:text="@string/course_online"
                     android:textColor="@color/sex_text_color"
                     android:textSize="@dimen/_13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
