@@ -437,6 +437,7 @@
     <string name="promocodeOverrideWarningTitle">Активировать новый промокод?</string>
     <string name="buttonYes">Да</string>
     <string name="buttonNo">Нет</string>
+    <string name="alertTitle">Информация</string>
     <string name="partnersPageTitle">Страница партнера</string>
     <string name="likeCD">Избранное</string>
     <string name="mapsPartnerDescriptionTitle">Описание</string>

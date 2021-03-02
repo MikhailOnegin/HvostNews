@@ -97,7 +97,6 @@ class PrizesFragment : BaseFragment() {
             val bundle = Bundle()
             bundle.putString("PRIZE_ID", categoryId)
             mainVM.prizeDomainId = categoryId
-            mainVM.loadPrizes(categoryId)
             findNavController().navigate(R.id.action_prizesFragment_to_choicePrizeFragment, bundle)
         }
         val adapter = PrizeCategoryAdapter(onActionClicked)
