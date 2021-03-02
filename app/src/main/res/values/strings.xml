@@ -59,7 +59,7 @@
     <string name="logo_activity">Активность</string>
     <string name="logo_status">Статус</string>
     <string name="online_school">Онлайн школа</string>
-    <string name="seminars_in_your_cities">Семинары в вашем городе</string>
+    <string name="school_offline">Оффлайн школа</string>
     <string name="how_seminars_show">Какие семинары показывать</string>
     <string name="choose_your_city">Выберите ваш город</string>
     <string name="show_completed">Показывать завершенные</string>
@@ -78,7 +78,7 @@
     <string name="registration">Зарегистрироваться</string>
     <string name="online_school_for_owners">Онлайн школа для владельцев щенков</string>
     <string name="about_course">О курсе</string>
-    <string name="course_materials">Материалы курса</string>
+    <string name="course_online">Online-курс</string>
     <string name="course_description">Это обучающий онлайн-курс в овом формате. Он создан для тех, кто только планирует
         взять в дом щенкаили уже завёл непоседу, и у кого остались вопросы по его содержанию. \n\n
         Мы поможем вам стать суперхозяином и расскажем: почему щенок грызёт всё подряд, как подготовиться к первой прогулке

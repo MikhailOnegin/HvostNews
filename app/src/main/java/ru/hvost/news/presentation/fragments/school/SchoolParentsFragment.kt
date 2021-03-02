@@ -100,10 +100,11 @@ class SchoolParentsFragment : BaseFragment() {
                     )
                     (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
                         0
-                    )?.run {
-                        val cityId = this.cityId
+                    )?.let { cityOffline ->
+                        val cityId = cityOffline.cityId
                         App.getInstance().userToken?.run {
                             schoolVM.getSeminars(cityId, this)
+                            schoolVM.currentCity.value = cityOffline.cityId
                         }
                     }
                 }
@@ -161,13 +162,12 @@ class SchoolParentsFragment : BaseFragment() {
 
                 @Suppress("UNCHECKED_CAST")
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
-                        p2
-                    )
-                        ?.run {
-                            val cityId = this.cityId
+                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(p2)
+                        ?.let { cityOffline ->
+                            val cityId = cityOffline.cityId
                             App.getInstance().userToken?.run {
                                 schoolVM.getSeminars(cityId, this)
+                                schoolVM.currentCity.value = cityOffline.cityId
                             }
                         }
                 }
@@ -187,7 +187,7 @@ class SchoolParentsFragment : BaseFragment() {
             }
     }
 
-    fun setTabsSelected(destination: String?) {
+    private fun setTabsSelected(destination: String?) {
         if (destination != null) {
             if (fromDestination == "school") {
                 binding.constraintOnlineSchools.isSelected = true

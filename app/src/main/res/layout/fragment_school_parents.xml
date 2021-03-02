@@ -109,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/seminars_in_your_cities"
+                        android:text="@string/school_offline"
                         android:textSize="@dimen/_12sp"
                         android:textColor="@color/sex_text_color"
                         app:layout_constraintBottom_toBottomOf="parent"
