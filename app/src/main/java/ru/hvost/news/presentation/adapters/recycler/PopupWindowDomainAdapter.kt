@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutPopupDomainItemBinding
 import ru.hvost.news.models.Domain
@@ -40,6 +41,8 @@ class PopupWindowDomainAdapter(private val onClick: (Long) -> Unit) :
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + domainItem.img)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .fitCenter()
                 .into(binding.img)
             binding.title.text = domainItem.title

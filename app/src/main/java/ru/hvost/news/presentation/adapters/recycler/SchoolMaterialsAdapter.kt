@@ -226,6 +226,7 @@ class SchoolMaterialsAdapter(
             result = when (i.toInt()) {
                 0 -> "месяцев"
                 1 -> "месяц"
+                2 -> "месяца"
                 3 -> "месяца"
                 4 -> "месяца"
                 else -> "месяцев"

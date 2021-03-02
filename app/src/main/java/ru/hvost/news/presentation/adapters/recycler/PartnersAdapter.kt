@@ -38,8 +38,12 @@ class PartnersAdapter: RecyclerView.Adapter<PartnersAdapter.PartnerViewHolder>()
 
     inner class PartnerViewHolder(private val binding: ItemPartnerBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(partner: OfflineSeminars.Partner){
-            Glide.with(binding.root.context).load(baseUrl + partner.image).placeholder(R.drawable.not_found)
-                .centerCrop().into(binding.imageViewPartner)
+            Glide.with(binding.root.context)
+                    .load(baseUrl + partner.image)
+                    .placeholder(R.drawable.loader_anim)
+                    .error(R.drawable.ic_load_error)
+                    .fitCenter()
+                    .into(binding.imageViewPartner)
             binding.textViewTitle.text = partner.name.parseAsHtml()
         }
 

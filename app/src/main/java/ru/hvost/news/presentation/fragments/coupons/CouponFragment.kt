@@ -69,7 +69,8 @@ class CouponFragment : BaseFragment() {
                             binding.textViewCode1.text = coupon.qrCode
                             binding.textViewCode2.text = coupon.qrCode
                             Glide.with(requireContext()).load(baseUrl + coupon.imageQRCodeUrl)
-                                .placeholder(R.drawable.empty_image)
+                                .placeholder(R.drawable.loader_anim)
+                                .error(R.drawable.ic_load_error)
                                 .into( binding.imageViewCoupon)
                             binding.textViewCouponTitle.text = coupon.title
                             if (coupon.expirationDate.isBlank()) binding.textViewCouponActivity.text =

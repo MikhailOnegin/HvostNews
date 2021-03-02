@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.hvost.news.R
 import ru.hvost.news.databinding.RvInterestBinding
 import ru.hvost.news.models.RegInterest
 import ru.hvost.news.presentation.adapters.recycler.RegInterestsAdapter.*
@@ -32,6 +33,8 @@ class RegInterestsAdapter(
             binding.name.text = interest.interestName
             Glide.with(binding.root)
                 .load(interest.imageUri)
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .into(binding.image)
             binding.selection.isSelected = interest.isSelected
             binding.root.setOnClickListener {

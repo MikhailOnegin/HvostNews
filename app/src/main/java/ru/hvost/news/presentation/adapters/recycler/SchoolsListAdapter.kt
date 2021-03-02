@@ -15,6 +15,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ItemSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
+import ru.hvost.news.models.Article
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 
@@ -75,10 +76,9 @@ class SchoolsListAdapter(
         }
 
         override fun areContentsTheSame(oldItem: OnlineSchools.OnlineSchool, newItem: OnlineSchools.OnlineSchool): Boolean {
-            return false
+            return oldItem == newItem
         }
     }
-
 
 
     inner class SchoolsViewHolder(private val binding: ItemSchoolOnlineBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -93,7 +93,8 @@ class SchoolsListAdapter(
             if (school.isNew) binding.constraintNew.visibility = View.VISIBLE
             else binding.constraintNew.visibility = View.GONE
             Glide.with(itemView.context).load(APIService.baseUrl + school.image)
-                .placeholder(R.drawable.empty_image).centerCrop()
+                .placeholder(R.drawable.loader_anim)
+                .error(R.drawable.ic_load_error)
                 .into(binding.imageViewSchool)
             binding.rootConstraint.setOnClickListener {
                 clickSchool?.invoke(school.id)

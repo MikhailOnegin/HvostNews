@@ -68,4 +68,6 @@
     <color name="scrollbarsColor">#32000000</color>
     <color name="statusBarColorApi21">#141428</color>
     <color name="launcherIconBackground">#FF611A</color>
+    <color name="backgroundDefaultShimmer">#F6F3F9</color>
+    <color name="highlightDefaultShimmer">#F9F8FB</color>
 </resources>

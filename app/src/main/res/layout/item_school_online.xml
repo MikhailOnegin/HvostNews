@@ -16,6 +16,7 @@
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginTop="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
+        android:background="@android:color/white"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="@dimen/corner_6dp"
         app:cardElevation="0dp"
@@ -25,7 +26,8 @@
         app:layout_constraintTop_toTopOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
             <ImageView
                 android:id="@+id/imageView_school"

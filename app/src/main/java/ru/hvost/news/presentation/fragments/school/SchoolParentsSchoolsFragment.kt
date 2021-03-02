@@ -1,21 +1,24 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentsSchoolsBinding
-import ru.hvost.news.presentation.adapters.recycler.SchoolsAdapter
 import ru.hvost.news.presentation.adapters.recycler.SchoolsListAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
 class SchoolParentsSchoolsFragment : BaseFragment() {
@@ -24,12 +27,14 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var schoolsAdapter: SchoolsListAdapter
     private lateinit var navCMain: NavController
+    private lateinit var schoolsEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSchoolParentsSchoolsBinding.inflate(inflater, container, false)
+        binding.swipeRefresh.setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.colorAccent))
         return binding.root
     }
 
@@ -38,8 +43,29 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = requireActivity().findNavController(R.id.nav_host_fragment)
         initializedAdapters()
+        initializedEvents()
         binding.recyclerSchools.adapter = schoolsAdapter
         setObservers(this)
+        setListeners()
+        binding.swipeRefresh.isRefreshing = true
+    }
+
+    private fun initializedEvents() {
+        schoolsEvent = DefaultNetworkEventObserver(
+            anchorView  = binding.root,
+            doOnLoading = { binding.swipeRefresh.isRefreshing = true },
+            doOnSuccess = { binding.swipeRefresh.isRefreshing = false },
+            doOnError   = { binding.swipeRefresh.isRefreshing = false },
+            doOnFailure = { binding.swipeRefresh.isRefreshing = false }
+        )
+    }
+
+    private fun setListeners() {
+        binding.swipeRefresh.setOnRefreshListener{
+            App.getInstance().userToken?.let {
+                schoolVM.getSchools(it)
+            }
+        }
     }
 
     private fun initializedAdapters() {
@@ -82,11 +108,12 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
             }
         }
         )
+        schoolVM.onlineSchoolsEvent.observe(owner, schoolsEvent)
     }
 
     private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {
         event?.getEventIfNotHandled()?.run {
-            binding.progress.visibility = View.GONE
+            binding.swipeRefresh.isRefreshing = false
             ObjectAnimator.ofFloat(
                 binding.recyclerSchools,
                 "alpha",

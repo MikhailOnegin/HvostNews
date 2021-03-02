@@ -144,7 +144,11 @@ class ShopAdapter(
 
         fun bind(header: ShopHeader) {
             binding.run {
-                Glide.with(binding.root).load(header.imageUri).into(image)
+                Glide.with(binding.root)
+                    .load(header.imageUri)
+                    .placeholder(R.drawable.loader_anim)
+                    .error(R.drawable.ic_load_error)
+                    .into(image)
                 title.text = header.text.parseAsHtml()
             }
         }
@@ -172,7 +176,10 @@ class ShopAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(product: ShopProduct) {
             binding.apply {
-                Glide.with(binding.root).load(product.imageUri).into(image)
+                Glide.with(binding.root).load(product.imageUri)
+                    .placeholder(R.drawable.loader_anim)
+                    .error(R.drawable.ic_load_error)
+                    .into(image)
                 title.text = product.title.parseAsHtml()
                 price.text = "${moneyFormat.format(product.price)} \u20bd"
                 oldPrice.text = "${moneyFormat.format(product.oldPrice.toInt())} \u20bd"

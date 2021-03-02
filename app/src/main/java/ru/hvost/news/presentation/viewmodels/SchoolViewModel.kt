@@ -90,6 +90,7 @@ class SchoolViewModel: ViewModel() {
 
     val filterSchools:MutableLiveData<String> = MutableLiveData()
     val adapterSchoolsSize: MutableLiveData<Int> = MutableLiveData(0)
+
     private val _onlineSchoolsEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val onlineSchoolsEvent:LiveData<NetworkEvent<State>> = _onlineSchoolsEvent
 
@@ -147,6 +148,13 @@ class SchoolViewModel: ViewModel() {
 
     private val mutableOfflineCities:MutableLiveData<CitiesOffline> = MutableLiveData()
     val offlineCities:LiveData<CitiesOffline> = mutableOfflineCities
+
+    private val _recyclerSeminarsReadyEvent = MutableLiveData<OneTimeEvent>()
+    val recyclerSeminarsReadyEvent: LiveData<OneTimeEvent> = _recyclerSeminarsReadyEvent
+
+    fun sendRecyclerSeminarsReadyEvent() {
+        _recyclerSeminarsReadyEvent.value = OneTimeEvent()
+    }
 
     fun getSeminarsCities(){
         viewModelScope.launch {
