@@ -367,7 +367,7 @@ class MainViewModel : ViewModel() {
                         dewormingPeriodId = dewormingPeriodId,
                         exoparasiteId = exoparasiteId,
                         exoparasitesDate = exoparasitesDate,
-                        exoparasitePeriodId = exoparasitePeriodId,
+                        exoparasitesPeriodId = exoparasitePeriodId,
                         feeding = feedingTypeId,
                         diseases = diseases,
                         favouriteVetName = favouriteVetName,

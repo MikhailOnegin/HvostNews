@@ -12,7 +12,7 @@ data class PetPassportResponse(
     val dewormingDate: String?,
     val dewormingPeriodId: String?,
     val exoparasiteId: String?,
-    val exoparasitesDate: String?,
+    val exoparasiteDate: String?,
     val exoparasitePeriodId: String?,
     val feedingTypeId: String?,
     val diseases: List<String>,

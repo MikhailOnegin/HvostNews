@@ -240,7 +240,7 @@ class PetPassportFragment : BaseFragment() {
         binding.switchClean.isChecked = mainVM.petPassportResponse.value?.isSterilised == true
         vaccineDate.value = mainVM.petPassportResponse.value?.vacinationDate.toString()
         drugDate.value = mainVM.petPassportResponse.value?.dewormingDate.toString()
-        exoparazitesDate.value = mainVM.petPassportResponse.value?.exoparasitesDate.toString()
+        exoparazitesDate.value = mainVM.petPassportResponse.value?.exoparasiteDate.toString()
         binding.clinicName.setText(mainVM.petPassportResponse.value?.favouriteVetName)
         binding.address.setText(mainVM.petPassportResponse.value?.favouriteVetAdress)
         setRecyclerView()
@@ -594,6 +594,7 @@ class PetPassportFragment : BaseFragment() {
                 ).show()
             }
         }
+        addDiseaseDialog.setOnDismissListener { diseaseBinding.diseaseTitle.setText("") }
         addDiseaseDialog.setContentView(diseaseBinding)
         addDiseaseDialog.setOnShowListener {
             addDiseaseDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
