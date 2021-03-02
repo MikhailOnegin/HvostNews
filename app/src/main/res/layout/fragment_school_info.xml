@@ -35,7 +35,7 @@
                 <ImageView
                     android:id="@+id/imageView_info"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_200dp"
+                    android:layout_height="@dimen/_260dp"
                     android:contentDescription="@string/not_found"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -20,6 +20,9 @@
 
         <ImageView
             android:id="@+id/imageView_partner"
+            android:background="@android:color/white"
+            android:paddingStart="@dimen/_12dp"
+            android:paddingEnd="@dimen/_12dp"
             android:layout_width="@dimen/_155dp"
             android:layout_height="@dimen/_100dp"
             android:contentDescription="@string/not_found"

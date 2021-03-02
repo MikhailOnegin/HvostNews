@@ -17,7 +17,6 @@
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginTop="@dimen/_8dp"
         android:contentDescription="@string/not_found"
-        android:foreground="@drawable/selector_gray_rect_small_corners"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLessonTitle"
         app:srcCompat="@drawable/ic_clock" />

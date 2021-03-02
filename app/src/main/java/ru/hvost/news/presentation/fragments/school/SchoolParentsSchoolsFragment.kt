@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -33,6 +34,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSchoolParentsSchoolsBinding.inflate(inflater, container, false)
+        binding.swipeRefresh.setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.colorAccent))
         return binding.root
     }
 
@@ -45,28 +47,21 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         binding.recyclerSchools.adapter = schoolsAdapter
         setObservers(this)
         setListeners()
-        binding.swipeRefreshSchools.setColorSchemeColors(Color.BLUE, Color.YELLOW, Color.BLUE)
-        binding.swipeRefreshSchools.isRefreshing = true
+        binding.swipeRefresh.isRefreshing = true
     }
 
     private fun initializedEvents() {
         schoolsEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
-            doOnLoading = {
-                binding.swipeRefreshSchools.isRefreshing = true
-            },
-            doOnError = {
-                binding.swipeRefreshSchools.isRefreshing = false
-            }
-        ,
-            doOnFailure = {
-                binding.swipeRefreshSchools.isRefreshing = false
-            }
+            anchorView  = binding.root,
+            doOnLoading = { binding.swipeRefresh.isRefreshing = true },
+            doOnSuccess = { binding.swipeRefresh.isRefreshing = false },
+            doOnError   = { binding.swipeRefresh.isRefreshing = false },
+            doOnFailure = { binding.swipeRefresh.isRefreshing = false }
         )
     }
 
     private fun setListeners() {
-        binding.swipeRefreshSchools.setOnRefreshListener{
+        binding.swipeRefresh.setOnRefreshListener{
             App.getInstance().userToken?.let {
                 schoolVM.getSchools(it)
             }
@@ -118,7 +113,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
 
     private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {
         event?.getEventIfNotHandled()?.run {
-            binding.swipeRefreshSchools.isRefreshing = false
+            binding.swipeRefresh.isRefreshing = false
             ObjectAnimator.ofFloat(
                 binding.recyclerSchools,
                 "alpha",

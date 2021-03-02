@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.text.InputFilter
 import android.text.Spanned
@@ -15,6 +16,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import ru.hvost.news.App
@@ -398,6 +401,22 @@ fun shareRefLink(context: Context, url: String) {
 
 }
 
+  // Получаем shimmer drawable для Glide -> placeHolder
+fun getDefaultShimmer(context: Context): Drawable {
+    val shimmer = Shimmer.ColorHighlightBuilder().setBaseColor(
+        ContextCompat.getColor(context, R.color.backgroundDefaultShimmer)
+    ).setHighlightColor(
+        ContextCompat.getColor(context, android.R.color.white)
+    ).setDuration(1000) // how long the shimmering animation takes to do one full sweep
+        .setBaseAlpha(1f) //the alpha of the underlying children
+        .setHighlightAlpha(1f) // the shimmer alpha amount
+        .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+        .setAutoStart(true)
+        .build()
+    return ShimmerDrawable().apply {
+        setShimmer(shimmer)
+    }
+}
 fun pxToDp(context: Context, px:Int): Int {
     return (px / context.resources.displayMetrics.density).toInt()
 }
