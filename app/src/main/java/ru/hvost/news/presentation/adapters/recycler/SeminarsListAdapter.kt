@@ -21,21 +21,24 @@ class SeminarsListAdapter(
         private val clickSeminar: ((Long) -> Unit)? = null,
 ) : ListAdapter<OfflineSeminars.OfflineSeminar,
         RecyclerView.ViewHolder>(SeminarsContentDiffUtilCallback()) {
-
+    var fullSeminars = arrayListOf<OfflineSeminars.OfflineSeminar>()
     var seminars = arrayListOf<OfflineSeminars.OfflineSeminar>()
-    private var showFinished = true
 
 
-    fun filter(showFinished: Boolean = this.showFinished) {
-        seminars = if (showFinished) currentList.toCollection(ArrayList())
-        else currentList.filter { it.isFinished == showFinished }.toCollection(ArrayList())
+    fun filter(showFinished: Boolean) {
+        seminars = if (showFinished) fullSeminars
+        else fullSeminars.filter { it.isFinished == showFinished }.toCollection(ArrayList())
         schoolVM.adapterSeminarsSize.value = seminars.size
         notifyDataSetChanged()
     }
 
     override fun submitList(list: List<OfflineSeminars.OfflineSeminar>?) {
         list?.let {
-            this.seminars = it.toCollection(ArrayList())
+            fullSeminars = it.toCollection(ArrayList())
+        }
+        schoolVM.showFinishedSeminars.value?.let { filterShowFinished ->
+            seminars = if (filterShowFinished) fullSeminars
+            else fullSeminars.filter { it.isFinished == filterShowFinished }.toCollection(ArrayList())
         }
         schoolVM.adapterSeminarsSize.value = seminars.size
         super.submitList(seminars)

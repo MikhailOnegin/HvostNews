@@ -81,13 +81,9 @@ class SchoolParentSeminarsFragment : BaseFragment() {
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineSeminars.observe(owner, { seminarsResponse ->
             seminarsAdapter.submitList(seminarsResponse.seminars)
-            schoolVM.filterShowFinished.value?.let {
-                seminarsAdapter.filter(it)
-
-            }
         })
         schoolVM.recyclerSeminarsReadyEvent.observe(owner) { onRecyclerSeminarsReadyEvent(it) }
-        schoolVM.filterShowFinished.observe(owner,
+        schoolVM.showFinishedSeminars.observe(owner,
             {
                 seminarsAdapter.filter(it)
             })

@@ -126,7 +126,7 @@ class SchoolParentsFragment : BaseFragment() {
             }
         }
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
-            schoolVM.filterShowFinished.value = b
+            schoolVM.showFinishedSeminars.value = b
         }
         binding.spinnerOfflineSeminars.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
