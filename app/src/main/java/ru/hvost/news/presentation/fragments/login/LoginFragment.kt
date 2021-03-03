@@ -2,7 +2,14 @@ package ru.hvost.news.presentation.fragments.login
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +48,7 @@ class LoginFragment : BaseFragment() {
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.toolbar.background.level = 1
+        setHintSpannable()
         return binding.root
     }
 
@@ -76,6 +84,35 @@ class LoginFragment : BaseFragment() {
         binding.restorePassword.setOnClickListener(onRestorePasswordButtonClicked)
         binding.login.doOnTextChanged { _, _, _, _ -> setLoginButton() }
         binding.password.doOnTextChanged { _, _, _, _ -> setLoginButton() }
+    }
+
+    private fun setHintSpannable() {
+        val spannable = SpannableString(getString(R.string.loginScreenHint))
+        spannable.setSpan(
+            ScreenHintClickableSpan(requireActivity()),
+            38, 50,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.loginScreenHint.text = spannable
+        binding.loginScreenHint.movementMethod = LinkMovementMethod()
+    }
+
+    class ScreenHintClickableSpan(
+        private val context: Context
+    ) : ClickableSpan() {
+
+        private val linkColor = ContextCompat.getColor(context, R.color.colorPrimary)
+
+        override fun onClick(widget: View) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://hvost.news")
+            context.startActivity(intent)
+        }
+
+        override fun updateDrawState(ds: TextPaint) {
+            ds.color = linkColor
+        }
+
     }
 
     private fun setLoginButton() {

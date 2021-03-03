@@ -24,19 +24,58 @@
         android:layout_height="wrap_content"
         android:text="@string/authorizationTitle"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/loginInputLayout"
+        app:layout_constraintBottom_toTopOf="@id/hintContainer"
         android:layout_marginStart="@dimen/largeMargin"
         android:layout_marginEnd="@dimen/largeMargin"
         app:layout_constraintVertical_chainStyle="packed"
         style="@style/ScreenTitle"
-        app:layout_constraintVertical_bias="0.4"/>
+        app:layout_constraintVertical_bias="0.3"/>
+
+    <LinearLayout
+        android:id="@+id/hintContainer"
+        android:background="@drawable/background_login_screen_hint"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toTopOf="@id/loginInputLayout"
+        android:layout_marginTop="@dimen/normalMargin"
+        android:layout_marginStart="@dimen/largeMargin"
+        android:layout_marginEnd="@dimen/largeMargin">
+
+        <ImageView
+            android:src="@drawable/ic_kitty"
+            android:layout_width="@dimen/kittyIconSize"
+            android:layout_height="@dimen/kittyIconSize"
+            tools:ignore="ContentDescription"
+            android:layout_marginStart="@dimen/normalMargin"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:layout_marginBottom="@dimen/smallMargin"/>
+
+        <TextView
+            android:id="@+id/loginScreenHint"
+            android:textSize="@dimen/loginScreenHintTextSize"
+            android:textColor="#353535"
+            android:fontFamily="@font/gilroy_regular"
+            android:lineSpacingExtra="2dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/loginScreenHint"
+            android:layout_marginEnd="@dimen/normalMargin"
+            android:layout_marginStart="@dimen/normalMargin"
+            android:layout_marginTop="@dimen/smallMargin"
+            android:layout_marginBottom="@dimen/smallMargin"/>
+
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginInputLayout"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/hintContainer"
         app:layout_constraintBottom_toTopOf="@id/passwordInputLayout"
         android:layout_marginTop="@dimen/normalMargin"
         android:layout_marginStart="@dimen/largeMargin"

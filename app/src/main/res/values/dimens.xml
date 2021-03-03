@@ -360,4 +360,6 @@
     <dimen name="toolbarButtonMargin">8dp</dimen>
     <dimen name="mainTitleMaxWidth">170dp</dimen>
     <dimen name="textSchoolDetailTitle">30sp</dimen>
+    <dimen name="loginScreenHintTextSize">16sp</dimen>
+    <dimen name="kittyIconSize">48dp</dimen>
 </resources>

@@ -483,4 +483,5 @@
     <string name="go_to_partner_page">Перейти на страницу партнера</string>
     <string name="regime">Время работы</string>
     <string name="no_data">-</string>
+    <string name="loginScreenHint">Если вы уже зарегистрированы на сайте \"Хвост Ньюс\", вы можете использовать логин и пароль от сайта для авторизации в приложении.</string>
 </resources>

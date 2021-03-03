@@ -265,4 +265,6 @@
     <dimen name="mainTitleMaxWidth">170dp</dimen>
     <dimen name="prizeItemPadding">15dp</dimen>
     <dimen name="textSchoolDetailTitle">27sp</dimen>
+    <dimen name="loginScreenHintTextSize">12sp</dimen>
+    <dimen name="kittyIconSize">42dp</dimen>
 </resources>
