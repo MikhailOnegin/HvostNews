@@ -22,24 +22,23 @@ class SeminarsListAdapter(
 ) : ListAdapter<OfflineSeminars.OfflineSeminar,
         RecyclerView.ViewHolder>(SeminarsContentDiffUtilCallback()) {
 
-    private var lessonsFull = arrayListOf<OfflineSeminars.OfflineSeminar>()
-    var lessons = arrayListOf<OfflineSeminars.OfflineSeminar>()
+    var seminars = arrayListOf<OfflineSeminars.OfflineSeminar>()
     private var showFinished = true
 
 
     fun filter(showFinished: Boolean = this.showFinished) {
-        lessons = lessonsFull.filter { it.isFinished == showFinished }.toCollection(ArrayList())
-        schoolVM.adapterSeminarsSize.value = lessons.size
+        seminars = if (showFinished) currentList.toCollection(ArrayList())
+        else currentList.filter { it.isFinished == showFinished }.toCollection(ArrayList())
+        schoolVM.adapterSeminarsSize.value = seminars.size
         notifyDataSetChanged()
     }
 
     override fun submitList(list: List<OfflineSeminars.OfflineSeminar>?) {
         list?.let {
-            this.lessonsFull = it.toCollection(ArrayList())
-            this.lessons = it.toCollection(ArrayList())
+            this.seminars = it.toCollection(ArrayList())
         }
-        schoolVM.adapterSeminarsSize.value = lessons.size
-        super.submitList(lessons)
+        schoolVM.adapterSeminarsSize.value = seminars.size
+        super.submitList(seminars)
     }
 
     override fun onCurrentListChanged(
@@ -60,11 +59,11 @@ class SeminarsListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return lessons.size
+        return seminars.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val lesson = lessons[position]
+        val lesson = seminars[position]
         return (holder as SeminarViewHolder).bind(lesson)
     }
 

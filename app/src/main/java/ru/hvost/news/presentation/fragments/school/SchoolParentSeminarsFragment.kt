@@ -1,11 +1,9 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +12,6 @@ import androidx.navigation.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolParentSeminarsBinding
-import ru.hvost.news.presentation.adapters.recycler.SeminarsAdapter
 import ru.hvost.news.presentation.adapters.recycler.SeminarsListAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
@@ -109,13 +106,6 @@ class SchoolParentSeminarsFragment : BaseFragment() {
     private fun onRecyclerSeminarsReadyEvent(event: OneTimeEvent?) {
         event?.getEventIfNotHandled()?.run {
             binding.swipeRefresh.isRefreshing = false
-            ObjectAnimator.ofFloat(
-                    binding.recyclerSeminars,
-                    "alpha",
-                    0f, 1f
-            ).apply {
-                duration = 300L
-            }.start()
         }
     }
 }

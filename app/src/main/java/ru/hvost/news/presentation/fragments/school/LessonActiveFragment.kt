@@ -138,6 +138,16 @@ class LessonActiveFragment : BaseFragment() {
 
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.lessonTestesPassedEvent.observe(owner, lessonTestPassedEvent)
+        schoolVM.onlineSchools.value?.let { onlineSchools ->
+            for (i in onlineSchools.onlineSchools.indices){
+                val school = onlineSchools.onlineSchools[i]
+                schoolId?.let { schoolId ->
+                    if(school.id.toString() == schoolId){
+                        this.school = school
+                    }
+                }
+            }
+        }
         schoolVM.onlineLessons.observe(owner, {
             lessons = it.lessons
             if (it.lessons.isNotEmpty()) {
@@ -146,6 +156,47 @@ class LessonActiveFragment : BaseFragment() {
                         val lesson = it.lessons[i]
                         if (lesson.lessonId == this) {
                             this@LessonActiveFragment.lesson = lesson
+                            // add literature
+                            val literature = lesson.literatures
+                            val container = binding.includeLiterature.linearLayoutLiterature
+                            container.removeAllViews()
+                            if (literature.isNotEmpty()) {
+                                binding.includeLiterature.rootConstraint.visibility = View.VISIBLE
+                                for (q in literature.indices) {
+                                    val viewLiterature = LayoutLiteratureItemBinding.inflate(
+                                            LayoutInflater.from(requireContext()),
+                                            container,
+                                            false
+                                    ).root
+                                    viewLiterature.textView_title.text = literature[q].title
+                                    viewLiterature.textView_pet.text = literature[q].pet
+                                    viewLiterature.constraint_literature.setOnClickListener {
+                                        startIntentActionView(
+                                                requireContext(),
+                                                baseUrl + literature[q].fileUrl
+                                        )
+                                    }
+                                    val paddingNormal = resources.getDimension(R.dimen.normalMargin).toInt()
+                                    val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
+
+                                    if (q == 0 || q == literature.lastIndex) {
+                                        if (q == 0) viewLiterature.setPadding(
+                                                paddingEdge,
+                                                0,
+                                                paddingNormal,
+                                                0
+                                        )
+                                        else if (q == literature.lastIndex) viewLiterature.setPadding(
+                                                0,
+                                                0,
+                                                paddingEdge,
+                                                0
+                                        )
+                                    } else viewLiterature.setPadding(0, 0, paddingNormal, 0)
+                                    container.addView(viewLiterature)
+                                }
+                            } else binding.includeLiterature.rootConstraint.visibility = View.GONE
+                            //
                             binding.textViewTitle.text = lesson.lessonTitle
                             val lessonNumber =
                                 "${getString(R.string.lesson_number)} ${i + 1}"
@@ -210,58 +261,6 @@ class LessonActiveFragment : BaseFragment() {
                 ).show()
             }
             schoolVM.sendLessonReadyEvent()
-        })
-        schoolVM.onlineSchools.observe(owner, {
-            schoolId?.run {
-                var onlineSchool: OnlineSchools.OnlineSchool? = null
-                for (i in it.onlineSchools.indices) {
-                    if (it.onlineSchools[i].id.toString() == this) {
-                        onlineSchool = it.onlineSchools[i]
-                        school = onlineSchool
-                    }
-                }
-                onlineSchool?.run {
-                    val literature = this.literature
-                    val container = binding.includeLiterature.linearLayoutLiterature
-                    container.removeAllViews()
-                    if (literature.isNotEmpty()) {
-                        for (i in literature.indices) {
-                            val viewLiterature = LayoutLiteratureItemBinding.inflate(
-                                LayoutInflater.from(requireContext()),
-                                container,
-                                false
-                            ).root
-                            viewLiterature.textView_title.text = literature[i].title
-                            viewLiterature.textView_pet.text = literature[i].pet
-                            viewLiterature.constraint_literature.setOnClickListener {
-                                startIntentActionView(
-                                    requireContext(),
-                                    baseUrl + literature[i].fileUrl
-                                )
-                            }
-                            val paddingNormal = resources.getDimension(R.dimen.normalMargin).toInt()
-                            val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
-
-                            if (i == 0 || i == onlineSchool.literature.lastIndex) {
-                                if (i == 0) viewLiterature.setPadding(
-                                    paddingEdge,
-                                    0,
-                                    paddingNormal,
-                                    0
-                                )
-                                else if (i == onlineSchool.literature.lastIndex) viewLiterature.setPadding(
-                                    0,
-                                    0,
-                                    paddingEdge,
-                                    0
-                                )
-                            } else viewLiterature.setPadding(0, 0, paddingNormal, 0)
-                            container.addView(viewLiterature)
-                        }
-                    } else
-                        binding.includeLiterature.rootConstraint.visibility = View.GONE
-                }
-            }
         })
         schoolVM.selectLessonAnswersCount.observe(owner, {
             val selected = it > 0

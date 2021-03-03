@@ -10,6 +10,7 @@ import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.ItemPartnerBinding
 import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.utils.getDefaultShimmer
+import ru.hvost.news.utils.startIntentActionView
 
 class PartnersAdapter: RecyclerView.Adapter<PartnersAdapter.PartnerViewHolder>() {
 
@@ -46,6 +47,12 @@ class PartnersAdapter: RecyclerView.Adapter<PartnersAdapter.PartnerViewHolder>()
                     .fitCenter()
                     .into(binding.imageViewPartner)
             binding.textViewTitle.text = partner.name.parseAsHtml()
+            binding.cardView.setOnClickListener {
+                startIntentActionView(
+                        itemView.context,
+                        partner.website
+                )
+            }
         }
 
     }

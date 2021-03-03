@@ -484,4 +484,5 @@
     <string name="regime">Время работы</string>
     <string name="no_data">-</string>
     <string name="loginScreenHint">Если вы уже зарегистрированы на сайте \"Хвост Ньюс\", вы можете использовать логин и пароль от сайта для авторизации в приложении.</string>
+    <string name="download">Скачать</string>
 </resources>
