@@ -1,6 +1,7 @@
 package ru.hvost.news.models
 
 import ru.hvost.news.data.api.response.OnlineLessonsResponse
+import ru.hvost.news.data.api.response.OnlineSchoolsResponse
 
 data class OnlineLessons(
     val lessons: List<OnlineLesson>
@@ -15,12 +16,18 @@ data class OnlineLessons(
         val videoUrl: String,
         val imageVideoUrl: String,
         val testQuestion: String,
+        val literatures: List<Literature>,
         val answerList: List<Answer>
     )
 
     data class Answer(
         val answer: String,
         val isTrue: Boolean
+    )
+    data class Literature(
+            val title: String,
+            val pet: String,
+            val fileUrl: String,
     )
 }
 
@@ -37,16 +44,17 @@ fun List<OnlineLessonsResponse.OnlineLesson>?.toOnlineLessons(): List<OnlineLess
         for ((index, onlineLessonResponse) in this.withIndex()) {
             result.add(
                 OnlineLessons.OnlineLesson(
-                    domainId = index,
-                    lessonId = onlineLessonResponse.lessonId?: "",
-                    lessonTitle = onlineLessonResponse.lessonTitle ?: "",
-                    petAge = onlineLessonResponse.petAge.toStrings(),
-                    lessonNumber = onlineLessonResponse.lessonNumber ?: "",
-                    isTestPassed = onlineLessonResponse.isTestPassed ?: false,
-                    videoUrl = onlineLessonResponse.videoUrl ?: "",
-                    imageVideoUrl = onlineLessonResponse.imageVideoUrl ?: "",
-                    testQuestion = onlineLessonResponse.testQuestion ?: "",
-                    answerList = onlineLessonResponse.answerList.toAnswers()
+                        domainId = index,
+                        lessonId = onlineLessonResponse.lessonId?: "",
+                        lessonTitle = onlineLessonResponse.lessonTitle ?: "",
+                        petAge = onlineLessonResponse.petAge.toStrings(),
+                        lessonNumber = onlineLessonResponse.lessonNumber ?: "",
+                        isTestPassed = onlineLessonResponse.isTestPassed ?: false,
+                        videoUrl = onlineLessonResponse.videoUrl ?: "",
+                        imageVideoUrl = onlineLessonResponse.imageVideoUrl ?: "",
+                        testQuestion = onlineLessonResponse.testQuestion ?: "",
+                        answerList = onlineLessonResponse.answerList.toAnswers(),
+                        literatures = onlineLessonResponse.literatures.toLiteratures()
                 )
             )
         }
@@ -78,6 +86,22 @@ fun List<String>?.toStrings():List<String>{
             )
         }
 
+    }
+    return result
+}
+
+fun List<OnlineLessonsResponse.Literature>?.toLiteratures():List<OnlineLessons.Literature>{
+    val result = mutableListOf<OnlineLessons.Literature>()
+    this?.run {
+        for (literature in this.iterator()) {
+            result.add(
+                    OnlineLessons.Literature(
+                            title = literature.title ?: "",
+                            pet = literature.pet ?: "",
+                            fileUrl = literature.fileUrl ?: ""
+                    )
+            )
+        }
     }
     return result
 }

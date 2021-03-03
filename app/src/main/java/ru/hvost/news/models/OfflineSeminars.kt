@@ -30,7 +30,8 @@ data class OfflineSeminars(
     )
     data class Partner(
         val name: String,
-        val image: String
+        val image: String,
+        val website: String
     )
     data class PetSchedule(
         val petTypeId: String,
@@ -106,8 +107,9 @@ fun List<OfflineSeminarsResponse.Partner>?.toPartners(): List<OfflineSeminars.Pa
         for ( partner in this.iterator()) {
             result.add(
                 OfflineSeminars.Partner(
-                    name = partner.name ?: "",
-                    image = partner.image ?: ""
+                        name = partner.name ?: "",
+                        image = partner.image ?: "",
+                        website = partner.website?: ""
                 )
             )
         }

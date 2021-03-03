@@ -13,6 +13,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCouponsMyBinding
 import ru.hvost.news.models.Coupons
 import ru.hvost.news.presentation.adapters.recycler.CouponsAdapter
+import ru.hvost.news.presentation.adapters.recycler.CouponsListAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
@@ -22,7 +23,7 @@ class MyCouponsFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCouponsMyBinding
     private lateinit var couponVM: CouponViewModel
-    private val adapter = CouponsAdapter()
+    private lateinit var couponsAdapter: CouponsListAdapter
     private lateinit var navC: NavController
 
     override fun onCreateView(
@@ -37,27 +38,35 @@ class MyCouponsFragment : BaseFragment() {
         super.onViewStateRestored(savedInstanceState)
         navC = findNavController()
         couponVM = ViewModelProvider(requireActivity())[CouponViewModel::class.java]
-        adapter.clickCoupon = object : CouponsAdapter.ClickCoupon {
-            override fun click(item: Coupons.Coupon) {
-                val bundle = Bundle()
-                bundle.putString("couponId", item.couponId)
-                navC.navigate(R.id.action_myCouponsFragment_to_couponFragment, bundle)
-            }
-        }
-        binding.recyclerViewCoupons.adapter = adapter
-        val itemsSpinner = arrayListOf("Все", "Активные", "Использованные")
-        val spinnerAdapter = SpinnerAdapter(requireContext(), "", itemsSpinner, String::getValue)
-        binding.spinnerCoupons.adapter = spinnerAdapter
+        initializedAdapters()
         setListeners()
         setObservers(this)
+        getData()
+    }
+
+    private fun getData() {
+        couponVM.coupons.value?.let {
+            couponsAdapter.submitList(it.coupons)
+        }
         App.getInstance().userToken?.run {
             couponVM.getCoupons(this)
         }
     }
 
+    private fun initializedAdapters() {
+        couponsAdapter = CouponsListAdapter {
+            val bundle = Bundle()
+            bundle.putString("couponId", it)
+            navC.navigate(R.id.action_myCouponsFragment_to_couponFragment, bundle)
+        }
+        binding.recyclerViewCoupons.adapter = couponsAdapter
+        val itemsSpinner = arrayListOf("Все", "Активные", "Использованные")
+        binding.spinnerCoupons.adapter = SpinnerAdapter(requireContext(), "", itemsSpinner, String::getValue)
+    }
+
     private fun setObservers(owner: LifecycleOwner) {
         couponVM.coupons.observe(owner, {
-            adapter.setCoupons(it.coupons)
+            couponsAdapter.submitList(it.coupons)
         })
     }
 
@@ -72,7 +81,7 @@ class MyCouponsFragment : BaseFragment() {
                     val isUsed =
                         (binding.spinnerCoupons.adapter as SpinnerAdapter<String>).getItem(p2)
                     isUsed?.run {
-                        adapter.filter(this)
+                        couponsAdapter.filter(this)
                     }
                 }
             }
