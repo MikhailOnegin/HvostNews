@@ -81,8 +81,8 @@ class PetProfileFragment : BaseFragment() {
         mainVM.getDeworming()
         mainVM.getExoparazites()
         mainVM.getPetFood()
-        mainVM.getNotificationPeriod()
         mainVM.getPetDiseases()
+        mainVM.getNotificationPeriod()
     }
 
     private fun checkIsDataLoaded() {

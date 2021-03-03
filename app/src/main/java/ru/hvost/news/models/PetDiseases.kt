@@ -22,13 +22,6 @@ fun List<PetDiseasesResponse.Disease>.toPetDiseases(): List<PetDiseases> {
         )
     }
     result.add(
-        0, PetDiseases(
-            index = MainViewModel.UNSELECTED_ID,
-            diseaseId = "",
-            value = MainViewModel.UNSELECTED
-        )
-    )
-    result.add(
         PetDiseases(
             index = MainViewModel.OTHER_ID,
             diseaseId = "",

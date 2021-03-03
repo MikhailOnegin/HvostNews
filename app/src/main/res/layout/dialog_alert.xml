@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/smallMargin"
+        android:background="@drawable/background_bottom_sheet_prize_products"
+        android:orientation="vertical"
+        android:padding="@dimen/largeMargin"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xLargeMargin"
+            android:fontFamily="@font/gilroy_bold"
+            android:textAlignment="center"
+            android:textColor="@color/TextColorPrimary"
+            android:textSize="@dimen/submitDialogTitleTextSize"
+            android:text="@string/alertTitle" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normalMargin"
+            android:fontFamily="@font/gilroy_semibold"
+            android:textColor="@color/gray3"
+            android:textAlignment="center"
+            android:textSize="@dimen/submitDialogMessageTextSize"
+            tools:text="@string/stub" />
+
+        <Button
+            android:id="@+id/buttonSubmit"
+            style="@style/UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialogButtonHeight"
+            android:layout_marginTop="@dimen/largeMargin"
+            android:layout_marginHorizontal="@dimen/_100dp"
+            android:text="@string/buttonOk" />
+
+    </LinearLayout>
+
+</FrameLayout>

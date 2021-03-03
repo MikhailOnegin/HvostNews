@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.layout_add_other.view.*
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentPetPassportBinding
-import ru.hvost.news.databinding.LayoutAddDiseaseBinding
 import ru.hvost.news.models.*
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.recycler.PetDiseasesAdapter
@@ -72,22 +71,59 @@ class PetPassportFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        checkIsDataLoaded()
         initializeObservers()
         setObservers()
+        checkIsDataLoaded()
         setListeners()
     }
 
     private fun checkIsDataLoaded() {
-        if (mainVM.vaccinesLoadingEvent.value?.peekContent() == State.SUCCESS) bindVaccineList() else mainVM.getVaccines()
         if (mainVM.notificationsPeriodLoadingEvent.value?.peekContent() == State.SUCCESS) setPeriods() else mainVM.getNotificationPeriod()
-        if (mainVM.petDiseasesLoadingEvent.value?.peekContent() != State.SUCCESS) mainVM.getPetDiseases()
+        if (mainVM.vaccinesLoadingEvent.value?.peekContent() == State.SUCCESS) bindVaccineList() else mainVM.getVaccines()
         if (mainVM.dewormingLoadingEvent.value?.peekContent() == State.SUCCESS) bindDewormingList() else mainVM.getDeworming()
-        if (mainVM.exoparazitesLoadingEvent.value?.peekContent() == State.SUCCESS) bindExoparazitesList() else mainVM.getExoparazites()
+        if (mainVM.exoparazitesLoadingEvent.value?.peekContent() == State.SUCCESS) bindParasitesList() else mainVM.getExoparazites()
         if (mainVM.petFoodLoadingEvent.value?.peekContent() == State.SUCCESS) bindPetFoodList() else mainVM.getPetFood()
         if (mainVM.petPassportLoadingEvent.value?.peekContent() == State.SUCCESS) bindData() else arguments?.getString(
             ProfileFragment.PET_ID
         )?.let { mainVM.getPetPassport(it) }
+    }
+
+    private fun initializeObservers() {
+        onPetPassportLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { bindData() }
+        )
+        onNotificationPeriodLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { setPeriods() }
+        )
+        onPetFoodLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { bindPetFoodList() }
+        )
+        onVaccineLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { bindVaccineList() }
+        )
+        onDewormingLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { bindDewormingList() }
+        )
+        onExoparazitesLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = { bindParasitesList() }
+        )
+        onUpdatePetPassportLoadingEvent = DefaultNetworkEventObserver(
+            binding.root,
+            doOnSuccess = {
+                mainVM.petPassportResponse.value?.petId?.let { mainVM.getPetPassport(it) }
+                createSnackbar(
+                    (requireActivity() as MainActivity).getMainView(),
+                    getString(R.string.petDataChangedSuccessfully),
+                ).show()
+                findNavController().popBackStack()
+            }
+        )
     }
 
     private fun setPeriods() {
@@ -104,70 +140,10 @@ class PetPassportFragment : BaseFragment() {
                 parazitesPeriod.adapter = adapter
             }
             adapter.notifyDataSetChanged()
-            if (mainVM.notificationsPeriodLoadingEvent.value?.peekContent() == State.SUCCESS) setPrepsPeriods()
         }
     }
 
-    private fun setPrepsPeriods() {
-        val passport = mainVM.petPassportResponse.value
-        if (!passport?.vacinationPeriodId.isNullOrEmpty()) {
-            val selected =
-                mainVM.notificationsPeriod.value?.firstOrNull { it.periodId == passport?.vacinationPeriodId }?.index
-                    ?: 0
-            binding.vaccinePeriod.setSelection(selected.toInt())
-        }
-        if (!passport?.dewormingPeriodId.isNullOrEmpty()) {
-            val selected =
-                mainVM.notificationsPeriod.value?.firstOrNull { it.periodId == passport?.dewormingPeriodId }?.index
-                    ?: 0
-            binding.dewormingPeriod.setSelection(selected.toInt())
-        }
-        if (!passport?.exoparasitePeriodId.isNullOrEmpty()) {
-            val selected =
-                mainVM.notificationsPeriod.value?.firstOrNull { it.periodId == passport?.exoparasitePeriodId }?.index
-                    ?: 0
-            binding.parazitesPeriod.setSelection(selected.toInt())
-        }
-    }
-
-    private fun initializeObservers() {
-        onPetPassportLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = { bindData() }
-        )
-        onNotificationPeriodLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = { setPeriods() }
-        )
-        onUpdatePetPassportLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = {
-                createSnackbar(
-                    (requireActivity() as MainActivity).getMainView(),
-                    getString(R.string.petDataChangedSuccessfully),
-                ).show()
-                findNavController().popBackStack()
-            }
-        )
-        onPetFoodLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = { bindPetFoodList() }
-        )
-        onVaccineLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = { bindVaccineList() }
-        )
-        onDewormingLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = { bindDewormingList() }
-        )
-        onExoparazitesLoadingEvent = DefaultNetworkEventObserver(
-            binding.root,
-            doOnSuccess = { bindExoparazitesList() }
-        )
-    }
-
-    private fun bindExoparazitesList() {
+    private fun bindParasitesList() {
         mainVM.exoparazites.value?.let {
             val adapter = SpinnerAdapter(
                 requireActivity(),
@@ -177,7 +153,6 @@ class PetPassportFragment : BaseFragment() {
             )
             binding.parazites.adapter = adapter
             adapter.notifyDataSetChanged()
-            if (mainVM.exoparazitesLoadingEvent.value?.peekContent() == State.SUCCESS) setExoparazites()
         }
     }
 
@@ -191,7 +166,6 @@ class PetPassportFragment : BaseFragment() {
             )
             binding.drug.adapter = adapter
             adapter.notifyDataSetChanged()
-            if (mainVM.dewormingLoadingEvent.value?.peekContent() == State.SUCCESS) setDeworming()
         }
     }
 
@@ -205,7 +179,6 @@ class PetPassportFragment : BaseFragment() {
             )
             binding.vaccine.adapter = adapter
             adapter.notifyDataSetChanged()
-            if (mainVM.vaccinesLoadingEvent.value?.peekContent() == State.SUCCESS) setVaccine()
         }
     }
 
@@ -219,8 +192,47 @@ class PetPassportFragment : BaseFragment() {
             )
             binding.petFood.adapter = adapter
             adapter.notifyDataSetChanged()
-            if (mainVM.petFoodLoadingEvent.value?.peekContent() == State.SUCCESS) setPetFood()
         }
+    }
+
+    private fun setObservers() {
+        mainVM.updatePetPassportLoadingEvent.observe(
+            viewLifecycleOwner,
+            onUpdatePetPassportLoadingEvent
+        )
+        mainVM.vaccinesLoadingEvent.observe(viewLifecycleOwner, onVaccineLoadingEvent)
+        mainVM.dewormingLoadingEvent.observe(viewLifecycleOwner, onDewormingLoadingEvent)
+        mainVM.exoparazitesLoadingEvent.observe(viewLifecycleOwner, onExoparazitesLoadingEvent)
+        mainVM.petFoodLoadingEvent.observe(viewLifecycleOwner, onPetFoodLoadingEvent)
+        mainVM.notificationsPeriodLoadingEvent.observe(
+            viewLifecycleOwner,
+            onNotificationPeriodLoadingEvent
+        )
+        mainVM.petPassportLoadingEvent.observe(viewLifecycleOwner, onPetPassportLoadingEvent)
+        vaccineDate.observe(viewLifecycleOwner, { setVaccineDate(it) })
+        drugDate.observe(viewLifecycleOwner, { setDrugDate(it) })
+        exoparazitesDate.observe(viewLifecycleOwner, { setParasitesDate(it) })
+    }
+
+    private fun setParasitesDate(it: String?) {
+        if (it.isNullOrEmpty())
+            binding.parazitesDate.setSelection(getString(R.string.not_selected))
+        else
+            binding.parazitesDate.setSelection(it)
+    }
+
+    private fun setDrugDate(it: String?) {
+        if (it.isNullOrEmpty())
+            binding.dewormingDate.setSelection(getString(R.string.not_selected))
+        else
+            binding.dewormingDate.setSelection(it)
+    }
+
+    private fun setVaccineDate(it: String?) {
+        if (it.isNullOrEmpty())
+            binding.vaccineDate.setSelection(getString(R.string.not_selected))
+        else
+            binding.vaccineDate.setSelection(it)
     }
 
     private fun bindData() {
@@ -228,7 +240,7 @@ class PetPassportFragment : BaseFragment() {
         binding.switchClean.isChecked = mainVM.petPassportResponse.value?.isSterilised == true
         vaccineDate.value = mainVM.petPassportResponse.value?.vacinationDate.toString()
         drugDate.value = mainVM.petPassportResponse.value?.dewormingDate.toString()
-        exoparazitesDate.value = mainVM.petPassportResponse.value?.exoparasitesDate.toString()
+        exoparazitesDate.value = mainVM.petPassportResponse.value?.exoparasiteDate.toString()
         binding.clinicName.setText(mainVM.petPassportResponse.value?.favouriteVetName)
         binding.address.setText(mainVM.petPassportResponse.value?.favouriteVetAdress)
         setRecyclerView()
@@ -258,31 +270,51 @@ class PetPassportFragment : BaseFragment() {
         setDecoration()
     }
 
+    private fun setDecoration() {
+        binding.list.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                val elementMargin =
+                    view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
+                parent.adapter.run {
+                    outRect.bottom = elementMargin
+                }
+            }
+        })
+    }
+
     private fun setSpinners() {
         setVaccine()
         setDeworming()
         setExoparazites()
         setPetFood()
+        setPrepsPeriods()
     }
 
     private fun setVaccine() {
         val petVaccine = mainVM.petPassportResponse.value?.vacineId
         val vaccine = mainVM.vaccines.value?.firstOrNull { it.id == petVaccine }
         if (mainVM.vaccinesLoadingEvent.value?.peekContent() == State.SUCCESS
-                && vaccine != null
+            && vaccine != null
         ) {
             binding.vaccine.setSelection(vaccine.index.toInt())
         } else {
-            (binding.vaccine.adapter as SpinnerAdapter<Preps>).insert(
+            binding.vaccine.adapter?.let {
+                (binding.vaccine.adapter as SpinnerAdapter<Preps>).insert(
                     Preps(
-                            index = MainViewModel.OTHER_NEW_ID,
-                            id = "",
-                            name = petVaccine ?: "",
-                            typeId = ""
+                        index = MainViewModel.OTHER_NEW_ID,
+                        id = "",
+                        name = petVaccine ?: "",
+                        typeId = ""
                     ),
                     (binding.vaccine.adapter as SpinnerAdapter<Preps>).count - 1
-            )
-            binding.vaccine.setSelection((binding.vaccine.adapter as SpinnerAdapter<Preps>).count - 2)
+                )
+                binding.vaccine.setSelection((binding.vaccine.adapter as SpinnerAdapter<Preps>).count - 2)
+            }
         }
     }
 
@@ -290,20 +322,22 @@ class PetPassportFragment : BaseFragment() {
         val petDeworming = mainVM.petPassportResponse.value?.dewormingId
         val deworming = mainVM.deworming.value?.firstOrNull { it.id == petDeworming }
         if (mainVM.dewormingLoadingEvent.value?.peekContent() == State.SUCCESS
-                && deworming != null
+            && deworming != null
         ) {
             binding.drug.setSelection(deworming.index.toInt())
         } else {
-            (binding.drug.adapter as SpinnerAdapter<Preps>).insert(
+            binding.drug.adapter?.let {
+                (binding.drug.adapter as SpinnerAdapter<Preps>).insert(
                     Preps(
-                            index = MainViewModel.OTHER_NEW_ID,
-                            id = "",
-                            name = petDeworming ?: "",
-                            typeId = ""
+                        index = MainViewModel.OTHER_NEW_ID,
+                        id = "",
+                        name = petDeworming ?: "",
+                        typeId = ""
                     ),
                     (binding.drug.adapter as SpinnerAdapter<Preps>).count - 1
-            )
-            binding.drug.setSelection((binding.drug.adapter as SpinnerAdapter<Preps>).count - 2)
+                )
+                binding.drug.setSelection((binding.drug.adapter as SpinnerAdapter<Preps>).count - 2)
+            }
         }
     }
 
@@ -311,67 +345,76 @@ class PetPassportFragment : BaseFragment() {
         val petExoparazites = mainVM.petPassportResponse.value?.exoparasiteId
         val exoparazites = mainVM.exoparazites.value?.firstOrNull { it.id == petExoparazites }
         if (mainVM.exoparazitesLoadingEvent.value?.peekContent() == State.SUCCESS
-                && exoparazites != null
+            && exoparazites != null
         ) {
             binding.parazites.setSelection(exoparazites.index.toInt())
         } else {
-            (binding.parazites.adapter as SpinnerAdapter<Preps>).insert(
+            binding.parazites.adapter?.let {
+                (binding.parazites.adapter as SpinnerAdapter<Preps>).insert(
                     Preps(
-                            index = MainViewModel.OTHER_NEW_ID,
-                            id = "",
-                            name = petExoparazites ?: "",
-                            typeId = ""
+                        index = MainViewModel.OTHER_NEW_ID,
+                        id = "",
+                        name = petExoparazites ?: "",
+                        typeId = ""
                     ),
                     (binding.parazites.adapter as SpinnerAdapter<Preps>).count - 1
-            )
-            binding.parazites.setSelection((binding.parazites.adapter as SpinnerAdapter<Preps>).count - 2)
+                )
+                binding.parazites.setSelection((binding.parazites.adapter as SpinnerAdapter<Preps>).count - 2)
+            }
         }
     }
 
     private fun setPetFood() {
         val petFood = mainVM.petPassportResponse.value?.feedingTypeId
         val selectedPetFood = mainVM.petFood.value?.firstOrNull { it.id == petFood }
-        if (mainVM.petFoodLoadingEvent.value?.peekContent() == State.SUCCESS
-            && selectedPetFood != null
-        ) {
-            binding.petFood.setSelection(selectedPetFood.index.toInt())
+        binding.petFood.setSelection(selectedPetFood?.index?.toInt() ?: 0)
+    }
+
+    private fun setPrepsPeriods() {
+        val passport = mainVM.petPassportResponse.value
+        val selectedVaccine =
+            mainVM.notificationsPeriod.value?.firstOrNull { it.periodId == passport?.vacinationPeriodId }?.index
+                ?: 0
+        binding.vaccinePeriod.setSelection(selectedVaccine.toInt())
+        val selectedDeworming =
+            mainVM.notificationsPeriod.value?.firstOrNull { it.periodId == passport?.dewormingPeriodId }?.index
+                ?: 0
+        binding.dewormingPeriod.setSelection(selectedDeworming.toInt())
+        val selectedParasites =
+            mainVM.notificationsPeriod.value?.firstOrNull { it.periodId == passport?.exoparasitePeriodId }?.index
+                ?: 0
+        binding.parazitesPeriod.setSelection(selectedParasites.toInt())
+    }
+
+    private fun updatePetPassport() {
+        val vaccine = checkPreps(binding.vaccine)
+        val drug = checkPreps(binding.drug)
+        val parazites = checkPreps(binding.parazites)
+        val petFood = checkPetFood()
+        val diseases = joinDiseasesString()
+        val data = mainVM.petPassportResponse.value
+        if (data?.petId != null) {
+            mainVM.updatePetPassport(
+                petId = data.petId,
+                isSterilised = binding.switchClean.isChecked,
+                vacineId = vaccine,
+                vacinationDate = vaccineDate.value.toString(),
+                vacinationPeriodId = (binding.vaccinePeriod.selectedItem as? NotificationPeriod)?.periodId
+                    ?: "",
+                dewormingId = drug,
+                dewormingDate = drugDate.value.toString(),
+                dewormingPeriodId = (binding.dewormingPeriod.selectedItem as? NotificationPeriod)?.periodId
+                    ?: "",
+                exoparasiteId = parazites,
+                exoparasitesDate = exoparazitesDate.value.toString(),
+                exoparasitePeriodId = (binding.parazitesPeriod.selectedItem as? NotificationPeriod)?.periodId
+                    ?: "",
+                feedingTypeId = petFood,
+                diseases = diseases,
+                favouriteVetName = binding.clinicName.text.toString(),
+                favouriteVetAdress = binding.address.text.toString()
+            )
         }
-    }
-
-    private fun setObservers() {
-        mainVM.petPassportLoadingEvent.observe(viewLifecycleOwner, onPetPassportLoadingEvent)
-        mainVM.updatePetPassportLoadingEvent.observe(
-            viewLifecycleOwner,
-            onUpdatePetPassportLoadingEvent
-        )
-        mainVM.vaccinesLoadingEvent.observe(viewLifecycleOwner, onVaccineLoadingEvent)
-        mainVM.dewormingLoadingEvent.observe(viewLifecycleOwner, onDewormingLoadingEvent)
-        mainVM.exoparazitesLoadingEvent.observe(viewLifecycleOwner, onExoparazitesLoadingEvent)
-        mainVM.petFoodLoadingEvent.observe(viewLifecycleOwner, onPetFoodLoadingEvent)
-        vaccineDate.observe(viewLifecycleOwner, { setVaccineDate(it) })
-        drugDate.observe(viewLifecycleOwner, { setDrugDate(it) })
-        exoparazitesDate.observe(viewLifecycleOwner, { setExoparazitesDate(it) })
-    }
-
-    private fun setExoparazitesDate(it: String?) {
-        if (it.isNullOrEmpty())
-            binding.parazitesDate.setSelection(getString(R.string.not_selected))
-        else
-            binding.parazitesDate.setSelection(it)
-    }
-
-    private fun setDrugDate(it: String?) {
-        if (it.isNullOrEmpty())
-            binding.dewormingDate.setSelection(getString(R.string.not_selected))
-        else
-            binding.dewormingDate.setSelection(it)
-    }
-
-    private fun setVaccineDate(it: String?) {
-        if (it.isNullOrEmpty())
-            binding.vaccineDate.setSelection(getString(R.string.not_selected))
-        else
-            binding.vaccineDate.setSelection(it)
     }
 
     private fun setListeners() {
@@ -386,51 +429,6 @@ class PetPassportFragment : BaseFragment() {
         binding.showDewormingPeriod.setOnClickListener { changeDewormingPeriodVisibility() }
         binding.showParazitesPeriod.setOnClickListener { changeParazitesPeriodVisibility() }
         setSpinnerListeners()
-    }
-
-    private fun changeVaccinePeriodVisibility() {
-        when (binding.vaccinePeriod.visibility) {
-            View.GONE -> {
-                binding.vaccinePeriod.visibility = View.VISIBLE
-                binding.vaccineDate.setIcon(R.drawable.ic_notification_active)
-            }
-            View.VISIBLE -> {
-                binding.vaccinePeriod.visibility = View.GONE
-                binding.vaccineDate.setIcon(R.drawable.ic_notification)
-            }
-            View.INVISIBLE -> {
-            }
-        }
-    }
-
-    private fun changeDewormingPeriodVisibility() {
-        when (binding.dewormingPeriod.visibility) {
-            View.GONE -> {
-                binding.dewormingPeriod.visibility = View.VISIBLE
-                binding.dewormingDate.setIcon(R.drawable.ic_notification_active)
-            }
-            View.VISIBLE -> {
-                binding.dewormingPeriod.visibility = View.GONE
-                binding.dewormingDate.setIcon(R.drawable.ic_notification)
-            }
-            View.INVISIBLE -> {
-            }
-        }
-    }
-
-    private fun changeParazitesPeriodVisibility() {
-        when (binding.parazitesPeriod.visibility) {
-            View.GONE -> {
-                binding.parazitesPeriod.visibility = View.VISIBLE
-                binding.parazitesDate.setIcon(R.drawable.ic_notification_active)
-            }
-            View.VISIBLE -> {
-                binding.parazitesPeriod.visibility = View.GONE
-                binding.parazitesDate.setIcon(R.drawable.ic_notification)
-            }
-            View.INVISIBLE -> {
-            }
-        }
     }
 
     private fun setSpinnerListeners() {
@@ -482,6 +480,54 @@ class PetPassportFragment : BaseFragment() {
         }
     }
 
+    private fun changeVaccinePeriodVisibility() {
+        when (binding.vaccinePeriod.visibility) {
+            View.GONE -> {
+                binding.vaccinePeriod.visibility = View.VISIBLE
+                binding.vaccineDate.setIcon(R.drawable.ic_notification_active)
+            }
+            View.VISIBLE -> {
+                binding.vaccinePeriod.visibility = View.GONE
+                binding.vaccinePeriod.setSelection(0)
+                binding.vaccineDate.setIcon(R.drawable.ic_notification)
+            }
+            View.INVISIBLE -> {
+            }
+        }
+    }
+
+    private fun changeDewormingPeriodVisibility() {
+        when (binding.dewormingPeriod.visibility) {
+            View.GONE -> {
+                binding.dewormingPeriod.visibility = View.VISIBLE
+                binding.dewormingDate.setIcon(R.drawable.ic_notification_active)
+            }
+            View.VISIBLE -> {
+                binding.dewormingPeriod.visibility = View.GONE
+                binding.dewormingPeriod.setSelection(0)
+                binding.dewormingDate.setIcon(R.drawable.ic_notification)
+            }
+            View.INVISIBLE -> {
+            }
+        }
+    }
+
+    private fun changeParazitesPeriodVisibility() {
+        when (binding.parazitesPeriod.visibility) {
+            View.GONE -> {
+                binding.parazitesPeriod.visibility = View.VISIBLE
+                binding.parazitesDate.setIcon(R.drawable.ic_notification_active)
+            }
+            View.VISIBLE -> {
+                binding.parazitesPeriod.visibility = View.GONE
+                binding.parazitesPeriod.setSelection(0)
+                binding.parazitesDate.setIcon(R.drawable.ic_notification)
+            }
+            View.INVISIBLE -> {
+            }
+        }
+    }
+
     @SuppressLint("SimpleDateFormat")
     private fun showDatePicker(data: MutableLiveData<String>) {
         val myFormat = "dd.MM.yyyy"
@@ -502,18 +548,19 @@ class PetPassportFragment : BaseFragment() {
             diseaseBinding.addDisease.isEnabled = !text.isNullOrEmpty() && text.length > 2
         }
         setDiseaseSpinner(diseaseBinding)
-        diseaseBinding.disease.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val selected = diseaseBinding.disease.selectedItem as PetDiseases
-                animateViewVisibility(selected.index == MainViewModel.OTHER_ID)
-                diseaseBinding.addDisease.isEnabled = (selected.index != MainViewModel.UNSELECTED_ID) &&
-                        ((selected.index != MainViewModel.OTHER_ID) ||
+        diseaseBinding.disease.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    val selected = diseaseBinding.disease.selectedItem as PetDiseases
+                    animateViewVisibility(selected.index == MainViewModel.OTHER_ID)
+                    diseaseBinding.addDisease.isEnabled =
+                        (selected.index != MainViewModel.OTHER_ID) ||
                                 (!diseaseBinding.diseaseTitle.text.isNullOrEmpty() &&
-                                        diseaseBinding.diseaseTitle.text.toString().length > 2))
-            }
+                                        diseaseBinding.diseaseTitle.text.toString().length > 2)
+                }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
         diseaseBinding.addDisease.setOnClickListener {
             val current = (binding.list.adapter as PetDiseasesAdapter).currentList
             var newList = mutableListOf<String>()
@@ -526,7 +573,12 @@ class PetPassportFragment : BaseFragment() {
                 diseaseBinding.diseaseTitle.text.toString()
             }
             val isNotOriginal =
-                current.any { it.equals(newDisease, ignoreCase = true) && it.length == newDisease.length }
+                current.any {
+                    it.equals(
+                        newDisease,
+                        ignoreCase = true
+                    ) && it.length == newDisease.length
+                }
             if (!isNotOriginal) {
                 newList.add(newDisease)
                 (binding.list.adapter as PetDiseasesAdapter).submitList(newList)
@@ -542,6 +594,7 @@ class PetPassportFragment : BaseFragment() {
                 ).show()
             }
         }
+        addDiseaseDialog.setOnDismissListener { diseaseBinding.diseaseTitle.setText("") }
         addDiseaseDialog.setContentView(diseaseBinding)
         addDiseaseDialog.setOnShowListener {
             addDiseaseDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -552,8 +605,14 @@ class PetPassportFragment : BaseFragment() {
 
     private fun animateViewVisibility(b: Boolean) {
         diseaseBinding.otherContainer.measure(
-                View.MeasureSpec.makeMeasureSpec(diseaseBinding.otherContainer.width, View.MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(diseaseBinding.otherContainer.height, View.MeasureSpec.UNSPECIFIED)
+            View.MeasureSpec.makeMeasureSpec(
+                diseaseBinding.otherContainer.width,
+                View.MeasureSpec.EXACTLY
+            ),
+            View.MeasureSpec.makeMeasureSpec(
+                diseaseBinding.otherContainer.height,
+                View.MeasureSpec.UNSPECIFIED
+            )
         )
         val height = diseaseBinding.otherContainer.measuredHeight
         val startValue = if (b) 0 else diseaseBinding.otherContainer.height
@@ -562,8 +621,8 @@ class PetPassportFragment : BaseFragment() {
         animator.duration = resources.getInteger(R.integer.filtersContainerAnimationTime).toLong()
         animator.addUpdateListener {
             val params = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    it.animatedValue as Int
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                it.animatedValue as Int
             )
             diseaseBinding.otherContainer.layoutParams = params
         }
@@ -572,7 +631,7 @@ class PetPassportFragment : BaseFragment() {
     }
 
     inner class AnimationListener(
-            private val shouldExpand: Boolean
+        private val shouldExpand: Boolean
     ) : Animator.AnimatorListener {
 
         override fun onAnimationStart(animation: Animator?) {
@@ -594,13 +653,13 @@ class PetPassportFragment : BaseFragment() {
     }
 
     private fun setDiseaseSpinner(bottomSheetBinding: View) {
-        if(mainVM.petDiseasesLoadingEvent.value?.peekContent() == State.SUCCESS){
+        if (mainVM.petDiseasesLoadingEvent.value?.peekContent() == State.SUCCESS) {
             mainVM.petDiseases.value?.let {
                 val adapter = SpinnerAdapter(
-                        requireActivity(),
-                        getString(R.string.choiceDiseases),
-                        it,
-                        PetDiseases::value
+                    requireActivity(),
+                    getString(R.string.choiceDiseases),
+                    it,
+                    PetDiseases::value
                 )
                 bottomSheetBinding.disease.adapter = adapter
                 adapter.notifyDataSetChanged()
@@ -690,50 +749,6 @@ class PetPassportFragment : BaseFragment() {
         }
     }
 
-    private fun setDecoration() {
-        binding.list.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                val elementMargin =
-                    view.context?.resources?.getDimension(R.dimen.smallMargin)?.toInt() ?: 0
-                parent.adapter.run {
-                    outRect.bottom = elementMargin
-                }
-            }
-        })
-    }
-
-    private fun updatePetPassport() {
-        val vaccine = checkPreps(binding.vaccine)
-        val drug = checkPreps(binding.drug)
-        val parazites = checkPreps(binding.parazites)
-        val petFood = checkPetFood()
-        val diseases = joinDiseasesString()
-        val data = mainVM.petPassportResponse.value
-        if (data?.petId != null) {
-            mainVM.updatePetPassport(
-                data.petId,
-                binding.switchClean.isChecked,
-                vaccine,
-                vaccineDate.value.toString(),
-                (binding.vaccinePeriod.selectedItem as NotificationPeriod).periodId,
-                drug,
-                drugDate.value.toString(),
-                (binding.dewormingPeriod.selectedItem as NotificationPeriod).periodId,
-                parazites,
-                exoparazitesDate.value.toString(),
-                (binding.parazitesPeriod.selectedItem as NotificationPeriod).periodId,
-                petFood,
-                diseases,
-                binding.clinicName.text.toString(),
-                binding.address.text.toString()
-            )
-        }
-    }
 
     private fun joinDiseasesString(): String {
         var diseases = mutableListOf<String>()
@@ -743,9 +758,9 @@ class PetPassportFragment : BaseFragment() {
             val listToSend = adapter.currentList.toMutableList()
             listToSend.forEach { item ->
                 val disease = diseaseList?.firstOrNull { it.value.equals(item, true) }
-                if(disease != null){
+                if (disease != null) {
                     diseases.add(disease.diseaseId)
-                }else{
+                } else {
                     diseases.add("[$item]")
                 }
             }

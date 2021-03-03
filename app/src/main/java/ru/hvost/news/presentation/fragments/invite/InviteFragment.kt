@@ -82,6 +82,7 @@ class InviteFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        if(mainVM.inviteInstructionFirstTime) showInviteInstructions()
         checkIsDataLoaded()
         initializeEventObservers()
         setObservers()
@@ -203,6 +204,7 @@ class InviteFragment : Fragment() {
     }
 
     private fun showInviteInstructions() {
+        if(mainVM.inviteInstructionFirstTime) mainVM.inviteInstructionFirstTime = false
         requireActivity().findNavController(R.id.nav_host_fragment_invite_instructions).apply {
             setGraph(R.navigation.navigation_popup_invite_info)
         }
