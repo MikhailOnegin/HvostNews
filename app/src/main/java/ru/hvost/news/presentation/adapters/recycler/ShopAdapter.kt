@@ -16,6 +16,7 @@ import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
@@ -145,10 +146,10 @@ class ShopAdapter(
         fun bind(header: ShopHeader) {
             binding.run {
                 Glide.with(binding.root)
-                    .load(header.imageUri)
-                    .placeholder(R.drawable.loader_anim)
-                    .error(R.drawable.ic_load_error)
-                    .into(image)
+                        .load(header.imageUri)
+                        .placeholder(getDefaultShimmer(itemView.context))
+                        .error(R.drawable.ic_load_error)
+                        .into(image)
                 title.text = header.text.parseAsHtml()
             }
         }
@@ -177,9 +178,9 @@ class ShopAdapter(
         fun bind(product: ShopProduct) {
             binding.apply {
                 Glide.with(binding.root).load(product.imageUri)
-                    .placeholder(R.drawable.loader_anim)
-                    .error(R.drawable.ic_load_error)
-                    .into(image)
+                        .placeholder(getDefaultShimmer(itemView.context))
+                        .error(R.drawable.ic_load_error)
+                        .into(image)
                 title.text = product.title.parseAsHtml()
                 price.text = "${moneyFormat.format(product.price)} \u20bd"
                 oldPrice.text = "${moneyFormat.format(product.oldPrice.toInt())} \u20bd"

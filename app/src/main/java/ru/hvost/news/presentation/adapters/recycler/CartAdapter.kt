@@ -19,6 +19,7 @@ import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.CartProduct
 import ru.hvost.news.presentation.fragments.shop.CartViewModel
 import ru.hvost.news.utils.WordEnding
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.getWordEndingType
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
@@ -67,7 +68,11 @@ class CartAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(item: CartProduct, position: Int) {
-            Glide.with(binding.root).load(item.imageUri).into(binding.image)
+            Glide.with(binding.root)
+                    .load(item.imageUri)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .into(binding.image)
             binding.run {
                 title.text = item.title.parseAsHtml()
                 count.text = item.count.toString()
@@ -109,7 +114,11 @@ class CartAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(item: CartProduct, position: Int) {
-            Glide.with(binding.root).load(item.imageUri).into(binding.image)
+            Glide.with(binding.root)
+                    .load(item.imageUri)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .into(binding.image)
             binding.run {
                 title.text = item.title.parseAsHtml()
                 val forPrep = App.getInstance().getString(R.string.cartForPrep)

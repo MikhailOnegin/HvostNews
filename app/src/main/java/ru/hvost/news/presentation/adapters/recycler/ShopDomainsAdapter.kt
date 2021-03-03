@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import ru.hvost.news.R
 import ru.hvost.news.databinding.RvShopDomainBinding
 import ru.hvost.news.models.ShopDomain
+import ru.hvost.news.utils.getDefaultShimmer
 
 class ShopDomainsAdapter(
     private val voucherProgram: String?,
@@ -38,12 +39,11 @@ class ShopDomainsAdapter(
             binding.category.text = domain.domainTitle
             if (position == 0) binding.title.visibility = View.VISIBLE
             else binding.title.visibility = View.GONE
-            Glide
-                .with(binding.root)
-                .load(domain.imageUri)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .into(binding.image)
+            Glide.with(binding.root)
+                    .load(domain.imageUri)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .into(binding.image)
             binding.constraintLayout.setOnClickListener {
                 onDomainClicked.invoke(domain.domainId)
             }

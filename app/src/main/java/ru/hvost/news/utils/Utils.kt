@@ -417,9 +417,6 @@ fun getDefaultShimmer(context: Context): Drawable {
         setShimmer(shimmer)
     }
 }
-fun pxToDp(context: Context, px:Int): Int {
-    return (px / context.resources.displayMetrics.density).toInt()
-}
 
 val hasOneLatinCharPattern: Pattern = Pattern.compile(".*\\p{Alpha}+.*")
 val hasOneDigitPattern: Pattern = Pattern.compile(".*\\d+.*")

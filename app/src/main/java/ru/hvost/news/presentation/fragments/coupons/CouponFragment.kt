@@ -25,6 +25,7 @@ import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.startIntentActionView
 
 class CouponFragment : BaseFragment() {
@@ -68,10 +69,11 @@ class CouponFragment : BaseFragment() {
                         if (coupon.couponId == couponId) {
                             binding.textViewCode1.text = coupon.qrCode
                             binding.textViewCode2.text = coupon.qrCode
-                            Glide.with(requireContext()).load(baseUrl + coupon.imageQRCodeUrl)
-                                .placeholder(R.drawable.loader_anim)
-                                .error(R.drawable.ic_load_error)
-                                .into( binding.imageViewCoupon)
+                            Glide.with(requireContext())
+                                    .load(baseUrl + coupon.imageQRCodeUrl)
+                                    .placeholder(getDefaultShimmer(requireContext()))
+                                    .error(R.drawable.ic_load_error)
+                                    .into( binding.imageViewCoupon)
                             binding.textViewCouponTitle.text = coupon.title
                             if (coupon.expirationDate.isBlank()) binding.textViewCouponActivity.text =
                                 resources.getString(R.string.not_found)

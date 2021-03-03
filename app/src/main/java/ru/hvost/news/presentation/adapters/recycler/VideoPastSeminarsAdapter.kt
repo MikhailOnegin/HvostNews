@@ -9,6 +9,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ItemVideoPastSeminarBinding
 import ru.hvost.news.models.OfflineSeminars
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.startIntentActionView
 
 class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.VideoViewHolder> () {
@@ -38,12 +39,13 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
     }
 
     inner class VideoViewHolder(private val binding:ItemVideoPastSeminarBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(video: OfflineSeminars.Video){
+        fun bind(video: OfflineSeminars.Video) {
             binding.textViewTitle.text = video.title.parseAsHtml()
-            Glide.with(itemView.context).load(APIService.baseUrl + video.imageVideoUrl)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .into(binding.imageViewVideo)
+            Glide.with(itemView.context)
+                    .load(APIService.baseUrl + video.imageVideoUrl)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .into(binding.imageViewVideo)
             binding.root
             binding.constraintVideo.setOnClickListener {
                 startIntentActionView(itemView.context, video.videoUrl)

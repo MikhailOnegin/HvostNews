@@ -13,6 +13,7 @@ import ru.hvost.news.databinding.ItemSeminarBinding
 import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
+import ru.hvost.news.utils.getDefaultShimmer
 import java.util.ArrayList
 
 class SeminarsListAdapter(
@@ -58,6 +59,10 @@ class SeminarsListAdapter(
                 ))
     }
 
+    override fun getItemCount(): Int {
+        return lessons.size
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val lesson = lessons[position]
         return (holder as SeminarViewHolder).bind(lesson)
@@ -77,7 +82,7 @@ class SeminarsListAdapter(
     inner class SeminarViewHolder(private val binding: ItemSeminarBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(seminar: OfflineSeminars.OfflineSeminar) {
             Glide.with(itemView.context).load(APIService.baseUrl + seminar.imageUrl)
-                    .placeholder(R.drawable.loader_anim)
+                    .placeholder(getDefaultShimmer(itemView.context))
                     .error(R.drawable.ic_load_error)
                     .centerCrop()
                     .into(binding.imageViewLesson)

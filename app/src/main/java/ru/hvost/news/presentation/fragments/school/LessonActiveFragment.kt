@@ -32,6 +32,7 @@ import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.startIntentActionView
 
 
@@ -157,11 +158,11 @@ class LessonActiveFragment : BaseFragment() {
                                 startIntentActionView(requireContext(), lesson.videoUrl)
                             }
                             Glide.with(requireContext())
-                                .load(baseUrl + lesson.imageVideoUrl)
-                                .placeholder(R.drawable.loader_anim)
-                                .error(R.drawable.ic_load_error)
-                                .centerCrop()
-                                .into(binding.imageViewVideo)
+                                    .load(baseUrl + lesson.imageVideoUrl)
+                                    .placeholder(getDefaultShimmer(requireContext()))
+                                    .error(R.drawable.ic_load_error)
+                                    .centerCrop()
+                                    .into(binding.imageViewVideo)
 
                             val containerOptions = binding.linearLayoutAnswerOptions
                             containerOptions.removeAllViews()

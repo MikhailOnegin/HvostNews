@@ -11,6 +11,7 @@ import ru.hvost.news.databinding.RvInterestBinding
 import ru.hvost.news.models.RegInterest
 import ru.hvost.news.presentation.adapters.recycler.RegInterestsAdapter.*
 import ru.hvost.news.presentation.fragments.login.RegistrationVM
+import ru.hvost.news.utils.getDefaultShimmer
 
 class RegInterestsAdapter(
     private val registrationVM: RegistrationVM
@@ -32,10 +33,10 @@ class RegInterestsAdapter(
         fun bind(interest: RegInterest) {
             binding.name.text = interest.interestName
             Glide.with(binding.root)
-                .load(interest.imageUri)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .into(binding.image)
+                    .load(interest.imageUri)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .into(binding.image)
             binding.selection.isSelected = interest.isSelected
             binding.root.setOnClickListener {
                 interest.isSelected = !interest.isSelected

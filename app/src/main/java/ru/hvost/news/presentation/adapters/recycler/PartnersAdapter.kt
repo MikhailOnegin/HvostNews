@@ -9,6 +9,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.ItemPartnerBinding
 import ru.hvost.news.models.OfflineSeminars
+import ru.hvost.news.utils.getDefaultShimmer
 
 class PartnersAdapter: RecyclerView.Adapter<PartnersAdapter.PartnerViewHolder>() {
 
@@ -40,7 +41,7 @@ class PartnersAdapter: RecyclerView.Adapter<PartnersAdapter.PartnerViewHolder>()
         fun bind(partner: OfflineSeminars.Partner){
             Glide.with(binding.root.context)
                     .load(baseUrl + partner.image)
-                    .placeholder(R.drawable.loader_anim)
+                    .placeholder(getDefaultShimmer(itemView.context))
                     .error(R.drawable.ic_load_error)
                     .fitCenter()
                     .into(binding.imageViewPartner)

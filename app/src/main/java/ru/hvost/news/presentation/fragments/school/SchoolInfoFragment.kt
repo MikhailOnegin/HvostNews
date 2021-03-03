@@ -23,6 +23,7 @@ import ru.hvost.news.databinding.*
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.startIntentActionView
 
 class SchoolInfoFragment : BaseFragment() {
@@ -63,11 +64,11 @@ class SchoolInfoFragment : BaseFragment() {
                     val school = it.onlineSchools[i]
                     if (school.id == schoolId) {
                         Glide.with(requireActivity())
-                            .load(baseUrl + school.image)
-                            .placeholder(R.drawable.loader_anim)
-                            .error(R.drawable.ic_load_error)
-                            .centerCrop()
-                            .into(binding.imageViewInfo)
+                                .load(baseUrl + school.image)
+                                .placeholder(getDefaultShimmer(requireContext()))
+                                .error(R.drawable.ic_load_error)
+                                .centerCrop()
+                                .into(binding.imageViewInfo)
                         binding.textViewDescriptionWait.movementMethod = LinkMovementMethod()
                         binding.textViewDescriptionWait.text = school.description.parseAsHtml()
                         addViewToGridLayout(school)
@@ -127,11 +128,12 @@ class SchoolInfoFragment : BaseFragment() {
                 viewWait.layoutParams = param
                 viewWait.textView_head.text = wait.head.parseAsHtml()
                 viewWait.textView_description.text = wait.description.parseAsHtml()
-                Glide.with(requireContext()).load(baseUrl + wait.imageUrl)
-                    .placeholder(R.drawable.loader_anim)
-                    .error(R.drawable.ic_load_error)
-                    .centerCrop()
-                    .into(viewWait.imageView_what_wait)
+                Glide.with(requireContext())
+                        .load(baseUrl + wait.imageUrl)
+                        .placeholder(getDefaultShimmer(requireContext()))
+                        .error(R.drawable.ic_load_error)
+                        .centerCrop()
+                        .into(viewWait.imageView_what_wait)
                 (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
                     margin,
                     margin,

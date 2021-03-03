@@ -20,6 +20,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.*
 import ru.hvost.news.models.*
 import ru.hvost.news.presentation.fragments.articles.ArticleViewModel
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
@@ -91,12 +92,11 @@ class ArticleContentAdapter(
 
         fun bind(header: ArticleHeader) {
             binding.apply {
-                Glide
-                    .with(binding.root)
-                    .load(header.imageUri)
-                    .placeholder(R.drawable.loader_anim)
-                    .error(R.drawable.ic_load_error)
-                    .into(image)
+                Glide.with(binding.root)
+                        .load(header.imageUri)
+                        .placeholder(getDefaultShimmer(itemView.context))
+                        .error(R.drawable.ic_load_error)
+                        .into(image)
                 title.text = header.title
                 category.text = header.categoryTitle
                 views.text = moneyFormat.format(header.viewsCount)

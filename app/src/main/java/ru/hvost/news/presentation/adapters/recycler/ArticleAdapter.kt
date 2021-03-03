@@ -43,11 +43,10 @@ class ArticleAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(articleItem: Article) {
-
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
-                .placeholder(getDefaultShimmer(this.itemView.context))
+                .placeholder(getDefaultShimmer(itemView.context))
                 .error(R.drawable.ic_load_error)
                 .centerCrop()
                 .into(binding.img)

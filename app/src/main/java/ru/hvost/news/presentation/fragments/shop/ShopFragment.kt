@@ -16,6 +16,7 @@ import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.recycler.ShopAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.EventObserver
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 
 class ShopFragment : BaseFragment() {
@@ -60,7 +61,11 @@ class ShopFragment : BaseFragment() {
         cartVM.domains.value?.firstOrNull {
             it.domainId == arguments?.getString(DOMAIN_ID)
         }?.run {
-            Glide.with(binding.root).load(imageUri).into(binding.image)
+            Glide.with(binding.root)
+                    .load(imageUri)
+                    .placeholder(getDefaultShimmer(requireContext()))
+                    .error(R.drawable.ic_load_error)
+                    .into(binding.image)
             binding.text.text = domainTitle
         }
     }

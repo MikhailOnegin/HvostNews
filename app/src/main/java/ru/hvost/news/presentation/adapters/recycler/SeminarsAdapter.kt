@@ -13,6 +13,7 @@ import ru.hvost.news.models.OfflineSeminars
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.dateFormat
+import ru.hvost.news.utils.getDefaultShimmer
 import java.util.*
 
 class SeminarsAdapter(
@@ -55,11 +56,12 @@ class SeminarsAdapter(
     inner class OfflineLessonsViewHolder(private val binding:ItemSeminarBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(seminar: OfflineSeminars.OfflineSeminar) {
-            Glide.with(itemView.context).load(baseUrl + seminar.imageUrl)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .centerCrop()
-                .into(binding.imageViewLesson)
+            Glide.with(itemView.context)
+                    .load(baseUrl + seminar.imageUrl)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .centerCrop()
+                    .into(binding.imageViewLesson)
             if (seminar.isFinished) {
                 binding.textViewLessonStatus.text = "Завершено"
                 binding.imageViewStatus.isSelected = false

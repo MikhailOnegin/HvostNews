@@ -18,6 +18,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentAddProductBinding
 import ru.hvost.news.models.ShopProduct
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 import java.lang.Exception
 
@@ -85,7 +86,11 @@ class AddToCartFragment : BottomSheetDialogFragment() {
     @SuppressLint("SetTextI18n")
     private fun inflateData(product: ShopProduct) {
         binding.apply {
-            Glide.with(binding.root).load(product.imageUri).into(image)
+            Glide.with(binding.root)
+                    .load(product.imageUri)
+                    .placeholder(getDefaultShimmer(requireContext()))
+                    .error(R.drawable.ic_load_error)
+                    .into(image)
             title.text = product.title.parseAsHtml()
             article.text = product.article
             brand.text = product.brand
