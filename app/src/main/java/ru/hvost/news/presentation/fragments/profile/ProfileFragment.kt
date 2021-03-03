@@ -17,6 +17,7 @@ import ru.hvost.news.databinding.FragmentProfileBinding
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.adapters.recycler.PetAdapter
 import ru.hvost.news.presentation.dialogs.AddPetCustomDialog
+import ru.hvost.news.presentation.dialogs.AlertCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
 import ru.hvost.news.utils.WordEnding
@@ -198,11 +199,12 @@ class ProfileFragment : BaseFragment() {
         }
         binding.buttonCoupons.setOnClickListener {
             if (couponsMV.coupons.value?.coupons.isNullOrEmpty()) {
-                createSnackbar(
-                    binding.root,
-                    getString(R.string.couponsIsNull),
-                    getString(R.string.buttonOk)
-                ).show()
+                AlertCustomDialog(
+                    message = getString(R.string.couponsIsNull), null
+                ).show(
+                    childFragmentManager,
+                    "alert_dialog"
+                )
             } else {
                 findNavController().navigate(R.id.action_profileFragment_to_myCouponsFragment)
             }

@@ -177,6 +177,8 @@ class MainViewModel : ViewModel() {
 
     var prizeDomainId: String? = null
 
+    var inviteInstructionFirstTime: Boolean = true
+
     init {
         initializeData()
     }
@@ -354,22 +356,22 @@ class MainViewModel : ViewModel() {
             try {
                 val response =
                     APIService.API.updatePetPassportAsync(
-                        App.getInstance().userToken,
-                        petId,
-                        isSterilised,
-                        vacineId,
-                        vacinationDate,
-                        vacinationPeriodId,
-                        dewormingId,
-                        dewormingDate,
-                        dewormingPeriodId,
-                        exoparasiteId,
-                        exoparasitesDate,
-                        exoparasitePeriodId,
-                        feedingTypeId,
-                        diseases,
-                        favouriteVetName,
-                        favouriteVetAdress
+                        userToken = App.getInstance().userToken,
+                        petId = petId,
+                        isSterilised = isSterilised,
+                        vacineId = vacineId,
+                        vacinationDate = vacinationDate,
+                        vacinationPeriodId = vacinationPeriodId,
+                        dewormingId = dewormingId,
+                        dewormingDate = dewormingDate,
+                        dewormingPeriodId = dewormingPeriodId,
+                        exoparasiteId = exoparasiteId,
+                        exoparasitesDate = exoparasitesDate,
+                        exoparasitesPeriodId = exoparasitePeriodId,
+                        feeding = feedingTypeId,
+                        diseases = diseases,
+                        favouriteVetName = favouriteVetName,
+                        favouriteVetAdress = favouriteVetAdress
                     ).await()
                 if (response.result == "success") {
                     _updatePetPassportLoadingEvent.value = NetworkEvent(State.SUCCESS)

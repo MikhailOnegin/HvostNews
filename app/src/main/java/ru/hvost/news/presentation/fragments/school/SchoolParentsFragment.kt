@@ -43,11 +43,9 @@ class SchoolParentsFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
         initializedAdapters()
-        if (schoolVM.onlineSchools.value == null) {
-            App.getInstance().userToken?.run {
+        App.getInstance().userToken?.run {
                 schoolVM.getSchools(this)
             }
-        }
         if (schoolVM.offlineSeminars.value == null) schoolVM.getSeminarsCities()
         initializeEvents()
         setObservers(this)
@@ -59,27 +57,6 @@ class SchoolParentsFragment : BaseFragment() {
     @Suppress("UNCHECKED_CAST")
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineCitiesEvent.observe(owner, citiesEvent)
-        schoolVM.offlineCities.observe(owner, {
-            schoolVM.offlineCities.value?.run {
-                val adapter =
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
-                adapter.clear()
-                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).add(
-                    CityOffline("all", "Любой город")
-                )
-                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
-                    this.cities
-                )
-                (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
-                    0
-                )?.run {
-                    val cityId = this.cityId
-                    App.getInstance().userToken?.run {
-                        schoolVM.getSeminars(cityId, this)
-                    }
-                }
-            }
-        })
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -154,7 +131,6 @@ class SchoolParentsFragment : BaseFragment() {
         binding.switchFilter.setOnCheckedChangeListener { _, b ->
             schoolVM.filterShowFinished.value = b
         }
-
         binding.spinnerOfflineSeminars.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(p0: AdapterView<*>?) {

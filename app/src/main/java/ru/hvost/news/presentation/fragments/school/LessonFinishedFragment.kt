@@ -19,6 +19,7 @@ import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.startIntentActionView
 import java.lang.StringBuilder
 
@@ -107,11 +108,12 @@ class LessonFinishedFragment : BaseFragment() {
                             "${getString(R.string.lesson_number)} ${i + 1}"
                         binding.textViewLessonNumber.text = lessonNumber
                         binding.textViewQuestion.text = lesson.testQuestion
-                        Glide.with(requireContext()).load(baseUrl + lesson.imageVideoUrl)
-                            .placeholder(R.drawable.loader_anim)
-                            .error(R.drawable.ic_load_error)
-                            .centerCrop()
-                            .into(binding.imageViewVideo)
+                        Glide.with(requireContext())
+                                .load(baseUrl + lesson.imageVideoUrl)
+                                .placeholder(getDefaultShimmer(requireContext()))
+                                .error(R.drawable.ic_load_error)
+                                .centerCrop()
+                                .into(binding.imageViewVideo)
                         for (q in lesson.answerList.indices) {
                             val answer = lesson.answerList[q]
                             if (answer.isTrue) {

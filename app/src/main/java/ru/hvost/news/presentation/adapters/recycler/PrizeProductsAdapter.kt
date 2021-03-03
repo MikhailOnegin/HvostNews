@@ -11,6 +11,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.RvPrizeProductItemBinding
 import ru.hvost.news.models.Prize
+import ru.hvost.news.utils.getDefaultShimmer
 
 class PrizeProductsAdapter() :
     ListAdapter<Prize.Product, PrizeProductsAdapter.PrizeProductViewHolder>(DomainDiffUtilCallback()) {
@@ -30,13 +31,12 @@ class PrizeProductsAdapter() :
         fun bind(product: Prize.Product) {
             binding.count.text = product.count.toString() + " шт"
             binding.title.text = product.title
-            Glide
-                .with(binding.root)
-                .load(APIService.baseUrl + product.imageUrl)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .fitCenter()
-                .into(binding.image)
+            Glide.with(binding.root)
+                    .load(APIService.baseUrl + product.imageUrl)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .fitCenter()
+                    .into(binding.image)
         }
 
         companion object {

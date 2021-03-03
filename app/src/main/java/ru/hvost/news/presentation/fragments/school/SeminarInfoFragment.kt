@@ -23,6 +23,7 @@ import ru.hvost.news.presentation.adapters.recycler.PartnersAdapter
 import ru.hvost.news.presentation.adapters.recycler.VideoPastSeminarsAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.getDefaultShimmer
 
 class SeminarInfoFragment : BaseFragment() {
 
@@ -69,11 +70,11 @@ class SeminarInfoFragment : BaseFragment() {
             seminar = it.seminars[0]
             seminar?.let { seminar ->
                 Glide.with(requireContext())
-                    .load(APIService.baseUrl + seminar.imageUrl)
-                    .placeholder(R.drawable.loader_anim)
-                    .error(R.drawable.ic_load_error)
-                    .centerCrop()
-                    .into(binding.imageViewSeminar)
+                        .load(APIService.baseUrl + seminar.imageUrl)
+                        .placeholder(getDefaultShimmer(requireContext()))
+                        .error(R.drawable.ic_load_error)
+                        .centerCrop()
+                        .into(binding.imageViewSeminar)
                 binding.textViewDescription.text = seminar.description.parseAsHtml()
                 if (seminar.wait.isNotEmpty()) {
                     binding.constraintWhatWait.visibility = View.VISIBLE

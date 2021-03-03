@@ -19,6 +19,7 @@ import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.ShopProduct
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 
 class ProductFragment : BaseFragment(){
@@ -78,7 +79,11 @@ class ProductFragment : BaseFragment(){
     @SuppressLint("SetTextI18n")
     private fun inflateData(product: ShopProduct) {
         binding.apply {
-            Glide.with(binding.root).load(product.imageUri).into(image)
+            Glide.with(binding.root)
+                    .load(product.imageUri)
+                    .placeholder(getDefaultShimmer(requireContext()))
+                    .error(R.drawable.ic_load_error)
+                    .into(image)
             title.text = product.title.parseAsHtml()
             article.text = "${getString(R.string.productArticleTitle)} ${product.article}"
             brand.text = product.brand

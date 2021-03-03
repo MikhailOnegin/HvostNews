@@ -21,6 +21,7 @@ import ru.hvost.news.databinding.LayoutLessonNumberBinding
 import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
+import ru.hvost.news.utils.getDefaultShimmer
 import java.lang.Exception
 
 
@@ -75,11 +76,11 @@ class SchoolFragment : BaseFragment() {
                             if (school.userRank.isNotBlank()) binding.textViewRank.text =
                                 school.userRank
                             Glide.with(requireContext())
-                                .load(APIService.baseUrl + school.imageDetailUrl)
-                                .placeholder(R.drawable.loader_anim)
-                                .error(R.drawable.ic_load_error)
-                                .centerCrop()
-                                .into(binding.imageViewLogo)
+                                    .load(APIService.baseUrl + school.imageDetailUrl)
+                                    .placeholder(getDefaultShimmer(requireContext()))
+                                    .error(R.drawable.ic_load_error)
+                                    .centerCrop()
+                                    .into(binding.imageViewLogo)
                             return@run
                         }
                     }

@@ -12,6 +12,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutPopupDomainItemBinding
 import ru.hvost.news.models.Domain
+import ru.hvost.news.utils.getDefaultShimmer
 
 class PopupWindowDomainAdapter(private val onClick: (Long) -> Unit) :
     ListAdapter<Domain, PopupWindowDomainAdapter.DomainViewHolder>(DomainDiffUtilCallback()) {
@@ -38,13 +39,12 @@ class PopupWindowDomainAdapter(private val onClick: (Long) -> Unit) :
                     height.toInt()
                 )
             }
-            Glide
-                .with(binding.root)
-                .load(APIService.baseUrl + domainItem.img)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .fitCenter()
-                .into(binding.img)
+            Glide.with(binding.root)
+                    .load(APIService.baseUrl + domainItem.img)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .fitCenter()
+                    .into(binding.img)
             binding.title.text = domainItem.title
 
             binding.root.setOnClickListener { onClick.invoke(domainItem.id) }

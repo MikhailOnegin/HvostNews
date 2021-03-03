@@ -52,11 +52,7 @@ class ChoicePrizeFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         cartVM = ViewModelProvider(requireActivity())[CartViewModel::class.java]
-        if (mainVM.prizesLoadingEvent.value?.peekContent() == State.SUCCESS) {
-            setRecyclerView()
-        } else arguments?.getString("PRIZE_ID")?.let {
-            mainVM.loadPrizes(it)
-        }
+        arguments?.getString("PRIZE_ID")?.let { mainVM.loadPrizes(it) }
         initializeObservers()
         setListeners()
         setObservers()
@@ -106,6 +102,7 @@ class ChoicePrizeFragment : BaseFragment() {
     }
 
     private fun setRecyclerView() {
+        binding.mainTitleContainer.visibility = View.VISIBLE
         binding.title.text = mainVM.prizeCategoriesResponse.value?.firstOrNull {
             it.prizeCategoryId == arguments?.getString("PRIZE_ID") ?: mainVM.prizeDomainId
         }?.prizeCategoryName?.replace("Приз для", "Приз для владельцев")

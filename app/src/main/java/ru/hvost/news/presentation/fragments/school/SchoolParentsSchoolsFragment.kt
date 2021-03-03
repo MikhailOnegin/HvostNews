@@ -27,7 +27,6 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var schoolsAdapter: SchoolsListAdapter
     private lateinit var navCMain: NavController
-    private lateinit var schoolsEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,17 +46,9 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         binding.recyclerSchools.adapter = schoolsAdapter
         setObservers(this)
         setListeners()
-        binding.swipeRefresh.isRefreshing = true
     }
 
     private fun initializedEvents() {
-        schoolsEvent = DefaultNetworkEventObserver(
-            anchorView  = binding.root,
-            doOnLoading = { binding.swipeRefresh.isRefreshing = true },
-            doOnSuccess = { binding.swipeRefresh.isRefreshing = false },
-            doOnError   = { binding.swipeRefresh.isRefreshing = false },
-            doOnFailure = { binding.swipeRefresh.isRefreshing = false }
-        )
     }
 
     private fun setListeners() {
@@ -69,7 +60,6 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     }
 
     private fun initializedAdapters() {
-
         schoolsAdapter = SchoolsListAdapter(
             clickSchool = {
                 schoolVM.schoolOnlineId.value = it
@@ -108,7 +98,6 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
             }
         }
         )
-        schoolVM.onlineSchoolsEvent.observe(owner, schoolsEvent)
     }
 
     private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {

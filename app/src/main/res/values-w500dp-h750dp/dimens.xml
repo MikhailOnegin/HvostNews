@@ -152,6 +152,8 @@
     <dimen name="popupWidth">425dp</dimen>
     <dimen name="dialogTitleTextSize">26sp</dimen>
     <dimen name="editTextHeight">80dp</dimen>
+    <dimen name="submitDialogTitleTextSize">28sp</dimen>
+    <dimen name="submitDialogMessageTextSize">22sp</dimen>
 
     <dimen name="minus_1dp">-1dp</dimen>
     <dimen name="minus_2dp">-2dp</dimen>
@@ -265,4 +267,6 @@
     <dimen name="mainTitleMaxWidth">400dp</dimen>
     <dimen name="prizeItemPadding">20dp</dimen>
     <dimen name="textSchoolDetailTitle">37sp</dimen>
+    <dimen name="loginScreenHintTextSize">18sp</dimen>
+    <dimen name="kittyIconSize">60dp</dimen>
 </resources>

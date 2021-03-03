@@ -13,6 +13,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCouponsGetInfoBinding
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.CouponViewModel
+import ru.hvost.news.utils.getDefaultShimmer
 
 class CouponsGetInfoFragment : BaseFragment() {
 
@@ -47,11 +48,12 @@ class CouponsGetInfoFragment : BaseFragment() {
     private fun setObservers() {
         couponVM.couponsInfo.observe(viewLifecycleOwner, {
             binding.textViewGetCouponsInfo.text = it.description.parseAsHtml()
-            Glide.with(requireContext()).load(it.imageUrl)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .centerCrop()
-                .into(binding.imageViewInfoGetCoupons)
+            Glide.with(requireContext())
+                    .load(it.imageUrl)
+                    .placeholder(getDefaultShimmer(requireContext()))
+                    .error(R.drawable.ic_load_error)
+                    .centerCrop()
+                    .into(binding.imageViewInfoGetCoupons)
         })
     }
 }

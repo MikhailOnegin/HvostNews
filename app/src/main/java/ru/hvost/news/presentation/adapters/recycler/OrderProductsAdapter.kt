@@ -15,6 +15,7 @@ import ru.hvost.news.databinding.RvOrderProductBinding
 import ru.hvost.news.models.OrderFooter
 import ru.hvost.news.models.OrderItem
 import ru.hvost.news.models.Product
+import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 import java.lang.IllegalArgumentException
 
@@ -54,10 +55,10 @@ class OrderProductsAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(product: Product) {
             Glide.with(binding.root)
-                .load(product.imageUri)
-                .placeholder(R.drawable.loader_anim)
-                .error(R.drawable.ic_load_error)
-                .into(binding.image)
+                    .load(product.imageUri)
+                    .placeholder(getDefaultShimmer(itemView.context))
+                    .error(R.drawable.ic_load_error)
+                    .into(binding.image)
             binding.apply {
                 title.text = product.nameProduct.parseAsHtml()
                 count.text = "${product.count}"

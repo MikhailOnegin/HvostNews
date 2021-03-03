@@ -27,12 +27,5 @@ fun List<Food>.toFood(): List<PetFood> {
             foodName = MainViewModel.UNSELECTED
         )
     )
-    result.add(
-        PetFood(
-            index = MainViewModel.OTHER_ID,
-            id = "",
-            foodName = MainViewModel.OTHER
-        )
-    )
     return result
 }
