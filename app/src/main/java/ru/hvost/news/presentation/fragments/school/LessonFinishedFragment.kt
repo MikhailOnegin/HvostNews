@@ -57,47 +57,6 @@ class LessonFinishedFragment : BaseFragment() {
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.onlineSchools.observe(owner, {
-            schoolId?.run {
-                var onlineSchool: OnlineSchools.OnlineSchool? = null
-                for (i in it.onlineSchools.indices) {
-                    if (it.onlineSchools[i].id.toString() == this) {
-                        onlineSchool = it.onlineSchools[i]
-                    }
-                }
-                onlineSchool?.run {
-                    val literature = this.literature
-                    val container = binding.includeLiterature.linearLayoutLiterature
-                    container.removeAllViews()
-                    if (literature.isNotEmpty()) {
-                        for (i in literature.indices) {
-                            val viewLiterature = LayoutLiteratureItemBinding.inflate(
-                                LayoutInflater.from(requireContext()),
-                                container,
-                                false
-                            ).root
-                            viewLiterature.textView_title.text = literature[i].title
-                            viewLiterature.textView_pet.text = literature[i].pet
-                            viewLiterature.constraint_literature.setOnClickListener {
-                                startIntentActionView(
-                                    requireContext(),
-                                    literature[i].fileUrl
-                                )
-                            }
-                            val paddingNormal = resources.getDimension(R.dimen.normalMargin).toInt()
-                            val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
-
-                            if(i == 0 || i == onlineSchool.literature.lastIndex){
-                                if (i == 0) viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
-                                else if (i == onlineSchool.literature.lastIndex) viewLiterature.setPadding(0, 0,paddingEdge,0)
-                            }
-                            else viewLiterature.setPadding(0, 0, paddingNormal,0)
-                            container.addView(viewLiterature)
-                        }
-                    } else binding.includeLiterature.rootConstraint.visibility = View.GONE
-                }
-            }
-        })
         schoolVM.onlineLessons.observe(owner, {
             lessonId.let { lessonId ->
                 for (i in it.lessons.indices) {
@@ -133,6 +92,37 @@ class LessonFinishedFragment : BaseFragment() {
                             }
                         }
                     }
+
+                    //add literature
+                    val literature = lesson.literatures
+                    val container = binding.includeLiterature.linearLayoutLiterature
+                    container.removeAllViews()
+                    if (literature.isNotEmpty()) {
+                        for (q in literature.indices) {
+                            val viewLiterature = LayoutLiteratureItemBinding.inflate(
+                                    LayoutInflater.from(requireContext()),
+                                    container,
+                                    false
+                            ).root
+                            viewLiterature.textView_title.text = literature[q].title
+                            viewLiterature.textView_pet.text = literature[q].pet
+                            viewLiterature.constraint_literature.setOnClickListener {
+                                startIntentActionView(
+                                        requireContext(),
+                                        literature[q].fileUrl
+                                )
+                            }
+                            val paddingNormal = resources.getDimension(R.dimen.normalMargin).toInt()
+                            val paddingEdge = resources.getDimension(R.dimen.largeMargin).toInt()
+
+                            if(q == 0 || q == literature.lastIndex){
+                                if (q == 0) viewLiterature.setPadding(paddingEdge, 0,paddingNormal,0)
+                                else if (q == literature.lastIndex) viewLiterature.setPadding(0, 0,paddingEdge,0)
+                            }
+                            else viewLiterature.setPadding(0, 0, paddingNormal,0)
+                            container.addView(viewLiterature)
+                        }
+                    } else binding.includeLiterature.rootConstraint.visibility = View.GONE
                 }
             }
         })

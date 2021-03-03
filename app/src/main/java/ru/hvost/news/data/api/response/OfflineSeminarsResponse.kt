@@ -31,7 +31,8 @@ data class OfflineSeminarsResponse(
     )
     data class Partner(
         val name: String?,
-        val image: String?
+        val image: String?,
+        val website: String?
     )
     data class PetSchedule(
         val petTypeId: String?,

@@ -43,9 +43,6 @@ class SchoolParentsFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
         initializedAdapters()
-        App.getInstance().userToken?.run {
-                schoolVM.getSchools(this)
-            }
         if (schoolVM.offlineSeminars.value == null) schoolVM.getSeminarsCities()
         initializeEvents()
         setObservers(this)

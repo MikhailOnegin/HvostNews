@@ -27,6 +27,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     private lateinit var schoolVM: SchoolViewModel
     private lateinit var schoolsAdapter: SchoolsListAdapter
     private lateinit var navCMain: NavController
+    private lateinit var schoolsEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,9 +47,28 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
         binding.recyclerSchools.adapter = schoolsAdapter
         setObservers(this)
         setListeners()
+        getData()
     }
 
+    private fun getData() {
+        schoolVM.onlineSchools.value?.let {
+            schoolsAdapter.submitList(it.onlineSchools)
+        }
+        App.getInstance().userToken?.let {
+            schoolVM.getSchools(it)
+        }
+    }
+
+
     private fun initializedEvents() {
+        schoolsEvent = DefaultNetworkEventObserver(
+                anchorView =  binding.root,
+                doOnSuccess = {
+                    schoolVM.onlineSchools.value?.let {
+                        schoolsAdapter.submitList(it.onlineSchools)
+                    }
+                }
+        )
     }
 
     private fun setListeners() {
@@ -75,12 +95,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     }
 
     private fun setObservers(owner: LifecycleOwner) {
-        schoolVM.onlineSchools.observe(owner, { schoolsResponse ->
-            schoolsAdapter.submitList(schoolsResponse.onlineSchools)
-            schoolVM.filterSchools.value?.let {
-                schoolsAdapter.filterYourSchools(it)
-            }
-        })
+        schoolVM.onlineSchoolsEvent.observe(owner, schoolsEvent)
         schoolVM.filterSchools.observe(owner, {
             schoolsAdapter.filterYourSchools(it)
         })
@@ -103,13 +118,6 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     private fun onRecyclerSchoolsReadyEvent(event: OneTimeEvent?) {
         event?.getEventIfNotHandled()?.run {
             binding.swipeRefresh.isRefreshing = false
-            ObjectAnimator.ofFloat(
-                binding.recyclerSchools,
-                "alpha",
-                0f, 1f
-            ).apply {
-                duration = 300L
-            }.start()
-        }
+    }
     }
 }

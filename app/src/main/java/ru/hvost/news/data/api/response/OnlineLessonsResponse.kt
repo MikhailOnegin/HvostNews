@@ -14,11 +14,18 @@ data class OnlineLessonsResponse(
         val videoUrl: String?,
         val imageVideoUrl: String?,
         val testQuestion: String?,
+        val literatures: List<Literature>?,
         val answerList: List<Answer>?
     )
 
     data class Answer(
         val answer: String?,
         val isTrue: Boolean?
+    )
+
+    data class Literature(
+            val title: String?,
+            val pet: String?,
+            val fileUrl: String?,
     )
 }
