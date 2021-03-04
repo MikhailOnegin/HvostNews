@@ -142,7 +142,7 @@ class SchoolViewModel: ViewModel() {
     }
 
     val currentCity:MutableLiveData<String> = MutableLiveData()
-    val filterShowFinished:MutableLiveData<Boolean> = MutableLiveData()
+    val showFinishedSeminars:MutableLiveData<Boolean> = MutableLiveData(true)
     private val _offlineCitiesEvent:MutableLiveData<NetworkEvent<State>> = MutableLiveData()
     val offlineCitiesEvent:LiveData<NetworkEvent<State>> = _offlineCitiesEvent
 
