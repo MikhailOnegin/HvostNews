@@ -132,6 +132,7 @@
     <dimen name="cartLayoutTextSize">14sp</dimen>
     <dimen name="cartLayoutDividerHeight">14dp</dimen>
     <dimen name="tabTitleTextSize">24sp</dimen>
+    <dimen name="tabTextSize">15sp</dimen>
     <dimen name="smallButtonTextSize">14sp</dimen>
     <dimen name="smallButtonVerticalPadding">10dp</dimen>
     <dimen name="systemBarHeight">24dp</dimen>

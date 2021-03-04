@@ -270,7 +270,9 @@ open class LinearRvItemDecorations(
 
 class GridRvItemDecorations(
     sideMarginsDimension: Int? = null,
-    marginBetweenElementsDimension: Int? = null
+    marginBetweenElementsDimension: Int? = null,
+    private val marginTopDimension: Int? = null,
+    private val drawTopMarginForFirstElement: Boolean = false
 ) : RecyclerView.ItemDecoration() {
 
     private val res = App.getInstance().resources
@@ -290,6 +292,8 @@ class GridRvItemDecorations(
         state: RecyclerView.State
     ) {
         val position = parent.getChildAdapterPosition(view)
+        if(drawTopMarginForFirstElement && (marginTopDimension != null)  && (position == 0 || position == 1))
+            outRect.top = marginTopDimension
         if (position % 2 == 0) {
             outRect.left = sideMargin
             outRect.right = elementsMargin / 2

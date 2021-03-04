@@ -406,8 +406,8 @@
     </style>
 
     <style name="tabsCustomStyle" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">@dimen/tabTitleTextSize</item>
-        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/tabTextSize</item>
+        <item name="textAllCaps">true</item>
         <item name="fontFamily">@font/gilroy_semibold</item>
     </style>
 

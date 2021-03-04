@@ -304,8 +304,4 @@ class FeedFragment : BaseFragment() {
         }
     }
 
-    companion object {
-        const val ARTICLE_ID = "article_id"
-    }
-
 }

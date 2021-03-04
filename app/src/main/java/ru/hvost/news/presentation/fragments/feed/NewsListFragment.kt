@@ -32,7 +32,7 @@ class NewsListFragment : BaseFragment() {
             LinearRvItemDecorations(
                 sideMarginsDimension = R.dimen.largeMargin,
                 marginBetweenElementsDimension = R.dimen.extraLargeMargin,
-                drawTopMarginForFirstElement = false
+                drawTopMarginForFirstElement = true
             )
         )
         return binding.root
@@ -72,7 +72,7 @@ class NewsListFragment : BaseFragment() {
     private fun setRecyclerView() {
         val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putString(FeedFragment.ARTICLE_ID, id)
+            bundle.putString(FeedRedesignFragment.ARTICLE_ID, id)
             requireActivity().findNavController(R.id.nav_host_fragment)
                 .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
         }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentDomainsGridBinding
@@ -28,7 +29,9 @@ class DomainsGridFragment : BaseFragment() {
         binding = FragmentDomainsGridBinding.inflate(inflater, container, false)
         binding.root.addItemDecoration(GridRvItemDecorations(
             R.dimen.largeMargin,
-            R.dimen.normalMargin
+            R.dimen.normalMargin,
+            App.getInstance().resources.getDimension(R.dimen.extraLargeMargin).toInt(),
+            true
         ))
         return binding.root
     }
