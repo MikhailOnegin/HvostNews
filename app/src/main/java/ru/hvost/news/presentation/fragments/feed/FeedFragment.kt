@@ -25,7 +25,7 @@ import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
-class FeedFragment : BaseFragment() {
+class FeedFragment : BaseFragment() { //DEPRECATED IN REDESIGN
 
     private lateinit var binding: FragmentFeedBinding
     private lateinit var mainVM: MainViewModel

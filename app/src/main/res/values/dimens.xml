@@ -157,6 +157,7 @@
     <dimen name="shopImageHeight">400dp</dimen>
     <dimen name="checkboxSize">20dp</dimen>
     <dimen name="domainTitleOnArticleRadius">10dp</dimen>
+    <dimen name="domainChipsCornerRadius">14dp</dimen>
     <dimen name="productImageHeight">350dp</dimen>
     <dimen name="productTitleTextSize">20sp</dimen>
     <dimen name="productArticleTextSize">16sp</dimen>
@@ -167,9 +168,9 @@
     <dimen name="articleIconCorners">12dp</dimen>
     <dimen name="articleIconPadding">10dp</dimen>
     <dimen name="articleIconSize">40dp</dimen>
-    <dimen name="articleDateTextSize">16sp</dimen>
-    <dimen name="articleChipsTextSize">15sp</dimen>
-    <dimen name="chipsStrokeWidth">3dp</dimen>
+    <dimen name="articleDateTextSize">14sp</dimen>
+    <dimen name="articleChipsTextSize">16sp</dimen>
+    <dimen name="chipsStrokeWidth">1dp</dimen>
     <dimen name="maxChipsWidth">250dp</dimen>
     <dimen name="viewsIconSize">32dp</dimen>
     <dimen name="articleTextSize">18sp</dimen>

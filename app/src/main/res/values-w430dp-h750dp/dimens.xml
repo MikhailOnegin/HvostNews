@@ -38,10 +38,10 @@
     <dimen name="mapViewHeight">240dp</dimen>
     <dimen name="articleDetailTitleTextSize">36sp</dimen>
     <dimen name="articleIconSize">40dp</dimen>
-    <dimen name="articleDateTextSize">18sp</dimen>
+    <dimen name="articleDateTextSize">16sp</dimen>
     <dimen name="articleChipsTextSize">18sp</dimen>
     <dimen name="viewsIconSize">32dp</dimen>
-    <dimen name="chipsStrokeWidth">3dp</dimen>
+    <dimen name="chipsStrokeWidth">1dp</dimen>
     <dimen name="articleTextSize">20sp</dimen>
     <dimen name="rvVoucherTitleTextSize">30sp</dimen>
     <dimen name="rvVoucherCodeTextSize">20sp</dimen>
