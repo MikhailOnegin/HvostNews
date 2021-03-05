@@ -267,4 +267,5 @@
     <dimen name="textSchoolDetailTitle">34sp</dimen>
     <dimen name="loginScreenHintTextSize">16sp</dimen>
     <dimen name="kittyIconSize">54dp</dimen>
+    <dimen name="tabTextSize">17sp</dimen>
 </resources>
