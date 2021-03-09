@@ -5,139 +5,150 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="@drawable/selector_gray_rect_small_corners"
-    app:cardBackgroundColor="@android:color/transparent"
+    app:cardBackgroundColor="@color/gray5"
     app:cardCornerRadius="@dimen/corner_6dp"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/normalMargin"
-        tools:ignore="UnusedAttribute">
+        android:layout_margin="1dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="@dimen/corner_6dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
 
-        <ImageView
-            android:id="@+id/img"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/test_image"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/normalMargin"
+            tools:ignore="UnusedAttribute">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_14dp"
-            android:layout_marginTop="@dimen/normalMargin"
-            android:layout_marginBottom="@dimen/smallMargin"
-            android:fontFamily="@font/gilroy_bold"
-            android:lineSpacingMultiplier="1.15"
-            android:text="@string/stub"
-            android:textColor="@color/gray1"
-            android:textSize="@dimen/articleTitleTextSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img" />
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/test_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_14dp"
-            android:layout_marginTop="@dimen/smallMargin"
-            android:layout_marginBottom="@dimen/normalMargin"
-            android:fontFamily="@font/gilroy_regular"
-            android:lineSpacingMultiplier="1.25"
-            android:text="@string/stub"
-            android:textColor="@color/gray2"
-            android:textSize="@dimen/articleDescriptionTextSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_14dp"
+                android:layout_marginTop="@dimen/normalMargin"
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:fontFamily="@font/gilroy_bold"
+                android:lineSpacingMultiplier="1.15"
+                android:text="@string/stub"
+                android:textColor="@color/gray1"
+                android:textSize="@dimen/articleTitleTextSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img" />
 
-        <TextView
-            android:id="@+id/domain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_14dp"
-            android:layout_marginTop="@dimen/largeMargin"
-            android:background="@drawable/background_chips"
-            android:fontFamily="@font/gilroy_semibold"
-            android:gravity="center"
-            android:maxWidth="@dimen/maxFeedChipsWidth"
-            android:paddingHorizontal="@dimen/chipsPaddingVertical"
-            android:paddingVertical="@dimen/chipsPaddingHorizontal"
-            android:text="@string/stub"
-            android:textColor="@color/gray2"
-            android:textSize="@dimen/articleChipsTextSize"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description"
-            tools:text="Котята" />
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_14dp"
+                android:layout_marginTop="@dimen/smallMargin"
+                android:layout_marginBottom="@dimen/normalMargin"
+                android:fontFamily="@font/gilroy_regular"
+                android:lineSpacingMultiplier="1.25"
+                android:text="@string/stub"
+                android:textColor="@color/gray2"
+                android:textSize="@dimen/articleDescriptionTextSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <TextView
-            android:id="@+id/views"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/xLargeMargin"
-            android:fontFamily="@font/gilroy_semibold"
-            android:textColor="@color/gray3"
-            android:textSize="@dimen/articleDateTextSize"
-            app:layout_constraintBottom_toBottomOf="@id/domain"
-            app:layout_constraintEnd_toStartOf="@id/likesIcon"
-            app:layout_constraintTop_toTopOf="@id/domain"
-            tools:text="47 850" />
+            <TextView
+                android:id="@+id/domain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14dp"
+                android:layout_marginTop="@dimen/largeMargin"
+                android:background="@drawable/background_chips"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center"
+                android:maxWidth="@dimen/maxFeedChipsWidth"
+                android:paddingHorizontal="@dimen/chipsPaddingVertical"
+                android:paddingVertical="@dimen/chipsPaddingHorizontal"
+                android:text="@string/stub"
+                android:textColor="@color/gray2"
+                android:textSize="@dimen/articleChipsTextSize"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                tools:text="Котята" />
 
-        <ImageView
-            android:id="@+id/viewsIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/smallMargin"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_views_list"
-            app:layout_constraintBottom_toBottomOf="@id/views"
-            app:layout_constraintEnd_toStartOf="@id/views"
-            app:layout_constraintTop_toTopOf="@id/views"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/xLargeMargin"
+                android:fontFamily="@font/gilroy_semibold"
+                android:textColor="@color/gray3"
+                android:textSize="@dimen/articleDateTextSize"
+                app:layout_constraintBottom_toBottomOf="@id/domain"
+                app:layout_constraintEnd_toStartOf="@id/likesIcon"
+                app:layout_constraintTop_toTopOf="@id/domain"
+                tools:text="47 850" />
 
-        <TextView
-            android:id="@+id/likes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_14dp"
-            android:fontFamily="@font/gilroy_semibold"
-            android:textColor="@color/gray3"
-            android:textSize="@dimen/articleDateTextSize"
-            app:layout_constraintBottom_toBottomOf="@id/domain"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/domain"
-            tools:text="47 850" />
+            <ImageView
+                android:id="@+id/viewsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/smallMargin"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_views_list"
+                app:layout_constraintBottom_toBottomOf="@id/views"
+                app:layout_constraintEnd_toStartOf="@id/views"
+                app:layout_constraintTop_toTopOf="@id/views"
+                tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:id="@+id/likesIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/smallMargin"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_likes_list"
-            app:layout_constraintBottom_toBottomOf="@id/likes"
-            app:layout_constraintEnd_toStartOf="@id/likes"
-            app:layout_constraintTop_toTopOf="@id/likes"
-            tools:ignore="ContentDescription" />
+            <TextView
+                android:id="@+id/likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_14dp"
+                android:fontFamily="@font/gilroy_semibold"
+                android:textColor="@color/gray3"
+                android:textSize="@dimen/articleDateTextSize"
+                app:layout_constraintBottom_toBottomOf="@id/domain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/domain"
+                tools:text="47 850" />
 
-        <ImageView
-            android:id="@+id/articleType"
-            android:layout_width="@dimen/viewsIconSize"
-            android:layout_height="@dimen/viewsIconSize"
-            android:layout_marginStart="@dimen/iconMargin"
-            android:layout_marginTop="@dimen/iconMargin"
-            android:layout_marginEnd="@dimen/smallMargin"
-            android:src="@drawable/ic_arcticle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/likesIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/smallMargin"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_likes_list"
+                app:layout_constraintBottom_toBottomOf="@id/likes"
+                app:layout_constraintEnd_toStartOf="@id/likes"
+                app:layout_constraintTop_toTopOf="@id/likes"
+                tools:ignore="ContentDescription" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/articleType"
+                android:layout_width="@dimen/viewsIconSize"
+                android:layout_height="@dimen/viewsIconSize"
+                android:layout_marginStart="@dimen/iconMargin"
+                android:layout_marginTop="@dimen/iconMargin"
+                android:layout_marginEnd="@dimen/smallMargin"
+                android:src="@drawable/ic_arcticle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.cardview.widget.CardView>
