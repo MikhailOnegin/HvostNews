@@ -111,6 +111,7 @@ class OrdersFragment : Fragment(){
     }
 
     private fun onOrdersChanged(orders: List<Order>?) {
+        if (orders.isNullOrEmpty()) findNavController().popBackStack()
         (binding.recyclerView.adapter as OrdersAdapter).submitList(orders)
         val list = orders?.distinctBy { it.orderStatus }
             ?.map { it.orderStatus }?.toMutableList() ?: mutableListOf()

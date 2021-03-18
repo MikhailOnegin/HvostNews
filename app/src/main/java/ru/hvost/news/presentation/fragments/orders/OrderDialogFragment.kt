@@ -18,6 +18,7 @@ import ru.hvost.news.databinding.FragmentOrderBinding
 import ru.hvost.news.models.Order
 import ru.hvost.news.models.toOrderItems
 import ru.hvost.news.presentation.adapters.recycler.OrderProductsAdapter
+import ru.hvost.news.presentation.dialogs.SubmitActionDialog
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 
 class OrderDialogFragment : BottomSheetDialogFragment() {
@@ -79,7 +80,11 @@ class OrderDialogFragment : BottomSheetDialogFragment() {
     }
 
     private val deleteOrder: (Long) -> Unit = {
-        mainVM.deleteOrder(it)
+        SubmitActionDialog(
+            getString(R.string.submitDeleteOrderDialogTitle),
+            null,
+            { mainVM.deleteOrder(it) }
+        ).show(childFragmentManager, "submit_dialog")
     }
 
     companion object {
