@@ -34,7 +34,7 @@
             android:id="@+id/image"
             tools:src="@drawable/empty_image"
             app:cornersRadius="@dimen/smallCorners"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shopDomainsImageHeight"
             app:layout_constraintTop_toTopOf="parent"

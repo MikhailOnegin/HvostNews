@@ -16,7 +16,7 @@
         android:layout_marginEnd="@dimen/smallMargin"
         android:background="@drawable/checkbox"
         android:gravity="center"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         tools:ignore="ContentDescription" />
 
     <TextView

@@ -11,7 +11,7 @@
         android:id="@+id/mainCheckbox"
         android:layout_width="@dimen/checkboxSize"
         android:layout_height="@dimen/checkboxSize"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         android:layout_marginEnd="@dimen/smallMargin"
         android:background="@drawable/checkbox"
         android:gravity="center"

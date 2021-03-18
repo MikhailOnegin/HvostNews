@@ -10,7 +10,7 @@ import ru.hvost.news.databinding.DialogSubmitActionBinding
 
 class SubmitActionDialog(
     private val title: String,
-    private val message: String,
+    private val message: String?,
     private val onSubmitButtonClicked: (() -> Unit),
     private val onCancelButtonClicked: (() -> Unit)? = null
 ) : BottomSheetDialogFragment() {
@@ -30,6 +30,7 @@ class SubmitActionDialog(
         binding = DialogSubmitActionBinding.inflate(inflater, container, false)
         binding.title.text = title
         binding.message.text = message
+        if (message == null) binding.message.visibility = View.GONE
         binding.buttonSubmit.setOnClickListener {
             onSubmitButtonClicked.invoke()
             dismiss()
