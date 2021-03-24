@@ -1,33 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/show"
+    style="@style/UnelevatedButton"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <Button
-        android:id="@+id/cancel"
-        style="@style/UnelevatedButton.Gray"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/ButtonHeight"
-        android:layout_marginEnd="@dimen/smallMargin"
-        android:layout_weight="0.6"
-        android:backgroundTint="@color/gray4"
-        android:fontFamily="@font/gilroy_medium"
-        android:text="@string/reset"
-        android:textColor="@color/gray2"
-        android:textSize="@dimen/buttonMediumTextSize"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/show"
-        style="@style/UnelevatedButton"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/ButtonHeight"
-        android:layout_weight="1"
-        android:fontFamily="@font/gilroy_medium"
-        android:text="@string/show"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/buttonMediumTextSize"
-        android:textStyle="bold" />
-
-</LinearLayout>
+    android:layout_height="@dimen/ButtonHeight"
+    android:fontFamily="@font/gilroy_medium"
+    android:text="@string/show"
+    android:textColor="@android:color/white"
+    android:textSize="@dimen/buttonMediumTextSize"
+    android:textStyle="bold" />

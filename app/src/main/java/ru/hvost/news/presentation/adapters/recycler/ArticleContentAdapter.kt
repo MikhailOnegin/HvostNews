@@ -300,7 +300,7 @@ class ArticleContentAdapter(
             Glide
                 .with(binding.root)
                 .load(image.imageUri)
-                .placeholder(R.drawable.loader_anim)
+                .placeholder(getDefaultShimmer(itemView.context))
                 .error(R.drawable.ic_load_error)
                 .into(binding.image)
             binding.image.doOnLayout {

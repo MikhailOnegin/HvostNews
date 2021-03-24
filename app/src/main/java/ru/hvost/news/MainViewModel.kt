@@ -165,11 +165,13 @@ class MainViewModel : ViewModel() {
     private val _loadingVouchersEvent = MutableLiveData<NetworkEvent<State>>()
 
     //событие, сообщающее о закрытии ArticlesFilterCustomDialog
-    val closeArticlesFilterCustomDialog = MutableLiveData<OneTimeEvent>()
     val dismissArticlesFilterCustomDialog = MutableLiveData<OneTimeEvent>()
 
     //событие, сообщающее об изменении интересов пользователя
     val updateArticlesWithNewInterests = MutableLiveData<OneTimeEvent>()
+
+    //событие, сообщающее об изменении в списке фильтров
+    val filterRvChangedEvent = MutableLiveData<OneTimeEvent>()
 
 //    val enableFilterButton = MutableLiveData<Boolean>()
 

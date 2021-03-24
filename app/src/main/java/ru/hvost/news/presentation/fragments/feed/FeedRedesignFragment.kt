@@ -1,12 +1,13 @@
 package ru.hvost.news.presentation.fragments.feed
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentStateManagerControl
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,7 +18,6 @@ import ru.hvost.news.models.CheckboxStates
 import ru.hvost.news.models.Interests
 import ru.hvost.news.models.InterestsCategory
 import ru.hvost.news.presentation.activities.MainActivity
-import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
@@ -28,8 +28,7 @@ class FeedRedesignFragment : BaseFragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var mainVM: MainViewModel
     private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
-    private val filterDialog = ArticlesFilterCustomDialog()
-
+    private lateinit var onArticlesLoadingEvent: DefaultNetworkEventObserver
 
     override fun onStart() {
         super.onStart()
@@ -54,7 +53,7 @@ class FeedRedesignFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-        binding.filter.setOnClickListener { filterDialog.show(childFragmentManager, "info_dialog") }
+        binding.filter.setOnClickListener { findNavController().navigate(R.id.action_feedRedesignFragment_to_feedFilterFragment) }
     }
 
     private fun setViewPager() {
@@ -74,28 +73,40 @@ class FeedRedesignFragment : BaseFragment() {
     private fun initializeObservers() {
         onChangeUserDataLoadingEvent = DefaultNetworkEventObserver(
             anchorView = binding.root,
+            doOnLoading = {
+                binding.viewPager.alpha = 0f
+                binding.progress.visibility = View.VISIBLE
+            },
             doOnSuccess = {
                 mainVM.loadArticles()
                 mainVM.loadUserData()
             }
         )
+        onArticlesLoadingEvent = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnSuccess = { animateContentAppear() },
+            doOnFailure = { animateContentAppear() },
+            doOnError = { animateContentAppear() }
+        )
+    }
+
+    private fun animateContentAppear() {
+        binding.progress.visibility = View.GONE
+        ObjectAnimator.ofFloat(
+            binding.viewPager,
+            "alpha",
+            0f, 1f
+        ).apply {
+            duration = 300L
+        }.start()
     }
 
     private fun setObservers() {
         mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
-        mainVM.closeArticlesFilterCustomDialog.observe(
-            viewLifecycleOwner,
-            OneTimeEvent.Observer { closeDialog() })
+        mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
         mainVM.dismissArticlesFilterCustomDialog.observe(
             viewLifecycleOwner,
             OneTimeEvent.Observer { clearAllInterests() })
-        mainVM.updateArticlesWithNewInterests.observe(viewLifecycleOwner,
-            OneTimeEvent.Observer { updateArticles() })
-    }
-
-    private fun closeDialog() {
-        clearAllInterests()
-        filterDialog.dismiss()
     }
 
     private fun clearAllInterests() {
@@ -107,34 +118,8 @@ class FeedRedesignFragment : BaseFragment() {
                     it.isExpanded = false
                 }
                 is Interests -> it.state = CheckboxStates.UNSELECTED
-                else -> {
-                }
             }
         }
-    }
-
-    private fun updateArticles() {
-        val sendList: MutableList<String> = mutableListOf()
-        mainVM.interests.value?.map {
-            when (it) {
-                is InterestsCategory -> {
-                    if (it.state == CheckboxStates.SELECTED && it.sendParent)
-                        sendList.add(it.categoryId.toString())
-                }
-                is Interests -> {
-                    val parentId = mainVM.interests.value?.first { category ->
-                        category is InterestsCategory && category.categoryId == it.parentCategoryId
-                    }
-                    if (it.state == CheckboxStates.SELECTED && !(parentId as InterestsCategory).sendParent)
-                        sendList.add(it.interestId.toString())
-                }
-                else -> {
-                }
-            }
-        }
-        mainVM.changeUserData(interests = sendList.joinToString())
-        clearAllInterests()
-        closeDialog()
     }
 
     private inner class ScreenSlidePagerAdapter(fragment: Fragment) :

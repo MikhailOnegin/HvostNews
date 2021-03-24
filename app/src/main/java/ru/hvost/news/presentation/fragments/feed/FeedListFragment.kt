@@ -13,15 +13,12 @@ import ru.hvost.news.models.Article
 import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
-import ru.hvost.news.utils.enums.State
-import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
 class FeedListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentFeedListBinding
     private lateinit var mainVM: MainViewModel
-    private lateinit var onArticlesLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +36,14 @@ class FeedListFragment : BaseFragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        @Suppress("DEPRECATION")
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        if (mainVM.articlesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
-        initializeObservers()
         setObservers()
     }
 
     private fun setObservers() {
-        mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
+        mainVM.articles.observe(viewLifecycleOwner, { setRecyclerView() })
         mainVM.likedArticleList.observe(viewLifecycleOwner, { onArticlesChanged(it) })
         mainVM.updateArticlesViewsCount.observe(viewLifecycleOwner,
             OneTimeEvent.Observer { updateArticles() })
@@ -60,13 +56,6 @@ class FeedListFragment : BaseFragment() {
     private fun onArticlesChanged(list: List<Article>?) {
         val adapter = (binding.list.adapter as ArticleAdapter)
         adapter.submitList(list)
-    }
-
-    private fun initializeObservers() {
-        onArticlesLoadingEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
-            doOnSuccess = { setRecyclerView() }
-        )
     }
 
     private fun setRecyclerView() {
@@ -82,6 +71,7 @@ class FeedListFragment : BaseFragment() {
         val adapter = ArticleAdapter(onActionClicked, onActionLiked)
         binding.list.adapter = adapter
         adapter.submitList(mainVM.articles.value)
+        binding.list.scheduleLayoutAnimation()
     }
 
 }

@@ -111,9 +111,9 @@ class FeedFragment : BaseFragment() { //DEPRECATED IN REDESIGN
 
     private fun setObservers() {
         mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
-        mainVM.closeArticlesFilterCustomDialog.observe(
-            viewLifecycleOwner,
-            OneTimeEvent.Observer { closeDialog() })
+//        mainVM.closeArticlesFilterCustomDialog.observe(
+//            viewLifecycleOwner,
+//            OneTimeEvent.Observer { closeDialog() })
         mainVM.dismissArticlesFilterCustomDialog.observe(
             viewLifecycleOwner,
             OneTimeEvent.Observer { clearAllInterests() })
@@ -135,8 +135,6 @@ class FeedFragment : BaseFragment() { //DEPRECATED IN REDESIGN
                     it.isExpanded = false
                 }
                 is Interests -> it.state = CheckboxStates.UNSELECTED
-                else -> {
-                }
             }
         }
     }
@@ -155,8 +153,6 @@ class FeedFragment : BaseFragment() { //DEPRECATED IN REDESIGN
                     }
                     if (it.state == CheckboxStates.SELECTED && !(parentId as InterestsCategory).sendParent)
                         sendList.add(it.interestId.toString())
-                }
-                else -> {
                 }
             }
         }

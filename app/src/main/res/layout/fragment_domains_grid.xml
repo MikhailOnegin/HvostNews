@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:layoutAnimation="@anim/anim_zoom_in"
     android:orientation="vertical"
     android:splitMotionEvents="false"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

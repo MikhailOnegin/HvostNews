@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/normalMargin"
+            android:paddingBottom="@dimen/_14dp"
             tools:ignore="UnusedAttribute">
 
             <ImageView
@@ -139,8 +139,8 @@
                 android:id="@+id/articleType"
                 android:layout_width="@dimen/viewsIconSize"
                 android:layout_height="@dimen/viewsIconSize"
-                android:layout_marginStart="@dimen/iconMargin"
-                android:layout_marginTop="@dimen/iconMargin"
+                android:layout_marginStart="@dimen/_14dp"
+                android:layout_marginTop="@dimen/_14dp"
                 android:layout_marginEnd="@dimen/smallMargin"
                 android:src="@drawable/ic_arcticle"
                 app:layout_constraintStart_toStartOf="parent"

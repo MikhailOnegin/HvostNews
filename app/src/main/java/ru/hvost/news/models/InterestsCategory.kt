@@ -20,10 +20,6 @@ data class Interests(
     var state: Enum<CheckboxStates>
 ) : CategoryItem(interestId, parentCategoryId)
 
-data class FilterFooter(
-    var buttonEnabled: Boolean? = false
-) : CategoryItem(0)
-
 sealed class CategoryItem(
     val id: Long,
     val parentId: Long = 0
