@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -13,26 +14,26 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.*
+import com.yandex.mapkit.map.Map
 import com.yandex.runtime.ui_view.ViewProvider
 import ru.hvost.news.App
 import ru.hvost.news.R
-import ru.hvost.news.databinding.DialogMapDetailBinding
 import ru.hvost.news.databinding.FragmentMapBinding
 import ru.hvost.news.databinding.PopupMapSettingsBinding
 import ru.hvost.news.models.Shop
 import ru.hvost.news.presentation.adapters.autocomplete.AutoCompleteShopsAdapter
 import ru.hvost.news.presentation.dialogs.PartnerDetailDialog
-import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent.Observer
-import ru.hvost.news.utils.showNotReadyToast
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class MapFragment : BaseFragment() {
 
@@ -43,6 +44,7 @@ class MapFragment : BaseFragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val defaultLatitude = 55.755814
     private val defaultLongitude = 37.617635
+    private lateinit var networkEventObserver: DefaultNetworkEventObserver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,18 +55,23 @@ class MapFragment : BaseFragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
+    private lateinit var pin: View
+
+    @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMapBinding.inflate(inflater, container, false)
+        pin = LayoutInflater.from(requireActivity()).inflate(R.layout.view_landmark, null)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
+        initializeObservers()
         setObservers()
         if(mapVM.shops.value.isNullOrEmpty()) mapVM.loadShops(App.getInstance().userToken)
     }
@@ -144,14 +151,66 @@ class MapFragment : BaseFragment() {
         )
     }
 
+    private fun initializeObservers() {
+        networkEventObserver = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnLoading = { setHintsVisibility(true) },
+            doOnSuccess = { setHintsVisibility(false) },
+            doOnFailure = {
+                setHintsVisibility(true)
+                mapVM.loadShops(App.getInstance().userToken)
+            },
+            doOnError = {
+                setHintsVisibility(true)
+                mapVM.loadShops(App.getInstance().userToken)
+            }
+        )
+    }
+
+    private fun setHintsVisibility(showHints: Boolean) {
+        binding.progress.visibility = if (showHints) View.VISIBLE else View.GONE
+        binding.hint.visibility = if (showHints) View.VISIBLE else View.GONE
+    }
+
     private fun setObservers() {
-        mapVM.shops.observe(viewLifecycleOwner) { setShopsOnMap(getFilteredShopsList()) }
+        mapVM.shops.observe(viewLifecycleOwner) {
+            setShopsOnMap(truncShops(getFilteredShopsList()))
+            setAutoCompleteTextView(it.toMutableList())
+        }
         mapVM.optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
+        mapVM.shopsLoadingEvent.observe(viewLifecycleOwner, networkEventObserver)
     }
 
     private fun setListeners() {
-        binding.settings.setOnClickListener { showNotReadyToast() }
         binding.settings.setOnClickListener { mapVM.sendOptionsClickedEvent() }
+        binding.mapView.map.addCameraListener(cameraListener)
+    }
+
+    private val cameraListener = {
+            _: Map,
+            cameraPosition: CameraPosition,
+            _: CameraUpdateReason,
+            finished: Boolean ->
+        if (finished) {
+            Log.d(App.DEBUG_TAG, "zoom: ${cameraPosition.zoom}")
+            setShopsOnMap(truncShops(getFilteredShopsList()))
+        }
+    }
+
+    private fun truncShops(shops: List<Shop>): List<Shop> {
+        val start = System.currentTimeMillis()
+        val list = shops.filter {
+            isShopInVisibleArea(it)
+        }
+        if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "truncShops() finished in: ${System.currentTimeMillis() - start}")
+        return list
+    }
+
+    private fun isShopInVisibleArea(shop: Shop): Boolean {
+        val region = binding.mapView.map.visibleRegion
+        val fitsY = shop.latitude in region.bottomRight.latitude..region.topLeft.latitude
+        val fitsX = shop.longitude in region.topLeft.longitude..region.bottomRight.longitude
+        return fitsX && fitsY
     }
 
     @Suppress("DEPRECATION")
@@ -196,7 +255,9 @@ class MapFragment : BaseFragment() {
                 mapVM.showVets = mapVM.showVetsTemp.value ?: true
                 mapVM.showZoos = mapVM.showZoosTemp.value ?: true
                 mapVM.showPromos = mapVM.showPromosTemp.value ?: false
-                setShopsOnMap(getFilteredShopsList())
+                val newList = truncShops(getFilteredShopsList())
+                setShopsOnMap(newList)
+                setAutoCompleteTextView(newList)
                 popup.dismiss()
             }
             reset.setOnClickListener {
@@ -204,18 +265,22 @@ class MapFragment : BaseFragment() {
                 mapVM.showVets = true
                 mapVM.showZoos = true
                 mapVM.showPromos = false
-                setShopsOnMap(mapVM.originShopsList)
+                val newList = truncShops(getFilteredShopsList())
+                setShopsOnMap(newList)
+                setAutoCompleteTextView(newList)
                 popup.dismiss()
             }
         }
     }
 
     private fun getFilteredShopsList(): List<Shop> {
+        val start = System.currentTimeMillis()
         var result = mapVM.originShopsList
         if (!mapVM.showGrooms) result = result.filter { it.typeShopId != MapViewModel.GROOMS_ID }
         if (!mapVM.showVets) result = result.filter { it.typeShopId != MapViewModel.VETS_ID }
         if (!mapVM.showZoos) result = result.filter { it.typeShopId != MapViewModel.ZOOS_ID }
         if (mapVM.showPromos) result = result.filter { it.promotions.isNotEmpty() }
+        if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "getFilteredShopsList() finished in: ${System.currentTimeMillis() - start}")
         return result
     }
 
@@ -238,7 +303,6 @@ class MapFragment : BaseFragment() {
         shops?.run {
             binding.mapView.map.mapObjects.clear()
             drawShopsOnMap(this)
-            setAutoCompleteTextView(this.toMutableList())
         }
     }
 
@@ -261,17 +325,21 @@ class MapFragment : BaseFragment() {
 
     @SuppressLint("InflateParams")
     private fun drawShopsOnMap(shops: List<Shop>) {
+        val start = System.currentTimeMillis()
         val mapObjects = binding.mapView.map.mapObjects.addCollection()
+        val drawnShops = mutableListOf<Shop>()
         for (shop in shops) {
-            val view = LayoutInflater.from(requireActivity())
-                .inflate(R.layout.view_landmark, null)
+            if (hasConflicts(drawnShops, shop)) continue
             val mapObject = mapObjects.addPlacemark(
                 Point(shop.latitude, shop.longitude),
-                ViewProvider(view)
+                ViewProvider(pin)
             )
+            drawnShops.add(shop)
             mapObject.userData = shop.id
         }
         mapObjects.addTapListener(mapObjectTapListener)
+        if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "drawShopsOnMap() finished in: ${System.currentTimeMillis() - start}")
+        if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "objectsToDraw: ${drawnShops.size}")
     }
 
     private val mapObjectTapListener = MapObjectTapListener { mapObject, _ ->
@@ -280,6 +348,28 @@ class MapFragment : BaseFragment() {
             "success_registration_dialog"
         )
         true
+    }
+
+    private fun hasConflicts(drawnShops: List<Shop>, shop: Shop): Boolean {
+        val zoom = binding.mapView.map.cameraPosition.zoom.toDouble()
+        if (zoom >= 14.0) return false
+        val collapseDistance = if (zoom < 4) 6.0 //2.02
+        else 8192/(zoom.pow(6.0))
+        for (drawnShop in drawnShops) {
+            if (distanceBetweenTwoShops(drawnShop, shop) < collapseDistance) return true
+        }
+        return false
+    }
+
+    companion object {
+
+        fun distanceBetweenTwoShops(firstShop: Shop, secondShop: Shop): Double {
+            return sqrt(
+                (firstShop.latitude - secondShop.latitude).pow(2.0) +
+                        (firstShop.longitude - secondShop.longitude).pow(2.0)
+            )
+        }
+
     }
 
 }
