@@ -22,6 +22,7 @@ import ru.hvost.news.models.InterestsCategory
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.dialogs.ArticlesFilterCustomDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.presentation.fragments.map.MapViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
@@ -29,6 +30,7 @@ class FeedFragment : BaseFragment() {
 
     private lateinit var binding: FragmentFeedBinding
     private lateinit var mainVM: MainViewModel
+    private lateinit var mapVM: MapViewModel
     private lateinit var onChangeUserDataLoadingEvent: DefaultNetworkEventObserver
     private val filterDialog = ArticlesFilterCustomDialog()
     private val navOptions = NavOptions.Builder()
@@ -38,6 +40,8 @@ class FeedFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+        mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
+        if(mapVM.shops.value.isNullOrEmpty()) mapVM.loadShops(App.getInstance().userToken)
         (requireActivity() as MainActivity).showBnv()
         when (mainVM.feedTabState) {
             MainViewModel.Companion.ButtonSelected.FEED -> {

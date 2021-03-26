@@ -32,6 +32,7 @@ import ru.hvost.news.presentation.dialogs.PartnerDetailDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent.Observer
+import java.lang.Exception
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -330,33 +331,53 @@ class MapFragment : BaseFragment() {
         return fitsX && fitsY
     }
 
+    private lateinit var mapObjects: MapObjectCollection
+    private val drawnShops = mutableMapOf<String, PlacemarkMapObject>()
+
     @SuppressLint("InflateParams")
     private fun drawShopsOnMap(shops: List<Shop>?) {
-        shops?.run {
-            binding.mapView.map.mapObjects.clear()
+        shops?.let {
             val start = System.currentTimeMillis()
-            val mapObjects = binding.mapView.map.mapObjects.addCollection()
-            val drawnShops = mutableListOf<Shop>()
+            if (!::mapObjects.isInitialized) {
+                mapObjects = binding.mapView.map.mapObjects.addCollection()
+                mapObjects.addTapListener(mapObjectTapListener)
+            }
+
+            val totalShopsToDraw = mutableMapOf<String, Shop>()
             for (shop in shops) {
-                if (hasConflicts(drawnShops, shop)) continue
+                if (hasConflicts(totalShopsToDraw.values.toList(), shop)) continue
+                else totalShopsToDraw["${shop.latitude}${shop.longitude}"] = shop
+            }
+
+            val shopsToRemove = drawnShops.minus(totalShopsToDraw.keys)
+            for (shop in shopsToRemove) {
+                try {
+                    mapObjects.remove(shop.value)
+                } catch (exc: Exception) { }
+                drawnShops.remove(shop.key)
+            }
+
+            val additionalShopsToDraw = totalShopsToDraw.minus(drawnShops.keys)
+            for (shop in additionalShopsToDraw) {
                 val mapObject = mapObjects.addPlacemark(
-                    Point(shop.latitude, shop.longitude),
+                    Point(shop.value.latitude, shop.value.longitude),
                     ViewProvider(mapPin)
                 )
-                drawnShops.add(shop)
-                mapObject.userData = shop.id
+                drawnShops["${shop.value.latitude}${shop.value.longitude}"] = mapObject
+                mapObject.userData = shop.value.id
             }
-            mapObjects.addTapListener(mapObjectTapListener)
+
             if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "drawShopsOnMap() finished in: ${System.currentTimeMillis() - start}")
             if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "objectsToDraw: ${drawnShops.size}")
+            if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "zoom: ${binding.mapView.map.cameraPosition.zoom}")
         }
     }
 
-    private fun hasConflicts(drawnShops: List<Shop>, shop: Shop): Boolean {
+    private fun hasConflicts(shopsToDraw: List<Shop>, shop: Shop): Boolean {
         val zoom = binding.mapView.map.cameraPosition.zoom.toDouble()
         if (zoom >= 14.0) return false
-        for (drawnShop in drawnShops) {
-            if (distanceBetweenTwoShops(drawnShop, shop) < collapseDistance) return true
+        for (shopToDraw in shopsToDraw) {
+            if (distanceBetweenTwoShops(shopToDraw, shop) < collapseDistance) return true
         }
         return false
     }
