@@ -31,6 +31,7 @@ import ru.hvost.news.presentation.dialogs.PartnerDetailDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent.Observer
+import java.lang.RuntimeException
 
 class MapFragment : BaseFragment() {
 
@@ -89,6 +90,9 @@ class MapFragment : BaseFragment() {
         binding.mapView.onStop()
         MapKitFactory.getInstance().onStop()
         cameraPosition = binding.mapView.map.cameraPosition
+        mapObjects.clear()
+        drawnShops.clear()
+        shouldUpdateMapObject = true
     }
 
     private val onRequestPermissionResult = { permissionGranted: Boolean ->
@@ -225,10 +229,7 @@ class MapFragment : BaseFragment() {
                 mapVM.showVets = mapVM.showVetsTemp.value ?: true
                 mapVM.showZoos = mapVM.showZoosTemp.value ?: true
                 mapVM.showPromos = mapVM.showPromosTemp.value ?: false
-                //sergeev: CHOP CHOP!
-                /*val newList = truncateShops(getFilteredShopsList())
-                drawShopsOnMap(newList)
-                setAutoCompleteTextView(newList)*/
+                invalidateMap()
                 popup.dismiss()
             }
             reset.setOnClickListener {
@@ -236,10 +237,7 @@ class MapFragment : BaseFragment() {
                 mapVM.showVets = true
                 mapVM.showZoos = true
                 mapVM.showPromos = false
-                //sergeev: CHOP CHOP!
-                /*val newList = truncateShops(getFilteredShopsList())
-                drawShopsOnMap(newList)
-                setAutoCompleteTextView(newList)*/
+                invalidateMap()
                 popup.dismiss()
             }
         }
@@ -271,15 +269,13 @@ class MapFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        mapVM.shops.observe(viewLifecycleOwner) {
-            invalidateMap()
-            setAutoCompleteTextView(it.toMutableList())
+        mapVM.run {
+            shops.observe(viewLifecycleOwner) { invalidateMap() }
+            shopsOnMap.observe(viewLifecycleOwner) { updateMap(it) }
+            suggestionsList.observe(viewLifecycleOwner) { setAutoCompleteTextView(it) }
+            optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
+            shopsLoadingEvent.observe(viewLifecycleOwner, networkEventObserver)
         }
-        mapVM.shopsToDraw.observe(viewLifecycleOwner) { drawShops(it) }
-        mapVM.shopsToRemove.observe(viewLifecycleOwner) { removeShops(it) }
-
-        mapVM.optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
-        mapVM.shopsLoadingEvent.observe(viewLifecycleOwner, networkEventObserver)
     }
 
     private fun setListeners() {
@@ -290,14 +286,23 @@ class MapFragment : BaseFragment() {
     @Suppress("ObjectLiteralToLambda")
     private val cameraListener = object: CameraListener {
 
+        private var lastUpdateTime = 0L
+        val updatePeriod = 1000L
+
         override fun onCameraPositionChanged(
             p0: Map,
             p1: CameraPosition,
             p2: CameraUpdateReason,
             isFinished: Boolean
         ) {
-            if (isFinished) {
+            val currentTime = System.currentTimeMillis()
+            if ((currentTime - lastUpdateTime) > updatePeriod) {
                 invalidateMap()
+                lastUpdateTime = currentTime
+            }
+            if (isFinished){
+                invalidateMap()
+                lastUpdateTime = currentTime
             }
         }
     }
@@ -306,7 +311,6 @@ class MapFragment : BaseFragment() {
         mapVM.processShopsDrawing(
             binding.mapView.map.visibleRegion,
             binding.mapView.map.cameraPosition,
-            drawnShops,
             binding.mapView.map.cameraPosition.zoom.toDouble()
         )
     }
@@ -314,10 +318,18 @@ class MapFragment : BaseFragment() {
     private lateinit var mapObjects: MapObjectCollection
     private val drawnShops = mutableMapOf<String, PlacemarkMapObject>()
 
+    private fun updateMap(totalShopsToDraw: kotlin.collections.Map<String, Shop>) {
+        removeShops(drawnShops.minus(totalShopsToDraw.keys))
+        drawShops(totalShopsToDraw.minus(drawnShops.keys))
+    }
+
+    private var shouldUpdateMapObject = false
+
     private fun drawShops(shopsToDraw: kotlin.collections.Map<String, Shop>) {
-        if (!::mapObjects.isInitialized) {
+        if (!::mapObjects.isInitialized || shouldUpdateMapObject) {
             mapObjects = binding.mapView.map.mapObjects.addCollection()
             mapObjects.addTapListener(mapObjectTapListener)
+            shouldUpdateMapObject = false
         }
         for (shop in shopsToDraw) {
             val mapObject = mapObjects.addPlacemark(
@@ -333,7 +345,7 @@ class MapFragment : BaseFragment() {
         for (shop in shopsToRemove) {
             try {
                 mapObjects.remove(shop.value)
-            } catch (exc: java.lang.Exception) { }
+            } catch (exc: RuntimeException) { }
             drawnShops.remove(shop.key)
         }
     }

@@ -2,7 +2,6 @@ package ru.hvost.news.presentation.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +53,7 @@ class PartnerDetailDialog( private val shopId: Long): BottomSheetDialogFragment(
                 val strBuilder = StringBuilder()
                 for (i in it.phones.indices){
                     val phone = it.phones[i]
-                    strBuilder.append("8 $phone")
+                    strBuilder.append(phone)
                     if(it.phones.size > 1 && i != it.phones.lastIndex ){
                         strBuilder.append("\n")
                     }
