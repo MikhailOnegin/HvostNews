@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.VisibleRegion
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.events.OneTimeEvent
 import kotlin.math.abs
+import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -134,16 +136,14 @@ class MapViewModel: ViewModel() {
     }
 
     private fun isShopInVisibleArea(shop: Shop, region: VisibleRegion): Boolean {
-        //sergeev: Решить проблему с вращением карты.
-        val regionWidth = abs(region.bottomRight.latitude - region.topLeft.latitude)
-        val regionHeight = abs(region.topLeft.longitude - region.bottomRight.longitude)
-        val regionLeft = region.topLeft.longitude - regionWidth
-        val regionRight = region.bottomRight.longitude + regionWidth
-        val regionTop = region.topLeft.latitude + regionHeight
-        val regionBottom = region.bottomRight.latitude - regionHeight
-        val fitsY = shop.latitude in regionBottom..regionTop
-        val fitsX = shop.longitude in regionLeft..regionRight
-        return fitsX && fitsY
+        val left = min(region.topLeft.longitude, region.bottomRight.longitude)
+        val width = abs(region.topLeft.longitude - region.bottomRight.longitude)
+        val centerX = left + width/2
+        val bottom = min(region.topLeft.latitude, region.bottomRight.latitude)
+        val height = abs(region.topLeft.latitude - region.bottomRight.latitude)
+        val centerY = bottom + height/2
+        val drawingRadius = distanceBetweenTwoPoints(region.topLeft, region.bottomRight)
+        return distanceBetweenShopAndPoint(shop, Point(centerY, centerX)) < drawingRadius
     }
 
     private fun hasConflicts(shopsToDraw: List<Shop>, shop: Shop, zoom: Double): Boolean {
@@ -152,6 +152,20 @@ class MapViewModel: ViewModel() {
             if (distanceBetweenTwoShops(shopToDraw, shop) < collapseDistance) return true
         }
         return false
+    }
+
+    private fun distanceBetweenTwoPoints(firstPoint: Point, secondPoint: Point): Double {
+        return sqrt(
+            (firstPoint.latitude - secondPoint.latitude).pow(2.0) +
+                    (firstPoint.longitude - secondPoint.longitude).pow(2.0)
+        )
+    }
+
+    private fun distanceBetweenShopAndPoint(shop: Shop, point: Point): Double {
+        return sqrt(
+            (shop.latitude - point.latitude).pow(2.0) +
+                    (shop.longitude - point.longitude).pow(2.0)
+        )
     }
 
     private fun distanceBetweenTwoShops(firstShop: Shop, secondShop: Shop): Double {
