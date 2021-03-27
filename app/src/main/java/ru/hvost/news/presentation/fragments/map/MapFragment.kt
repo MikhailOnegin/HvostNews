@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -32,9 +31,6 @@ import ru.hvost.news.presentation.dialogs.PartnerDetailDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent.Observer
-import java.lang.Exception
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 class MapFragment : BaseFragment() {
 
@@ -47,7 +43,6 @@ class MapFragment : BaseFragment() {
     private val defaultLatitude = 55.755814
     private val defaultLongitude = 37.617635
     private lateinit var networkEventObserver: DefaultNetworkEventObserver
-    private var collapseDistance = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -230,9 +225,10 @@ class MapFragment : BaseFragment() {
                 mapVM.showVets = mapVM.showVetsTemp.value ?: true
                 mapVM.showZoos = mapVM.showZoosTemp.value ?: true
                 mapVM.showPromos = mapVM.showPromosTemp.value ?: false
-                val newList = truncShops(getFilteredShopsList())
+                //sergeev: CHOP CHOP!
+                /*val newList = truncateShops(getFilteredShopsList())
                 drawShopsOnMap(newList)
-                setAutoCompleteTextView(newList)
+                setAutoCompleteTextView(newList)*/
                 popup.dismiss()
             }
             reset.setOnClickListener {
@@ -240,9 +236,10 @@ class MapFragment : BaseFragment() {
                 mapVM.showVets = true
                 mapVM.showZoos = true
                 mapVM.showPromos = false
-                val newList = truncShops(getFilteredShopsList())
+                //sergeev: CHOP CHOP!
+                /*val newList = truncateShops(getFilteredShopsList())
                 drawShopsOnMap(newList)
-                setAutoCompleteTextView(newList)
+                setAutoCompleteTextView(newList)*/
                 popup.dismiss()
             }
         }
@@ -275,9 +272,12 @@ class MapFragment : BaseFragment() {
 
     private fun setObservers() {
         mapVM.shops.observe(viewLifecycleOwner) {
-            drawShopsOnMap(truncShops(getFilteredShopsList()))
+            invalidateMap()
             setAutoCompleteTextView(it.toMutableList())
         }
+        mapVM.shopsToDraw.observe(viewLifecycleOwner) { drawShops(it) }
+        mapVM.shopsToRemove.observe(viewLifecycleOwner) { removeShops(it) }
+
         mapVM.optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
         mapVM.shopsLoadingEvent.observe(viewLifecycleOwner, networkEventObserver)
     }
@@ -297,100 +297,45 @@ class MapFragment : BaseFragment() {
             isFinished: Boolean
         ) {
             if (isFinished) {
-                collapseDistance = if (p1.zoom < 4) 6.0
-                else 8192/(p1.zoom.toDouble().pow(6.0))
-                drawShopsOnMap(truncShops(getFilteredShopsList()))
+                invalidateMap()
             }
         }
     }
 
-    private fun getFilteredShopsList(): List<Shop> {
-        val start = System.currentTimeMillis()
-        var result = mapVM.originShopsList
-        if (!mapVM.showGrooms) result = result.filter { it.typeShopId != MapViewModel.GROOMS_ID }
-        if (!mapVM.showVets) result = result.filter { it.typeShopId != MapViewModel.VETS_ID }
-        if (!mapVM.showZoos) result = result.filter { it.typeShopId != MapViewModel.ZOOS_ID }
-        if (mapVM.showPromos) result = result.filter { it.promotions.isNotEmpty() }
-        if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "getFilteredShopsList() finished in: ${System.currentTimeMillis() - start}")
-        return result
-    }
-
-    private fun truncShops(shops: List<Shop>): List<Shop> {
-        val start = System.currentTimeMillis()
-        val list = shops.filter {
-            isShopInVisibleArea(it)
-        }
-        if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "truncShops() finished in: ${System.currentTimeMillis() - start}")
-        return list
-    }
-
-    private fun isShopInVisibleArea(shop: Shop): Boolean {
-        val region = binding.mapView.map.visibleRegion
-        val fitsY = shop.latitude in region.bottomRight.latitude..region.topLeft.latitude
-        val fitsX = shop.longitude in region.topLeft.longitude..region.bottomRight.longitude
-        return fitsX && fitsY
+    private fun invalidateMap() {
+        mapVM.processShopsDrawing(
+            binding.mapView.map.visibleRegion,
+            binding.mapView.map.cameraPosition,
+            drawnShops,
+            binding.mapView.map.cameraPosition.zoom.toDouble()
+        )
     }
 
     private lateinit var mapObjects: MapObjectCollection
     private val drawnShops = mutableMapOf<String, PlacemarkMapObject>()
 
-    @SuppressLint("InflateParams")
-    private fun drawShopsOnMap(shops: List<Shop>?) {
-        shops?.let {
-            val start = System.currentTimeMillis()
-            if (!::mapObjects.isInitialized) {
-                mapObjects = binding.mapView.map.mapObjects.addCollection()
-                mapObjects.addTapListener(mapObjectTapListener)
-            }
-
-            val totalShopsToDraw = mutableMapOf<String, Shop>()
-            for (shop in shops) {
-                if (hasConflicts(totalShopsToDraw.values.toList(), shop)) continue
-                else totalShopsToDraw["${shop.latitude}${shop.longitude}"] = shop
-            }
-
-            val shopsToRemove = drawnShops.minus(totalShopsToDraw.keys)
-            for (shop in shopsToRemove) {
-                try {
-                    mapObjects.remove(shop.value)
-                } catch (exc: Exception) { }
-                drawnShops.remove(shop.key)
-            }
-
-            val additionalShopsToDraw = totalShopsToDraw.minus(drawnShops.keys)
-            for (shop in additionalShopsToDraw) {
-                val mapObject = mapObjects.addPlacemark(
-                    Point(shop.value.latitude, shop.value.longitude),
-                    ViewProvider(mapPin)
-                )
-                drawnShops["${shop.value.latitude}${shop.value.longitude}"] = mapObject
-                mapObject.userData = shop.value.id
-            }
-
-            if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "drawShopsOnMap() finished in: ${System.currentTimeMillis() - start}")
-            if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "objectsToDraw: ${drawnShops.size}")
-            if (App.LOG_ENABLED) Log.d(App.DEBUG_TAG, "zoom: ${binding.mapView.map.cameraPosition.zoom}")
+    private fun drawShops(shopsToDraw: kotlin.collections.Map<String, Shop>) {
+        if (!::mapObjects.isInitialized) {
+            mapObjects = binding.mapView.map.mapObjects.addCollection()
+            mapObjects.addTapListener(mapObjectTapListener)
         }
-    }
-
-    private fun hasConflicts(shopsToDraw: List<Shop>, shop: Shop): Boolean {
-        val zoom = binding.mapView.map.cameraPosition.zoom.toDouble()
-        if (zoom >= 14.0) return false
-        for (shopToDraw in shopsToDraw) {
-            if (distanceBetweenTwoShops(shopToDraw, shop) < collapseDistance) return true
-        }
-        return false
-    }
-
-    companion object {
-
-        fun distanceBetweenTwoShops(firstShop: Shop, secondShop: Shop): Double {
-            return sqrt(
-                (firstShop.latitude - secondShop.latitude).pow(2.0) +
-                        (firstShop.longitude - secondShop.longitude).pow(2.0)
+        for (shop in shopsToDraw) {
+            val mapObject = mapObjects.addPlacemark(
+                Point(shop.value.latitude, shop.value.longitude),
+                ViewProvider(mapPin)
             )
+            drawnShops["${shop.value.latitude}${shop.value.longitude}"] = mapObject
+            mapObject.userData = shop.value.id
         }
+    }
 
+    private fun removeShops(shopsToRemove: kotlin.collections.Map<String, PlacemarkMapObject>) {
+        for (shop in shopsToRemove) {
+            try {
+                mapObjects.remove(shop.value)
+            } catch (exc: java.lang.Exception) { }
+            drawnShops.remove(shop.key)
+        }
     }
 
 }
