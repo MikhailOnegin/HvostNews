@@ -13,36 +13,37 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.*
+import com.yandex.mapkit.map.Map
 import com.yandex.runtime.ui_view.ViewProvider
 import ru.hvost.news.App
 import ru.hvost.news.R
-import ru.hvost.news.databinding.DialogMapDetailBinding
 import ru.hvost.news.databinding.FragmentMapBinding
 import ru.hvost.news.databinding.PopupMapSettingsBinding
 import ru.hvost.news.models.Shop
 import ru.hvost.news.presentation.adapters.autocomplete.AutoCompleteShopsAdapter
 import ru.hvost.news.presentation.dialogs.PartnerDetailDialog
-import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent.Observer
-import ru.hvost.news.utils.showNotReadyToast
+import java.lang.RuntimeException
 
 class MapFragment : BaseFragment() {
 
     private lateinit var binding: FragmentMapBinding
+    private lateinit var mapPin: View
     private lateinit var mapVM: MapViewModel
     private lateinit var cameraPosition: CameraPosition
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val defaultLatitude = 55.755814
     private val defaultLongitude = 37.617635
+    private lateinit var networkEventObserver: DefaultNetworkEventObserver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,39 +54,45 @@ class MapFragment : BaseFragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
+    @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMapBinding.inflate(inflater, container, false)
+        mapPin = LayoutInflater.from(requireActivity()).inflate(R.layout.view_landmark, null)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mapVM = ViewModelProvider(requireActivity())[MapViewModel::class.java]
+        initializeObservers()
         setObservers()
         if(mapVM.shops.value.isNullOrEmpty()) mapVM.loadShops(App.getInstance().userToken)
     }
 
     override fun onStart() {
         super.onStart()
-        setListeners()
-        MapKitFactory.getInstance().onStart()
         binding.mapView.onStart()
+        MapKitFactory.getInstance().onStart()
         if (::cameraPosition.isInitialized) {
             binding.mapView.map.move(cameraPosition)
         } else {
             initializeCameraPosition()
         }
+        setListeners()
     }
 
     override fun onStop() {
         super.onStop()
-        MapKitFactory.getInstance().onStop()
         binding.mapView.onStop()
+        MapKitFactory.getInstance().onStop()
         cameraPosition = binding.mapView.map.cameraPosition
+        mapObjects.clear()
+        drawnShops.clear()
+        shouldUpdateMapObject = true
     }
 
     private val onRequestPermissionResult = { permissionGranted: Boolean ->
@@ -144,14 +151,25 @@ class MapFragment : BaseFragment() {
         )
     }
 
-    private fun setObservers() {
-        mapVM.shops.observe(viewLifecycleOwner) { setShopsOnMap(getFilteredShopsList()) }
-        mapVM.optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
+    private fun initializeObservers() {
+        networkEventObserver = DefaultNetworkEventObserver(
+            anchorView = binding.root,
+            doOnLoading = { setHintsVisibility(true) },
+            doOnSuccess = { setHintsVisibility(false) },
+            doOnFailure = {
+                setHintsVisibility(true)
+                mapVM.loadShops(App.getInstance().userToken)
+            },
+            doOnError = {
+                setHintsVisibility(true)
+                mapVM.loadShops(App.getInstance().userToken)
+            }
+        )
     }
 
-    private fun setListeners() {
-        binding.settings.setOnClickListener { showNotReadyToast() }
-        binding.settings.setOnClickListener { mapVM.sendOptionsClickedEvent() }
+    private fun setHintsVisibility(showHints: Boolean) {
+        binding.progress.visibility = if (showHints) View.VISIBLE else View.GONE
+        binding.hint.visibility = if (showHints) View.VISIBLE else View.GONE
     }
 
     @Suppress("DEPRECATION")
@@ -183,42 +201,6 @@ class MapFragment : BaseFragment() {
         setPopupObservers(binding)
     }
 
-    private fun setPopupListeners(binding: PopupMapSettingsBinding, popup: PopupWindow) {
-        binding.run {
-            grooms.setOnClickListener { mapVM.showGroomsTemp.value = mapVM.showGroomsTemp.value?.not() }
-            zoos.setOnClickListener { mapVM.showZoosTemp.value = mapVM.showZoosTemp.value?.not() }
-            vets.setOnClickListener { mapVM.showVetsTemp.value = mapVM.showVetsTemp.value?.not() }
-            switchActions.setOnCheckedChangeListener { _, isChecked ->
-                mapVM.showPromosTemp.value = isChecked
-            }
-            apply.setOnClickListener {
-                mapVM.showGrooms = mapVM.showGroomsTemp.value ?: true
-                mapVM.showVets = mapVM.showVetsTemp.value ?: true
-                mapVM.showZoos = mapVM.showZoosTemp.value ?: true
-                mapVM.showPromos = mapVM.showPromosTemp.value ?: false
-                setShopsOnMap(getFilteredShopsList())
-                popup.dismiss()
-            }
-            reset.setOnClickListener {
-                mapVM.showGrooms = true
-                mapVM.showVets = true
-                mapVM.showZoos = true
-                mapVM.showPromos = false
-                setShopsOnMap(mapVM.originShopsList)
-                popup.dismiss()
-            }
-        }
-    }
-
-    private fun getFilteredShopsList(): List<Shop> {
-        var result = mapVM.originShopsList
-        if (!mapVM.showGrooms) result = result.filter { it.typeShopId != MapViewModel.GROOMS_ID }
-        if (!mapVM.showVets) result = result.filter { it.typeShopId != MapViewModel.VETS_ID }
-        if (!mapVM.showZoos) result = result.filter { it.typeShopId != MapViewModel.ZOOS_ID }
-        if (mapVM.showPromos) result = result.filter { it.promotions.isNotEmpty() }
-        return result
-    }
-
     private fun setPopupObservers(binding: PopupMapSettingsBinding) {
         mapVM.showGroomsTemp.observe(viewLifecycleOwner) {
             binding.grooms.isSelected = it
@@ -234,11 +216,30 @@ class MapFragment : BaseFragment() {
         }
     }
 
-    private fun setShopsOnMap(shops: List<Shop>?) {
-        shops?.run {
-            binding.mapView.map.mapObjects.clear()
-            drawShopsOnMap(this)
-            setAutoCompleteTextView(this.toMutableList())
+    private fun setPopupListeners(binding: PopupMapSettingsBinding, popup: PopupWindow) {
+        binding.run {
+            grooms.setOnClickListener { mapVM.showGroomsTemp.value = mapVM.showGroomsTemp.value?.not() }
+            zoos.setOnClickListener { mapVM.showZoosTemp.value = mapVM.showZoosTemp.value?.not() }
+            vets.setOnClickListener { mapVM.showVetsTemp.value = mapVM.showVetsTemp.value?.not() }
+            switchActions.setOnCheckedChangeListener { _, isChecked ->
+                mapVM.showPromosTemp.value = isChecked
+            }
+            apply.setOnClickListener {
+                mapVM.showGrooms = mapVM.showGroomsTemp.value ?: true
+                mapVM.showVets = mapVM.showVetsTemp.value ?: true
+                mapVM.showZoos = mapVM.showZoosTemp.value ?: true
+                mapVM.showPromos = mapVM.showPromosTemp.value ?: false
+                invalidateMap()
+                popup.dismiss()
+            }
+            reset.setOnClickListener {
+                mapVM.showGrooms = true
+                mapVM.showVets = true
+                mapVM.showZoos = true
+                mapVM.showPromos = false
+                invalidateMap()
+                popup.dismiss()
+            }
         }
     }
 
@@ -259,27 +260,94 @@ class MapFragment : BaseFragment() {
         }
     }
 
-    @SuppressLint("InflateParams")
-    private fun drawShopsOnMap(shops: List<Shop>) {
-        val mapObjects = binding.mapView.map.mapObjects.addCollection()
-        for (shop in shops) {
-            val view = LayoutInflater.from(requireActivity())
-                .inflate(R.layout.view_landmark, null)
-            val mapObject = mapObjects.addPlacemark(
-                Point(shop.latitude, shop.longitude),
-                ViewProvider(view)
-            )
-            mapObject.userData = shop.id
-        }
-        mapObjects.addTapListener(mapObjectTapListener)
-    }
-
     private val mapObjectTapListener = MapObjectTapListener { mapObject, _ ->
         PartnerDetailDialog(mapObject.userData as Long).show(
             childFragmentManager,
             "success_registration_dialog"
         )
         true
+    }
+
+    private fun setObservers() {
+        mapVM.run {
+            shops.observe(viewLifecycleOwner) { invalidateMap() }
+            shopsOnMap.observe(viewLifecycleOwner) { updateMap(it) }
+            suggestionsList.observe(viewLifecycleOwner) { setAutoCompleteTextView(it) }
+            optionsClickedEvent.observe(viewLifecycleOwner, Observer(onOptionsClicked))
+            shopsLoadingEvent.observe(viewLifecycleOwner, networkEventObserver)
+        }
+    }
+
+    private fun setListeners() {
+        binding.settings.setOnClickListener { mapVM.sendOptionsClickedEvent() }
+        binding.mapView.map.addCameraListener(cameraListener)
+    }
+
+    @Suppress("ObjectLiteralToLambda")
+    private val cameraListener = object: CameraListener {
+
+        private var lastUpdateTime = 0L
+        val updatePeriod = 1000L
+
+        override fun onCameraPositionChanged(
+            p0: Map,
+            p1: CameraPosition,
+            p2: CameraUpdateReason,
+            isFinished: Boolean
+        ) {
+            val currentTime = System.currentTimeMillis()
+            if ((currentTime - lastUpdateTime) > updatePeriod) {
+                invalidateMap()
+                lastUpdateTime = currentTime
+            }
+            if (isFinished){
+                invalidateMap()
+                lastUpdateTime = currentTime
+            }
+        }
+    }
+
+    private fun invalidateMap() {
+        mapVM.processShopsDrawing(
+            binding.mapView.map.visibleRegion,
+            binding.mapView.map.cameraPosition,
+            binding.mapView.map.cameraPosition.zoom.toDouble()
+        )
+    }
+
+    private lateinit var mapObjects: MapObjectCollection
+    private val drawnShops = mutableMapOf<String, PlacemarkMapObject>()
+
+    private fun updateMap(totalShopsToDraw: kotlin.collections.Map<String, Shop>) {
+        removeShops(drawnShops.minus(totalShopsToDraw.keys))
+        drawShops(totalShopsToDraw.minus(drawnShops.keys))
+    }
+
+    private var shouldUpdateMapObject = false
+
+    private fun drawShops(shopsToDraw: kotlin.collections.Map<String, Shop>) {
+        if (!::mapObjects.isInitialized || shouldUpdateMapObject) {
+            mapObjects = binding.mapView.map.mapObjects.addCollection()
+            mapObjects.addTapListener(mapObjectTapListener)
+            shouldUpdateMapObject = false
+        }
+        for (shop in shopsToDraw) {
+            val mapObject = mapObjects.addPlacemark(
+                Point(shop.value.latitude, shop.value.longitude),
+                ViewProvider(mapPin)
+            )
+            drawnShops["${shop.value.latitude}${shop.value.longitude}"] = mapObject
+            mapObject.userData = shop.value.id
+        }
+    }
+
+    private fun removeShops(shopsToRemove: kotlin.collections.Map<String, PlacemarkMapObject>) {
+        for (shop in shopsToRemove) {
+            try {
+                mapObjects.remove(shop.value)
+            } catch (exc: RuntimeException) { }
+            drawnShops.remove(shop.key)
+        }
     }
 
 }
