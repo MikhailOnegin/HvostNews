@@ -10,6 +10,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.LayoutDomainItemBinding
 import ru.hvost.news.models.Domain
+import ru.hvost.news.utils.getDefaultShimmer
 
 class DomainAdapter(private val onClick: (Long) -> Unit) :
     ListAdapter<Domain, DomainAdapter.DomainViewHolder>(DomainDiffUtilCallback()) {
@@ -31,7 +32,7 @@ class DomainAdapter(private val onClick: (Long) -> Unit) :
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + domainItem.img)
-                .placeholder(R.drawable.loader_anim)
+                .placeholder(getDefaultShimmer(itemView.context))
                 .error(R.drawable.ic_load_error)
                 .into(binding.img)
             binding.title.text = domainItem.title

@@ -78,6 +78,7 @@
                 android:id="@+id/category_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tabLayoutHeight"
+                android:layout_marginBottom="@dimen/normalMargin"
                 android:background="@android:color/transparent"
                 android:clipToPadding="false"
                 android:paddingHorizontal="@dimen/profileCoverPadding"
@@ -94,8 +95,7 @@
                 app:tabPaddingStart="@dimen/normalMargin"
                 app:tabSelectedTextColor="@android:color/white"
                 app:tabTextAppearance="@style/subdomainTabsCustomStyle"
-                app:tabTextColor="@color/gray1"
-                android:layout_marginBottom="@dimen/normalMargin"/>
+                app:tabTextColor="@color/gray1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -106,6 +106,7 @@
         style="@style/ArticlesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutAnimation="@anim/anim_zoom_in"
         android:splitMotionEvents="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

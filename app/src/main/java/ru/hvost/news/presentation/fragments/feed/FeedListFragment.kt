@@ -13,15 +13,12 @@ import ru.hvost.news.models.Article
 import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
-import ru.hvost.news.utils.enums.State
-import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
 class FeedListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentFeedListBinding
     private lateinit var mainVM: MainViewModel
-    private lateinit var onArticlesLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,24 +27,23 @@ class FeedListFragment : BaseFragment() {
         binding = FragmentFeedListBinding.inflate(inflater, container, false)
         binding.root.addItemDecoration(
             LinearRvItemDecorations(
-                sideMarginsDimension = R.dimen.largeMargin,
+                sideMarginsDimension = R.dimen.normalMargin,
                 marginBetweenElementsDimension = R.dimen.extraLargeMargin,
-                drawTopMarginForFirstElement = false
+                drawTopMarginForFirstElement = true
             )
         )
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        @Suppress("DEPRECATION")
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        if (mainVM.articlesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
-        initializeObservers()
         setObservers()
     }
 
     private fun setObservers() {
-        mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
+        mainVM.articles.observe(viewLifecycleOwner, { setRecyclerView() })
         mainVM.likedArticleList.observe(viewLifecycleOwner, { onArticlesChanged(it) })
         mainVM.updateArticlesViewsCount.observe(viewLifecycleOwner,
             OneTimeEvent.Observer { updateArticles() })
@@ -62,17 +58,10 @@ class FeedListFragment : BaseFragment() {
         adapter.submitList(list)
     }
 
-    private fun initializeObservers() {
-        onArticlesLoadingEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
-            doOnSuccess = { setRecyclerView() }
-        )
-    }
-
     private fun setRecyclerView() {
         val onActionClicked = { id: String ->
             val bundle = Bundle()
-            bundle.putString(FeedFragment.ARTICLE_ID, id)
+            bundle.putString(FeedRedesignFragment.ARTICLE_ID, id)
             requireActivity().findNavController(R.id.nav_host_fragment)
                 .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
         }
@@ -82,6 +71,7 @@ class FeedListFragment : BaseFragment() {
         val adapter = ArticleAdapter(onActionClicked, onActionLiked)
         binding.list.adapter = adapter
         adapter.submitList(mainVM.articles.value)
+        binding.list.scheduleLayoutAnimation()
     }
 
 }

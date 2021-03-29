@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
-import ru.hvost.news.databinding.RvFilterFooterBinding
 import ru.hvost.news.databinding.RvFilterItemBinding
 import ru.hvost.news.databinding.RvFilterItemInterestBinding
 import ru.hvost.news.models.*
@@ -27,12 +26,23 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         this.fullList = fullList
     }
 
+    fun getFullList(): List<CategoryItem>? {
+        return this.fullList
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is InterestsCategory -> TYPE_CATEGORY
             is Interests -> TYPE_INTERESTS
-            is FilterFooter -> TYPE_FOOTER
         }
+    }
+
+    override fun onCurrentListChanged(
+        previousList: MutableList<CategoryItem>,
+        currentList: MutableList<CategoryItem>
+    ) {
+        super.onCurrentListChanged(previousList, currentList)
+        mainVM.filterRvChangedEvent.value = OneTimeEvent()
     }
 
     override fun onCreateViewHolder(
@@ -40,9 +50,8 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         viewType: Int
     ): RecyclerView.ViewHolder {
         return when (viewType) {
-            TYPE_CATEGORY -> CategoryItemViewHolder.getCategoryVH(parent, this, mainVM)
-            TYPE_INTERESTS -> InterestViewHolder.getInterestVH(parent, this, mainVM)
-            TYPE_FOOTER -> FooterViewHolder.getFooterVH(parent, this, mainVM)
+            TYPE_CATEGORY -> CategoryItemViewHolder.getCategoryVH(parent, this)
+            TYPE_INTERESTS -> InterestViewHolder.getInterestVH(parent, this)
             else -> throw IllegalArgumentException("Wrong voucher view holder type.")
         }
     }
@@ -58,7 +67,6 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
                 if (position > 0) getItem(position - 1) else null,
                 if (position <= itemCount - 2) getItem(position + 1) else null
             )
-            is FilterFooter -> (holder as FooterViewHolder).bind()
         }
     }
 
@@ -84,7 +92,6 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
 
     class CategoryItemViewHolder(
         private val binding: RvFilterItemBinding,
-        mainVM: MainViewModel,
         private val adapter: ArticlesFilterAdapter,
         private var isChildSelected: Boolean = false
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -144,60 +151,21 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         companion object {
             fun getCategoryVH(
                 parent: ViewGroup,
-                adapter: ArticlesFilterAdapter,
-                mainVM: MainViewModel
+                adapter: ArticlesFilterAdapter
             ): CategoryItemViewHolder {
                 val binding = RvFilterItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return CategoryItemViewHolder(binding, mainVM, adapter)
-            }
-        }
-    }
-
-    class FooterViewHolder(
-        private val binding: RvFilterFooterBinding,
-        private val adapter: ArticlesFilterAdapter,
-        private val mainVM: MainViewModel
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-            binding.show.isEnabled = !adapter.fullList?.filter {
-                when (it) {
-                    is InterestsCategory -> it.state == CheckboxStates.SELECTED
-                    is Interests -> it.state == CheckboxStates.SELECTED
-                    else -> false
-                }
-            }.isNullOrEmpty()
-            binding.cancel.setOnClickListener {
-                mainVM.closeArticlesFilterCustomDialog.value = OneTimeEvent()
-            }
-            binding.show.setOnClickListener {
-                mainVM.updateArticlesWithNewInterests.value = OneTimeEvent()
-            }
-        }
-
-        companion object {
-            fun getFooterVH(
-                parent: ViewGroup,
-                adapter: ArticlesFilterAdapter,
-                mainVM: MainViewModel
-            ): FooterViewHolder {
-                val binding = RvFilterFooterBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                return FooterViewHolder(binding, adapter, mainVM)
+                return CategoryItemViewHolder(binding, adapter)
             }
         }
     }
 
     class InterestViewHolder(
         private val binding: RvFilterItemInterestBinding,
-        private val adapter: ArticlesFilterAdapter,
-        private val mainVM: MainViewModel
+        private val adapter: ArticlesFilterAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Interests, prevItem: CategoryItem?, nextItem: CategoryItem?) {
             if (prevItem is InterestsCategory) {
@@ -207,7 +175,7 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
                         R.drawable.background_interests_first,
                         null
                     )
-            } else if (nextItem is InterestsCategory || nextItem is FilterFooter) {
+            } else if (nextItem is InterestsCategory || nextItem == null) {
                 binding.root.background =
                     ResourcesCompat.getDrawable(
                         binding.root.context.resources,
@@ -236,7 +204,7 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         private fun changeState(item: Interests) {
             val allInterests =
                 adapter.fullList?.filter { it is Interests && it.parentCategoryId == item.parentCategoryId }
-            var newList = mutableListOf<CategoryItem>()
+            val newList: MutableList<CategoryItem>
             when (item.state) {
                 CheckboxStates.UNSELECTED -> {
                     binding.childCheckbox.setImageResource(R.drawable.ic_checkbox_checked)
@@ -283,15 +251,14 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
         companion object {
             fun getInterestVH(
                 parent: ViewGroup,
-                adapter: ArticlesFilterAdapter,
-                mainVM: MainViewModel
+                adapter: ArticlesFilterAdapter
             ): InterestViewHolder {
                 val binding = RvFilterItemInterestBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return InterestViewHolder(binding = binding, mainVM = mainVM, adapter = adapter)
+                return InterestViewHolder(binding = binding, adapter = adapter)
             }
         }
     }
@@ -309,7 +276,6 @@ class ArticlesFilterAdapter(val mainVM: MainViewModel) :
     companion object {
         const val TYPE_CATEGORY = 0
         const val TYPE_INTERESTS = 1
-        const val TYPE_FOOTER = 2
     }
 
 }

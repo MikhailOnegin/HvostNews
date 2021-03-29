@@ -1,18 +1,14 @@
 package ru.hvost.news.presentation.adapters.recycler
 
-import android.graphics.drawable.AnimationDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.text.parseAsHtml
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.facebook.shimmer.Shimmer
-import com.facebook.shimmer.ShimmerDrawable
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
@@ -23,8 +19,8 @@ import ru.hvost.news.utils.moneyFormat
 
 
 class ArticleAdapter(
-        private val onClick: (String) -> Unit,
-        private val setLiked: (String, Boolean) -> Unit
+    private val onClick: (String) -> Unit,
+    private val setLiked: (String, Boolean) -> Unit
 ) :
     ListAdapter<Article, ArticleAdapter.ArticleViewHolder>(ArticleDiffUtilCallback()) {
 
@@ -33,16 +29,21 @@ class ArticleAdapter(
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position)
     }
 
     class ArticleViewHolder(
-            private val binding: LayoutArticleItemBinding,
-            private val onClick: (String) -> Unit,
-            private val setLiked: (String, Boolean) -> Unit
+        private val binding: LayoutArticleItemBinding,
+        private val onClick: (String) -> Unit,
+        private val setLiked: (String, Boolean) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(articleItem: Article) {
+        fun bind(articleItem: Article, position: Int) {
+            if (position % 2 == 0) {
+                binding.root.setBackgroundResource(R.drawable.background_article_filled)
+            } else {
+                binding.root.setBackgroundResource(R.drawable.background_article)
+            }
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
@@ -57,9 +58,9 @@ class ArticleAdapter(
             binding.likes.text = moneyFormat.format(articleItem.likesCount)
 
             if (articleItem.isLiked) {
-                binding.likesIcon.setImageResource(R.drawable.ic_feed_likes_checked)
+                binding.likesIcon.setImageResource(R.drawable.ic_feed_like_list_checked)
             } else {
-                binding.likesIcon.setImageResource(R.drawable.ic_likes)
+                binding.likesIcon.setImageResource(R.drawable.ic_likes_list)
             }
             binding.apply {
                 root.setOnClickListener { onClick.invoke(articleItem.articleId) }
@@ -68,7 +69,7 @@ class ArticleAdapter(
                     changeLikeIcon(articleItem)
                 }
                 articleType.apply {
-                    when (articleItem.postTypeId){
+                    when (articleItem.postTypeId) {
                         ARTICLE_ID -> setImageResource(R.drawable.ic_arcticle)
                         ASK_ID -> setImageResource(R.drawable.ic_ask)
                         VIDEO_ID -> setImageResource(R.drawable.ic_video)
@@ -95,23 +96,24 @@ class ArticleAdapter(
 
         companion object {
 
-            private val margin = App.getInstance().resources.getDimension(R.dimen.largeMargin).toInt()
+            private val margin =
+                App.getInstance().resources.getDimension(R.dimen.largeMargin).toInt()
 
             fun getArticleVH(
-                    parent: ViewGroup,
-                    onClick: (String) -> Unit,
-                    setLiked: (String, Boolean) -> Unit
+                parent: ViewGroup,
+                onClick: (String) -> Unit,
+                setLiked: (String, Boolean) -> Unit
             ): ArticleViewHolder {
                 val binding = LayoutArticleItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
                 val width = parent.width - (margin * 2)
                 val height = width / 1.5F
                 val params = ConstraintLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        height.toInt()
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    height.toInt()
                 )
                 params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
                 binding.img.layoutParams = params

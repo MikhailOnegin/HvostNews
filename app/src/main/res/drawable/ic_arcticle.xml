@@ -9,24 +9,17 @@
       android:fillColor="#141428"
       android:fillAlpha="0.2"/>
   <path
-      android:pathData="M9,7L17,7A1,1 0,0 1,18 8L18,18A1,1 0,0 1,17 19L9,19A1,1 0,0 1,8 18L8,8A1,1 0,0 1,9 7z"
+      android:pathData="M11,9L19,9A1,1 0,0 1,20 10L20,20A1,1 0,0 1,19 21L11,21A1,1 0,0 1,10 20L10,10A1,1 0,0 1,11 9z"
       android:strokeWidth="2"
       android:fillColor="#00000000"
       android:strokeColor="#ffffff"/>
   <path
-      android:pathData="M12,19V22C12,22.5523 12.4477,23 13,23H21C21.5523,23 22,22.5523 22,22V12C22,11.4477 21.5523,11 21,11H18"
-      android:strokeAlpha="0.5"
-      android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#ffffff"
-      android:fillAlpha="0.5"/>
-  <path
-      android:pathData="M11,9L15,9A1,1 0,0 1,16 10L16,10A1,1 0,0 1,15 11L11,11A1,1 0,0 1,10 10L10,10A1,1 0,0 1,11 9z"
+      android:pathData="M13,11L17,11A1,1 0,0 1,18 12L18,12A1,1 0,0 1,17 13L13,13A1,1 0,0 1,12 12L12,12A1,1 0,0 1,13 11z"
       android:fillColor="#ffffff"/>
   <path
-      android:pathData="M11,12L15,12A1,1 0,0 1,16 13L16,13A1,1 0,0 1,15 14L11,14A1,1 0,0 1,10 13L10,13A1,1 0,0 1,11 12z"
+      android:pathData="M13,14L17,14A1,1 0,0 1,18 15L18,15A1,1 0,0 1,17 16L13,16A1,1 0,0 1,12 15L12,15A1,1 0,0 1,13 14z"
       android:fillColor="#ffffff"/>
   <path
-      android:pathData="M11,15L15,15A1,1 0,0 1,16 16L16,16A1,1 0,0 1,15 17L11,17A1,1 0,0 1,10 16L10,16A1,1 0,0 1,11 15z"
+      android:pathData="M13,17L17,17A1,1 0,0 1,18 18L18,18A1,1 0,0 1,17 19L13,19A1,1 0,0 1,12 18L12,18A1,1 0,0 1,13 17z"
       android:fillColor="#ffffff"/>
 </vector>
