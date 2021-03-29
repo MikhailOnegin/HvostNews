@@ -19,6 +19,7 @@ import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 import ru.hvost.news.presentation.adapters.recycler.PopupWindowDomainAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.feed.FeedFragment
+import ru.hvost.news.presentation.fragments.feed.FeedRedesignFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -229,7 +230,7 @@ class SubDomainFragment : BaseFragment() {
         private fun updateList(tab: TabLayout.Tab?) {
             val onActionClicked = { id: String ->
                 val bundle = Bundle()
-                bundle.putString(FeedFragment.ARTICLE_ID, id)
+                bundle.putString(FeedRedesignFragment.ARTICLE_ID, id)
                 nav.navigate(
                     R.id.action_subDomainFragment_to_articleDetailFragment,
                     bundle

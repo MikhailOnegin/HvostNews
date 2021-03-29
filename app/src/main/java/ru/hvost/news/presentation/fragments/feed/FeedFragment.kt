@@ -26,7 +26,7 @@ import ru.hvost.news.presentation.fragments.map.MapViewModel
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.OneTimeEvent
 
-class FeedFragment : BaseFragment() {
+class FeedFragment : BaseFragment() { //DEPRECATED IN REDESIGN
 
     private lateinit var binding: FragmentFeedBinding
     private lateinit var mainVM: MainViewModel
@@ -115,9 +115,9 @@ class FeedFragment : BaseFragment() {
 
     private fun setObservers() {
         mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
-        mainVM.closeArticlesFilterCustomDialog.observe(
-            viewLifecycleOwner,
-            OneTimeEvent.Observer { closeDialog() })
+//        mainVM.closeArticlesFilterCustomDialog.observe(
+//            viewLifecycleOwner,
+//            OneTimeEvent.Observer { closeDialog() })
         mainVM.dismissArticlesFilterCustomDialog.observe(
             viewLifecycleOwner,
             OneTimeEvent.Observer { clearAllInterests() })
@@ -139,8 +139,6 @@ class FeedFragment : BaseFragment() {
                     it.isExpanded = false
                 }
                 is Interests -> it.state = CheckboxStates.UNSELECTED
-                else -> {
-                }
             }
         }
     }
@@ -159,8 +157,6 @@ class FeedFragment : BaseFragment() {
                     }
                     if (it.state == CheckboxStates.SELECTED && !(parentId as InterestsCategory).sendParent)
                         sendList.add(it.interestId.toString())
-                }
-                else -> {
                 }
             }
         }
@@ -306,10 +302,6 @@ class FeedFragment : BaseFragment() {
                 )
             )
         }
-    }
-
-    companion object {
-        const val ARTICLE_ID = "article_id"
     }
 
 }

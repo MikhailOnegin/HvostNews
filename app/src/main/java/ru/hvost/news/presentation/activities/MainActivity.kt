@@ -25,6 +25,7 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ActivityMainBinding
 import ru.hvost.news.presentation.fragments.feed.FeedFragment
+import ru.hvost.news.presentation.fragments.feed.FeedRedesignFragment
 import ru.hvost.news.presentation.fragments.orders.OrderDialogFragment
 import ru.hvost.news.services.FcmService
 import java.lang.AssertionError
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment).run {
                 showBnv()
                 navigate(R.id.action_splashScreen_to_feedFragment)
-                val bundle = Bundle().apply { putString(FeedFragment.ARTICLE_ID, it) }
+                val bundle = Bundle().apply { putString(FeedRedesignFragment.ARTICLE_ID, it) }
                 navigate(R.id.action_global_articleDetailFragment, bundle)
             }
         }

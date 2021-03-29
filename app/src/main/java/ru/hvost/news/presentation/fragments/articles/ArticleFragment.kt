@@ -17,6 +17,7 @@ import ru.hvost.news.models.toArticleContent
 import ru.hvost.news.presentation.adapters.recycler.ArticleContentAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.fragments.feed.FeedFragment
+import ru.hvost.news.presentation.fragments.feed.FeedRedesignFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
@@ -44,7 +45,7 @@ class ArticleFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         articleVM = ViewModelProvider(this)[ArticleViewModel::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        articleVM.loadArticle(arguments?.getString(FeedFragment.ARTICLE_ID))
+        articleVM.loadArticle(arguments?.getString(FeedRedesignFragment.ARTICLE_ID))
         setObservers()
     }
 
@@ -95,7 +96,7 @@ class ArticleFragment : BaseFragment() {
                     articleVM = articleVM,
                     isLiked = article.isLiked,
                     mainVM = mainVM,
-                    itemId = arguments?.getString(FeedFragment.ARTICLE_ID),
+                    itemId = arguments?.getString(FeedRedesignFragment.ARTICLE_ID),
                     setLiked = onActionLiked
                 )
                 adapter = contentAdapter
@@ -127,7 +128,7 @@ class ArticleFragment : BaseFragment() {
         loadingArticleEventObserver = DefaultNetworkEventObserver(
             binding.root,
             doOnSuccess = {
-                val id = arguments?.getString(FeedFragment.ARTICLE_ID)
+                val id = arguments?.getString(FeedRedesignFragment.ARTICLE_ID)
                 mainVM.setArticleViewed(id)
                 setAllArticles(id)
                 setIndividualArticles(id)
