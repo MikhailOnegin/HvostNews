@@ -68,11 +68,20 @@ class PetProfileFragment : BaseFragment() {
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         petData =
             mainVM.userPets.value?.firstOrNull { it.petId == arguments?.getString(ProfileFragment.PET_ID) }
+        initPetProfileLists()
         initPassportData()
         checkIsDataLoaded()
         initializeEventObservers()
         setObservers()
         setListeners()
+    }
+
+    private fun initPetProfileLists() {
+        mainVM.loadPetEducation(petData?.petSpecies)
+        mainVM.loadPetToys(petData?.petSpecies)
+        mainVM.getPetBadHabits(petData?.petSpecies)
+        mainVM.getPetDelicies(petData?.petSpecies)
+        mainVM.getPetSports(petData?.petSpecies)
     }
 
     private fun initPassportData() {
@@ -254,43 +263,61 @@ class PetProfileFragment : BaseFragment() {
     private fun checkPetToy(): String? {
         return if ((binding.favToy.selectedItem as? PetToys)?.id == MainViewModel.OTHER_NEW_ID ||
             (binding.favToy.selectedItem as? PetToys)?.id == MainViewModel.OTHER_ID
-        ) { (binding.favToy.selectedItem as? PetToys)?.name }
-        else { (binding.favToy.selectedItem as? PetToys)?.toyId }
+        ) {
+            (binding.favToy.selectedItem as? PetToys)?.name
+        } else {
+            (binding.favToy.selectedItem as? PetToys)?.toyId
+        }
     }
 
     private fun checkPetSports(): String? {
         return if ((binding.petSports.selectedItem as? PetSports)?.index == MainViewModel.OTHER_NEW_ID ||
             (binding.petSports.selectedItem as? PetSports)?.index == MainViewModel.OTHER_ID
-        ) { (binding.petSports.selectedItem as? PetSports)?.name }
-        else { (binding.petSports.selectedItem as? PetSports)?.sportId }
+        ) {
+            (binding.petSports.selectedItem as? PetSports)?.name
+        } else {
+            (binding.petSports.selectedItem as? PetSports)?.sportId
+        }
     }
 
     private fun checkPetBadHabits(): String? {
         return if ((binding.badHabit.selectedItem as? PetBadHabbits)?.index == MainViewModel.OTHER_NEW_ID ||
             (binding.badHabit.selectedItem as? PetBadHabbits)?.index == MainViewModel.OTHER_ID
-        ) { (binding.badHabit.selectedItem as? PetBadHabbits)?.name }
-        else { (binding.badHabit.selectedItem as? PetBadHabbits)?.habbitId }
+        ) {
+            (binding.badHabit.selectedItem as? PetBadHabbits)?.name
+        } else {
+            (binding.badHabit.selectedItem as? PetBadHabbits)?.habbitId
+        }
     }
 
     private fun checkPetDelicies(): String? {
         return if ((binding.delicious.selectedItem as? PetDelicies)?.index == MainViewModel.OTHER_NEW_ID ||
             (binding.delicious.selectedItem as? PetDelicies)?.index == MainViewModel.OTHER_ID
-        ) { (binding.delicious.selectedItem as? PetDelicies)?.name }
-        else { (binding.delicious.selectedItem as? PetDelicies)?.delliciousId }
+        ) {
+            (binding.delicious.selectedItem as? PetDelicies)?.name
+        } else {
+            (binding.delicious.selectedItem as? PetDelicies)?.delliciousId
+        }
     }
 
     private fun checkPetFeed(): String? {
         return if ((binding.feed.selectedItem as? PetFeed)?.index == MainViewModel.OTHER_NEW_ID ||
             (binding.feed.selectedItem as? PetFeed)?.index == MainViewModel.OTHER_ID
-        ) { (binding.feed.selectedItem as? PetFeed)?.name }
-        else { (binding.feed.selectedItem as? PetFeed)?.feedId }
+        ) {
+            (binding.feed.selectedItem as? PetFeed)?.name
+        } else {
+            (binding.feed.selectedItem as? PetFeed)?.feedId
+        }
     }
 
     private fun checkPetEducation(): String? {
         return if ((binding.education.selectedItem as? PetEducation)?.id == MainViewModel.OTHER_NEW_ID ||
             (binding.education.selectedItem as? PetEducation)?.id == MainViewModel.OTHER_ID
-        ) { (binding.education.selectedItem as? PetEducation)?.name }
-        else { (binding.education.selectedItem as? PetEducation)?.educationId }
+        ) {
+            (binding.education.selectedItem as? PetEducation)?.name
+        } else {
+            (binding.education.selectedItem as? PetEducation)?.educationId
+        }
     }
 
     private val openDatePickerDialog = View.OnClickListener { showDatePicker() }
@@ -380,6 +407,11 @@ class PetProfileFragment : BaseFragment() {
             type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     mainVM.loadBreeds((binding.type.selectedItem as Species).speciesId)
+                    mainVM.loadPetEducation(petData?.petSpecies)
+                    mainVM.loadPetToys(petData?.petSpecies)
+                    mainVM.getPetBadHabits(petData?.petSpecies)
+                    mainVM.getPetDelicies(petData?.petSpecies)
+                    mainVM.getPetSports(petData?.petSpecies)
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
@@ -692,9 +724,10 @@ class PetProfileFragment : BaseFragment() {
                 (binding.delicious.adapter as SpinnerAdapter<PetDelicies>).count - 1
             )
             binding.delicious.setSelection((binding.delicious.adapter as SpinnerAdapter<PetDelicies>).count - 2)
-        }else{
+        } else {
             val selectedDelicious =
-                mainVM.petDelicies.value?.firstOrNull { it.delliciousId == delicious?.delliciousId }?.index ?: 0
+                mainVM.petDelicies.value?.firstOrNull { it.delliciousId == delicious?.delliciousId }?.index
+                    ?: 0
             binding.delicious.setSelection(selectedDelicious.toInt())
         }
     }
@@ -711,9 +744,10 @@ class PetProfileFragment : BaseFragment() {
                 (binding.badHabit.adapter as SpinnerAdapter<PetBadHabbits>).count - 1
             )
             binding.badHabit.setSelection((binding.badHabit.adapter as SpinnerAdapter<PetBadHabbits>).count - 2)
-        }else{
+        } else {
             val selectedBadHabit =
-                mainVM.petBadHabits.value?.firstOrNull { it.habbitId == badHabbit?.habbitId }?.index ?: 0
+                mainVM.petBadHabits.value?.firstOrNull { it.habbitId == badHabbit?.habbitId }?.index
+                    ?: 0
             binding.badHabit.setSelection(selectedBadHabit.toInt())
         }
     }
@@ -730,7 +764,7 @@ class PetProfileFragment : BaseFragment() {
                 (binding.feed.adapter as SpinnerAdapter<PetFeed>).count - 1
             )
             binding.feed.setSelection((binding.feed.adapter as SpinnerAdapter<PetFeed>).count - 2)
-        }else{
+        } else {
             val selectedFeed =
                 mainVM.petFeed.value?.firstOrNull { it.feedId == feed?.feedId }?.index ?: 0
             binding.feed.setSelection(selectedFeed.toInt())
@@ -749,7 +783,7 @@ class PetProfileFragment : BaseFragment() {
                 (binding.petSports.adapter as SpinnerAdapter<PetSports>).count - 1
             )
             binding.petSports.setSelection((binding.petSports.adapter as SpinnerAdapter<PetSports>).count - 2)
-        }else{
+        } else {
             val selectedSport =
                 mainVM.petFeed.value?.firstOrNull { it.feedId == sport?.sportId }?.index ?: 0
             binding.petSports.setSelection(selectedSport.toInt())
@@ -804,7 +838,7 @@ class PetProfileFragment : BaseFragment() {
                 (binding.favToy.adapter as SpinnerAdapter<PetToys>).count - 1
             )
             binding.favToy.setSelection((binding.favToy.adapter as SpinnerAdapter<PetToys>).count - 2)
-        }else{
+        } else {
             val selectedSport =
                 mainVM.petToys.value?.firstOrNull { it.toyId == toy?.toyId }?.id ?: 0
             binding.favToy.setSelection(selectedSport.toInt())

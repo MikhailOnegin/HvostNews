@@ -75,10 +75,14 @@ interface APIService {
     ): Deferred<RegisterUserResponse>
 
     @GET("/rest/PetProfile/getPetToys/")
-    fun getPetToysAsync(): Deferred<PetToysResponse>
+    fun getPetToysAsync(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetToysResponse>
 
     @GET("/rest/PetProfile/getPetEducation/")
-    fun getPetEducationAsync(): Deferred<PetEducationResponse>
+    fun getPetEducationAsync(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetEducationResponse>
 
     @GET("/rest/Basket/getCart/")
     fun getCartAsync(
@@ -172,16 +176,22 @@ interface APIService {
     fun getSpeciesAsync(): Deferred<SpeciesResponse>
 
     @GET("/rest/PetProfile/getPetSports/")
-    fun getPetSports(): Deferred<PetSportsResponse>
+    fun getPetSports(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetSportsResponse>
 
     @GET("/rest/PetProfile/getPetBadHabbits/")
-    fun getPetBadHabbits(): Deferred<PetBadHabbitsResponse>
+    fun getPetBadHabbits(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetBadHabbitsResponse>
 
     @GET("/rest/PetProfile/getPetFeed/")
     fun getPetFeed(): Deferred<PetFeedResponse>
 
     @GET("/rest/PetProfile/getPetDelicies/")
-    fun getPetDelicies(): Deferred<PetDeliciesResponse>
+    fun getPetDelicies(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetDeliciesResponse>
 
     @GET("/rest/PetVeterinaryProfile/getNotificationPeriod/")
     fun getNotificationPeriod(): Deferred<NotificationPeriodResponse>
