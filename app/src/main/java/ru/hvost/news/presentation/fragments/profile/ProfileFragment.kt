@@ -239,11 +239,10 @@ class ProfileFragment : BaseFragment() {
             ) {
                 val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
-                    view.context?.resources?.getDimension(R.dimen.xSmallMargin)?.toInt() ?: 0
+                    view.context?.resources?.getDimension(R.dimen._1dp)?.toInt() ?: 0
                 parent.adapter.run {
                     if (position == 0) {
                         outRect.top = 0
-
                     } else {
                         outRect.top = elementMargin
                     }

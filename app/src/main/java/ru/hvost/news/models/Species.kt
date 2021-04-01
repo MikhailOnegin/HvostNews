@@ -13,7 +13,7 @@ fun List<SpeciesResponse.Species>.toSpecies(): List<Species> {
     for ((index, specie) in this.withIndex()) {
         result.add(
             Species(
-                id = index.toLong().inc(),
+                id = index.toLong(),
                 speciesId = specie.id?.toInt() ?: 0,
                 speciesName = specie.name ?: ""
             )
