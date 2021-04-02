@@ -837,15 +837,15 @@ class MainViewModel : ViewModel() {
             try {
                 val result = APIService.API.getPetEducationAsync(petSpecies).await()
                 if (result.result == "success") {
-                    _petEducationLoadingEvent.value = NetworkEvent(State.SUCCESS)
                     _petEducation.value = result.educations?.toEducation()
+                    _petEducationLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _petEducationLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
                     _petEducation.value = listOf()
+                    _petEducationLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
                 }
             } catch (exc: Exception) {
-                _petEducationLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _petEducation.value = listOf()
+                _petEducationLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }
@@ -858,15 +858,15 @@ class MainViewModel : ViewModel() {
             try {
                 val result = APIService.API.getPetToysAsync(petSpecies).await()
                 if (result.result == "success") {
-                    _petToysLoadingEvent.value = NetworkEvent(State.SUCCESS)
                     _petToys.value = result.toys?.toToys()
+                    _petToysLoadingEvent.value = NetworkEvent(State.SUCCESS)
                 } else {
-                    _petToysLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
                     _petToys.value = listOf()
+                    _petToysLoadingEvent.value = NetworkEvent(State.ERROR, result.error)
                 }
             } catch (exc: Exception) {
-                _petToysLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
                 _petToys.value = listOf()
+                _petToysLoadingEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }
         }
     }

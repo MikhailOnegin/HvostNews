@@ -89,7 +89,8 @@
                 android:id="@+id/type"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:dropDownWidth="match_parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,6 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/smallMargin"
+                android:dropDownWidth="match_parent"
                 android:visibility="gone" />
 
             <ru.hvost.news.presentation.customviews.ValueHolderView
@@ -145,67 +147,37 @@
                 app:holderHint="@string/petBirthdayHint"
                 app:iconResource="@drawable/ic_date" />
 
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-            <!--                style="@style/ProfileTextInputLayout"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginBottom="@dimen/smallMargin"-->
-            <!--                android:hint="@string/food"-->
-            <!--                app:hintTextColor="@color/gray4">-->
-
-            <!--                <com.google.android.material.textfield.TextInputEditText-->
-            <!--                    android:id="@+id/delicious"-->
-            <!--                    style="@style/TextInputEditText"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:imeOptions="actionDone" />-->
-
-            <!--            </com.google.android.material.textfield.TextInputLayout>-->
-
             <Spinner
                 android:id="@+id/delicious"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:dropDownWidth="match_parent" />
 
             <Spinner
                 android:id="@+id/feed"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:dropDownWidth="match_parent" />
 
             <Spinner
                 android:id="@+id/favToy"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:dropDownWidth="match_parent" />
 
             <Spinner
                 android:id="@+id/badHabit"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
-
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-            <!--                style="@style/ProfileTextInputLayout"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginBottom="@dimen/smallMargin"-->
-            <!--                android:hint="@string/habbit"-->
-            <!--                app:hintTextColor="@color/gray4">-->
-
-            <!--                <com.google.android.material.textfield.TextInputEditText-->
-            <!--                    android:id="@+id/badHabit"-->
-            <!--                    style="@style/TextInputEditText"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:imeOptions="actionDone" />-->
-
-            <!--            </com.google.android.material.textfield.TextInputLayout>-->
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:dropDownWidth="match_parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/ProfileTextInputLayout"
@@ -314,14 +286,16 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/smallMargin" />
+                android:layout_marginBottom="@dimen/smallMargin"
+                android:dropDownWidth="match_parent" />
 
             <Spinner
                 android:id="@+id/education"
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/largeMargin" />
+                android:layout_marginBottom="@dimen/largeMargin"
+                android:dropDownWidth="match_parent" />
 
             <Button
                 android:id="@+id/save"

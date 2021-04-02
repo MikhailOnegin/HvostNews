@@ -24,15 +24,16 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/normalMargin" />
+                android:layout_marginVertical="@dimen/normalMargin"
+                android:dropDownWidth="match_parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/otherContainer"
                 style="@style/ProfileTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:hint="@string/diseaseName"
+                android:visibility="gone"
                 app:hintTextColor="@color/gray4">
 
                 <com.google.android.material.textfield.TextInputEditText
