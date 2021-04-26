@@ -20,8 +20,7 @@
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="@drawable/ic_back"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/articleTitle"/>
+            android:layout_height="wrap_content"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

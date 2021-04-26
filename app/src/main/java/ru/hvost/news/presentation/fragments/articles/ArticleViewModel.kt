@@ -4,10 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.hvost.news.App
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.models.Article
+import ru.hvost.news.models.ArticleContent
+import ru.hvost.news.models.toArticleContent
 import ru.hvost.news.models.toArticles
 import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.Event
@@ -55,6 +58,17 @@ class ArticleViewModel : ViewModel(){
 
     fun sendRecyclerViewReadyEvent() {
         _recyclerViewReadyEvent.value = OneTimeEvent()
+    }
+
+    private val _articleContent = MutableLiveData<List<ArticleContent>>()
+    val articleContent: LiveData<List<ArticleContent>> = _articleContent
+
+    fun processArticle(article: Article?) {
+        article?.run {
+            viewModelScope.launch(Dispatchers.IO) {
+                _articleContent.postValue(toArticleContent())
+            }
+        }
     }
 
 }
