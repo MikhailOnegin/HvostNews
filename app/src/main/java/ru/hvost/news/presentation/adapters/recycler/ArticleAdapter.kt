@@ -29,7 +29,7 @@ class ArticleAdapter(
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        holder.bind(getItem(position), position)
+        holder.bind(getItem(position))
     }
 
     class ArticleViewHolder(
@@ -38,7 +38,7 @@ class ArticleAdapter(
         private val setLiked: (String, Boolean) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(articleItem: Article, position: Int) {
+        fun bind(articleItem: Article) {
             binding.root.setBackgroundResource(R.drawable.background_article)
             Glide
                 .with(binding.root)
@@ -47,7 +47,7 @@ class ArticleAdapter(
                 .error(R.drawable.ic_load_error)
                 .centerCrop()
                 .into(binding.img)
-            binding.title.text = articleItem.title
+            binding.title.text = articleItem.title.parseAsHtml()
             binding.description.text = articleItem.shortDescription.parseAsHtml()
             binding.domain.text = articleItem.categoryTitle
             binding.views.text = moneyFormat.format(articleItem.viewsCount)
