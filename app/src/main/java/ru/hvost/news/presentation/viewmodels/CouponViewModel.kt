@@ -31,7 +31,9 @@ class CouponViewModel : ViewModel() {
                 couponsCount = _coupons.value?.coupons?.size
                 if (response.result == "success") {
                     _couponsEvent.value = NetworkEvent(State.SUCCESS)
-                } else _couponsEvent.value = NetworkEvent(State.ERROR, response.error)
+                } else {
+                    _couponsEvent.value = NetworkEvent(State.ERROR, response.error)
+                }
             } catch (exc: Exception) {
                 _couponsEvent.value = NetworkEvent(State.FAILURE, exc.toString())
             }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -42,7 +43,7 @@ class SchoolSuccessRegistrationDialog(private val title:String ): BottomSheetDia
     override fun onStart() {
         super.onStart()
         val description = "Регистрация прошла успешно, вы зарегистрированы на этот семинар " +
-                "\"$title\""
+                "\"${title.parseAsHtml()}\""
         binding.textViewDescription.text = description
         setListeners()
     }

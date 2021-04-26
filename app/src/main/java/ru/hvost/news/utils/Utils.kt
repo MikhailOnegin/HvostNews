@@ -1,7 +1,6 @@
 package ru.hvost.news.utils
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -10,6 +9,7 @@ import android.net.Uri
 import android.text.InputFilter
 import android.text.Spanned
 import android.util.Patterns
+import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -342,16 +342,9 @@ fun startIntentActionView(context: Context, url: String) {
     try {
         context.startActivity(fileIntent)
     } catch (e: Exception) {
-        if (e is ActivityNotFoundException) {
-            Toast.makeText(
-                context,
-                context.getString(R.string.no_required_attachments_fo_intent),
-                Toast.LENGTH_SHORT
-            ).show()
-        } else {
-            Toast.makeText(context, context.getString(R.string.unknown_error), Toast.LENGTH_SHORT)
-                .show()
-        }
+        val toast = Toast.makeText(context, context.getString(R.string.unknown_error), Toast.LENGTH_SHORT)
+           toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
     }
 }
 
