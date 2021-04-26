@@ -35,7 +35,8 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/largeMargin" />
+                android:layout_marginTop="@dimen/largeMargin"
+                android:dropDownWidth="match_parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayout"

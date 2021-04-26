@@ -75,10 +75,14 @@ interface APIService {
     ): Deferred<RegisterUserResponse>
 
     @GET("/rest/PetProfile/getPetToys/")
-    fun getPetToysAsync(): Deferred<PetToysResponse>
+    fun getPetToysAsync(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetToysResponse>
 
     @GET("/rest/PetProfile/getPetEducation/")
-    fun getPetEducationAsync(): Deferred<PetEducationResponse>
+    fun getPetEducationAsync(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetEducationResponse>
 
     @GET("/rest/Basket/getCart/")
     fun getCartAsync(
@@ -172,16 +176,22 @@ interface APIService {
     fun getSpeciesAsync(): Deferred<SpeciesResponse>
 
     @GET("/rest/PetProfile/getPetSports/")
-    fun getPetSports(): Deferred<PetSportsResponse>
+    fun getPetSports(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetSportsResponse>
 
     @GET("/rest/PetProfile/getPetBadHabbits/")
-    fun getPetBadHabbits(): Deferred<PetBadHabbitsResponse>
+    fun getPetBadHabbits(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetBadHabbitsResponse>
 
     @GET("/rest/PetProfile/getPetFeed/")
     fun getPetFeed(): Deferred<PetFeedResponse>
 
     @GET("/rest/PetProfile/getPetDelicies/")
-    fun getPetDelicies(): Deferred<PetDeliciesResponse>
+    fun getPetDelicies(
+        @Query("petSpecies") petSpecies: String?
+    ): Deferred<PetDeliciesResponse>
 
     @GET("/rest/PetVeterinaryProfile/getNotificationPeriod/")
     fun getNotificationPeriod(): Deferred<NotificationPeriodResponse>
@@ -387,10 +397,10 @@ interface APIService {
     companion object {
 
         //TODO: Заменить на ключ заказчика.
-        const val YANDEX_MAPKIT_KEY = "96bc77a4-1010-4770-85ad-9d324f7eee03"
+        const val YANDEX_MAPKIT_KEY = "d5164e0f-9659-42eb-8e27-26b0bf835464"
 
         //TODO: Заменить на боевой сервер.
-        const val baseUrl = "http://hvost-news.testfact3.ru"
+        const val baseUrl = "https://hvost.news/"
 
         private val moshi: Moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())

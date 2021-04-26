@@ -19,6 +19,10 @@ import ru.hvost.news.models.CartFooter
 import ru.hvost.news.models.CartItem
 import ru.hvost.news.models.ShopProduct
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.utils.createSnackbar
+import ru.hvost.news.utils.enums.State
+import ru.hvost.news.utils.events.DefaultNetworkEventObserver
+import ru.hvost.news.utils.events.NetworkEvent
 import ru.hvost.news.utils.getDefaultShimmer
 import ru.hvost.news.utils.moneyFormat
 
@@ -26,6 +30,7 @@ class ProductFragment : BaseFragment(){
 
     private lateinit var binding: FragmentProductBinding
     private lateinit var cartVM: CartViewModel
+    private lateinit var onCartChangedLoadingEvent: DefaultNetworkEventObserver
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +59,15 @@ class ProductFragment : BaseFragment(){
                 inflateData(product as ShopProduct)
             } catch (exc: java.lang.Exception) {}
         }
+        initializeObservers()
         setObservers()
+    }
+
+    private fun initializeObservers() {
+        onCartChangedLoadingEvent = DefaultNetworkEventObserver(
+                anchorView = binding.root,
+                doOnSuccess = { createSnackbar(binding.root, getString(R.string.cartChangingSnackBarSuccess)).show() }
+        )
     }
 
     override fun onStart() {
@@ -66,6 +79,7 @@ class ProductFragment : BaseFragment(){
         cartVM.apply {
             productsCart.observe(viewLifecycleOwner) { onCartChanged(it) }
             cartCounter.observe(viewLifecycleOwner) { onCartCounterChanged(it) }
+            cartChangingEvent.observe(viewLifecycleOwner, onCartChangedLoadingEvent)
         }
     }
 

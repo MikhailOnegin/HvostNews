@@ -80,15 +80,6 @@ class ProfileFragment : BaseFragment() {
         if (mainVM.petsSpeciesLoadingEvent.value?.peekContent() != State.SUCCESS) {
             mainVM.loadSpecies()
         }
-        if (mainVM.petToysLoadingEvent.value?.peekContent() != State.SUCCESS) {
-            mainVM.loadPetToys()
-        }
-        if (mainVM.petEducationLoadingEvent.value?.peekContent() != State.SUCCESS) {
-            mainVM.loadPetEducation()
-        }
-        if (mainVM.petEducationLoadingEvent.value?.peekContent() != State.SUCCESS) {
-            mainVM.loadPetEducation()
-        }
         if (mainVM.bonusBalanceLoadingEvent.value?.peekContent() == State.SUCCESS) {
             setBalance()
         } else {
@@ -99,17 +90,8 @@ class ProfileFragment : BaseFragment() {
         } else {
             App.getInstance().userToken?.let { couponsMV.getCoupons(it) }
         }
-        if (mainVM.petSportsLoadingEvent.value?.peekContent() != State.SUCCESS) {
-            mainVM.getPetSports()
-        }
         if (mainVM.petFeedLoadingEvent.value?.peekContent() != State.SUCCESS) {
             mainVM.getPetFeed()
-        }
-        if (mainVM.petBadHabitsLoadingEvent.value?.peekContent() != State.SUCCESS) {
-            mainVM.getPetBadHabits()
-        }
-        if (mainVM.petDeliciesLoadingEvent.value?.peekContent() != State.SUCCESS) {
-            mainVM.getPetDelicies()
         }
     }
 
@@ -257,11 +239,10 @@ class ProfileFragment : BaseFragment() {
             ) {
                 val position = parent.getChildAdapterPosition(view)
                 val elementMargin =
-                    view.context?.resources?.getDimension(R.dimen.xSmallMargin)?.toInt() ?: 0
+                    view.context?.resources?.getDimension(R.dimen._1dp)?.toInt() ?: 0
                 parent.adapter.run {
                     if (position == 0) {
                         outRect.top = 0
-
                     } else {
                         outRect.top = elementMargin
                     }

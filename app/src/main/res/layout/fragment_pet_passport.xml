@@ -116,6 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/normalMargin"
+                android:dropDownWidth="match_parent"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -150,6 +151,7 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dropDownWidth="match_parent"
                 android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:visibility="gone" />
 
@@ -170,6 +172,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/normalMargin"
+                android:dropDownWidth="match_parent"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -204,6 +207,7 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dropDownWidth="match_parent"
                 android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:visibility="gone" />
 
@@ -224,6 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/normalMargin"
+                android:dropDownWidth="match_parent"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -258,6 +263,7 @@
                 style="@style/RegSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dropDownWidth="match_parent"
                 android:paddingHorizontal="@dimen/profileCoverPadding"
                 android:visibility="gone" />
 
@@ -278,6 +284,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/xLargeMargin"
+                android:dropDownWidth="match_parent"
                 android:paddingHorizontal="@dimen/profileCoverPadding" />
 
             <TextView
@@ -355,8 +362,8 @@
                     android:id="@+id/address"
                     style="@style/TextInputEditText"
                     android:layout_width="match_parent"
-                    android:imeOptions="actionDone"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

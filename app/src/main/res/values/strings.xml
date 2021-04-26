@@ -453,6 +453,7 @@
     <string name="no_required_attachments_fo_intent">Не найдено приложений для открытия файла</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="shopToolbarTitle">Товары</string>
+    <string name="cartChangingSnackBarSuccess">Товар успешно добавлен в корзину</string>
     <string name="shopPreviouslyOrdered">Вы уже заказывали товар из данной категории.</string>
     <string name="last_semiтars_video">Видео с прошлых семинаров</string>
     <string name="productToolbarTitle">Товар</string>

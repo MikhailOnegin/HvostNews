@@ -39,11 +39,7 @@ class ArticleAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(articleItem: Article, position: Int) {
-            if (position % 2 == 0) {
-                binding.root.setBackgroundResource(R.drawable.background_article_filled)
-            } else {
-                binding.root.setBackgroundResource(R.drawable.background_article)
-            }
+            binding.root.setBackgroundResource(R.drawable.background_article)
             Glide
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
