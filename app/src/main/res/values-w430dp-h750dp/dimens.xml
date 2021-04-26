@@ -23,7 +23,7 @@
     <dimen name="regProgressBarHeight">50dp</dimen>
     <dimen name="regSubtitleTextSize">16sp</dimen>
     <dimen name="regPetCouponHeight">140dp</dimen>
-    <dimen name="spinnerDropdownItemTextSize">18sp</dimen>
+    <dimen name="spinnerDropdownItemTextSize">16sp</dimen>
     <dimen name="widgetsHeight">60dp</dimen>
     <dimen name="rvInterestHeight">150dp</dimen>
     <dimen name="rvInterestTextSize">18sp</dimen>
@@ -269,4 +269,5 @@
     <dimen name="kittyIconSize">54dp</dimen>
     <dimen name="smallImageHeight">60dp</dimen>
     <dimen name="tabTextSize">17sp</dimen>
+    <dimen name="suggestionListItemMinHeight">80dp</dimen>
 </resources>

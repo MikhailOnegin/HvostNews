@@ -175,7 +175,7 @@
     <dimen name="viewsIconSize">32dp</dimen>
     <dimen name="articleTextSize">18sp</dimen>
     <dimen name="articleContentTitleTextSize">26sp</dimen>
-    <dimen name="spinnerDropdownItemTextSize">18sp</dimen>
+    <dimen name="spinnerDropdownItemTextSize">16sp</dimen>
     <dimen name="filterHintTextSize">16sp</dimen>
     <dimen name="articleImageHeight">200dp</dimen>
     <dimen name="tabLayoutHeight">50dp</dimen>
@@ -188,7 +188,7 @@
     <dimen name="subtitleProfileTextSize">18sp</dimen>
     <dimen name="ordersSubtitleTextSize">15sp</dimen>
     <dimen name="prizesSubtitleTextSize">22sp</dimen>
-    <dimen name="spinnerDropdownItemSubtitleTextSize">16sp</dimen>
+    <dimen name="spinnerDropdownItemSubtitleTextSize">14sp</dimen>
     <dimen name="popupElevation">16dp</dimen>
     <dimen name="mapsSwitchTextSize">18sp</dimen>
     <dimen name="mapsPartnersTitleTextSize">22sp</dimen>
@@ -364,4 +364,5 @@
     <dimen name="textSchoolDetailTitle">30sp</dimen>
     <dimen name="loginScreenHintTextSize">16sp</dimen>
     <dimen name="kittyIconSize">48dp</dimen>
+    <dimen name="suggestionListItemMinHeight">80dp</dimen>
 </resources>

@@ -98,7 +98,7 @@ class MapViewModel: ViewModel() {
             calculateCollapseDistance(cameraPosition)
             val filteredList = getFilteredShopsList()
             val truncatedList = truncateShops(filteredList, visibleRegion)
-            _suggestionsList.postValue(truncatedList)
+            _suggestionsList.postValue(filteredList.toList())
             sendDrawEvents(truncatedList, zoom)
         }
     }
