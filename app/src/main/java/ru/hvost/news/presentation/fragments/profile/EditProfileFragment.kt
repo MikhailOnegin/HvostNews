@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -100,10 +101,22 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun setListeners() {
+        setTextListeners()
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.cancel.setOnClickListener { findNavController().popBackStack() }
         binding.save.setOnClickListener { tryToSend() }
+    }
+
+    private fun setTextListeners() {
+        binding.apply {
+            name.doOnTextChanged { text, _, _, _ ->
+                save.isEnabled = !text.isNullOrBlank() && !surname.text.isNullOrBlank()
+            }
+            surname.doOnTextChanged { text, _, _, _ ->
+                save.isEnabled = !text.isNullOrBlank() && !name.text.isNullOrBlank()
+            }
+        }
     }
 
     private fun tryToSend() {
@@ -113,8 +126,8 @@ class EditProfileFragment : BaseFragment() {
     private fun tryToUpdateData() {
         if (birthday.value == BIRTHDAY_EMPTY) {
             mainVM.changeUserData(
-                surname = binding.surname.text.toString(),
-                name = binding.name.text.toString(),
+                surname = binding.surname.text.toString().trim(),
+                name = binding.name.text.toString().trim(),
                 patronymic = binding.patronymic.text.toString(),
                 city = binding.city.text.toString(),
                 mailNotifications = binding.switchEmail.isChecked,
@@ -122,8 +135,8 @@ class EditProfileFragment : BaseFragment() {
             )
         } else {
             mainVM.changeUserData(
-                surname = binding.surname.text.toString(),
-                name = binding.name.text.toString(),
+                surname = binding.surname.text.toString().trim(),
+                name = binding.name.text.toString().trim(),
                 patronymic = binding.patronymic.text.toString(),
                 birthday = birthday.value.toString(),
                 city = binding.city.text.toString(),

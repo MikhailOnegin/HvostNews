@@ -44,8 +44,8 @@ class ArticleAdapter(
                 .with(binding.root)
                 .load(APIService.baseUrl + articleItem.imageUrl)
                 .placeholder(getDefaultShimmer(itemView.context))
-                .error(R.drawable.ic_load_error)
-                .centerCrop()
+                .error(R.drawable.empty_image)
+                //.centerCrop()
                 .into(binding.img)
             binding.title.text = articleItem.title
             binding.description.text = articleItem.shortDescription.parseAsHtml()
