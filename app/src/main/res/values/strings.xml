@@ -488,4 +488,7 @@
     <string name="download">Скачать</string>
     <string name="submitDeleteOrderDialogTitle">Вы действительно хотите удалить заказ?</string>
     <string name="mapsHint">Загружаем данные о партнерах…</string>
+    <string name="phoneChangeTitle">Изменение номера</string>
+    <string name="phoneChangeHint">Введите новый номер телефона</string>
+    <string name="phoneChangedSuccessful">Номер телефона успешно изменён</string>
 </resources>

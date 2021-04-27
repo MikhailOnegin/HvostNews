@@ -49,8 +49,8 @@
             android:id="@+id/action_subDomainFragment_to_articleDetailFragment"
             app:destination="@id/articleDetailFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
     </fragment>
     <fragment
@@ -74,43 +74,43 @@
             android:id="@+id/action_profileFragment_to_petProfileFragment"
             app:destination="@id/petProfileFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_myCouponsFragment"
             app:destination="@+id/myCouponsFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_inviteFragment"
             app:destination="@id/inviteFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_prizesFragment"
             app:destination="@id/prizesFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_ordersFragment"
             app:destination="@id/ordersFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_profileFragment_to_vouchersFragment"
             app:destination="@id/vouchersFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
@@ -118,7 +118,17 @@
         android:id="@+id/editProfileFragment"
         android:name="ru.hvost.news.presentation.fragments.profile.EditProfileFragment"
         android:label="EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_editProfileFragment_to_submitPhoneFragment"
+            app:destination="@id/submitPhoneFragment"
+            app:enterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
+            app:popExitAnim="@anim/fragment_exit"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/petProfileFragment"
@@ -129,8 +139,8 @@
             android:id="@+id/action_petProfileFragment_to_petPassportFragment"
             app:destination="@id/petPassportFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
@@ -251,8 +261,8 @@
             android:id="@+id/action_choicePrizeFragment_to_cartFragment"
             app:destination="@id/cartFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
@@ -271,8 +281,8 @@
             android:id="@+id/action_inviteFragment_to_prizesFragment"
             app:destination="@id/prizesFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 
@@ -285,15 +295,15 @@
             android:id="@+id/action_prizesFragment_to_choicePrizeFragment"
             app:destination="@id/choicePrizeFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
         <action
             android:id="@+id/action_prizesFragment_to_cartFragment"
             app:destination="@id/cartFragment"
             app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit"
-            app:popEnterAnim="@anim/fragment_enter"
+            app:exitAnim="@anim/fragment_no_changes"
+            app:popEnterAnim="@anim/fragment_no_changes"
             app:popExitAnim="@anim/fragment_exit" />
     </fragment>
 

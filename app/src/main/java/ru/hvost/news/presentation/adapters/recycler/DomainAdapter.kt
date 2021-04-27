@@ -33,7 +33,7 @@ class DomainAdapter(private val onClick: (Long) -> Unit) :
                 .with(binding.root)
                 .load(APIService.baseUrl + domainItem.img)
                 .placeholder(getDefaultShimmer(itemView.context))
-                .error(R.drawable.ic_load_error)
+                .error(R.drawable.empty_image)
                 .into(binding.img)
             binding.title.text = domainItem.title
             binding.root.setOnClickListener { onClick.invoke(domainItem.id) }

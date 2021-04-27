@@ -15,6 +15,7 @@ import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentEditProfileBinding
 import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.presentation.fragments.login.SubmitPhoneFragment.Companion.EXTRA_PHONE_CHANGING
 import ru.hvost.news.services.FcmService
 import ru.hvost.news.utils.createSnackbar
 import ru.hvost.news.utils.enums.State
@@ -106,6 +107,7 @@ class EditProfileFragment : BaseFragment() {
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.cancel.setOnClickListener { findNavController().popBackStack() }
         binding.save.setOnClickListener { tryToSend() }
+        binding.phone.setOnClickListener(toSubmitPhoneFragment)
     }
 
     private fun setTextListeners() {
@@ -147,6 +149,15 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private val openDatePickerDialog = View.OnClickListener { showDatePicker() }
+
+    private val toSubmitPhoneFragment = View.OnClickListener {
+        val bundle = Bundle()
+        bundle.putBoolean(EXTRA_PHONE_CHANGING, true)
+        findNavController().navigate(
+            R.id.action_editProfileFragment_to_submitPhoneFragment,
+            bundle
+        )
+    }
 
     @SuppressLint("SimpleDateFormat")
     private fun showDatePicker() {

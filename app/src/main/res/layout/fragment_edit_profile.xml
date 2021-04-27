@@ -110,18 +110,6 @@
                 app:holderHint="@string/phone"
                 app:iconResource="@android:color/transparent" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/xSmallMargin"
-                android:layout_marginBottom="@dimen/xLargeMargin"
-                android:fontFamily="@font/gilroy_semibold"
-                android:lineSpacingMultiplier="1.2"
-                android:paddingHorizontal="@dimen/xSmallMargin"
-                android:text="@string/phoneHint"
-                android:textColor="@color/gray2"
-                android:textSize="@dimen/secondaryTextTextSize" />
-
             <ru.hvost.news.presentation.customviews.ValueHolderView
                 android:id="@+id/email"
                 android:layout_width="match_parent"

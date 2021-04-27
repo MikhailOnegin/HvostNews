@@ -17,13 +17,13 @@ import ru.hvost.news.utils.enums.State
 import ru.hvost.news.utils.events.Event
 import ru.hvost.news.utils.events.NetworkEvent
 
-class AuthorizationVM: ViewModel(){
+class AuthorizationVM : ViewModel() {
 
     private val _loginEvent = MutableLiveData<NetworkEvent<State>>()
     val loginEvent: LiveData<NetworkEvent<State>> = _loginEvent
     var loginResponse: LoginResponse? = null
 
-    fun logIn(login: String, password: String){
+    fun logIn(login: String, password: String) {
         viewModelScope.launch {
             _loginEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -35,9 +35,8 @@ class AuthorizationVM: ViewModel(){
                     if (response.isPhoneRegistered == true)
                         App.getInstance().logIn(response.userToken)
                     _loginEvent.value = NetworkEvent(State.SUCCESS)
-                }
-                else _loginEvent.value = NetworkEvent(State.ERROR, response.error)
-            } catch (exc: Exception){
+                } else _loginEvent.value = NetworkEvent(State.ERROR, response.error)
+            } catch (exc: Exception) {
                 _loginEvent.value = NetworkEvent(State.FAILURE)
             }
         }
@@ -47,7 +46,7 @@ class AuthorizationVM: ViewModel(){
     val passRestoreEvent: LiveData<NetworkEvent<State>> = _passRestoreEvent
     var passRestoreResponse: PassRestoreResponse? = null
 
-    fun restorePassAsync(email: String){
+    fun restorePassAsync(email: String) {
         viewModelScope.launch {
             _passRestoreEvent.value = NetworkEvent(State.LOADING)
             try {
@@ -55,9 +54,8 @@ class AuthorizationVM: ViewModel(){
                 if (response.result == "success") {
                     passRestoreResponse = response
                     _passRestoreEvent.value = NetworkEvent(State.SUCCESS)
-                }
-                else _passRestoreEvent.value = NetworkEvent(State.ERROR, response.error)
-            } catch (exc: Exception){
+                } else _passRestoreEvent.value = NetworkEvent(State.ERROR, response.error)
+            } catch (exc: Exception) {
                 _passRestoreEvent.value = NetworkEvent(State.FAILURE)
             }
         }

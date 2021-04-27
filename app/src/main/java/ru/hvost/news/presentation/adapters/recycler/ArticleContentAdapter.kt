@@ -95,7 +95,7 @@ class ArticleContentAdapter(
                 Glide.with(binding.root)
                         .load(header.imageUri)
                         .placeholder(getDefaultShimmer(itemView.context))
-                        .error(R.drawable.ic_load_error)
+                        .error(R.drawable.empty_image)
                         .into(image)
                 title.text = header.title
                 category.text = header.categoryTitle
@@ -301,7 +301,7 @@ class ArticleContentAdapter(
                 .with(binding.root)
                 .load(image.imageUri)
                 .placeholder(getDefaultShimmer(itemView.context))
-                .error(R.drawable.ic_load_error)
+                .error(R.drawable.empty_image)
                 .into(binding.image)
             binding.image.doOnLayout {
                 binding.image.layoutParams = LinearLayout.LayoutParams(
