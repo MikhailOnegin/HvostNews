@@ -47,13 +47,12 @@ class LoginFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        binding.toolbar.background.level = 1
         setHintSpannable()
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         authorizationVM = ViewModelProvider(requireActivity())[AuthorizationVM::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()

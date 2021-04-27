@@ -2,7 +2,6 @@ package ru.hvost.news.presentation.fragments.login
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,12 +34,11 @@ class RegPetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegPetBinding.inflate(inflater, container, false)
-        binding.toolbar.background.level = 1
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
         setObservers()
     }
@@ -133,7 +131,7 @@ class RegPetFragment : Fragment() {
         binding.sexUnknown.setOnClickListener(onSexClicked)
         binding.petBirthday.setOnClickListener { onPetBirthdayClicked() }
         binding.spinner.onItemSelectedListener = OnSpeciesSelectedListener(registrationVM)
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.back.setOnClickListener { findNavController().popBackStack() }
         binding.petName.doOnTextChanged { _, _, _, _ -> checkIfSecondStageFinished() }
         binding.promocode.doOnTextChanged { _, _, _, _ -> setProgressParts() }
     }

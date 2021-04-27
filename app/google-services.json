@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1079308940572",
-    "project_id": "hvost-news",
-    "storage_bucket": "hvost-news.appspot.com"
+    "project_number": "776139059453",
+    "project_id": "hvost-news-22112",
+    "storage_bucket": "hvost-news-22112.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1079308940572:android:614d79221ab3535ae5f6d9",
+        "mobilesdk_app_id": "1:776139059453:android:5fcac028b749f44ad38e94",
         "android_client_info": {
           "package_name": "ru.hvost.news"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1079308940572-78km0sqvcd105mtjq6rr16t7vn53u7ac.apps.googleusercontent.com",
+          "client_id": "776139059453-7g5muc7rr9ogf342ba9d2l809igokeff.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCPrfdOcHXPeVTkYSKO-oca3bS8CgM4WNY"
+          "current_key": "AIzaSyAvaj-1830JyFcH5VfpXXguLssjmDASC0Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1079308940572-78km0sqvcd105mtjq6rr16t7vn53u7ac.apps.googleusercontent.com",
+              "client_id": "776139059453-7g5muc7rr9ogf342ba9d2l809igokeff.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

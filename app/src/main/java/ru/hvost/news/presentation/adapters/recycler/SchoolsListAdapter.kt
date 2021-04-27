@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.adapters.recycler
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ItemSchoolOnlineBinding
 import ru.hvost.news.databinding.LayoutLessonNumberBinding
-import ru.hvost.news.models.Article
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.getDefaultShimmer
@@ -27,10 +27,10 @@ class SchoolsListAdapter(
 
     private var schools = arrayListOf<OnlineSchools.OnlineSchool>()
 
-    fun filterYourSchools(s:String){
+    fun filterYourSchools(s:String, context: Context){
         when(s){
-            "Ваши семинары" -> schools = currentList.filter { it.participate }.toCollection(ArrayList())
-            "Все семинары" -> schools = currentList.toCollection(ArrayList())
+            context.getString(R.string.your_seminars) -> schools = currentList.filter { it.participate }.toCollection(ArrayList())
+            context.getString(R.string.all_seminars) -> schools = currentList.toCollection(ArrayList())
         }
         schoolVM.adapterSchoolsSize.value = schools.size
         notifyDataSetChanged()
@@ -96,7 +96,7 @@ class SchoolsListAdapter(
             Glide.with(itemView.context)
                     .load(APIService.baseUrl + school.image)
                     .placeholder(getDefaultShimmer(itemView.context))
-                    .error(R.drawable.ic_load_error)
+                    .error(R.drawable.empty_image)
                     .into(binding.imageViewSchool)
             binding.rootConstraint.setOnClickListener {
                 clickSchool?.invoke(school.id)

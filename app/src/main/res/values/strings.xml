@@ -424,7 +424,7 @@
     <string name="buttonSendAgain">Отправить код еще раз</string>
     <string name="registration2">Регистрация</string>
     <string name="complete_registration">Завершить регистрацию</string>
-    <string name="accept_terms_of_agreement">Я принимаю условия Соглашения об использовании материалов и сервисов и даю своё согласие на обработку моих персоальных данных, определённых в политике конфиденциальности.
+    <string name="accept_terms_of_agreement">Я принимаю условия Соглашения об использовании материалов и сервисов и даю свое согласие на обработку моих персональных данных, определённых в политике конфиденциальности.
     </string>
     <string name="timerText1">Через</string>
     <string name="timerSeconds1">секунду</string>
@@ -489,4 +489,15 @@
     <string name="submitDeleteOrderDialogTitle">Вы действительно хотите удалить заказ?</string>
     <string name="mapsHint">Загружаем данные о партнерах…</string>
     <string name="any_city">Любой город</string>
+    <string name="success_registration_school">Регистрация прошла успешно, вы зарегистрированы на этот семинар</string>
+    <string name="congratulations_finish_semenar">Поздравляем! Вы прошли семинар</string>
+    <string name="without_pets">Нет питомцев</string>
+    <string name="your_seminars">Ваши семинары</string>
+    <string name="all_seminars">Все семинары</string>
+    <string name="finish">Финиш</string>
+    <string name="not_answers_selected">Ни один ответ не выбран</string>
+    <string name="all_listed">Все вышеперечисленное</string>
+    <string name="phoneChangeTitle">Изменение номера</string>
+    <string name="phoneChangeHint">Введите новый номер телефона</string>
+    <string name="phoneChangedSuccessful">Номер телефона успешно изменён</string>
 </resources>

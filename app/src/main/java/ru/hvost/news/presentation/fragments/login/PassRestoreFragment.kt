@@ -28,12 +28,11 @@ class PassRestoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPassRestoreBinding.inflate(inflater, container, false)
-        binding.toolbar.background.level = 1
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         authorizationVM = ViewModelProvider(this)[AuthorizationVM::class.java]
         authorizationVM.passRestoreEvent.observe(viewLifecycleOwner) { onPassRestoreEvent(it) }
     }

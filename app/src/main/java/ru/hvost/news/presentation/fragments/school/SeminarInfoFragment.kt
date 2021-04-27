@@ -72,7 +72,7 @@ class SeminarInfoFragment : BaseFragment() {
                 Glide.with(requireContext())
                         .load(APIService.baseUrl + seminar.imageUrl)
                         .placeholder(getDefaultShimmer(requireContext()))
-                        .error(R.drawable.ic_load_error)
+                        .error(R.drawable.empty_image)
                         .centerCrop()
                         .into(binding.imageViewSeminar)
                 binding.textViewDescription.text = seminar.description.parseAsHtml()

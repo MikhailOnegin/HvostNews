@@ -24,7 +24,6 @@ import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService
 import ru.hvost.news.databinding.ActivityMainBinding
-import ru.hvost.news.presentation.fragments.feed.FeedFragment
 import ru.hvost.news.presentation.fragments.feed.FeedRedesignFragment
 import ru.hvost.news.presentation.fragments.orders.OrderDialogFragment
 import ru.hvost.news.services.FcmService

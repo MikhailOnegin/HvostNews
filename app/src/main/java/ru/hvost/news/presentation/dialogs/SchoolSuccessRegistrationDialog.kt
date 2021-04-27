@@ -42,7 +42,7 @@ class SchoolSuccessRegistrationDialog(private val title:String ): BottomSheetDia
 
     override fun onStart() {
         super.onStart()
-        val description = "Регистрация прошла успешно, вы зарегистрированы на этот семинар " +
+        val description = "${getString(R.string.success_registration_school)} " +
                 "\"${title.parseAsHtml()}\""
         binding.textViewDescription.text = description
         setListeners()

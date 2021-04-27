@@ -61,7 +61,6 @@ class SeminarFragment : BaseFragment() {
                     )
                 }
             }
-
         }
         setListeners()
         seminarId = arguments?.getString("seminarId")

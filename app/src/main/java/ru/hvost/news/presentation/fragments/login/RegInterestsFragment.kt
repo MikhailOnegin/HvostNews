@@ -32,12 +32,11 @@ class RegInterestsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegInterestsBinding.inflate(inflater, container, false)
-        binding.toolbar.background.level = 1
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
         setRecyclerView()
         setObservers()
@@ -51,7 +50,7 @@ class RegInterestsFragment : Fragment() {
 
     private fun setListeners() {
         binding.buttonFinish.setOnClickListener(onButtonFinishClicked)
-        binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+        binding.back.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setObservers() {

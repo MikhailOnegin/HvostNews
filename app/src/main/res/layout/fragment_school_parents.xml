@@ -15,16 +15,14 @@
         android:paddingBottom="@dimen/largeMargin"
         app:liftOnScroll="true">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar2"
-            style="@style/Toolbar"
+        <ImageView
+            android:id="@+id/logo"
+            style="@style/ImageViewToolbarLogo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_toolbar"
-            android:elevation="2dp"
-            android:theme="@style/AppTheme.Toolbar"
+            android:layout_height="@dimen/toolbarHeight"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|snap"
-            app:titleTextAppearance="@style/ToolbarTitleTextAppearance" />
+            tools:ignore="ContentDescription"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

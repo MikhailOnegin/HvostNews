@@ -1,6 +1,6 @@
 package ru.hvost.news.presentation.adapters.recycler
 
-import android.content.Context
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,23 +27,6 @@ class SchoolMaterialsAdapter(
     private var school: OnlineSchools.OnlineSchool? = null
     private var onlineLessons = arrayListOf<OnlineLessons.OnlineLesson>()
     private var firstActiveLessonId: String? = null
-
-    fun setLessons(lessons: List<OnlineLessons.OnlineLesson>) {
-        for (i in lessons.indices) {
-            val firstActiveLesson = lessons[i]
-            if (!firstActiveLesson.isTestPassed) {
-                this.firstActiveLessonId = firstActiveLesson.lessonId
-                break
-            }
-        }
-        this.onlineLessons = lessons.toCollection(ArrayList())
-        notifyDataSetChanged()
-    }
-
-    fun setSchool(school: OnlineSchools.OnlineSchool) {
-        this.school = school
-        notifyDataSetChanged()
-    }
 
     fun setValue(lessons: List<OnlineLessons.OnlineLesson>, school: OnlineSchools.OnlineSchool) {
         for (i in lessons.indices) {
@@ -197,7 +180,12 @@ class SchoolMaterialsAdapter(
                             itemView.resources.getDimension(R.dimen.largeMargin).toInt()
 
                         if (i == 0 || i == school.literature.lastIndex) {
-                            if (i == 0) viewLiterature.root.setPadding(paddingEdge, 0, paddingNormal, 0)
+                            if (i == 0) viewLiterature.root.setPadding(
+                                paddingEdge,
+                                0,
+                                paddingNormal,
+                                0
+                            )
                             else if (i == school.literature.lastIndex) viewLiterature.rootConstraint.setPadding(
                                 0,
                                 0,
@@ -227,7 +215,7 @@ class SchoolMaterialsAdapter(
                 0 -> "месяцев"
                 1 -> "месяц"
                 2 -> "месяца"
-                3  -> "месяца"
+                3 -> "месяца"
                 4 -> "месяца"
                 else -> "месяцев"
             }

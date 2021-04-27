@@ -14,7 +14,9 @@ import ru.hvost.news.App
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSubmitPhoneBinding
+import ru.hvost.news.presentation.activities.MainActivity
 import ru.hvost.news.presentation.fragments.BaseFragment
+import ru.hvost.news.presentation.fragments.profile.EditProfileFragment
 import ru.hvost.news.utils.*
 import ru.hvost.news.utils.events.DefaultNetworkEventObserver
 import ru.hvost.news.utils.events.EventObserver
@@ -38,12 +40,27 @@ class SubmitPhoneFragment : BaseFragment() {
         authorizationVM = ViewModelProvider(requireActivity())[AuthorizationVM::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         setObservers()
+        initializeFragmentText()
         binding.phone.filters = arrayOf(PhoneInputFilter())
         authorizationVM.loginResponse?.userPhone?.run {
             setPhoneField(this)
         }
-        binding.toolbar.background.level = 1
         return binding.root
+    }
+
+    private fun initializeFragmentText() {
+        if (arguments?.getBoolean(EXTRA_PHONE_CHANGING) == true) setChangePhoneText()
+        else return
+    }
+
+    private fun setChangePhoneText() {
+        binding.apply {
+            title.text = getString(R.string.phoneChangeTitle)
+            hint.text = getString(R.string.phoneChangeHint)
+            binding.phone.setText("+7-")
+            binding.phone.setSelection(3)
+            authorizationVM.setReadyToSubmitPhone(false)
+        }
     }
 
     private fun initializeObservers() {
@@ -53,11 +70,21 @@ class SubmitPhoneFragment : BaseFragment() {
         )
         sendSecretCodeObserver = DefaultNetworkEventObserver(
             anchorView = binding.root,
-            doOnSuccess = { onPhoneRegistered() }
+            doOnSuccess = if (arguments?.getBoolean(EXTRA_PHONE_CHANGING) == true) onPhoneSubmitted
+            else onPhoneRegistered
         )
     }
 
-    private fun onPhoneRegistered() {
+    private val onPhoneSubmitted: (() -> Unit) = {
+        mainVM.loadUserData()
+        createSnackbar(
+            (requireActivity() as MainActivity).getMainView(),
+            getString(R.string.phoneChangedSuccessful)
+        ).show()
+        findNavController().popBackStack()
+    }
+
+    private val onPhoneRegistered: (() -> Unit) = {
         authorizationVM.loginResponse?.userToken?.run {
             App.getInstance().logIn(this)
             mainVM.initializeData()
@@ -77,7 +104,7 @@ class SubmitPhoneFragment : BaseFragment() {
         }
         binding.buttonCheck.setOnClickListener {
             authorizationVM.sendSecretCode(
-                userToken = authorizationVM.loginResponse?.userToken,
+                userToken = authorizationVM.loginResponse?.userToken ?: App.getInstance().userToken,
                 phone = getClearPhoneString(binding.phone.text.toString()),
                 secretCode = binding.code.text.toString()
             )
@@ -91,7 +118,7 @@ class SubmitPhoneFragment : BaseFragment() {
         })
         authorizationVM.requestSmsEvent.observe(viewLifecycleOwner, requestCodeObserver)
         authorizationVM.sendSecretCodeEvent.observe(viewLifecycleOwner, sendSecretCodeObserver)
-        authorizationVM.timerTickEvent.observe(viewLifecycleOwner, EventObserver( onTimerTick ))
+        authorizationVM.timerTickEvent.observe(viewLifecycleOwner, EventObserver(onTimerTick))
     }
 
     @SuppressLint("SetTextI18n")
@@ -120,7 +147,7 @@ class SubmitPhoneFragment : BaseFragment() {
 
     private fun requestSms() {
         authorizationVM.requestSms(
-            userToken = authorizationVM.loginResponse?.userToken,
+            userToken = authorizationVM.loginResponse?.userToken ?: App.getInstance().userToken,
             phone = getClearPhoneString(binding.phone.text.toString())
         )
         hideKeyboard()
@@ -132,8 +159,13 @@ class SubmitPhoneFragment : BaseFragment() {
     }
 
     private fun hideKeyboard() {
-        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
+    companion object {
+        const val EXTRA_PHONE_CHANGING = "EXTRA_PHONE_CHANGING"
     }
 
 }

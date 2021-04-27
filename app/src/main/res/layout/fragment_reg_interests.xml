@@ -21,15 +21,28 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:background="@drawable/background_toolbar"
-                android:theme="@style/AppTheme.Toolbar"
+            <FrameLayout
+                android:background="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/ic_back"
-                app:layout_collapseMode="pin"/>
+                android:layout_height="@dimen/toolbarHeight">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    style="@style/ImageViewToolbarLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/toolbarHeight"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription"/>
+
+                <ImageButton
+                    android:id="@+id/back"
+                    android:src="@drawable/ic_back"
+                    android:background="@drawable/ripple_round_button"
+                    android:layout_width="@dimen/toolbarHeight"
+                    android:layout_height="@dimen/toolbarHeight"
+                    tools:ignore="ContentDescription" />
+
+            </FrameLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/header"

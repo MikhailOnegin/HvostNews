@@ -2,7 +2,6 @@ package ru.hvost.news.presentation.fragments.login
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,12 +32,11 @@ class RegUserFragment : Fragment() {
         binding.passwordConfirm.filters = arrayOf(PasswordInputFilter())
         binding.phone.setText(getString(R.string.phonePrefix))
         binding.phone.setSelection(binding.phone.length())
-        binding.toolbar.background.level = 1
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registrationVM = ViewModelProvider(requireActivity())[RegistrationVM::class.java]
         setObservers()
     }
@@ -52,7 +50,7 @@ class RegUserFragment : Fragment() {
 
     private fun setListeners() {
         binding.buttonNext.setOnClickListener(onButtonNextClicked)
-        binding.toolbar.setNavigationOnClickListener {
+        binding.back.setOnClickListener {
             requireActivity().findNavController(R.id.nav_host_fragment).popBackStack()
         }
         binding.agreement.setOnCheckedChangeListener { _, _ -> checkIfFirstStageFinished() }

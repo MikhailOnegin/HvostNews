@@ -31,18 +31,17 @@ class PopupWindowDomainAdapter(private val onClick: (Long) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(domainItem: Domain) {
-            binding.container.doOnLayout {
-                val width = it.width
-                val height = width / 3.1F
-                binding.container.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    height.toInt()
-                )
-            }
+//            binding.container.doOnLayout {
+//                val width = it.width
+//                val height = width / 3.1F
+//                binding.container.layoutParams = LinearLayout.LayoutParams(
+//                    LinearLayout.LayoutParams.MATCH_PARENT,
+//                    height.toInt()
+//                )
+//            }
             Glide.with(binding.root)
                     .load(APIService.baseUrl + domainItem.img)
-                    .placeholder(getDefaultShimmer(itemView.context))
-                    .error(R.drawable.ic_load_error)
+                    .error(R.drawable.ic_leg)
                     .fitCenter()
                     .into(binding.img)
             binding.title.text = domainItem.title

@@ -396,10 +396,8 @@ interface APIService {
 
     companion object {
 
-        //TODO: Заменить на ключ заказчика.
         const val YANDEX_MAPKIT_KEY = "d5164e0f-9659-42eb-8e27-26b0bf835464"
 
-        //TODO: Заменить на боевой сервер.
         const val baseUrl = "https://hvost.news/"
 
         private val moshi: Moshi = Moshi.Builder()
