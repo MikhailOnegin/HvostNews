@@ -1,7 +1,6 @@
 package ru.hvost.news.presentation.fragments.school
 
-import android.animation.ObjectAnimator
-import android.graphics.Color
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -97,7 +96,7 @@ class SchoolParentsSchoolsFragment : BaseFragment() {
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.onlineSchoolsEvent.observe(owner, schoolsEvent)
         schoolVM.filterSchools.observe(owner, {
-            schoolsAdapter.filterYourSchools(it)
+            schoolsAdapter.filterYourSchools(it, requireContext())
         })
         schoolVM.recyclerSchoolsReadyEvent.observe(owner) { onRecyclerSchoolsReadyEvent(it) }
         schoolVM.adapterSchoolsSize.observe(owner, {

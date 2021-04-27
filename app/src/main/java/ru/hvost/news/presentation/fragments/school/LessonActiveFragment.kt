@@ -1,7 +1,6 @@
 package ru.hvost.news.presentation.fragments.school
 
 import android.animation.ObjectAnimator
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +25,6 @@ import ru.hvost.news.databinding.LayoutLiteratureItemBinding
 import ru.hvost.news.models.OnlineLessons
 import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.dialogs.SchoolFinishDialog
-import ru.hvost.news.presentation.dialogs.SchoolSuccessRegistrationDialog
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.createSnackbar
@@ -86,7 +84,7 @@ class LessonActiveFragment : BaseFragment() {
                     lesson?.let {  lesson ->
                     if (lessons.last().lessonId == lesson.lessonId) {
                         binding.buttonToAnswer.isEnabled = true
-                        binding.buttonToAnswer.text = "Финиш"
+                        binding.buttonToAnswer.text = resources.getString(R.string.finish)
                         binding.buttonToAnswer.setOnClickListener {
                             navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "lastLesson")
                             navCMain.popBackStack()
@@ -211,7 +209,7 @@ class LessonActiveFragment : BaseFragment() {
                             Glide.with(requireContext())
                                     .load(baseUrl + lesson.imageVideoUrl)
                                     .placeholder(getDefaultShimmer(requireContext()))
-                                    .error(R.drawable.ic_load_error)
+                                    .error(R.drawable.empty_image)
                                     .centerCrop()
                                     .into(binding.imageViewVideo)
 
@@ -256,7 +254,7 @@ class LessonActiveFragment : BaseFragment() {
             } else {
                 createSnackbar(
                     anchorView = binding.root,
-                    text = "Ошибка (ответы не загружены)",
+                    text = resources.getString(R.string.unknown_error),
                     resources.getString(R.string.buttonOk),
                 ).show()
             }
@@ -317,7 +315,7 @@ class LessonActiveFragment : BaseFragment() {
                     }
                 }
             } else {
-                Toast.makeText(requireContext(), "Ни один ответ не выбран", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), getString(R.string.not_answers_selected), Toast.LENGTH_SHORT)
                     .show()
             }
         }

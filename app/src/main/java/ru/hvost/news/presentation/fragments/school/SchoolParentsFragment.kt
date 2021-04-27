@@ -54,7 +54,14 @@ class SchoolParentsFragment : BaseFragment() {
     @Suppress("UNCHECKED_CAST")
     private fun setObservers(owner: LifecycleOwner) {
         schoolVM.offlineCitiesEvent.observe(owner, citiesEvent)
+        schoolVM.offlineCities.observe(owner, {
+            schoolVM.offlineCities.value?.run {
+                setCitiesToAdapter(this.cities)
+            }
+        })
     }
+
+
 
     @Suppress("UNCHECKED_CAST")
     private fun initializeEvents() {
@@ -62,25 +69,7 @@ class SchoolParentsFragment : BaseFragment() {
             anchorView = binding.root,
             doOnSuccess = {
                 schoolVM.offlineCities.value?.run {
-                    val adapter =
-                        (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
-                    adapter.clear()
-
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).add(
-                        CityOffline("all", getString(R.string.any_city))
-                    )
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
-                        this.cities
-                    )
-                    (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
-                        0
-                    )?.let { cityOffline ->
-                        val cityId = cityOffline.cityId
-                        App.getInstance().userToken?.run {
-                            schoolVM.getSeminars(cityId, this)
-                            schoolVM.currentCity.value = cityOffline.cityId
-                        }
-                    }
+                 setCitiesToAdapter(this.cities)
                 }
             }
         )
@@ -158,6 +147,28 @@ class SchoolParentsFragment : BaseFragment() {
                         }
                 }
             }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun setCitiesToAdapter(citiesOffline: List<CityOffline>) {
+        val adapter =
+            (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>)
+        adapter.clear()
+        (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).add(
+            CityOffline("all", getString(R.string.any_city))
+        )
+        (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
+            citiesOffline
+        )
+        (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).getItem(
+            0
+        )?.let { cityOffline ->
+            val cityId = cityOffline.cityId
+            App.getInstance().userToken?.run {
+                schoolVM.getSeminars(cityId, this)
+                schoolVM.currentCity.value = cityOffline.cityId
+            }
+        }
     }
 
     private fun setTabsSelected(destination: String?) {

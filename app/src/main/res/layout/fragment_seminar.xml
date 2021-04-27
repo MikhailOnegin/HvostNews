@@ -23,7 +23,7 @@
             android:background="@android:color/white"
             android:elevation="@dimen/barsElevation"
             android:theme="@style/AppTheme.Toolbar"
-            app:layout_scrollFlags="scroll|snap"
+            app:layout_scrollFlags="scroll"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/event" />
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/_24dp"
-            app:layout_scrollFlags="scroll|snap">
+            app:layout_scrollFlags="scroll">
 
             <View
                 android:id="@+id/view6"
@@ -257,7 +257,7 @@
             android:baselineAligned="false"
             android:nestedScrollingEnabled="true"
             android:paddingTop="@dimen/_16dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap">
+            app:layout_scrollFlags="scroll">
 
             <LinearLayout
                 android:id="@+id/linearLayout_tabs"

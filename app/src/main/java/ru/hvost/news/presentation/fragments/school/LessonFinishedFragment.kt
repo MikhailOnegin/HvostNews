@@ -16,7 +16,6 @@ import ru.hvost.news.R
 import ru.hvost.news.data.api.APIService.Companion.baseUrl
 import ru.hvost.news.databinding.FragmentSchoolLessonFinishedBinding
 import ru.hvost.news.databinding.LayoutLiteratureItemBinding
-import ru.hvost.news.models.OnlineSchools
 import ru.hvost.news.presentation.fragments.BaseFragment
 import ru.hvost.news.presentation.viewmodels.SchoolViewModel
 import ru.hvost.news.utils.getDefaultShimmer
@@ -70,17 +69,17 @@ class LessonFinishedFragment : BaseFragment() {
                         Glide.with(requireContext())
                                 .load(baseUrl + lesson.imageVideoUrl)
                                 .placeholder(getDefaultShimmer(requireContext()))
-                                .error(R.drawable.ic_load_error)
+                                .error(R.drawable.empty_image)
                                 .centerCrop()
                                 .into(binding.imageViewVideo)
                         for (q in lesson.answerList.indices) {
                             val answer = lesson.answerList[q]
                             if (answer.isTrue) {
-                                if (answer.answer == "Все вышеперечисленное") {
+                                if (answer.answer == getString(R.string.all_listed)) {
                                     val rightAnswers = StringBuilder()
                                     for(j in lesson.answerList.indices){
                                         val answer2 = lesson.answerList[j].answer
-                                        if(answer2 != "Все вышеперечисленное"){
+                                        if(answer2 != getString(R.string.all_listed)){
                                             rightAnswers.append("$answer2\n\n")
                                         }
                                     }

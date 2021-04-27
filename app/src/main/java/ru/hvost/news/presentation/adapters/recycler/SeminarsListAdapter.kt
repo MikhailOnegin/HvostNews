@@ -85,7 +85,7 @@ class SeminarsListAdapter(
         fun bind(seminar: OfflineSeminars.OfflineSeminar) {
             Glide.with(itemView.context).load(APIService.baseUrl + seminar.imageUrl)
                     .placeholder(getDefaultShimmer(itemView.context))
-                    .error(R.drawable.ic_load_error)
+                    .error(R.drawable.empty_image)
                     .centerCrop()
                     .into(binding.imageViewLesson)
             if (seminar.isFinished) {

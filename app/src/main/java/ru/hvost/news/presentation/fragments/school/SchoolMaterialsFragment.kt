@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_school_materials.*
-import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentSchoolMaterialsBinding
 import ru.hvost.news.presentation.adapters.recycler.SchoolMaterialsAdapter
