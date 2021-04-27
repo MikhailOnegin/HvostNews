@@ -6,17 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentArticleBinding
 import ru.hvost.news.models.Article
-import ru.hvost.news.models.toArticleContent
+import ru.hvost.news.models.ArticleContent
 import ru.hvost.news.presentation.adapters.recycler.ArticleContentAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
-import ru.hvost.news.presentation.fragments.feed.FeedFragment
 import ru.hvost.news.presentation.fragments.feed.FeedRedesignFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.createSnackbar
@@ -41,8 +39,8 @@ class ArticleFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         articleVM = ViewModelProvider(this)[ArticleViewModel::class.java]
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         articleVM.loadArticle(arguments?.getString(FeedRedesignFragment.ARTICLE_ID))
@@ -64,7 +62,12 @@ class ArticleFragment : BaseFragment() {
             article.observe(viewLifecycleOwner) { onArticleChanged(it) }
             loadArticleEvent.observe(viewLifecycleOwner, loadingArticleEventObserver)
             recyclerViewReadyEvent.observe(viewLifecycleOwner) { onRecyclerViewReadyEvent(it) }
+            articleContent.observe(viewLifecycleOwner) { onArticleContentChanged(it) }
         }
+    }
+
+    private fun onArticleContentChanged(content: List<ArticleContent>) {
+        (binding.recyclerView.adapter as ArticleContentAdapter).submitList(content)
     }
 
     private fun onRecyclerViewReadyEvent(event: OneTimeEvent?) {
@@ -100,7 +103,7 @@ class ArticleFragment : BaseFragment() {
                     setLiked = onActionLiked
                 )
                 adapter = contentAdapter
-                contentAdapter.submitList(article.toArticleContent())
+                articleVM.processArticle(article)
             }
         }
     }

@@ -97,7 +97,7 @@ class ArticleContentAdapter(
                         .placeholder(getDefaultShimmer(itemView.context))
                         .error(R.drawable.ic_load_error)
                         .into(image)
-                title.text = header.title
+                title.text = header.title.parseAsHtml()
                 category.text = header.categoryTitle
                 views.text = moneyFormat.format(header.viewsCount)
                 date.text = header.publicationDate

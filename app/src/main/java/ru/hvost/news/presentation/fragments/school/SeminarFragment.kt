@@ -47,7 +47,6 @@ class SeminarFragment : BaseFragment() {
         super.onViewStateRestored(savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCMain = findNavController()
-
         navCMain.previousBackStackEntry?.savedStateHandle?.set("fromDestination", "seminar")
         arguments?.getString("seminarTitle")?.let { seminarTitle ->
             schoolVM.successRegistration.value?.let { successRegistration ->
@@ -176,18 +175,25 @@ class SeminarFragment : BaseFragment() {
                                 false
                             ).root
                             val petTypeName = seminar.petSchedules[q].petTypeName
-                            if (q == seminar.petSchedules.size - 1) viewTab2.background =
-                                ContextCompat.getDrawable(
-                                    requireContext(),
-                                    R.drawable.sex_selector_right
+                            if (q == seminar.petSchedules.size - 1) {
+                                viewTab2.background =
+                                    ContextCompat.getDrawable(
+                                        requireContext(),
+                                        R.drawable.sex_selector_right
+                                    )
+                                (viewTab2.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                    margin, 0, 0, 0
                                 )
-                            else viewTab2.background = ContextCompat.getDrawable(
+                            }
+                            else {viewTab2.background = ContextCompat.getDrawable(
                                 requireContext(),
                                 R.drawable.sex_selector_middle
                             )
-                            (viewTab2.layoutParams as LinearLayout.LayoutParams).setMargins(
-                                margin, 0, margin, 0
-                            )
+                                (viewTab2.layoutParams as LinearLayout.LayoutParams).setMargins(
+                                    margin, 0, margin, 0
+                                )
+                            }
+
                             val tabText = "${getString(R.string.schedule_for)} $petTypeName"
                             viewTab2.textView_tab.text = tabText
                             tabsView.add(viewTab2)

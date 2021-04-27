@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_toolbar"
-            android:elevation="@dimen/barsElevation"
+            android:elevation="2dp"
             android:theme="@style/AppTheme.Toolbar"
             app:layout_scrollFlags="scroll|snap"
             app:titleTextAppearance="@style/ToolbarTitleTextAppearance" />
@@ -29,10 +29,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|snap"
             android:layout_marginStart="@dimen/largeMargin"
             android:layout_marginTop="@dimen/_48dp"
-            android:layout_marginEnd="@dimen/largeMargin">
+            android:layout_marginEnd="@dimen/largeMargin"
+            app:layout_scrollFlags="scroll|snap">
 
             <TextView
                 android:id="@+id/textView7"
@@ -60,10 +60,10 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/largeMargin"
                 android:layout_marginEnd="@dimen/largeMargin"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -73,9 +73,9 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/cartSelectorHeight"
                     android:layout_weight="1"
+                    android:background="@drawable/sex_selector_left"
                     android:paddingStart="@dimen/smallMargin"
-                    android:paddingEnd="@dimen/smallMargin"
-                    android:background="@drawable/sex_selector_left">
+                    android:paddingEnd="@dimen/smallMargin">
 
                     <TextView
                         android:id="@+id/onlineSchool"
@@ -84,8 +84,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/online_school"
-                        android:textSize="@dimen/_12sp"
                         android:textColor="@color/sex_text_color"
+                        android:textSize="@dimen/_12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"
@@ -99,9 +99,9 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/cartSelectorHeight"
                     android:layout_weight="1"
+                    android:background="@drawable/sex_selector_right"
                     android:paddingStart="@dimen/smallMargin"
-                    android:paddingEnd="@dimen/smallMargin"
-                    android:background="@drawable/sex_selector_right">
+                    android:paddingEnd="@dimen/smallMargin">
 
                     <TextView
                         android:id="@+id/offlineSeminars"
@@ -110,8 +110,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/school_offline"
-                        android:textSize="@dimen/_12sp"
                         android:textColor="@color/sex_text_color"
+                        android:textSize="@dimen/_12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_chainStyle="packed"

@@ -1,6 +1,8 @@
 package ru.hvost.news.presentation.fragments.feed
 
+import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.hvost.news.MainViewModel
 import ru.hvost.news.R
@@ -53,6 +56,51 @@ class FeedRedesignFragment : BaseFragment() {
     }
 
     private fun setListeners() {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                animateFilterChanges(tab)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                animateFilterChanges(tab)
+            }
+
+            fun animateFilterChanges(tab: TabLayout.Tab?) {
+                val startValue = if (tab?.position == 0) 0f else 1f
+                val endValue = if (tab?.position == 0) 1f else 0f
+                val animator = ValueAnimator.ofFloat(startValue, endValue)
+                animator.duration = 300
+                animator.addUpdateListener {
+                    binding.filter.scaleX = it.animatedValue as Float
+                    binding.filter.scaleY = it.animatedValue as Float
+                }
+                animator.addListener(OnAnimationEndListener(tab))
+                animator.start()
+            }
+
+            inner class OnAnimationEndListener(private val tab: TabLayout.Tab?) :
+                Animator.AnimatorListener {
+
+                override fun onAnimationStart(animation: Animator?) {
+                    if (tab?.position == 0) binding.filter.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {
+                    when (tab?.position) {
+                        1 -> binding.filter.visibility = View.INVISIBLE
+                        2 -> binding.filter.visibility = View.INVISIBLE
+                    }
+                }
+
+                override fun onAnimationCancel(animation: Animator?) {}
+
+                override fun onAnimationRepeat(animation: Animator?) {}
+
+            }
+
+        })
         binding.filter.setOnClickListener { findNavController().navigate(R.id.action_feedRedesignFragment_to_feedFilterFragment) }
     }
 

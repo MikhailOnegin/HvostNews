@@ -41,10 +41,12 @@ class AutoCompleteShopsAdapter(
 
         @Suppress("UNCHECKED_CAST")
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            clear()
-            addAll(results?.values as List<Shop>)
-            if (results.count > 0) notifyDataSetChanged()
-            else notifyDataSetInvalidated()
+            try {
+                clear()
+                addAll(results?.values as List<Shop>)
+                if (results.count > 0) notifyDataSetChanged()
+                else notifyDataSetInvalidated()
+            } catch (exc: Exception) { notifyDataSetChanged() }
         }
 
     }
