@@ -1,0 +1,12 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#DCDFF0" />
+            <size android:width="488dp"
+                android:height="300dp"/>
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_leg"
+        android:gravity="center" />
+</layer-list>

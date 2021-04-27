@@ -30,7 +30,7 @@
                 android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 android:src="@drawable/test_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
