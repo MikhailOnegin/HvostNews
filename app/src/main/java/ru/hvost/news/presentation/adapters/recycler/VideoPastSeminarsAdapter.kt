@@ -44,7 +44,7 @@ class VideoPastSeminarsAdapter: RecyclerView.Adapter<VideoPastSeminarsAdapter.Vi
             Glide.with(itemView.context)
                     .load(APIService.baseUrl + video.imageVideoUrl)
                     .placeholder(getDefaultShimmer(itemView.context))
-                    .error(R.drawable.ic_load_error)
+                    .error(R.drawable.empty_image)
                     .into(binding.imageViewVideo)
             binding.root
             binding.constraintVideo.setOnClickListener {

@@ -73,7 +73,7 @@ class SchoolRegistrationFragment: BaseFragment() {
         spannable.setSpan(colorSpan, 19, 46, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.checkBox2.text = spannable
         binding.checkBox2.movementMethod = LinkMovementMethod.getInstance()
-        binding.spinnerPets.adapter = SpinnerAdapter(requireContext(), "", arrayListOf("Нет питомцев"), String::getValue)
+        binding.spinnerPets.adapter = SpinnerAdapter(requireContext(), "", arrayListOf(getString(R.string.without_pets)), String::getValue)
     }
 
     @Suppress("UNCHECKED_CAST")

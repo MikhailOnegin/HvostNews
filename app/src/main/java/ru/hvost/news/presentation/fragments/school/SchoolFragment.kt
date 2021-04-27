@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -72,13 +73,13 @@ class SchoolFragment : BaseFragment() {
                         val idSchool = schools[i].id.toString()
                         if (idSchool == this) {
                             val school = schools[i]
-                            if (school.title.isNotBlank()) binding.textViewTitle.text = school.title
+                            if (school.title.isNotBlank()) binding.textViewTitle.text = school.title.parseAsHtml()
                             if (school.userRank.isNotBlank()) binding.textViewRank.text =
                                 school.userRank
                             Glide.with(requireContext())
                                     .load(APIService.baseUrl + school.imageDetailUrl)
                                     .placeholder(getDefaultShimmer(requireContext()))
-                                    .error(R.drawable.ic_load_error)
+                                    .error(R.drawable.empty_image)
                                     .centerCrop()
                                     .into(binding.imageViewLogo)
                             return@run

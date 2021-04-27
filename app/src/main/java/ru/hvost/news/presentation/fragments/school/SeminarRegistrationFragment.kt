@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
 import androidx.core.view.size
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -132,7 +133,7 @@ class SeminarRegistrationFragment : BaseFragment() {
                         idSeminar?.let { seminarId ->
                             if (seminar.id.toString() == seminarId) {
                                 offlineSeminar = seminar
-                                val head = "Регистрация на онлайн семинар \"${seminar.title}\""
+                                val head = "${getString(R.string.registrated_online_school)} \"${seminar.title.parseAsHtml()}\""
                                 binding.textViewHead.text = head
                             }
                         }

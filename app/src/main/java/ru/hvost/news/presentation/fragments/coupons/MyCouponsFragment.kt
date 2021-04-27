@@ -11,8 +11,6 @@ import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.R
 import ru.hvost.news.databinding.FragmentCouponsMyBinding
-import ru.hvost.news.models.Coupons
-import ru.hvost.news.presentation.adapters.recycler.CouponsAdapter
 import ru.hvost.news.presentation.adapters.recycler.CouponsListAdapter
 import ru.hvost.news.presentation.adapters.spinners.SpinnerAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment

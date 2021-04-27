@@ -66,7 +66,7 @@ class SchoolInfoFragment : BaseFragment() {
                         Glide.with(requireActivity())
                                 .load(baseUrl + school.image)
                                 .placeholder(getDefaultShimmer(requireContext()))
-                                .error(R.drawable.ic_load_error)
+                                .error(R.drawable.empty_image)
                                 .centerCrop()
                                 .into(binding.imageViewInfo)
                         binding.textViewDescriptionWait.movementMethod = LinkMovementMethod()
@@ -131,7 +131,7 @@ class SchoolInfoFragment : BaseFragment() {
                 Glide.with(requireContext())
                         .load(baseUrl + wait.imageUrl)
                         .placeholder(getDefaultShimmer(requireContext()))
-                        .error(R.drawable.ic_load_error)
+                        .error(R.drawable.empty_image)
                         .centerCrop()
                         .into(viewWait.imageView_what_wait)
                 (viewWait.layoutParams as GridLayout.LayoutParams).setMargins(
