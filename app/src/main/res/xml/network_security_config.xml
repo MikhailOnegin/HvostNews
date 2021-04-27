@@ -3,6 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">fedotov.hvost-news.testfact3.ru</domain>
         <domain includeSubdomains="true">hvost-news.testfact3.ru</domain>
-        <domain includeSubdomains="true">hvost.news</domain> <!-- TODO: Добавить боевой сервер. -->
+        <domain includeSubdomains="true">hvost.news</domain>
     </domain-config>
 </network-security-config>
