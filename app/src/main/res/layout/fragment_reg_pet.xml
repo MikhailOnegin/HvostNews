@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
     android:background="@android:color/white"
     android:layout_width="match_parent"
@@ -13,7 +13,31 @@
         android:layout_height="wrap_content"
         android:background="@color/windowBackgroundTopGradientColor">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <FrameLayout
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbarHeight">
+
+            <ImageView
+                android:id="@+id/logo"
+                style="@style/ImageViewToolbarLogo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbarHeight"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"/>
+
+            <ImageButton
+                android:id="@+id/back"
+                android:src="@drawable/ic_back"
+                android:background="@drawable/ripple_round_button"
+                android:layout_width="@dimen/toolbarHeight"
+                android:layout_height="@dimen/toolbarHeight"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
+
+        <!--<com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:background="@drawable/background_toolbar"
@@ -21,7 +45,7 @@
             app:navigationIcon="@drawable/ic_back"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
 
     </com.google.android.material.appbar.AppBarLayout>
 

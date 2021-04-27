@@ -34,12 +34,11 @@ class SchoolParentsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSchoolParentsBinding.inflate(inflater, container, false)
-        binding.toolbar2.background.level = 1
         return binding.root
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
         initializedAdapters()

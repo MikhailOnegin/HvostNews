@@ -471,4 +471,10 @@
         <item name="android:scrollbarSize">@dimen/scrollbarsWidth</item>
     </style>
 
+    <style name="ImageViewToolbarLogo">
+        <item name="android:scaleType">centerInside</item>"@drawable/background_toolbar"
+        <item name="android:src">@drawable/logo</item>
+        <item name="android:padding">@dimen/normalMargin</item>
+    </style>
+
 </resources>

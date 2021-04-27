@@ -45,7 +45,7 @@
                     app:tabTextColor="@color/gray1" />
 
                 <ImageView
-                    android:id="@id/filter"
+                    android:id="@+id/filter"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="@dimen/largeMargin"

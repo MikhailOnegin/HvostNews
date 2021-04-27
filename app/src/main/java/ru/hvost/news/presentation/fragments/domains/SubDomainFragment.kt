@@ -18,7 +18,6 @@ import ru.hvost.news.databinding.FragmentSubdomainBinding
 import ru.hvost.news.presentation.adapters.recycler.ArticleAdapter
 import ru.hvost.news.presentation.adapters.recycler.PopupWindowDomainAdapter
 import ru.hvost.news.presentation.fragments.BaseFragment
-import ru.hvost.news.presentation.fragments.feed.FeedFragment
 import ru.hvost.news.presentation.fragments.feed.FeedRedesignFragment
 import ru.hvost.news.utils.LinearRvItemDecorations
 import ru.hvost.news.utils.enums.State
