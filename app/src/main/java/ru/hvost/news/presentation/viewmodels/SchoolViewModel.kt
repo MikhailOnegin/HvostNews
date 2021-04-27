@@ -110,7 +110,10 @@ class SchoolViewModel: ViewModel() {
             try {
                 val response = APIService.API.getOnlineSchoolsAsync(userToken).await()
                 _onlineSchools.value = response.toOnlineSchools()
-                if (response.result == "success") _onlineSchoolsEvent.value = NetworkEvent(State.SUCCESS)
+                if (response.result == "success") {
+                    _onlineSchoolsEvent.value = NetworkEvent(State.SUCCESS)
+                }
+
                 else _onlineSchoolsEvent.value = NetworkEvent(State.ERROR, response.error)
             } catch (exc: Exception) {
                 Log.i("eeee", " getOnlineSchools() ERROR: ${exc.message.toString()}")

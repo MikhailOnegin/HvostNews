@@ -11,8 +11,8 @@
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:animateLayoutChanges="true"
+        android:background="@android:color/transparent"
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -264,24 +264,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_16dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/largeMargin"
-                android:paddingEnd="@dimen/largeMargin"
-                android:baselineAligned="false">
-            </LinearLayout>
+                android:paddingEnd="@dimen/largeMargin"/>
         </HorizontalScrollView>
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerSeminar"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/navigation_seminar" />
+        android:layout_height="0dp" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerSeminar"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:navGraph="@navigation/navigation_seminar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

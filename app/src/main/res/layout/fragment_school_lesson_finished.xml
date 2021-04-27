@@ -77,9 +77,10 @@
                         android:contentDescription="@string/not_found"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView_video"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
                         app:layout_constraintStart_toStartOf="@+id/imageView_video"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_play2" />
+                        app:srcCompat="@drawable/ic_play_red" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

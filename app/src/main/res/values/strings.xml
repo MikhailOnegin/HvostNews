@@ -424,7 +424,7 @@
     <string name="buttonSendAgain">Отправить код еще раз</string>
     <string name="registration2">Регистрация</string>
     <string name="complete_registration">Завершить регистрацию</string>
-    <string name="accept_terms_of_agreement">Я принимаю условия Соглашения об использовании материалов и сервисов и даю своё согласиена обработку моих персоальных данных, определённых в политике конфиденциальности.
+    <string name="accept_terms_of_agreement">Я принимаю условия Соглашения об использовании материалов и сервисов и даю своё согласие на обработку моих персоальных данных, определённых в политике конфиденциальности.
     </string>
     <string name="timerText1">Через</string>
     <string name="timerSeconds1">секунду</string>
@@ -488,4 +488,5 @@
     <string name="download">Скачать</string>
     <string name="submitDeleteOrderDialogTitle">Вы действительно хотите удалить заказ?</string>
     <string name="mapsHint">Загружаем данные о партнерах…</string>
+    <string name="any_city">Любой город</string>
 </resources>

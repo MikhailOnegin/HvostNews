@@ -43,7 +43,7 @@ class SchoolParentsFragment : BaseFragment() {
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
         navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
         initializedAdapters()
-        if (schoolVM.offlineSeminars.value == null) schoolVM.getSeminarsCities()
+        schoolVM.getSeminarsCities()
         initializeEvents()
         setObservers(this)
         fromDestination = findNavController().currentBackStackEntry?.savedStateHandle?.get("fromDestination")
@@ -67,7 +67,7 @@ class SchoolParentsFragment : BaseFragment() {
                     adapter.clear()
 
                     (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).add(
-                        CityOffline("all", "Любой город")
+                        CityOffline("all", getString(R.string.any_city))
                     )
                     (binding.spinnerOfflineSeminars.adapter as SpinnerAdapter<CityOffline>).addAll(
                         this.cities
@@ -93,7 +93,7 @@ class SchoolParentsFragment : BaseFragment() {
             SpinnerAdapter(
                 requireContext(),
                 "",
-                arrayListOf("Все семинары", "Ваши семинары"),
+                resources.getStringArray(R.array.spinner_online_seminars).toCollection(ArrayList()),
                 String::getValue
             )
     }
@@ -167,7 +167,8 @@ class SchoolParentsFragment : BaseFragment() {
                 binding.constraintOfflineSeminars.isSelected = false
                 binding.constraintSpinnerOnlineSchools.visibility = View.VISIBLE
                 binding.constraintSpinnerOfflineSeminars.visibility = View.GONE
-            } else if (fromDestination == "seminar") {
+            }
+            else if (fromDestination == "seminar") {
                 binding.constraintOfflineSeminars.isSelected = true
                 binding.constraintOnlineSchools.isSelected = false
                 binding.constraintSpinnerOnlineSchools.visibility = View.GONE
