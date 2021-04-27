@@ -44,7 +44,7 @@
     <dimen name="chipsStrokeWidth">1dp</dimen>
     <dimen name="articleTextSize">18sp</dimen>
     <dimen name="rvVoucherTitleTextSize">26sp</dimen>
-    <dimen name="rvVoucherCodeTextSize">18sp</dimen>
+    <dimen name="rvVoucherCodeTextSize">16sp</dimen>
     <dimen name="rvVoucherTextSize">16sp</dimen>
     <dimen name="registerVoucherImageHeight">140dp</dimen>
     <dimen name="registerVoucherTitleTextSize">16sp</dimen>
@@ -66,7 +66,7 @@
     <dimen name="rvShopIconSize">24dp</dimen>
     <dimen name="rvShopEmptyTextSize">18sp</dimen>
     <dimen name="addProductArticleTextSize">16sp</dimen>
-    <dimen name="cartItemButtonSize">42dp</dimen>
+    <dimen name="cartItemButtonSize">30dp</dimen>
     <dimen name="arithmeticIconSize">16dp</dimen>
     <dimen name="addProductPriceTextSize">18sp</dimen>
     <dimen name="addProductSubPriceTextSize">12sp</dimen>
