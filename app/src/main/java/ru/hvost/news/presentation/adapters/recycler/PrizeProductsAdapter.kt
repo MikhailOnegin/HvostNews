@@ -34,7 +34,7 @@ class PrizeProductsAdapter() :
             Glide.with(binding.root)
                     .load(APIService.baseUrl + product.imageUrl)
                     .placeholder(getDefaultShimmer(itemView.context))
-                    .error(R.drawable.ic_load_error)
+                    .error(R.drawable.empty_image)
                     .fitCenter()
                     .into(binding.image)
         }

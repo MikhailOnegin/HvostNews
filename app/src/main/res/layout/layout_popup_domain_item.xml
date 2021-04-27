@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_popup_domain_item">
+    android:background="@drawable/ripple_domain_item_rectangle_gray">
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="@drawable/ripple_domain_item_rectangle_gray"
+        android:layout_marginTop="@dimen/halfSmallCorners"
+        android:layout_marginBottom="@dimen/halfSmallCorners"
         android:elevation="@dimen/listItemElevation"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -22,15 +23,17 @@
             android:fontFamily="@font/gilroy_semibold"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/normalMargin"
+            android:paddingEnd="0dp"
             android:text="@string/stub"
             android:textColor="@color/gray1"
-            android:textSize="@dimen/dialogSubtitleTextSize" />
+            android:textSize="@dimen/dialogSubtitleTextSize"
+            android:lines="2"/>
 
         <ImageView
             android:id="@+id/img"
-            android:scaleType="fitEnd"
             android:layout_width="@dimen/smallImageHeight"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter" />
 
     </LinearLayout>
 

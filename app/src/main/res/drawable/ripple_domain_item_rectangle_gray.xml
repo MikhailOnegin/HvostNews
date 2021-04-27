@@ -9,6 +9,19 @@
         </shape>
     </item>
 
-    <item android:drawable="@android:color/transparent" />
+    <item>
+        <shape
+            android:shape="rectangle">
+
+            <stroke
+                android:width="@dimen/_2dp"
+                android:color="@color/gray5" />
+
+            <solid android:color="@android:color/white" />
+
+            <corners android:radius="@dimen/xSmallCorners" />
+
+        </shape>
+    </item>
 
 </ripple>

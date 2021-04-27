@@ -497,4 +497,7 @@
     <string name="finish">Финиш</string>
     <string name="not_answers_selected">Ни один ответ не выбран</string>
     <string name="all_listed">Все вышеперечисленное</string>
+    <string name="phoneChangeTitle">Изменение номера</string>
+    <string name="phoneChangeHint">Введите новый номер телефона</string>
+    <string name="phoneChangedSuccessful">Номер телефона успешно изменён</string>
 </resources>
