@@ -8,7 +8,7 @@ import android.widget.AdapterView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import ru.hvost.news.App
 import ru.hvost.news.R
@@ -40,7 +40,8 @@ class SchoolParentsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         schoolVM = ViewModelProvider(requireActivity())[SchoolViewModel::class.java]
-        navCSchoolParents = requireActivity().findNavController(R.id.fragmentContainerSchoolParents)
+        navCSchoolParents = (childFragmentManager.findFragmentById(
+            R.id.fragmentContainerSchoolParents) as NavHostFragment).navController
         initializedAdapters()
         schoolVM.getSeminarsCities()
         initializeEvents()
