@@ -500,4 +500,5 @@
     <string name="phoneChangeTitle">Изменение номера</string>
     <string name="phoneChangeHint">Введите новый номер телефона</string>
     <string name="phoneChangedSuccessful">Номер телефона успешно изменён</string>
+    <string name="emptyArticles">Статьи по выбранным интересам отстутствуют</string>
 </resources>
