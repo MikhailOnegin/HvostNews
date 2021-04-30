@@ -39,13 +39,13 @@ class DomainsGridFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainVM = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        if (mainVM.articlesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
+        if (mainVM.allArticlesLoadingEvent.value?.peekContent() == State.SUCCESS) setRecyclerView()
         initializeObservers()
         setObservers()
     }
 
     private fun setObservers() {
-        mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
+        mainVM.allArticlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
     }
 
     private fun initializeObservers() {

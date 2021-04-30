@@ -107,7 +107,8 @@ class EditProfileFragment : BaseFragment() {
         binding.birthday.setOnClickListener(openDatePickerDialog)
         binding.cancel.setOnClickListener { findNavController().popBackStack() }
         binding.save.setOnClickListener { tryToSend() }
-        binding.phone.setOnClickListener(toSubmitPhoneFragment)
+        //TODO: Восстановить логику изменения номера телефона.
+        //binding.phone.setOnClickListener(toSubmitPhoneFragment)
     }
 
     private fun setTextListeners() {

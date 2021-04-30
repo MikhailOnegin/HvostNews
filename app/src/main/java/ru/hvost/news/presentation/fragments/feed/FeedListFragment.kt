@@ -1,5 +1,6 @@
 package ru.hvost.news.presentation.fragments.feed
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,16 +22,16 @@ class FeedListFragment : BaseFragment() {
     private lateinit var mainVM: MainViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentFeedListBinding.inflate(inflater, container, false)
-        binding.root.addItemDecoration(
-            LinearRvItemDecorations(
-                sideMarginsDimension = R.dimen.normalMargin,
-                marginBetweenElementsDimension = R.dimen.extraLargeMargin,
-                drawTopMarginForFirstElement = true
-            )
+        binding.list.addItemDecoration(
+                LinearRvItemDecorations(
+                        sideMarginsDimension = R.dimen.normalMargin,
+                        marginBetweenElementsDimension = R.dimen.extraLargeMargin,
+                        drawTopMarginForFirstElement = true
+                )
         )
         return binding.root
     }
@@ -43,10 +44,10 @@ class FeedListFragment : BaseFragment() {
     }
 
     private fun setObservers() {
-        mainVM.articles.observe(viewLifecycleOwner, { setRecyclerView() })
+        mainVM.articles.observe(viewLifecycleOwner, { setRecyclerView(it) })
         mainVM.likedArticleList.observe(viewLifecycleOwner, { onArticlesChanged(it) })
         mainVM.updateArticlesViewsCount.observe(viewLifecycleOwner,
-            OneTimeEvent.Observer { updateArticles() })
+                OneTimeEvent.Observer { updateArticles() })
     }
 
     private fun updateArticles() {
@@ -58,12 +59,34 @@ class FeedListFragment : BaseFragment() {
         adapter.submitList(list)
     }
 
-    private fun setRecyclerView() {
+    private fun setRecyclerView(list: List<Article>) {
+        if (list.isNullOrEmpty()) {
+            ObjectAnimator.ofFloat(
+                    binding.list,
+                    "alpha",
+                    1f, 0f
+            ).apply {
+                duration = 300L
+            }.start()
+            binding.list.visibility = View.GONE
+            binding.empty.visibility = View.VISIBLE
+            ObjectAnimator.ofFloat(
+                    binding.empty,
+                    "alpha",
+                    0f, 1f
+            ).apply {
+                duration = 300L
+            }.start()
+        } else {
+            binding.list.visibility = View.VISIBLE
+            binding.list.alpha = 1f
+            binding.empty.visibility = View.GONE
+        }
         val onActionClicked = { id: String ->
             val bundle = Bundle()
             bundle.putString(FeedRedesignFragment.ARTICLE_ID, id)
             requireActivity().findNavController(R.id.nav_host_fragment)
-                .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
+                    .navigate(R.id.action_feedFragment_to_articleDetailFragment, bundle)
         }
         val onActionLiked = { id: String, isLiked: Boolean ->
             mainVM.setArticleLiked(id, isLiked)

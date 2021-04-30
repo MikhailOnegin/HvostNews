@@ -39,8 +39,8 @@ class FeedRedesignFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = FragmentFeedRedesignBinding.inflate(inflater, container, false)
         setViewPager()
@@ -81,7 +81,7 @@ class FeedRedesignFragment : BaseFragment() {
             }
 
             inner class OnAnimationEndListener(private val tab: TabLayout.Tab?) :
-                Animator.AnimatorListener {
+                    Animator.AnimatorListener {
 
                 override fun onAnimationStart(animation: Animator?) {
                     if (tab?.position == 0) binding.filter.visibility = View.VISIBLE
@@ -120,30 +120,31 @@ class FeedRedesignFragment : BaseFragment() {
 
     private fun initializeObservers() {
         onChangeUserDataLoadingEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
-            doOnLoading = {
-                binding.viewPager.alpha = 0f
-                binding.progress.visibility = View.VISIBLE
-            },
-            doOnSuccess = {
-                mainVM.loadArticles()
-                mainVM.loadUserData()
-            }
+                anchorView = binding.root,
+                doOnLoading = {
+                    binding.viewPager.alpha = 0f
+                    binding.progress.visibility = View.VISIBLE
+                },
+                doOnSuccess = {
+                    mainVM.loadArticles()
+                    mainVM.loadUserData()
+                }
         )
         onArticlesLoadingEvent = DefaultNetworkEventObserver(
-            anchorView = binding.root,
-            doOnSuccess = { animateContentAppear() },
-            doOnFailure = { animateContentAppear() },
-            doOnError = { animateContentAppear() }
+                anchorView = binding.root,
+                doOnSuccess = { animateContentAppear() },
+                doOnFailure = { animateContentAppear() },
+                doOnError = { animateContentAppear() },
+                invokeErrorSnackbar = false
         )
     }
 
     private fun animateContentAppear() {
         binding.progress.visibility = View.GONE
         ObjectAnimator.ofFloat(
-            binding.viewPager,
-            "alpha",
-            0f, 1f
+                binding.viewPager,
+                "alpha",
+                0f, 1f
         ).apply {
             duration = 300L
         }.start()
@@ -153,8 +154,8 @@ class FeedRedesignFragment : BaseFragment() {
         mainVM.changeUserDataLoadingEvent.observe(viewLifecycleOwner, onChangeUserDataLoadingEvent)
         mainVM.articlesLoadingEvent.observe(viewLifecycleOwner, onArticlesLoadingEvent)
         mainVM.dismissArticlesFilterCustomDialog.observe(
-            viewLifecycleOwner,
-            OneTimeEvent.Observer { clearAllInterests() })
+                viewLifecycleOwner,
+                OneTimeEvent.Observer { clearAllInterests() })
     }
 
     private fun clearAllInterests() {
@@ -171,7 +172,7 @@ class FeedRedesignFragment : BaseFragment() {
     }
 
     private inner class ScreenSlidePagerAdapter(fragment: Fragment) :
-        FragmentStateAdapter(fragment) {
+            FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = 3
 
         override fun createFragment(position: Int): Fragment {

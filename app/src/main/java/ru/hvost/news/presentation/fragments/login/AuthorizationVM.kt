@@ -32,7 +32,8 @@ class AuthorizationVM : ViewModel() {
                 val response = APIService.API.loginAsync(login, password, firebaseToken).await()
                 if (response.result == "success" && response.userToken != null) {
                     loginResponse = response
-                    if (response.isPhoneRegistered == true)
+                    //TODO: Восстановить логику проверки номера телефона.
+                    //if (response.isPhoneRegistered == true)
                         App.getInstance().logIn(response.userToken)
                     _loginEvent.value = NetworkEvent(State.SUCCESS)
                 } else _loginEvent.value = NetworkEvent(State.ERROR, response.error)

@@ -203,8 +203,8 @@ class CartViewModel : ViewModel() {
 
     private val _productsLoadingEvent = MutableLiveData<NetworkEvent<State>>()
     val productsLoadingEvent: LiveData<NetworkEvent<State>> = _productsLoadingEvent
-    private val _domains = MutableLiveData<List<ShopDomain>>()
-    val domains: LiveData<List<ShopDomain>> = _domains
+    private val _domains = MutableLiveData<List<ShopDomain>?>()
+    val domains: LiveData<List<ShopDomain>?> = _domains
     private var responseDomains: List<ProductsResponse.Domain>? = null
 
     fun loadProducts(userToken: String?, voucherCode: String?) {

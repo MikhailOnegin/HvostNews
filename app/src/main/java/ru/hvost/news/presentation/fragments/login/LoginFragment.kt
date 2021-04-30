@@ -127,11 +127,13 @@ class LoginFragment : BaseFragment() {
         when(event.getContentIfNotHandled()){
             State.SUCCESS -> {
                 binding.progress.visibility = View.GONE
-                if (authorizationVM.loginResponse?.isPhoneRegistered == true) {
+                //TODO: Восстановить логику проверки номера телефона.
+                navigateToMainScreen()
+                /*if (authorizationVM.loginResponse?.isPhoneRegistered == true) {
                     navigateToMainScreen()
                 } else {
                     navigateToSubmitPhoneScreen()
-                }
+                }*/
                 binding.buttonLogin.isEnabled = true
                 mainVM.initializeData()
             }
