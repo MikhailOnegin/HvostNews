@@ -41,8 +41,8 @@ class RegistrationVM : ViewModel() {
     //interests
     var interestsIds: String? = null
 
-    val species = MutableLiveData<List<Species>>()
-    val interests = MutableLiveData<List<RegInterest>>()
+    val species = MutableLiveData<List<Species>?>()
+    val interests = MutableLiveData<List<RegInterest>?>()
 
     val firstStageFinished = MutableLiveData<Boolean>()
     val secondStageFinished = MutableLiveData<Boolean>()
@@ -179,7 +179,7 @@ class RegistrationVM : ViewModel() {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun createInterestsIds(interestsLiveData: LiveData<List<RegInterest>>? = null) {
+    fun createInterestsIds(interestsLiveData: LiveData<List<RegInterest>?>? = null) {
         interestsLiveData?.value?.run {
             interestsIds = if(isEmpty()) null
             else {
