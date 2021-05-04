@@ -154,11 +154,6 @@
             app:destination="@+id/couponFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit" />
-        <action
-            android:id="@+id/action_myCouponsFragment_to_infoGetCouponsFragment"
-            app:destination="@+id/infoGetCouponsFragment"
-            app:enterAnim="@anim/fragment_enter"
-            app:exitAnim="@anim/fragment_exit" />
     </fragment>
 
     <fragment
@@ -167,11 +162,6 @@
         android:label="Coupon"
         tools:layout="@layout/fragment_coupon" />
 
-    <fragment
-        android:id="@+id/infoGetCouponsFragment"
-        android:name="ru.hvost.news.presentation.fragments.coupons.CouponsGetInfoFragment"
-        android:label="Coupons info"
-        tools:layout="@layout/fragment_coupons_get_info" />
 
     <fragment
         android:id="@+id/parentsSchoolFragment"

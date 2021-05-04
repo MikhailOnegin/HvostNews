@@ -86,9 +86,5 @@ class MyCouponsFragment : BaseFragment() {
         binding.toolbarCouponsMy.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
-        binding.imageButtonCouponsInfo.setOnClickListener {
-            navC.navigate(R.id.action_myCouponsFragment_to_infoGetCouponsFragment)
-        }
     }
 }
