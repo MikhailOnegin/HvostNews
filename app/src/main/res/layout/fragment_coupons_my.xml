@@ -27,17 +27,6 @@
             app:layout_scrollFlags="scroll|snap|enterAlways"
             app:navigationIcon="@drawable/ic_back">
 
-            <ImageButton
-                android:id="@+id/imageButton_coupons_info"
-                android:layout_width="@dimen/_26dp"
-                android:layout_height="@dimen/_26dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="@dimen/largeMargin"
-                android:background="@null"
-                android:contentDescription="@string/not_found"
-                android:elevation="@dimen/_2dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_question" />
         </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
